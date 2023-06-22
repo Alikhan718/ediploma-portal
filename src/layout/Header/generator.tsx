@@ -1,3 +1,5 @@
+import {routes} from "@src/shared/routes";
+
 export const signals = [
 	{
 		id: 1,
@@ -25,13 +27,13 @@ export const privateNavigations = [
 	{
 		id: 1,
 		name: 'Дипломы',
-		to: "diploma",
+		to: routes.diploma,
 		role: "*"
 	},
 	{
 		id: 2,
 		name: 'Университеты',
-		to: "universities",
+		to: routes.university,
 		role: "*"
 	},
 

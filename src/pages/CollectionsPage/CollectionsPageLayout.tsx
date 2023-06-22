@@ -1,8 +1,9 @@
 import React from 'react';
 
-import {Box, Divider, Typography} from '@mui/material';
+import {Box, Card, CardContent, CardMedia, Divider, Paper, Typography} from '@mui/material';
 import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
-
+import {ReactComponent as StarIcon} from '@src/assets/icons/star.svg';
+import exampleImage from "@src/assets/example/university.jpg";
 import {Button, Input, Modal} from '@src/components';
 import {CollectionPageHeader} from "@src/pages/CollectionsPage/components/CollectionPageHeader";
 
@@ -10,70 +11,40 @@ import {CollectionPageHeader} from "@src/pages/CollectionsPage/components/Collec
 export const CollectionsPageLayout: React.FC = () => {
 
 
-    const [type, setType] = React.useState("diploma")
-
     return (
-        <Box>
-            <CollectionPageHeader type={type} setType={setType}/>
+        <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='1rem'>
+            {[1,2,3,4,5,6,7,8,9,10,11,12].map((e) => (
+            <Card key={e} elevation={6} sx={{display: 'flex', width: "45%", marginBottom: "1.5rem"}} >
+                <CardMedia
+                    component="img"
+                    sx={{width: "13rem"}}
+                    image={exampleImage}
+                    alt="University Image"
+                />
+                <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                    <CardContent sx={{flex: '1 0 auto'}}>
+                        <Typography mb='.5rem' fontSize="1.25rem" fontWeight="600">
+                            Казахстанско-Британский
+                            Технический Университет
+                        </Typography>
+                        <Typography mb='.5rem' fontSize="1rem" fontWeight="600" color={"#2EC4B6"}>
+                            8 специальностей
+                        </Typography>
+                        <Box display='flex'>
 
-            <Box justifyContent='center' display='flex' mb='5rem'>
-                <Box width="80%" mt='2.75rem'>
-                    <Typography
-                        fontSize='2rem'
-                        fontWeight='700'
-                        mb='.5rem'
-                    >
-                        Цифровой портал дипломов <br/>
-                        на блокчейне
-                    </Typography>
-                    <Typography
-                        variant='h5'
-                    >
-                        Проверьте диплом и найдите себе <br/>
-                        лучших выпускников в компанию
-                    </Typography>
-                    <div style={{marginBottom: '1.5rem'}}/>
-                    <Box display='flex' gap='1rem' mb='1rem'>
-                        <Button variant='contained'>
-                            Дипломы
-                        </Button>
-                        <Button variant='contained' color='secondary'>
-                            Университеты
-                        </Button>
-                    </Box>
-                    <Box display='flex'>
-                        <Input
-                            placeholder='Найти по ФИО, специальности и номеру диплома'
-                            fullWidth={true}
-                            inputSize='m'
-                            sx={{
-                                paddingRight: 0,
-                            }}
-                            endAdornment={
-                                <Button
-                                    onClick={() => {
-                                        // search function
-                                    }}
-                                    buttonSize='m'
-                                    variant='contained'
-                                    sx={{
-                                        padding: "0",
-                                    }}
-                                >
-                                    <SearchIcon style={{filter: "brightness(250%) contrast(101%)"}}/>
-                                </Button>
-                            }
-                            onChange={() => {
-                                // search function
-                            }}
-                        />
-
-                    </Box>
+                            <Typography fontSize="0.875rem" mt='-.1rem' fontWeight="700">
+                                4.8
+                            </Typography>
+                            <StarIcon/>
+                            <StarIcon/>
+                            <StarIcon/>
+                            <StarIcon/>
+                            <StarIcon/>
+                        </Box>
+                    </CardContent>
                 </Box>
-
-
-            </Box>
-            <Divider/>
+            </Card>
+            ))}
         </Box>
 
     );

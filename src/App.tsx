@@ -52,7 +52,7 @@ const App: React.FC = () => {
                 :
                 <Routes>
                     <Route path={routes.main} element={<MainPage/>}/>
-                    <Route path={routes.collections} element={<CollectionsPage/>}/>
+                    <Route path={routes.diploma} element={<CollectionsPage/>}/>
                     {/*{hasPermission(roles.order) && <Route path={routes.order} element={<OrderPage/>}/>}*/}
                     {/*{hasPermission(roles.stopList) && <Route path={`${routes.stopList}/*`} element={<StopListPage/>}/>}*/}
                     {/*{hasPermission(roles.menu) && <Route path={routes.menu} element={<MenuPage/>}/>}*/}

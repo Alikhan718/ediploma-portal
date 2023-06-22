@@ -15,7 +15,8 @@ export const routes = {
 	timeSetting: `${appRoot}/time-settings`,
 	uploadMenu: `${appRoot}/createMenu/upload-file`,
 	main: `${appRoot}/`,
-	collections: `${appRoot}/collections`,
+	diploma: `${appRoot}/diploma`,
+	university: `${appRoot}/university`,
 };
 export const menu_routes = {
 	create_product: "create-product",
