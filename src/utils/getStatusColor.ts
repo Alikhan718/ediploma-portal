@@ -1,0 +1,21 @@
+
+export const statusColors: { [key: string]: 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | 'accepted' | 'ready' } = {
+  "PENDING": "info",
+	"ACCEPTED": "accepted",
+	"SKIPPED": "secondary",
+	"READY_FOR_PICKUP": "ready",
+	"OUT_FOR_DELIVERY": "default",
+	"PICKED_UP_BY_CUSTOMER": "default",
+	"DELIVERED": "success",
+	"CANCELLED_BY_DELIVERY_SERVICE": "error",
+	"FAILED": "error",
+  // "PENDING": "#387DDA",
+	// "ACCEPTED": "#00993B",
+	// "SKIPPED": "#949494",
+	// "READY_FOR_PICKUP": "#00993B",
+	// "OUT_FOR_DELIVERY": "#00993B",
+	// "PICKED_UP_BY_CUSTOMER": "#00993B",
+	// "DELIVERED": "#00993B",
+	// "CANCELLED_BY_DELIVERY_SERVICE": "#ee4141",
+	// "FAILED": "#ee4141",
+};

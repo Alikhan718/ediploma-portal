@@ -1,0 +1,54 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: 100%;
+    gap: 1rem;
+}
+
+.headerInner {
+    width: 33%;
+}
+
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    gap: 1rem;
+    width: 70%;
+}
+
+.searchContainer {
+    max-width: 25%;
+}
+
+.btnAdd {
+    max-width: 23%;
+}
+
+.btnEdit {
+    max-width: 24%;
+}
+
+.btnDelete {
+    max-width: 20%;
+}
+
+@media (max-width: 1530px) {
+    .header {
+        flex-wrap: wrap
+    }
+    .headerInner {
+        width: 100%;
+    }
+
+    .items {
+        width: 100%;
+        justify-content: normal;
+    }
+
+    .item {
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,16 @@
+.container {
+    z-index: 1500;
+}
+
+.confirm {
+    background-color: #025F3E !important;
+}
+
+.cancel {
+    background-color: #fff !important;
+    color: #040F0F !important;
+}
+
+.popup {
+    border-radius: 20px;
+}

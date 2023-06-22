@@ -1,0 +1,35 @@
+.confHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.arrowIcon {
+  transform: rotateZ(180deg);
+}
+
+.arrowDown {
+  transform: rotateY(-180deg);
+}
+
+.confBackButton {
+    display: flex;
+    align-items: center;
+}
+
+.sectionBtn {
+    min-width: inherit !important;
+}
+
+.scrollBoxContainer {
+    max-width: calc(100vw - 367px) !important;
+    height: 90%;
+}
+
+@media (max-width: 1450px) {
+    .scrollBoxContainer {
+        /*max-width: 100%;*/
+    }
+
+}

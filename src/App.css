@@ -1,0 +1,51 @@
+
+[data-variation="modal"] {
+  background: #025F3E !important;
+}
+
+.amplify-input,
+.amplify-textarea {
+  border-radius: 10px;
+  /* border-color: ; */
+}
+
+.amplify-button[data-variation="primary"] {
+  background-color: #025F3E !important;
+  border-radius: 10px;
+}
+
+.amplify-button[data-variation="link"] {
+  color: #025F3E;
+}
+
+.amplify-tabs-item[data-spacing="equal"] {
+  color: #025F3E;
+}
+
+[data-amplify-authenticator] [data-amplify-router] {
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid #fff;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: .5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px transparent;
+  border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #E8E8E9;
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: lightgray;
+}
