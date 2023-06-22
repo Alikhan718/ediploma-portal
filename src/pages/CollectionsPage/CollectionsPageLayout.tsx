@@ -1,20 +1,26 @@
 import React from 'react';
 
-import {Box, Card, CardContent, CardMedia, Divider, Paper, Typography} from '@mui/material';
-import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
+import {Box, Button, Card, CardContent, CardMedia, Divider, Paper, Typography} from '@mui/material';
 import {ReactComponent as StarIcon} from '@src/assets/icons/star.svg';
 import exampleImage from "@src/assets/example/university.jpg";
-import {Button, Input, Modal} from '@src/components';
-import {CollectionPageHeader} from "@src/pages/CollectionsPage/components/CollectionPageHeader";
+import {Auth} from "aws-amplify";
 
 
 export const CollectionsPageLayout: React.FC = () => {
-
+    const onSignOut = (): void => {
+		Auth.signOut();
+		localStorage.removeItem("token");
+		localStorage.removeItem("refreshToken");
+		localStorage.removeItem("currLocation");
+	};
 
     return (
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='1rem'>
+			<Button onClick={() => {
+				onSignOut()
+			}}>Logout</Button>
             {[1,2,3,4,5,6,7,8,9,10,11,12].map((e) => (
-            <Card key={e} elevation={6} sx={{display: 'flex', width: "45%", marginBottom: "1.5rem"}} >
+            <Card key={e} elevation={6} sx={{display: 'flex', width: "45%", borderRadius: "10px", marginBottom: "1.5rem"}} >
                 <CardMedia
                     component="img"
                     sx={{width: "13rem"}}

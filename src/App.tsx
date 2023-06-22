@@ -19,15 +19,28 @@ import {
 } from '@src/pages';
 import {withLayout} from '@src/layout/Layout';
 import {routes} from '@src/shared/routes';
-import {withAuthenticator,} from '@aws-amplify/ui-react';
+import {Authenticator, useTheme, View, withAuthenticator,} from '@aws-amplify/ui-react';
 import {useDispatch, useSelector} from 'react-redux';
-import {CircularProgress} from '@mui/material';
+import {Box, CircularProgress, Typography} from '@mui/material';
 import {initalApp} from './store/auth/actionCreators';
 import {selectAuthLoader} from './store/auth/selector';
 import {roles} from "@src/shared/roles";
 import './App.css';
-import {AuthHeader, formFields, SignInHeader} from './pages/AuthPage';
+import {AuthHeader, formFields, SignInHeader, SignUpHeader} from './pages/AuthPage';
+import {I18n} from 'aws-amplify';
+import SignUp = Authenticator.SignUp;
 
+I18n.setLanguage('ru');
+const dict = {
+    ru: {
+        'Sign In': 'Залогиниться',
+        'Sign in': 'Войти',
+        'Create Account': 'Зарегистрироваться',
+        'Forgot your password?': 'Забыли пароль?'
+    }
+};
+
+I18n.putVocabularies(dict);
 const App: React.FC = () => {
     const dispatch = useDispatch();
     const authLoader = useSelector(selectAuthLoader);
@@ -83,17 +96,38 @@ const App: React.FC = () => {
     );
 };
 
-export default withLayout(App) as any;
-//     {
-//         hideSignUp: false,
-//         variation: "modal",
-//         components: {
-//             SignIn: {Header: SignInHeader},
-//             SignUp: {Header: SignInHeader}
-//         },
-//         formFields: formFields,
-//
-//     }
-// );
+
+export default withAuthenticator(withLayout(App) as any,
+    {
+        hideSignUp: false,
+        variation: "modal",
+        components: {
+            Header() {
+                const {tokens} = useTheme();
+                return (
+                    <View style={{width: "100%"}} padding={tokens.space.large}>
+                        <Box>
+                            <Typography color='white' fontSize='2.75rem' fontWeight='700'>
+                                Цифровые дипломы <br/> NFT для студентов
+                            </Typography>
+                            <Typography color='white' fontSize='1rem'>
+                                Дипломы NFT приносят пользу университетам за счет экономии средств и повышения доверия и
+                                прозрачности. Студенты получают надежные и уникальные цифровые учетные данные и легко
+                                демонстрируют свою квалификацию. Работодатели получают мгновенную проверку дипломов и
+                                доступ
+                                к глобальным талантам.
+                            </Typography>
+                        </Box>
+                    </View>
+                );
+            },
+            SignIn: {Header: SignInHeader},
+            SignUp: {Header: SignUpHeader}
+        },
+        formFields: formFields,
+
+    }
+);
+
 
 

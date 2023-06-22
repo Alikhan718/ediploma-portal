@@ -1,6 +1,6 @@
 
 [data-variation="modal"] {
-  background: #025F3E !important;
+  background-image: url("/src/assets/auth/background.jpg");
 }
 
 .amplify-input,
@@ -10,22 +10,32 @@
 }
 
 .amplify-button[data-variation="primary"] {
-  background-color: #025F3E !important;
-  border-radius: 10px;
+  background-color: #0145AA !important;
+  border-radius: 5px;
 }
 
 .amplify-button[data-variation="link"] {
-  color: #025F3E;
+  color: #0145AA;
 }
 
 .amplify-tabs-item[data-spacing="equal"] {
-  color: #025F3E;
+  color: #0145AA;
+}
+.amplify-tabs-item[data-state="active"] {
+  border-top-color: #003080;
 }
 
 [data-amplify-authenticator] [data-amplify-router] {
   padding: 10px;
   border-radius: 15px;
   border: 1px solid #fff;
+  width: 100%;
+}
+[data-amplify-authenticator] [data-amplify-container] {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 10rem;
+  width: 100%;
 }
 
 /* width */

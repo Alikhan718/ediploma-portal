@@ -3,7 +3,7 @@ export const formFields = {
 
     username: {
       placeholder: "",
-      label: "Имя пользователя",
+      label: "Логин или email",
       labelHidden: false
     },
     password: {
