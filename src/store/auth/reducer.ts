@@ -1,8 +1,14 @@
-import { FETCH_AUTH_ITEMS, FETCH_AUTH_ITEMS_ERROR, FETCH_AUTH_ITEMS_SUCCESS } from "./types/actionTypes";
+import {
+  FETCH_AUTH_ITEMS,
+  FETCH_AUTH_ITEMS_ERROR,
+  FETCH_AUTH_ITEMS_SUCCESS,
+  FETCH_AUTH_LOGIN_ERROR, FETCH_AUTH_LOGIN_SAGA,
+  FETCH_AUTH_LOGIN_SUCCESS, FETCH_AUTH_REGISTER_ERROR, FETCH_AUTH_REGISTER_SAGA, FETCH_AUTH_REGISTER_SUCCESS
+} from "./types/actionTypes";
 
 const initialState = {
   userRole: "Callcenter",
-  isLoading: true
+  isLoading: false
 };
 
 export const authReducer = (state = initialState, action: any) => {
@@ -16,6 +22,45 @@ export const authReducer = (state = initialState, action: any) => {
       return {
         ...state,
         userRole: action.payload,
+        isLoading: false
+      };
+      case FETCH_AUTH_LOGIN_SAGA:
+      return {
+        ...state,
+        email: action.payload.email,
+        password: action.payload.password,
+        isLoading: true
+      };
+      case FETCH_AUTH_LOGIN_SUCCESS:
+      return {
+        ...state,
+        payload: action.payload,
+        isLoading: false
+      };
+      case FETCH_AUTH_LOGIN_ERROR:
+      return {
+        ...state,
+        payload: action.payload,
+        isLoading: false
+      };
+      case FETCH_AUTH_REGISTER_SAGA:
+      return {
+        ...state,
+        email: action.payload.email,
+        password: action.payload.password,
+        companyName: action.payload.companyName,
+        isLoading: true
+      };
+      case FETCH_AUTH_REGISTER_SUCCESS:
+      return {
+        ...state,
+        payload: action.payload,
+        isLoading: false
+      };
+      case FETCH_AUTH_REGISTER_ERROR:
+      return {
+        ...state,
+        payload: action.payload,
         isLoading: false
       };
     case FETCH_AUTH_ITEMS_ERROR:

@@ -16,9 +16,6 @@ export const CollectionsPageLayout: React.FC = () => {
 
     return (
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='1rem'>
-			<Button onClick={() => {
-				onSignOut()
-			}}>Logout</Button>
             {[1,2,3,4,5,6,7,8,9,10,11,12].map((e) => (
             <Card key={e} elevation={6} sx={{display: 'flex', width: "45%", borderRadius: "10px", marginBottom: "1.5rem"}} >
                 <CardMedia

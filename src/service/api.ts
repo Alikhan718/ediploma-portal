@@ -311,6 +311,15 @@ export const callCenterApi = {
     return instance.put(`/v1/callcenter/orders/${order_id}`, body);
   }
 };
+export const authApi = {
+  login(body: { email: string, password: string }) {
+    return instance.post(`/login`, body);
+  },
+  register(body: { email: string, password: string, companyName: string }) {
+    return instance.post(`/register`, body);
+  },
+
+};
 
 export const selectAllApi = {
   getLocations(menu_id: string) {

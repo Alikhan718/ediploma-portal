@@ -15,32 +15,16 @@ import {
     TimeSettingPage,
     AttributeGroupPage,
     ConfigureIIKOMenuPage,
-    MainPage, CollectionsPage
+    MainPage, CollectionsPage, LoginPage, RegisterPage
 } from '@src/pages';
 import {withLayout} from '@src/layout/Layout';
 import {routes} from '@src/shared/routes';
-import {Authenticator, useTheme, View, withAuthenticator,} from '@aws-amplify/ui-react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Box, CircularProgress, Typography} from '@mui/material';
 import {initalApp} from './store/auth/actionCreators';
 import {selectAuthLoader} from './store/auth/selector';
-import {roles} from "@src/shared/roles";
 import './App.css';
-import {AuthHeader, formFields, SignInHeader, SignUpHeader} from './pages/AuthPage';
-import {I18n} from 'aws-amplify';
-import SignUp = Authenticator.SignUp;
 
-I18n.setLanguage('ru');
-const dict = {
-    ru: {
-        'Sign In': 'Залогиниться',
-        'Sign in': 'Войти',
-        'Create Account': 'Зарегистрироваться',
-        'Forgot your password?': 'Забыли пароль?'
-    }
-};
-
-I18n.putVocabularies(dict);
 const App: React.FC = () => {
     const dispatch = useDispatch();
     const authLoader = useSelector(selectAuthLoader);
@@ -66,6 +50,8 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path={routes.main} element={<MainPage/>}/>
                     <Route path={routes.diploma} element={<CollectionsPage/>}/>
+                    <Route path={routes.login} element={<LoginPage/>}/>
+                    <Route path={routes.register} element={<RegisterPage/>}/>
                     {/*{hasPermission(roles.order) && <Route path={routes.order} element={<OrderPage/>}/>}*/}
                     {/*{hasPermission(roles.stopList) && <Route path={`${routes.stopList}/*`} element={<StopListPage/>}/>}*/}
                     {/*{hasPermission(roles.menu) && <Route path={routes.menu} element={<MenuPage/>}/>}*/}
@@ -83,7 +69,7 @@ const App: React.FC = () => {
                     {/*{hasPermission(roles.timeSetting) &&*/}
                     {/*    <Route path={routes.timeSetting} element={<TimeSettingPage/>}/>}*/}
                     {/*{hasPermission(roles.callCenter) && <Route path={routes.callCenter} element={<CallCenterPage/>}/>}*/}
-                    {/*{hasPermission(roles.order) && <Route path='*' element={<Navigate to={routes.main}/>}/>}*/}
+                    {<Route path='*' element={<Navigate to={routes.main}/>}/>}
                     {/*{hasPermission(roles.callCenter) && <Route path='*' element={<Navigate to={routes.callCenter}/>}/>}*/}
                     {/*{hasPermission(roles.timeSetting) &&*/}
                     {/*    <Route path='*' element={<Navigate to={routes.timeSetting}/>}/>}*/}
@@ -97,37 +83,7 @@ const App: React.FC = () => {
 };
 
 
-export default withAuthenticator(withLayout(App) as any,
-    {
-        hideSignUp: false,
-        variation: "modal",
-        components: {
-            Header() {
-                const {tokens} = useTheme();
-                return (
-                    <View style={{width: "100%"}} padding={tokens.space.large}>
-                        <Box>
-                            <Typography color='white' fontSize='2.75rem' fontWeight='700'>
-                                Цифровые дипломы <br/> NFT для студентов
-                            </Typography>
-                            <Typography color='white' fontSize='1rem'>
-                                Дипломы NFT приносят пользу университетам за счет экономии средств и повышения доверия и
-                                прозрачности. Студенты получают надежные и уникальные цифровые учетные данные и легко
-                                демонстрируют свою квалификацию. Работодатели получают мгновенную проверку дипломов и
-                                доступ
-                                к глобальным талантам.
-                            </Typography>
-                        </Box>
-                    </View>
-                );
-            },
-            SignIn: {Header: SignInHeader},
-            SignUp: {Header: SignUpHeader}
-        },
-        formFields: formFields,
-
-    }
-);
+export default withLayout(App as any);
 
 
 

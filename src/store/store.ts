@@ -30,6 +30,7 @@ const reducers = combineReducers({
   callCenter: callCenterReducer,
   settings: settingsReducer,
   selectAll: selectAllReducer
+
 });
 
 

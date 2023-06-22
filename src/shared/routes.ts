@@ -1,6 +1,9 @@
 const appRoot = '/app';
 
 export const routes = {
+	login: `auth/login`,
+	register: `auth/register`,
+	forgotPassword: `auth/forgot-password`,
 	attributeGroup: `${appRoot}/menu/configure/:menu_id/attribute-group`,
 	callCenter: `${appRoot}/call-center`,
 	configureMenu: `${appRoot}/menu/configure/:aggregator/:menuId`,

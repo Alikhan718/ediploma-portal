@@ -13,3 +13,5 @@ export { default as PublicationMenuPage } from './PublicationMenuPage/Publicatio
 export { default as StopListPage } from './StopListPage/StopListPage.Container';
 export { default as TimeSettingPage } from './SettingPage/TimeSettingPage.Container';
 export { default as UploadMenuPage } from './UploadMenuPage/UploadMenuPage.Container';
+export { default as LoginPage } from './AuthPage/Login/LoginPageContainer';
+export { default as RegisterPage } from './AuthPage/Register/RegisterPageContainer';
