@@ -1,8 +1,8 @@
 const appRoot = '/app';
 
 export const routes = {
-	login: `auth/login`,
-	register: `auth/register`,
+	login: `/auth/login`,
+	register: `/auth/register`,
 	forgotPassword: `auth/forgot-password`,
 	attributeGroup: `${appRoot}/menu/configure/:menu_id/attribute-group`,
 	callCenter: `${appRoot}/call-center`,
@@ -19,6 +19,7 @@ export const routes = {
 	uploadMenu: `${appRoot}/createMenu/upload-file`,
 	main: `${appRoot}/`,
 	diploma: `${appRoot}/diploma`,
+	diplomaDetails: `${appRoot}/diploma/1`,
 	university: `${appRoot}/university`,
 };
 export const menu_routes = {

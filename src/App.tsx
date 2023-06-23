@@ -15,7 +15,7 @@ import {
     TimeSettingPage,
     AttributeGroupPage,
     ConfigureIIKOMenuPage,
-    MainPage, CollectionsPage, LoginPage, RegisterPage
+    MainPage, UniversityPage, LoginPage, RegisterPage, DiplomaPage, DiplomaDetailsPage
 } from '@src/pages';
 import {withLayout} from '@src/layout/Layout';
 import {routes} from '@src/shared/routes';
@@ -49,7 +49,9 @@ const App: React.FC = () => {
                 :
                 <Routes>
                     <Route path={routes.main} element={<MainPage/>}/>
-                    <Route path={routes.diploma} element={<CollectionsPage/>}/>
+                    <Route path={routes.university} element={<UniversityPage/>}/>
+                    <Route path={routes.diploma} element={<DiplomaPage/>}/>
+                    <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>
                     <Route path={routes.login} element={<LoginPage/>}/>
                     <Route path={routes.register} element={<RegisterPage/>}/>
                     {/*{hasPermission(roles.order) && <Route path={routes.order} element={<OrderPage/>}/>}*/}

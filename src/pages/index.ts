@@ -5,7 +5,9 @@ export { default as ConfigureIIKOMenuPage } from './ConfigureIIKOMenuPage/Config
 export { default as CreateMenuSuccess } from './CreateMenuSuccessPage/CreateMenuSuccessPage';
 export { default as LocationPage } from './LocationPage/LocationPage.Container';
 export { default as MainPage } from './MainPage/MainPageContainer';
-export { default as CollectionsPage } from './CollectionsPage/CollectionsPageContainer';
+export { default as UniversityPage } from './UnivesrityPage/UnivserityPageContainer';
+export { default as DiplomaPage } from './DiplomaPage/DiplomaPageContainer';
+export { default as DiplomaDetailsPage } from './DiplomaDetailsPage/DiplomaDetailsPageContainer';
 export { default as MatchMenuPage } from './MatchMenuPage/MathMenuPage.Container';
 export { default as MenuPage } from './MenuPage/MenuPage.Container';
 export { default as OrderPage } from './OrderPage/OrderPage.Container';
