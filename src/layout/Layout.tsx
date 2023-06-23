@@ -73,9 +73,10 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
             {/*<Sidebar open={open} toggleDrawer={toggleDrawer} />*/}
 
             <Box
-                mt='50px'
+                mt={isAuthenticated() ? '50px' : "0"}
                 width='100%'
-                p='25px 40px'
+                height='100vh'
+                p={isAuthenticated() ?'25px 40px' : "0"}
                 position='relative'>
 
                 {isGLoading && <Box position='absolute' zIndex={10} top={0} bottom={0} left={0} right={0}

@@ -1,0 +1,17 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("/src/assets/auth/background.jpg");
+}
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    padding: 2rem 3rem;
+    justify-content: space-around;
+}
+.brand {
+    height: 2rem;
+}

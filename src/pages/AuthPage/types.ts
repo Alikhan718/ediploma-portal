@@ -1,3 +1,5 @@
+import {AppBarProps} from "@mui/material";
+
 export interface ICollectionPageHeader {
     type: string,
     setType: any,
@@ -10,4 +12,7 @@ export interface IAuthRegister {
     email: string,
     password: string,
     companyName: string,
+}
+export interface IAuthPageBase {
+    children: any
 }

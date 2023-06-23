@@ -26,14 +26,6 @@ export const LoginPageLayout: React.FC = () => {
         dispatch(fetchLoginRequest(payload));
 
     };
-    React.useEffect(() => {
-        const urlElements = window.location.href.split('/');
-
-        if (isAuthenticated() && urlElements.includes('auth')) {
-            console.log(urlElements)
-            navigate(routes.main, {replace: true});
-        }
-    }, []);
     return (
         <Box display='block' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='1rem'>
 
