@@ -49,11 +49,11 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
         setRestaurantId(currLocation);
     }, [currLocation]);
 
+    const urlElements = window.location.href.split('/');
     React.useEffect(() => {
-        const urlElements = window.location.href.split('/');
-        if (!urlElements.includes('auth') && !localStorage.getItem('token')) {
-            navigate(routes.login, {replace: true});
-        }
+        // if (!urlElements.includes('auth') && !localStorage.getItem('token')) {
+        //     navigate(routes.login, {replace: true});
+        // }
         if (isAuthenticated() && urlElements.includes('auth')) {
             console.log(urlElements)
             navigate(routes.main, {replace: true});
@@ -61,7 +61,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
     }, []);
     return (
         <Box display='flex' height='100%'>
-            {isAuthenticated() && <Header
+            {!urlElements.includes('auth') && <Header
                 open={open}
                 locations={locations}
                 currLocation={currLocation}
@@ -73,10 +73,10 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
             {/*<Sidebar open={open} toggleDrawer={toggleDrawer} />*/}
 
             <Box
-                mt={isAuthenticated() ? '50px' : "0"}
+                mt={!urlElements.includes('auth') ? '50px' : "0"}
                 width='100%'
                 height='100vh'
-                p={isAuthenticated() ?'25px 40px' : "0"}
+                p={"0"}
                 position='relative'>
 
                 {isGLoading && <Box position='absolute' zIndex={10} top={0} bottom={0} left={0} right={0}

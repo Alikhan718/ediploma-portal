@@ -7,7 +7,7 @@ import {
 } from "./types/actionTypes";
 
 const initialState = {
-  userRole: "Callcenter",
+  userRole: "Guest",
   isLoading: false
 };
 
@@ -29,12 +29,14 @@ export const authReducer = (state = initialState, action: any) => {
         ...state,
         email: action.payload.email,
         password: action.payload.password,
-        isLoading: true
+        isLoading: false
       };
       case FETCH_AUTH_LOGIN_SUCCESS:
+        console.log(action);
       return {
         ...state,
         payload: action.payload,
+        userRole: action.payload.role,
         isLoading: false
       };
       case FETCH_AUTH_LOGIN_ERROR:
@@ -49,7 +51,7 @@ export const authReducer = (state = initialState, action: any) => {
         email: action.payload.email,
         password: action.payload.password,
         companyName: action.payload.companyName,
-        isLoading: true
+        isLoading: false
       };
       case FETCH_AUTH_REGISTER_SUCCESS:
       return {

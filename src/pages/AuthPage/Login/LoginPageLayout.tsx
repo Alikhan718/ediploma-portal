@@ -26,6 +26,14 @@ export const LoginPageLayout: React.FC = () => {
         dispatch(fetchLoginRequest(payload));
 
     };
+    React.useEffect(() => {
+        const urlElements = window.location.href.split('/');
+
+        if (isAuthenticated() && urlElements.includes('auth')) {
+            console.log(urlElements);
+            navigate(routes.main, {replace: true});
+        }
+    }, []);
     return (
         <Card sx={{marginY: "11rem", borderRadius: ".8rem", padding: ".6rem"}}>
 
@@ -48,7 +56,7 @@ export const LoginPageLayout: React.FC = () => {
                         Забыли пароль? <Link sx={{textDecoration: "none", color: "gray"}} href={routes.register}>
                     </Link>
                     </Typography>
-                    <Button fullWidth={true} variant='contained' onClick={onSubmit} type='submit'>Login</Button>
+                    <Button fullWidth={true} variant='contained' onClick={onSubmit} type='submit'>Войти</Button>
                 </form>
                 <Typography fontSize=".8rem" textAlign="center" mt="auto">
                     Нет аккаунта? <Link sx={{textDecoration: "none", fontWeight: "600"}} href={routes.register}>

@@ -4,14 +4,17 @@ import {Box, Button, Card, CardContent, CardMedia, Divider, Paper, Typography} f
 import {ReactComponent as StarIcon} from '@src/assets/icons/star.svg';
 import exampleImage from "@src/assets/example/university.jpg";
 import {UniversityPageHeader} from "@src/pages/UnivesrityPage/components/UniversityPageHeader";
+import {useNavigate} from "react-router-dom";
+import {routes} from "@src/shared/routes";
 
 
 export const UniversityPageLayout: React.FC = () => {
+    const navigate = useNavigate();
     return (
-        <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='1rem'>
+        <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='2rem'>
 			<UniversityPageHeader/>
             {[1,2,3,4,5,6,7,8,9,10,11,12].map((e) => (
-            <Card key={e} elevation={6} sx={{display: 'flex', width: "45%", borderRadius: "10px", marginBottom: "1.5rem"}} >
+            <Card key={e} elevation={6} onClick={() => {navigate(routes.universityDetails)}} sx={{display: 'flex', cursor: "pointer", width: "45%", borderRadius: "10px", marginBottom: "1.5rem"}} >
                 <CardMedia
                     component="img"
                     sx={{width: "13rem"}}

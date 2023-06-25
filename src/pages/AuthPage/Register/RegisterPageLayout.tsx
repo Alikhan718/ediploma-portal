@@ -43,7 +43,7 @@ export const RegisterPageLayout: React.FC = () => {
                            placeholder="Название организаций"/>
                     <Input type="password" name="password" sx={{background: "white"}} onChange={handleChange}
                            placeholder="Пароль"/>
-                    <Button fullWidth={true} variant='contained' onClick={onSubmit} type='submit'>Login</Button>
+                    <Button fullWidth={true} variant='contained' onClick={onSubmit} type='submit'>Зарегестрироваться</Button>
                 </form>
                 <Typography fontSize=".8rem" textAlign="center" mt="auto">
                     Уже есть аккаунт? <Link sx={{textDecoration: "none", fontWeight: "600"}} href={routes.login}>

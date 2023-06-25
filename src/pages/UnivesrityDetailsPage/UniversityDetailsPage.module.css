@@ -1,0 +1,18 @@
+.active {
+
+    border: black 1px;
+}
+.social {
+    cursor: pointer;
+    align-self: center;
+}
+.link {
+    display: block;
+    color: gray;
+}
+
+.link:hover {
+    cursor: pointer;
+    color: black;
+    border: black 5px !important;
+}

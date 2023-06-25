@@ -22,5 +22,6 @@
 }
 
 .brand {
+    cursor: pointer;
     height: 2.5rem;
 }

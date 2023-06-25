@@ -3,19 +3,13 @@ import {Routes, Route, Navigate} from 'react-router-dom';
 import {Snackbar} from '@src/components';
 import {
     OrderPage,
-    StopListPage,
-    MenuPage,
-    ConfigureMenuPage,
     LocationPage,
     UploadMenuPage,
-    MatchMenuPage,
     CreateMenuSuccess,
     PublicationMenuPage,
-    CallCenterPage,
     TimeSettingPage,
     AttributeGroupPage,
-    ConfigureIIKOMenuPage,
-    MainPage, UniversityPage, LoginPage, RegisterPage, DiplomaPage, DiplomaDetailsPage
+    MainPage, UniversityPage, LoginPage, RegisterPage, DiplomaPage, DiplomaDetailsPage, UniversityDetailsPage
 } from '@src/pages';
 import {withLayout} from '@src/layout/Layout';
 import {routes} from '@src/shared/routes';
@@ -50,6 +44,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path={routes.main} element={<MainPage/>}/>
                     <Route path={routes.university} element={<UniversityPage/>}/>
+                    <Route path={routes.universityDetails} element={<UniversityDetailsPage/>}/>
                     <Route path={routes.diploma} element={<DiplomaPage/>}/>
                     <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>
                     <Route path={routes.login} element={<LoginPage/>}/>

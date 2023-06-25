@@ -6,18 +6,54 @@ import exampleImage from "@src/assets/example/diploma.jpg";
 import {DiplomaPageHeader} from "@src/pages/DiplomaPage/components/DiplomaPageHeader";
 import {useNavigate} from "react-router-dom";
 import {routes} from "@src/shared/routes";
-
+import {isAuthenticated} from "@src/utils/userAuth";
+import {Modal} from "@src/components";
+import {ReactComponent as NeedAuthorizationPic } from "@src/assets/example/requireAuthorizationPic.svg";
 
 export const DiplomaPageLayout: React.FC = () => {
     const navigate = useNavigate();
-
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    }
+    const handleClose = () => {
+        setOpen(false);
+    }
     return (
-        <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='1rem'>
+        <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='2rem'>
+            <Modal
+                open={open}
+                handleClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+
+                    <NeedAuthorizationPic/>
+                    <Typography textAlign='center' id="modal-modal-title" fontSize='1rem' fontWeight='600' variant="h6" component="h2">
+                        Для открытия этой опции требуется авторизация
+                    </Typography>
+                    <Button variant='contained' sx={{marginTop: "1rem", padding: "1rem", width: "80%", fontSize: "1rem", fontWeight: "600", borderRadius: "2rem"}} onClick={() => {navigate(routes.login)}}>Войти</Button>
+                </Box>
+            </Modal>
             <DiplomaPageHeader/>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((e) => (
                 <Card key={e} elevation={6}
-                      onClick={()=> {navigate(routes.diplomaDetails)}}
-                      sx={{display: 'flex', width: "45%",cursor: "pointer", borderRadius: "10px", marginBottom: "1.5rem"}}>
+                      onClick={() => {
+                          if (isAuthenticated()) {
+                              navigate(routes.diplomaDetails)
+                          } else {
+                              handleOpen();
+                          }
+
+                      }}
+                      sx={{
+                          display: 'flex',
+                          width: "45%",
+                          cursor: "pointer",
+                          borderRadius: "10px",
+                          marginBottom: "1.5rem"
+                      }}>
                     <CardMedia
                         component="img"
                         sx={{width: "13rem", padding: "1.5rem"}}

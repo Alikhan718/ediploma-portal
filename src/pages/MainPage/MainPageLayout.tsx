@@ -5,13 +5,16 @@ import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
 
 import {Button, Input, Modal} from '@src/components';
 import {FooterSection} from "@src/pages/MainPage/components/FooterSection";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {routes} from "@src/shared/routes";
 
 
 export const MainPageLayout: React.FC = () => {
-
+    const navigate = useNavigate();
 
     return (
-        <Box>
+        <Box pt={'25px'}>
 
             <Box justifyContent='center' display='flex' mb='5rem'>
                 <Box width="60%" mt='2.75rem'>
@@ -31,10 +34,10 @@ export const MainPageLayout: React.FC = () => {
                     </Typography>
                     <div style={{marginBottom: '1.5rem'}}/>
                     <Box display='flex' gap='1rem' mb='1rem'>
-                        <Button variant='contained'>
+                        <Button variant='contained' onClick={() => {navigate(routes.diploma)}}>
                             Дипломы
                         </Button>
-                        <Button variant='contained' color='secondary'>
+                        <Button variant='contained' color='secondary' onClick={() => {navigate(routes.university)}}>
                             Университеты
                         </Button>
                     </Box>

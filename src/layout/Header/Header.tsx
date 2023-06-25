@@ -84,7 +84,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         <AppBar position="fixed" open={open}>
             <Box display="flex" justifyContent="space-between" gap={'1.5rem'} height={'4rem'} alignItems="center">
                 {/*<img src={MenuIcon}/>*/}
-                <img style={{marginLeft: "3rem"}} src={BrandIcon}/>
+                <img style={{marginLeft: "3rem", cursor: "pointer"}} src={BrandIcon} onClick={() => {navigate(routes.main)}}/>
                 {privateNavigations.map(nav => (
                     <NavLink
                         to={nav.to}

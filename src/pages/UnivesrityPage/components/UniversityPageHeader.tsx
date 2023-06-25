@@ -1,6 +1,5 @@
 import React from 'react';
-import {Box, Typography} from "@mui/material";
-
+import {Box, Card, CardMedia, Typography} from "@mui/material";
 export const UniversityPageHeader: React.FC = (props) => {
     return (
         <React.Fragment>

@@ -21,6 +21,7 @@ export const routes = {
 	diploma: `${appRoot}/diploma`,
 	diplomaDetails: `${appRoot}/diploma/1`,
 	university: `${appRoot}/university`,
+	universityDetails: `${appRoot}/university/1`,
 };
 export const menu_routes = {
 	create_product: "create-product",

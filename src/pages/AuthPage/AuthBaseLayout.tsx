@@ -9,12 +9,14 @@ import {ReactComponent as Web} from '@src/assets/auth/web.svg';
 import {routes} from "@src/shared/routes";
 import {useNavigate} from "react-router-dom";
 import styles from "./AuthPage.module.css";
+import {selectUserRole} from "@src/store/auth/selector";
+import {useSelector} from "react-redux";
 
 export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
 
     const {children} = props;
     const navigate = useNavigate();
-
+    const userRole = useSelector(selectUserRole);
     React.useEffect(() => {
         const urlElements = window.location.href.split('/');
 
@@ -22,11 +24,11 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
             console.log(urlElements);
             navigate(routes.main, {replace: true});
         }
-    }, []);
+    }, [userRole]);
     return (
         <Box className={styles.container}>
             <Box className={styles.navbar}>
-                <img src={BrandIcon} className={styles.brand}/>
+                <img src={BrandIcon} className={styles.brand} onClick={() => {navigate(routes.main)}}/>
                 <Box>
                     <Box display='flex' gap='.5rem' style={{cursor:"pointer"}}>
                         <Typography fontWeight='500' color='white' fontSize='1.5rem' >
