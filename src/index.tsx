@@ -11,10 +11,7 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './App';
 import { theme } from './styles/theme';
-import awsExports from './aws-exports';
 import { store } from './store/store';
-
-Amplify.configure(awsExports);
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
