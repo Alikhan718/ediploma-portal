@@ -30,6 +30,7 @@ import {Button, Input} from '@src/components';
 import {NavLink, useNavigate} from "react-router-dom";
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
+import {FilterSection} from "@src/layout/Filter/FilterSection";
 
 
 interface AppBarProps extends MuiAppBarProps {
@@ -61,6 +62,7 @@ const AppBar = styled(MuiAppBar, {
 const AppHeader: React.FC<HeaderProps> = (props) => {
     const {open, locations, restaurantId, handleRestaurantId} = props;
 
+    const [showFilter, setShowFilter] = React.useState(false);
 
     const [search, setSearch] = React.useState("");
     const navigate = useNavigate();
@@ -84,7 +86,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         <AppBar position="fixed" open={open}>
             <Box display="flex" justifyContent="space-between" gap={'1.5rem'} height={'4rem'} alignItems="center">
                 {/*<img src={MenuIcon}/>*/}
-                <img style={{marginLeft: "3rem", cursor: "pointer"}} src={BrandIcon} onClick={() => {navigate(routes.main)}}/>
+                <img style={{marginLeft: "3rem", cursor: "pointer"}} src={BrandIcon} onClick={() => {
+                    navigate(routes.main)
+                }}/>
                 {privateNavigations.map(nav => (
                     <NavLink
                         to={nav.to}
@@ -100,50 +104,54 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                     </NavLink>
                 ))}
                 <Input placeholder='Найти по ФИО, специальности и номеру диплома' fullWidth={true} inputSize='s'
-                       onChange={handleSearch} startAdornment={<SearchIcon/>} endAdornment={<FilterIcon/>}/>
+                       onChange={handleSearch} startAdornment={<SearchIcon/>}
+                       endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
+                           setShowFilter(!showFilter);
+                           console.log(showFilter);
+                       }}/>}/>
+                <FilterSection open={showFilter} setOpen={setShowFilter}/>
+                    {/* REST SELECTOR  */}
+                    <Box display='flex' justifyContent='flex-end' py='10px' pr='1.5rem'>
+                        {!isAuthenticated() ? <Button
+                                onClick={() => {
+                                    navigate(routes.login, {replace: true});
+                                }}
+                                startIcon={<UserIcon style={{height: "1.2rem"}}/>}
+                                variant='contained'
+                            >
+                                <Typography
+                                    variant='h4'
+                                    color={'white'}
+                                    fontSize={'16px'}
+                                    fontWeight='450'>
+                                    Войти
+                                </Typography>
 
-                {/* REST SELECTOR  */}
-                <Box display='flex' justifyContent='flex-end' py='10px' pr='1.5rem'>
-                    {!isAuthenticated() ? <Button
-                            onClick={() => {
-                                navigate(routes.login, {replace: true});
-                            }}
-                            startIcon={<UserIcon style={{height: "1.2rem"}}/>}
-                            variant='contained'
-                        >
-                            <Typography
-                                variant='h4'
-                                color={'white'}
-                                fontSize={'16px'}
-                                fontWeight='450'>
-                                Войти
-                            </Typography>
+                            </Button>
+                            :
+                            <Button
+                                onClick={() => {
+                                    localStorage.clear();
+                                    navigate(routes.login, {replace: true});
+                                }}
+                                startIcon={<UserIcon style={{height: "1.2rem"}}/>}
+                                variant='contained'
+                            >
+                                <Typography
+                                    variant='h4'
+                                    color={'white'}
+                                    fontSize={'16px'}
+                                    fontWeight='450'>
+                                    Выйти
+                                </Typography>
 
-                        </Button>
-                        :
-                        <Button
-                            onClick={() => {
-                                localStorage.clear();
-                                navigate(routes.login, {replace: true});
-                            }}
-                            startIcon={<UserIcon style={{height: "1.2rem"}}/>}
-                            variant='contained'
-                        >
-                            <Typography
-                                variant='h4'
-                                color={'white'}
-                                fontSize={'16px'}
-                                fontWeight='450'>
-                                Выйти
-                            </Typography>
-
-                        </Button>
-                    }
-                </Box>
+                            </Button>
+                        }
+                    </Box>
             </Box>
             <GlobalLoader/>
             <Divider/>
         </AppBar>
-    );
+);
 };
 export const Header = React.memo(AppHeader);
