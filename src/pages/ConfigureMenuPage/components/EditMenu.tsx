@@ -38,7 +38,7 @@ export const EditMenu: React.FC<IEditMenu> = ({ menuID }) => {
           control={control}
 
           render={({ field, fieldState: { error } }): React.ReactElement => (
-            <Input disabled={loader} error={!!error} {...field} label='Название меню в системе Kwaaka' helper={<HelperIcon />} fullWidth />
+            <Input disabled={loader} error={!!error} {...field} label='Название меню в системе ' helper={<HelperIcon />} fullWidth />
           )}
         />
         <Box mt='20px' />

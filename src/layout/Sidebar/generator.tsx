@@ -1,6 +1,5 @@
 import React from 'react';
 // Drawer head icons
-import newKwaakaLogo from '@src/assets/icons/newKwaakaLogo.svg';
 import MenuIcon from '@src/assets/icons/menu.svg';
 
 // Navigation icons
@@ -14,7 +13,6 @@ import { roles } from "@src/shared/roles";
 
 export const drawerHead = {
 	menu: MenuIcon,
-	kwaaka: newKwaakaLogo
 };
 
 export const privateNavigations = [

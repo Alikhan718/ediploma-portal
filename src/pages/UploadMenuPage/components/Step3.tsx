@@ -12,9 +12,6 @@ export const Step3: React.FC<Step3Props> = ({ state, handleChange }) => {
         меню</Typography>
       <Box marginTop="20px" />
       <Box>
-        <Input name="menuName" label="Название меню в системе Kwaaka" value={state.menuName}
-          onChange={handleChange}
-          fullWidth />
       </Box>
     </div>
   );

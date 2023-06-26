@@ -86,7 +86,6 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 						<img src={drawerHead.menu} alt='' />
 					</IconButton>
 					<Box ml='12px' display='flex' alignItems='center'>
-						<img src={drawerHead.kwaaka} alt='' />
 					</Box>
 				</Box>
 

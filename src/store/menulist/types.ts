@@ -44,7 +44,6 @@ enum MenuUploadStatuses {
   NOT_READY = "NOT_READY",
 
   ERROR = "ERROR",
-  KWAAKA_ERROR = "KWAAKA_ERROR"
 };
 
 

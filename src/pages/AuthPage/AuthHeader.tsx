@@ -13,7 +13,7 @@ export function AuthHeader(): JSX.Element {
         fontSize="62px"
       // padding={tokens.space.medium}
       >
-        Kwaaka
+
       </Text>
       <Text
         textAlign="center"
@@ -22,7 +22,6 @@ export function AuthHeader(): JSX.Element {
         fontSize="18px"
         lineHeight="25px"
       >
-        Управлять заказами просто!
       </Text>
     </React.Fragment>
   );

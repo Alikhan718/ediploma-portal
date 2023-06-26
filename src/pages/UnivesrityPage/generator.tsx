@@ -14,9 +14,6 @@ export const tableBody = [
 	{ name: 'Farsh Menu Wolt', menuType: 'Wolt меню', lastDateUpdate: '13/03/2022' },
 ];
 
-export const getMenuURL = (resti_id: string, menu_id: string): string => {
-	return `https://api.kwaaka.com/v1/restaurants/${resti_id}/menus/glovo?menu_id=${menu_id}`;
-};
 
 export const MenuUploadStatusesEnum: { [key: string]: string } = {
 	SUCCESS: "Загружен в агрегатор",
@@ -29,7 +26,6 @@ export const MenuUploadStatusesEnum: { [key: string]: string } = {
 	NOT_READY: "Не готов к публикации",
 
 	ERROR: "Ошибка",
-	KWAAKA_ERROR: "Наша ошибка"
 };
 
 export const MenuUploadStatusesColors: { [key: string]: "error" | "success" | "warning" | "info" } = {
@@ -43,5 +39,4 @@ export const MenuUploadStatusesColors: { [key: string]: "error" | "success" | "w
 	NOT_READY: "error",
 
 	ERROR: "error",
-	KWAAKA_ERROR: "info"
 };
