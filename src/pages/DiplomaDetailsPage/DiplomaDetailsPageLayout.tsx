@@ -16,6 +16,11 @@ import {Modal} from "@src/components";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {put} from "redux-saga/effects";
 import {handleLink} from "@src/utils/link";
+import {useDispatch, useSelector} from "react-redux";
+import {selectDiplomaList} from "@src/store/diplomas/selectors";
+import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
+import {useParams} from "react-router-dom";
+import {humanReadableToLocalTime} from "@src/utils/functions";
 
 interface DiplomaData {
     name: string;
@@ -28,12 +33,13 @@ interface DiplomaData {
     type: string;
 }
 
-export const DiplomaDetailsPageLayout: React.FC = () => {
+export const DiplomaDetailsPageLayout: React.FC = (props) => {
+        const {id} = useParams();
         const currentUrl = window.location.href;
         const [data, setData] = useState<any>();
         const [alertOpen, setAlertOpen] = useState(false);
         const [showQRCode, setShowQRCode] = useState(false);
-
+        const dispatch = useDispatch();
         const handleQRCodeClose = () => {
             setShowQRCode(false);
         };
@@ -43,198 +49,12 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         const handleQRCodeButtonClick = () => {
             setShowQRCode(true);
         };
+        const diplomaList = useSelector(selectDiplomaList);
 
-        const fetchDiplomaMetadata = async () => {
-            const provider = new ethers.InfuraProvider('sepolia', '268c2c5ab3de4a7c9bfa49f0122db50a');
-            const contractAddress = '0xF96910fb6F6b4991072E37584D84FE33f77B8b28';
-            const contractABI = [
-                {
-                    "inputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "constructor"
-                }, {
-                    "anonymous": false,
-                    "inputs": [{
-                        "indexed": true,
-                        "internalType": "address",
-                        "name": "owner",
-                        "type": "address"
-                    }, {"indexed": true, "internalType": "address", "name": "approved", "type": "address"}, {
-                        "indexed": true,
-                        "internalType": "uint256",
-                        "name": "tokenId",
-                        "type": "uint256"
-                    }],
-                    "name": "Approval",
-                    "type": "event"
-                }, {
-                    "anonymous": false,
-                    "inputs": [{
-                        "indexed": true,
-                        "internalType": "address",
-                        "name": "owner",
-                        "type": "address"
-                    }, {"indexed": true, "internalType": "address", "name": "operator", "type": "address"}, {
-                        "indexed": false,
-                        "internalType": "bool",
-                        "name": "approved",
-                        "type": "bool"
-                    }],
-                    "name": "ApprovalForAll",
-                    "type": "event"
-                }, {
-                    "anonymous": false,
-                    "inputs": [{
-                        "indexed": true,
-                        "internalType": "address",
-                        "name": "from",
-                        "type": "address"
-                    }, {"indexed": true, "internalType": "address", "name": "to", "type": "address"}, {
-                        "indexed": true,
-                        "internalType": "uint256",
-                        "name": "tokenId",
-                        "type": "uint256"
-                    }],
-                    "name": "Transfer",
-                    "type": "event"
-                }, {
-                    "inputs": [{"internalType": "address", "name": "to", "type": "address"}, {
-                        "internalType": "uint256",
-                        "name": "tokenId",
-                        "type": "uint256"
-                    }], "name": "approve", "outputs": [], "stateMutability": "nonpayable", "type": "function"
-                }, {
-                    "inputs": [{"internalType": "address", "name": "owner", "type": "address"}],
-                    "name": "balanceOf",
-                    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                }, {
-                    "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                    "name": "burnDiploma",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                }, {
-                    "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                    "name": "getApproved",
-                    "outputs": [{"internalType": "address", "name": "", "type": "address"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                }, {
-                    "inputs": [{"internalType": "address", "name": "owner", "type": "address"}, {
-                        "internalType": "address",
-                        "name": "operator",
-                        "type": "address"
-                    }],
-                    "name": "isApprovedForAll",
-                    "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                }, {
-                    "inputs": [{"internalType": "address", "name": "owner", "type": "address"}, {
-                        "internalType": "uint256",
-                        "name": "numberOfDiplomas",
-                        "type": "uint256"
-                    }], "name": "mintDiplomas", "outputs": [], "stateMutability": "nonpayable", "type": "function"
-                }, {
-                    "inputs": [],
-                    "name": "name",
-                    "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                }, {
-                    "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                    "name": "ownerOf",
-                    "outputs": [{"internalType": "address", "name": "", "type": "address"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                }, {
-                    "inputs": [{"internalType": "address", "name": "from", "type": "address"}, {
-                        "internalType": "address",
-                        "name": "to",
-                        "type": "address"
-                    }, {"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                    "name": "safeTransferFrom",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                }, {
-                    "inputs": [{"internalType": "address", "name": "from", "type": "address"}, {
-                        "internalType": "address",
-                        "name": "to",
-                        "type": "address"
-                    }, {"internalType": "uint256", "name": "tokenId", "type": "uint256"}, {
-                        "internalType": "bytes",
-                        "name": "data",
-                        "type": "bytes"
-                    }], "name": "safeTransferFrom", "outputs": [], "stateMutability": "nonpayable", "type": "function"
-                }, {
-                    "inputs": [{"internalType": "address", "name": "operator", "type": "address"}, {
-                        "internalType": "bool",
-                        "name": "approved",
-                        "type": "bool"
-                    }], "name": "setApprovalForAll", "outputs": [], "stateMutability": "nonpayable", "type": "function"
-                }, {
-                    "inputs": [{"internalType": "bytes4", "name": "interfaceId", "type": "bytes4"}],
-                    "name": "supportsInterface",
-                    "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                }, {
-                    "inputs": [],
-                    "name": "symbol",
-                    "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                }, {
-                    "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                    "name": "tokenURI",
-                    "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                }, {
-                    "inputs": [{"internalType": "address", "name": "from", "type": "address"}, {
-                        "internalType": "address",
-                        "name": "to",
-                        "type": "address"
-                    }, {"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                    "name": "transferFrom",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                }]; // Replace with your contract's ABI
-            const ipfs = create();
-
-            const contract = new ethers.Contract(contractAddress, contractABI, provider);
-
-            // Call the contract's function to retrieve the diploma metadata
-            const metadata = await contract.tokenURI(1);
-            const link = metadata.replace("ipfs://", "https://ipfs.io/ipfs/");
-            console.log(link);
-            await fetch(link)
-                .then((res) => res.json())
-                .then((data) => {
-                    const date = new Date(
-                        data.attributes.filter(
-                            (val: any) => val.name == "protocol_en")[0]
-                            .value
-                            .replace("Dated on ", "")
-                            .split(", minute ")[0]
-                    ).toLocaleDateString("en-GB");
-                    data.date = date.replaceAll("/", ".");
-                    console.log(data);
-                    setData(data);
-
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
-        };
-
-        useEffect(() => {
-            fetchDiplomaMetadata();
-        }, []);
+        React.useEffect(() => {
+            dispatch(fetchDiplomas());
+            setData(diplomaList.filter((diploma: any) => diploma.counter == id)[0]);
+        }, [diplomaList]);
         return (
             <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 3rem' pt='3rem'>
                 <Box width='32%' display='flex' flexDirection="column">
@@ -273,7 +93,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 </Box>
                 <Box width='45%' display='flex' flexDirection='column' gap='1rem' pt='1.5rem'>
                     <Typography fontWeight='700' fontSize='1.4rem'>
-                        {data && data.name ? data.name : ''}
+                        {data && data.name_kz ? data.name_kz : ''}
                     </Typography>
                     <Box>
 
@@ -282,24 +102,24 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 Cтепень:
                             </Typography>
                             <Typography fontSize='1.4rem'
-                                        fontWeight='700'>{data && data.attributes ? data.attributes.filter((attr: any) => attr.name == "degree_en")[0].value.replace("was awarded the degree of ", "").replace("of", "") : ""}</Typography>
+                                        fontWeight='700'>{data && data.degree_ru ? data.degree_ru.replace("ПРИСУЖДЕНА СТЕПЕНЬ ", "").toLowerCase() : ""}</Typography>
                         </Box>
 
                         <Box display='flex' mb='.5rem'>
                             <Typography fontSize='1.4rem' mr='.5rem'>Специальность:</Typography>
                             <Typography fontSize='1.4rem'
-                                        fontWeight='700'>{data && data.attributes ? data.attributes.filter((attr: any) => attr.name == "qualification_ru")[0].value.substring(data.attributes.filter((attr: any) => attr.name == "qualification_ru")[0].value.search("«")) : ""}</Typography>
+                                        fontWeight='700'>{data && data.qualification_kz ? data.qualification_kz.substring(0, data.qualification_kz.search("»") + 1) : ""}</Typography>
                         </Box>
 
                         <Box display='flex' width='100%' gap='2rem' mb='.5rem'>
                             <Box display='flex'>
                                 <CalendarIcon style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
                                 <Typography fontSize='1.4rem' mr='.5rem'
-                                            color="#697B7A">{data && data.date ? data.date : ""}</Typography>
+                                            color="#697B7A">{data && data.protocol_en ? humanReadableToLocalTime(data.protocol_en, ".") : "123"}</Typography>
                             </Box>
                             <Box display='flex'>
                                 <FileCheckIcon style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
-                                <Typography fontSize='1.4rem' mr='.5rem' color="#697B7A">55 555 66667</Typography>
+                                <Typography fontSize='1.4rem' mr='.5rem' color="#697B7A">{id}</Typography>
                             </Box>
                             <Box display='flex'>
                                 <CertificateIcon style={{marginTop: ".3rem", marginRight: ".5rem"}}/>

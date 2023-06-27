@@ -22,6 +22,10 @@ import {routes} from "@src/shared/routes";
 import {useNavigate} from "react-router-dom";
 import {Modal} from "@src/components";
 import {handleLink} from "@src/utils/link";
+import {humanReadableToLocalTime} from "@src/utils/functions";
+import {selectDiplomaList} from "@src/store/diplomas/selectors";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
 
 
 interface TabPanelProps {
@@ -63,7 +67,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
     const handleText = (text: string): string => { // function to trim text to show less or more
         const trimLimit = 115; // amount of characters to be shown
         return showFull ? text : text.substring(0, trimLimit) + "...";
-    }
+    };
 
     const [value, setValue] = React.useState(0);
 
@@ -75,11 +79,15 @@ export const UniversityDetailsPageLayout: React.FC = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
         setOpen(true);
-    }
+    };
     const handleClose = () => {
         setOpen(false);
-    }
-
+    };
+    const dispatch = useDispatch();
+    const diplomaList = useSelector(selectDiplomaList);
+    React.useEffect(() => {
+        dispatch(fetchDiplomas());
+    }, [diplomaList]);
     return (
         <Box display='flex' flexWrap='wrap'>
             <Modal
@@ -103,7 +111,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         fontWeight: "600",
                         borderRadius: "2rem"
                     }} onClick={() => {
-                        navigate(routes.login)
+                        navigate(routes.login);
                     }}>Войти</Button>
                 </Box>
             </Modal>
@@ -121,7 +129,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                     </Typography>
                     <Box display='flex' gap='2rem' height='100%' mr={'2rem'}>
                         <SmartContractIcon className={styles.social} onClick={() => {
-                            handleLink("https://sepolia.etherscan.io/address/0x8759c3180a75e107a90b8d21d15ca4221ce50f51#code");
+                            handleLink("https://sepolia.etherscan.io/address/0xf96910fb6f6b4991072e37584d84fe33f77b8b28#code");
                         }}/>
                         <WebIcon className={styles.social} onClick={() => {
                             handleLink("https://kbtu.edu.kz/ru/");
@@ -220,54 +228,56 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         </Box>
                         <TabPanel value={value} index={0}>
                             <Box display='flex' width='100%' justifyContent='space-between' flexWrap='wrap' px='1rem'>
-                                {/*{[1, 2].map((e) => (*/}
-                                {/*    <Card key={e} elevation={6}*/}
-                                {/*          onClick={() => {*/}
-                                {/*              if (isAuthenticated()) {*/}
-                                {/*                  navigate(routes.diplomaDetails);*/}
-                                {/*              } else {*/}
-                                {/*                  handleOpen();*/}
-                                {/*              }*/}
+                                {diplomaList.slice(0,6).map((e: any) => (
+                                    <Card key={e.counter} elevation={6}
+                                          onClick={() => {
+                                              if (isAuthenticated()) {
+                                                  navigate(`/app/diploma/${e.counter!}/details`);
+                                              } else {
+                                                  handleOpen();
+                                              }
 
-                                {/*          }}*/}
-                                {/*          sx={{*/}
-                                {/*              display: 'flex',*/}
-                                {/*              width: "48%",*/}
-                                {/*              cursor: "pointer",*/}
-                                {/*              borderRadius: "10px",*/}
-                                {/*              marginBottom: "1.5rem"*/}
-                                {/*          }}>*/}
-                                {/*        <CardMedia*/}
-                                {/*            component="img"*/}
-                                {/*            sx={{width: "13rem", padding: "1.5rem"}}*/}
-                                {/*            image={exampleImage}*/}
-                                {/*            alt="University Image"*/}
-                                {/*        />*/}
-                                {/*        <Box sx={{display: 'flex', flexDirection: 'column', width: "100%"}}>*/}
-                                {/*            <CardContent sx={{*/}
-                                {/*                flex: '1 0 auto',*/}
-                                {/*                display: "flex",*/}
-                                {/*                flexDirection: "column",*/}
-                                {/*                width: "100%"*/}
-                                {/*            }}>*/}
-                                {/*                <Typography mb='.5rem' fontSize="1.25rem" fontWeight="600">*/}
-                                {/*                    Сериков Сырым Сержанулы*/}
-                                {/*                </Typography>*/}
-                                {/*                <Typography mb='.5rem' fontSize="1rem">*/}
-                                {/*                    Специальность*/}
-                                {/*                </Typography>*/}
-                                {/*                <Box display='flex' mt='auto' width='100%'>*/}
-                                {/*                    <Typography fontSize="0.875rem" mr='auto'>*/}
-                                {/*                        КБТУ*/}
-                                {/*                    </Typography>*/}
-                                {/*                    <Typography fontSize="0.875rem" ml='auto' mr='1rem'>*/}
-                                {/*                        2023/24*/}
-                                {/*                    </Typography>*/}
-                                {/*                </Box>*/}
-                                {/*            </CardContent>*/}
-                                {/*        </Box>*/}
-                                {/*    </Card>*/}
-                                {/*))}*/}
+                                          }}
+                                          sx={{
+                                              display: 'flex',
+                                              width: "49%",
+                                              cursor: "pointer",
+                                              borderRadius: "10px",
+                                              marginBottom: "1.5rem"
+                                          }}>
+                                        <CardMedia
+                                            component="img"
+                                            sx={{width: "13rem", padding: "1.5rem"}}
+                                            image={e.image}
+                                            alt="University Image"
+                                        />
+                                        <Box sx={{display: 'flex', flexDirection: 'column', width: "100%"}}>
+                                            <CardContent
+                                                sx={{
+                                                    flex: '1 0 auto',
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    width: "100%"
+                                                }}>
+                                                <Typography mb='.5rem' fontSize="1.25rem" fontWeight="600">
+                                                    {e.name_kz}
+                                                </Typography>
+                                                <Typography mb='.5rem' fontSize="1rem">
+                                                    {e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1)}
+                                                </Typography>
+                                                <Box display='flex' mt='auto' width='100%'>
+                                                    <Typography fontSize="0.875rem" mr='auto'>
+                                                        {/*КБТУ*/}
+                                                    </Typography>
+                                                    <Typography fontSize="0.875rem" ml='auto' mr='1rem'>
+                                                        {humanReadableToLocalTime(e.protocol_en, "/")}
+                                                    </Typography>
+                                                </Box>
+                                            </CardContent>
+                                        </Box>
+                                    </Card>
+
+                                ))}
                             </Box>
 
                         </TabPanel>

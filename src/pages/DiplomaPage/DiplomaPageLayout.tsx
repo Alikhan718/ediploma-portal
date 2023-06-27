@@ -107,9 +107,6 @@ export const DiplomaPageLayout: React.FC = () => {
                     </Card>
 
                 ))}
-                <Routes>
-                    <Route path={diploma_routes.details} element={<DiplomaDetailsPage/>}/>
-                </Routes>
             </Box>
         </Box>
 
