@@ -34,7 +34,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         const [alertOpen, setAlertOpen] = useState(false);
         const [showQRCode, setShowQRCode] = useState(false);
         const [diplomaData, setDiplomaData] = useState<DiplomaData | null>(null); // Set initial value as null
-
+        const [date, setDate] = useState<any>();
         const handleQRCodeClose = () => {
             setShowQRCode(false);
         };
@@ -216,7 +216,17 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
             await fetch(link)
                 .then((res) => res.json())
                 .then((data) => {
+                    const date = new Date(
+                        data.attributes.filter(
+                            (val: any) => val.name == "protocol_en")[0]
+                            .value
+                            .replace("Dated on ", "")
+                            .split(", minute ")[0]
+                    ).toLocaleDateString("en-GB");
+                    data.date = date.replaceAll("/", ".");
+                    console.log(data);
                     setData(data);
+
                 })
                 .catch((err) => {
                     console.log(err.message);
@@ -285,7 +295,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         <Box display='flex' width='100%' gap='2rem' mb='.5rem'>
                             <Box display='flex'>
                                 <CalendarIcon style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
-                                <Typography fontSize='1.4rem' mr='.5rem' color="#697B7A">23.07.2002</Typography>
+                                <Typography fontSize='1.4rem' mr='.5rem' color="#697B7A">{data && data.date ? data.date : ""}</Typography>
                             </Box>
                             <Box display='flex'>
                                 <FileCheckIcon style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
