@@ -75,7 +75,7 @@ export const SwitchDetails: React.FC = () => {
                 </Box>
 
                 <Box display='flex' flexDirection="column" mt='2rem'>
-                    <Link href={'https://youtube.com'} sx={{textDecoration: "none"}} target={'_blank'}>
+                    <Link href={'https://sepolia.etherscan.io/address/0x8759c3180a75e107a90b8d21d15ca4221ce50f51'} sx={{textDecoration: "none"}} target={'_blank'}>
                         <Box display='flex'>
                             <Box display='flex' mr='.7rem' justifyContent='center' width='2.3rem'>
                                 <EtherScanIcon/>
@@ -85,7 +85,7 @@ export const SwitchDetails: React.FC = () => {
                             </Typography>
                         </Box>
                     </Link>
-                    <Link href={'https://youtube.com'} sx={{textDecoration: "none"}} target={'_blank'}>
+                    <Link href={'https://sepolia.etherscan.io/address/0x8759c3180a75e107a90b8d21d15ca4221ce50f51#code'} sx={{textDecoration: "none"}} target={'_blank'}>
                         <Box display='flex' mt='.5rem'>
                             <Box display='flex' mr='.7rem' justifyContent='center' width='2.3rem'>
                                 <img src={SmartContractIcon}/>

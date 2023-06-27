@@ -21,6 +21,7 @@ import {isAuthenticated} from "@src/utils/userAuth";
 import {routes} from "@src/shared/routes";
 import {useNavigate} from "react-router-dom";
 import {Modal} from "@src/components";
+import {handleLink} from "@src/utils/link";
 
 
 interface TabPanelProps {
@@ -120,8 +121,10 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                     </Typography>
                     <Box display='flex' gap='2rem' height='100%' mr={'2rem'}>
                         <SmartContractIcon className={styles.social} onClick={() => {
+                            handleLink("https://sepolia.etherscan.io/address/0x8759c3180a75e107a90b8d21d15ca4221ce50f51#code");
                         }}/>
                         <WebIcon className={styles.social} onClick={() => {
+                            handleLink("https://kbtu.edu.kz/ru/");
                         }}/>
                         <DiscordIcon className={styles.social} onClick={() => {
                         }}/>
