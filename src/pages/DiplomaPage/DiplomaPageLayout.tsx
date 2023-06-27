@@ -5,7 +5,7 @@ import {ReactComponent as StarIcon} from '@src/assets/icons/star.svg';
 import exampleImage from "@src/assets/example/diploma.jpg";
 import {DiplomaPageHeader} from "@src/pages/DiplomaPage/components/DiplomaPageHeader";
 import {Route, Routes, useNavigate} from "react-router-dom";
-import {diploma_routes, routes} from "@src/shared/routes";
+import { routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
 import {Modal} from "@src/components";
 import {ReactComponent as NeedAuthorizationPic} from "@src/assets/example/requireAuthorizationPic.svg";
