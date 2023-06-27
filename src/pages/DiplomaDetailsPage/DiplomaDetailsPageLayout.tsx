@@ -33,8 +33,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         const [data, setData] = useState<any>();
         const [alertOpen, setAlertOpen] = useState(false);
         const [showQRCode, setShowQRCode] = useState(false);
-        const [diplomaData, setDiplomaData] = useState<DiplomaData | null>(null); // Set initial value as null
-        const [date, setDate] = useState<any>();
+
         const handleQRCodeClose = () => {
             setShowQRCode(false);
         };
@@ -47,7 +46,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
         const fetchDiplomaMetadata = async () => {
             const provider = new ethers.InfuraProvider('sepolia', '268c2c5ab3de4a7c9bfa49f0122db50a');
-            const contractAddress = '0x8759c3180a75E107a90b8d21D15cA4221cE50F51';
+            const contractAddress = '0xF96910fb6F6b4991072E37584D84FE33f77B8b28';
             const contractABI = [
                 {
                     "inputs": [],
@@ -295,7 +294,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         <Box display='flex' width='100%' gap='2rem' mb='.5rem'>
                             <Box display='flex'>
                                 <CalendarIcon style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
-                                <Typography fontSize='1.4rem' mr='.5rem' color="#697B7A">{data && data.date ? data.date : ""}</Typography>
+                                <Typography fontSize='1.4rem' mr='.5rem'
+                                            color="#697B7A">{data && data.date ? data.date : ""}</Typography>
                             </Box>
                             <Box display='flex'>
                                 <FileCheckIcon style={{marginTop: ".3rem", marginRight: ".5rem"}}/>

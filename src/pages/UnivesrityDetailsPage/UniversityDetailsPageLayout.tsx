@@ -220,54 +220,54 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         </Box>
                         <TabPanel value={value} index={0}>
                             <Box display='flex' width='100%' justifyContent='space-between' flexWrap='wrap' px='1rem'>
-                                {[1, 2].map((e) => (
-                                    <Card key={e} elevation={6}
-                                          onClick={() => {
-                                              if (isAuthenticated()) {
-                                                  navigate(routes.diplomaDetails);
-                                              } else {
-                                                  handleOpen();
-                                              }
+                                {/*{[1, 2].map((e) => (*/}
+                                {/*    <Card key={e} elevation={6}*/}
+                                {/*          onClick={() => {*/}
+                                {/*              if (isAuthenticated()) {*/}
+                                {/*                  navigate(routes.diplomaDetails);*/}
+                                {/*              } else {*/}
+                                {/*                  handleOpen();*/}
+                                {/*              }*/}
 
-                                          }}
-                                          sx={{
-                                              display: 'flex',
-                                              width: "48%",
-                                              cursor: "pointer",
-                                              borderRadius: "10px",
-                                              marginBottom: "1.5rem"
-                                          }}>
-                                        <CardMedia
-                                            component="img"
-                                            sx={{width: "13rem", padding: "1.5rem"}}
-                                            image={exampleImage}
-                                            alt="University Image"
-                                        />
-                                        <Box sx={{display: 'flex', flexDirection: 'column', width: "100%"}}>
-                                            <CardContent sx={{
-                                                flex: '1 0 auto',
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                width: "100%"
-                                            }}>
-                                                <Typography mb='.5rem' fontSize="1.25rem" fontWeight="600">
-                                                    Сериков Сырым Сержанулы
-                                                </Typography>
-                                                <Typography mb='.5rem' fontSize="1rem">
-                                                    Специальность
-                                                </Typography>
-                                                <Box display='flex' mt='auto' width='100%'>
-                                                    <Typography fontSize="0.875rem" mr='auto'>
-                                                        КБТУ
-                                                    </Typography>
-                                                    <Typography fontSize="0.875rem" ml='auto' mr='1rem'>
-                                                        2023/24
-                                                    </Typography>
-                                                </Box>
-                                            </CardContent>
-                                        </Box>
-                                    </Card>
-                                ))}
+                                {/*          }}*/}
+                                {/*          sx={{*/}
+                                {/*              display: 'flex',*/}
+                                {/*              width: "48%",*/}
+                                {/*              cursor: "pointer",*/}
+                                {/*              borderRadius: "10px",*/}
+                                {/*              marginBottom: "1.5rem"*/}
+                                {/*          }}>*/}
+                                {/*        <CardMedia*/}
+                                {/*            component="img"*/}
+                                {/*            sx={{width: "13rem", padding: "1.5rem"}}*/}
+                                {/*            image={exampleImage}*/}
+                                {/*            alt="University Image"*/}
+                                {/*        />*/}
+                                {/*        <Box sx={{display: 'flex', flexDirection: 'column', width: "100%"}}>*/}
+                                {/*            <CardContent sx={{*/}
+                                {/*                flex: '1 0 auto',*/}
+                                {/*                display: "flex",*/}
+                                {/*                flexDirection: "column",*/}
+                                {/*                width: "100%"*/}
+                                {/*            }}>*/}
+                                {/*                <Typography mb='.5rem' fontSize="1.25rem" fontWeight="600">*/}
+                                {/*                    Сериков Сырым Сержанулы*/}
+                                {/*                </Typography>*/}
+                                {/*                <Typography mb='.5rem' fontSize="1rem">*/}
+                                {/*                    Специальность*/}
+                                {/*                </Typography>*/}
+                                {/*                <Box display='flex' mt='auto' width='100%'>*/}
+                                {/*                    <Typography fontSize="0.875rem" mr='auto'>*/}
+                                {/*                        КБТУ*/}
+                                {/*                    </Typography>*/}
+                                {/*                    <Typography fontSize="0.875rem" ml='auto' mr='1rem'>*/}
+                                {/*                        2023/24*/}
+                                {/*                    </Typography>*/}
+                                {/*                </Box>*/}
+                                {/*            </CardContent>*/}
+                                {/*        </Box>*/}
+                                {/*    </Card>*/}
+                                {/*))}*/}
                             </Box>
 
                         </TabPanel>

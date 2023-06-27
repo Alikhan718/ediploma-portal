@@ -46,14 +46,14 @@ const App: React.FC = () => {
                     <Route path={routes.university} element={<UniversityPage/>}/>
                     <Route path={routes.universityDetails} element={<UniversityDetailsPage/>}/>
                     <Route path={routes.diploma} element={<DiplomaPage/>}/>
-                    <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>
+                    {/*<Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>*/}
                     <Route path={routes.login} element={<LoginPage/>}/>
                     <Route path={routes.register} element={<RegisterPage/>}/>
                     {/*{hasPermission(roles.order) && <Route path={routes.order} element={<OrderPage/>}/>}*/}
                     {/*{hasPermission(roles.stopList) && <Route path={`${routes.stopList}/*`} element={<StopListPage/>}/>}*/}
                     {/*{hasPermission(roles.menu) && <Route path={routes.menu} element={<MenuPage/>}/>}*/}
                     {/*{hasPermission(roles.configureMenu) &&*/}
-                    {/*    <Route path={`${routes.configureMenu}/*`} element={<ConfigureMenuPage/>}/>}*/}
+                    {/*<Route path={`${routes.diploma}/*`} element={<DiplomaPage/>}/>*/}
                     {/*{hasPermission(roles.configureIIKOMenu) &&*/}
                     {/*    <Route path={`${routes.configureIIKOMenu}/*`} element={<ConfigureIIKOMenuPage/>}/>}*/}
                     {/*{hasPermission(roles.location) && <Route path={`${routes.location}/*`} element={<LocationPage/>}/>}*/}

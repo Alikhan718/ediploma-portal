@@ -19,9 +19,12 @@ export const routes = {
 	uploadMenu: `${appRoot}/createMenu/upload-file`,
 	main: `${appRoot}/`,
 	diploma: `${appRoot}/diploma`,
-	diplomaDetails: `${appRoot}/diploma/1`,
+	// diplomaDetails: `${appRoot}/diploma/:id/details`,
 	university: `${appRoot}/university`,
 	universityDetails: `${appRoot}/university/1`,
+};
+export const diploma_routes = {
+	details: ":id/details",
 };
 export const menu_routes = {
 	create_product: "create-product",
