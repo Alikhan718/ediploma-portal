@@ -15,7 +15,7 @@ import {fetchMenuList} from '@src/store/menulist/actionCreators';
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
 
-export const DRAWER_WIDTH = 270;
+export const DRAWER_WIDTH = "80%";
 
 const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 
@@ -55,7 +55,6 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
         //     navigate(routes.login, {replace: true});
         // }
         if (isAuthenticated() && urlElements.includes('auth')) {
-            console.log(urlElements)
             navigate(routes.main, {replace: true});
         }
     }, []);
@@ -63,14 +62,10 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
         <Box display='flex' height='100%'>
             {!urlElements.includes('auth') && <Header
                 open={open}
-                locations={locations}
-                currLocation={currLocation}
-                restaurantId={restaurantId}
-                handleRestaurantId={handleRestaurantId}
-                menuList={menuList.filter((item: { is_active: boolean, is_deleted: boolean }) => item.is_active && !item.is_deleted)}
+                setOpen={setOpen}
             />}
 
-            {/*<Sidebar open={open} toggleDrawer={toggleDrawer} />*/}
+            <Sidebar open={open} toggleDrawer={toggleDrawer} />
 
             <Box
                 mt={!urlElements.includes('auth') ? '50px' : "0"}

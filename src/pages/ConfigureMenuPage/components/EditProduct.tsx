@@ -134,7 +134,7 @@ export const EditProduct: React.FC<EditProductProps> = (props) => {
 
 
         {/*===================================ATRIBUTES FORM========================================================================================= */}
-        <Modal maxWidth={500} open={modalOpen} marginLeft="15rem" handleClose={handleModalClose}>
+        <Modal maxWidth={"500"} open={modalOpen} marginLeft="15rem" handleClose={handleModalClose}>
           <Box sx={{ overflowY: "scroll", maxHeight: "500px" }}>
             <AddAggregatorsForm
               menu_id={props.menuID}

@@ -173,7 +173,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
         </Box>
 
 
-        <Modal maxWidth={500} open={modalOpen} handleClose={() => {
+        <Modal maxWidth={"500"} open={modalOpen} handleClose={() => {
           setModalOpen(false);
         }}>
 

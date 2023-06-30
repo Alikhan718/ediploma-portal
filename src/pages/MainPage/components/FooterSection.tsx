@@ -4,7 +4,7 @@ import hubLogo from "@src/assets/icons/astanahub_logo.png";
 import ritLogo from "@src/assets/icons/ritlogo.png";
 import kbtuLogo from "@src/assets/icons/KBTU_logo.png";
 import {Box, Typography} from "@mui/material";
-
+import styles from "../MainPage.module.css";
 export const FooterSection: React.FC = () => {
 
     return (
@@ -17,7 +17,7 @@ export const FooterSection: React.FC = () => {
                     Партнеры JASAIM
                 </Typography>
             </Box>
-            <Box display='flex' justifyContent='center' height='3rem' gap='3rem' my='2rem'>
+            <Box display='flex' className={styles.sliderMobile} justifyContent='center' height='3rem' gap='3rem' my='2rem'>
                 <img src={kbtuLogo} alt="KBTU Logo"/>
                 <img src={ritLogo} alt="RIT Logo"/>
                 <img src={hubLogo} alt="Astana Hub Logo"/>

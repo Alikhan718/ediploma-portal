@@ -61,7 +61,7 @@ export const TimeSettingPage: React.FC<ISettingPageLayout> = (props) => {
 	return (
 		<React.Fragment>
 			<SettingsPageHeader />
-			<Modal open={open} maxWidth={350} handleClose={() => setOpen(false)}>
+			<Modal open={open} maxWidth={"350"} handleClose={() => setOpen(false)}>
 				{/* IF MODAL MODE IS FALSE THEN shouldn't render  */}
 				<div style={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
 					<Typography variant='h4' fontWeight='600' mb='8px'> {'Настройка времени'} </Typography>

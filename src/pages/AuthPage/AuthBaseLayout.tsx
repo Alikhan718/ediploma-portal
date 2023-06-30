@@ -38,7 +38,7 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
                     </Box>
                 </Box>
             </Box>
-            <Box display='flex' flexDirection='column' width='50%' paddingY='12rem'>
+            <Box flexDirection='column' className={styles.contentLeft}  paddingY='12rem'>
                 <Typography fontSize='3rem' fontWeight='700' width='70%' color='white'>
                     Цифровые дипломы NFT для студентов
                 </Typography>

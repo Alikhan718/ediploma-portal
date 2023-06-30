@@ -25,3 +25,20 @@
     cursor: pointer;
     height: 2.5rem;
 }
+
+.contentLeft {
+    width: 50%;
+    display: flex;
+}
+
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .contentLeft {
+        display: none;
+    }
+
+    .navbar {
+        padding: 1rem 1rem;
+    }
+}

@@ -8,7 +8,7 @@ import {FooterSection} from "@src/pages/MainPage/components/FooterSection";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {routes} from "@src/shared/routes";
-
+import styles from "./MainPage.module.css";
 
 export const MainPageLayout: React.FC = () => {
     const navigate = useNavigate();
@@ -17,31 +17,31 @@ export const MainPageLayout: React.FC = () => {
         <Box pt={'25px'}>
 
             <Box justifyContent='center' display='flex' mb='5rem'>
-                <Box width="60%" mt='2.75rem'>
+                <Box className={styles.contentText} mt='2.75rem'>
                     <Typography
                         fontSize='2rem'
                         fontWeight='700'
                         mb='.5rem'
                     >
-                        Цифровой портал дипломов <br/>
+                        Цифровой портал дипломов <br className={styles.dMobileNone}/>
                         на блокчейне
                     </Typography>
                     <Typography
                         variant='h5'
                     >
-                        Проверьте диплом и найдите себе <br/>
+                        Проверьте диплом и найдите себе <br className={styles.dMobileNone}/>
                         лучших выпускников в компанию
                     </Typography>
                     <div style={{marginBottom: '1.5rem'}}/>
                     <Box display='flex' gap='1rem' mb='1rem'>
-                        <Button variant='contained' onClick={() => {navigate(routes.diploma)}}>
+                        <Button className={styles.btn} variant='contained' onClick={() => {navigate(routes.diploma)}}>
                             Дипломы
                         </Button>
-                        <Button variant='contained' color='secondary' onClick={() => {navigate(routes.university)}}>
+                        <Button className={styles.btn} variant='contained' color='secondary' onClick={() => {navigate(routes.university)}}>
                             Университеты
                         </Button>
                     </Box>
-                    <Box display='flex'>
+                    <Box display='flex' >
                         <Input
                             placeholder='Найти по ФИО, специальности и номеру диплома'
                             fullWidth={true}

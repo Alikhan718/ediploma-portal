@@ -113,7 +113,7 @@ export const ConfigureMenuHeader: React.FC<IConfigureMenuHeader> = (props) => {
             </Select>
           </>
         }
-        <Modal open={deleteMenuModal} handleClose={handleCloseDeleteMenu} maxWidth={400}>
+        <Modal open={deleteMenuModal} handleClose={handleCloseDeleteMenu} maxWidth={"400"}>
           <Box>
             <Typography textAlign="center" fontSize="20px" fontWeight="600">Удаление блюда</Typography>
 

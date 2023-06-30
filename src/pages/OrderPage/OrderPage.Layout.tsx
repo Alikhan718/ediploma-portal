@@ -86,7 +86,7 @@ export const OrderPageLayout: React.FC<OrderPageLayoutProps> = ({ params, setPar
 
 	return (
 		<React.Fragment>
-			<Modal open={showFilter} handleClose={onClose} maxWidth={700}>
+			<Modal open={showFilter} handleClose={onClose} maxWidth={"700"}>
 				<ModalFilter params={params} setParams={setParams} onClose={onClose} />
 			</Modal>
 

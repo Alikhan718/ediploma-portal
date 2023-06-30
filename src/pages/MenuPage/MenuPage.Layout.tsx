@@ -63,7 +63,7 @@ export const MenuPageLayout: React.FC<IMenuPageLayout> = (props) => {
 	return (
 		<Box>
 
-			<Modal open={open} handleClose={handleCloseDeleteMenu} maxWidth={400}>
+			<Modal open={open} handleClose={handleCloseDeleteMenu} maxWidth={"400"}>
 
 				<Typography textAlign="center" fontSize="20px" fontWeight="600">Удаление меню</Typography>
 				<Typography m="30px 0" textAlign="center" fontSize="18px" fontWeight="400">

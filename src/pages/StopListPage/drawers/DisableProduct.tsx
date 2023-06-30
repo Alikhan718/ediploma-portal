@@ -50,7 +50,7 @@ export const DisableProduct: React.FC = () => {
   return (
     <Box pt="30px" position="relative">
       {isFetching ? <Loader /> : null}
-      <Modal open={modal} handleClose={handleClose} maxWidth={400}>
+      <Modal open={modal} handleClose={handleClose} maxWidth={"400"}>
         <Box>
           <Typography fontSize="20px" fontWeight="600" textAlign="center">Отключение блюда</Typography>
           <Typography m="30px 0" fontSize="18px" fontWeight="400" textAlign="center">

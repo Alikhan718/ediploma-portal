@@ -13,3 +13,37 @@
     color: black;
     border: black 5px !important;
 }
+
+.universitiesContainer {
+    padding: 0 4rem;
+}
+
+@media only screen and (max-width: 1080px) {
+    .accessModal {
+        width: 95% !important;
+    }
+
+    .universityItem {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .universityImg {
+        width: 100% !important;
+    }
+
+    .universitiesContainer {
+        padding: 0 2rem;
+    }
+
+    .accessModal {
+        width: 95% !important;
+    }
+
+    .universityItem {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+}

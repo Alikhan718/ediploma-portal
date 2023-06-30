@@ -1,8 +1,11 @@
+import React from "react";
+
 export interface ModalProps {
 	open: boolean;
 	handleClose: () => void;
 	children?: React.ReactNode;
-	maxWidth?: number,
+	maxWidth?: string,
+	width?: string
 	marginLeft?: string,
 	marginRight?: string,
 }

@@ -24,7 +24,7 @@ export const RegisterPageLayout: React.FC = () => {
         dispatch(fetchRegisterRequest(payload));
     };
     return (
-        <Card sx={{marginY: "11rem", borderRadius: ".8rem", padding: ".6rem"}}>
+        <Card sx={{marginY: "auto", borderRadius: ".8rem", padding: ".6rem"}}>
 
             <CardContent style={{
                 display: "flex",
@@ -45,7 +45,7 @@ export const RegisterPageLayout: React.FC = () => {
                            placeholder="Пароль"/>
                     <Button fullWidth={true} variant='contained' onClick={onSubmit} type='submit'>Зарегестрироваться</Button>
                 </form>
-                <Typography fontSize=".8rem" textAlign="center" mt="auto">
+                <Typography fontSize=".8rem" textAlign="center" mt="1rem">
                     Уже есть аккаунт? <Link sx={{textDecoration: "none", fontWeight: "600"}} href={routes.login}>
                     Войти
                 </Link>

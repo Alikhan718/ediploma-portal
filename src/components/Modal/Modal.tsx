@@ -8,7 +8,7 @@ const style = {
 	top: '50%',
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
-	maxWidth: 840,
+	maxWidth: "840",
 	width: '25%',
 	bgcolor: 'common.white',
 	boxShadow: 24,
@@ -19,7 +19,8 @@ const style = {
 };
 
 export const Modal: React.FC<ModalProps> = (props) => {
-	const { open, children, handleClose, maxWidth, marginLeft = "0", marginRight = "0" } = props;
+	const { open, children, handleClose, maxWidth, width,  marginLeft = "0", marginRight = "0" } = props;
+	style.width = width ? width : style.width;
 	style.maxWidth = maxWidth ? maxWidth : style.maxWidth;
 	style.marginLeft =  marginLeft ? marginLeft : style.marginLeft;
 	style.marginRight =  marginRight ? marginRight : style.marginRight;

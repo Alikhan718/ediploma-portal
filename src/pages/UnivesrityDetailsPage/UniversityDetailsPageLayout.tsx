@@ -26,6 +26,7 @@ import {humanReadableToLocalTime} from "@src/utils/functions";
 import {selectDiplomaList} from "@src/store/diplomas/selectors";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
+import cn from "classnames";
 
 
 interface TabPanelProps {
@@ -63,7 +64,7 @@ function a11yProps(index: number) {
 
 export const UniversityDetailsPageLayout: React.FC = () => {
     const [showFull, setShowFull] = React.useState(false);
-
+    
     const handleText = (text: string): string => { // function to trim text to show less or more
         const trimLimit = 115; // amount of characters to be shown
         return showFull ? text : text.substring(0, trimLimit) + "...";
@@ -117,17 +118,16 @@ export const UniversityDetailsPageLayout: React.FC = () => {
             </Modal>
             <UniversityDetailsPageHeader/>
             <Box ml={'2rem'} width={"100%"}>
-
                 <Box width="100%" display='flex' justifyContent='space-between'>
                     <Typography
-                        width='50%'
+                        className={styles.nameText}
                         fontSize='2rem'
                         fontWeight='600'
                     >
-                        Казахстанско-Британский Технический
-                        <VerifiedIcon style={{marginLeft: ".5rem"}}/>Университет
+                        Казахстанско-Британский Технический Университет
                     </Typography>
-                    <Box display='flex' gap='2rem' height='100%' mr={'2rem'}>
+                    {/*<VerifiedIcon style={{marginTop: "1rem", marginLeft: ".5rem", marginRight: "auto", width: "3rem"}}/>*/}
+                    <Box className={styles.socialContainer} >
                         <SmartContractIcon className={styles.social} onClick={() => {
                             handleLink("https://sepolia.etherscan.io/address/0xf96910fb6f6b4991072e37584d84fe33f77b8b28#code");
                         }}/>
@@ -150,7 +150,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 
                     </Box>
                 </Box>
-                <Box width='100%' display='flex' flexDirection='column' gap='1rem' mt='1rem'>
+                <Box className={styles.contentContainer}>
                     <Box display='flex'>
                         <Typography>
                             Почта:
@@ -163,7 +163,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         </Typography>
                         <Typography fontWeight='600' ml='.5rem'>8 (7172) 74 23 52</Typography>
                     </Box>
-                    <Box width='100%' display='flex' gap='1rem'>
+                    <Box className={cn(styles.mobMt1, styles.mobWrap)} width='100%' display='flex' gap='0 1rem'>
                         <Box display='flex'>
                             <Typography>
                                 Специальностей
@@ -227,8 +227,9 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                             </Tabs>
                         </Box>
                         <TabPanel value={value} index={0}>
-                            <Box display='flex' width='100%' justifyContent='space-between' flexWrap='wrap' px='1rem'>
-                                {diplomaList.slice(0,6).map((e: any) => (
+                            <Box display='flex' justifyContent='space-between' className={styles.diplomasContainer}
+                                 flexWrap='wrap'>
+                                {diplomaList.slice(0, 6).map((e: any) => (
                                     <Card key={e.counter} elevation={6}
                                           onClick={() => {
                                               if (isAuthenticated()) {
@@ -238,6 +239,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                               }
 
                                           }}
+                                          className={styles.diplomaItem}
                                           sx={{
                                               display: 'flex',
                                               width: "49%",
@@ -247,6 +249,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                           }}>
                                         <CardMedia
                                             component="img"
+                                            className={styles.diplomaImg}
                                             sx={{width: "13rem", padding: "1.5rem"}}
                                             image={e.image}
                                             alt="University Image"

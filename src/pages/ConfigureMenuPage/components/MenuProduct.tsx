@@ -76,7 +76,7 @@ const MemoMenuProduct: React.FC<IMenuProduct> = ({ menuProduct, handleEdit, hand
       borderBottom='1px solid #E8E8E9'
     >
 
-      <Modal open={open} handleClose={handleCloseModal} maxWidth={400}>
+      <Modal open={open} handleClose={handleCloseModal} maxWidth={"400"}>
         <Typography textAlign="center" fontSize="20px" fontWeight="600" >Удаление блюда</Typography>
         <Typography textAlign="center" fontSize="18px" fontWeight="400" m="30px 0">
           Вы подтверждаете, что

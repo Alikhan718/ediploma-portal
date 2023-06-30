@@ -6,27 +6,31 @@ import exampleImage from "@src/assets/example/university.jpg";
 import {UniversityPageHeader} from "@src/pages/UnivesrityPage/components/UniversityPageHeader";
 import {useNavigate} from "react-router-dom";
 import {routes} from "@src/shared/routes";
-
+import styles from "./UniversityPage.module.css";
 
 export const UniversityPageLayout: React.FC = () => {
     const navigate = useNavigate();
     return (
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='2rem'>
             <UniversityPageHeader/>
-            <Box display='flex' flexWrap='wrap' justifyContent='space-between' gap='0 1rem' px='4rem' width='100%'>
+            <Box display='flex' flexWrap='wrap' justifyContent='space-between' className={styles.universitiesContainer}  gap='0 1rem' width='100%'>
 
                 {[1].map((e) => (
                     <Card key={e} elevation={6} onClick={() => {
-                        navigate(routes.universityDetails)
+                        navigate(routes.universityDetails);
                     }} sx={{
                         display: 'flex',
                         cursor: "pointer",
                         width: "49%",
                         borderRadius: "10px",
-                        marginBottom: "1.5rem"
-                    }}>
+                        marginBottom: "1.5rem",
+                    }}
+                          className={styles.universityItem}
+                    >
                         <CardMedia
                             component="img"
+                            className={styles.universityImg}
+
                             sx={{width: "13rem"}}
                             image={exampleImage}
                             alt="University Image"

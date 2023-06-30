@@ -6,6 +6,7 @@ import BrandIcon from '@src/assets/icons/brand.svg';
 import {ReactComponent as UserIcon} from '@src/assets/icons/user.svg';
 import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
 import {ReactComponent as FilterIcon} from '@src/assets/icons/Filter-icon.svg';
+import LogoutIcon from '@src/assets/icons/out.png';
 import {privateNavigations} from "@src/layout/Header/generator";
 import {
     AppBar as MuiAppBar,
@@ -49,8 +50,8 @@ const AppBar = styled(MuiAppBar, {
         duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
-        marginLeft: DRAWER_WIDTH,
-        width: `calc(100% - ${DRAWER_WIDTH}px)`,
+        // marginLeft: DRAWER_WIDTH,
+        // width: `calc(100% - ${DRAWER_WIDTH}px)`,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -60,7 +61,7 @@ const AppBar = styled(MuiAppBar, {
 
 
 const AppHeader: React.FC<HeaderProps> = (props) => {
-    const {open, locations, restaurantId, handleRestaurantId} = props;
+    const {open, setOpen } = props;
 
     const [showFilter, setShowFilter] = React.useState(false);
 
@@ -84,16 +85,18 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     };
     return (
         <AppBar position="fixed" open={open}>
-            <Box display="flex" justifyContent="space-between" gap={'1.5rem'} height={'4rem'} alignItems="center">
-                {/*<img src={MenuIcon}/>*/}
-                <img style={{marginLeft: "3rem", cursor: "pointer"}} src={BrandIcon} onClick={() => {
-                    navigate(routes.main)
-                }}/>
+            <Box className="diploma-navbar" height='4rem'>
+                <img src={MenuIcon} onClick={() => {
+                    setOpen(!open);
+                }} className="menu-icon"/>
+                <img className='diploma-logo' src={BrandIcon} onClick={() => {
+                    navigate(routes.main);
+                }} alt="logo"/>
                 {privateNavigations.map(nav => (
                     <NavLink
                         to={nav.to}
                         key={nav.id}
-                        className={(props) => handleClassName(props.isActive, nav.id)}
+                        className={(props) => handleClassName(props.isActive, nav.id) + "diploma-navbar-item"}
                     >
                         <Typography
                             variant='h4'
@@ -103,55 +106,61 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                         </Typography>
                     </NavLink>
                 ))}
-                <Input placeholder='Найти по ФИО, специальности и номеру диплома' fullWidth={true} inputSize='s'
-                       onChange={handleSearch} startAdornment={<SearchIcon/>}
-                       endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
-                           setShowFilter(!showFilter);
-                           console.log(showFilter);
-                       }}/>}/>
+                <Box className="diploma-navbar-item" width="100%">
+                    <Input placeholder='Найти по ФИО, специальности и номеру диплома' fullWidth={true} inputSize='s'
+                           onChange={handleSearch} startAdornment={<SearchIcon/>}
+                           endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
+                               setShowFilter(!showFilter);
+                               console.log(showFilter);
+                           }}/>}/>
+                </Box>
                 <FilterSection open={showFilter} setOpen={setShowFilter}/>
-                    {/* REST SELECTOR  */}
-                    <Box display='flex' justifyContent='flex-end' py='10px' pr='1.5rem'>
-                        {!isAuthenticated() ? <Button
-                                onClick={() => {
-                                    navigate(routes.login, {replace: true});
-                                }}
-                                startIcon={<UserIcon style={{height: "1.2rem"}}/>}
-                                variant='contained'
-                            >
-                                <Typography
-                                    variant='h4'
-                                    color={'white'}
-                                    fontSize={'16px'}
-                                    fontWeight='450'>
-                                    Войти
-                                </Typography>
+                {/* REST SELECTOR  */}
+                <Box display='flex'  justifyContent='flex-end' py='10px' className="diploma-btn-container">
+                    {!isAuthenticated() ? <Button
+                            onClick={() => {
+                                navigate(routes.login, {replace: true});
+                            }}
+                            className="diploma-auth-btn"
+                            startIcon={<UserIcon style={{height: "1.2rem"}}/>}
+                            variant='contained'
+                        >
+                            <Typography
+                                variant='h4'
+                                color={'white'}
+                                fontSize={'16px'}
+                                className="diploma-navbar-item"
+                                fontWeight='450'>
+                                Войти
+                            </Typography>
 
-                            </Button>
-                            :
-                            <Button
-                                onClick={() => {
-                                    localStorage.clear();
-                                    navigate(routes.login, {replace: true});
-                                }}
-                                startIcon={<UserIcon style={{height: "1.2rem"}}/>}
-                                variant='contained'
-                            >
-                                <Typography
-                                    variant='h4'
-                                    color={'white'}
-                                    fontSize={'16px'}
-                                    fontWeight='450'>
-                                    Выйти
-                                </Typography>
+                        </Button>
+                        :
+                        <Button
+                            className="diploma-auth-btn"
+                            onClick={() => {
+                                localStorage.clear();
+                                navigate(routes.login, {replace: true});
+                            }}
+                            startIcon={<img src={LogoutIcon} style={{height: "1rem"}}/>}
+                            variant='contained'
+                        >
+                            <Typography
+                                variant='h4'
+                                color={'white'}
+                                fontSize={'16px'}
+                                className="diploma-navbar-item"
+                                fontWeight='450'>
+                                Выйти
+                            </Typography>
 
-                            </Button>
-                        }
-                    </Box>
+                        </Button>
+                    }
+                </Box>
             </Box>
             <GlobalLoader/>
             <Divider/>
         </AppBar>
-);
+    );
 };
 export const Header = React.memo(AppHeader);

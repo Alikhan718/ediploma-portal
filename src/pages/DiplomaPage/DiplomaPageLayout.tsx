@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 
-import {Box, Button, Card, CardContent, CardMedia, Divider, Paper, Typography} from '@mui/material';
+import {Box, Button, Card, CardContent, CardMedia, Divider, Paper, Typography, useMediaQuery} from '@mui/material';
 import {ReactComponent as StarIcon} from '@src/assets/icons/star.svg';
 import exampleImage from "@src/assets/example/diploma.jpg";
 import {DiplomaPageHeader} from "@src/pages/DiplomaPage/components/DiplomaPageHeader";
 import {Route, Routes, useNavigate} from "react-router-dom";
-import { routes} from "@src/shared/routes";
+import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
 import {Modal} from "@src/components";
 import {ReactComponent as NeedAuthorizationPic} from "@src/assets/example/requireAuthorizationPic.svg";
@@ -14,8 +14,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectDiplomaList} from "@src/store/diplomas/selectors";
 import {humanReadableToLocalTime} from "@src/utils/functions";
 import {DiplomaDetailsPage} from "@src/pages";
+import styles from "./DiplomaPage.module.css";
+import {inspect} from "util";
 
 export const DiplomaPageLayout: React.FC = () => {
+
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
@@ -32,11 +35,23 @@ export const DiplomaPageLayout: React.FC = () => {
     React.useEffect(() => {
         dispatch(fetchDiplomas());
     }, [diplomaList]);
+    const getQueryWidth = () => {
+        const matchesLg = useMediaQuery('(min-width:1200px)');
+        const matchesMd = useMediaQuery('(max-width:1180px)');
+        const matchesSm = useMediaQuery('(max-width:768px)');
+        const matchesXs = useMediaQuery('(max-width:576px)');
+        if (matchesXs) return "80%";
+        if (matchesSm) return "60%";
+        if (matchesMd) return "40%";
+        if (matchesLg) return "25%";
+    };
     return (
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='2rem'>
             <Modal
                 open={open}
                 handleClose={handleClose}
+                maxWidth={getQueryWidth()}
+                width={getQueryWidth()}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -60,7 +75,7 @@ export const DiplomaPageLayout: React.FC = () => {
                 </Box>
             </Modal>
             <DiplomaPageHeader/>
-            <Box display='flex' flexWrap='wrap' justifyContent='space-between' gap='0 1rem' px='4rem' width='100%'>
+            <Box display='flex' flexWrap='wrap' justifyContent='space-between' gap='0 1rem' className={styles.diplomasContainer} width='100%'>
 
                 {diplomaList.map((e: any) => (
                     <Card key={e.counter} elevation={6}
@@ -72,6 +87,7 @@ export const DiplomaPageLayout: React.FC = () => {
                               }
 
                           }}
+                          className={styles.diplomaItem}
                           sx={{
                               display: 'flex',
                               width: "49%",
@@ -81,6 +97,7 @@ export const DiplomaPageLayout: React.FC = () => {
                           }}>
                         <CardMedia
                             component="img"
+                            className={styles.diplomaImg}
                             sx={{width: "13rem", padding: "1.5rem"}}
                             image={e.image}
                             alt="University Image"
