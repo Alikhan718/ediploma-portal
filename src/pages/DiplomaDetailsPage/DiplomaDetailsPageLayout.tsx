@@ -21,6 +21,7 @@ import {selectDiplomaList} from "@src/store/diplomas/selectors";
 import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
 import {useParams} from "react-router-dom";
 import {humanReadableToLocalTime} from "@src/utils/functions";
+import styles from "./DiplomaDetailsPage.module.css";
 
 interface DiplomaData {
     name: string;
@@ -57,7 +58,7 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
         }, [diplomaList]);
         return (
             <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 3rem' pt='3rem'>
-                <Box width='32%' display='flex' flexDirection="column">
+                <Box className={styles.contentLeftContainer}>
                     <Card sx={{borderRadius: "1.4rem", background: "#CED4D3"}}>
                         <CardMedia
                             component="img"
@@ -67,7 +68,7 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                         >
                         </CardMedia>
                     </Card>
-                    <Box display='flex' mt={"2rem"} width={"100%"} mx='auto' justifyContent='space-between'>
+                    <Box className={styles.contentLeft}>
                         <Button defaultValue="download" startIcon={<DownloadIcon/>} variant='outlined'
                                 onClick={() => {
                                     let link = data && data.image ? data.image : "";
@@ -91,39 +92,46 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                         </Button>
                     </Box>
                 </Box>
-                <Box width='45%' display='flex' flexDirection='column' gap='1rem' pt='1.5rem'>
-                    <Typography fontWeight='700' fontSize='1.4rem'>
+                <Box className={styles.contentRightContainer}>
+                    <Typography fontWeight='700' fontSize='1.4rem' className={styles.textMd}>
                         {data && data.name_kz ? data.name_kz : ''}
                     </Typography>
                     <Box>
 
                         <Box display='flex' mb='.5rem'>
-                            <Typography fontSize='1.4rem' mr='.5rem'>
+                            <Typography className={styles.textSm} fontSize='1.4rem' mr='.5rem'>
                                 Cтепень:
                             </Typography>
                             <Typography fontSize='1.4rem'
+                                        className={styles.textSm}
                                         fontWeight='700'>{data && data.degree_ru ? data.degree_ru.replace("ПРИСУЖДЕНА СТЕПЕНЬ ", "").toLowerCase() : ""}</Typography>
                         </Box>
 
                         <Box display='flex' mb='.5rem'>
-                            <Typography fontSize='1.4rem' mr='.5rem'>Специальность:</Typography>
                             <Typography fontSize='1.4rem'
+                                        className={styles.textSm} mr='.5rem'>Специальность:</Typography>
+                            <Typography fontSize='1.4rem'
+                                        className={styles.textSm}
                                         fontWeight='700'>{data && data.qualification_kz ? data.qualification_kz.substring(0, data.qualification_kz.search("»") + 1) : ""}</Typography>
                         </Box>
 
-                        <Box display='flex' width='100%' gap='2rem' mb='.5rem'>
+                        <Box display='flex' width='100%' gap='2rem' mb='.5rem' className={styles.infoContainer} >
                             <Box display='flex'>
-                                <CalendarIcon style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
-                                <Typography fontSize='1.4rem' mr='.5rem'
+                                <CalendarIcon className={styles.iconSm} style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
+                                <Typography className={styles.textSm} fontSize='1.4rem' mr='.5rem'
                                             color="#697B7A">{data && data.protocol_en ? humanReadableToLocalTime(data.protocol_en, ".") : "123"}</Typography>
                             </Box>
                             <Box display='flex'>
-                                <FileCheckIcon style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
-                                <Typography fontSize='1.4rem' mr='.5rem' color="#697B7A">{id}</Typography>
+                                <FileCheckIcon className={styles.iconSm}
+                                               style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
+                                <Typography className={styles.textSm} fontSize='1.4rem' mr='.5rem'
+                                            color="#697B7A">{id}</Typography>
                             </Box>
                             <Box display='flex'>
-                                <CertificateIcon style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
-                                <Typography fontSize='1.4rem' mr='.5rem' color="#697B7A">Оригинал</Typography>
+                                <CertificateIcon className={styles.iconSm}
+                                                 style={{marginTop: ".3rem", marginRight: ".5rem"}}/>
+                                <Typography className={styles.textSm} fontSize='1.4rem' mr='.5rem'
+                                            color="#697B7A">Оригинал</Typography>
                             </Box>
                         </Box>
                         <SwitchDetails/>

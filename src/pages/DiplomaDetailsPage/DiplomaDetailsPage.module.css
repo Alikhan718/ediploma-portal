@@ -13,3 +13,92 @@
     color: black;
     border: black 5px !important;
 }
+
+.contentLeftContainer {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentLeft {
+    display: flex;
+    margin-top: 2rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+}
+
+.contentRightContainer {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .contentLeftContainer {
+        width: 85%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contentLeft {
+        display: flex;
+        margin-top: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: space-between;
+    }
+
+    .contentRightContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem 2rem 0;
+    }
+
+    .textMd {
+        font-size: 1.2rem !important;
+    }
+
+    .textSm {
+        font-size: 1rem !important;
+    }
+
+    .textXs {
+        font-size: .8rem !important;
+    }
+
+    .iconSm {
+        width: 2rem !important;
+        margin: 0 !important;
+    }
+
+    .mobMt1 {
+        margin-top: 1rem !important;
+    }
+
+    .mobMt2 {
+        margin-top: 2rem !important;
+    }
+    .mobMb1 {
+        margin-bottom: 1rem !important;
+    }
+    .mobPb1 {
+        padding-bottom: .5rem !important;
+    }
+
+    .mobMb1 {
+        margin-bottom: 2rem !important;
+    }
+    .infoContainer {
+        margin-top: 1rem !important ;
+        display: flex !important;
+        padding: 0 1rem !important;
+        justify-content: space-between !important;
+    }
+}
