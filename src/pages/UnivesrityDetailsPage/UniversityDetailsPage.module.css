@@ -75,7 +75,7 @@
 @media only screen and (max-width: 768px) {
 
     .contentContainer {
-        gap: 0;
+        gap: 0 !important;
     }
 
     .mobMt1 {
@@ -86,25 +86,25 @@
     }
 
     .mobWrap {
-        display: flex;
-        flex-wrap: wrap;
+        display: flex !important;
+        flex-wrap: wrap !important;
     }
 
     .cardImgContainer {
-        position: absolute;
-        bottom: -2.5rem;
-        left: 2rem;
-        border-radius: .5rem;
-        padding: .2rem
+        position: absolute !important;
+        bottom: -2.5rem !important;
+        left: 2rem !important;
+        border-radius: .5rem !important;
+        padding: .2rem !important;
     }
 
     .cardImg {
-        width: 5rem;
-        border-radius: .5rem;
+        width: 5rem !important;
+        border-radius: .5rem !important;
     }
 
     .headerImg {
-        height: 6rem;
+        height: 6rem !important;
     }
 
     .diplomaImg {
@@ -112,7 +112,7 @@
     }
 
     .diplomasContainer {
-        padding-right: 3.5rem;
+        padding-right: 3.5rem !important;
     }
 
     .accessModal {
@@ -120,16 +120,28 @@
     }
 
     .social:nth-of-type(-n + 5) {
-        display: none;
+        display: none !important;
     }
 
+    .textMd {
+        font-size: 1.2rem !important;
+    }
+    .gap1 {
+        gap: 1rem !important;
+    }
+    .textSm {
+        font-size: 1rem !important;
+    }
+    .textXs {
+        font-size: .8rem !important;
+    }
     .diplomaItem {
         width: 100% !important;
-        display: flex;
-        flex-direction: column;
+        display: flex !important;
+        flex-direction: column !important;
     }
 
     .nameText {
-        font-size: 1.25rem;
+        font-size: 1.25rem !important;
     }
 }

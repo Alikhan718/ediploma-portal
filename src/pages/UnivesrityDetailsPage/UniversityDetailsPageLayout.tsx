@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Box, Button, Card, CardContent, CardMedia, Divider, Paper, Typography} from '@mui/material';
+import {Box, Button, Card, CardContent, CardMedia, Divider, Paper, Typography, useMediaQuery} from '@mui/material';
 import {ReactComponent as VerifiedIcon} from '@src/assets/icons/verified.svg';
 import {ReactComponent as SmartContractIcon} from '@src/assets/icons/smartContract_black.svg';
 import {ReactComponent as WebIcon} from '@src/assets/icons/web_black.svg';
@@ -64,9 +64,10 @@ function a11yProps(index: number) {
 
 export const UniversityDetailsPageLayout: React.FC = () => {
     const [showFull, setShowFull] = React.useState(false);
-    
+
     const handleText = (text: string): string => { // function to trim text to show less or more
-        const trimLimit = 115; // amount of characters to be shown
+        const matchesSm = useMediaQuery('(max-width:768px)');
+        const trimLimit = matchesSm ? 45 : 115; // amount of characters to be shown
         return showFull ? text : text.substring(0, trimLimit) + "...";
     };
 
@@ -127,7 +128,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         Казахстанско-Британский Технический Университет
                     </Typography>
                     {/*<VerifiedIcon style={{marginTop: "1rem", marginLeft: ".5rem", marginRight: "auto", width: "3rem"}}/>*/}
-                    <Box className={styles.socialContainer} >
+                    <Box className={styles.socialContainer}>
                         <SmartContractIcon className={styles.social} onClick={() => {
                             handleLink("https://sepolia.etherscan.io/address/0xf96910fb6f6b4991072e37584d84fe33f77b8b28#code");
                         }}/>
@@ -152,69 +153,74 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                 </Box>
                 <Box className={styles.contentContainer}>
                     <Box display='flex'>
-                        <Typography>
+                        <Typography className={styles.textSm}>
                             Почта:
                         </Typography>
-                        <Typography fontWeight='600' ml='.5rem'>info@kbtu.kz</Typography>
+                        <Typography className={styles.textSm} fontWeight='600' ml='.5rem'>info@kbtu.kz</Typography>
                     </Box>
                     <Box display='flex'>
-                        <Typography>
+                        <Typography className={styles.textSm}>
                             Номер телефона:
                         </Typography>
-                        <Typography fontWeight='600' ml='.5rem'>8 (7172) 74 23 52</Typography>
+                        <Typography className={styles.textSm} fontWeight='600' ml='.5rem'>8 (7172) 74 23 52</Typography>
                     </Box>
                     <Box className={cn(styles.mobMt1, styles.mobWrap)} width='100%' display='flex' gap='0 1rem'>
                         <Box display='flex'>
-                            <Typography>
+                            <Typography className={styles.textSm}>
                                 Специальностей
                             </Typography>
-                            <Typography fontWeight='600' color='#353840' ml='.5rem'>25</Typography>
+                            <Typography className={styles.textSm} fontWeight='600' color='#353840'
+                                        ml='.5rem'>25</Typography>
                         </Box>
                         ·
                         <Box display='flex'>
-                            <Typography>
+                            <Typography className={styles.textSm}>
                                 Открыт
                             </Typography>
-                            <Typography fontWeight='600' color='#353840' ml='.5rem'>Август 2001</Typography>
+                            <Typography className={styles.textSm} fontWeight='600' color='#353840' ml='.5rem'>Август
+                                2001</Typography>
                         </Box>
                         ·
                         <Box display='flex'>
-                            <Typography>
+                            <Typography className={styles.textSm}>
                                 Кол-во студентов
                             </Typography>
-                            <Typography fontWeight='600' color='#353840' ml='.5rem'>3564</Typography>
+                            <Typography className={styles.textSm} fontWeight='600' color='#353840'
+                                        ml='.5rem'>3564</Typography>
                         </Box>
                     </Box>
                     <Box>
-                        <Typography color="#353840">
+                        <Typography className={styles.textSm} color="#353840">
                             {handleText("Казахстанско-Британский технический университет - один из ведущих технических университетов региона. Мы работаем в партнерстве с мировым академическим сообществом, корпоративным и государственным секторами над фундаментальными ценностями качества, академической честности и открытости.")}
                         </Typography>
-                        <Typography style={{cursor: "pointer"}} fontWeight='600' color='gray' onClick={() => {
-                            setShowFull(!showFull);
-                        }}>
+                        <Typography style={{cursor: "pointer"}} className={styles.textSm} fontWeight='600' color='gray'
+                                    onClick={() => {
+                                        setShowFull(!showFull);
+                                    }}>
                             Показать {!showFull ? "больше" : " меньше"}
                             <ExpandMore style={{marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : ""}}/>
                         </Typography>
                     </Box>
-                    <Box display='flex' gap='3rem' mt='1rem'>
+                    <Box display='flex' gap='3rem' className={styles.gap1} mt='1rem'>
                         <Box display='flex' flexDirection='column'>
-                            <Typography fontSize='1.5rem' fontWeight='600'>25</Typography>
-                            <Typography fontSize='1rem' color='#707A83'>Рейтинг <br/>
+                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>25</Typography>
+                            <Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Рейтинг <br/>
                                 университета</Typography>
                         </Box>
                         <Box display='flex' flexDirection='column'>
-                            <Typography fontSize='1.5rem' fontWeight='600'>10256</Typography>
-                            <Typography fontSize='1rem' color='#707A83'>Количество <br/>
+                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>10256</Typography>
+                            <Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Количество <br/>
                                 выпускников</Typography>
                         </Box>
                         <Box display='flex' flexDirection='column'>
-                            <Typography fontSize='1.5rem' fontWeight='600'>1245</Typography>
-                            <Typography fontSize='1rem' color='#707A83'>Количество<br/>
+                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>1245</Typography>
+                            <Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Количество<br/>
                                 с отличием</Typography>
                         </Box>
                         <Box display='flex' flexDirection='column'>
-                            <Typography fontSize='1.5rem' fontWeight='600'>3.2</Typography>
-                            <Typography fontSize='1rem' color='#707A83'>Средний GPA</Typography>
+                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>3.2</Typography>
+                            <Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Средний
+                                GPA</Typography>
                         </Box>
                     </Box>
 
