@@ -18,6 +18,7 @@ import {Box, CircularProgress, Typography} from '@mui/material';
 import {initalApp} from './store/auth/actionCreators';
 import {selectAuthLoader} from './store/auth/selector';
 import './App.css';
+import {roles} from "@src/shared/roles";
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
@@ -28,12 +29,12 @@ const App: React.FC = () => {
     }, []);
 
     const hasPermission = (roleList: string[]) => {
-        const userRoles = JSON.parse(localStorage.getItem("userRole") || '[]') || "";
+        const userRoles = localStorage.getItem("userRole") || "";
         if (!userRoles) {
             return false;
         }
 
-        return userRoles.some((i: any) => roleList.includes(i));
+        return roleList.includes(userRoles);
     };
 
     return (
@@ -46,10 +47,9 @@ const App: React.FC = () => {
                     <Route path={routes.university} element={<UniversityPage/>}/>
                     <Route path={routes.universityDetails} element={<UniversityDetailsPage/>}/>
                     <Route path={routes.diploma} element={<DiplomaPage/>}/>
-                    <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>
+                    {hasPermission(roles.diplomaDetails) && <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>}
                     <Route path={routes.login} element={<LoginPage/>}/>
                     <Route path={routes.register} element={<RegisterPage/>}/>
-                    {/*{hasPermission(roles.order) && <Route path={routes.order} element={<OrderPage/>}/>}*/}
                     {/*{hasPermission(roles.stopList) && <Route path={`${routes.stopList}/*`} element={<StopListPage/>}/>}*/}
                     {/*{hasPermission(roles.menu) && <Route path={routes.menu} element={<MenuPage/>}/>}*/}
                     {/*{hasPermission(roles.configureMenu) &&*/}

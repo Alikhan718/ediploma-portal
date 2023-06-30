@@ -1,6 +1,6 @@
 
 export const roles = {
-
+	diplomaDetails: ['Employee', 'Student'],
 	menu: ['Admins', 'Menu-manager', 'Location-manager'],
 	menu_advanced: ['Admins', 'Menu-manager'],
 	attributeGroup: ['Admins', 'Menu-manager'],
