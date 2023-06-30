@@ -170,14 +170,14 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                 Специальностей
                             </Typography>
                             <Typography className={styles.textSm} fontWeight='600' color='#353840'
-                                        ml='.5rem'>25</Typography>
+                                        ml='.5rem'>73</Typography>
                         </Box>
                         ·
                         <Box display='flex'>
                             <Typography className={styles.textSm}>
                                 Открыт
                             </Typography>
-                            <Typography className={styles.textSm} fontWeight='600' color='#353840' ml='.5rem'>Август
+                            <Typography className={styles.textSm} fontWeight='600' color='#353840' ml='.5rem'>
                                 2001</Typography>
                         </Box>
                         ·
@@ -217,11 +217,11 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                             <Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Количество<br/>
                                 с отличием</Typography>
                         </Box>
-                        <Box display='flex' flexDirection='column'>
-                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>3.2</Typography>
-                            <Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Средний
-                                GPA</Typography>
-                        </Box>
+                        {/*<Box display='flex' flexDirection='column'>*/}
+                            {/*<Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>3.2</Typography>*/}
+                            {/*<Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Средний*/}
+                            {/*    GPA</Typography>*/}
+                        {/*</Box>*/}
                     </Box>
 
 

@@ -9,6 +9,7 @@ import SmartContractIcon from "@src/assets/icons/contractIcon.png";
 import {ReactComponent as EtherScanIcon} from "@src/assets/icons/Etherscan.svg";
 import styles from "../DiplomaDetailsPage.module.css";
 import cn from "classnames";
+import {roles} from "@src/shared/roles";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -43,6 +44,15 @@ function a11yProps(index: number) {
     };
 }
 
+const hasPermission = (roleList: string[]) => {
+    const userRoles = localStorage.getItem("userRole") || "";
+    if (!userRoles) {
+        return false;
+    }
+
+    return roleList.includes(userRoles);
+};
+
 export const SwitchDetails: React.FC = () => {
     const [value, setValue] = React.useState(0);
 
@@ -55,7 +65,7 @@ export const SwitchDetails: React.FC = () => {
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Проверка" {...a11yProps(0)} />
-                    <Tab label="Данные" {...a11yProps(1)} />
+                    <Tab label="Данные" disabled={!hasPermission(roles.admin)} {...a11yProps(1)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
