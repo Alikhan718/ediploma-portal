@@ -162,7 +162,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         <Typography className={styles.textSm}>
                             Номер телефона:
                         </Typography>
-                        <Typography className={styles.textSm} fontWeight='600' ml='.5rem'>8 (7172) 74 23 52</Typography>
+                        <Typography className={styles.textSm} fontWeight='600' ml='.5rem'>8 (7273) 57 42 51</Typography>
                     </Box>
                     <Box className={cn(styles.mobMt1, styles.mobWrap)} width='100%' display='flex' gap='0 1rem'>
                         <Box display='flex'>
@@ -186,7 +186,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                 Кол-во студентов
                             </Typography>
                             <Typography className={styles.textSm} fontWeight='600' color='#353840'
-                                        ml='.5rem'>3564</Typography>
+                                        ml='.5rem'>5279</Typography>
                         </Box>
                     </Box>
                     <Box>
@@ -203,17 +203,17 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                     </Box>
                     <Box display='flex' gap='3rem' className={styles.gap1} mt='1rem'>
                         <Box display='flex' flexDirection='column'>
-                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>25</Typography>
+                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>Top 34%</Typography>
                             <Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Рейтинг <br/>
-                                университета</Typography>
+                                QS Asia 2023</Typography>
                         </Box>
                         <Box display='flex' flexDirection='column'>
-                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>10256</Typography>
+                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>9333</Typography>
                             <Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Количество <br/>
                                 выпускников</Typography>
                         </Box>
                         <Box display='flex' flexDirection='column'>
-                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>1245</Typography>
+                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>769</Typography>
                             <Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Количество<br/>
                                 с отличием</Typography>
                         </Box>

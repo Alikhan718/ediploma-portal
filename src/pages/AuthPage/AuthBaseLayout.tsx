@@ -40,13 +40,11 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
             </Box>
             <Box flexDirection='column' className={styles.contentLeft}  paddingY='12rem'>
                 <Typography fontSize='3rem' fontWeight='700' width='70%' color='white'>
-                    Цифровые дипломы NFT для студентов
+                    Цифровые дипломы NFT для выпускников
                 </Typography>
-                <Typography fontSize='1.1rem' color='white' width='70%'>
-                    Дипломы NFT приносят пользу университетам за счет экономии средств и повышения доверия и
-                    прозрачности. Студенты получают надежные и уникальные цифровые учетные данные и легко демонстрируют
-                    свою квалификацию. Работодатели получают мгновенную проверку дипломов и доступ к глобальным
-                    талантам.
+                <Typography fontSize='1.2rem' color='white' width='70%'>
+                    Лучший инструмент для работодателя по поиску кандидатов. Доступ к глобальным
+                    талантам страны.
                 </Typography>
 
             </Box>

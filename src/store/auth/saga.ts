@@ -33,7 +33,7 @@ export function* fetchAuthRegister(action: any) {
     try {
         const {data} = yield call(authApi.register, action.payload);
         yield put({type: FETCH_AUTH_REGISTER_SUCCESS});
-        yield put(setSnackbar({visible: true, message: "Успешно зарегестрирован!", status: "success"}));
+        yield put(setSnackbar({visible: true, message: "Успешно зарегистрирован!", status: "success"}));
     } catch (e) {
         yield put({type: FETCH_AUTH_ITEMS_ERROR});
 
