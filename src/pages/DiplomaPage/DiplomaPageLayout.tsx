@@ -7,7 +7,7 @@ import {DiplomaPageHeader} from "@src/pages/DiplomaPage/components/DiplomaPageHe
 import {Route, Routes, useNavigate} from "react-router-dom";
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
-import {Modal} from "@src/components";
+import {Input, Modal} from "@src/components";
 import {ReactComponent as NeedAuthorizationPic} from "@src/assets/example/requireAuthorizationPic.svg";
 import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
 import {useDispatch, useSelector} from "react-redux";
@@ -58,10 +58,11 @@ export const DiplomaPageLayout: React.FC = () => {
                 <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
 
                     <NeedAuthorizationPic/>
-                    <Typography textAlign='center' id="modal-modal-title" fontSize='1rem' fontWeight='600' variant="h6"
+                    <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem' fontWeight='600' variant="h6"
                                 component="h2">
-                        Для открытия этой опции требуется авторизация
+                        Для просмотра требуется ИИН
                     </Typography>
+                    <Input sx={{backgroundColor: "white"}} inputSize='s'/>
                     <Button variant='contained' sx={{
                         marginTop: "1rem",
                         padding: "1rem",
@@ -71,11 +72,12 @@ export const DiplomaPageLayout: React.FC = () => {
                         borderRadius: "2rem"
                     }} onClick={() => {
                         navigate(routes.login);
-                    }}>Войти</Button>
+                    }}>Проверить</Button>
                 </Box>
             </Modal>
             <DiplomaPageHeader/>
-            <Box display='flex' flexWrap='wrap' justifyContent='space-between' gap='0 1rem' className={styles.diplomasContainer} width='100%'>
+            <Box display='flex' flexWrap='wrap' justifyContent='space-between' gap='0 1rem'
+                 className={styles.diplomasContainer} width='100%'>
 
                 {diplomaList.map((e: any) => (
                     <Card key={e.counter} elevation={6}
@@ -106,7 +108,7 @@ export const DiplomaPageLayout: React.FC = () => {
                             <CardContent
                                 sx={{flex: '1 0 auto', display: "flex", flexDirection: "column", width: "100%"}}>
                                 <Typography mb='.5rem' fontSize="1.25rem" fontWeight="600">
-                                    {e.name_kz}
+                                    {e.name_ru}
                                 </Typography>
                                 <Typography mb='.5rem' fontSize="1rem">
                                     {e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1)}

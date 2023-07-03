@@ -40,8 +40,10 @@ const drawerMixin = (theme: Theme, open: boolean): CSSObject => ({
     }),
     ...(open ? {
         width: DRAWER_WIDTH,
+        // display: "block"
     } : {
-        width: `0`,
+        width: `0px`,
+        // display: "none"
     })
 });
 

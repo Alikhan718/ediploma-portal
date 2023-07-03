@@ -23,6 +23,7 @@ export function* fetchContractRequest() {
                     dict[key] = v;
                 } else {
                     entry.attributes.forEach((attr: any) => {
+                        console.log(attr);
                         dict[attr.name] = attr.value;
                     });
                 }

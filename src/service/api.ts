@@ -333,170 +333,171 @@ export const selectAllApi = {
 
 export const diplomasApi = {
     async getContracts() {
-        const provider = new ethers.InfuraProvider('sepolia', '268c2c5ab3de4a7c9bfa49f0122db50a');
-        const contractAddress = '0xF96910fb6F6b4991072E37584D84FE33f77B8b28';
-        const contractABI = [
-            {
-                "inputs": [],
-                "stateMutability": "nonpayable",
-                "type": "constructor"
-            }, {
-                "anonymous": false,
-                "inputs": [{
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "owner",
-                    "type": "address"
-                }, {"indexed": true, "internalType": "address", "name": "approved", "type": "address"}, {
-                    "indexed": true,
-                    "internalType": "uint256",
-                    "name": "tokenId",
-                    "type": "uint256"
-                }],
-                "name": "Approval",
-                "type": "event"
-            }, {
-                "anonymous": false,
-                "inputs": [{
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "owner",
-                    "type": "address"
-                }, {"indexed": true, "internalType": "address", "name": "operator", "type": "address"}, {
-                    "indexed": false,
-                    "internalType": "bool",
-                    "name": "approved",
-                    "type": "bool"
-                }],
-                "name": "ApprovalForAll",
-                "type": "event"
-            }, {
-                "anonymous": false,
-                "inputs": [{
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "from",
-                    "type": "address"
-                }, {"indexed": true, "internalType": "address", "name": "to", "type": "address"}, {
-                    "indexed": true,
-                    "internalType": "uint256",
-                    "name": "tokenId",
-                    "type": "uint256"
-                }],
-                "name": "Transfer",
-                "type": "event"
-            }, {
-                "inputs": [{"internalType": "address", "name": "to", "type": "address"}, {
-                    "internalType": "uint256",
-                    "name": "tokenId",
-                    "type": "uint256"
-                }], "name": "approve", "outputs": [], "stateMutability": "nonpayable", "type": "function"
-            }, {
-                "inputs": [{"internalType": "address", "name": "owner", "type": "address"}],
-                "name": "balanceOf",
-                "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-                "stateMutability": "view",
-                "type": "function"
-            }, {
-                "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                "name": "burnDiploma",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            }, {
-                "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                "name": "getApproved",
-                "outputs": [{"internalType": "address", "name": "", "type": "address"}],
-                "stateMutability": "view",
-                "type": "function"
-            }, {
-                "inputs": [{"internalType": "address", "name": "owner", "type": "address"}, {
-                    "internalType": "address",
-                    "name": "operator",
-                    "type": "address"
-                }],
-                "name": "isApprovedForAll",
-                "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-                "stateMutability": "view",
-                "type": "function"
-            }, {
-                "inputs": [{"internalType": "address", "name": "owner", "type": "address"}, {
-                    "internalType": "uint256",
-                    "name": "numberOfDiplomas",
-                    "type": "uint256"
-                }], "name": "mintDiplomas", "outputs": [], "stateMutability": "nonpayable", "type": "function"
-            }, {
-                "inputs": [],
-                "name": "name",
-                "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-                "stateMutability": "view",
-                "type": "function"
-            }, {
-                "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                "name": "ownerOf",
-                "outputs": [{"internalType": "address", "name": "", "type": "address"}],
-                "stateMutability": "view",
-                "type": "function"
-            }, {
-                "inputs": [{"internalType": "address", "name": "from", "type": "address"}, {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                }, {"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                "name": "safeTransferFrom",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            }, {
-                "inputs": [{"internalType": "address", "name": "from", "type": "address"}, {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                }, {"internalType": "uint256", "name": "tokenId", "type": "uint256"}, {
-                    "internalType": "bytes",
-                    "name": "data",
-                    "type": "bytes"
-                }], "name": "safeTransferFrom", "outputs": [], "stateMutability": "nonpayable", "type": "function"
-            }, {
-                "inputs": [{"internalType": "address", "name": "operator", "type": "address"}, {
-                    "internalType": "bool",
-                    "name": "approved",
-                    "type": "bool"
-                }], "name": "setApprovalForAll", "outputs": [], "stateMutability": "nonpayable", "type": "function"
-            }, {
-                "inputs": [{"internalType": "bytes4", "name": "interfaceId", "type": "bytes4"}],
-                "name": "supportsInterface",
-                "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
-                "stateMutability": "view",
-                "type": "function"
-            }, {
-                "inputs": [],
-                "name": "symbol",
-                "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-                "stateMutability": "view",
-                "type": "function"
-            }, {
-                "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                "name": "tokenURI",
-                "outputs": [{"internalType": "string", "name": "", "type": "string"}],
-                "stateMutability": "view",
-                "type": "function"
-            }, {
-                "inputs": [{"internalType": "address", "name": "from", "type": "address"}, {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                }, {"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
-                "name": "transferFrom",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            }]; // Replace with your contract's ABI
+        // const provider = new ethers.InfuraProvider('sepolia', '268c2c5ab3de4a7c9bfa49f0122db50a');
+        // const contractAddress = '0xF96910fb6F6b4991072E37584D84FE33f77B8b28';
+        // const contractABI = [
+        //     {
+        //         "inputs": [],
+        //         "stateMutability": "nonpayable",
+        //         "type": "constructor"
+        //     }, {
+        //         "anonymous": false,
+        //         "inputs": [{
+        //             "indexed": true,
+        //             "internalType": "address",
+        //             "name": "owner",
+        //             "type": "address"
+        //         }, {"indexed": true, "internalType": "address", "name": "approved", "type": "address"}, {
+        //             "indexed": true,
+        //             "internalType": "uint256",
+        //             "name": "tokenId",
+        //             "type": "uint256"
+        //         }],
+        //         "name": "Approval",
+        //         "type": "event"
+        //     }, {
+        //         "anonymous": false,
+        //         "inputs": [{
+        //             "indexed": true,
+        //             "internalType": "address",
+        //             "name": "owner",
+        //             "type": "address"
+        //         }, {"indexed": true, "internalType": "address", "name": "operator", "type": "address"}, {
+        //             "indexed": false,
+        //             "internalType": "bool",
+        //             "name": "approved",
+        //             "type": "bool"
+        //         }],
+        //         "name": "ApprovalForAll",
+        //         "type": "event"
+        //     }, {
+        //         "anonymous": false,
+        //         "inputs": [{
+        //             "indexed": true,
+        //             "internalType": "address",
+        //             "name": "from",
+        //             "type": "address"
+        //         }, {"indexed": true, "internalType": "address", "name": "to", "type": "address"}, {
+        //             "indexed": true,
+        //             "internalType": "uint256",
+        //             "name": "tokenId",
+        //             "type": "uint256"
+        //         }],
+        //         "name": "Transfer",
+        //         "type": "event"
+        //     }, {
+        //         "inputs": [{"internalType": "address", "name": "to", "type": "address"}, {
+        //             "internalType": "uint256",
+        //             "name": "tokenId",
+        //             "type": "uint256"
+        //         }], "name": "approve", "outputs": [], "stateMutability": "nonpayable", "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "address", "name": "owner", "type": "address"}],
+        //         "name": "balanceOf",
+        //         "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+        //         "stateMutability": "view",
+        //         "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
+        //         "name": "burnDiploma",
+        //         "outputs": [],
+        //         "stateMutability": "nonpayable",
+        //         "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
+        //         "name": "getApproved",
+        //         "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+        //         "stateMutability": "view",
+        //         "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "address", "name": "owner", "type": "address"}, {
+        //             "internalType": "address",
+        //             "name": "operator",
+        //             "type": "address"
+        //         }],
+        //         "name": "isApprovedForAll",
+        //         "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+        //         "stateMutability": "view",
+        //         "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "address", "name": "owner", "type": "address"}, {
+        //             "internalType": "uint256",
+        //             "name": "numberOfDiplomas",
+        //             "type": "uint256"
+        //         }], "name": "mintDiplomas", "outputs": [], "stateMutability": "nonpayable", "type": "function"
+        //     }, {
+        //         "inputs": [],
+        //         "name": "name",
+        //         "outputs": [{"internalType": "string", "name": "", "type": "string"}],
+        //         "stateMutability": "view",
+        //         "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
+        //         "name": "ownerOf",
+        //         "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+        //         "stateMutability": "view",
+        //         "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "address", "name": "from", "type": "address"}, {
+        //             "internalType": "address",
+        //             "name": "to",
+        //             "type": "address"
+        //         }, {"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
+        //         "name": "safeTransferFrom",
+        //         "outputs": [],
+        //         "stateMutability": "nonpayable",
+        //         "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "address", "name": "from", "type": "address"}, {
+        //             "internalType": "address",
+        //             "name": "to",
+        //             "type": "address"
+        //         }, {"internalType": "uint256", "name": "tokenId", "type": "uint256"}, {
+        //             "internalType": "bytes",
+        //             "name": "data",
+        //             "type": "bytes"
+        //         }], "name": "safeTransferFrom", "outputs": [], "stateMutability": "nonpayable", "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "address", "name": "operator", "type": "address"}, {
+        //             "internalType": "bool",
+        //             "name": "approved",
+        //             "type": "bool"
+        //         }], "name": "setApprovalForAll", "outputs": [], "stateMutability": "nonpayable", "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "bytes4", "name": "interfaceId", "type": "bytes4"}],
+        //         "name": "supportsInterface",
+        //         "outputs": [{"internalType": "bool", "name": "", "type": "bool"}],
+        //         "stateMutability": "view",
+        //         "type": "function"
+        //     }, {
+        //         "inputs": [],
+        //         "name": "symbol",
+        //         "outputs": [{"internalType": "string", "name": "", "type": "string"}],
+        //         "stateMutability": "view",
+        //         "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
+        //         "name": "tokenURI",
+        //         "outputs": [{"internalType": "string", "name": "", "type": "string"}],
+        //         "stateMutability": "view",
+        //         "type": "function"
+        //     }, {
+        //         "inputs": [{"internalType": "address", "name": "from", "type": "address"}, {
+        //             "internalType": "address",
+        //             "name": "to",
+        //             "type": "address"
+        //         }, {"internalType": "uint256", "name": "tokenId", "type": "uint256"}],
+        //         "name": "transferFrom",
+        //         "outputs": [],
+        //         "stateMutability": "nonpayable",
+        //         "type": "function"
+        //     }]; // Replace with your contract's ABI
 
-        const contract = new ethers.Contract(contractAddress, contractABI, provider);
+        // const contract = new ethers.Contract(contractAddress, contractABI, provider);
 
         // Call the contract's function to retrieve the diploma metadata
-        let link = await (contract.tokenURI(1));
+        // let link = await (contract.tokenURI(1));
+        let link = "ipfs://bafybeidbedhhugo2nck5b7x5edxgpflnigwsj4jqf2gx24ddm5jvske7cu/fullMetadata.json";
         link = link.replace("ipfs://", "https://ipfs.io/ipfs/");
 
         return instance.get(link);
