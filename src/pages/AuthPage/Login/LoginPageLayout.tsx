@@ -26,19 +26,15 @@ export const LoginPageLayout: React.FC = () => {
         e.preventDefault();
         const payload = state;
         dispatch(fetchLoginRequest(payload));
-        // try {
-        //     const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
-        //
-        //     const response = await fetch(baseURL + "login", {method: "POST", body: JSON.stringify({
-        //             email: state.email,
-        //             password: state.password
-        //     })});
-        //     console.log(response);
-        //     // const {cats} = await response.json();
-        // } catch (e) {
-        //     console.error(e);
-        // }
-        // navigate(routes.main, {replace: true});
+
+        // Check authentication status after a delay to ensure the request has completed
+        setTimeout(() => {
+            const urlElements = window.location.href.split('/');
+            if (isAuthenticated() && urlElements.includes('auth')) {
+                navigate(routes.main, {replace: true});
+            }
+        }, 2000);
+
     };
     React.useEffect(() => {
         const urlElements = window.location.href.split('/');
