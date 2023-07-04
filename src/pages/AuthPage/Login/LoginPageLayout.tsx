@@ -25,6 +25,14 @@ export const LoginPageLayout: React.FC = () => {
         const payload = state;
         dispatch(fetchLoginRequest(payload));
 
+    // Check authentication status after a delay to ensure the request has completed
+    setTimeout(() => {
+        const urlElements = window.location.href.split('/');
+        if (isAuthenticated() && urlElements.includes('auth')) {
+            navigate(routes.main, {replace: true});
+        }
+    }, 2000);
+
     };
     React.useEffect(() => {
         const urlElements = window.location.href.split('/');

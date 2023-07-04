@@ -81,12 +81,13 @@ export const DiplomaPageLayout: React.FC = () => {
 
                 {diplomaList.map((e: any) => (
                     <Card key={e.counter} elevation={6}
-                          onClick={() => {
-                              if (isAuthenticated()) {
-                                  navigate(`/app/diploma/${e.counter!}/details`);
-                              } else {
-                                  handleOpen();
-                              }
+                          onClick={async () => {
+                            const auth = await isAuthenticated(); // Await the isAuthenticated() function
+                            if (auth) {
+                                navigate(`/app/diploma/${e.counter!}/details`);
+                            } else {
+                                handleOpen();
+                            }
 
                           }}
                           className={styles.diplomaItem}
