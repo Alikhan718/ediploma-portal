@@ -8,6 +8,8 @@ import {fetchLoginRequest} from "@src/store/auth/actionCreators";
 import {isAuthenticated} from '@src/utils/userAuth';
 import {routes} from "@src/shared/routes";
 import {useNavigate} from "react-router-dom";
+import {authApi} from "@src/service/api";
+import {call} from "redux-saga/effects";
 
 export const LoginPageLayout: React.FC = () => {
     const [state, setState] = React.useState<IAuthLogin>({
@@ -20,18 +22,19 @@ export const LoginPageLayout: React.FC = () => {
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>): Promise<any> => {
         setState({...state, [e.target.name]: e.target.value});
     };
-    const onSubmit = (e: React.SyntheticEvent): void => {
+    const onSubmit = async (e: React.SyntheticEvent): Promise<void> => {
         e.preventDefault();
         const payload = state;
         dispatch(fetchLoginRequest(payload));
 
+
     // Check authentication status after a delay to ensure the request has completed
-    setTimeout(() => {
-        const urlElements = window.location.href.split('/');
-        if (isAuthenticated() && urlElements.includes('auth')) {
-            navigate(routes.main, {replace: true});
-        }
-    }, 2000);
+      setTimeout(() => {
+          const urlElements = window.location.href.split('/');
+          if (isAuthenticated() && urlElements.includes('auth')) {
+              navigate(routes.main, {replace: true});
+          }
+      }, 2000);
 
     };
     React.useEffect(() => {
@@ -41,7 +44,7 @@ export const LoginPageLayout: React.FC = () => {
             console.log(urlElements);
             navigate(routes.main, {replace: true});
         }
-    }, []);
+    }, [localStorage.getItem("token")]);
     return (
         <Card sx={{marginY: "auto", borderRadius: ".8rem", padding: ".6rem"}}>
 
