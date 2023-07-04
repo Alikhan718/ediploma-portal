@@ -32,6 +32,8 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
 import {FilterSection} from "@src/layout/Filter/FilterSection";
+import {useDispatch} from "react-redux";
+import {fetchAuthLogout} from "@src/store/auth/saga";
 
 
 interface AppBarProps extends MuiAppBarProps {
@@ -71,7 +73,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setSearch(e.target.value);
     };
-
+    const dispatch = useDispatch();
     const userRole = localStorage.getItem("userRole") || "";
 
     const [activeNav, setActiveNav] = React.useState(0);
@@ -139,6 +141,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                         <Button
                             className="diploma-auth-btn"
                             onClick={() => {
+                                fetchAuthLogout();
                                 localStorage.clear();
                                 navigate(routes.login, {replace: true});
                             }}

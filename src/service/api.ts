@@ -322,7 +322,9 @@ export const authApi = {
     register(body: { email: string, password: string, companyName: string }) {
         return instance.post(`/register`, body);
     },
-
+    validateEmail(body: {email: string, code: string}) {
+        return instance.post(`/verify-otp`, body);
+    }
 };
 
 export const selectAllApi = {

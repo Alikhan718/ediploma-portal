@@ -33,7 +33,7 @@ const App: React.FC = () => {
         if (!userRoles) {
             return false;
         }
-
+        console.log(roleList, userRoles);
         return roleList.includes(userRoles);
     };
 

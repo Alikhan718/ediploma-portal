@@ -8,6 +8,8 @@ import {fetchLoginRequest} from "@src/store/auth/actionCreators";
 import {isAuthenticated} from '@src/utils/userAuth';
 import {routes} from "@src/shared/routes";
 import {useNavigate} from "react-router-dom";
+import {authApi} from "@src/service/api";
+import {call} from "redux-saga/effects";
 
 export const LoginPageLayout: React.FC = () => {
     const [state, setState] = React.useState<IAuthLogin>({
@@ -20,11 +22,23 @@ export const LoginPageLayout: React.FC = () => {
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>): Promise<any> => {
         setState({...state, [e.target.name]: e.target.value});
     };
-    const onSubmit = (e: React.SyntheticEvent): void => {
+    const onSubmit = async (e: React.SyntheticEvent): Promise<void> => {
         e.preventDefault();
         const payload = state;
         dispatch(fetchLoginRequest(payload));
-
+        // try {
+        //     const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+        //
+        //     const response = await fetch(baseURL + "login", {method: "POST", body: JSON.stringify({
+        //             email: state.email,
+        //             password: state.password
+        //     })});
+        //     console.log(response);
+        //     // const {cats} = await response.json();
+        // } catch (e) {
+        //     console.error(e);
+        // }
+        // navigate(routes.main, {replace: true});
     };
     React.useEffect(() => {
         const urlElements = window.location.href.split('/');
@@ -33,7 +47,7 @@ export const LoginPageLayout: React.FC = () => {
             console.log(urlElements);
             navigate(routes.main, {replace: true});
         }
-    }, []);
+    }, [localStorage.getItem("token")]);
     return (
         <Card sx={{marginY: "auto", borderRadius: ".8rem", padding: ".6rem"}}>
 
