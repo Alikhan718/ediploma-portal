@@ -31,6 +31,7 @@ const App: React.FC = () => {
     const hasPermission = (roleList: string[]) => {
         const userRoles = localStorage.getItem("userRole") || "";
         if (!userRoles) {
+            console.log(userRoles);
             return false;
         }
         console.log(roleList, userRoles);

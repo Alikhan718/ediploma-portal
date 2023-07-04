@@ -17,7 +17,6 @@ const initialState = {
   redirectToLogin: false
 };
 export const authReducer = (state = initialState, action: any) => {
-  const navigate = useNavigate();
   switch (action.type) {
     case FETCH_AUTH_LOGOUT:
       localStorage.clear();
