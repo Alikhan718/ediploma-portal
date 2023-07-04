@@ -48,7 +48,7 @@ const App: React.FC = () => {
                     <Route path={routes.university} element={<UniversityPage/>}/>
                     <Route path={routes.universityDetails} element={<UniversityDetailsPage/>}/>
                     <Route path={routes.diploma} element={<DiplomaPage/>}/>
-                    {hasPermission(roles.diplomaDetails) && <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>}
+                    <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>
                     <Route path={routes.login} element={<LoginPage/>}/>
                     <Route path={routes.register} element={<RegisterPage/>}/>
                     {/*{hasPermission(roles.stopList) && <Route path={`${routes.stopList}/*`} element={<StopListPage/>}/>}*/}

@@ -5,31 +5,18 @@ import {ReactComponent as StarIcon} from '@src/assets/icons/star.svg';
 import exampleImage from "@src/assets/example/diploma.jpg";
 import {DiplomaPageHeader} from "@src/pages/DiplomaPage/components/DiplomaPageHeader";
 import {Route, Routes, useNavigate} from "react-router-dom";
-import {routes} from "@src/shared/routes";
-import {isAuthenticated} from "@src/utils/userAuth";
-import {Input, Modal} from "@src/components";
-import {ReactComponent as NeedAuthorizationPic} from "@src/assets/example/requireAuthorizationPic.svg";
 import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDiplomaList} from "@src/store/diplomas/selectors";
 import {humanReadableToLocalTime} from "@src/utils/functions";
-import {DiplomaDetailsPage} from "@src/pages";
 import styles from "./DiplomaPage.module.css";
-import {inspect} from "util";
+import diplomaTemplate from "@src/assets/example/diploma_template.jpg";
 
 export const DiplomaPageLayout: React.FC = () => {
 
     const navigate = useNavigate();
-    const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
     const diplomaList = useSelector(selectDiplomaList);
 
     React.useEffect(() => {
@@ -47,48 +34,14 @@ export const DiplomaPageLayout: React.FC = () => {
     };
     return (
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 2rem' pt='2rem'>
-            <Modal
-                open={open}
-                handleClose={handleClose}
-                maxWidth={getQueryWidth()}
-                width={getQueryWidth()}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
-
-                    <NeedAuthorizationPic/>
-                    <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem' fontWeight='600' variant="h6"
-                                component="h2">
-                        Для просмотра требуется ИИН
-                    </Typography>
-                    <Input sx={{backgroundColor: "white"}} inputSize='s'/>
-                    <Button variant='contained' sx={{
-                        marginTop: "1rem",
-                        padding: "1rem",
-                        width: "80%",
-                        fontSize: "1rem",
-                        fontWeight: "600",
-                        borderRadius: "2rem"
-                    }} onClick={() => {
-                        navigate(routes.login);
-                    }}>Проверить</Button>
-                </Box>
-            </Modal>
             <DiplomaPageHeader/>
             <Box display='flex' flexWrap='wrap' justifyContent='space-between' gap='0 1rem'
                  className={styles.diplomasContainer} width='100%'>
 
                 {diplomaList.map((e: any) => (
                     <Card key={e.counter} elevation={6}
-                          onClick={async () => {
-                            const auth = await isAuthenticated(); // Await the isAuthenticated() function
-                            if (auth) {
-                                navigate(`/app/diploma/${e.counter!}/details`);
-                            } else {
-                                handleOpen();
-                            }
-
+                          onClick={() => {
+                              navigate(`/app/diploma/${e.counter!}/details`);
                           }}
                           className={styles.diplomaItem}
                           sx={{
@@ -102,7 +55,7 @@ export const DiplomaPageLayout: React.FC = () => {
                             component="img"
                             className={styles.diplomaImg}
                             sx={{width: "13rem", padding: "1.5rem"}}
-                            image={e.image}
+                            image={diplomaTemplate}
                             alt="University Image"
                         />
                         <Box sx={{display: 'flex', flexDirection: 'column', width: "100%"}}>

@@ -65,7 +65,7 @@ export const SwitchDetails: React.FC = () => {
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Проверка" {...a11yProps(0)} />
-                    <Tab label="Данные" disabled={!hasPermission(roles.admin)} {...a11yProps(1)} />
+                    <Tab label="Данные"  {...a11yProps(1)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
