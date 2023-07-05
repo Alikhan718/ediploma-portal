@@ -1,35 +1,58 @@
 import {
     FETCH_CHECK_IIN_ERROR,
-    FETCH_CHECK_IIN_SAGA, FETCH_CHECK_IIN_SUCCESS,
+    FETCH_CHECK_IIN_SAGA,
+    FETCH_CHECK_IIN_SUCCESS,
     FETCH_DIPLOMAS_SAGA,
-    FETCH_DIPLOMAS_SUCCESS
+    FETCH_DIPLOMAS_SUCCESS,
+    FETCH_SEARCH_SAGA,
+    FETCH_SEARCH_SUCCESS
 } from "./types/types";
 
 interface DiplomaInterface {
     diplomas_list: Array<any>,
     isFetching: boolean,
-    iinValidated: boolean
+    iinValidated: boolean,
+    text: string,
+    specialities: string,
+    region: string,
+    year: number,
+    gpaL: number,
+    gpaR: number,
+    filtered_names: string[],
 }
 
 const initialState: DiplomaInterface = {
-    diplomas_list: [],
+    diplomas_list: [0],
     isFetching: false,
-    iinValidated: false
+    iinValidated: false,
+    text: "",
+    specialities: "",
+    region: "",
+    year: 0,
+    gpaL: 0,
+    gpaR: 0,
+    filtered_names: []
 };
 
 const diplomaReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case FETCH_DIPLOMAS_SAGA:
-            console.log("FETCH_DIPLOMAS_SAGA");
             return {
                 ...state,
                 isFetching: true,
                 iinValidated: false
             };
         case FETCH_DIPLOMAS_SUCCESS:
+            let temp_diploma_list = [];
+            if (state.filtered_names.length) {
+                temp_diploma_list = action.payload.filter((diploma: any) => state.filtered_names.includes(diploma.name));
+            } else {
+                temp_diploma_list = action.payload;
+            }
             return {
                 ...state,
-                diplomas_list: action.payload,
+                diplomas_list: temp_diploma_list,
+                filtered_names: state.filtered_names,
                 isFetching: false,
             };
         case FETCH_CHECK_IIN_SAGA:
@@ -50,6 +73,23 @@ const diplomaReducer = (state = initialState, action: any) => {
                 ...state,
                 isFetching: false,
                 iinValidated: false
+            };
+        case FETCH_SEARCH_SAGA:
+            return {
+                ...state,
+                iinValidated: false,
+                text: action.payload.text,
+                specialities: action.payload.specialities,
+                region: action.payload.region,
+                year: action.payload.year,
+                gpaL: action.payload.gpaL,
+                gpaR: action.payload.gpaR,
+            };
+        case FETCH_SEARCH_SUCCESS:
+            return {
+                ...state,
+                iinValidated: false,
+                filtered_names: action.names,
             };
         default:
             return state; // Add this line to return the current state for unhandled actions

@@ -1,5 +1,5 @@
-import React from 'react';
-import {Navigate, Route, Routes} from 'react-router-dom';
+import React, {useState} from 'react';
+import {Routes, Route, Navigate} from 'react-router-dom';
 import {Snackbar} from '@src/components';
 import {
     DiplomaDetailsPage,
@@ -35,10 +35,8 @@ const App: React.FC = () => {
     const hasPermission = (roleList: string[]) => {
         const userRoles = localStorage.getItem("userRole") || "";
         if (!userRoles) {
-            console.log(userRoles);
             return false;
         }
-        console.log(roleList, userRoles);
         return roleList.includes(userRoles);
     };
 

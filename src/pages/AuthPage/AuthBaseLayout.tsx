@@ -21,7 +21,6 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
         const urlElements = window.location.href.split('/');
 
         if (isAuthenticated() && urlElements.includes('auth')) {
-            console.log(urlElements);
             navigate(routes.main, {replace: true});
         }
     }, [userRole]);

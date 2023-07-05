@@ -45,7 +45,6 @@ export const authReducer = (state = initialState, action: any) => {
       };
       case FETCH_AUTH_LOGIN_SUCCESS:
         const token = action.payload.token;
-        console.log("TOKEN: ", token);
         localStorage.setItem("token", token);
         localStorage.setItem("userRole", action.payload.role);
 
