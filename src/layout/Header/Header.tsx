@@ -22,8 +22,6 @@ import {
 
 import {HeaderProps} from './Header.props';
 
-import {DRAWER_WIDTH} from '../Layout';
-import {TextFieldSelect} from '@src/components/TextFieldSelect/TexttFieldSelect';
 
 import {GlobalLoader} from './GlobalLoader';
 

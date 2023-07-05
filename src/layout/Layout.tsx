@@ -8,10 +8,6 @@ import {Header} from './Header/Header';
 import {LayoutProps} from './Layout.props';
 import {Sidebar} from './Sidebar/Sidebar';
 import {selectGlobalIsLoading} from '@src/store/generals/selectors';
-import {setCurrentLocation} from '@src/store/locations/reducer';
-import {selectAllLocations, selectCurrentLocation} from '@src/store/locations/selector';
-import {selectMenuList} from '@src/store/menulist/selector';
-import {fetchMenuList} from '@src/store/menulist/actionCreators';
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
 
@@ -22,32 +18,15 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
     const {children} = props;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const location = useLocation();
 
-    const currLocation = useSelector(selectCurrentLocation);
-    const locations = useSelector(selectAllLocations);
     const isGLoading = useSelector(selectGlobalIsLoading);
-    const menuList = useSelector(selectMenuList);
 
 
     const [open, setOpen] = React.useState(false);
-    const [restaurantId, setRestaurantId] = React.useState('');
 
     const toggleDrawer = React.useCallback((): void => {
         setOpen((prevState) => !prevState);
     }, []);
-    const handleRestaurantId = React.useCallback((restId: string): void => {
-        const url_arr = location.pathname.split("/");
-        dispatch(setCurrentLocation(restId));
-        setRestaurantId(restId);
-        if (url_arr.indexOf("configure") !== -1) {
-            navigate("/app/menu");
-        }
-    }, []);
-
-    React.useEffect(() => {
-        setRestaurantId(currLocation);
-    }, [currLocation]);
 
     const urlElements = window.location.href.split('/');
     React.useEffect(() => {

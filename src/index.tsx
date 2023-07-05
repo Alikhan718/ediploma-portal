@@ -4,9 +4,7 @@ import { ThemeProvider } from '@mui/material';
 import ReactDOM from 'react-dom/client';
 
 import './styles/globals.css';
-import '@aws-amplify/ui-react/styles.css';
 import { Provider } from 'react-redux';
-import { Amplify } from 'aws-amplify';
 import reportWebVitals from './reportWebVitals';
 
 import App from './App';
