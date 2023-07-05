@@ -87,7 +87,6 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         triggerSearchFilters();
     };
     const triggerSearchFilters = () => {
-        console.log("TRIGGERED SEARCH FILTERS")
         dispatch(fetchSearch(filterAttributes));
     };
     const dispatch = useDispatch();
@@ -131,7 +130,6 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                onChange={handleSearch} startAdornment={<SearchIcon/>}
                                endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
                                    setShowFilter(!showFilter);
-                                   console.log(showFilter);
                                }}/>}/>
                     }</Box>
                 <FilterSection triggerSearchFilters={triggerSearchFilters} filterAttributes={filterAttributes}

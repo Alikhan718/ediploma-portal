@@ -1,8 +1,11 @@
 import {
     FETCH_CHECK_IIN_ERROR,
-    FETCH_CHECK_IIN_SAGA, FETCH_CHECK_IIN_SUCCESS,
+    FETCH_CHECK_IIN_SAGA,
+    FETCH_CHECK_IIN_SUCCESS,
     FETCH_DIPLOMAS_SAGA,
-    FETCH_DIPLOMAS_SUCCESS, FETCH_SEARCH_SAGA, FETCH_SEARCH_SUCCESS
+    FETCH_DIPLOMAS_SUCCESS,
+    FETCH_SEARCH_SAGA,
+    FETCH_SEARCH_SUCCESS
 } from "./types/types";
 
 interface DiplomaInterface {
@@ -15,14 +18,7 @@ interface DiplomaInterface {
     year: number,
     gpaL: number,
     gpaR: number,
-    // const [filterAttributes, setFilterAttributes] = useState({
-    //     text: "",
-    //     specialities: "",
-    //     region: "",
-    //     year: "",
-    //     gpaL: "",
-    //     gpaR: "",
-    // });
+    filtered_names: string[],
 }
 
 const initialState: DiplomaInterface = {
@@ -35,21 +31,28 @@ const initialState: DiplomaInterface = {
     year: 0,
     gpaL: 0,
     gpaR: 0,
+    filtered_names: []
 };
 
 const diplomaReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case FETCH_DIPLOMAS_SAGA:
-            console.log("FETCH_DIPLOMAS_SAGA");
             return {
                 ...state,
                 isFetching: true,
                 iinValidated: false
             };
         case FETCH_DIPLOMAS_SUCCESS:
+            let temp_diploma_list = [];
+            if (state.filtered_names.length) {
+                temp_diploma_list = action.payload.filter((diploma: any) => state.filtered_names.includes(diploma.name));
+            } else {
+                temp_diploma_list = action.payload;
+            }
             return {
                 ...state,
-                diplomas_list: action.payload,
+                diplomas_list: temp_diploma_list,
+                filtered_names: state.filtered_names,
                 isFetching: false,
             };
         case FETCH_CHECK_IIN_SAGA:
@@ -83,12 +86,10 @@ const diplomaReducer = (state = initialState, action: any) => {
                 gpaR: action.payload.gpaR,
             };
         case FETCH_SEARCH_SUCCESS:
-            let names = action.payload;
-            let search_diploma_list = state.diplomas_list.filter((diploma) => names.includes(diploma.name));
             return {
                 ...state,
                 iinValidated: false,
-                diplomas_list: search_diploma_list
+                filtered_names: action.names,
             };
         default:
             return state; // Add this line to return the current state for unhandled actions

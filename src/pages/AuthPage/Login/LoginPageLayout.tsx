@@ -41,7 +41,6 @@ export const LoginPageLayout: React.FC = () => {
         const urlElements = window.location.href.split('/');
 
         if (isAuthenticated() && urlElements.includes('auth')) {
-            console.log(urlElements);
             navigate(routes.main, {replace: true});
         }
     }, [localStorage.getItem("token")]);

@@ -68,10 +68,8 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
             dispatch(fetchDiplomas());
         }, [!diplomaList]);
         React.useEffect(() => {
-            console.log("iinValidated", iinValidated);
 
             if (iinValidated || isAuthenticated()) {
-                console.log("SETTING DATA");
                 setData(diplomaList.filter((diploma: any) => diploma.counter == id)[0]);
             }
         }, [iinValidated, isAuthenticated(), diplomaList]);
