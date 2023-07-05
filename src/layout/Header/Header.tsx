@@ -84,7 +84,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFilterAttributes({...filterAttributes, text: e.target.value.trim()})
-        triggerSearchFilters();
+        if(e.target.value.trim().length >= 2) {
+            triggerSearchFilters();
+        }
     };
     const triggerSearchFilters = () => {
         dispatch(fetchSearch(filterAttributes));

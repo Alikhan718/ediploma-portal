@@ -36,7 +36,7 @@ export function* fetchContractRequest() {
 
             newData.push(dict);
         });
-            yield put({type: FETCH_DIPLOMAS_SUCCESS, payload: newData});
+        yield put({type: FETCH_DIPLOMAS_SUCCESS, payload: newData});
 
 
     } catch (e) {
@@ -63,6 +63,13 @@ export function* fetchCheckIINRequest(action: any) {
 
 export function* fetchSearchRequest(action: any) {
     try {
+        if (!action.payload
+            || !action.payload.text
+            && !action.payload.specialities
+            && !action.payload.region
+            && !action.payload.year) {
+            return;
+        }
         const {data} = yield call(diplomasApi.search, action.payload);
         yield put({type: FETCH_DIPLOMAS_SAGA});
         let names = <any>[];
