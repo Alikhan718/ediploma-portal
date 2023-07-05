@@ -71,9 +71,10 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
             console.log("iinValidated", iinValidated);
 
             if (iinValidated || isAuthenticated()) {
+                console.log("SETTING DATA");
                 setData(diplomaList.filter((diploma: any) => diploma.counter == id)[0]);
             }
-        }, [iinValidated || isAuthenticated()]);
+        }, [iinValidated, isAuthenticated(), diplomaList]);
         const handleCheck = async (): Promise<void> => {
             let nameEng = await diplomaList.filter((diploma: any) => diploma.counter == id)[0].name;
             let payload = {
