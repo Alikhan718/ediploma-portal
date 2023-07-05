@@ -43,7 +43,7 @@ export const MainPageLayout: React.FC = () => {
                     </Box>
                     <Box display='flex' >
                         <Input
-                            placeholder='Найти по ФИО, специальности и номеру диплома'
+                            placeholder='Найти по ФИО'
                             fullWidth={true}
                             inputSize='m'
                             sx={{

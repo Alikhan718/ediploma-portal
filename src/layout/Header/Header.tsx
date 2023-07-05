@@ -127,8 +127,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                     </NavLink>
                 ))}
                 <Box className="diploma-navbar-item" width="100%">
-                    {!window.location.href.split('/').includes('main') &&
-                        <Input placeholder='Найти по ФИО, специальности и номеру диплома' fullWidth={true} inputSize='s'
+                    {!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('univeristy') &&
+                        <Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'
                                onChange={handleSearch} startAdornment={<SearchIcon/>}
                                endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
                                    setShowFilter(!showFilter);
