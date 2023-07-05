@@ -61,19 +61,19 @@ export const DiplomaPageLayout: React.FC = () => {
                         <Box sx={{display: 'flex', flexDirection: 'column', width: "100%"}}>
                             <CardContent
                                 sx={{flex: '1 0 auto', display: "flex", flexDirection: "column", width: "100%"}}>
-                                <Typography mb='.5rem' fontSize="1.25rem" fontWeight="600">
+                                <Typography mb='.5rem' fontSize="1.25rem" className={styles.mobText} fontWeight="600">
                                     {e.name_ru}
                                 </Typography>
-                                <Typography mb='.5rem' fontSize="1rem">
+                                <Typography mb='.5rem' fontSize="1rem" className={styles.mobTextSm}>
                                     {e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1)}
                                 </Typography>
                                 <Box display='flex' mt='auto' width='100%'>
                                     <Typography fontSize="0.875rem" mr='auto'>
                                         {/*КБТУ*/}
                                     </Typography>
-                                    <Typography fontSize="0.875rem" ml='auto' mr='1rem'>
-                                        {humanReadableToLocalTime(e.protocol_en, "/")}
-                                    </Typography>
+                                    {/*<Typography fontSize="0.875rem" ml='auto' mr='1rem'>*/}
+                                    {/*    {humanReadableToLocalTime(e.protocol_en, "/")}*/}
+                                    {/*</Typography>*/}
                                 </Box>
                             </CardContent>
                         </Box>

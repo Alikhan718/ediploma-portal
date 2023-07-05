@@ -29,17 +29,17 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
         <Box className={styles.container}>
             <Box className={styles.navbar}>
                 <img src={BrandIcon} className={styles.brand} onClick={() => {navigate(routes.main)}}/>
-                <Box>
-                    <Box display='flex' gap='.5rem' style={{cursor:"pointer"}}>
-                        <Typography fontWeight='500' color='white' fontSize='1.5rem' >
-                            Рус
-                        </Typography>
-                        <Web style={{marginTop: ".2rem"}}/>
-                    </Box>
-                </Box>
+                {/*<Box>*/}
+                {/*    <Box display='flex' gap='.5rem' style={{cursor:"pointer"}}>*/}
+                {/*        <Typography fontWeight='500' color='white' fontSize='1.5rem' >*/}
+                {/*            Рус*/}
+                {/*        </Typography>*/}
+                {/*        <Web style={{marginTop: ".2rem"}}/>*/}
+                {/*    </Box>*/}
+                {/*</Box>*/}
             </Box>
             <Box flexDirection='column' className={styles.contentLeft}  paddingY='12rem'>
-                <Typography fontSize='3rem' fontWeight='700' width='70%' color='white'>
+                <Typography fontSize='3rem' fontWeight='700' width='70%' lineHeight='normal' mb='1rem' color='white'>
                     Цифровые дипломы NFT для выпускников
                 </Typography>
                 <Typography fontSize='1.2rem' color='white' width='70%'>

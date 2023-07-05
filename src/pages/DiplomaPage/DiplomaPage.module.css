@@ -30,7 +30,8 @@
 
 @media only screen and (max-width: 768px) {
     .diplomaImg {
-        width: 100% !important;
+        width: 40% !important;
+        padding: 1rem !important;
     }
 
     .diplomasContainer {
@@ -40,10 +41,28 @@
     .accessModal {
         width: 95%;
     }
-
+    .mobText {
+        font-size: 1rem !important;
+    }
+    .mobMb1 {
+        margin-bottom: 1rem !important;
+    }
+    .mobTextL {
+        font-size: 1.5rem !important;
+    }
+    .mobTextSm {
+        font-size: .8rem !important;
+    }
+    .mobPl2 {
+        padding-left: 2rem;
+    }
+    .mobPl1 {
+        padding-left: 1rem;
+    }
     .diplomaItem {
+        padding: 0 .5rem !important;
         width: 100%;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
     }
 }

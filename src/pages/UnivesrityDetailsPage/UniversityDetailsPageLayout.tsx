@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {Box, Button, Card, CardContent, CardMedia, Divider, Paper, Typography, useMediaQuery} from '@mui/material';
-import {ReactComponent as VerifiedIcon} from '@src/assets/icons/verified.svg';
+import {Box, Card, CardContent, CardMedia, Divider, Typography, useMediaQuery} from '@mui/material';
 import {ReactComponent as SmartContractIcon} from '@src/assets/icons/smartContract_black.svg';
 import {ReactComponent as WebIcon} from '@src/assets/icons/web_black.svg';
 import {ReactComponent as DiscordIcon} from '@src/assets/icons/discord_black.svg';
@@ -10,23 +9,17 @@ import {ReactComponent as FavouriteIcon} from '@src/assets/icons/star_dark.svg';
 import {ReactComponent as ShareIcon} from '@src/assets/icons/share_dark.svg';
 import {ReactComponent as MoreIcon} from '@src/assets/icons/more_horiz_dark.svg';
 import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
-import exampleImage from "@src/assets/example/diploma.jpg";
-import {ReactComponent as NeedAuthorizationPic} from "@src/assets/example/requireAuthorizationPic.svg";
 import styles from "./UniversityDetailsPage.module.css";
-import {UniversityPageHeader} from "@src/pages/UnivesrityPage/components/UniversityPageHeader";
 import {UniversityDetailsPageHeader} from "@src/pages/UnivesrityDetailsPage/components/UniversityDetailsPageHeader";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import {isAuthenticated} from "@src/utils/userAuth";
-import {routes} from "@src/shared/routes";
 import {useNavigate} from "react-router-dom";
-import {Modal} from "@src/components";
 import {handleLink} from "@src/utils/link";
-import {humanReadableToLocalTime} from "@src/utils/functions";
 import {selectDiplomaList} from "@src/store/diplomas/selectors";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
 import cn from "classnames";
+import diplomaTemplate from "@src/assets/example/diploma_template.jpg";
 
 
 interface TabPanelProps {
@@ -47,7 +40,7 @@ function TabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box sx={{p: 3}}>
+                <Box pr={3} pt={2}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
@@ -202,7 +195,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                             </Tabs>
                         </Box>
                         <TabPanel value={value} index={0}>
-                            <Box display='flex' justifyContent='space-between' className={styles.diplomasContainer}
+                            <Box display='flex' p="0" justifyContent='space-between' className={styles.diplomasContainer}
                                  flexWrap='wrap'>
                                 {diplomaList.slice(0, 6).map((e: any) => (
                                     <Card key={e.counter} elevation={6}
@@ -215,13 +208,14 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                               width: "49%",
                                               cursor: "pointer",
                                               borderRadius: "10px",
+                                              padding: 0,
                                               marginBottom: "1.5rem"
                                           }}>
                                         <CardMedia
                                             component="img"
                                             className={styles.diplomaImg}
                                             sx={{width: "13rem", padding: "1.5rem"}}
-                                            image={e.image}
+                                            image={diplomaTemplate}
                                             alt="University Image"
                                         />
                                         <Box sx={{display: 'flex', flexDirection: 'column', width: "100%"}}>
@@ -232,23 +226,25 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                                     flexDirection: "column",
                                                     width: "100%"
                                                 }}>
-                                                <Typography mb='.5rem' fontSize="1.25rem" fontWeight="600">
-                                                    {e.name_kz}
+                                                <Typography mb='.5rem' fontSize="1.25rem" className={styles.mobText}
+                                                            fontWeight="600">
+                                                    {e.name_ru}
                                                 </Typography>
-                                                <Typography mb='.5rem' fontSize="1rem">
+                                                <Typography mb='.5rem' fontSize="1rem" className={styles.mobTextSm}>
                                                     {e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1)}
                                                 </Typography>
                                                 <Box display='flex' mt='auto' width='100%'>
                                                     <Typography fontSize="0.875rem" mr='auto'>
                                                         {/*КБТУ*/}
                                                     </Typography>
-                                                    <Typography fontSize="0.875rem" ml='auto' mr='1rem'>
-                                                        {humanReadableToLocalTime(e.protocol_en, "/")}
-                                                    </Typography>
+                                                    {/*<Typography fontSize="0.875rem" ml='auto' mr='1rem'>*/}
+                                                    {/*    {humanReadableToLocalTime(e.protocol_en, "/")}*/}
+                                                    {/*</Typography>*/}
                                                 </Box>
                                             </CardContent>
                                         </Box>
                                     </Card>
+
 
                                 ))}
                             </Box>
