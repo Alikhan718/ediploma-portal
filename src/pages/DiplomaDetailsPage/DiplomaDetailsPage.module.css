@@ -57,11 +57,11 @@
         justify-content: space-between;
     }
     .btnMobile {
-        width: 30%;
+        width: 30% !important;
         border-color: #0A66C2 !important;
-        color: white;
-        display: flex;
-        flex-direction: column;
+        color: white !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
     .iconMobile {
         margin-left: .8rem;
