@@ -147,7 +147,7 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                         </CardMedia>
                     </Card>
                     <Box className={styles.contentLeft}>
-                        <Button defaultValue="download" startIcon={<DownloadIcon/>} variant='outlined'
+                        <Button defaultValue="download" className={styles.btnMobile} startIcon={<DownloadIcon className={styles.iconMobile}/>} variant='outlined'
                                 onClick={() => {
                                     let link = data && data.image ? data.image : "";
                                     handleLink(link);
@@ -155,7 +155,7 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                                 sx={{borderColor: "#0A66C2", borderRadius: "18px"}}>
                             Скачать
                         </Button>
-                        <Button startIcon={<ShareIcon/>} variant='outlined'
+                        <Button startIcon={<ShareIcon className={styles.iconMobile}/>} className={styles.btnMobile} variant='outlined'
                                 onClick={() => {
                                     navigator.clipboard.writeText(currentUrl);
                                     setAlertOpen(true);
@@ -163,7 +163,7 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                                 sx={{borderColor: "#0A66C2", borderRadius: "18px"}}>
                             Поделиться
                         </Button>
-                        <Button startIcon={<QRIcon/>} variant='outlined'
+                        <Button startIcon={<QRIcon className={styles.iconMobile}/>} className={styles.btnMobile} variant='outlined'
                                 onClick={handleQRCodeButtonClick}
                                 sx={{borderColor: "#0A66C2", borderRadius: "18px"}}>
                             QR-код
@@ -182,7 +182,7 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                             </Typography>
                             <Typography fontSize='1.4rem'
                                         className={styles.textSm}
-                                        fontWeight='700'>{data && data.degree_ru ? data.degree_ru.replace("ПРИСУЖДЕНА СТЕПЕНЬ ", "").toLowerCase() : ""}</Typography>
+                                        fontWeight='700'>{data && data.degree_ru ? data.degree_ru.replace("ПРИСУЖДЕНА СТЕПЕНЬ ", "")[0].toUpperCase() + data.degree_ru.replace("ПРИСУЖДЕНА СТЕПЕНЬ ", "").toLowerCase().substring(1) : ""}</Typography>
                         </Box>
 
                         <Box display='flex' mb='.5rem'>

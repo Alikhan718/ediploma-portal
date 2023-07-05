@@ -73,9 +73,10 @@ export const SwitchDetails: React.FC = () => {
                     <Typography className={styles.textMd} fontWeight='700' fontSize={"1.5rem"}>
                         Статус:
                     </Typography>
-                    <Chip color="success" style={{marginLeft: "1rem", marginTop: ".2rem"}}
+                    <Chip color="success"  style={{marginLeft: "1rem"}}
+                          className={cn(styles.MobMt0, styles.mt02)}
                           icon={<SingleCheck style={{marginLeft: ".5rem"}}/>}
-                          label={<Typography className={cn(styles.textMd, styles.MobMb1)}
+                          label={<Typography className={cn(styles.textMd)}
                                              sx={{marginRight: ".5rem"}}>Подтвержден</Typography>} variant="outlined"/>
                 </Box>
                 <Box display='flex' flexDirection="column">

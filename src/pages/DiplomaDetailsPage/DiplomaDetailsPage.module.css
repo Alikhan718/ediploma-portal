@@ -36,7 +36,9 @@
     gap: 1rem;
     padding-top: 1.5rem;
 }
-
+.mt02 {
+    margin-top: .2rem;
+}
 @media only screen and (max-width: 768px) {
 
     .contentLeftContainer {
@@ -46,13 +48,25 @@
     }
 
     .contentLeft {
+        position: absolute;
+        bottom: -10rem;
+        left: 0;
         display: flex;
         margin-top: 1rem;
-        flex-direction: column;
-        gap: 1rem;
+        background-color: #0A66C2 !important;
         justify-content: space-between;
     }
-
+    .btnMobile {
+        width: 30%;
+        border-color: #0A66C2 !important;
+        color: white;
+        display: flex;
+        flex-direction: column;
+    }
+    .iconMobile {
+        margin-left: .8rem;
+        filter: invert(94%) sepia(0%) saturate(24%) hue-rotate(24deg) brightness(166%) contrast(108%);
+    }
     .contentRightContainer {
         width: 100%;
         display: flex;
@@ -62,11 +76,12 @@
     }
 
     .textMd {
-        font-size: 1.2rem !important;
+        font-size: 1rem !important;
     }
 
     .textSm {
-        font-size: 1rem !important;
+        font-size: .8rem !important;
+        font-weight: 400 !important;
     }
 
     .textXs {
@@ -78,6 +93,12 @@
         margin: 0 !important;
     }
 
+    .mobMt05 {
+        margin-top: .5rem !important;
+    }
+    .mobMt0 {
+        margin-top: 0 !important;
+    }
     .mobMt1 {
         margin-top: 1rem !important;
     }
@@ -99,6 +120,7 @@
         margin-top: 1rem !important ;
         display: flex !important;
         padding: 0 1rem !important;
+        gap: 0 !important;
         justify-content: space-between !important;
     }
 }
