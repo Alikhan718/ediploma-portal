@@ -6,16 +6,11 @@ import {ReactComponent as CertificateIcon} from '@src/assets/icons/Cerificate.sv
 import {ReactComponent as DownloadIcon} from '@src/assets/icons/download.svg';
 import {ReactComponent as ShareIcon} from '@src/assets/icons/share.svg';
 import {ReactComponent as QRIcon} from '@src/assets/icons/qr-code.svg';
-import {ReactComponent as NeedAuthorizationPic} from "@src/assets/example/requireAuthorizationPic.svg";
+import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 import exampleImage from "@src/assets/example/diploma_template.jpg";
 import {SwitchDetails} from "@src/pages/DiplomaDetailsPage/components/SwitchDetails";
 import QRCode from 'react-qr-code';
-import {ethers} from 'ethers';
-import {create, urlSource} from 'ipfs-http-client';
-import * as http from "http";
 import {Input, Modal} from "@src/components";
-import {setSnackbar} from "@src/store/generals/actionCreators";
-import {put} from "redux-saga/effects";
 import {handleLink} from "@src/utils/link";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDiplomaList, selectIINValidated} from "@src/store/diplomas/selectors";
@@ -121,7 +116,7 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                 >
                     <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
 
-                        <NeedAuthorizationPic/>
+                        <img src={NeedAuthorizationPic} alt=""/>
                         <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
                                     fontWeight='600'
                                     variant="h6"

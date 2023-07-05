@@ -17,7 +17,7 @@ export const routes = {
     stopList: `${appRoot}/stopList`,
     timeSetting: `${appRoot}/time-settings`,
     uploadMenu: `${appRoot}/createMenu/upload-file`,
-    main: `${appRoot}/`,
+    main: `${appRoot}/main`,
     diploma: `${appRoot}/diploma`,
     diplomaDetails: `${appRoot}/diploma/:id/details`,
     university: `${appRoot}/university`,

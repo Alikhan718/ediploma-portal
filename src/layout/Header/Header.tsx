@@ -109,13 +109,14 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                     </NavLink>
                 ))}
                 <Box className="diploma-navbar-item" width="100%">
+                {!window.location.href.split('/').includes('main') &&
                     <Input placeholder='Найти по ФИО, специальности и номеру диплома' fullWidth={true} inputSize='s'
                            onChange={handleSearch} startAdornment={<SearchIcon/>}
                            endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
                                setShowFilter(!showFilter);
                                console.log(showFilter);
                            }}/>}/>
-                </Box>
+                }</Box>
                 <FilterSection open={showFilter} setOpen={setShowFilter}/>
                 {/* REST SELECTOR  */}
                 <Box display='flex'  justifyContent='flex-end' py='10px' className="diploma-btn-container">

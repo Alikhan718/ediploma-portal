@@ -78,13 +78,6 @@ export const UniversityDetailsPageLayout: React.FC = () => {
     };
 
     const navigate = useNavigate();
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
     const dispatch = useDispatch();
     const diplomaList = useSelector(selectDiplomaList);
     React.useEffect(() => {
@@ -92,31 +85,6 @@ export const UniversityDetailsPageLayout: React.FC = () => {
     }, [diplomaList]);
     return (
         <Box display='flex' flexWrap='wrap'>
-            <Modal
-                open={open}
-                handleClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
-
-                    <NeedAuthorizationPic/>
-                    <Typography textAlign='center' id="modal-modal-title" fontSize='1rem' fontWeight='600' variant="h6"
-                                component="h2">
-                        Для открытия этой опции требуется авторизация
-                    </Typography>
-                    <Button variant='contained' sx={{
-                        marginTop: "1rem",
-                        padding: "1rem",
-                        width: "80%",
-                        fontSize: "1rem",
-                        fontWeight: "600",
-                        borderRadius: "2rem"
-                    }} onClick={() => {
-                        navigate(routes.login);
-                    }}>Войти</Button>
-                </Box>
-            </Modal>
             <UniversityDetailsPageHeader/>
             <Box ml={'2rem'} width={"100%"}>
                 <Box width="100%" display='flex' justifyContent='space-between'>
@@ -203,7 +171,8 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                     </Box>
                     <Box display='flex' gap='3rem' className={styles.gap1} mt='1rem'>
                         <Box display='flex' flexDirection='column'>
-                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>Top 34%</Typography>
+                            <Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>Top
+                                34%</Typography>
                             <Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Рейтинг <br/>
                                 QS Asia 2023</Typography>
                         </Box>
@@ -218,9 +187,9 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                 с отличием</Typography>
                         </Box>
                         {/*<Box display='flex' flexDirection='column'>*/}
-                            {/*<Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>3.2</Typography>*/}
-                            {/*<Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Средний*/}
-                            {/*    GPA</Typography>*/}
+                        {/*<Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>3.2</Typography>*/}
+                        {/*<Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Средний*/}
+                        {/*    GPA</Typography>*/}
                         {/*</Box>*/}
                     </Box>
 
@@ -238,12 +207,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                 {diplomaList.slice(0, 6).map((e: any) => (
                                     <Card key={e.counter} elevation={6}
                                           onClick={() => {
-                                              if (isAuthenticated()) {
-                                                  navigate(`/app/diploma/${e.counter!}/details`);
-                                              } else {
-                                                  handleOpen();
-                                              }
-
+                                              navigate(`/app/diploma/${e.counter!}/details`);
                                           }}
                                           className={styles.diplomaItem}
                                           sx={{
