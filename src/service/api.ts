@@ -52,7 +52,7 @@ export const authApi = {
     register(body: { email: string, password: string, companyName: string }) {
         return instance.post(`/register`, body);
     },
-    validateEmail(body: {email: string, code: string}) {
+    validateEmail(body: { email: string, code: string }) {
         return instance.post(`/verify-otp`, body);
     }
 };
@@ -67,10 +67,38 @@ export const diplomasApi = {
     async getContracts() {
         let link = "ipfs://bafybeidbedhhugo2nck5b7x5edxgpflnigwsj4jqf2gx24ddm5jvske7cu/fullMetadata.json";
         link = link.replace("ipfs://", "https://ipfs.io/ipfs/");
-
         return instance.get(link);
     },
-    checkIIN(body: {name: string, iin: string}) {
+    checkIIN(body: { name: string, iin: string }) {
         return instance.get(`validate-iin?name=${body.name}&iin=${body.iin}`);
+    },
+    search(body: {
+        text: string,
+        specialities: string,
+        region: string,
+        year: number,
+        gpaL: number,
+        gpaR: number,
+    }) {
+        let query = `search?`;
+        if (body.text != ""){
+            query += `name=${body.text}&`;
+        }
+        if (body.specialities != ""){
+            query += `specialities=${body.specialities}&`;
+        }
+        if (body.region != ""){
+            query += `region=${body.region}&`;
+        }
+        if (body.year != 0){
+            query += `year=${body.year}&`;
+        }
+        if (body.gpaL != 0){
+            query += `gpaL=${body.gpaL}&`;
+        }
+        if (body.gpaR != 0){
+            query += `gpaR=${body.gpaR}&`;
+        }
+        return instance.get(query);
     }
-}
+};

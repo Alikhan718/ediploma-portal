@@ -5,8 +5,14 @@ import {setSnackbar} from "../generals/actionCreators";
 import {
     UPDATE_ATTRIBUTE_GROUP_ERROR,
     FETCH_DIPLOMAS_SAGA,
-    FETCH_DIPLOMAS_SUCCESS, FETCH_CHECK_IIN_SUCCESS, FETCH_DIPLOMAS_ERROR, FETCH_CHECK_IIN_SAGA
+    FETCH_DIPLOMAS_SUCCESS,
+    FETCH_CHECK_IIN_SUCCESS,
+    FETCH_DIPLOMAS_ERROR,
+    FETCH_CHECK_IIN_SAGA,
+    FETCH_SEARCH_SAGA,
+    FETCH_SEARCH_SUCCESS, FETCH_SEARCH_ERROR
 } from "./types/types";
+import {selectDiplomaList} from "@src/store/diplomas/selectors";
 
 export function* fetchContractRequest() {
     try {
@@ -41,7 +47,6 @@ export function* fetchContractRequest() {
 
 export function* fetchCheckIINRequest(action: any) {
     try {
-        console.log("action.payload", action.payload);
         const {data} = yield call(diplomasApi.checkIIN, action.payload);
         if (data) {
             yield put({type: FETCH_CHECK_IIN_SUCCESS, data});
@@ -55,9 +60,27 @@ export function* fetchCheckIINRequest(action: any) {
         yield put({type: FETCH_DIPLOMAS_ERROR});
     }
 }
+export function* fetchSearchRequest(action: any) {
+    try {
+        console.log("action.payload", action.payload);
+        const {data} = yield call(diplomasApi.search, action.payload);
+        yield put({type: FETCH_DIPLOMAS_SAGA});
+        let names = <any>[];
+        data.forEach((person: any) => {
+            names.push(person.fullnameeng);
+        });
+        yield put({type: FETCH_SEARCH_SUCCESS, names});
+        yield put(setSnackbar({visible: true, message: "Поиск выполнен!", status: "success"}));
+
+    } catch (e) {
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+        yield put({type: FETCH_SEARCH_ERROR});
+    }
+}
 
 
 export function* diplomaSaga() {
     yield takeLatest(FETCH_DIPLOMAS_SAGA, fetchContractRequest);
     yield takeLatest(FETCH_CHECK_IIN_SAGA, fetchCheckIINRequest);
+    yield takeLatest(FETCH_SEARCH_SAGA, fetchSearchRequest);
 }

@@ -1,5 +1,8 @@
 export interface IFilter {
     open: boolean,
-    setOpen: any
+    setOpen: any,
+    filterAttributes: any,
+    setFilterAttributes: any,
+    triggerSearchFilters: any,
 }
 

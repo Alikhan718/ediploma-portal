@@ -6,17 +6,37 @@ import {regions, specialities, years} from "@src/layout/Filter/generator";
 import {Button} from "@src/components";
 
 export const FilterSection: React.FC<IFilter> = (props) => {
-    const {open, setOpen} = props;
-    const [selectedSpecialities, setSelectedSpecialities] = React.useState([""]);
+    const {open, setOpen, filterAttributes, setFilterAttributes, triggerSearchFilters} = props;
+    const [selectedSpecialities, setSelectedSpecialities] = React.useState<string[]>([]);
     const [selectedGPA, setSelectedGPA] = React.useState(([1.0, 4.0]));
-    const [selectedYear, setSelectedYear] = React.useState([2023]);
-    const [selectedRegions, setSelectedRegions] = React.useState([""]);
-    const [filterAttributes, setFilterAttributes] = React.useState({});
+    const [selectedYear, setSelectedYear] = React.useState<number[]>([]);
+    const [selectedRegions, setSelectedRegions] = React.useState<string[]>([]);
+    const setFilterValues = () => {
+
+        const filterValues = {
+            text: filterAttributes.text,
+            specialities: selectedSpecialities.join(",") ?? filterAttributes.specialities,
+            region: selectedRegions.join(",") ?? filterAttributes.region,
+            year: selectedYear.join(",") ?? filterAttributes.year,
+            gpaL: selectedGPA[0] ?? filterAttributes.gpaL,
+            gpaR: selectedGPA[1] ?? filterAttributes.gpaR,
+        };
+
+        // Update the filterAttributes state
+        setFilterAttributes(filterValues);
+    };
     const handleChange = (e: any, arr: any, setE: any) => {
         setE(arr.includes(e) ? arr.filter((i: any) => i != e) : [...arr, e]);
+
+        setFilterValues();
+        triggerSearchFilters();
+
     };
     const handleGPA = (event: Event, newValue: number | number[]) => {
         setSelectedGPA(newValue as number[]);
+        setFilterValues();
+        triggerSearchFilters();
+
     };
     return (
         <React.Fragment>

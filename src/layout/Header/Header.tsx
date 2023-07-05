@@ -1,6 +1,5 @@
 import React from 'react';
 
-import LocationIcon from '@src/assets/icons/location.png';
 import MenuIcon from '@src/assets/icons/menu lines.svg';
 import BrandIcon from '@src/assets/icons/brand.svg';
 import {ReactComponent as UserIcon} from '@src/assets/icons/user.svg';
@@ -14,10 +13,7 @@ import {
     styled,
     Typography,
     Box,
-    LinearProgress,
-    MenuItem,
-    InputAdornment,
-    ListSubheader, Divider
+    Divider
 } from '@mui/material';
 
 import {HeaderProps} from './Header.props';
@@ -32,6 +28,7 @@ import {isAuthenticated} from "@src/utils/userAuth";
 import {FilterSection} from "@src/layout/Filter/FilterSection";
 import {useDispatch} from "react-redux";
 import {fetchAuthLogout} from "@src/store/auth/saga";
+import {fetchSearch} from "@src/store/diplomas/actionCreators";
 
 
 interface AppBarProps extends MuiAppBarProps {
@@ -59,17 +56,39 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
+export interface FilterAttributes {
+    text?: string,
+    specialities?: string;
+    region?: string;
+    year?: number;
+    gpaL?: number;
+    gpaR?: number;
+}
 
 const AppHeader: React.FC<HeaderProps> = (props) => {
-    const {open, setOpen } = props;
+    const {open, setOpen} = props;
 
     const [showFilter, setShowFilter] = React.useState(false);
 
-    const [search, setSearch] = React.useState("");
     const navigate = useNavigate();
 
+    const [filterAttributes, setFilterAttributes] = React.useState<FilterAttributes>({
+        text: "",
+        specialities: "",
+        region: "",
+        year: 0,
+        gpaL: 0,
+        gpaR: 0,
+    });
+
+
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setSearch(e.target.value);
+        setFilterAttributes({...filterAttributes, text: e.target.value.trim()})
+        triggerSearchFilters();
+    };
+    const triggerSearchFilters = () => {
+        console.log("TRIGGERED SEARCH FILTERS")
+        dispatch(fetchSearch(filterAttributes));
     };
     const dispatch = useDispatch();
     const userRole = localStorage.getItem("userRole") || "";
@@ -107,17 +126,18 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                     </NavLink>
                 ))}
                 <Box className="diploma-navbar-item" width="100%">
-                {!window.location.href.split('/').includes('main') &&
-                    <Input placeholder='Найти по ФИО, специальности и номеру диплома' fullWidth={true} inputSize='s'
-                           onChange={handleSearch} startAdornment={<SearchIcon/>}
-                           endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
-                               setShowFilter(!showFilter);
-                               console.log(showFilter);
-                           }}/>}/>
-                }</Box>
-                <FilterSection open={showFilter} setOpen={setShowFilter}/>
+                    {!window.location.href.split('/').includes('main') &&
+                        <Input placeholder='Найти по ФИО, специальности и номеру диплома' fullWidth={true} inputSize='s'
+                               onChange={handleSearch} startAdornment={<SearchIcon/>}
+                               endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
+                                   setShowFilter(!showFilter);
+                                   console.log(showFilter);
+                               }}/>}/>
+                    }</Box>
+                <FilterSection triggerSearchFilters={triggerSearchFilters} filterAttributes={filterAttributes}
+                               setFilterAttributes={setFilterAttributes} open={showFilter} setOpen={setShowFilter}/>
                 {/* REST SELECTOR  */}
-                <Box display='flex'  justifyContent='flex-end' py='10px' className="diploma-btn-container">
+                <Box display='flex' justifyContent='flex-end' py='10px' className="diploma-btn-container">
                     {!isAuthenticated() ? <Button
                             onClick={() => {
                                 navigate(routes.login, {replace: true});

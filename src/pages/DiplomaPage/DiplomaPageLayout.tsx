@@ -20,6 +20,7 @@ export const DiplomaPageLayout: React.FC = () => {
     const diplomaList = useSelector(selectDiplomaList);
 
     React.useEffect(() => {
+        console.log(diplomaList);
         dispatch(fetchDiplomas());
     }, [diplomaList]);
     const getQueryWidth = () => {
@@ -38,7 +39,7 @@ export const DiplomaPageLayout: React.FC = () => {
             <Box display='flex' flexWrap='wrap' justifyContent='space-between' gap='0 1rem'
                  className={styles.diplomasContainer} width='100%'>
 
-                {diplomaList.map((e: any) => (
+                {diplomaList ? diplomaList.map((e: any) => (
                     <Card key={e.counter} elevation={6}
                           onClick={() => {
                               navigate(`/app/diploma/${e.counter!}/details`);
@@ -79,7 +80,7 @@ export const DiplomaPageLayout: React.FC = () => {
                         </Box>
                     </Card>
 
-                ))}
+                )) : null}
             </Box>
         </Box>
 
