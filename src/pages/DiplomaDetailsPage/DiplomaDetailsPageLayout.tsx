@@ -47,7 +47,7 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
         const dispatch = useDispatch();
 
         const iinValidated = useSelector(selectIINValidated);
-        const [open, setOpen] = React.useState(!iinValidated);
+        const [open, setOpen] = React.useState(!iinValidated && !isAuthenticated());
         const navigate = useNavigate();
 
         const handleQRCodeClose = () => {
@@ -70,10 +70,10 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
         React.useEffect(() => {
             console.log("iinValidated", iinValidated);
 
-            if (iinValidated) {
+            if (iinValidated || isAuthenticated()) {
                 setData(diplomaList.filter((diploma: any) => diploma.counter == id)[0]);
             }
-        }, [iinValidated]);
+        }, [iinValidated || isAuthenticated()]);
         const handleCheck = async (): Promise<void> => {
             let nameEng = await diplomaList.filter((diploma: any) => diploma.counter == id)[0].name;
             let payload = {
@@ -107,7 +107,7 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
         return (
             <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 3rem' pt='3rem'>
                 <Modal
-                    open={!iinValidated}
+                    open={!iinValidated && !isAuthenticated()}
                     handleClose={handleClose}
                     maxWidth={getQueryWidth()}
                     width={getQueryWidth()}
