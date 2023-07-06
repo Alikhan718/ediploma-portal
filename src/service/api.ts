@@ -57,11 +57,6 @@ export const authApi = {
     }
 };
 
-export const selectAllApi = {
-    getLocations(menu_id: string) {
-        return instance.get(`/v1/locations/group/642ab068d5ad369ab4647d44`);
-    }
-};
 
 export const diplomasApi = {
     async getContracts() {
