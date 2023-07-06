@@ -30,7 +30,9 @@ export const MainPageLayout: React.FC = () => {
     React.useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             console.log(filterAttributes.text);
-            triggerSearchFilters();
+            if (filterAttributes.text.trim().length > 1) {
+                triggerSearchFilters();
+            }
         }, 2000);
 
         return () => clearTimeout(delayDebounceFn);

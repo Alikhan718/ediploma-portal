@@ -23,7 +23,7 @@ export const Input: React.FC<InputProps> = (props) => {
 	const { fullWidth, inputSize = 's', label, activeBorderColor = 'primary', helper, ...otherProps } = props;
 
 	return (
-		<FormControl fullWidth={fullWidth}>
+		<FormControl fullWidth={fullWidth} sx={{width: "100%"}}>
 			{label && <Label label={label} helper={helper} />}
 			<CustomOutlineInput fullWidth={fullWidth} inputSize={inputSize} {...otherProps} />
 		</FormControl>

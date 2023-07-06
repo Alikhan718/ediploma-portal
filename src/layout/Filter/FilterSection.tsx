@@ -1,9 +1,11 @@
 import React from 'react';
-import {Box, Card, Chip, Slider, Typography} from "@mui/material";
+import {Box, Card, Slider, Typography} from "@mui/material";
 import {IFilter} from "@src/layout/Filter/FilterSection.props";
 import {ReactComponent as CloseIcon} from "@src/assets/icons/cross.svg";
 import {regions, specialities, years} from "@src/layout/Filter/generator";
 import {Button} from "@src/components";
+import styles from "@src/pages/DiplomaPage/DiplomaPage.module.css";
+import cn from "classnames";
 
 export const FilterSection: React.FC<IFilter> = (props) => {
     const {open, setOpen, filterAttributes, setFilterAttributes, triggerSearchFilters} = props;
@@ -41,7 +43,9 @@ export const FilterSection: React.FC<IFilter> = (props) => {
     return (
         <React.Fragment>
             <Box display={open ? 'flex' : 'none'} width='60vw' position='absolute' top='3.3rem'
-                 right='10rem' justifyContent='center'>
+                 right='10rem' justifyContent='center'
+                 className={styles.filterContainer}
+            >
                 <Card elevation={6} sx={{
                     width: "100%",
                     borderRadius: "1rem",
@@ -49,11 +53,13 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                     gap: "1rem",
                     display: "flex",
                     flexDirection: "column",
-                }}>
+                }}
+                      className={styles.mobP2}>
                     <Box display='flex' justifyContent='space-between'>
                         <Typography
                             fontSize='1.5rem'
                             fontWeight='600'
+                            className={styles.mobTextMd}
                         >
                             Фильтр
                         </Typography>
@@ -62,8 +68,8 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                         }}/>
                     </Box>
                     <Box display='flex' flexWrap='wrap' width='100%' justifyContent='space-between' gap='1.5rem 0'>
-                        <Box width='48%'>
-                            <Typography fontSize='1.25rem'>
+                        <Box width='48%' className={styles.mobW100}>
+                            <Typography fontSize='1.25rem' className={styles.mobTextMd}>
                                 Специальности
                             </Typography>
                             <Box display='flex' gap='.5rem' flexWrap='wrap' mt='.5rem'>
@@ -72,15 +78,15 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                                             onClick={() => {
                                                 handleChange(speciality.name, selectedSpecialities, setSelectedSpecialities);
                                             }}
-                                            className={(selectedSpecialities.includes(speciality.name) ? 'active' : 'unactive') + 'Chip' + " customChip"}
+                                            className={cn(((selectedSpecialities.includes(speciality.name) ? 'active' : 'unactive') + 'Chip' + " customChip"), styles.mobPBtn, styles.mobTextSm)}
                                             key={speciality.id}>
                                         {speciality.name}
                                     </Button>)}
                             </Box>
                         </Box>
-                        <Box width='48%'>
+                        <Box width='48%' className={styles.mobW100}>
 
-                            <Typography fontSize='1.25rem'>
+                            <Typography fontSize='1.25rem' className={styles.mobTextMd}>
                                 Регион
                             </Typography>
                             <Box display='flex' gap='.5rem' flexWrap='wrap' mt='.5rem'>
@@ -89,14 +95,14 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                                             onClick={() => {
                                                 handleChange(region.name, selectedRegions, setSelectedRegions);
                                             }}
-                                            className={(selectedRegions.includes(region.name) ? 'active' : 'unactive') + 'Chip' + " customChip"}
+                                            className={cn(((selectedRegions.includes(region.name) ? 'active' : 'unactive') + 'Chip' + " customChip"), styles.mobPBtn, styles.mobTextSm)}
                                             key={region.id}>
                                         {region.name}
                                     </Button>)}
                             </Box>
                         </Box>
-                        <Box width='48%'>
-                            <Typography fontSize='1.25rem'>
+                        <Box width='48%' className={styles.mobW100}>
+                            <Typography fontSize='1.25rem' className={styles.mobTextMd}>
                                 GPA
                             </Typography>
                             <Slider
@@ -109,8 +115,8 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                                 valueLabelDisplay="auto"
                             />
                         </Box>
-                        <Box width='48%'>
-                            <Typography fontSize='1.25rem'>
+                        <Box width='48%' className={styles.mobW100}>
+                            <Typography fontSize='1.25rem' className={styles.mobTextMd}>
                                 Год выпуска
                             </Typography>
                             <Box display='flex' gap='.5rem' flexWrap='wrap' mt='.5rem'>
@@ -119,7 +125,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                                             onClick={() => {
                                                 handleChange(year.year, selectedYear, setSelectedYear);
                                             }}
-                                            className={(selectedYear.includes(year.year) ? 'active' : 'unactive') + 'Chip' + " customChip"}
+                                            className={cn(((selectedYear.includes(year.year) ? 'active' : 'unactive') + 'Chip' + " customChip"), styles.mobPBtn, styles.mobTextSm)}
                                             key={year.id}>
                                         {year.year}
                                     </Button>)}

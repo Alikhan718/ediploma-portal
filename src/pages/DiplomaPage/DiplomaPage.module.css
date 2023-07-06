@@ -50,19 +50,49 @@
     .mobTextL {
         font-size: 1.5rem !important;
     }
+    .mobTextMd {
+        font-size: 1rem !important;
+    }
     .mobTextSm {
         font-size: .8rem !important;
     }
     .mobPl2 {
-        padding-left: 2rem;
+        padding-left: 2rem !important;
     }
     .mobPl1 {
-        padding-left: 1rem;
+        padding-left: 1rem !important;
+    }
+    .mobPx1 {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
     }
     .diplomaItem {
         padding: 0 .5rem !important;
         width: 100%;
         display: flex;
         flex-direction: row;
+    }
+}
+
+/* styles for filter section */
+
+@media only screen and (max-width: 768px) {
+    .filterContainer {
+        width: 100% !important;
+        left: 0 !important;
+        position: fixed !important;
+        bottom: 0 !important;
+    }
+    .mobW100 {
+        width: 100% !important;
+    }
+    .mobP1 {
+        padding: 1rem !important;
+    }
+    .mobPBtn {
+        padding: .5rem .8rem !important;
+    }
+    .mobP2 {
+        padding: 2rem !important;
     }
 }
