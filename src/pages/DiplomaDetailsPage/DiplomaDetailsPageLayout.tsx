@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Alert, Box, Button, Card, CardMedia, Snackbar, Typography, useMediaQuery} from '@mui/material';
 import {ReactComponent as CalendarIcon} from '@src/assets/icons/calendar.svg';
 import {ReactComponent as FileCheckIcon} from '@src/assets/icons/Lesson.svg';
@@ -14,13 +14,12 @@ import {Input, Modal} from "@src/components";
 import {handleLink} from "@src/utils/link";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDiplomaList, selectIINValidated} from "@src/store/diplomas/selectors";
-import {fetchCheckIIN, fetchDiplomas} from "@src/store/diplomas/actionCreators";
+import {fetchCheckIIN, fetchDiplomas, fetchGraduateDetails} from "@src/store/diplomas/actionCreators";
 import {useNavigate, useParams} from "react-router-dom";
 import {humanReadableToLocalTime} from "@src/utils/functions";
 import styles from "./DiplomaDetailsPage.module.css";
 import {isAuthenticated} from "@src/utils/userAuth";
 import {routes} from "@src/shared/routes";
-import {fetchCheckIINRequest} from "@src/store/diplomas/saga";
 
 interface DiplomaData {
     name: string;
@@ -73,6 +72,11 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                 setData(diplomaList.filter((diploma: any) => diploma.counter == id)[0]);
             }
         }, [iinValidated, isAuthenticated(), diplomaList]);
+        React.useEffect(() => {
+            if (isAuthenticated() && data) {
+                dispatch(fetchGraduateDetails({name: data.name}));
+            }
+        }, [data]);
         const handleCheck = async (): Promise<void> => {
             let nameEng = await diplomaList.filter((diploma: any) => diploma.counter == id)[0].name;
             let payload = {
@@ -146,7 +150,8 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                         </CardMedia>
                     </Card>
                     <Box className={styles.contentLeft}>
-                        <Button defaultValue="download" className={styles.btnMobile} startIcon={<DownloadIcon className={styles.iconMobile}/>} variant='outlined'
+                        <Button defaultValue="download" className={styles.btnMobile}
+                                startIcon={<DownloadIcon className={styles.iconMobile}/>} variant='outlined'
                                 onClick={() => {
                                     let link = data && data.image ? data.image : "";
                                     handleLink(link);
@@ -154,7 +159,8 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                                 sx={{borderColor: "#0A66C2", borderRadius: "18px"}}>
                             Скачать
                         </Button>
-                        <Button startIcon={<ShareIcon className={styles.iconMobile}/>} className={styles.btnMobile} variant='outlined'
+                        <Button startIcon={<ShareIcon className={styles.iconMobile}/>} className={styles.btnMobile}
+                                variant='outlined'
                                 onClick={() => {
                                     navigator.clipboard.writeText(currentUrl);
                                     setAlertOpen(true);
@@ -162,7 +168,8 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
                                 sx={{borderColor: "#0A66C2", borderRadius: "18px"}}>
                             Поделиться
                         </Button>
-                        <Button startIcon={<QRIcon className={styles.iconMobile}/>} className={styles.btnMobile} variant='outlined'
+                        <Button startIcon={<QRIcon className={styles.iconMobile}/>} className={styles.btnMobile}
+                                variant='outlined'
                                 onClick={handleQRCodeButtonClick}
                                 sx={{borderColor: "#0A66C2", borderRadius: "18px"}}>
                             QR-код

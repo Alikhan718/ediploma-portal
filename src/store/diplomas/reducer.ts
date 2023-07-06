@@ -4,6 +4,8 @@ import {
     FETCH_CHECK_IIN_SUCCESS,
     FETCH_DIPLOMAS_SAGA,
     FETCH_DIPLOMAS_SUCCESS,
+    FETCH_GRADUATES_DETAILS_SAGA,
+    FETCH_GRADUATES_DETAILS_SUCCESS,
     FETCH_SEARCH_SAGA,
     FETCH_SEARCH_SUCCESS
 } from "./types/types";
@@ -19,6 +21,7 @@ interface DiplomaInterface {
     gpaL: number,
     gpaR: number,
     filtered_names: string[],
+    graduate_attributes: any[],
 }
 
 const initialState: DiplomaInterface = {
@@ -31,7 +34,8 @@ const initialState: DiplomaInterface = {
     year: 0,
     gpaL: 0,
     gpaR: 0,
-    filtered_names: []
+    filtered_names: [],
+    graduate_attributes: [],
 };
 
 const diplomaReducer = (state = initialState, action: any) => {
@@ -84,6 +88,16 @@ const diplomaReducer = (state = initialState, action: any) => {
                 year: action.payload.year,
                 gpaL: action.payload.gpaL,
                 gpaR: action.payload.gpaR,
+            };
+        case FETCH_GRADUATES_DETAILS_SAGA:
+            return {
+                ...state,
+                name: action.payload.name,
+            };
+        case FETCH_GRADUATES_DETAILS_SUCCESS:
+            return {
+                ...state,
+                graduate_attributes: action.data
             };
         case FETCH_SEARCH_SUCCESS:
             return {

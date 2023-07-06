@@ -8,6 +8,9 @@ import {
     FETCH_DIPLOMAS_ERROR,
     FETCH_DIPLOMAS_SAGA,
     FETCH_DIPLOMAS_SUCCESS,
+    FETCH_GRADUATES_DETAILS_ERROR,
+    FETCH_GRADUATES_DETAILS_SAGA,
+    FETCH_GRADUATES_DETAILS_SUCCESS,
     FETCH_SEARCH_ERROR,
     FETCH_SEARCH_SAGA,
     FETCH_SEARCH_SUCCESS,
@@ -91,11 +94,26 @@ export function* fetchSearchRequest(action: any) {
     }
 }
 
+export function* fetchGraduateDetailsRequest(action: any) {
+    try {
+        if (!action.payload || !action.payload.name) {
+            return;
+        }
+        const {data} = yield call(diplomasApi.getGraduateDetails, action.payload.name);
+        yield put({type: FETCH_GRADUATES_DETAILS_SUCCESS, data});
+
+    } catch (e) {
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+        yield put({type: FETCH_GRADUATES_DETAILS_ERROR});
+    }
+}
+
 
 export function* diplomaSaga() {
     yield all([
         takeLatest(FETCH_DIPLOMAS_SAGA, fetchContractRequest),
         takeLatest(FETCH_CHECK_IIN_SAGA, fetchCheckIINRequest),
         takeLatest(FETCH_SEARCH_SAGA, fetchSearchRequest),
+        takeLatest(FETCH_GRADUATES_DETAILS_SAGA, fetchGraduateDetailsRequest),
     ]);
 }

@@ -1,6 +1,4 @@
 import axios from 'axios';
-import {create} from "ipfs-http-client";
-import {ethers} from "ethers";
 
 const per_page = process.env.REACT_APP_ORDERS_PER_PAGE;
 const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
@@ -44,7 +42,6 @@ instance.interceptors.response.use(
 );
 
 
-
 export const authApi = {
     login(body: { email: string, password: string }) {
         return instance.post(`/login`, body);
@@ -76,24 +73,27 @@ export const diplomasApi = {
         gpaR: number,
     }) {
         let query = `search?`;
-        if (body.text != ""){
+        if (body.text != "") {
             query += `name=${body.text}&`;
         }
-        if (body.specialities != ""){
+        if (body.specialities != "") {
             query += `specialities=${body.specialities}&`;
         }
-        if (body.region != ""){
+        if (body.region != "") {
             query += `region=${body.region}&`;
         }
-        if (body.year != 0){
+        if (body.year != 0) {
             query += `year=${body.year}&`;
         }
-        if (body.gpaL != 0){
+        if (body.gpaL != 0) {
             query += `gpaL=${body.gpaL}&`;
         }
-        if (body.gpaR != 0){
+        if (body.gpaR != 0) {
             query += `gpaR=${body.gpaR}&`;
         }
         return instance.get(query);
+    },
+    getGraduateDetails(name: string) {
+        return instance.get(`graduate-details?name=${name}`);
     }
 };

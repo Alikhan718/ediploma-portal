@@ -9,7 +9,10 @@ import SmartContractIcon from "@src/assets/icons/contractIcon.png";
 import {ReactComponent as EtherScanIcon} from "@src/assets/icons/Etherscan.svg";
 import styles from "../DiplomaDetailsPage.module.css";
 import cn from "classnames";
-import {roles} from "@src/shared/roles";
+import {useDispatch, useSelector} from "react-redux";
+import {selectGraduateAttributes} from "@src/store/diplomas/selectors";
+import {isAuthenticated} from "@src/utils/userAuth";
+import {fetchGraduateDetails} from "@src/store/diplomas/actionCreators";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -44,28 +47,21 @@ function a11yProps(index: number) {
     };
 }
 
-const hasPermission = (roleList: string[]) => {
-    const userRoles = localStorage.getItem("userRole") || "";
-    if (!userRoles) {
-        return false;
-    }
-
-    return roleList.includes(userRoles);
-};
-
 export const SwitchDetails: React.FC = () => {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
+    const graduateAttributes = useSelector(selectGraduateAttributes);
+    const dispatch = useDispatch();
 
     return (
         <Box sx={{width: '100%'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Проверка" {...a11yProps(0)} />
-                    <Tab label="Данные" disabled={true} {...a11yProps(1)} />
+                    <Tab label="Данные" disabled={!isAuthenticated()} {...a11yProps(1)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -73,7 +69,7 @@ export const SwitchDetails: React.FC = () => {
                     <Typography className={styles.textMd} fontWeight='700' fontSize={"1.5rem"}>
                         Статус:
                     </Typography>
-                    <Chip color="success"  style={{marginLeft: "1rem"}}
+                    <Chip color="success" style={{marginLeft: "1rem"}}
                           className={cn(styles.MobMt0, styles.mt02)}
                           icon={<SingleCheck style={{marginLeft: ".5rem"}}/>}
                           label={<Typography className={cn(styles.textMd)}
@@ -115,12 +111,10 @@ export const SwitchDetails: React.FC = () => {
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
-                    <Chip size='medium' label={'GPA: 3.6'} variant={'outlined'}
+                    {graduateAttributes ? graduateAttributes.map((data: any) =>
+                        <Chip size='medium' key={data.label_en} label={data.label_ru + ": " + data.value} variant={'outlined'}
                           sx={{borderColor: "#0A66C2", color: "#0A66C2", padding: "1.5rem .5rem"}}></Chip>
-                    <Chip size='medium' label={'Регион: город Астана'} variant={'outlined'}
-                          sx={{borderColor: "#0A66C2", color: "#0A66C2", padding: "1.5rem .5rem"}}></Chip>
-                    <Chip size='medium' label={'ИИН: 150402564256'} variant={'outlined'}
-                          sx={{borderColor: "#0A66C2", color: "#0A66C2", padding: "1.5rem .5rem"}}></Chip>
+                    ) : null}
                 </Box>
             </TabPanel>
         </Box>
