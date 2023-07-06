@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Routes, Route, Navigate} from 'react-router-dom';
+import React from 'react';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import {Snackbar} from '@src/components';
 import {
     DiplomaDetailsPage,
@@ -20,7 +20,8 @@ import './App.css';
 import ReactGA from 'react-ga';
 
 const App: React.FC = () => {
-    const TRACKING_ID = "G-5RPKC1NF38"; // OUR_TRACKING_ID
+
+    const TRACKING_ID = "G-H12GFWB4FY"; // OUR_TRACKING_ID
     ReactGA.initialize(TRACKING_ID);
 
     const dispatch = useDispatch();

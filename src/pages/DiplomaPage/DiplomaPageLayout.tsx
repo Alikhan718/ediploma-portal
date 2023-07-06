@@ -42,6 +42,7 @@ export const DiplomaPageLayout: React.FC = () => {
                                 marginBottom: "1.5rem"
                             }}
                         > <CardMedia
+                            key={e.counter + "img"}
                             component="img"
                             className={styles.diplomaImg}
                             sx={{width: "13rem", padding: "1.5rem"}}
@@ -51,6 +52,7 @@ export const DiplomaPageLayout: React.FC = () => {
 
                             <Box sx={{display: 'flex', flexDirection: 'column', width: "100%"}}>
                                 <CardContent
+                                    key={e.counter + "content"}
                                     sx={{flex: '1 0 auto', display: "flex", flexDirection: "column", width: "100%"}}>
                                     <Typography mb='.5rem' fontSize="1.25rem" className={styles.mobText}
                                                 fontWeight="600">

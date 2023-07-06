@@ -22,6 +22,6 @@ export const getRequestError = (e: any): string => {
     } catch (err) {
         console.log("ERROR PARSING RESPONSE: ", err);
     }
-    return "UNDEFINED ERROR";
+    return "Network Error";
 
 };
