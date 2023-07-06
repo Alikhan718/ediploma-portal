@@ -26,9 +26,10 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
 import {FilterSection} from "@src/layout/Filter/FilterSection";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchAuthLogout} from "@src/store/auth/saga";
 import {fetchSearch} from "@src/store/diplomas/actionCreators";
+import {selectSearchText} from "@src/store/diplomas/selectors";
 
 
 interface AppBarProps extends MuiAppBarProps {
@@ -71,9 +72,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     const [showFilter, setShowFilter] = React.useState(false);
 
     const navigate = useNavigate();
-
+    const searchText = useSelector(selectSearchText);
     const [filterAttributes, setFilterAttributes] = React.useState<FilterAttributes>({
-        text: "",
+        text: searchText,
         specialities: "",
         region: "",
         year: 0,
@@ -129,6 +130,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                 <Box className="diploma-navbar-item" width="100%">
                     {!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('univeristy') &&
                         <Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'
+                               value={filterAttributes.text}
                                onChange={handleSearch} startAdornment={<SearchIcon/>}
                                endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
                                    setShowFilter(!showFilter);

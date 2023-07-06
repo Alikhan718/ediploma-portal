@@ -3,15 +3,38 @@ import React from 'react';
 import {Box, Divider, Typography} from '@mui/material';
 import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
 
-import {Button, Input, Modal} from '@src/components';
+import {Button, Input} from '@src/components';
 import {FooterSection} from "@src/pages/MainPage/components/FooterSection";
-import {useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {routes} from "@src/shared/routes";
 import styles from "./MainPage.module.css";
+import {fetchSearch} from "@src/store/diplomas/actionCreators";
 
 export const MainPageLayout: React.FC = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [filterAttributes, setFilterAttributes] = React.useState({
+        text: "",
+        specialities: "",
+        region: "",
+        year: 0,
+        gpaL: 0,
+        gpaR: 0,
+    });
+    const triggerSearchFilters = () => {
+        dispatch(fetchSearch(filterAttributes));
+        navigate(routes.diploma);
+    };
+
+    React.useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {
+            console.log(filterAttributes.text);
+            triggerSearchFilters();
+        }, 2000);
+
+        return () => clearTimeout(delayDebounceFn);
+    }, [filterAttributes]);
 
     return (
         <Box pt={'25px'}>
@@ -34,14 +57,18 @@ export const MainPageLayout: React.FC = () => {
                     </Typography>
                     <div style={{marginBottom: '1.5rem'}}/>
                     <Box display='flex' gap='1rem' mb='1rem'>
-                        <Button className={styles.btn} variant='contained' onClick={() => {navigate(routes.diploma)}}>
+                        <Button className={styles.btn} variant='contained' onClick={() => {
+                            navigate(routes.diploma)
+                        }}>
                             Дипломы
                         </Button>
-                        <Button className={styles.btn} variant='contained' color='secondary' onClick={() => {navigate(routes.university)}}>
+                        <Button className={styles.btn} variant='contained' color='secondary' onClick={() => {
+                            navigate(routes.university)
+                        }}>
                             Университеты
                         </Button>
                     </Box>
-                    <Box display='flex' >
+                    <Box display='flex'>
                         <Input
                             placeholder='Найти по ФИО'
                             fullWidth={true}
@@ -52,7 +79,7 @@ export const MainPageLayout: React.FC = () => {
                             endAdornment={
                                 <Button
                                     onClick={() => {
-                                        // search function
+                                        triggerSearchFilters();
                                     }}
                                     buttonSize='m'
                                     variant='contained'
@@ -63,9 +90,7 @@ export const MainPageLayout: React.FC = () => {
                                     <SearchIcon style={{filter: "brightness(250%) contrast(101%)"}}/>
                                 </Button>
                             }
-                            onChange={() => {
-                                // search function
-                            }}
+                            onChange={(e) => setFilterAttributes({...filterAttributes, text: e.target.value})}
                         />
 
                     </Box>
