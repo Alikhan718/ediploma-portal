@@ -97,12 +97,6 @@ export const LoginPageLayout: React.FC = () => {
                         onChange={handleChange}
                         placeholder="Пароль"
                     />
-                    <Typography fontSize=".8rem" textAlign="end" mt="auto">
-                        Забыли пароль?{' '}
-                        <Link sx={{textDecoration: 'none', color: 'gray'}} href={routes.register}>
-                            Восстановить пароль
-                        </Link>
-                    </Typography>
                     <Button fullWidth={true} variant="contained" onClick={onSubmit} type="submit">
                         Войти
                     </Button>
