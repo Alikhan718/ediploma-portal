@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {Box, Card, CardContent, CardMedia, Divider, Typography, useMediaQuery} from '@mui/material';
 import {ReactComponent as SmartContractIcon} from '@src/assets/icons/smartContract_black.svg';
@@ -73,9 +73,10 @@ export const UniversityDetailsPageLayout: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const diplomaList = useSelector(selectDiplomaList);
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(fetchDiplomas());
-    }, [diplomaList]);
+    }, []);
+
     return (
         <Box display='flex' flexWrap='wrap'>
             <UniversityDetailsPageHeader/>
@@ -197,7 +198,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         <TabPanel value={value} index={0}>
                             <Box display='flex' p="0" justifyContent='space-between' className={styles.diplomasContainer}
                                  flexWrap='wrap'>
-                                {diplomaList.slice(0, 6).map((e: any) => (
+                                {diplomaList && diplomaList.length && diplomaList.slice(0, 6).map((e: any) => (
                                     <Card key={e.counter} elevation={6}
                                           onClick={() => {
                                               navigate(`/app/diploma/${e.counter!}/details`);
@@ -231,7 +232,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                                     {e.name_ru}
                                                 </Typography>
                                                 <Typography mb='.5rem' fontSize="1rem" className={styles.mobTextSm}>
-                                                    {e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1)}
+                                                    {e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
                                                 </Typography>
                                                 <Box display='flex' mt='auto' width='100%'>
                                                     <Typography fontSize="0.875rem" mr='auto'>

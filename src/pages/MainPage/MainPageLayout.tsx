@@ -42,6 +42,11 @@ export const MainPageLayout: React.FC = () => {
 
     React.useEffect(() => {
         ReactGA.initialize('G-H12GFWB4FY');
+        ReactGA.event({
+            category: 'User',
+            action: 'Search',
+            label: "searchText",
+        });
         ReactGA.pageview(window.location.pathname + window.location.search);
     }, []);
 
