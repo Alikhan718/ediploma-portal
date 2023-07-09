@@ -13,6 +13,12 @@ export interface IAuthRegister {
     password: string,
     companyName: string,
 }
+export interface IResetPassword {
+    email: string,
+    password: string,
+    repassword: string,
+    code: string,
+}
 export interface IAuthPageBase {
     children: any
 }

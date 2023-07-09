@@ -3,7 +3,7 @@ import {Box, Typography, useMediaQuery} from "@mui/material";
 import styles from "../DiplomaPage.module.css";
 import cn from "classnames";
 import {FilterSection} from "@src/layout/Filter/FilterSection";
-import {Input} from '@src/components';
+import {Button, Input, Modal} from '@src/components';
 import {fetchSearch} from "@src/store/diplomas/actionCreators";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,7 +11,11 @@ import {selectSearchText} from "@src/store/diplomas/selectors";
 import {FilterAttributes} from "@src/layout/Header/Header";
 import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
 import {ReactComponent as FilterIcon} from '@src/assets/icons/Filter-icon.svg';
+import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
+
 import ReactGA from 'react-ga';
+import {routes} from "@src/shared/routes";
+import {isAuthenticated} from "@src/utils/userAuth";
 
 export const DiplomaPageHeader: React.FC = (props) => {
     const dispatch = useDispatch();
@@ -42,14 +46,52 @@ export const DiplomaPageHeader: React.FC = (props) => {
             });
         }
     };
-
+    const [open, setOpen] = React.useState(false);
     const triggerSearchFilters = () => {
         dispatch(fetchSearch(filterAttributes));
     };
-
+    const getQueryWidth = () => {
+        const matchesLg = useMediaQuery('(min-width:1200px)');
+        const matchesMd = useMediaQuery('(max-width:1180px)');
+        const matchesSm = useMediaQuery('(max-width:768px)');
+        const matchesXs = useMediaQuery('(max-width:576px)');
+        if (matchesXs) return "80%";
+        if (matchesSm) return "60%";
+        if (matchesMd) return "40%";
+        if (matchesLg) return "25%";
+    };
     return (
         <React.Fragment>
             <Box width="90%" mb="2rem" className={styles.mobMb1}>
+                <Modal
+                    open={open}
+                    handleClose={() => setOpen(false)}
+                    maxWidth={getQueryWidth()}
+                    width={getQueryWidth()}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+
+                        <img src={NeedAuthorizationPic} alt=""/>
+                        <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
+                                    fontWeight='600'
+                                    variant="h6"
+                                    component="h2">
+                            Для использования требуется авторизация
+                        </Typography>
+                        <Button variant='contained' sx={{
+                            marginTop: "1rem",
+                            padding: "1rem",
+                            width: "80%",
+                            fontSize: "1rem",
+                            fontWeight: "600",
+                            borderRadius: "2rem"
+                        }} onClick={() => {
+                            navigate(routes.login);
+                        }}>Авторизоваться</Button>
+                    </Box>
+                </Modal>
                 <Typography fontWeight="700" className={cn(styles.mobPx1, styles.mobMb1, styles.mobTextL)}
                             fontSize="2rem">
                     Дипломы
@@ -66,7 +108,11 @@ export const DiplomaPageHeader: React.FC = (props) => {
                             <FilterIcon
                                 style={{cursor: 'pointer'}}
                                 onClick={() => {
-                                    setShowFilter(!showFilter);
+                                    if (isAuthenticated()) {
+                                        setShowFilter(!showFilter);
+                                    } else {
+                                        setOpen(true);
+                                    }
                                 }}
                             />
                         }

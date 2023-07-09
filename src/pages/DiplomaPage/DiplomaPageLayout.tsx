@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {Box, Card, CardContent, CardMedia, Typography} from '@mui/material';
+import {Box, Card, CardContent, CardMedia, Typography, useMediaQuery} from '@mui/material';
 import {DiplomaPageHeader} from "@src/pages/DiplomaPage/components/DiplomaPageHeader";
 import {useNavigate} from "react-router-dom";
 import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
@@ -10,7 +10,6 @@ import styles from "./DiplomaPage.module.css";
 import diplomaTemplate from "@src/assets/example/diploma_template.jpg";
 
 export const DiplomaPageLayout: React.FC = () => {
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const diplomaList = useSelector(selectDiplomaList);
@@ -59,7 +58,7 @@ export const DiplomaPageLayout: React.FC = () => {
                                         {e.name_ru}
                                     </Typography>
                                     <Typography mb='.5rem' fontSize="1rem" className={styles.mobTextSm}>
-                                        {e.qualification_kz?.substring(0, e.qualification_kz.search("»") + 1)}
+                                        {e.qualification_ru?.substring(e.qualification_ru.search("«"), e.qualification_ru.search("»") + 1)}
                                     </Typography>
                                     <Box display='flex' mt='auto' width='100%'>
                                         <Typography fontSize="0.875rem" mr='auto'>

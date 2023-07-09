@@ -51,7 +51,13 @@ export const authApi = {
     },
     validateEmail(body: { email: string, code: string }) {
         return instance.post(`/verify-otp`, body);
-    }
+    },
+    resetPassword(body: { email: string, password: string, repassword: string, code: string }) {
+        return instance.post(`/password-reset`, body);
+    },
+    getOtp(body: { email: string }) {
+        return instance.post(`/get-otp`, body);
+    },
 };
 
 

@@ -50,7 +50,6 @@ export const LoginPageLayout: React.FC = () => {
 
     React.useEffect(() => {
         ReactGA.initialize('G-H12GFWB4FY');
-        console.log(window.location.pathname);
         ReactGA.pageview(window.location.pathname + window.location.search);
 
         // Track cursor movements
@@ -97,6 +96,11 @@ export const LoginPageLayout: React.FC = () => {
                         onChange={handleChange}
                         placeholder="Пароль"
                     />
+                    <Typography fontSize=".8rem" textAlign="right">
+                        <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.passwordReset}>
+                            Забыли пароль?
+                        </Link>
+                    </Typography>
                     <Button fullWidth={true} variant="contained" onClick={onSubmit} type="submit">
                         Войти
                     </Button>

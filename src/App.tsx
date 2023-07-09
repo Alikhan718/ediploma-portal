@@ -3,7 +3,7 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import {Snackbar} from '@src/components';
 import {
     DiplomaDetailsPage,
-    DiplomaPage,
+    DiplomaPage, ForgotPassword,
     LoginPage,
     MainPage,
     RegisterPage,
@@ -54,6 +54,7 @@ const App: React.FC = () => {
                     <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>
                     <Route path={routes.login} element={<LoginPage/>}/>
                     <Route path={routes.register} element={<RegisterPage/>}/>
+                    <Route path={routes.passwordReset} element={<ForgotPassword/>}/>
                     {<Route path='*' element={<Navigate to={routes.main}/>}/>}
                 </Routes>
             }

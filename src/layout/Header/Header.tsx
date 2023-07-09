@@ -10,10 +10,11 @@ import {privateNavigations} from "@src/layout/Header/generator";
 import {
     AppBar as MuiAppBar,
     AppBarProps as MuiAppBarProps,
+    Box,
+    Divider,
     styled,
     Typography,
-    Box,
-    Divider
+    useMediaQuery
 } from '@mui/material';
 
 import {HeaderProps} from './Header.props';
@@ -21,7 +22,7 @@ import {HeaderProps} from './Header.props';
 
 import {GlobalLoader} from './GlobalLoader';
 
-import {Button, Input} from '@src/components';
+import {Button, Input, Modal} from '@src/components';
 import {NavLink, useNavigate} from "react-router-dom";
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
@@ -30,7 +31,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchAuthLogout} from "@src/store/auth/saga";
 import {fetchSearch} from "@src/store/diplomas/actionCreators";
 import {selectSearchText} from "@src/store/diplomas/selectors";
-
+import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 
 interface AppBarProps extends MuiAppBarProps {
     open: boolean;
@@ -85,7 +86,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFilterAttributes({...filterAttributes, text: e.target.value.trim()})
-        if(e.target.value.trim().length >= 2) {
+        if (e.target.value.trim().length >= 2) {
             triggerSearchFilters();
         }
     };
@@ -94,7 +95,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     };
     const dispatch = useDispatch();
     const userRole = localStorage.getItem("userRole") || "";
-
+    const [openModal, setOpenModal] = React.useState(false);
     const [activeNav, setActiveNav] = React.useState(0);
 
     const handleActiveNav = (navId: number): void => {
@@ -104,9 +105,48 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         isActive && handleActiveNav(id);
         return "";
     };
+    const getQueryWidth = () => {
+        const matchesLg = useMediaQuery('(min-width:1200px)');
+        const matchesMd = useMediaQuery('(max-width:1180px)');
+        const matchesSm = useMediaQuery('(max-width:768px)');
+        const matchesXs = useMediaQuery('(max-width:576px)');
+        if (matchesXs) return "80%";
+        if (matchesSm) return "60%";
+        if (matchesMd) return "40%";
+        if (matchesLg) return "25%";
+    };
     return (
         <AppBar position="fixed" open={open}>
             <Box className="diploma-navbar" height='4rem'>
+                <Modal
+                    open={openModal}
+                    handleClose={() => setOpenModal(false)}
+                    maxWidth={getQueryWidth()}
+                    width={getQueryWidth()}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+
+                        <img src={NeedAuthorizationPic} alt=""/>
+                        <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
+                                    fontWeight='600'
+                                    variant="h6"
+                                    component="h2">
+                            Для использования требуется авторизация
+                        </Typography>
+                        <Button variant='contained' sx={{
+                            marginTop: "1rem",
+                            padding: "1rem",
+                            width: "80%",
+                            fontSize: "1rem",
+                            fontWeight: "600",
+                            borderRadius: "2rem"
+                        }} onClick={() => {
+                            navigate(routes.login);
+                        }}>Авторизоваться</Button>
+                    </Box>
+                </Modal>
                 <img src={MenuIcon} onClick={() => {
                     setOpen(!open);
                 }} className="menu-icon"/>
@@ -128,12 +168,16 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                     </NavLink>
                 ))}
                 <Box className="diploma-navbar-item" width="100%">
-                    {!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('univeristy') &&
+                    {!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('university') && !window.location.href.split('/').includes('university') &&
                         <Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'
                                value={filterAttributes.text}
                                onChange={handleSearch} startAdornment={<SearchIcon/>}
                                endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
-                                   setShowFilter(!showFilter);
+                                   if (isAuthenticated()) {
+                                       setShowFilter(!showFilter);
+                                   } else {
+                                       setOpenModal(true);
+                                   }
                                }}/>}/>
                     }</Box>
                 <FilterSection triggerSearchFilters={triggerSearchFilters} filterAttributes={filterAttributes}

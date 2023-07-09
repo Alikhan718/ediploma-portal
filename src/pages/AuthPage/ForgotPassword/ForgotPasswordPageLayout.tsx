@@ -1,21 +1,23 @@
 import React from 'react';
 
-import {Box, Button, Card, CardContent, IconButton, InputAdornment, Link, Typography} from '@mui/material';
+import {Box, Button, Card, CardContent, Link, Typography} from '@mui/material';
 import {Input} from '@src/components';
 // import Visibility from "@material-ui/icons/Visibility";
 // import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import {IAuthRegister} from "@src/pages/AuthPage/types";
+import {IResetPassword} from "@src/pages/AuthPage/types";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchRegisterRequest, fetchValidateEmailRequest} from "@src/store/auth/actionCreators";
+import {fetchGetOtpRequest, fetchResetPasswordRequest, fetchValidateEmailRequest} from "@src/store/auth/actionCreators";
 import {routes} from "@src/shared/routes";
 import OtpInput from 'react-otp-input';
-import {selectOtpSent} from "@src/store/auth/selector";
+import {selectForgotStep, selectOtpSent, selectRedirectToLogin} from "@src/store/auth/selector";
+import {useNavigate} from "react-router-dom";
 
-export const RegisterPageLayout: React.FC = () => {
-    const [state, setState] = React.useState<IAuthRegister>({
+export const ForgotPasswordPageLayout: React.FC = () => {
+    const [state, setState] = React.useState<IResetPassword>({
         email: "",
         password: "",
-        companyName: "",
+        repassword: "",
+        code: "",
     });
     const dispatch = useDispatch();
 
@@ -23,22 +25,32 @@ export const RegisterPageLayout: React.FC = () => {
         setState({...state, [e.target.name]: e.target.value});
     };
     const otpSent = useSelector(selectOtpSent);
-
-    const onSubmit = (e: React.SyntheticEvent): void => {
+    const step = useSelector(selectForgotStep);
+    const sendOtp = (e: React.SyntheticEvent): void => {
         e.preventDefault();
-        const payload = state;
-        dispatch(fetchRegisterRequest(payload));
+        dispatch(fetchGetOtpRequest(state));
     };
 
     const verifyEmail = (e: React.SyntheticEvent): void => {
         e.preventDefault();
-        const payload = {
-            email: state.email,
-            code: otp
-        };
-        dispatch(fetchValidateEmailRequest(payload));
+        dispatch(fetchValidateEmailRequest(state));
     };
-    const [otp, setOtp] = React.useState('');
+
+    const changePass = (e: React.SyntheticEvent): void => {
+        e.preventDefault();
+        dispatch(fetchResetPasswordRequest(state));
+    };
+    const navigate = useNavigate();
+    const [otp, setOtp] = React.useState("");
+    const redirectToLogin = useSelector(selectRedirectToLogin);
+    React.useEffect(() => {
+        state.code = otp;
+    }, [otp]);
+    React.useEffect(() => {
+        if (redirectToLogin) {
+            navigate(routes.login);
+        }
+    }, [redirectToLogin]);
     return (
         <Card sx={{marginY: "auto", borderRadius: ".8rem", padding: ".6rem"}}>
 
@@ -49,45 +61,28 @@ export const RegisterPageLayout: React.FC = () => {
                 width: "100%",
                 justifyContent: "space-between"
             }}>
-                {!otpSent && <Typography fontSize='1.3rem' fontWeight='700'>
-                    Регистрация
-                </Typography>}
+                <Typography fontSize='1.3rem' fontWeight='700'>
+                    Сброс пароля
+                </Typography>
                 <form>
-                    {!otpSent ?
-                        <Box style={{display: "flex", flexDirection: "column", gap: "1rem", marginTop: "2rem"}}>
+                    {step == 1 &&
+                        <Box style={{display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem"}}>
+                            <Typography fontSize='1rem' fontWeight='400' textAlign='center'>
+                                На вашу почту будет <br/> отправлено письмо с кодом
+                            </Typography>
                             <Input type="text" name="email" sx={{background: "white"}} onChange={handleChange}
                                    placeholder="Email"/>
-                            <Input type="text" name="companyName" sx={{background: "white"}} onChange={handleChange}
-                                   placeholder="Название организации"/>
-                            <Input type="password" name="password" sx={{background: "white"}} onChange={handleChange}
-                                   placeholder="Пароль"/>
-                            <Input type="password" name="repassword" sx={{background: "white"}} onChange={handleChange}
-                                   endAdornment={
-                                       <InputAdornment position="end">
-                                           <IconButton
-                                               onClick={(e) => {
-                                                   e.type = "text";
-                                                   }
-                                               }
-                                               onMouseDown={(e) => {
-                                                   e.type = "text";
-                                                   }
-                                               }
-                                           >
-                                               {/*{this && this.type = "text" ? "on" : "off"}*/}
-                                           </IconButton>
-                                       </InputAdornment>
-                                   }
-                                   placeholder="Повтор пароля"/>
-                            <Button fullWidth={true} variant='contained' onClick={onSubmit}
-                                    type='submit'>Зарегистрироваться</Button>
+                            <Button fullWidth={true} variant='contained' onClick={sendOtp}
+                                    type='submit'>Отправить</Button>
                         </Box>
-                        :
+                    }
+                    {step == 2 &&
                         <Box style={{
                             display: "flex",
                             flexDirection: "column",
                             gap: "1rem",
                             width: "100%",
+                            marginTop: "1rem",
                         }}>
                             <Typography
                                 textAlign="center"
@@ -100,8 +95,8 @@ export const RegisterPageLayout: React.FC = () => {
                                           containerStyle={{
                                               gap: "1rem",
                                           }}
-                                          onChange={setOtp}
                                           inputType="tel"
+                                          onChange={setOtp}
                                           numInputs={4}
                                           inputStyle={{
                                               borderRadius: ".5rem",
@@ -114,15 +109,26 @@ export const RegisterPageLayout: React.FC = () => {
                                           }}
                                           renderInput={(props) => <input {...props} />}/>
                             </Box>
-                            {/*<Input type="text" name="email" sx={{background: "white"}} onChange={handleChange}*/}
-                            {/*       placeholder="Логин или Email"/>*/}
-                            {/*<Input type="text" name="companyName" sx={{background: "white"}} onChange={handleChange}*/}
-                            {/*       placeholder="Название организаций"/>*/}
-                            {/*<Input type="password" name="password" sx={{background: "white"}}*/}
-                            {/*       onChange={handleChange}*/}
-                            {/*       placeholder="Пароль"/>*/}
                             <Button fullWidth={true} variant='contained' onClick={verifyEmail}
                                     type='submit'>Проверить</Button>
+                        </Box>
+                    }
+                    {step == 3 &&
+                        <Box style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "1rem",
+                            width: "100%",
+                            marginTop: "1rem",
+                        }}>
+                            <Input type="password" name="password" sx={{background: "white"}}
+                                   onChange={handleChange}
+                                   placeholder="Новый пароль"/>
+                            <Input type="password" name="repassword" sx={{background: "white"}}
+                                   onChange={handleChange}
+                                   placeholder="Повтор пароля"/>
+                            <Button fullWidth={true} variant='contained' onClick={changePass}
+                                    type='submit'>Сменить</Button>
                         </Box>
                     }
                 </form>
