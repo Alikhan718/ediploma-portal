@@ -192,7 +192,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                                 <Tab label="Дипломы" {...a11yProps(0)} />
-                                <Tab label="Аналитика" disabled={true} {...a11yProps(1)} />
+                                <Tab label="Аналитика" {...a11yProps(1)} />
                             </Tabs>
                         </Box>
                         <TabPanel value={value} index={0}>
@@ -253,6 +253,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         </TabPanel>
                         <TabPanel value={value} index={1}>
                             <Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
+                                АНАЛИТИКА
                             </Box>
                         </TabPanel>
                     </Box>
