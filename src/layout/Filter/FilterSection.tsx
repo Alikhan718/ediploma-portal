@@ -8,13 +8,14 @@ import styles from "@src/pages/DiplomaPage/DiplomaPage.module.css";
 import cn from "classnames";
 
 export const FilterSection: React.FC<IFilter> = (props) => {
+
     const {open, setOpen, filterAttributes, setFilterAttributes, triggerSearchFilters} = props;
     const [selectedSpecialities, setSelectedSpecialities] = React.useState<string[]>([]);
     const [selectedGPA, setSelectedGPA] = React.useState(([1.0, 4.0]));
     const [selectedYear, setSelectedYear] = React.useState<number[]>([]);
     const [selectedRegions, setSelectedRegions] = React.useState<string[]>([]);
-    const setFilterValues = () => {
 
+    React.useEffect(() => {
         const filterValues = {
             text: filterAttributes.text,
             specialities: selectedSpecialities.join(",") ?? filterAttributes.specialities,
@@ -26,20 +27,19 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 
         // Update the filterAttributes state
         setFilterAttributes(filterValues);
-    };
+        console.log(filterValues);
+        triggerSearchFilters();
+
+    }, [selectedYear, selectedRegions, selectedSpecialities, selectedGPA]);
+
     const handleChange = (e: any, arr: any, setE: any) => {
         setE(arr.includes(e) ? arr.filter((i: any) => i != e) : [...arr, e]);
-
-        setFilterValues();
-        triggerSearchFilters();
-
     };
+
     const handleGPA = (event: Event, newValue: number | number[]) => {
         setSelectedGPA(newValue as number[]);
-        setFilterValues();
-        triggerSearchFilters();
-
     };
+
     return (
         <React.Fragment>
             <Box display={open ? 'flex' : 'none'} width='60vw' position='absolute' top='3.3rem'
@@ -67,12 +67,16 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                             setOpen(false);
                         }}/>
                     </Box>
-                    <Box display='flex' flexWrap='wrap' width='100%' justifyContent='space-between' gap='1.5rem 0'>
-                        <Box width='48%' className={styles.mobW100}>
+                    <Box display='flex' flexWrap='wrap' width='100%' height="25%" justifyContent='space-between'
+                         gap='1.5rem 0'>
+                        <Box width='48%' className={styles.mobW100}
+                             mb="2rem"
+                             height="100%">
                             <Typography fontSize='1.25rem' className={styles.mobTextMd}>
                                 Специальности
                             </Typography>
-                            <Box display='flex' gap='.5rem' flexWrap='wrap' mt='.5rem'>
+                            <Box display='flex' gap='.5rem' flexWrap='wrap' mt='.5rem' p=".5rem" height="100%"
+                                 overflow="hidden scroll">
                                 {specialities.map((speciality) =>
                                     <Button variant='outlined'
                                             onClick={() => {
@@ -80,16 +84,22 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                                             }}
                                             className={cn(((selectedSpecialities.includes(speciality.name) ? 'active' : 'unactive') + 'Chip' + " customChip"), styles.mobPBtn, styles.mobTextSm)}
                                             key={speciality.id}>
-                                        {speciality.name}
+                                        <Typography whiteSpace="normal" fontSize="1rem" lineHeight="normal"
+                                                    sx={{color: "inherit !important"}}>
+                                            {speciality.name}
+                                        </Typography>
                                     </Button>)}
                             </Box>
                         </Box>
-                        <Box width='48%' className={styles.mobW100}>
+                        <Box width='48%' className={styles.mobW100}
+                             mb="2rem"
+                             height="100%">
 
                             <Typography fontSize='1.25rem' className={styles.mobTextMd}>
                                 Регион
                             </Typography>
-                            <Box display='flex' gap='.5rem' flexWrap='wrap' mt='.5rem'>
+                            <Box display='flex' gap='.5rem' flexWrap='wrap' p=".5rem" mt='.5rem' height="100%"
+                                 overflow="hidden scroll">
                                 {regions.map((region) =>
                                     <Button variant='outlined'
                                             onClick={() => {
@@ -97,7 +107,10 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                                             }}
                                             className={cn(((selectedRegions.includes(region.name) ? 'active' : 'unactive') + 'Chip' + " customChip"), styles.mobPBtn, styles.mobTextSm)}
                                             key={region.id}>
-                                        {region.name}
+                                        <Typography whiteSpace="normal" fontSize="1rem" lineHeight="normal"
+                                                    sx={{color: "inherit !important"}}>
+                                            {region.name}
+                                        </Typography>
                                     </Button>)}
                             </Box>
                         </Box>
