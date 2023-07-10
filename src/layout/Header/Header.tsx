@@ -87,10 +87,11 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFilterAttributes({...filterAttributes, text: e.target.value.trim()})
         if (e.target.value.trim().length >= 2) {
-            triggerSearchFilters();
+            triggerSearchFilters(filterAttributes);
         }
     };
-    const triggerSearchFilters = () => {
+    const triggerSearchFilters = (filterAttributes: any) => {
+        console.log(filterAttributes);
         dispatch(fetchSearch(filterAttributes));
     };
     const dispatch = useDispatch();

@@ -28,7 +28,8 @@ export const FilterSection: React.FC<IFilter> = (props) => {
         // Update the filterAttributes state
         setFilterAttributes(filterValues);
         console.log(filterValues);
-        triggerSearchFilters();
+        setFilterAttributes(filterValues);
+        triggerSearchFilters(filterValues);
 
     }, [selectedYear, selectedRegions, selectedSpecialities, selectedGPA]);
 

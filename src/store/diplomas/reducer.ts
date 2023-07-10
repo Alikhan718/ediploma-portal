@@ -79,6 +79,7 @@ const diplomaReducer = (state = initialState, action: any) => {
                 iinValidated: false
             };
         case FETCH_SEARCH_SAGA:
+            console.log("REDUCER DATA", action.payload);
             return {
                 ...state,
                 iinValidated: false,

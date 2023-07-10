@@ -67,12 +67,13 @@ export function* fetchCheckIINRequest(action: any) {
 export function* fetchSearchRequest(action: any) {
     try {
         if (!action.payload
-            || !action.payload.text
+            && !action.payload.text
             && !action.payload.specialities
             && !action.payload.region
             && !action.payload.year) {
             return;
         }
+        console.log("REQUEST PAYLOAD: ", action.payload);
         const {data} = yield call(diplomasApi.search, action.payload);
         yield put({type: FETCH_DIPLOMAS_SAGA});
         let names = <any>[];
