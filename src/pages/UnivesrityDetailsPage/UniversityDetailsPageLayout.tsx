@@ -97,19 +97,19 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         <WebIcon className={styles.social} onClick={() => {
                             handleLink("https://kbtu.edu.kz/ru/");
                         }}/>
-                        <DiscordIcon className={styles.social} onClick={() => {
-                        }}/>
-                        <TwitterIcon className={styles.social} onClick={() => {
-                        }}/>
+                        {/*<DiscordIcon className={styles.social} onClick={() => {*/}
+                        {/*}}/>*/}
+                        {/*<TwitterIcon className={styles.social} onClick={() => {*/}
+                        {/*}}/>*/}
 
-                        <Divider style={{height: "1.5rem"}} orientation='vertical'/>
-
-                        <FavouriteIcon className={styles.social} onClick={() => {
-                        }}/>
-                        <ShareIcon className={styles.social} onClick={() => {
-                        }}/>
-                        <MoreIcon className={styles.social} onClick={() => {
-                        }}/>
+                        {/*<Divider style={{height: "1.5rem"}} orientation='vertical'/>*/}
+                        {/**/}
+                        {/*<FavouriteIcon className={styles.social} onClick={() => {*/}
+                        {/*}}/>*/}
+                        {/*<ShareIcon className={styles.social} onClick={() => {*/}
+                        {/*}}/>*/}
+                        {/*<MoreIcon className={styles.social} onClick={() => {*/}
+                        {/*}}/>*/}
 
                     </Box>
                 </Box>
@@ -198,7 +198,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         <TabPanel value={value} index={0}>
                             <Box display='flex' p="0" justifyContent='space-between' className={styles.diplomasContainer}
                                  flexWrap='wrap'>
-                                {diplomaList && diplomaList.length && diplomaList.slice(0, 6).map((e: any) => (
+                                {diplomaList && diplomaList.length && diplomaList.map((e: any) => (
                                     <Card key={e.counter} elevation={6}
                                           onClick={() => {
                                               navigate(`/app/diploma/${e.counter!}/details`);

@@ -85,18 +85,19 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                     <Box display='flex' flexWrap='wrap' width='100%' height="25%" justifyContent='space-between'
                          gap='1.5rem 0'>
                         <Box width='48%' className={styles.mobW100}
-                             >
+                        >
                             <Typography fontSize='1.25rem' className={styles.mobTextMd}>
                                 Специальности
                             </Typography>
-                            <MultiSelect innerLabel="Список специальностей" handleChange={setSelectedSpecialities} fullWidth>
+                            <MultiSelect innerLabel="Список специальностей" handleChange={setSelectedSpecialities}
+                                         fullWidth>
                                 {specialities.filter((el) => !filterAttributes.specialities.includes(el.name)).map((speciality) =>
                                     <MenuItem key={speciality.id} value={speciality.name}>{speciality.name}</MenuItem>
                                 )}
                             </MultiSelect>
                         </Box>
                         <Box width='48%' className={styles.mobW100}
-                             >
+                        >
                             <Typography fontSize='1.25rem' className={styles.mobTextMd}>
                                 Уровень образования
                             </Typography>
@@ -107,7 +108,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                             </MultiSelect>
                         </Box>
                         <Box width='48%' className={styles.mobW100}
-                             >
+                        >
 
                             <Typography fontSize='1.25rem' className={styles.mobTextMd}>
                                 Регион
@@ -162,7 +163,31 @@ export const FilterSection: React.FC<IFilter> = (props) => {
                                         {year.year}
                                     </Button>)}
                             </Box>
+
                         </Box>
+
+                        <Box width='48%' mt="auto" display="flex" className={styles.mobW100}>
+                            <Button variant='outlined'
+                                    className={styles.mobW100}
+                                    sx={{marginLeft: "auto"}}
+                                    onClick={() => {
+                                        if (filterAttributes.text.length ||
+                                            filterAttributes.specialities.length ||
+                                            filterAttributes.gpaL !== 1 ||
+                                            filterAttributes.gpaR !== 4 ||
+                                            filterAttributes.year.length ||
+                                            filterAttributes.degree.length ||
+                                            filterAttributes.region.length) {
+                                            setOpen(false);
+                                            triggerSearchFilters(filterAttributes);
+                                        }
+                                        // handleChange(year.year, selectedYear, setSelectedYear);
+                                    }}>
+                                Применить
+                            </Button>
+
+                        </Box>
+
                     </Box>
                 </Card>
             </Box>
