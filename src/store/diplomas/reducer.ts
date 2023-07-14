@@ -86,6 +86,7 @@ const diplomaReducer = (state = initialState, action: any) => {
                 text: action.payload.text,
                 specialities: action.payload.specialities,
                 region: action.payload.region,
+                degree: action.payload.degree,
                 year: action.payload.year,
                 gpaL: action.payload.gpaL,
                 gpaR: action.payload.gpaR,

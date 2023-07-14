@@ -54,3 +54,8 @@ export const years = [
         year: 2023,
 	},
 ];
+
+export const degree = [
+	{ id: 1, name: "Бакалавр" },
+	{ id: 2, name: "Магистр" },
+];

@@ -70,6 +70,7 @@ export function* fetchSearchRequest(action: any) {
             && !action.payload.text
             && !action.payload.specialities
             && !action.payload.region
+            && !action.payload.degree
             && !action.payload.year) {
             return;
         }

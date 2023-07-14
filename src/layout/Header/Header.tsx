@@ -61,6 +61,7 @@ const AppBar = styled(MuiAppBar, {
 export interface FilterAttributes {
     text?: string,
     specialities?: string;
+    degree?: string;
     region?: string;
     year?: number;
     gpaL?: number;
@@ -78,6 +79,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         text: searchText,
         specialities: "",
         region: "",
+        degree: "",
         year: 0,
         gpaL: 0,
         gpaR: 0,
@@ -91,11 +93,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         }
     };
     const triggerSearchFilters = (filterAttributes: any) => {
-        console.log(filterAttributes);
         dispatch(fetchSearch(filterAttributes));
     };
     const dispatch = useDispatch();
-    const userRole = localStorage.getItem("userRole") || "";
     const [openModal, setOpenModal] = React.useState(false);
     const [activeNav, setActiveNav] = React.useState(0);
 
@@ -181,8 +181,13 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                    }
                                }}/>}/>
                     }</Box>
-                <FilterSection triggerSearchFilters={triggerSearchFilters} filterAttributes={filterAttributes}
-                               setFilterAttributes={setFilterAttributes} open={showFilter} setOpen={setShowFilter}/>
+                <FilterSection
+                    triggerSearchFilters={triggerSearchFilters}
+                    filterAttributes={filterAttributes}
+                    setFilterAttributes={setFilterAttributes}
+                    open={showFilter}
+                    setOpen={setShowFilter}
+                />
                 {/* REST SELECTOR  */}
                 <Box display='flex' justifyContent='flex-end' py='10px' className="diploma-btn-container">
                     {!isAuthenticated() ? <Button

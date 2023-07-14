@@ -29,6 +29,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
         text: searchText,
         specialities: '',
         region: '',
+        degree: '',
         year: 0,
         gpaL: 0,
         gpaR: 0,
@@ -37,7 +38,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFilterAttributes({...filterAttributes, text: e.target.value.trim()});
         if (e.target.value.trim().length >= 2) {
-            triggerSearchFilters();
+            triggerSearchFilters(filterAttributes);
             // Track search input change with the search query
             ReactGA.event({
                 category: 'User',
@@ -47,7 +48,8 @@ export const DiplomaPageHeader: React.FC = (props) => {
         }
     };
     const [open, setOpen] = React.useState(false);
-    const triggerSearchFilters = () => {
+    const triggerSearchFilters = (filterAttributes: any) => {
+        console.log(filterAttributes);
         dispatch(fetchSearch(filterAttributes));
     };
     const getQueryWidth = () => {

@@ -74,6 +74,7 @@ export const diplomasApi = {
         text: string,
         specialities: string,
         region: string,
+        degree: string,
         year: number,
         gpaL: number,
         gpaR: number,
@@ -88,14 +89,19 @@ export const diplomasApi = {
         if (body.region != "") {
             query += `region=${body.region}&`;
         }
+        if (body.degree != "") {
+            query += `degree=${body.degree}&`;
+        }
         if (body.year != 0) {
             query += `year=${body.year}&`;
         }
-        if (body.gpaL != 0) {
-            query += `gpaL=${body.gpaL}&`;
-        }
-        if (body.gpaR != 0) {
-            query += `gpaR=${body.gpaR}&`;
+        if (body.gpaL != 1 || body.gpaR != 4) {
+            if (body.gpaL != 0) {
+                query += `gpaL=${body.gpaL}&`;
+            }
+            if (body.gpaR != 0) {
+                query += `gpaR=${body.gpaR}&`;
+            }
         }
         return instance.get(query);
     },
