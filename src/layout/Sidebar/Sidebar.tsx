@@ -9,7 +9,7 @@ import {
     Box,
     Typography,
     IconButton,
-    CircularProgress
+    CircularProgress, useMediaQuery
 } from '@mui/material';
 
 import {drawerHead} from './generator';
@@ -43,7 +43,7 @@ const drawerMixin = (theme: Theme, open: boolean): CSSObject => ({
         // display: "block"
     } : {
         width: `0px`,
-        // display: "none"
+        left: "-1px",
     })
 });
 

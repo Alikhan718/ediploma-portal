@@ -42,12 +42,12 @@ export const UniversityPageLayout: React.FC = () => {
                                     Технический Университет
                                 </Typography>
                                 <Typography mb='.5rem' fontSize="1rem" fontWeight="600" color={"#2EC4B6"}>
-                                    8 специальностей
+                                    73 специальностей
                                 </Typography>
                                 <Box display='flex'>
 
-                                    <Typography fontSize="0.875rem" mt='-.1rem' fontWeight="700">
-                                        4.8
+                                    <Typography fontSize="0.875rem" mt='-.1rem' mr=".3rem" fontWeight="700">
+                                        5
                                     </Typography>
                                     <StarIcon/>
                                     <StarIcon/>
