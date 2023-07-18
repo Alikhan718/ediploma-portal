@@ -14,7 +14,9 @@ import {
     FETCH_GET_OTP_SAGA,
     FETCH_GET_OTP_SUCCESS,
     FETCH_RESET_PASSWORD_SAGA,
-    FETCH_RESET_PASSWORD_SUCCESS
+    FETCH_RESET_PASSWORD_SUCCESS,
+    FETCH_VALIDATE_EMAIL_SAGA,
+    FETCH_VALIDATE_EMAIL_SUCCESS
 } from "./types/actionTypes";
 
 const initialState = {
@@ -23,6 +25,7 @@ const initialState = {
     isLoading: false,
     redirectToLogin: false,
     forgotStep: 1, // [1 - send code, 2 - confirm code, 3 - change pass]
+    registrationStep: 1, // [1 - send code, 2 - registered]
 };
 export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
@@ -75,6 +78,7 @@ export const authReducer = (state = initialState, action: any) => {
                 password: action.payload.password,
                 repassword: action.payload.repassword,
                 companyName: action.payload.companyName,
+                registrationStep: 1,
                 isLoading: false
             };
         case FETCH_AUTH_REGISTER_SUCCESS:
@@ -116,6 +120,19 @@ export const authReducer = (state = initialState, action: any) => {
                 code: action.payload.code,
             };
         case FETCH_AUTH_VALIDATE_EMAIL_SUCCESS:
+            return {
+                ...state,
+                otpSent: false,
+                isLoading: false,
+                registrationStep: 2,
+            };
+        case FETCH_VALIDATE_EMAIL_SAGA:
+            return {
+                ...state,
+                email: action.payload.email,
+                code: action.payload.code,
+            };
+        case FETCH_VALIDATE_EMAIL_SUCCESS:
             return {
                 ...state,
                 otpSent: false,

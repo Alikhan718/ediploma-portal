@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {Box, Button, Card, CardContent, IconButton, InputAdornment, Link, Typography} from '@mui/material';
 import {Input} from '@src/components';
-// import Visibility from "@material-ui/icons/Visibility";
-// import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {IAuthRegister} from "@src/pages/AuthPage/types";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchRegisterRequest, fetchValidateEmailRequest} from "@src/store/auth/actionCreators";
+import {fetchAuthValidateEmailRequest, fetchLoginRequest, fetchRegisterRequest,} from "@src/store/auth/actionCreators";
 import {routes} from "@src/shared/routes";
 import OtpInput from 'react-otp-input';
-import {selectOtpSent} from "@src/store/auth/selector";
+import {selectOtpSent, selectRegistrationStep} from "@src/store/auth/selector";
+import {fetchAuthLogin} from "@src/store/auth/saga";
+import {isAuthenticated} from "@src/utils/userAuth";
+import {useNavigate} from "react-router-dom";
 
 export const RegisterPageLayout: React.FC = () => {
     const [state, setState] = React.useState<IAuthRegister>({
@@ -18,7 +19,7 @@ export const RegisterPageLayout: React.FC = () => {
         companyName: "",
     });
     const dispatch = useDispatch();
-
+    const step = useSelector(selectRegistrationStep);
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>): Promise<any> => {
         setState({...state, [e.target.name]: e.target.value});
     };
@@ -29,15 +30,36 @@ export const RegisterPageLayout: React.FC = () => {
         const payload = state;
         dispatch(fetchRegisterRequest(payload));
     };
-
+    const navigate = useNavigate();
     const verifyEmail = (e: React.SyntheticEvent): void => {
         e.preventDefault();
         const payload = {
             email: state.email,
-            code: otp
+            code: otp,
+            password: state.password
         };
-        dispatch(fetchValidateEmailRequest(payload));
+        dispatch(fetchAuthValidateEmailRequest(payload));
     };
+    useEffect(() => {
+        if (step == 2) {
+
+            const payload = {
+                email: state.email,
+                password: state.password
+            };
+
+            dispatch(fetchLoginRequest(payload));
+
+            setTimeout(() => {
+                const urlElements = window.location.href.split('/');
+                if (isAuthenticated() && urlElements.includes('auth')) {
+                    navigate(routes.main, {replace: true});
+                }
+            }, 2000);
+
+        }
+
+    }, [step]);
     const [otp, setOtp] = React.useState('');
     return (
         <Card sx={{marginY: "auto", borderRadius: ".8rem", padding: ".6rem"}}>
@@ -67,11 +89,11 @@ export const RegisterPageLayout: React.FC = () => {
                                            <IconButton
                                                onClick={(e) => {
                                                    e.type = "text";
-                                                   }
+                                               }
                                                }
                                                onMouseDown={(e) => {
                                                    e.type = "text";
-                                                   }
+                                               }
                                                }
                                            >
                                                {/*{this && this.type = "text" ? "on" : "off"}*/}
