@@ -27,6 +27,7 @@ import { CitiesGraph } from './components/CitiesGraph';
 import { GenderGraph } from './components/GenderGraph';
 import { CitiesGrantsGraph } from './components/CitiesGrantsGraph';
 import { GrantsGraph } from './components/GrantsGraph';
+import { selectUserRole } from '@src/store/auth/selector';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -79,6 +80,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const diplomaList = useSelector(selectDiplomaList);
+    const userRole = useSelector(selectUserRole);
     useEffect(() => {
         dispatch(fetchDiplomas());
     }, []);
@@ -198,7 +200,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                         <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                                 <Tab label="Дипломы" {...a11yProps(0)} />
-                                <Tab label="Аналитика" disabled={true} {...a11yProps(1)} />
+                                <Tab label="Аналитика" disabled={userRole !== 'university admission'} {...a11yProps(1)} />
                             </Tabs>
                         </Box>
                         <TabPanel value={value} index={0}>
@@ -278,10 +280,10 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                         marginRight: 0
                                       },
                                 }}>
-                                    <AnalyticsCard text="Количество выпускников" number={1625}/>
-                                    <AnalyticsCard text="Выпускники бакалавриата" number={1023}/>
-                                    <AnalyticsCard text="Выпускники магистратуры" number={602}/>
-                                    <AnalyticsCard text="Нашли работу" number={982}/>
+                                    <AnalyticsCard text="Количество выпускников" number={705}/>
+                                    <AnalyticsCard text="Выпускники бакалавриата" number={554}/>
+                                    <AnalyticsCard text="Выпускники магистратуры" number={151}/>
+                                    <AnalyticsCard text="Средний гпа" number={3.07}/>
                                 </Box>
                                 <Box sx={{
                                         width: "100%",
