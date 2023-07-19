@@ -1,4 +1,5 @@
 import {
+    FETCH_CANCEL_FILTER_SAGA,
     FETCH_CHECK_IIN_ERROR,
     FETCH_CHECK_IIN_SAGA,
     FETCH_CHECK_IIN_SUCCESS,
@@ -78,8 +79,12 @@ const diplomaReducer = (state = initialState, action: any) => {
                 isFetching: false,
                 iinValidated: false
             };
+        case FETCH_CANCEL_FILTER_SAGA:
+            return {
+                ...state,
+                filtered_names: []
+            };
         case FETCH_SEARCH_SAGA:
-            console.log("REDUCER DATA", action.payload);
             return {
                 ...state,
                 iinValidated: false,

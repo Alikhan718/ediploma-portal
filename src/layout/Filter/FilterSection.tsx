@@ -7,15 +7,17 @@ import {Button} from "@src/components";
 import styles from "@src/pages/DiplomaPage/DiplomaPage.module.css";
 import cn from "classnames";
 import {MultiSelect} from "@src/components/MultiSelect/MuiltiSelect";
+import {useDispatch} from 'react-redux';
+import {cancelFilters, fetchDiplomas} from "@src/store/diplomas/actionCreators";
 
 export const FilterSection: React.FC<IFilter> = (props) => {
-
     const {open, setOpen, filterAttributes, setFilterAttributes, triggerSearchFilters} = props;
     const [selectedSpecialities, setSelectedSpecialities] = React.useState<string[]>([]);
     const [selectedGPA, setSelectedGPA] = React.useState(([1.0, 4.0]));
     const [selectedDegree, setSelectedDegree] = React.useState<string[]>([]);
     const [selectedYear, setSelectedYear] = React.useState<number[]>([]);
     const [selectedRegions, setSelectedRegions] = React.useState<string[]>([]);
+    const dispatch = useDispatch();
     React.useEffect(() => {
         const filterValues = {
             text: filterAttributes.text,
@@ -29,7 +31,6 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 
         // Update the filterAttributes state
         setFilterAttributes(filterValues);
-        console.log(filterValues);
         setFilterAttributes(filterValues);
         if (filterValues.text.length ||
             filterValues.specialities.length ||
@@ -38,9 +39,12 @@ export const FilterSection: React.FC<IFilter> = (props) => {
             filterValues.year.length ||
             filterValues.degree.length ||
             filterValues.region.length) {
-            console.log("TRUE");
             triggerSearchFilters(filterValues);
+        } else {
+            dispatch(cancelFilters());
+            dispatch(fetchDiplomas());
         }
+
 
     }, [selectedYear, selectedRegions, selectedSpecialities, selectedDegree, selectedGPA]);
 

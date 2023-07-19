@@ -74,7 +74,6 @@ export function* fetchSearchRequest(action: any) {
             && !action.payload.year) {
             return;
         }
-        console.log("REQUEST PAYLOAD: ", action.payload);
         const {data} = yield call(diplomasApi.search, action.payload);
         yield put({type: FETCH_DIPLOMAS_SAGA});
         let names = <any>[];
