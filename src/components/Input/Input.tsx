@@ -48,7 +48,7 @@ export const Input: React.FC<InputProps> = (props) => {
                         >
                             {showPassword ? <VisibilityOff/> : <Visibility/>}
                         </IconButton>
-                    </InputAdornment> : null
+                    </InputAdornment> : otherProps.endAdornment
                 }
                 />
         </FormControl>
