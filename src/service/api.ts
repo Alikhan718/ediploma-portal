@@ -63,7 +63,7 @@ export const authApi = {
 
 export const diplomasApi = {
     async getContracts() {
-        let link = "ipfs://bafybeidbedhhugo2nck5b7x5edxgpflnigwsj4jqf2gx24ddm5jvske7cu/fullMetadata.json";
+        let link = "ipfs://bafybeief3kcfslilus4flria2b77w6w44pd5pn4apxuvmmdkhttgkywnb4/fullMetadata.json";
         link = link.replace("ipfs://", "https://ipfs.io/ipfs/");
         return instance.get(link);
     },
