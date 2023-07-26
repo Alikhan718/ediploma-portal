@@ -132,7 +132,7 @@ export const SwitchDetails: React.FC = () => {
                 </Box>
 
                 <Box display='flex' flexDirection="column" mt='2rem'>
-                    <Link href={'https://sepolia.etherscan.io/address/0xf96910fb6f6b4991072e37584d84fe33f77b8b28'}
+                    <Link href={'https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7'}
                           sx={{textDecoration: "none"}} target={'_blank'}>
                         <Box display='flex'>
                             <Box display='flex' mr='.7rem' justifyContent='center' width='2.3rem'>
@@ -143,7 +143,7 @@ export const SwitchDetails: React.FC = () => {
                             </Typography>
                         </Box>
                     </Link>
-                    <Link href={'https://sepolia.etherscan.io/address/0xf96910fb6f6b4991072e37584d84fe33f77b8b28#code'}
+                    <Link href={'https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7#code'}
                           sx={{textDecoration: "none"}} target={'_blank'}>
                         <Box display='flex' mt='.5rem'>
                             <Box display='flex' mr='.7rem' justifyContent='center' width='2.3rem'>

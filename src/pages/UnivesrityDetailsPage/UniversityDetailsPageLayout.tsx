@@ -100,7 +100,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                     {/*<VerifiedIcon style={{marginTop: "1rem", marginLeft: ".5rem", marginRight: "auto", width: "3rem"}}/>*/}
                     <Box className={styles.socialContainer}>
                         <SmartContractIcon className={styles.social} onClick={() => {
-                            handleLink("https://sepolia.etherscan.io/address/0xf96910fb6f6b4991072e37584d84fe33f77b8b28#code");
+                            handleLink("https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7");
                         }}/>
                         <WebIcon className={styles.social} onClick={() => {
                             handleLink("https://kbtu.edu.kz/ru/");
@@ -327,7 +327,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                         <GrantsGraph />
                                     </Box>
                                 </Box>
-                                
+
                             </Box>
                         </TabPanel>
                     </Box>
