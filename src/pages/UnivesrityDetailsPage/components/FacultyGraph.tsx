@@ -33,7 +33,7 @@ export const FacultyGraph: React.FC = memo(() => {
     >
       <Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"}>
         <Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-          Факультеты
+          Аналитика по факультетам
         </Typography>
         <Box display="flex" flexDirection={"row"} alignItems={"center"}>
           <Typography color={"#475569"} fontSize={"1.25rem"}>
@@ -111,10 +111,10 @@ export const FacultyGraph: React.FC = memo(() => {
                     ];
                     const studentCount = [78, 23, 42, 18, 239, 28, 34, 92];
                     const averageGPA = [
-                      3.029569122, 2.723478261, 2.880866466, 3.003496481,
-                      3.133096877, 3.106428571, 3.280187987, 3.026719519,
+                      3.03, 2.72, 2.88, 3.00,
+                      3.13, 3.11, 3.28, 3.03,
                     ];
-                    return `${faculty[labelIndex]}: ${averageGPA[labelIndex]} students, Avg. GPA: ${studentCount[labelIndex]}`;
+                    return `${faculty[labelIndex]}: ${studentCount[labelIndex]} students, Avg. GPA: ${averageGPA[labelIndex]}`;
                   },
                 },
               },

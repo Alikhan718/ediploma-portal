@@ -54,8 +54,6 @@ export const GrantsGraph: React.FC = memo(() => {
             },
           ],
         }}
-        height={300}
-        width={200}
         options={{
           maintainAspectRatio: false,
           plugins: {

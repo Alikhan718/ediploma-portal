@@ -25,7 +25,7 @@ export const CitiesGraph: React.FC = memo(() => {
     >
       <Box display="flex" justifyContent={"space-between"} flexWrap={"nowrap"} margin={"0 20px"}>
         <Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-          Статистика по городам
+          Статистика по регионам
         </Typography>
         <Box display="flex" flexDirection={"row"} alignItems={"center"}>
           <DotIcon />
@@ -35,26 +35,24 @@ export const CitiesGraph: React.FC = memo(() => {
             <Doughnut
                 data = {{
                     labels:['Не указано', 
-                    'Акмолинская обл',
-                    'Актюбинская обл',
-                    'Алматинская область',
+                    'Акм.обл',
+                    'Акт.обл',
+                    'Алм.область',
                     'Алматы',
                     'Астана',
-                    'Атырауская обл',
-                    'Восточно-Казахстанская обл',
-                    'Жамбылская обл',
-                    'Жезказганская обл',
-                    'Западно-Казахстанская обл',
-                    'Казахстан',
-                    'Карагандинская обл',
-                    'Каракалпакия',
-                    'Костанайская обл',
-                    'Кызылординская обл',
-                    'Мангыстауская обл',
-                    'Павлодарская обл',
-                    'Северо-Казахстанская обл',
-                    'Талдыкорганская обл',
-                    'Туркестанская обл',
+                    'Атыр.обл',
+                    'В-Каз.обл',
+                    'Жам.обл',
+                    'Жез.обл',
+                    'З-Каз.обл',
+                    'Кар.обл',
+                    'Кос.обл',
+                    'Кыз.обл',
+                    'Манг.обл',
+                    'Пав.обл',
+                    'С-Каз.обл',
+                    'Тал.обл',
+                    'Тур.обл',
                     'Шымкент'
                     ],
                     datasets: [{
@@ -70,9 +68,7 @@ export const CitiesGraph: React.FC = memo(() => {
                             25,
                             1,
                             39,
-                            1,
                             12,
-                            1,
                             9,
                             15,
                             19,
@@ -109,15 +105,14 @@ export const CitiesGraph: React.FC = memo(() => {
                             ],
                     }],
                 }}
-                height={200}
-                width={100}
                 options={{
                     maintainAspectRatio:false,
                     plugins:{
                         legend:{
-                            display:false
-                        }
-                    }
+                            position:'left',
+                            display:true,
+                          },
+                    },
                 }}
             />
 

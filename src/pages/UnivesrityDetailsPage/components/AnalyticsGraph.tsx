@@ -33,7 +33,7 @@ export const AnalyticsGraph: React.FC = memo(() => {
     >
       <Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"}margin={"0 20px"}>
         <Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-          Аналитика
+          Аналитика дипломных оценок
         </Typography>
         <Box display="flex" flexDirection={"row"} alignItems={"center"}>
           <Typography color={"#475569"} fontSize={"1.25rem"}>
@@ -103,7 +103,14 @@ export const AnalyticsGraph: React.FC = memo(() => {
                                 2.96,
                                 3.21,
                                 ];
-                            return `${faculty[labelIndex]}:  Avg. GPA: ${averageGPA[labelIndex]}`;
+                            const count = [
+                              13,
+                              51,
+                              92,
+                              402,
+                              303,                             
+                            ]
+                            return `${faculty[labelIndex]}:  Avg. GPA: ${averageGPA[labelIndex]}, numner of students: ${count[labelIndex]}`;
                           },
                         },
                       },
