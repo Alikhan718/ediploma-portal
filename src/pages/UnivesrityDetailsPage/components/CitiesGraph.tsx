@@ -31,7 +31,7 @@ export const CitiesGraph: React.FC = memo(() => {
           <DotIcon />
         </Box>
       </Box>
-      <div style={{margin: '20px'}}>
+      <div style={{margin: '20px', height: '450px'}}>
             <Doughnut
                 data = {{
                     labels:['Не указано', 
