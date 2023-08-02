@@ -110,7 +110,7 @@ export const AnalyticsGraph: React.FC = memo(() => {
                               402,
                               303,                             
                             ]
-                            return `${faculty[labelIndex]}:  Avg. GPA: ${averageGPA[labelIndex]}, numner of students: ${count[labelIndex]}`;
+                            return `${faculty[labelIndex]}:  Avg. GPA: ${averageGPA[labelIndex]}, number of students: ${count[labelIndex]}`;
                           },
                         },
                       },
