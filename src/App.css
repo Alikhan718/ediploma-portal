@@ -65,7 +65,7 @@
 .diploma-navbar {
     display: flex;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 40px;
     align-items: center;
 }
 
@@ -75,7 +75,8 @@
 }
 
 .diploma-logo {
-    margin-left: 3rem;
+    /*add container*/
+    margin-left: calc(20px + 60px);
     cursor: pointer;
 }
 

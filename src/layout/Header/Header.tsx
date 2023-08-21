@@ -1,7 +1,11 @@
 import React from 'react';
 
 import MenuIcon from '@src/assets/icons/menu lines.svg';
-import BrandIcon from '@src/assets/icons/brand.svg';
+import AppLogo from '@src/assets/icons/app-logo.svg';
+
+import HeaderSearchIcon from '@src/assets/icons/search.svg';
+import RuFlag from '@src/assets/icons/ru-flag.svg';
+
 import {ReactComponent as UserIcon} from '@src/assets/icons/user.svg';
 import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
 import {ReactComponent as FilterIcon} from '@src/assets/icons/Filter-icon.svg';
@@ -87,7 +91,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setFilterAttributes({...filterAttributes, text: e.target.value.trim()})
+        setFilterAttributes({...filterAttributes, text: e.target.value.trim()});
         if (e.target.value.trim().length >= 2) {
             triggerSearchFilters(filterAttributes);
         }
@@ -151,7 +155,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                 <img src={MenuIcon} onClick={() => {
                     setOpen(!open);
                 }} className="menu-icon"/>
-                <img className='diploma-logo' src={BrandIcon} onClick={() => {
+                <img className='diploma-logo' src={AppLogo} onClick={() => {
                     navigate(routes.main);
                 }} alt="logo"/>
                 {privateNavigations.map(nav => (
@@ -161,13 +165,19 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                         className={(props) => handleClassName(props.isActive, nav.id) + "diploma-navbar-item"}
                     >
                         <Typography
+                            noWrap
                             variant='h4'
-                            color={activeNav === nav.id ? '#0A66C2' : 'gray'}
-                            fontWeight='450'>
+                            color={activeNav === nav.id ? '#0A66C2' : 'rgba(45, 45, 45, 1)'}
+                            fontWeight='400'
+                            fontSize='16px'
+                            lineHeight='20px'
+                            >
                             {nav.name}
                         </Typography>
                     </NavLink>
                 ))}
+
+
                 <Box className="diploma-navbar-item" width="100%">
                     {!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('university') && !window.location.href.split('/').includes('university') &&
                         <Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'
@@ -189,7 +199,20 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                     setOpen={setShowFilter}
                 />
                 {/* REST SELECTOR  */}
+                <div>
+                        <img style={{
+                            cursor: 'pointer'
+                        }} src={HeaderSearchIcon} alt=""/>
+                </div>
+                <div>
+                    <img style={{
+                        cursor: 'pointer'
+                    }} src={RuFlag} alt=""/>
+                </div>
                 <Box display='flex' justifyContent='flex-end' py='10px' className="diploma-btn-container">
+
+                  
+
                     {!isAuthenticated() ? <Button
                             onClick={() => {
                                 navigate(routes.login, {replace: true});
@@ -197,6 +220,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             className="diploma-auth-btn"
                             startIcon={<UserIcon style={{height: "1.2rem"}}/>}
                             variant='contained'
+                            borderRadius={48}
+                            width={120}
                         >
                             <Typography
                                 variant='h4'
@@ -218,6 +243,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             }}
                             startIcon={<img src={LogoutIcon} style={{height: "1rem"}}/>}
                             variant='contained'
+                            width={120}
                         >
                             <Typography
                                 variant='h4'
@@ -230,10 +256,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
                         </Button>
                     }
-                </Box>
+                di</Box>
             </Box>
             <GlobalLoader/>
-            <Divider/>
         </AppBar>
     );
 };

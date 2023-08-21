@@ -6,14 +6,16 @@ import { ButtonProps } from './Button.props';
 
 const CustomButton = styled(MuiButton, {
 	shouldForwardProp: (prop) => prop !== 'buttonSize',
-})<{ buttonSize?: 's' | 'm' | 'l' }>(({ buttonSize }) => ({
+})<ButtonProps>(({ buttonSize, borderRadius, width }) => ({
 	padding: buttonSize === 's' ? '0px 20px' : buttonSize === 'm' ? '0px 25px' : '0',
-	height: buttonSize === 's' ? '40px' : buttonSize === 'm' ? '50px' : '0px',
-	borderRadius: '10px',
+	height: buttonSize === 's' ? '48px' : buttonSize === 'm' ? '50px' : '0px',
+	width,
+	borderRadius,
 	fontWeight: 400,
 	lineHeight: 0,
 	whiteSpace: 'nowrap',
 	boxShadow: 'none',
+	backgroundColor: 'rgba(59, 130, 246, 1)',
 }));
 
 export const Button: React.FC<ButtonProps> = (props) => {
