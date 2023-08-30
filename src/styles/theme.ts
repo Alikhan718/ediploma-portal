@@ -7,7 +7,7 @@ import React from 'react';
 export const theme: Theme = createTheme({
 	palette: {
 		primary: {
-			main: '#0A66C2',
+			main: '#3B82F6',
 		},
 		secondary: {
 			main: '#34A853',
@@ -55,7 +55,7 @@ export const theme: Theme = createTheme({
 
 	},
 	typography: {
-		fontFamily: "Inter",
+		fontFamily: "Montserrat",
 
 		fontSize: 16,
 		fontWeightRegular: 400,

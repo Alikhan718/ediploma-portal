@@ -3,14 +3,16 @@ import {Label} from '@src/components';
 import {FormControl, IconButton, InputAdornment, OutlinedInput, styled} from '@mui/material';
 
 import {InputProps} from './Input.props';
-import Visibility from '@mui/icons-material/Visibility';
+import {ReactComponent as Visibility} from "@src/assets/icons/eye_open.svg";
+// import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const CustomOutlineInput = styled(OutlinedInput, {
         shouldForwardProp: (prop) => prop !== 'inputSize',
     })
     < {inputSize: 's' | 'm' | 'l'} > (({inputSize, theme}) => ({
-        borderRadius: '10px',
+        borderRadius: '48px',
+        borderColor: 'white',
         backgroundColor: '#DADADA',
         '& .MuiOutlinedInput-input': {
             fontSize: theme.typography.fontSize,

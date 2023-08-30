@@ -220,7 +220,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             className="diploma-auth-btn"
                             startIcon={<UserIcon style={{height: "1.2rem"}}/>}
                             variant='contained'
-                            borderRadius={48}
+                            borderRadius="3rem"
                             width={120}
                         >
                             <Typography

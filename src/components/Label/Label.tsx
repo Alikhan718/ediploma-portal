@@ -7,13 +7,13 @@ export const Label: React.FC<LabelProps> = (props) => {
 	return (
 		<Box display='flex' alignItems='center' justifyContent='space-between' mb='3px'>
 			<FormLabel
-				sx={{ fontSize: '0.875em', color: 'text.secondary', cursor: 'pointer' }}>
+				sx={{ fontSize: '0.875em', color: '#A1A1A1', cursor: 'pointer' }}>
 				{label}
 			</FormLabel>
 			{helper && (
 				<Box
 					fontSize='0.875em'
-					color='text.secondary'
+					color='#A1A1A1'
 					sx={{ cursor: 'pointer' }}>
 					{helper}
 				</Box>

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, Card, CardContent, Link, Typography} from '@mui/material';
-import {Input} from '@src/components';
+import {Box, Card, CardContent, Link, Paper, TextField, Typography} from '@mui/material';
+import {Button, Input, Label} from '@src/components';
 import {IAuthLogin} from '@src/pages/AuthPage/types';
 import {useDispatch} from 'react-redux';
 import {fetchLoginRequest} from '@src/store/auth/actionCreators';
@@ -8,6 +8,7 @@ import {isAuthenticated} from '@src/utils/userAuth';
 import {routes} from '@src/shared/routes';
 import {useNavigate} from 'react-router-dom';
 import ReactGA from 'react-ga';
+import Checkbox from '@mui/material/Checkbox';
 
 export const LoginPageLayout: React.FC = () => {
     const [state, setState] = React.useState<IAuthLogin>({
@@ -68,7 +69,7 @@ export const LoginPageLayout: React.FC = () => {
     }, []);
 
     return (
-        <Card sx={{marginY: 'auto', borderRadius: '.8rem', padding: '.6rem'}}>
+        <Box sx={{marginY: 'auto', borderRadius: '.8rem', padding: '.6rem', width: "30rem"}}>
             <CardContent
                 style={{
                     display: 'flex',
@@ -78,40 +79,62 @@ export const LoginPageLayout: React.FC = () => {
                     justifyContent: 'space-between',
                 }}
             >
-                <Typography fontSize="1.5rem" fontWeight="700">
-                    Войти
-                </Typography>
-                <form style={{display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem'}}>
-                    <Input
-                        type="text"
-                        name="email"
-                        sx={{background: 'white'}}
-                        onChange={handleChange}
-                        placeholder="Логин или Email"
-                    />
-                    <Input
-                        type="password"
-                        name="password"
-                        sx={{background: 'white'}}
-                        onChange={handleChange}
-                        placeholder="Пароль"
-                    />
-                    <Typography fontSize=".8rem" textAlign="right">
-                        <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.passwordReset}>
-                            Забыли пароль?
-                        </Link>
-                    </Typography>
-                    <Button fullWidth={true} variant="contained" onClick={onSubmit} type="submit">
+                <Box>
+                    <Typography fontSize="1.75rem" fontWeight="700">
                         Войти
+                    </Typography>
+                    <Typography fontSize="0.85rem" color="#818181" width="17rem">
+                        Введите свой адрес электронной почты и пароль для входа в систему!
+                    </Typography>
+                </Box>
+                <form style={{display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem'}}>
+                    <Box>
+                        <Label label="Почта*"/>
+                        <Input
+                            type="text"
+                            name="email"
+                            sx={{background: 'white'}}
+                            onChange={handleChange}
+                            placeholder="Логин или Email"
+                        />
+                    </Box>
+                    <Box>
+                        <Label label="Пароль*"/>
+                        <Input
+                            type="password"
+                            name="password"
+                            sx={{background: 'white'}}
+                            onChange={handleChange}
+                            placeholder="Пароль"
+                        />
+                    </Box>
+                    <Box display="flex" flex="row" justifyContent="space-between">
+                        <Box display="flex" flex="row">
+                            <Checkbox defaultChecked size="small"/>
+                            <Typography alignSelf="center" fontSize="0.875rem" fontWeight="500" color="#2D2D2D">
+                                Запомнить меня
+                            </Typography>
+                        </Box>
+                        <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.passwordReset}  alignSelf="center">
+                            <Typography fontWeight="500" fontSize="0.875rem">
+                                Забыли пароль?
+                            </Typography>
+                        </Link>
+                    </Box>
+                    <Button fullWidth={true} variant="contained" borderRadius="3rem" onClick={onSubmit} type="submit">
+                        Войти
+                    </Button>
+                    <Button fullWidth={true} variant="contained" borderRadius="3rem" sx={{backgroundColor: "#EBF2FE", color: "#2F69C7", "&:hover": {"background-color" : "#3B82F6", color: "white"}}} onClick={onSubmit} type="submit">
+                        Выбрать ключ ЭЦП
                     </Button>
                 </form>
                 <Typography fontSize=".8rem" textAlign="center" mt="1rem">
-                    Нет аккаунта?{' '}
+                    Еще не зарегистрировались?{'  '}
                     <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.register}>
-                        Зарегистрироваться
+                        Создать учетную запись
                     </Link>
                 </Typography>
             </CardContent>
-        </Card>
+        </Box>
     );
 };
