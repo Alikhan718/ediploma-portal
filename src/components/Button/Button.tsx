@@ -15,7 +15,7 @@ const CustomButton = styled(MuiButton, {
 	lineHeight: 0,
 	whiteSpace: 'nowrap',
 	boxShadow: 'none',
-	backgroundColor: 'rgba(59, 130, 246, 1)',
+	backgroundColor: 'primary',
 }));
 
 export const Button: React.FC<ButtonProps> = (props) => {

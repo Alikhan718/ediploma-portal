@@ -93,7 +93,6 @@ export const LoginPageLayout: React.FC = () => {
                         <Input
                             type="text"
                             name="email"
-                            sx={{background: 'white'}}
                             onChange={handleChange}
                             placeholder="Логин или Email"
                         />
@@ -103,7 +102,6 @@ export const LoginPageLayout: React.FC = () => {
                         <Input
                             type="password"
                             name="password"
-                            sx={{background: 'white'}}
                             onChange={handleChange}
                             placeholder="Пароль"
                         />
@@ -124,7 +122,7 @@ export const LoginPageLayout: React.FC = () => {
                     <Button fullWidth={true} variant="contained" borderRadius="3rem" onClick={onSubmit} type="submit">
                         Войти
                     </Button>
-                    <Button fullWidth={true} variant="contained" borderRadius="3rem" sx={{backgroundColor: "#EBF2FE", color: "#2F69C7", "&:hover": {"background-color" : "#3B82F6", color: "white"}}} onClick={onSubmit} type="submit">
+                    <Button fullWidth={true} variant="contained" borderRadius="3rem" sx={{backgroundColor: "#EBF2FE", color: "#2F69C7", "&:hover": {"background-color" : "#3B82F6", color: "white"}}}>
                         Выбрать ключ ЭЦП
                     </Button>
                 </form>

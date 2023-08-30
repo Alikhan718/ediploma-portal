@@ -10,20 +10,23 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 const CustomOutlineInput = styled(OutlinedInput, {
         shouldForwardProp: (prop) => prop !== 'inputSize',
     })
-    < {inputSize: 's' | 'm' | 'l'} > (({inputSize, theme}) => ({
+    < {inputSize: 's' | 'm' | 'l', textALign: 'start' | 'center' | 'end'} > (({inputSize, textALign , theme}) => ({
         borderRadius: '48px',
-        borderColor: 'white',
-        backgroundColor: '#DADADA',
+        backgroundColor: '#F8F8F8',
         '& .MuiOutlinedInput-input': {
             fontSize: theme.typography.fontSize,
-            padding: inputSize === 's' ? '8.5px 20px' : inputSize === 'm' ? '13.5px 20px' : '8px 0',
-
+            padding: inputSize === 's' ? '12px 20px' : inputSize === 'm' ? '13.5px 20px' : '8px 0',
+            textAlign: textALign
         },
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: "#F8F8F8"
+        }
+
 
     }));
 
 export const Input: React.FC<InputProps> = (props) => {
-    const {fullWidth, inputSize = 's', label, activeBorderColor = 'primary', helper, ...otherProps} = props;
+    const {textALign = 'start', fullWidth, inputSize = 's',  label, activeBorderColor = 'primary', helper, ...otherProps} = props;
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -36,6 +39,7 @@ export const Input: React.FC<InputProps> = (props) => {
         <FormControl fullWidth={fullWidth} sx={{width: "100%"}}>
             {label && <Label label={label} helper={helper}/>}
             <CustomOutlineInput
+                textALign={textALign}
                 fullWidth={fullWidth}
                 inputSize={inputSize}
                 {...otherProps}
@@ -52,7 +56,7 @@ export const Input: React.FC<InputProps> = (props) => {
                         </IconButton>
                     </InputAdornment> : otherProps.endAdornment
                 }
-                />
+            />
         </FormControl>
     );
 };

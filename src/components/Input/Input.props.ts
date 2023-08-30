@@ -4,6 +4,7 @@ import React from 'react';
 export interface InputProps extends Omit<OutlinedInputProps, 'label'> {
 	inputSize?: 's' | 'm' | 'l';
 	label?: string;
+	textALign?: 'start' | 'center' | 'end';
 	helper?: React.ReactNode | string;
 	activeBorderColor?: 'primary' | 'success' | 'warning'
 };
