@@ -193,20 +193,12 @@ export const RegisterPageLayout: React.FC = () => {
                             gap: "1rem",
                             width: "100%",
                         }}>
-                            <Input
-                                textALign={"center"}
-                                type="text"
-                                name="otp"
-                                sx={{}}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                    if (e.target.value.length > 4) {
-                                        e.target.value = e.target.value.substring(0, 4);
-                                    }
-                                    handleChange(e);
-                                    console.log(state.otp);
-                                }}
-                                placeholder={`Отправить еще раз через ${counter} сек`}
-                            />
+                            <Button disabled={counter != 0} style={{borderRadius: "3rem", backgroundColor: "#F8F8F8"}}>
+                                <Typography textAlign="center" color="#B6B6B6">
+                                    {`Отправить еще раз через ${counter} сек`}
+                                </Typography>
+                            </Button>
+
                             <Box display="flex" width="100%">
                                 <OtpInput value={otp}
                                           containerStyle={{
