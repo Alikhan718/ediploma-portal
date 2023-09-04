@@ -1,5 +1,4 @@
 import React from 'react';
-import { DRAWER_WIDTH } from '../Layout';
 import {
 	Drawer,
 	styled,
@@ -8,21 +7,17 @@ import {
 	DrawerProps,
 	Box,
 	Typography,
-	IconButton,
-	CircularProgress, useMediaQuery
+	CircularProgress, Button, Divider
 } from '@mui/material';
-
 import AppLogo from '@src/assets/icons/app-logo.svg';
-
-import { drawerHead } from './generator';
+import Menu from '@src/assets/example/Menu.svg';
 import { SidebarProps } from './Sidebar.props';
 import { NavLink } from 'react-router-dom';
-import { Button } from '@src/components';
 import Out from "@src/assets/icons/out.png";
 import { selectAuthLoader } from '@src/store/auth/selector';
 import { useSelector } from 'react-redux';
 import { privateNavigations } from "@src/layout/Header/generator";
-
+import { DRAWER_WIDTH } from '../Layout';
 
 interface ICustomDrawer extends DrawerProps {
 	open: boolean;
@@ -42,13 +37,11 @@ const drawerMixin = (theme: Theme, open: boolean): CSSObject => ({
 	}),
 	...(open ? {
 		width: DRAWER_WIDTH,
-		// display: "block"
 	} : {
 		width: `0px`,
 		left: "-1px",
 	})
 });
-
 
 const CustomDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })<ICustomDrawer>(
 	({ theme, open }) => ({
@@ -58,6 +51,7 @@ const CustomDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'ope
 		boxSizing: 'border-box',
 		zIndex: '999999',
 		boxShadow: 'unset',
+		height: '10%',
 		...{
 			...drawerMixin(theme, open),
 			'& .MuiDrawer-paper': {
@@ -72,81 +66,86 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 	const { open, toggleDrawer } = props;
 	const authLoader = useSelector(selectAuthLoader);
 
-
 	const [activeNav, setActiveNav] = React.useState(0);
 
-	const handleActiveNav = (navId: number): void => {
-		setActiveNav(navId);
-	};
 	const handleClassName = (isActive: boolean, id: number): string | undefined => {
-		isActive && handleActiveNav(id);
+		isActive && setActiveNav(id);
 		return "";
 	};
+
 	const onSignOut = (): void => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("refreshToken");
 		localStorage.removeItem("currLocation");
 	};
-	//
-	// return <Box>
-	//     asdfasdfa
-	// </Box>
 
 	return (
 		<CustomDrawer variant="permanent" open={true}>
-
-			{!authLoader ? <React.Fragment><Box p={`1.5rem 0 0 20px }`}>
-				<img src={AppLogo} style={{ width: '77%' }} />
-				{/*<Box display='flex' alignItems='center'>*/}
-				{/*    <IconButton onClick={toggleDrawer}>*/}
-				{/*        <img src={drawerHead.menu} alt=''/>*/}
-				{/*    </IconButton>*/}
-				{/*    <Box ml='12px' display='flex' alignItems='center'>*/}
-				{/*    </Box>*/}
-				{/*</Box>*/}
-				<Box sx={{
-					borderBottom: '1px solid #F8F8F8',
-					paddingBottom: '24px',
-					marginBottom: '24px'
-				}}></Box>
-
-				<Box mt='1rem'>
-					{privateNavigations.map(nav => (
-						<NavLink
-							to={nav.to}
-							key={nav.id}
-
-							onClick={() => handleActiveNav(nav.id)}
-							className={(props) => handleClassName(props.isActive, nav.id)}
-						>
-							<Box display='flex' alignItems='center' pt='1rem' mb='5px' sx={{ background: `${activeNav === nav.id ? '#3B82F6' : 'unset'}`, padding: '15px', borderRadius: '19px' }}>
-								<Box mr='18px' ml='8px'>
-									<Box sx={{ background: `${activeNav === nav.id ? '#white' : 'white'}` }}>
-										{nav.icon}
+			{!authLoader ? (
+				<React.Fragment>
+					<Box p={`1.5rem 0 0 20px`}>
+						<img src={AppLogo} style={{ width: '75%' }} />
+						<Box sx={{
+							borderBottom: '1px solid #F8F8F8',
+							paddingBottom: '24px',
+							marginBottom: '24px'
+						}}></Box>
+						<Box mt='1rem'>
+							{privateNavigations.map(nav => (
+								<NavLink
+									to={nav.to}
+									key={nav.id}
+									onClick={() => setActiveNav(nav.id)}
+									className={(props) => handleClassName(props.isActive, nav.id)}
+								>
+									<Box
+										display='flex'
+										alignItems='center'
+										pt='1rem'
+										mb='5px'
+										sx={{
+											background: `${activeNav === nav.id ? '#3B82F6' : 'unset'}`,
+											padding: '15px',
+											borderRadius: '19px',
+										}}
+									>
+										<Box mr='18px' ml='8px'>
+											<Box sx={{ background: `${activeNav === nav.id ? '#white' : 'white'}` }}>
+												{nav.icon}
+											</Box>
+										</Box>
+										<Typography
+											variant='h4'
+											color={activeNav === nav.id ? 'white' : '#697B7A'}
+											fontWeight='600'
+										>
+											{nav.name}
+										</Typography>
 									</Box>
-								</Box>
-								<Typography
-									variant='h4'
-									color={activeNav === nav.id ? 'white' : '#697B7A'}
-									fontWeight='600'>
-									{nav.name}
-								</Typography>
-							</Box>
-							<Box position="absolute" bottom="30px" left={open ? "20px" : "8px"}>
-								<Button startIcon={<img src={Out} />} color="neutral" onClick={onSignOut}>
-									{open ? "Выход" : ""}
+								</NavLink>
+							))}
+						</Box>
+						<Box position="absolute" bottom="300px" left="20px">
+							<Typography sx={{ color: '#697B7A', fontSize: '20px' }} >Аккаунт</Typography>
+
+							<Box mt="1rem">
+								<Button startIcon={<img src={Out} />} sx={{ color: '#697B7A', fontSize: '20px' }} onClick={onSignOut}>
+									Настройки
 								</Button>
 							</Box>
-						</NavLink>
+							<Box mt="0rem" mb="5rem">
+								<Button startIcon={<img src={Out} />} sx={{ color: '#EF4444', fontSize: '20px' }} onClick={onSignOut}>
+									Выйти
+								</Button>
+							</Box>
 
-					))
-					}
-
-				</Box>
-
-			</Box>
-
-			</React.Fragment> : <CircularProgress color="warning" />}
+							<img src={Menu} style={{ width: '150%' }} />
+						</Box>
+					</Box>
+				</React.Fragment>
+			) : (
+				<CircularProgress color="warning" />
+			)}
 		</CustomDrawer>
 	);
 };

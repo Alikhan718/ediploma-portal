@@ -30,7 +30,6 @@ import { GenderGraph } from './components/GenderGraph';
 import { CitiesGrantsGraph } from './components/CitiesGrantsGraph';
 import { GrantsGraph } from './components/GrantsGraph';
 import { selectUserRole } from '@src/store/auth/selector';
-import { Sidebar } from '@src/layout/Sidebar/Sidebar';
 
 interface TabPanelProps {
 	children?: React.ReactNode;
