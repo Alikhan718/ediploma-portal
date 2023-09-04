@@ -11,7 +11,7 @@ import {selectGlobalIsLoading} from '@src/store/generals/selectors';
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
 
-export const DRAWER_WIDTH = "80%";
+export const DRAWER_WIDTH = "20%";
 
 const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 
@@ -39,10 +39,10 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
     }, []);
     return (
         <Box display='flex' height='100%'>
-            {!urlElements.includes('auth') && <Header
-                open={open}
-                setOpen={setOpen}
-            />}
+            {/*{!urlElements.includes('auth') && <Header*/}
+            {/*    open={open}*/}
+            {/*    setOpen={setOpen}*/}
+            {/*/>}*/}
 
             <Sidebar open={open} toggleDrawer={toggleDrawer} />
 
@@ -52,11 +52,18 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
                 height='100vh'
                 p={"0"}
                 position='relative'>
+                <Box>
+                    {!urlElements.includes('auth') && <Header
+                        open={open}
+                        setOpen={setOpen}
+                    />}
+                    {isGLoading && <Box position='absolute' zIndex={10} top={0} bottom={0} left={0} right={0}
+                                        bgcolor='rgba(255, 255, 255, 0.6)'/>}
 
-                {isGLoading && <Box position='absolute' zIndex={10} top={0} bottom={0} left={0} right={0}
-                                    bgcolor='rgba(255, 255, 255, 0.6)'/>}
+                    {children}
+                </Box>
 
-                {children}
+
 
             </Box>
 
