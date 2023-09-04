@@ -12,8 +12,8 @@ export const UniversityDetailsPageHeader: React.FC = (props) => {
 				sx={{
 					position: 'relative',
 					borderRadius: '15px',
-					height: '450px', // Adjust the desired height here
-					overflow: 'hidden', // Hide any overflow content
+					height: '450px',
+					overflow: 'hidden',
 				}}
 				width={'100%'}
 				mb='3rem'
@@ -23,14 +23,12 @@ export const UniversityDetailsPageHeader: React.FC = (props) => {
 					className={styles.headerImg}
 					alt=""
 					style={{
-						objectFit: 'fill', // Scale and crop the image to cover the container
-						width: '100%', // Make sure the image takes the full width
-						height: '140%', // Make sure the image takes the full height
+						objectFit: 'fill',
+						width: '100%',
+						height: '140%',
 					}}
 				/>
 				<Card elevation={4} className={styles.cardImgContainer} sx={{
-					// Change position to absolute
-					// Adjust the top position to move the card higher
 				}}>
 					<CardMedia
 						component="img"

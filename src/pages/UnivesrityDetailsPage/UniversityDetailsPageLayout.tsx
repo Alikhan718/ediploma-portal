@@ -36,6 +36,7 @@ interface TabPanelProps {
 	index: number;
 	value: number;
 }
+const diplomasPerPage = 8;
 
 function TabPanel(props: TabPanelProps) {
 	const { children, value, index, ...other } = props;
@@ -63,22 +64,31 @@ function a11yProps(index: number) {
 		'aria-controls': `simple-tabpanel-${index}`,
 	};
 }
-const itemsPerPage = 10;
 export const UniversityDetailsPageLayout: React.FC = () => {
 	const [showFull, setShowFull] = React.useState(false);
 	const [page, setPage] = useState(0);
-	const startIndex = page * itemsPerPage;
-	const endIndex = startIndex + itemsPerPage;
-	const handleNextPage = () => {
-		setPage((prevPage) => prevPage + 1);
+	const [currentPage, setCurrentPage] = useState(1);
+
+	const diplomaList = useSelector(selectDiplomaList);
+	const startIndex = (currentPage - 1) * diplomasPerPage;
+	const endIndex = startIndex + diplomasPerPage;
+	const currentDiplomaPage = diplomaList.slice(startIndex, endIndex);
+	const nextPage = () => {
+		setCurrentPage((prevPage) => prevPage + 1);
+	};
+
+	const prevPage = () => {
+		if (currentPage > 1) {
+			setCurrentPage((prevPage) => prevPage - 1);
+		}
 	};
 
 	const handlePrevPage = () => {
 		setPage((prevPage) => prevPage - 1);
 	};
-	const handleText = (text: string): string => { // function to trim text to show less or more
+	const handleText = (text: string): string => {
 		const matchesSm = useMediaQuery('(max-width:768px)');
-		const trimLimit = matchesSm ? 45 : 115; // amount of characters to be shown
+		const trimLimit = matchesSm ? 45 : 115;
 		return showFull ? text : text.substring(0, trimLimit) + "...";
 	};
 
@@ -90,7 +100,6 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const diplomaList = useSelector(selectDiplomaList);
 	const userRole = useSelector(selectUserRole);
 	useEffect(() => {
 		dispatch(fetchDiplomas());
@@ -209,33 +218,43 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									<Tab label="Аналитика" disabled={userRole !== 'university admission'} {...a11yProps(1)} />
 								</Tabs> */}
 							</Box>
-							<TabPanel value={value} index={0} >
-
-								<Box><Typography> Дипломы выпускников</Typography></Box>
-								<Box display='flex' p="5" justifyContent='space-between' sx={{ backgroundColor: 'white', borderRadius: '15px' }} className={styles.diplomasContainer}
-									flexWrap='wrap'>
-									{diplomaList && diplomaList.length && diplomaList.map((e: any) => (
-
-										<Card key={e.counter} elevation={6}
+							<TabPanel value={value} index={0}>
+								<Box display="flex"
+									flexDirection="column"
+									alignItems="start"
+									sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '10px', marginBottom: '20px' }}
+									className={styles.diplomasContainer}>
+									<Typography sx={{ fontWeight: '800', fontSize: '25px' }}>Дипломы выпускников</Typography>
+								</Box>
+								<Box
+									display="flex"
+									flexDirection="column"
+									alignItems="start"
+									sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '10px' }}
+									className={styles.diplomasContainer}
+								>
+									{currentDiplomaPage.map((e: any) => (
+										<Card
+											key={e.counter}
+											elevation={6}
 											onClick={() => {
 												navigate(`/app/diploma/${e.counter!}/details`);
 											}}
 											className={styles.diplomaItem}
 											sx={{
-												display: 'flex',
-												width: "49%",
-												cursor: "pointer",
-												borderRadius: "10px",
-												padding: 0,
-												marginBottom: "1.5rem"
-											}}>
-											<CardMedia
+												width: '100%',
+												cursor: 'pointer',
+												borderRadius: '10px',
+												marginBottom: '1.5rem'
+											}}
+										>
+											{/* <CardMedia
 												component="img"
 												className={styles.diplomaImg}
 												sx={{ width: "13rem", padding: "1.5rem" }}
 												image={diplomaTemplate}
 												alt="University Image"
-											/>
+											/> */}
 											<Box sx={{ display: 'flex', flexDirection: 'column', width: "100%" }}>
 												<CardContent
 													sx={{
@@ -253,19 +272,54 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 													</Typography>
 													<Box display='flex' mt='auto' width='100%'>
 														<Typography fontSize="0.875rem" mr='auto'>
-															{/*КБТУ*/}
+															2023
 														</Typography>
-														{/*<Typography fontSize="0.875rem" ml='auto' mr='1rem'>*/}
-														{/*    {humanReadableToLocalTime(e.protocol_en, "/")}*/}
-														{/*</Typography>*/}
+														{/* <Typography fontSize="0.875rem" ml='auto' mr='1rem'>
+															{humanReadableToLocalTime(e.protocol_en, "/")}
+														</Typography> */}
 													</Box>
 												</CardContent>
 											</Box>
 										</Card>
-
-
-									))}
+									))
+									}
+									<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+										<Button onClick={prevPage} disabled={currentPage === 1}>
+											Previous Page
+										</Button>
+										<div style={{
+											display: 'flex',
+											gap: '10px',
+											alignItems: 'center',
+											flexWrap: 'wrap',
+											justifyContent: 'center',
+											flex: 1,
+										}}>
+											{Array.from({ length: Math.ceil(diplomaList.length / diplomasPerPage) }, (_, index) => {
+												if (index < 6 || index >= Math.ceil(diplomaList.length / diplomasPerPage) - 5) {
+													// Show the first 6 page numbers and the last 5 page numbers
+													return (
+														<Button
+															key={index}
+															onClick={() => setCurrentPage(index + 1)}
+															variant={currentPage === index + 1 ? 'contained' : 'outlined'}
+															color="primary"
+														>
+															{index + 1}
+														</Button>
+													);
+												} else if (index === 6) {
+													return <span key="ellipsis">...</span>;
+												}
+												return null;
+											})}
+										</div>
+										<Button onClick={nextPage} disabled={currentDiplomaPage.length < diplomasPerPage}>
+											Next Page
+										</Button>
+									</Box>
 								</Box>
+
 
 							</TabPanel>
 							<TabPanel value={value} index={1}>
