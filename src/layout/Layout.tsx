@@ -11,7 +11,7 @@ import { selectGlobalIsLoading } from '@src/store/generals/selectors';
 import { routes } from "@src/shared/routes";
 import { isAuthenticated } from "@src/utils/userAuth";
 
-export const DRAWER_WIDTH = "15%";
+export const DRAWER_WIDTH = "18%";
 
 const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 

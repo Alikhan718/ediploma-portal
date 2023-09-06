@@ -125,27 +125,40 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 								</NavLink>
 							))}
 						</Box>
-						<Box position="fixed" bottom="300px" left="20px">
-							<Typography sx={{ color: '#697B7A', fontSize: '20px' }} >Аккаунт</Typography>
 
-							<Box mt="1rem">
-								<Button startIcon={<img src={Out} />} sx={{ color: '#697B7A', fontSize: '20px' }} onClick={onSignOut}>
-									Настройки
-								</Button>
-							</Box>
-							<Box mt="0rem" mb="5rem">
-								<Button startIcon={<img src={Out} />} sx={{ color: '#EF4444', fontSize: '20px' }} onClick={onSignOut}>
-									Выйти
-								</Button>
-							</Box>
-
-							<img src={Menu} style={{ width: '150%' }} />
-						</Box>
 					</Box>
 				</React.Fragment>
 			) : (
 				<CircularProgress color="warning" />
 			)}
+			<Box
+				style={{
+					position: 'static',
+					bottom: '200px',
+					left: '20px',
+					width: 'auto',
+					height: 'auto',
+					padding: '20px',
+					zIndex: '999',
+				}}
+			>
+				<Typography sx={{ color: '#697B7A', fontSize: '20px' }}>Аккаунт</Typography>
+
+				<Box mt="1rem">
+					<Button startIcon={<img src={Out} />} sx={{ color: '#697B7A', fontSize: '20px', position: 'static' }} onClick={onSignOut}>
+						Настройки
+					</Button>
+				</Box>
+				<Box mt="0rem" mb="5rem">
+					<Button startIcon={<img src={Out} />} sx={{ color: '#EF4444', fontSize: '20px' }} onClick={onSignOut}>
+						Выйти
+					</Button>
+				</Box>
+
+				<img src={Menu} style={{ width: '100%' }} />
+			</Box>
+
+
 		</CustomDrawer>
 	);
 };

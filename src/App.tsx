@@ -57,7 +57,7 @@ const App: React.FC = () => {
 					<Route path={routes.register} element={<RegisterPage />} />
 					<Route path={routes.passwordReset} element={<ForgotPassword />} />
 					<Route path={routes.addingGraduates} element={<AddingGraduates />} />
-					{<Route path='*' element={<Navigate to={routes.addingGraduates} />} />}
+					{<Route path='*' element={<Navigate to={routes.main} />} />}
 				</Routes>
 			}
 			<Snackbar />

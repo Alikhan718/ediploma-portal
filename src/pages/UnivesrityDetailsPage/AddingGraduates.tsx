@@ -5,8 +5,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
 const AddingGraduates: React.FC = () => {
-	const [progress, setProgress] = useState(0); // State for the progress bar
-	const [file, setFile] = useState<File | null>(null); // State to store the selected file
+	const [progress, setProgress] = useState(0); 
+	const [file, setFile] = useState<File | null>(null); 
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
 
 	const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +28,6 @@ const AddingGraduates: React.FC = () => {
 	};
 
 	const handleChooseFileClick = () => {
-		// Trigger the file input when the "Выберите с компьютера" text is clicked
 		if (fileInputRef.current) {
 			fileInputRef.current.click();
 		}
@@ -60,10 +59,10 @@ const AddingGraduates: React.FC = () => {
 							{index > 0 && (
 								<Box
 									sx={{
-										width: "400px", // Set the desired width
+										width: "400px", 
 										height: "2px",
 										backgroundColor:
-											index <= currentStep ? "#3B82F6" : "gray", // Blue color for active steps, gray for inactive
+											index <= currentStep ? "#3B82F6" : "gray", 
 									}}
 								/>
 							)}
@@ -73,7 +72,7 @@ const AddingGraduates: React.FC = () => {
 									height: 50,
 									borderRadius: "50%",
 									backgroundColor:
-										index <= currentStep ? "#3B82F6" : "gray", // Blue color for active steps, gray for inactive
+										index <= currentStep ? "#3B82F6" : "gray", 
 									color: "white",
 									display: "flex",
 									alignItems: "center",
@@ -112,11 +111,11 @@ const AddingGraduates: React.FC = () => {
 					<label
 						htmlFor="file-input"
 						style={{
-							width: "1000px", // Set the desired width
-							height: "400px", // Set the desired height
+							width: "1000px", 
+							height: "400px", 
 							marginTop: 2,
-							borderRadius: "15px", // Set the desired border radius
-							border: "3px dashed #3B82F6", // Add dashed border style with wider lines
+							borderRadius: "15px",
+							border: "3px dashed #3B82F6", 
 							display: "flex",
 							flexDirection: "column",
 							alignItems: "center",
@@ -135,7 +134,7 @@ const AddingGraduates: React.FC = () => {
 							accept=".xls, .xlsx"
 							onChange={handleFileUpload}
 							style={{
-								display: "none", // Hide the default file input
+								display: "none", 
 							}}
 							ref={fileInputRef}
 						/>
