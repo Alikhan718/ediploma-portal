@@ -125,7 +125,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 								</NavLink>
 							))}
 						</Box>
-						<Box position="absolute" bottom="300px" left="20px">
+						<Box position="fixed" bottom="300px" left="20px">
 							<Typography sx={{ color: '#697B7A', fontSize: '20px' }} >Аккаунт</Typography>
 
 							<Box mt="1rem">

@@ -31,7 +31,7 @@ export const privateNavigations: AppRoutesNavigation[] = [
 	{
 		id: 3,
 		name: 'Выпустить дипломы',
-		to: routes.graduates,
+		to: routes.addingGraduates,
 		role: '*',
 		icon: <UniversityIcon />
 	},
