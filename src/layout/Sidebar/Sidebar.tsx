@@ -80,7 +80,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 	};
 
 	return (
-		<CustomDrawer variant="permanent" open={true}>
+		<CustomDrawer variant="permanent" open={false}>
 			{!authLoader ? (
 				<React.Fragment>
 					<Box p={`1.5rem 0 0 20px`}>
@@ -125,15 +125,9 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 								</NavLink>
 							))}
 						</Box>
-
-					</Box>
-				</React.Fragment>
-			) : (
-				<CircularProgress color="warning" />
-			)}
-			<Box
+						{/* <Box
 				style={{
-					position: 'static',
+					position: 'fixed',
 					bottom: '200px',
 					left: '20px',
 					width: 'auto',
@@ -156,7 +150,13 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 				</Box>
 
 				<img src={Menu} style={{ width: '100%' }} />
-			</Box>
+			</Box> */}
+					</Box>
+				</React.Fragment>
+			) : (
+				<CircularProgress color="warning" />
+			)}
+
 
 
 		</CustomDrawer>

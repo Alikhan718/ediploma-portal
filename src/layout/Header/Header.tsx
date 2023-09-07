@@ -121,14 +121,12 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 		if (matchesMd) return "40%";
 		if (matchesLg) return "25%";
 	};
-	return null
 	return (
-
 		<AppBar open={open}>
 			<Box className="diploma-navbar" height='4rem'>
 				<Modal
 					open={openModal}
-					handleClose={() => setOpenModal(false)}
+					handleClose={() => setOpenModal(true)}
 					maxWidth={getQueryWidth()}
 					width={getQueryWidth()}
 					aria-labelledby="modal-modal-title"
