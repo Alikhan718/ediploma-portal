@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-
-import { Box, Card, CardContent, CardMedia, Button, Divider, MenuItem, Select, SelectChangeEvent, Typography, useMediaQuery } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Box, Card, CardContent, CardMedia, TextField, Button, Input, Divider, MenuItem, Select, SelectChangeEvent, Typography, useMediaQuery, Pagination, Stack, PaginationItem } from '@mui/material';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
 import { ReactComponent as TwitterIcon } from '@src/assets/icons/twitter_black.svg';
+import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
+import SearchIcon from '@mui/icons-material/Search';
 import { ReactComponent as FavouriteIcon } from '@src/assets/icons/star_dark.svg';
 import { ReactComponent as ShareIcon } from '@src/assets/icons/share_dark.svg';
 import { ReactComponent as MoreIcon } from '@src/assets/icons/more_horiz_dark.svg';
@@ -14,7 +17,9 @@ import { UniversityDetailsPageHeader } from "@src/pages/UnivesrityDetailsPage/co
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { NavigateNext, NavigateBefore } from '@mui/icons-material';
-
+import star from "./../../assets/icons/Star1.svg"
+import share from "./../../assets/icons/Share.svg"
+import dots from "./../../assets/icons/Dots.svg"
 import { useNavigate } from "react-router-dom";
 import { handleLink } from "@src/utils/link";
 import { selectDiplomaList } from "@src/store/diplomas/selectors";
@@ -106,85 +111,96 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 	}, []);
 
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#dddada' }}>
+		<Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#FAFBFF' }}>
 			{/*<Box sx={{ width: '300px' }}>Sidebar</Box>*/}
 			<Box display='flex' flexWrap='wrap'>
 
 				<Box ml={'2rem'} width={"100%"}>
-					<Box width="100%" display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px' }} className={styles.contentContainer}>
+					<Box width="100%" display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px', }} className={styles.contentContainer}>
 						<UniversityDetailsPageHeader />
-						<Typography
-							className={styles.nameText}
-							fontSize='2rem'
-							fontWeight='600'
-						>
-							Казахстанско-Британский Технический Университет
-						</Typography>
-						<Box display='flex' flexDirection='column'>
-							<Typography className={styles.textSm}>
-								Почта: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@kbtu.kz</span>
+						<Box sx={{ paddingLeft: '28px' }}>
+							<Box display="flex" alignItems="center"><Typography
+								className={styles.nameText}
+								fontSize='2rem'
+								fontWeight='600'
+								sx={{ paddingBottom: '34px', fontSize: '48px', }}
+							>
+								Казахстанско-Британский Технический Университет
 							</Typography>
-						</Box>
-
-						<Box display='flex' flexDirection='column'>
-							<Typography className={styles.textSm}>
-								Номер телефона: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>8 (7273) 57 42 51</span>
-							</Typography>
-							<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
-						</Box>
-						<Box className={styles.contentContainer}>
-							<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex'>
-								<Box flex='1'>
-									<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>73</Typography>
-									<Typography >
-										Специальностей
-									</Typography>
-								</Box>
-								<Box flex='1' sx={{ marginRight: '0' }}>
-									<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>2001</Typography>
-									<Typography >
-										Открыт
-									</Typography>
-								</Box>
-								<Box flex='1'>
-									<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>5279</Typography>
-									<Typography className={styles.textSm}>
-										Кол-во студентов
-									</Typography>
-								</Box>
-								<Box flex='5'>
-
-									<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>5.1</Typography>
-									<Typography className={styles.textSm}>
-										Средний GPA
-									</Typography>
+								<Box marginLeft="300px" marginBottom="25px">
+									<img src={star} style={{ marginRight: '25px' }} />
+									<img src={share} style={{ marginRight: '25px' }} />
+									<img src={dots} style={{ marginRight: '25px' }} />
 								</Box>
 							</Box>
-							<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex'>
-								<Box flex='0'>
-									<SmartContractIcon className={styles.social} onClick={() => {
-										handleLink("https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7");
-									}} />
-								</Box>
-								<Box flex='1'><WebIcon className={styles.social} onClick={() => {
-									handleLink("https://kbtu.edu.kz/ru/");
-								}} /></Box>
 
-
+							<Box display='flex' flexDirection='column'>
+								<Typography className={styles.textSm} sx={{ paddingBottom: '16px' }}>
+									Почта: <span style={{ fontWeight: 'bold', fontSize: '18px', }}>info@kbtu.kz</span>
+								</Typography>
 							</Box>
-							{/* */}
 
-							<Box>
-								<Typography className={styles.textSm} color="#353840">
-									{handleText("eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов. Портал eDiploma предоставляет возможность выпускникам, работодателям и администрации университетов взаимодействовать с дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации выпускников.")}
+							<Box display='flex' flexDirection='column'>
+								<Typography className={styles.textSm}>
+									Номер телефона: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>8 (7273) 57 42 51</span>
 								</Typography>
-								<Typography style={{ cursor: "pointer" }} className={styles.textSm} fontWeight='600' color='gray'
-									onClick={() => {
-										setShowFull(!showFull);
-									}}>
-									Показать {!showFull ? "больше" : " меньше"}
-									<ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
-								</Typography>
+								<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
+							</Box>
+							<Box className={styles.contentContainer}>
+								<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingTop: '32px' }}>
+									<Box flex='1'>
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>10256</Typography>
+										<Typography >
+											Кол-во студентов
+										</Typography>
+									</Box>
+									<Box flex='1' sx={{ marginRight: '0' }}>
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>12450</Typography>
+										<Typography >
+											Кол-во <br /> выпускников
+										</Typography>
+									</Box>
+									<Box flex='1'>
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>8045</Typography>
+										<Typography className={styles.textSm}>
+											Количество<br /> с отличием
+										</Typography>
+									</Box>
+									<Box flex='5'>
+
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>5.1</Typography>
+										<Typography className={styles.textSm}>
+											Средний GPA
+										</Typography>
+									</Box>
+								</Box>
+								<Box display="flex" alignItems="center">
+									<Box marginRight="25px">
+										<DiscordIcon />
+									</Box>
+									<Box marginRight="25px"><TwitterIcon /></Box>
+									<Box marginRight="25px"><SmartContractIcon /></Box>
+									<Box ><WebIcon className={styles.social} onClick={() => {
+										handleLink("https://kbtu.edu.kz/ru/");
+									}} /></Box>
+
+
+								</Box>
+								{/* */}
+
+								<Box>
+									<Box sx={{ fontSize: '24px', fontWeight: '600', color: '#4D4D4D', paddingBottom: '10px' }} > Основная Информация </Box>
+									<Typography className={styles.textSm} color="#818181">
+										{handleText("eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов. Портал eDiploma предоставляет возможность выпускникам, работодателям и администрации университетов взаимодействовать с дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации выпускников.")}
+									</Typography>
+									<Typography style={{ cursor: "pointer" }} className={styles.textSm} fontWeight='600' color='gray'
+										onClick={() => {
+											setShowFull(!showFull);
+										}}>
+										Показать {!showFull ? "больше" : " меньше"}
+										<ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
+									</Typography>
+								</Box>
 							</Box>
 						</Box>
 					</Box>
@@ -212,20 +228,44 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 							</Box> */}
 
 						<Box sx={{ width: '100%' }}>
-							<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-								{/* <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+							{/* <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+								 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
 									<Tab label="Дипломы" {...a11yProps(0)} />
 									<Tab label="Аналитика" disabled={userRole !== 'university admission'} {...a11yProps(1)} />
-								</Tabs> */}
-							</Box>
-							<TabPanel value={value} index={0}>
-								<Box display="flex"
-									flexDirection="column"
-									alignItems="start"
-									sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '10px', marginBottom: '20px' }}
-									className={styles.diplomasContainer}>
-									<Typography sx={{ fontWeight: '800', fontSize: '25px' }}>Дипломы выпускников</Typography>
+								</Tabs> 
+							</Box> */}
+							<Box display="flex"
+								flexDirection="column"
+								alignItems="start"
+								sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '20px', marginBottom: '20px' }}
+								className={styles.diplomasContainer}>
+								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Дипломы выпускников</Typography>
+								<Box display="flex" alignItems="center" paddingBottom='50px' >
+									<Button variant="outlined" sx={{ borderRadius: '20px', padding: '5px', width: '150px', color: '#3B82F6', marginLeft: '20px' }}>
+										<Filter style={{ marginRight: '10px', }} />
+										Фильтр
+									</Button>
+									<TextField
+										sx={{ borderRadius: '48px', width: '900px', marginLeft: '25px', height: '45px', }}
+										variant="outlined"
+										placeholder="найти"
+										InputProps={{
+											startAdornment: (
+												<SearchIcon sx={{ color: '#3B82F6', marginLeft: '10px' }} />
+											),
+										}}
+									/>
 								</Box>
+							</Box>
+							{/* <CardMedia
+												component="img"
+												className={styles.diplomaImg}
+												sx={{ width: "13rem", padding: "1.5rem" }}
+												image={diplomaTemplate}
+												alt="University Image"
+											/> */}
+
+							<TabPanel value={value} index={0}>
 								<Box
 									display="flex"
 									flexDirection="column"
@@ -234,9 +274,8 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									className={styles.diplomasContainer}
 								>
 									{currentDiplomaPage.map((e: any) => (
-										<Card
+										<Box
 											key={e.counter}
-											elevation={6}
 											onClick={() => {
 												navigate(`/app/diploma/${e.counter!}/details`);
 											}}
@@ -248,41 +287,48 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 												marginBottom: '1.5rem'
 											}}
 										>
-											{/* <CardMedia
-												component="img"
-												className={styles.diplomaImg}
-												sx={{ width: "13rem", padding: "1.5rem" }}
-												image={diplomaTemplate}
-												alt="University Image"
-											/> */}
-											<Box sx={{ display: 'flex', flexDirection: 'column', width: "100%" }}>
-												<CardContent
-													sx={{
-														flex: '1 0 auto',
-														display: "flex",
-														flexDirection: "column",
-														width: "100%"
-													}}>
-													<Typography mb='.5rem' fontSize="1.25rem" className={styles.mobText}
-														fontWeight="600">
-														{e.name_ru}
+											<Box
+												sx={{
+													display: 'flex',
+													flexDirection: 'row', // Change to row
+													alignItems: 'center', // Align items vertically
+													width: '100%',
+													justifyContent: 'space-between',
+													padding: '15px',
+												}}
+											>
+												<Typography
+													fontSize="20px"
+													fontWeight="600"
+													mb='.5rem'
+													className={styles.mobText}
+												>
+													{e.name_ru}
+												</Typography>
+
+												<Typography fontSize="1rem" className={styles.mobTextSm}>
+													{e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
+												</Typography>
+
+												<Box>
+													2023
+												</Box>
+
+												<Box
+													display="flex"
+													alignItems="center"
+													ml="50px" // Adjust spacing as needed
+												>
+													<Typography fontSize="0.875rem">
+														3.0
 													</Typography>
-													<Typography mb='.5rem' fontSize="1rem" className={styles.mobTextSm}>
-														{e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
-													</Typography>
-													<Box display='flex' mt='auto' width='100%'>
-														<Typography fontSize="0.875rem" mr='auto'>
-															2023
-														</Typography>
-														{/* <Typography fontSize="0.875rem" ml='auto' mr='1rem'>
-															{humanReadableToLocalTime(e.protocol_en, "/")}
-														</Typography> */}
-													</Box>
-												</CardContent>
+												</Box>
+												<TwitterIcon />
 											</Box>
-										</Card>
+										</Box>
 									))
 									}
+
 									<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 										<Button onClick={prevPage} disabled={currentPage === 1}>
 											Previous Page

@@ -1,10 +1,9 @@
 import React from 'react';
-
-import { Box, Divider, Typography, Container, TextField, Grid } from '@mui/material';
+import { Box, Divider, Typography, Container, TextField, Grid, Rating } from '@mui/material';
 import { ReactComponent as SearchIcon } from '@src/assets/icons/search-icon.svg';
-
 import { Button, Input } from '@src/components';
 import { FooterSection } from "@src/pages/MainPage/components/FooterSection";
+import { AuthBasePageLayout } from "./../AuthPage/AuthBaseLayout";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { routes } from "@src/shared/routes";
@@ -13,7 +12,11 @@ import { fetchSearch } from "@src/store/diplomas/actionCreators";
 import ReactGA from "react-ga";
 import back1 from "./../../assets/dashboard/Content.png"
 import img1 from "./../../assets/dashboard/Illustration.png"
-import download from "./../../assets/icons/downloadMain.svg"
+import download from "./../../assets/icons/downloadMain.svg";
+import file from "./../../assets/icons/Avatar.svg";
+import profile from "./../../assets/icons/profile.svg"
+
+import AppLogo from '@src/assets/icons/app-logo.svg';
 
 export const MainPageLayout: React.FC = () => {
 	const navigate = useNavigate();
@@ -32,7 +35,9 @@ export const MainPageLayout: React.FC = () => {
 		dispatch(fetchSearch(filterAttributes));
 		navigate(routes.diploma);
 	};
-
+	const textItemStyle = {
+		padding: '10px',
+	};
 	React.useEffect(() => {
 		const delayDebounceFn = setTimeout(() => {
 			if (filterAttributes.text.trim().length > 1) {
@@ -112,92 +117,133 @@ export const MainPageLayout: React.FC = () => {
 				</Box>
 				<Box><img src={img1} style={{ width: '100%', marginBottom: '-150px' }} /></Box>
 			</Container >
-			<Container sx={{ paddingTop: '80px', width: '1500px', }}>
+			<Container sx={{ paddingTop: '150px', width: '1500px', }}>
 				<FooterSection />
 			</Container>
 			<Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-				<Box><Typography sx={{ fontSize: '48px' }}>
+				<Box><Typography sx={{ fontSize: '48px', }}>
 					Принципы работы
 				</Typography>
 				</Box>
-				<Box style={{ textAlign: 'center', marginTop: '15px', marginBottom: '10px', }}>
+				<Box style={{ textAlign: 'center', paddingTop: '20px', paddingBottom: '30px', }}>
 					Проверьте диплом и найдите себе лучших <br />
 					выпускников в компанию
 				</Box>
-				<Box sx={{ display: 'flex', gap: '10px' }}>
-					<Box sx={{ backgroundColor: '#F8F8F8', padding: '38px 48px', width: '645px', display: 'flex', textAlign: 'left', flexDirection: 'column' }}>
+				<Box sx={{ display: 'flex', gap: '24px' }}>
+					<Box sx={{ backgroundColor: '#F8F8F8', padding: '38px 48px', width: '645px', display: 'flex', textAlign: 'left', flexDirection: 'column', borderRadius: '24px' }}>
 						<Box sx={{ paddingBottom: '20px' }}>
 							<img src={download} style={{ width: '80px' }} />
 						</Box>
-						<Box sx={{ paddingBottom: '20px', fontWeight: '800', fontSize: '24px' }}>Загрузите данные о выпускниках</Box>
-						<Box>
+						<Box sx={{ paddingBottom: '20px', fontWeight: '800', fontSize: '28px' }}>Загрузите данные о выпускниках</Box>
+						<Box sx={{ color: '#818181', fontSize: '16px' }}>
 							Для генерации картинок дипломов и метаданных мы используем исходные данные в Excel формате. После регистрации перейдите в свой личный кабинет и начните процесс создания новой NFT коллекции дипломов.
 						</Box>
 					</Box>
 
-					<Box sx={{ backgroundColor: '#F8F8F8', padding: '38px 48px', width: '645px', display: 'flex', textAlign: 'left', flexDirection: 'column' }}>
+					<Box sx={{ backgroundColor: '#F8F8F8', padding: '38px 48px', width: '645px', display: 'flex', textAlign: 'left', flexDirection: 'column', borderRadius: '24px' }}>
 						<Box sx={{ paddingBottom: '20px' }}>
-							<img src={download} style={{ width: '80px' }} />
+							<img src={file} style={{ width: '80px' }} />
 						</Box>
-						<Box sx={{ paddingBottom: '20px', fontWeight: '800', fontSize: '24px' }}>Загрузите данные о выпускниках</Box>
-						<Box>
-							Для генерации картинок дипломов и метаданных мы используем исходные данные в Excel формате. После регистрации перейдите в свой личный кабинет и начните процесс создания новой NFT коллекции дипломов.
+						<Box sx={{ paddingBottom: '20px', fontWeight: '800', fontSize: '28px' }}>Выберите шаблон диплома</Box>
+						<Box sx={{ color: '#818181', fontSize: '16px' }}>
+							Загрузите шаблон дизайна вашего диплома и определите в каких местах должна находиться определенная информация. После этого будет запущен процесс генерации заданного количества дипломов с данными.
 						</Box>
 					</Box>
 				</Box>
 			</Container>
 			<Container sx={{ fontSize: '48px', overflowX: 'hidden' }}>
 
-				<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', fontSize: '48px' }}>Отзывы</Box>
+				<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', fontSize: '48px', paddingTop: '100px', paddingBottom: '55px' }}>Отзывы</Box>
 			</Container>
-			<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', overflowX: 'auto', marginBottom: '16px' }}>
-
-
+			<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', overflowX: 'auto', overflowY: 'scroll', marginBottom: '16px' }}>
 				<Box sx={{ display: 'flex', gap: '10px', }}>
 					{[1, 2, 3, 4, 5, 6].map((el: any) => {
-						return (<Box key={el} style={{ backgroundColor: '#F8F8F8', padding: '20px', width: '532px', }}>
-							Загрузите данные о выпускниках
-							<Typography>
-								Для генерации картинок дипломов и метаданных мы используем исходные данные в Excel формате. После регистрации перейдите в свой личный кабинет и начните процесс создания новой NFT коллекции дипломов.
-							</Typography>
+						return (<Box key={el} style={{ backgroundColor: '#F8F8F8', padding: '20px', width: '532px', height: '276px', borderRadius: '24px' }}>
+							<img src={profile} style={{ width: '56px' }} />
+							<Box sx={{ paddingTop: '15px', paddingBottom: '25px', fontSize: '17px' }}>Имя Фамилия</Box>
+							<Box sx={{ paddingBottom: '25px', fontSize: '17px' }}>
+								Проверьте диплом и найдите себе лучших выпускников в компанию
+							</Box>
+							<Box><Rating
+								name={`rating-${el}`}
+								value={5}
+								max={5}
+								readOnly
+								size="large"
+								sx={{ color: '#3B82F6', paddingBottom: '32px' }}
+							/></Box>
 						</Box>)
 					})}
 				</Box>
 			</Box>
 			<Container sx={{
-				display: 'flex', flexDirection: 'row', paddingTop: '16px'
+				display: 'flex', flexDirection: 'row', paddingTop: '180px'
 			}}>
 				<Grid container spacing={2}>
-					<Grid item xs={12} md={6}>
-						<Typography sx={{ fontSize: '48px' }}>Контакты</Typography>
-						<Typography>Введите свой адрес электронной<br /> почты и пароль для входа в систему!</Typography>
-						<Typography sx={{ paddingTop: '30px' }}>#Location</Typography>
-						<Typography sx={{ paddingTop: '100px' }}>info@jasaim.com</Typography>
-						<Typography>+7(00)800-08-80</Typography>
-						<Typography>facebook</Typography>
+					<Grid item xs={12} md={5}>
+						<Typography sx={{ fontSize: '48px', fontWeight: '800' }}>Контакты</Typography>
+						<Typography sx={{ color: '#818181' }}>Введите свой адрес электронной<br /> почты и пароль для входа в систему!</Typography>
+						<Typography sx={{ paddingTop: '24px' }}>#Location</Typography>
+						<Typography sx={{ marginTop: '110px', paddintBottom: '120px', fontSize: '22px' }}>info@jasaim.com</Typography>
+						<Box sx={{ paddingTop: '20px', fontSize: '22px' }}>+7(00)800-08-80</Box>
+						<Box sx={{ display: 'flex', alignItems: 'center', marginLeft: 'auto', paddingTop: '40px', fontSize: '12px', color: '#818181' }}>
+							<Box sx={{ marginRight: '25px' }}>facebook</Box>
+							<Box sx={{ marginRight: '25px' }}>instagram</Box>
+							<Box sx={{ marginRight: '25px' }}>twitter</Box>
+							<Box>linkedin</Box>
+						</Box>
+
 					</Grid>
-					<Box sx={{}}><Grid item xs={12} md={6}>
+					<Box sx={{ paddingLeft: '251px' }}><Grid item xs={12} md={6}>
 						<Box sx={{ paddingTop: '16px' }}>Ваше имя</Box>
-						<TextField label="Имя" variant="outlined" margin="normal" sx={{
+						<TextField variant="outlined" margin="normal" sx={{
 							width: '420px',
 							borderRadius: '15px',
 							backgroundColor: '#F8F8F8',
-						}} />
+							'& .MuiOutlinedInput-root': {
+								'& fieldset': {
+									border: 'none',
+								},
+							},
+						}
+						}
+							InputLabelProps={{
+								shrink: true,
+							}}
+							placeholder="Нурлан Сабуров" />
 						<Box sx={{ display: 'flex', flexDirection: 'column' }}>
 							<Box sx={{ paddingTop: '16px' }}> Почта</Box>
-							<TextField label="Email" variant="outlined" margin="normal" sx={{
+							<TextField variant="outlined" margin="normal" sx={{
 								width: '420px',
 								borderRadius: '15px',
 								backgroundColor: '#F8F8F8',
-							}} />
+								'& .MuiOutlinedInput-root': {
+									'& fieldset': {
+										border: 'none',
+									},
+								},
+							}}
+								InputLabelProps={{
+									shrink: true,
+								}}
+								placeholder="mail@simmmple.com" />
 						</Box>
 						<Box sx={{ paddingTop: '16px' }}> Сообщение</Box>
-						<TextField label="Текст" variant="outlined" multiline rows={4} margin="normal" sx={{
+						<TextField variant="outlined" multiline rows={4} margin="normal" sx={{
 							width: '420px',
 							borderRadius: '15px',
 							backgroundColor: '#F8F8F8',
-						}} />
-						<Box><Button variant="contained" color="primary" sx={{
+							'& .MuiOutlinedInput-root': {
+								'& fieldset': {
+									border: 'none',
+								},
+							},
+						}}
+							InputLabelProps={{
+								shrink: true,
+							}}
+							placeholder="Введите ваше сообщение" />
+						<Box sx={{ paddingTop: '32px' }}><Button variant="contained" color="primary" sx={{
 							width: '420px',
 							borderRadius: '15px',
 
@@ -208,76 +254,41 @@ export const MainPageLayout: React.FC = () => {
 					</Box>
 				</Grid>
 			</Container >
-			<Grid container spacing={2} sx={{ paddingTop: '50px' }}>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-1</Typography>
+			<Box>
+				<Grid container spacing={2} sx={{ paddingTop: '115px', paddingLeft: '90px', paddingBottom: '30px' }}>
+					<Grid container spacing={10}>
+						<Grid item xs={12} md={2}>
+							<img src={AppLogo} style={{ width: '206px', paddingBottom: '10px' }} />
+							<Typography style={textItemStyle}>#Location</Typography>
+							<Typography style={textItemStyle}>#mail</Typography>
+							<Typography style={textItemStyle}>#phone</Typography>
+						</Grid>
+						<Grid item xs={12} md={2}>
+							<Typography sx={{ color: '#3B82F6' }} style={textItemStyle}>eDiploma</Typography>
+							<Typography style={textItemStyle}> О нас</Typography>
+							<Typography style={textItemStyle}> Новости</Typography>
+							<Typography style={textItemStyle}>Вакансии</Typography>
+						</Grid>
+						<Grid item xs={12} md={2}>
+							<Typography sx={{ color: '#3B82F6' }} style={textItemStyle}>Работодателям</Typography>
+							<Typography style={textItemStyle}>Выпускники</Typography>
+							<Typography style={textItemStyle}>Университеты</Typography>
+						</Grid>
+						<Grid item xs={12} md={2}>
+							<Typography sx={{ color: '#3B82F6' }} style={textItemStyle}>Выпуск</Typography>
+							<Typography style={textItemStyle}>Резюме</Typography>
+							<Typography style={textItemStyle}>Профиль</Typography>
+							<Typography style={textItemStyle}>Работа</Typography>
+						</Grid>
+						<Grid item xs={12} md={2}>
+							<Typography sx={{ color: '#3B82F6' }} style={textItemStyle}>Университетам</Typography>
+							<Typography style={textItemStyle}>Дипломы</Typography>
+							<Typography style={textItemStyle}>Университеты</Typography>
+							<Typography style={textItemStyle}>Сотрудничество</Typography>
+						</Grid>
+					</Grid>
 				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>eDiploma</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography sx={{ color: '#F8F8F8' }}>Выпускникам</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Университетам</Typography>
-				</Grid>
-
-				{/* sfd */}
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 2-1</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Работодателям</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 2-3</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 2-4</Typography>
-				</Grid>
-
-				{/* sfd */}
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-1</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Выпускникам</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-3</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-4</Typography>
-				</Grid>
-
-				{/* sfd */}
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-1</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-2</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-3</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-4</Typography>
-				</Grid>
-				{/* sfd */}
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-1</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-2</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-3</Typography>
-				</Grid>
-				<Grid item xs={12} md={3}>
-					<Typography>Footer Item 1-4</Typography>
-				</Grid>
-				{/* Repeat for Rows 3, 4, and 5 */}
-			</Grid>
+			</Box>
 			<Container>
 			</Container>
 
@@ -286,13 +297,13 @@ export const MainPageLayout: React.FC = () => {
 		//       <Box justifyContent="center" display="flex" mb="5rem">
 		//           <Box className={styles.contentText} mt="2.75rem">
 		//               <Typography fontSize="2rem" fontWeight="700" mb=".5rem">
-		//                   Цифровой портал дипломов <br className={styles.dMobileNone}/> на блокчейне
+		//                   Цифровой портал дипломов <br className={styles.dMobileNone} /> на блокчейне
 		//               </Typography>
 		//               <Typography variant="h5">
-		//                   Проверьте диплом и найдите себе <br className={styles.dMobileNone}/> лучших выпускников в
+		//                   Проверьте диплом и найдите себе <br className={styles.dMobileNone} /> лучших выпускников в
 		//                   компанию
 		//               </Typography>
-		//               <div style={{marginBottom: '1.5rem'}}/>
+		//               <div style={{ marginBottom: '1.5rem' }} />
 		//               <Box display="flex" gap="1rem" mb="1rem">
 		//                   <Button className={styles.btn} variant="contained" onClick={() => navigate(routes.diploma)}>
 		//                       Дипломы
@@ -331,7 +342,7 @@ export const MainPageLayout: React.FC = () => {
 		//                                   padding: '0',
 		//                               }}
 		//                           >
-		//                               <SearchIcon style={{filter: 'brightness(250%) contrast(101%)'}}/>
+		//                               <SearchIcon style={{ filter: 'brightness(250%) contrast(101%)' }} />
 		//                           </Button>
 		//                       }
 		//                       onChange={(e) => {

@@ -16,7 +16,7 @@ export const UniversityDetailsPageHeader: React.FC = (props) => {
 					overflow: 'hidden',
 				}}
 				width={'100%'}
-				mb='3rem'
+				mb='1rem'
 			>
 				<img
 					src={exampleImage}
@@ -28,11 +28,11 @@ export const UniversityDetailsPageHeader: React.FC = (props) => {
 						height: '140%',
 					}}
 				/>
-				<Card elevation={4} className={styles.cardImgContainer} sx={{
+				<Card elevation={1} className={styles.cardImgContainer} sx={{
+
 				}}>
 					<CardMedia
 						component="img"
-						className={styles.cardImg}
 						image={exampleIcon}
 						alt="University Image"
 					/>

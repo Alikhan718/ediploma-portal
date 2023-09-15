@@ -9,7 +9,7 @@ export const FooterSection: React.FC = () => {
 
 	return (
 		<React.Fragment>
-			<Box display='flex' className={styles.sliderMobile} justifyContent='center' height='4rem' gap='8rem' my='9rem'>
+			<Box display='flex' className={styles.sliderMobile} width='1186px' justifyContent='center' height='4rem' gap='10rem' my='8rem'>
 				<img src={kbtuLogo} alt="KBTU Logo" />
 				<img src={ritLogo} alt="RIT Logo" />
 				<img src={hubLogo} alt="Astana Hub Logo" />
