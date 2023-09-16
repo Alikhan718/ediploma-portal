@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Card, CardContent, Link, Paper, TextField, Typography} from '@mui/material';
+import {Box, CardContent, Link, Typography} from '@mui/material';
 import {Button, Input, Label} from '@src/components';
 import {IAuthLogin} from '@src/pages/AuthPage/types';
 import {useDispatch} from 'react-redux';
@@ -68,6 +68,92 @@ export const LoginPageLayout: React.FC = () => {
         };
     }, []);
 
+    const webSocket = new WebSocket('wss://127.0.0.1:13579/');
+    let callback: any = null;
+
+    webSocket.onopen = (event) => {
+        console.log("Connection opened");
+    };
+
+    webSocket.onclose = (event) => {
+        if (event.wasClean) {
+            console.log('connection has been closed');
+        } else {
+            console.log('Connection error');
+        }
+        console.log('Code: ' + event.code + ' Reason: ' + event.reason);
+    };
+
+
+    webSocket.onmessage = (event) => {
+        var result = JSON.parse(event.data);
+
+        if (result != null) {
+            var rw = {
+                code: result['code'],
+                message: result['message'],
+                responseObject: result['responseObject'],
+                getResult: function () {
+                    return this.responseObject;
+                },
+                getMessage: function () {
+                    return this.message;
+                },
+                getResponseObject: function () {
+                    return this.responseObject;
+                },
+                getCode: function () {
+                    return this.code;
+                }
+            };
+            if (callback !== null) {
+                callback(rw);
+            }
+        }
+    };
+    const manageNcaLayer = () => {
+        getKeyInfo('PKCS12', getKeyInfoBack);
+    };
+
+    const getKeyInfoBack = (result: any) => {
+        if (result['code'] === "200") {
+            let res = result['responseObject'];
+            const alias = res['alias'];
+            const keyId = res['keyId'];
+            const algorithm = res['algorithm'];
+            const subjectCn = res['subjectCn'];
+            const subjectDn = res['subjectDn'];
+            const issuerCn = res['issuerCn'];
+            const issuerDn = res['issuerDn'];
+            const serialNumber = res['serialNumber'];
+            let dateString = res['certNotAfter'];
+            let date = new Date(Number(dateString));
+            dateString = res['certNotBefore'];
+            date = new Date(Number(dateString));
+            const authorityKeyIdentifier = res['authorityKeyIdentifier'];
+            const pem = res['pem'];
+            console.log('subjectCn:', subjectCn);
+            console.log('subjectDn:', subjectDn);
+            console.log('issuerDn:', issuerDn);
+            console.log('issuerCn:', issuerCn);
+            console.log('serialNumber:', serialNumber);
+            console.log('date:', date);
+            console.log('dateString:', dateString);
+            console.log('authorityKeyIdentifier:', authorityKeyIdentifier);
+        }
+    }
+
+
+    const getKeyInfo = (storageName: string, callBack: any) => {
+        const getKeyInfo = {
+            "module": "kz.gov.pki.knca.commonUtils",
+            "method": "getKeyInfo",
+            "args": ['PKCS12']
+        };
+        callback = callBack;
+        webSocket.send(JSON.stringify(getKeyInfo));
+    };
+
     return (
         <Box sx={{marginY: 'auto', borderRadius: '.8rem', padding: '.6rem', width: "30rem"}}>
             <CardContent
@@ -113,7 +199,8 @@ export const LoginPageLayout: React.FC = () => {
                                 Запомнить меня
                             </Typography>
                         </Box>
-                        <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.passwordReset}  alignSelf="center">
+                        <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.passwordReset}
+                              alignSelf="center">
                             <Typography fontWeight="500" fontSize="0.875rem">
                                 Забыли пароль?
                             </Typography>
@@ -122,7 +209,20 @@ export const LoginPageLayout: React.FC = () => {
                     <Button fullWidth={true} variant="contained" borderRadius="3rem" onClick={onSubmit} type="submit">
                         Войти
                     </Button>
-                    <Button fullWidth={true} variant="contained" borderRadius="3rem" sx={{backgroundColor: "#EBF2FE", color: "#2F69C7", "&:hover": {"background-color" : "#3B82F6", color: "white"}}}>
+                    <Button
+                        fullWidth={true}
+                        variant="contained"
+                        borderRadius="3rem"
+                        sx={{
+                            backgroundColor: "#EBF2FE",
+                            color: "#2F69C7",
+                            "&:hover": {
+                                "background-color": "#3B82F6", color: "white"
+                            }
+                        }}
+                        onClick={() => {
+                            manageNcaLayer();
+                        }}>
                         Выбрать ключ ЭЦП
                     </Button>
                 </form>

@@ -43,7 +43,7 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
                 <Typography color="#818181" fontSize="0.75rem">
                     © 2023 Все права защищены
                 </Typography>
-                <Box display="flex" flex="row" justifyContent="space-between" gap="1rem" color="white">
+                <Box display="flex" flex="row" width="35vw" justifyContent="space-between" color="white">
                     <Typography fontSize="0.75rem">
                         Политика конфиденциальности
                     </Typography>

@@ -3,9 +3,10 @@ import {Label} from '@src/components';
 import {FormControl, IconButton, InputAdornment, OutlinedInput, styled} from '@mui/material';
 
 import {InputProps} from './Input.props';
-import {ReactComponent as Visibility} from "@src/assets/icons/eye_open.svg";
+import {ReactComponent as VisibilityOff} from "@src/assets/icons/eye_open.svg";
+import {ReactComponent as Visibility} from '@src/assets/icons/eye_closed.svg';
 // import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+// import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const CustomOutlineInput = styled(OutlinedInput, {
         shouldForwardProp: (prop) => prop !== 'inputSize',
@@ -50,6 +51,7 @@ export const Input: React.FC<InputProps> = (props) => {
                             aria-label="toggle password visibility"
                             onClick={handleClickShowPassword}
                             onMouseDown={handleMouseDownPassword}
+                            style={{marginRight: "0"}}
                             edge="end"
                         >
                             {showPassword ? <VisibilityOff/> : <Visibility/>}
