@@ -9,7 +9,8 @@ import {
 	RegisterPage,
 	UniversityDetailsPage,
 	UniversityPage,
-	AddingGraduates
+	AddingGraduates,
+	SettingsPage
 } from '@src/pages';
 import { withLayout } from '@src/layout/Layout';
 import { routes } from '@src/shared/routes';
@@ -57,6 +58,9 @@ const App: React.FC = () => {
 					<Route path={routes.register} element={<RegisterPage />} />
 					<Route path={routes.passwordReset} element={<ForgotPassword />} />
 					<Route path={routes.addingGraduates} element={<AddingGraduates />} />
+
+					<Route path={routes.settings} element={<SettingsPage />} />
+
 					{<Route path='*' element={<Navigate to={routes.main} />} />}
 				</Routes>
 			}

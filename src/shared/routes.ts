@@ -12,5 +12,6 @@ export const routes: Record<string, string> = {
 	aboutUs: `${appRoot}/about-us`,
 	vacancies: `${appRoot}/vacancies`,
 	news: `${appRoot}/news`,
-	addingGraduates: `${appRoot}/addingGraduates`
+	addingGraduates: `${appRoot}/addingGraduates`,
+	settings: `${appRoot}/settingsPage`
 };

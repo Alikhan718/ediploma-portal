@@ -24,7 +24,7 @@ export const privateNavigations: AppRoutesNavigation[] = [
 	{
 		id: 2,
 		name: 'Аналитика',
-		to: routes.login,
+		to: routes.settings,
 		role: "*",
 		icon: <UniversityIcon />,
 	},

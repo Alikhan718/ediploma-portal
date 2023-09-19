@@ -1,11 +1,8 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import MenuIcon from '@src/assets/icons/menu lines.svg';
 import AppLogo from '@src/assets/icons/app-logo.svg';
-
 import HeaderSearchIcon from '@src/assets/icons/search.svg';
 import RuFlag from '@src/assets/icons/ru-flag.svg';
-
 import { ReactComponent as UserIcon } from '@src/assets/icons/user.svg';
 import { ReactComponent as SearchIcon } from '@src/assets/icons/search-icon.svg';
 import { ReactComponent as FilterIcon } from '@src/assets/icons/Filter-icon.svg';
@@ -20,12 +17,8 @@ import {
 	Typography,
 	useMediaQuery
 } from '@mui/material';
-
 import { HeaderProps } from './Header.props';
-
-
 import { GlobalLoader } from './GlobalLoader';
-
 import { Button, Input, Modal } from '@src/components';
 import { NavLink, useNavigate } from "react-router-dom";
 import { routes } from "@src/shared/routes";
@@ -36,6 +29,7 @@ import { fetchAuthLogout } from "@src/store/auth/saga";
 import { fetchSearch } from "@src/store/diplomas/actionCreators";
 import { selectSearchText } from "@src/store/diplomas/selectors";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
+import { Sidebar } from '../Sidebar/Sidebar';
 
 interface AppBarProps extends MuiAppBarProps {
 	open: boolean;
@@ -121,146 +115,161 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 		if (matchesMd) return "40%";
 		if (matchesLg) return "25%";
 	};
+
+
+	const userRole = localStorage.getItem("userRole");
+
+	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+	const toggleSidebar = () => {
+		setIsSidebarOpen(!isSidebarOpen);
+	};
+
 	return (
-		<AppBar open={open}>
-			<Box className="diploma-navbar" height='4rem'>
-				<Modal
-					open={openModal}
-					handleClose={() => setOpenModal(true)}
-					maxWidth={getQueryWidth()}
-					width={getQueryWidth()}
-					aria-labelledby="modal-modal-title"
-					aria-describedby="modal-modal-description"
-				>
-					<Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+		<>
+			{userRole === "employer" ? (
+				<Sidebar open={isSidebarOpen} toggleDrawer={toggleSidebar} />
+			) : (
+				<AppBar open={open}>
+					<Box className="diploma-navbar" height='4rem'>
+						<Modal
+							open={openModal}
+							handleClose={() => setOpenModal(true)}
+							maxWidth={getQueryWidth()}
+							width={getQueryWidth()}
+							aria-labelledby="modal-modal-title"
+							aria-describedby="modal-modal-description"
+						>
+							<Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
 
-						<img src={NeedAuthorizationPic} alt="" />
-						<Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
-							fontWeight='600'
-							variant="h6"
-							component="h2">
-							Для использования требуется авторизация
-						</Typography>
-						<Button variant='contained' sx={{
-							marginTop: "1rem",
-							padding: "1rem",
-							width: "80%",
-							fontSize: "1rem",
-							fontWeight: "600",
-							borderRadius: "2rem"
-						}} onClick={() => {
-							navigate(routes.login);
-						}}>Авторизоваться</Button>
+								<img src={NeedAuthorizationPic} alt="" />
+								<Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
+									fontWeight='600'
+									variant="h6"
+									component="h2">
+									Для использования требуется авторизация
+								</Typography>
+								<Button variant='contained' sx={{
+									marginTop: "1rem",
+									padding: "1rem",
+									width: "80%",
+									fontSize: "1rem",
+									fontWeight: "600",
+									borderRadius: "2rem"
+								}} onClick={() => {
+									navigate(routes.login);
+								}}>Авторизоваться</Button>
+							</Box>
+						</Modal>
+						<img src={MenuIcon} onClick={() => {
+							setOpen(!open);
+						}} className="menu-icon" />
+						<img className='diploma-logo' src={AppLogo} onClick={() => {
+							navigate(routes.main);
+						}} alt="logo" />
+						{privateNavigations.map(nav => (
+							<NavLink
+								to={nav.to}
+								key={nav.id}
+								className={(props) => handleClassName(props.isActive, nav.id) + "diploma-navbar-item"}
+							>
+								<Typography
+									noWrap
+									variant='h4'
+									color={activeNav === nav.id ? '#0A66C2' : 'rgba(45, 45, 45, 1)'}
+									fontWeight='400'
+									fontSize='16px'
+									lineHeight='20px'
+								>
+									{nav.name}
+								</Typography>
+							</NavLink>
+						))}
+
+
+						<Box className="diploma-navbar-item" width="100%">
+							{!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('university') && !window.location.href.split('/').includes('university') &&
+								<Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'
+									value={filterAttributes.text}
+									onChange={handleSearch} startAdornment={<SearchIcon />}
+									endAdornment={<FilterIcon style={{ cursor: "pointer" }} onClick={() => {
+										if (isAuthenticated()) {
+											setShowFilter(!showFilter);
+										} else {
+											setOpenModal(true);
+										}
+									}} />} />
+							}</Box>
+						<FilterSection
+							triggerSearchFilters={triggerSearchFilters}
+							filterAttributes={filterAttributes}
+							setFilterAttributes={setFilterAttributes}
+							open={showFilter}
+							setOpen={setShowFilter}
+						/>
+						{/* REST SELECTOR  */}
+						<div>
+							<img style={{
+								cursor: 'pointer'
+							}} src={HeaderSearchIcon} alt="" />
+						</div>
+						<div>
+							<img style={{
+								cursor: 'pointer'
+							}} src={RuFlag} alt="" />
+						</div>
+						<Box display='flex' justifyContent='flex-end' py='10px' className="diploma-btn-container">
+
+
+
+							{!isAuthenticated() ? <Button
+								onClick={() => {
+									navigate(routes.login, { replace: true });
+								}}
+								className="diploma-auth-btn"
+								startIcon={<UserIcon style={{ height: "1.2rem" }} />}
+								variant='contained'
+								borderRadius="3rem"
+								width={120}
+							>
+								<Typography
+									variant='h4'
+									color={'white'}
+									fontSize={'16px'}
+									className="diploma-navbar-item"
+									fontWeight='450'>
+									Войти
+								</Typography>
+
+							</Button>
+								:
+								<Button
+									className="diploma-auth-btn"
+									onClick={() => {
+										fetchAuthLogout();
+										localStorage.clear();
+										navigate(routes.login, { replace: true });
+									}}
+									startIcon={<img src={LogoutIcon} style={{ height: "1rem" }} />}
+									variant='contained'
+									width={120}
+								>
+									<Typography
+										variant='h4'
+										color={'white'}
+										fontSize={'16px'}
+										className="diploma-navbar-item"
+										fontWeight='450'>
+										Выйти
+									</Typography>
+
+								</Button>
+							}
+							di</Box>
 					</Box>
-				</Modal>
-				<img src={MenuIcon} onClick={() => {
-					setOpen(!open);
-				}} className="menu-icon" />
-				<img className='diploma-logo' src={AppLogo} onClick={() => {
-					navigate(routes.main);
-				}} alt="logo" />
-				{privateNavigations.map(nav => (
-					<NavLink
-						to={nav.to}
-						key={nav.id}
-						className={(props) => handleClassName(props.isActive, nav.id) + "diploma-navbar-item"}
-					>
-						<Typography
-							noWrap
-							variant='h4'
-							color={activeNav === nav.id ? '#0A66C2' : 'rgba(45, 45, 45, 1)'}
-							fontWeight='400'
-							fontSize='16px'
-							lineHeight='20px'
-						>
-							{nav.name}
-						</Typography>
-					</NavLink>
-				))}
-
-
-				<Box className="diploma-navbar-item" width="100%">
-					{!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('university') && !window.location.href.split('/').includes('university') &&
-						<Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'
-							value={filterAttributes.text}
-							onChange={handleSearch} startAdornment={<SearchIcon />}
-							endAdornment={<FilterIcon style={{ cursor: "pointer" }} onClick={() => {
-								if (isAuthenticated()) {
-									setShowFilter(!showFilter);
-								} else {
-									setOpenModal(true);
-								}
-							}} />} />
-					}</Box>
-				<FilterSection
-					triggerSearchFilters={triggerSearchFilters}
-					filterAttributes={filterAttributes}
-					setFilterAttributes={setFilterAttributes}
-					open={showFilter}
-					setOpen={setShowFilter}
-				/>
-				{/* REST SELECTOR  */}
-				<div>
-					<img style={{
-						cursor: 'pointer'
-					}} src={HeaderSearchIcon} alt="" />
-				</div>
-				<div>
-					<img style={{
-						cursor: 'pointer'
-					}} src={RuFlag} alt="" />
-				</div>
-				<Box display='flex' justifyContent='flex-end' py='10px' className="diploma-btn-container">
-
-
-
-					{!isAuthenticated() ? <Button
-						onClick={() => {
-							navigate(routes.login, { replace: true });
-						}}
-						className="diploma-auth-btn"
-						startIcon={<UserIcon style={{ height: "1.2rem" }} />}
-						variant='contained'
-						borderRadius="3rem"
-						width={120}
-					>
-						<Typography
-							variant='h4'
-							color={'white'}
-							fontSize={'16px'}
-							className="diploma-navbar-item"
-							fontWeight='450'>
-							Войти
-						</Typography>
-
-					</Button>
-						:
-						<Button
-							className="diploma-auth-btn"
-							onClick={() => {
-								fetchAuthLogout();
-								localStorage.clear();
-								navigate(routes.login, { replace: true });
-							}}
-							startIcon={<img src={LogoutIcon} style={{ height: "1rem" }} />}
-							variant='contained'
-							width={120}
-						>
-							<Typography
-								variant='h4'
-								color={'white'}
-								fontSize={'16px'}
-								className="diploma-navbar-item"
-								fontWeight='450'>
-								Выйти
-							</Typography>
-
-						</Button>
-					}
-					di</Box>
-			</Box>
-			<GlobalLoader />
-		</AppBar>
+					<GlobalLoader />
+				</AppBar>
+			)}
+		</>
 	);
 };
 export const Header = React.memo(AppHeader);

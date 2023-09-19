@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Box, Card, CardContent, CardMedia, TextField, Button, Input, Divider, MenuItem, Select, SelectChangeEvent, Typography, useMediaQuery, Pagination, Stack, PaginationItem } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, TextField, Button, Divider, MenuItem, Select, SelectChangeEvent, Typography, useMediaQuery, Pagination, Stack, PaginationItem } from '@mui/material';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
 import { ReactComponent as TwitterIcon } from '@src/assets/icons/twitter_black.svg';
 import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
-import SearchIcon from '@mui/icons-material/Search';
+import univ from './../../assets/icons/FilterUn.svg';
+import { Input, Label } from './../../components';
 import { ReactComponent as FavouriteIcon } from '@src/assets/icons/star_dark.svg';
 import { ReactComponent as ShareIcon } from '@src/assets/icons/share_dark.svg';
 import { ReactComponent as MoreIcon } from '@src/assets/icons/more_horiz_dark.svg';
@@ -121,16 +122,15 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 						<Box sx={{ paddingLeft: '28px' }}>
 							<Box display="flex" alignItems="center"><Typography
 								className={styles.nameText}
-								fontSize='2rem'
 								fontWeight='600'
-								sx={{ paddingBottom: '34px', fontSize: '48px', }}
+								sx={{ paddingBottom: '34px', fontSize: '40px', }}
 							>
 								Казахстанско-Британский Технический Университет
 							</Typography>
-								<Box marginLeft="300px" marginBottom="25px">
-									<img src={star} style={{ marginRight: '25px' }} />
-									<img src={share} style={{ marginRight: '25px' }} />
-									<img src={dots} style={{ marginRight: '25px' }} />
+								<Box marginLeft="210px" marginBottom="25px">
+									<img src={star} style={{ marginRight: '15px' }} />
+									<img src={share} style={{ marginRight: '20px' }} />
+									<img src={dots} style={{ marginRight: '20px' }} />
 								</Box>
 							</Box>
 
@@ -241,21 +241,25 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								className={styles.diplomasContainer}>
 								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Дипломы выпускников</Typography>
 								<Box display="flex" alignItems="center" paddingBottom='50px' >
-									<Button variant="outlined" sx={{ borderRadius: '20px', padding: '5px', width: '150px', color: '#3B82F6', marginLeft: '20px' }}>
+									<Button variant="outlined" sx={{ borderRadius: '20px', padding: '5px', width: '150px', color: '#3B82F6', marginLeft: '20px', marginRight: '15px' }}>
 										<Filter style={{ marginRight: '10px', }} />
 										Фильтр
 									</Button>
-									<TextField
-										sx={{ borderRadius: '48px', width: '900px', marginLeft: '25px', height: '45px', }}
-										variant="outlined"
-										placeholder="найти"
-										InputProps={{
-											startAdornment: (
-												<SearchIcon sx={{ color: '#3B82F6', marginLeft: '10px' }} />
-											),
-										}}
-									/>
+									<Box sx={{}}>
+										<Label label="" />
+										<Input
+											type="text"
+											name="email"
+											placeholder="Найти"
+											sx={{ width: '555px', paddingLeft: '10px', marginRight: "600px" }}
+										/>
+									</Box>
+									<Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+										<img src={univ} style={{ marginRight: '' }} />
+										<img src={univ} style={{ marginRight: '' }} />
+									</Box>
 								</Box>
+
 							</Box>
 							{/* <CardMedia
 												component="img"
@@ -289,35 +293,34 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										>
 											<Box
 												sx={{
-													display: 'flex',
-													flexDirection: 'row', // Change to row
-													alignItems: 'center', // Align items vertically
-													width: '100%',
-													justifyContent: 'space-between',
-													padding: '15px',
+													display: 'grid', gridTemplateColumns: '4fr 4fr 2fr 1fr 0fr', gap: '36px', marginTop: '20px',
+													paddingLeft: '20px'
 												}}
 											>
-												<Typography
-													fontSize="20px"
-													fontWeight="600"
-													mb='.5rem'
-													className={styles.mobText}
-												>
-													{e.name_ru}
-												</Typography>
+												<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+													<Typography
+														fontSize="20px"
+														fontWeight="600"
+														mb='.5rem'
+														className={styles.mobText}
+													>
+														{e.name_ru}
+													</Typography>
+												</Box>
 
-												<Typography fontSize="1rem" className={styles.mobTextSm}>
-													{e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
-												</Typography>
+												<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+													<Typography fontSize="1rem" className={styles.mobTextSm}>
+														{e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
+													</Typography>
 
-												<Box>
+												</Box>
+
+												<Box sx={{ display: 'flex', flexDirection: 'column' }}>
 													2023
 												</Box>
 
 												<Box
-													display="flex"
-													alignItems="center"
-													ml="50px" // Adjust spacing as needed
+													sx={{ display: 'flex', flexDirection: 'column' }} // Adjust spacing as needed
 												>
 													<Typography fontSize="0.875rem">
 														3.0

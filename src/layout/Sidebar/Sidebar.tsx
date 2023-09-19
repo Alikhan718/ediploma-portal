@@ -7,17 +7,22 @@ import {
 	DrawerProps,
 	Box,
 	Typography,
-	CircularProgress, Button, Divider
+	CircularProgress, Divider
 } from '@mui/material';
+
+import { Button, Input, Modal } from '@src/components';
 import AppLogo from '@src/assets/icons/app-logo.svg';
+import LogoutIcon from '@src/assets/icons/out.png';
 import Menu from '@src/assets/example/Menu.svg';
 import { SidebarProps } from './Sidebar.props';
-import { NavLink } from 'react-router-dom';
-import Out from "@src/assets/icons/out.png";
-import { selectAuthLoader } from '@src/store/auth/selector';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { selectAuthLoader, selectUserRole } from '@src/store/auth/selector';
 import { useSelector } from 'react-redux';
 import { privateNavigations } from "@src/layout/Header/generator";
 import { DRAWER_WIDTH } from '../Layout';
+import { routes } from "@src/shared/routes";
+import { fetchAuthLogout } from "@src/store/auth/saga";
+
 
 interface ICustomDrawer extends DrawerProps {
 	open: boolean;
@@ -26,7 +31,7 @@ interface ICustomDrawer extends DrawerProps {
 const drawerMixin = (theme: Theme, open: boolean): CSSObject => ({
 	overflowX: 'hidden',
 	borderRadius: "0 2rem 2rem 0",
-	boxShadow: "-10rem 0 10rem",
+	boxShadow: "-8rem 0 10rem",
 	transition: theme.transitions.create('width', {
 		easing: theme.transitions.easing.sharp,
 		...(open ? {
@@ -62,8 +67,12 @@ const CustomDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'ope
 	}),
 );
 
+const role = localStorage.getItem("userRole")
+console.log(role)
+
 export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 	const { open, toggleDrawer } = props;
+	const navigate = useNavigate();
 	const authLoader = useSelector(selectAuthLoader);
 
 	const [activeNav, setActiveNav] = React.useState(0);
@@ -80,10 +89,10 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 	};
 
 	return (
-		<CustomDrawer variant="permanent" open={false}>
+		<CustomDrawer variant="permanent" open={true}>
 			{!authLoader ? (
 				<React.Fragment>
-					<Box p={`1.5rem 0 0 20px`}>
+					<Box p={`1.5rem 0 0 10px`}>
 						<img src={AppLogo} style={{ width: '75%' }} />
 						<Box sx={{
 							borderBottom: '1px solid #F8F8F8',
@@ -115,42 +124,60 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 											</Box>
 										</Box>
 										<Typography
-											variant='h4'
 											color={activeNav === nav.id ? 'white' : '#697B7A'}
 											fontWeight='600'
+											sx={{ fontSize: '14px' }}
 										>
 											{nav.name}
 										</Typography>
 									</Box>
+									<Box
+										style={{
+											position: 'fixed',
+											bottom: '0px',
+											left: '20px',
+											width: 'auto',
+											height: 'auto',
+											padding: '20px',
+											zIndex: '999',
+										}}
+									>
+										<Typography sx={{ color: '#697B7A', fontSize: '14px' }}>Аккаунт</Typography>
+
+										<Box mt="1rem" >
+											<Button sx={{ color: '#697B7A', fontSize: '14px', position: 'static' }} onClick={onSignOut}>
+												Настройки
+											</Button>
+										</Box>
+										<Box mt="0rem" mb="5rem">
+											<Button
+												onClick={() => {
+													fetchAuthLogout();
+													localStorage.clear();
+													navigate(routes.login);
+												}}
+
+												variant='contained'
+												width={120}
+											>
+												<Typography
+													variant='h4'
+													color={'white'}
+													fontSize={'16px'}
+													className="diploma-navbar-item"
+													fontWeight='450'>
+													Выйти
+												</Typography>
+
+											</Button>
+										</Box>
+
+										<img src={Menu} style={{ width: '90%' }} />
+									</Box>
 								</NavLink>
 							))}
 						</Box>
-						{/* <Box
-				style={{
-					position: 'fixed',
-					bottom: '200px',
-					left: '20px',
-					width: 'auto',
-					height: 'auto',
-					padding: '20px',
-					zIndex: '999',
-				}}
-			>
-				<Typography sx={{ color: '#697B7A', fontSize: '20px' }}>Аккаунт</Typography>
 
-				<Box mt="1rem">
-					<Button startIcon={<img src={Out} />} sx={{ color: '#697B7A', fontSize: '20px', position: 'static' }} onClick={onSignOut}>
-						Настройки
-					</Button>
-				</Box>
-				<Box mt="0rem" mb="5rem">
-					<Button startIcon={<img src={Out} />} sx={{ color: '#EF4444', fontSize: '20px' }} onClick={onSignOut}>
-						Выйти
-					</Button>
-				</Box>
-
-				<img src={Menu} style={{ width: '100%' }} />
-			</Box> */}
 					</Box>
 				</React.Fragment>
 			) : (
