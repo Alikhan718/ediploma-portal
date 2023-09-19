@@ -49,7 +49,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 			}
 
 			<Box
-				mt={!urlElements.includes('auth') ? '50px' : "0"}
+				mt={!urlElements.includes('auth') ? '1rem' : "0"}
 				width='100%'
 				height='100vh'
 				p={"0"}
