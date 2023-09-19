@@ -44,7 +44,9 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 			{/*    setOpen={setOpen}*/}
 			{/*/>}*/}
 
+			{(!urlElements.includes('main') && !urlElements.includes('auth')) &&
 			<Sidebar open={open} toggleDrawer={toggleDrawer} />
+			}
 
 			<Box
 				mt={!urlElements.includes('auth') ? '50px' : "0"}

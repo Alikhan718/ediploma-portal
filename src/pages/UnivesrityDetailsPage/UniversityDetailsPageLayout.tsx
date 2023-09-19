@@ -18,9 +18,9 @@ import { UniversityDetailsPageHeader } from "@src/pages/UnivesrityDetailsPage/co
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { NavigateNext, NavigateBefore } from '@mui/icons-material';
-import star from "./../../assets/icons/Star1.svg"
-import share from "./../../assets/icons/Share.svg"
-import dots from "./../../assets/icons/Dots.svg"
+import star from "./../../assets/icons/Star1.svg";
+import share from "./../../assets/icons/share.svg";
+import dots from "./../../assets/icons/Dots.svg";
 import { useNavigate } from "react-router-dom";
 import { handleLink } from "@src/utils/link";
 import { selectDiplomaList } from "@src/store/diplomas/selectors";

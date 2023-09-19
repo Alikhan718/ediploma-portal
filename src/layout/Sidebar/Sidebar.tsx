@@ -68,7 +68,7 @@ const CustomDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'ope
 );
 
 const role = localStorage.getItem("userRole")
-console.log(role)
+console.log(role);
 
 export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 	const { open, toggleDrawer } = props;

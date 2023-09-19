@@ -155,7 +155,14 @@ export const MainPageLayout: React.FC = () => {
 
 				<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', fontSize: '48px', paddingTop: '100px', paddingBottom: '55px' }}>Отзывы</Box>
 			</Container>
-			<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', overflowX: 'auto', overflowY: 'scroll', marginBottom: '16px' }}>
+			<Box sx={{
+				display: 'flex',
+				flexDirection: 'row',
+				alignItems: 'center',
+				textAlign: 'center',
+				paddingX: '11rem',
+				overflowX: 'auto',
+				marginBottom: '16px' }}>
 				<Box sx={{ display: 'flex', gap: '10px', }}>
 					{[1, 2, 3, 4, 5, 6].map((el: any) => {
 						return (<Box key={el} style={{ backgroundColor: '#F8F8F8', padding: '20px', width: '532px', height: '276px', borderRadius: '24px' }}>
