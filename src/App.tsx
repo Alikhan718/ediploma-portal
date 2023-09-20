@@ -2,6 +2,7 @@ import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Snackbar} from '@src/components';
 import {
+    AboutUsPage,
     DiplomaDetailsPage,
     DiplomaPage, ForgotPassword,
     LoginPage,
@@ -52,6 +53,7 @@ const App: React.FC = () => {
                     <Route path={routes.universityDetails} element={<UniversityDetailsPage/>}/>
                     <Route path={routes.diploma} element={<DiplomaPage/>}/>
                     <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>
+                    <Route path={routes.aboutUs} element={<AboutUsPage/>}/>
                     <Route path={routes.login} element={<LoginPage/>}/>
                     <Route path={routes.register} element={<RegisterPage/>}/>
                     <Route path={routes.passwordReset} element={<ForgotPassword/>}/>
