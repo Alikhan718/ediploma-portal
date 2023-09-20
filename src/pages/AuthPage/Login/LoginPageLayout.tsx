@@ -3,8 +3,9 @@ import {Box, CardContent, Link, Typography} from '@mui/material';
 import {Button, Input, Label} from '@src/components';
 import {IAuthLogin} from '@src/pages/AuthPage/types';
 import {useDispatch} from 'react-redux';
-import {fetchLoginRequest} from '@src/store/auth/actionCreators';
+import {fetchAuthDSRequest, fetchLoginRequest} from '@src/store/auth/actionCreators';
 import {isAuthenticated} from '@src/utils/userAuth';
+import * as NcaLayer from '@src/utils/functions';
 import {routes} from '@src/shared/routes';
 import {useNavigate} from 'react-router-dom';
 import ReactGA from 'react-ga';
@@ -67,76 +68,30 @@ export const LoginPageLayout: React.FC = () => {
         };
     }, []);
 
-    const [webSocket, setWebSocket] = React.useState<WebSocket>(new WebSocket('wss://127.0.0.1:13579/'));
-    let callback: any = null;
-
-    webSocket.onopen = (event): void => {
-        console.log("Connection opened");
-    };
-
-    webSocket.onclose = (event): void => {
-        if (event.wasClean) {
-            console.log('connection has been closed');
-        } else {
-            console.log('Connection error');
-        }
-        console.log('Code: ' + event.code + ' Reason: ' + event.reason);
-    };
-
-
-    webSocket.onmessage = (event): void => {
-        var result = JSON.parse(event.data);
-
-        if (result != null) {
-            var rw = {
-                code: result['code'],
-                message: result['message'],
-                responseObject: result['responseObject'],
-                getResult: function () {
-                    return this.responseObject;
-                },
-                getMessage: function () {
-                    return this.message;
-                },
-                getResponseObject: function () {
-                    return this.responseObject;
-                },
-                getCode: function () {
-                    return this.code;
-                }
-            };
-            if (callback !== null) {
-                callback(rw);
-            }
-        }
-    };
-    const manageNcaLayer = () => {
-        getKeyInfo('PKCS12', getKeyInfoBack);
-    };
-
-    const getKeyInfoBack = (result: any) => {
-        if (result['code'] === "200") {
-            let res = result['responseObject'];
+    const authWithDS = (res: any) => {
+        if (res['code'] === "200") {
+            res = res['responseObject'];
             const subjectDn = res['subjectDn'];
             let dateTo = res['certNotAfter'];
             let dateFrom = res['certNotBefore'];
             const authorityKeyIdentifier = res['authorityKeyIdentifier'];
-            console.log('subjectDn:', subjectDn);
-            console.log('dateTo:', dateTo);
-            console.log('dateFrom:', dateFrom);
-            console.log('authorityKeyIdentifier:', authorityKeyIdentifier);
+            const data = {
+                'subjectDn': subjectDn,
+                'dateTo': dateTo,
+                'dateFrom': dateFrom,
+                'authorityKeyIdentifier': authorityKeyIdentifier
+            };
+            dispatch(fetchAuthDSRequest(data));
+            setTimeout(() => {
+                const urlElements = window.location.href.split('/');
+                if (isAuthenticated() && urlElements.includes('auth')) {
+                    navigate(routes.main, {replace: true});
+                }
+            }, 2000);
         }
     };
-
-
-    const getKeyInfo = (storageName: string, callBack: any) => {
-        const getKeyInfo = {
-            "module": "kz.gov.pki.knca.commonUtils",
-            "method": "getKeyInfo",
-            "args": ['PKCS12']
-        };
-        callback = callBack;
-        webSocket.send(JSON.stringify(getKeyInfo));
+    const ncaLayerAuth = () => {
+        NcaLayer.getKeyInfo(authWithDS);
     };
 
     return (
@@ -206,7 +161,7 @@ export const LoginPageLayout: React.FC = () => {
                             }
                         }}
                         onClick={() => {
-                            manageNcaLayer();
+                            ncaLayerAuth();
                         }}>
                         Выбрать ключ ЭЦП
                     </Button>

@@ -8,9 +8,9 @@ import {
     FETCH_AUTH_LOGOUT,
     FETCH_AUTH_REGISTER_ERROR,
     FETCH_AUTH_REGISTER_SAGA,
-    FETCH_AUTH_REGISTER_SUCCESS,
+    FETCH_AUTH_REGISTER_SUCCESS, FETCH_AUTH_VALIDATE_EMAIL_ERROR,
     FETCH_AUTH_VALIDATE_EMAIL_SAGA,
-    FETCH_AUTH_VALIDATE_EMAIL_SUCCESS,
+    FETCH_AUTH_VALIDATE_EMAIL_SUCCESS, FETCH_AUTH_WITH_DS_SAGA, FETCH_AUTH_WITH_DS_SUCCESS, FETCH_GET_OTP_ERROR,
     FETCH_GET_OTP_SAGA,
     FETCH_GET_OTP_SUCCESS,
     FETCH_RESET_PASSWORD_SAGA,
@@ -25,7 +25,7 @@ const initialState = {
     isLoading: false,
     redirectToLogin: false,
     forgotStep: 1, // [1 - send code, 2 - confirm code, 3 - change pass]
-    registrationStep: 1, // [1 - send code, 2 - registered]
+    registrationStep: 1, // [1 - send code, 2 - email validated, 3 - registered]
 };
 export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
@@ -54,9 +54,27 @@ export const authReducer = (state = initialState, action: any) => {
                 isLoading: false,
                 otpSent: false
             };
-        case FETCH_AUTH_LOGIN_SUCCESS:
+        case FETCH_AUTH_WITH_DS_SAGA:
+            console.log(action.payload);
+            return {
+                ...state,
+                data: action.payload,
+            };
+        case FETCH_AUTH_WITH_DS_SUCCESS:
             const token = action.payload.token;
             localStorage.setItem("token", token);
+            localStorage.setItem("userRole", action.payload.role);
+
+            return {
+                ...state,
+                payload: action.payload,
+                userRole: action.payload.role,
+                isLoading: false
+            };
+
+        case FETCH_AUTH_LOGIN_SUCCESS:
+            const token2 = action.payload.token;
+            localStorage.setItem("token", token2);
             localStorage.setItem("userRole", action.payload.role);
 
             return {
@@ -69,7 +87,9 @@ export const authReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 payload: action.payload,
-                isLoading: false
+                isLoading: false,
+                otpSent: false,
+                registrationStep: 1,
             };
         case FETCH_AUTH_REGISTER_SAGA:
             return {
@@ -77,7 +97,7 @@ export const authReducer = (state = initialState, action: any) => {
                 email: action.payload.email,
                 password: action.payload.password,
                 repassword: action.payload.repassword,
-                companyName: action.payload.companyName,
+                name: action.payload.name,
                 registrationStep: 1,
                 isLoading: false
             };
@@ -85,8 +105,9 @@ export const authReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 payload: action.payload,
-                otpSent: true,
-                isLoading: false
+                otpSent: false,
+                isLoading: false,
+                registrationStep: 3
             };
         case FETCH_RESET_PASSWORD_SAGA:
             return {
@@ -113,6 +134,11 @@ export const authReducer = (state = initialState, action: any) => {
                 otpSent: true,
                 forgotStep: 2,
             };
+        case FETCH_GET_OTP_ERROR:
+            return {
+                ...state,
+                otpSent: false,
+            };
         case FETCH_AUTH_VALIDATE_EMAIL_SAGA:
             return {
                 ...state,
@@ -122,9 +148,16 @@ export const authReducer = (state = initialState, action: any) => {
         case FETCH_AUTH_VALIDATE_EMAIL_SUCCESS:
             return {
                 ...state,
-                otpSent: false,
+                otpSent: true,
                 isLoading: false,
                 registrationStep: 2,
+            };
+        case FETCH_AUTH_VALIDATE_EMAIL_ERROR:
+            return {
+                ...state,
+                otpSent: true,
+                isLoading: false,
+                registrationStep: 1,
             };
         case FETCH_VALIDATE_EMAIL_SAGA:
             return {
@@ -135,7 +168,7 @@ export const authReducer = (state = initialState, action: any) => {
         case FETCH_VALIDATE_EMAIL_SUCCESS:
             return {
                 ...state,
-                otpSent: false,
+                otpSent: true,
                 isLoading: false,
                 forgotStep: 3,
             };
@@ -143,7 +176,9 @@ export const authReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 payload: action.payload,
-                isLoading: false
+                isLoading: false,
+                otpSent: false,
+                registrationStep: 1
             };
         case FETCH_AUTH_ITEMS_ERROR:
             return {

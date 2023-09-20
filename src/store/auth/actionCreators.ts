@@ -3,7 +3,7 @@ import {
   FETCH_AUTH_LOGIN_SAGA,
   FETCH_AUTH_LOGOUT_SAGA,
   FETCH_AUTH_REGISTER_SAGA,
-  FETCH_AUTH_VALIDATE_EMAIL_SAGA,
+  FETCH_AUTH_VALIDATE_EMAIL_SAGA, FETCH_AUTH_WITH_DS_ERROR, FETCH_AUTH_WITH_DS_SAGA,
   FETCH_GET_OTP_SAGA,
   FETCH_RESET_PASSWORD_SAGA,
   FETCH_VALIDATE_EMAIL_SAGA
@@ -15,6 +15,11 @@ export const initalApp = () => ({
 
 export const fetchLoginRequest = (payload: any) => ({
   type: FETCH_AUTH_LOGIN_SAGA,
+  payload
+});
+
+export const fetchAuthDSRequest = (payload: any) => ({
+  type: FETCH_AUTH_WITH_DS_SAGA,
   payload
 });
 

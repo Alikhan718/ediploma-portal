@@ -25,6 +25,7 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
             navigate(routes.main, {replace: true});
         }
     }, [userRole]);
+
     return (
         <Box className={styles.container}>
             <Box className={styles.navbar}>

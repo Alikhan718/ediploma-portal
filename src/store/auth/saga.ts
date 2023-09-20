@@ -10,10 +10,17 @@ import {
     FETCH_AUTH_REGISTER_SUCCESS,
     FETCH_AUTH_VALIDATE_EMAIL_ERROR,
     FETCH_AUTH_VALIDATE_EMAIL_SAGA,
-    FETCH_AUTH_VALIDATE_EMAIL_SUCCESS, FETCH_GET_OTP_ERROR, FETCH_GET_OTP_SAGA, FETCH_GET_OTP_SUCCESS,
+    FETCH_AUTH_VALIDATE_EMAIL_SUCCESS,
+    FETCH_AUTH_WITH_DS_SAGA,
+    FETCH_GET_OTP_ERROR,
+    FETCH_GET_OTP_SAGA,
+    FETCH_GET_OTP_SUCCESS,
     FETCH_RESET_PASSWORD_ERROR,
     FETCH_RESET_PASSWORD_SAGA,
-    FETCH_RESET_PASSWORD_SUCCESS, FETCH_VALIDATE_EMAIL_ERROR, FETCH_VALIDATE_EMAIL_SAGA, FETCH_VALIDATE_EMAIL_SUCCESS
+    FETCH_RESET_PASSWORD_SUCCESS,
+    FETCH_VALIDATE_EMAIL_ERROR,
+    FETCH_VALIDATE_EMAIL_SAGA,
+    FETCH_VALIDATE_EMAIL_SUCCESS
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
@@ -49,11 +56,22 @@ export function* fetchAuthRegister(action: any) {
     }
 }
 
+export function* fetchAuthWithDS(action: any) {
+    try {
+        console.log(action.payload);
+        const {data} = yield call(authApi.authDS, action.payload);
+        yield put({type: FETCH_AUTH_LOGIN_SUCCESS, payload: data});
+        yield put(setSnackbar({visible: true, message: "Добро пожаловать", status: "success"}));
+    } catch (e: any) {
+        yield put({type: FETCH_AUTH_REGISTER_ERROR});
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+    }
+}
+
 export function* fetchAuthValidateEmail(action: any) {
     try {
         const {data} = yield call(authApi.validateEmail, action.payload);
         yield put({type: FETCH_AUTH_VALIDATE_EMAIL_SUCCESS});
-        fetchAuthLogin(action.payload);
         yield put(setSnackbar({visible: true, message: "Валидация пройдена!", status: "success"}));
     } catch (e) {
         yield put({type: FETCH_AUTH_VALIDATE_EMAIL_ERROR});
@@ -101,6 +119,7 @@ export function* fetchGetOtp(action: any) {
 export function* authSagas() {
     yield takeLatest(FETCH_AUTH_LOGIN_SAGA, fetchAuthLogin);
     yield takeLatest(FETCH_AUTH_REGISTER_SAGA, fetchAuthRegister);
+    yield takeLatest(FETCH_AUTH_WITH_DS_SAGA, fetchAuthWithDS);
     yield takeLatest(FETCH_AUTH_LOGOUT_SAGA, fetchAuthLogout);
     yield takeLatest(FETCH_AUTH_VALIDATE_EMAIL_SAGA, fetchAuthValidateEmail);
     yield takeLatest(FETCH_VALIDATE_EMAIL_SAGA, fetchValidateEmail);

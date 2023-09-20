@@ -46,17 +46,20 @@ export const authApi = {
     login(body: { email: string, password: string }) {
         return instance.post(`/login`, body);
     },
-    register(body: { email: string, password: string, companyName: string }) {
-        return instance.post(`/register`, body);
+    register(body: { email: string, password: string, name: string }) {
+        return instance.post(`/auth/register`, body);
+    },
+    authDS(body: any) {
+        return instance.post(`/auth/authorize-with-ds`, body);
     },
     validateEmail(body: { email: string, code: string }) {
-        return instance.post(`/verify-otp`, body);
+        return instance.post(`/otp/validate`, body);
     },
     resetPassword(body: { email: string, password: string, repassword: string, code: string }) {
         return instance.post(`/password-reset`, body);
     },
     getOtp(body: { email: string }) {
-        return instance.post(`/get-otp`, body);
+        return instance.post(`/otp/send`, body);
     },
 };
 

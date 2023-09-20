@@ -11,7 +11,9 @@ export interface IAuthLogin {
 export interface IAuthRegister {
     email: string,
     password: string,
-    companyName: string,
+    repassword: string,
+    role: string,
+    name: string,
     otp: string,
 }
 export interface IResetPassword {

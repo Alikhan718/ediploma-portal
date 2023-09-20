@@ -79,28 +79,19 @@ webSocket.onmessage = function (event) {
         }
     }
 }
+
 function getActiveTokens(callBack) {
     var getActiveTokens = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "getActiveTokens"
     };
     callback = callBack;
     webSocket.send(JSON.stringify(getActiveTokens));
 }
 
-function getKeyInfo(storageName, callBack) {
-    var getKeyInfo = {
-		"module": "kz.gov.pki.knca.commonUtils",
-        "method": "getKeyInfo",
-        "args": ['PKCS12']
-    };
-    callback = callBack;
-    webSocket.send(JSON.stringify(getKeyInfo));
-}
-
 function signXml(storageName, keyType, xmlToSign, callBack) {
     var signXml = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "signXml",
         "args": [storageName, keyType, xmlToSign, "", ""]
     };
@@ -110,7 +101,7 @@ function signXml(storageName, keyType, xmlToSign, callBack) {
 
 function signXmls(storageName, keyType, xmlsToSign, callBack) {
     var signXmls = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "signXmls",
         "args": [storageName, keyType, xmlsToSign, "", ""]
     };
@@ -120,7 +111,7 @@ function signXmls(storageName, keyType, xmlsToSign, callBack) {
 
 function createCAdESFromFile(storageName, keyType, filePath, flag, callBack) {
     var createCAdESFromFile = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "createCAdESFromFile",
         "args": [storageName, keyType, filePath, flag]
     };
@@ -130,7 +121,7 @@ function createCAdESFromFile(storageName, keyType, filePath, flag, callBack) {
 
 function createCAdESFromBase64(storageName, keyType, base64ToSign, flag, callBack) {
     var createCAdESFromBase64 = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "createCAdESFromBase64",
         "args": [storageName, keyType, base64ToSign, flag]
     };
@@ -140,7 +131,7 @@ function createCAdESFromBase64(storageName, keyType, base64ToSign, flag, callBac
 
 function createCAdESFromBase64Hash(storageName, keyType, base64ToSign, callBack) {
     var createCAdESFromBase64Hash = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "createCAdESFromBase64Hash",
         "args": [storageName, keyType, base64ToSign]
     };
@@ -150,7 +141,7 @@ function createCAdESFromBase64Hash(storageName, keyType, base64ToSign, callBack)
 
 function applyCAdEST(storageName, keyType, cmsForTS, callBack) {
     var applyCAdEST = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "applyCAdEST",
         "args": [storageName, keyType, cmsForTS]
     };
@@ -160,7 +151,7 @@ function applyCAdEST(storageName, keyType, cmsForTS, callBack) {
 
 function showFileChooser(fileExtension, currentDirectory, callBack) {
     var showFileChooser = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "showFileChooser",
         "args": [fileExtension, currentDirectory]
     };
@@ -170,7 +161,7 @@ function showFileChooser(fileExtension, currentDirectory, callBack) {
 
 function changeLocale(language) {
     var changeLocale = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "changeLocale",
         "args": [language]
     };
@@ -180,7 +171,7 @@ function changeLocale(language) {
 
 function createCMSSignatureFromFile(storageName, keyType, filePath, flag, callBack) {
     var createCMSSignatureFromFile = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "createCMSSignatureFromFile",
         "args": [storageName, keyType, filePath, flag]
     };
@@ -190,7 +181,7 @@ function createCMSSignatureFromFile(storageName, keyType, filePath, flag, callBa
 
 function createCMSSignatureFromBase64(storageName, keyType, base64ToSign, flag, callBack) {
     var createCMSSignatureFromBase64 = {
-		"module": "kz.gov.pki.knca.commonUtils",
+        "module": "kz.gov.pki.knca.commonUtils",
         "method": "createCMSSignatureFromBase64",
         "args": [storageName, keyType, base64ToSign, flag]
     };
