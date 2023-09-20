@@ -24,8 +24,7 @@ export const LoginPageLayout: React.FC = () => {
 
     const onSubmit = async (e: React.SyntheticEvent): Promise<void> => {
         e.preventDefault();
-        const payload = state;
-        dispatch(fetchLoginRequest(payload));
+        dispatch(fetchLoginRequest(state));
 
         // Track login event
         ReactGA.event({
@@ -54,7 +53,7 @@ export const LoginPageLayout: React.FC = () => {
         ReactGA.pageview(window.location.pathname + window.location.search);
 
         // Track cursor movements
-        const handleMouseMove = (e: MouseEvent) => {
+        const handleMouseMove = (e: MouseEvent): void => {
             ReactGA.event({
                 category: 'User',
                 action: 'Cursor Move',
@@ -68,14 +67,14 @@ export const LoginPageLayout: React.FC = () => {
         };
     }, []);
 
-    const webSocket = new WebSocket('wss://127.0.0.1:13579/');
+    const [webSocket, setWebSocket] = React.useState<WebSocket>(new WebSocket('wss://127.0.0.1:13579/'));
     let callback: any = null;
 
-    webSocket.onopen = (event) => {
+    webSocket.onopen = (event): void => {
         console.log("Connection opened");
     };
 
-    webSocket.onclose = (event) => {
+    webSocket.onclose = (event): void => {
         if (event.wasClean) {
             console.log('connection has been closed');
         } else {
@@ -85,7 +84,7 @@ export const LoginPageLayout: React.FC = () => {
     };
 
 
-    webSocket.onmessage = (event) => {
+    webSocket.onmessage = (event): void => {
         var result = JSON.parse(event.data);
 
         if (result != null) {
@@ -118,30 +117,16 @@ export const LoginPageLayout: React.FC = () => {
     const getKeyInfoBack = (result: any) => {
         if (result['code'] === "200") {
             let res = result['responseObject'];
-            const alias = res['alias'];
-            const keyId = res['keyId'];
-            const algorithm = res['algorithm'];
-            const subjectCn = res['subjectCn'];
             const subjectDn = res['subjectDn'];
-            const issuerCn = res['issuerCn'];
-            const issuerDn = res['issuerDn'];
-            const serialNumber = res['serialNumber'];
-            let dateString = res['certNotAfter'];
-            let date = new Date(Number(dateString));
-            dateString = res['certNotBefore'];
-            date = new Date(Number(dateString));
+            let dateTo = res['certNotAfter'];
+            let dateFrom = res['certNotBefore'];
             const authorityKeyIdentifier = res['authorityKeyIdentifier'];
-            const pem = res['pem'];
-            console.log('subjectCn:', subjectCn);
             console.log('subjectDn:', subjectDn);
-            console.log('issuerDn:', issuerDn);
-            console.log('issuerCn:', issuerCn);
-            console.log('serialNumber:', serialNumber);
-            console.log('date:', date);
-            console.log('dateString:', dateString);
+            console.log('dateTo:', dateTo);
+            console.log('dateFrom:', dateFrom);
             console.log('authorityKeyIdentifier:', authorityKeyIdentifier);
         }
-    }
+    };
 
 
     const getKeyInfo = (storageName: string, callBack: any) => {
