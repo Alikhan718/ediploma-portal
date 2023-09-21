@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	Drawer,
 	styled,
@@ -15,13 +15,14 @@ import AppLogo from '@src/assets/icons/app-logo.svg';
 import LogoutIcon from '@src/assets/icons/out.png';
 import Menu from '@src/assets/example/Menu.svg';
 import { SidebarProps } from './Sidebar.props';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { selectAuthLoader, selectUserRole } from '@src/store/auth/selector';
 import { useSelector } from 'react-redux';
 import { privateNavigations } from "@src/layout/Header/generator";
 import { DRAWER_WIDTH } from '../Layout';
 import { routes } from "@src/shared/routes";
 import { fetchAuthLogout } from "@src/store/auth/saga";
+import icon from "@src/assets/icons/Logo (2).svg";
 
 
 interface ICustomDrawer extends DrawerProps {
@@ -50,6 +51,9 @@ const drawerMixin = (theme: Theme, open: boolean): CSSObject => ({
 
 const CustomDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })<ICustomDrawer>(
 	({ theme, open }) => ({
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'flex-start',
 		width: DRAWER_WIDTH,
 		flexShrink: 0,
 		whiteSpace: 'nowrap',
@@ -68,9 +72,11 @@ const CustomDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'ope
 );
 
 const role = localStorage.getItem("userRole")
-console.log(role);
+console.log(privateNavigations, "asfdasdf");
 
 export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
+	const location = useLocation();
+	console.log('pathname', location.pathname);
 	const { open, toggleDrawer } = props;
 	const navigate = useNavigate();
 	const authLoader = useSelector(selectAuthLoader);
@@ -88,68 +94,63 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 		localStorage.removeItem("currLocation");
 	};
 
+	const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+
+
+
 	return (
-		<CustomDrawer variant="permanent" open={true}>
-			{!authLoader ? (
-				<React.Fragment>
-					<Box p={`1.5rem 0 0 10px`}>
-						<img src={AppLogo} style={{ width: '75%' }} />
-						<Box sx={{
-							borderBottom: '1px solid #F8F8F8',
-							paddingBottom: '24px',
-							marginBottom: '24px'
-						}}></Box>
-						<Box mt='1rem'>
-							{privateNavigations.map(nav => (
-								<NavLink
-									to={nav.to}
-									key={nav.id}
-									onClick={() => setActiveNav(nav.id)}
-									className={(props) => handleClassName(props.isActive, nav.id)}
-								>
-									<Box
-										display='flex'
-										alignItems='center'
-										pt='1rem'
-										mb='5px'
-										sx={{
-											background: `${activeNav === nav.id ? '#3B82F6' : 'unset'}`,
-											padding: '15px',
-											borderRadius: '19px',
-										}}
-									>
-										<Box mr='18px' ml='8px'>
-											<Box sx={{ background: `${activeNav === nav.id ? '#white' : 'white'}` }}>
-												{nav.icon}
-											</Box>
-										</Box>
-										<Typography
-											color={activeNav === nav.id ? 'white' : '#697B7A'}
-											fontWeight='600'
-											sx={{ fontSize: '14px' }}
-										>
-											{nav.name}
-										</Typography>
+		<>
+			{isSidebarVisible && (
+				<CustomDrawer variant="permanent" open={isSidebarVisible}>
+					{!authLoader ? (
+						<Box sx={{ height: '100vh' }}>
+							<Box p={`1.5rem 0 0 10px`} sx={{ height: '100%' }}>
+								<img src={AppLogo} style={{ width: '75%' }} />
+								<Box sx={{
+									borderBottom: '1px solid #F8F8F8',
+									paddingBottom: '24px',
+									marginBottom: '24px'
+								}}></Box>
+								<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '80%' }}>
+									<Box>
+										{privateNavigations.map(nav => (
+											<NavLink
+												to={nav.to}
+												key={nav.id}
+												onClick={() => setActiveNav(nav.id)}
+												className={(props) => handleClassName(props.isActive, nav.id)}
+												style={{
+													display: 'flex', flexDirection: 'row',
+													background: `${activeNav === nav.id ? '#3B82F6' : 'unset'}`,
+													padding: '15px',
+													borderRadius: '19px',
+												}}
+											>
+												<Box mr='18px' ml='8px'>
+													<Box sx={{ background: `${activeNav === nav.id ? '#white' : 'white'}` }}>
+														{nav.icon}
+													</Box>
+												</Box>
+												<Typography
+													color={activeNav === nav.id ? 'white' : '#697B7A'}
+													fontWeight='600'
+													sx={{ fontSize: '14px' }}
+												>
+													{nav.name}
+												</Typography>
+											</NavLink>)
+										)}
+
 									</Box>
-									<Box
-										style={{
-											position: 'fixed',
-											bottom: '0px',
-											left: '20px',
-											width: 'auto',
-											height: 'auto',
-											padding: '20px',
-											zIndex: '999',
-										}}
-									>
-										<Typography sx={{ color: '#697B7A', fontSize: '14px' }}>Аккаунт</Typography>
+									<Box sx={{ marginTop: 'auto', padding: '10px' }}>
+										<Typography sx={{ color: '#697B7A', fontSize: '14px', }}>Аккаунт</Typography>
 
 										<Box mt="1rem" >
-											<Button sx={{ color: '#697B7A', fontSize: '14px', position: 'static' }} onClick={onSignOut}>
+											<Button sx={{ color: '#697B7A', fontSize: '14px' }} onClick={() => navigate(routes.settings)}>
 												Настройки
 											</Button>
 										</Box>
-										<Box mt="0rem" mb="5rem">
+										<Box mt="0rem" mb="2rem">
 											<Button
 												onClick={() => {
 													fetchAuthLogout();
@@ -157,12 +158,12 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 													navigate(routes.login);
 												}}
 
-												variant='contained'
+												variant='text'
 												width={120}
 											>
 												<Typography
 													variant='h4'
-													color={'white'}
+													color={'red'}
 													fontSize={'16px'}
 													className="diploma-navbar-item"
 													fontWeight='450'>
@@ -171,22 +172,33 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 
 											</Button>
 										</Box>
-
-										<img src={Menu} style={{ width: '90%' }} />
+										<Box sx={{
+											backgroundColor: '#3B82F6', width: '100%', height: '144px',
+											borderRadius: '20px', marginBoottom: '50px',
+											display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center'
+										}}>
+											<img src={icon} style={{ marginTop: "20px" }} />
+											<Box sx={{ fontSize: '16px', padding: '10px', color: 'white ' }}>
+												Скачайте мобильное <br /> приложение
+											</Box>
+											<Box sx={{ color: 'white', marginBottom: '20px' }}>
+												Dashboard
+											</Box>
+										</Box>
 									</Box>
-								</NavLink>
-							))}
+
+								</Box>
+							</Box>
 						</Box>
+					) : (
+						<CircularProgress color="warning" />
+					)}
 
-					</Box>
-				</React.Fragment>
-			) : (
-				<CircularProgress color="warning" />
+
+
+				</CustomDrawer>
 			)}
-
-
-
-		</CustomDrawer>
+		</>
 	);
 };
 

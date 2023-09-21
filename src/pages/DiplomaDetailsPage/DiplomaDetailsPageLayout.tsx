@@ -4,7 +4,7 @@ import { ReactComponent as CalendarIcon } from '@src/assets/icons/calendar.svg';
 import { ReactComponent as FileCheckIcon } from '@src/assets/icons/Lesson.svg';
 import { ReactComponent as CertificateIcon } from '@src/assets/icons/Cerificate.svg';
 import { ReactComponent as DownloadIcon } from '@src/assets/icons/download.svg';
-import { ReactComponent as ShareIcon } from '@src/assets/icons/share.svg';
+import { ReactComponent as ShareIcon } from '@src/assets/icons/Share.svg';
 import { ReactComponent as QRIcon } from '@src/assets/icons/qr-code.svg';
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 import exampleImage from "@src/assets/example/diploma_template.jpg";

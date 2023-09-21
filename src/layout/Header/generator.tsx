@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { routes } from "@src/shared/routes";
-import { ReactComponent as DiplomaIcon } from "@src/assets/icons/diplomaIcon.svg";
+import { ReactComponent as DiplomaIcon } from "@src/assets/icons/Widget.svg";
 import { ReactComponent as MainPageIcon } from "@src/assets/icons/mainPageIcon.svg";
 import { ReactComponent as UniversityIcon } from "@src/assets/icons/universityIcon.svg";
 
@@ -24,16 +24,16 @@ export const privateNavigations: AppRoutesNavigation[] = [
 	{
 		id: 2,
 		name: 'Аналитика',
-		to: routes.settings,
+		to: routes.main,
 		role: "*",
-		icon: <UniversityIcon />,
+		icon: <DiplomaIcon />,
 	},
 	{
 		id: 3,
 		name: 'Выпустить дипломы',
 		to: routes.addingGraduates,
 		role: '*',
-		icon: <UniversityIcon />
+		icon: <DiplomaIcon />
 	},
 	// {
 	//     id: 4,

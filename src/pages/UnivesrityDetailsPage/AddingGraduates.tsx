@@ -38,20 +38,25 @@ const AddingGraduates: React.FC = () => {
 	const currentStep = progress;
 
 	return (
-		<Box sx={{ backgroundColor: "#FAFBFF" }}>
-			<Box sx={{ textAlign: "center", padding: 16, backgroundColor: "#FAFBFF", }}>
+		<Box sx={{ backgroundColor: "#FAFBFF", }}>
+			<Box sx={{
+				textAlign: "center", backgroundColor: "#FAFBFF", width: '100%', padding: '40px', '@media (max-width: 998px)': {
+					padding: '15px',
+				},
+			}}>
 				<Box
 					sx={{
 						display: "flex",
 						alignItems: "center",
 						flexDirection: "column",
+						width: '100%'
 					}}
 				>
 					<Box
 						sx={{
 							display: "flex",
 							alignItems: "center",
-							justifyContent: "center", backgroundColor: '#FAFBFF', paddingBottom: '15px'
+							justifyContent: "center", backgroundColor: '#FAFBFF', paddingBottom: '15px', width: '90%'
 						}}
 					>
 						{steps.map((step, index) => (
@@ -94,7 +99,7 @@ const AddingGraduates: React.FC = () => {
 						sx={{
 							marginTop: 2,
 							display: "flex",
-							justifyContent: "space-between",
+							justifyContent: currentStep === 0 ? "flex-end" : "space-between",
 							width: "100%",
 						}}
 					>
@@ -124,7 +129,7 @@ const AddingGraduates: React.FC = () => {
 							<label
 								htmlFor="file-input"
 								style={{
-									width: "1000px",
+									width: "90%",
 									height: "400px",
 									marginTop: 2,
 									borderRadius: "15px",
@@ -156,7 +161,7 @@ const AddingGraduates: React.FC = () => {
 
 							<Button variant="contained" color="primary" sx={{ marginTop: 2, borderRadius: '15px', }}> Скачать шаблон</Button>
 							<Box sx={{
-								backgroundColor: '#FAFBFF', width: '1000px', paddingTop: '20px', marginTop: '20px', marginBottom: '20px', textAlign: 'left', padding: '20px', borderRadius: '48px'
+								backgroundColor: '#FAFBFF', width: '90%', paddingTop: '20px', marginTop: '20px', marginBottom: '20px', textAlign: 'left', padding: '20px', borderRadius: '48px'
 							}}>
 								<Box sx={{ color: '#3B82F6', }}>Примечание</Box>
 								<Box sx={{ marginTop: '10px', color: '#A1A1A1' }}> Описание примечание</Box>
@@ -166,27 +171,26 @@ const AddingGraduates: React.FC = () => {
 					)}
 
 					{currentStep === 1 && file && (
-						<Box sx={{ alignItems: 'center', width: '1200px' }}>
-							<Typography variant="h6" sx={{ paddingTop: '25px' }}>Проверьте данные на корректность</Typography>
-
+						<Box sx={{ marginTop: 4, }}>
+							<Typography variant="h6" sx={{}}>Подписать с ЭЦП</Typography>
 							<Box sx={{
-								width: '1100px', borderRadius: '50px',
+								width: '90%', borderRadius: '50px',
 								height: '300px', backgroundColor: '#FAFBFF', padding: '25px', marginTop: '16px', marginLeft: '70px',
 							}}>
-								<Box sx={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }}>
-									<Typography variant="subtitle1" sx={{ marginRight: '300px', color: '#A1A1A1' }}>Название файла:</Typography>
-									<Typography variant="subtitle1" sx={{ marginRight: '350px', color: '#A1A1A1' }}>Размер файла:</Typography>
-									<Typography variant="subtitle1" sx={{ marginRight: '6px', color: '#A1A1A1' }}>Статус:</Typography>
+								<Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginBottom: '16px', whiteSpace: 'nowrap', textAlign: 'left', padding: '28px 28px 0 28px' }}>
+									<Typography variant="subtitle1" sx={{ color: '#A1A1A1' }}>Название файла:</Typography>
+									<Typography variant="subtitle1" sx={{ color: '#A1A1A1' }}>Размер файла:</Typography>
+									<Typography variant="subtitle1" sx={{ color: '#A1A1A1' }}>Статус:</Typography>
 								</Box>
 
-								<Box sx={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }}>
-									<Typography variant="body1" sx={{ marginRight: '400px' }}>{file.name}</Typography>
-									<Typography variant="body1" sx={{ marginRight: '350px' }}>{fileSizeInKB}KB</Typography>
+								<Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginBottom: '16px', whiteSpace: 'nowrap', textAlign: 'left', padding: '28px' }}>
+									<Typography variant="body1" >{file.name}</Typography>
+									<Typography variant="body1" >{fileSizeInKB}KB</Typography>
 									<Typography variant="body1">Проверка</Typography>
 								</Box>
 							</Box>
 
-							<Button variant="contained" color="primary" sx={{ marginTop: '20px', borderRadius: '15px', }}> Проверить</Button>
+							<Button variant="contained" color="primary" sx={{ marginTop: 2, borderRadius: '15px' }}> Подписать с ЭЦП</Button>
 						</Box>
 					)}
 
@@ -194,18 +198,18 @@ const AddingGraduates: React.FC = () => {
 						<Box sx={{ marginTop: 4, }}>
 							<Typography variant="h6" sx={{}}>Подписать с ЭЦП</Typography>
 							<Box sx={{
-								width: '1150px', borderRadius: '50px',
+								width: '90%', borderRadius: '50px',
 								height: '300px', backgroundColor: '#FAFBFF', padding: '25px', marginTop: '16px', marginLeft: '70px',
 							}}>
-								<Box sx={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }}>
-									<Typography variant="subtitle1" sx={{ marginRight: '300px', color: '#A1A1A1' }}>Название файла:</Typography>
-									<Typography variant="subtitle1" sx={{ marginRight: '350px', color: '#A1A1A1' }}>Размер файла:</Typography>
-									<Typography variant="subtitle1" sx={{ marginRight: '6px', color: '#A1A1A1' }}>Статус:</Typography>
+								<Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginBottom: '16px', whiteSpace: 'nowrap', textAlign: 'left', padding: '28px 28px 0 28px' }}>
+									<Typography variant="subtitle1" sx={{ color: '#A1A1A1' }}>Название файла:</Typography>
+									<Typography variant="subtitle1" sx={{ color: '#A1A1A1' }}>Размер файла:</Typography>
+									<Typography variant="subtitle1" sx={{ color: '#A1A1A1' }}>Статус:</Typography>
 								</Box>
 
-								<Box sx={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }}>
-									<Typography variant="body1" sx={{ marginRight: '400px' }}>{file.name}</Typography>
-									<Typography variant="body1" sx={{ marginRight: '350px' }}>{fileSizeInKB}KB</Typography>
+								<Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginBottom: '16px', whiteSpace: 'nowrap', textAlign: 'left', padding: '28px' }}>
+									<Typography variant="body1" >{file.name}</Typography>
+									<Typography variant="body1" >{fileSizeInKB}KB</Typography>
 									<Typography variant="body1">Проверка</Typography>
 								</Box>
 							</Box>
@@ -224,7 +228,7 @@ const AddingGraduates: React.FC = () => {
 
 								<Typography variant="h6" sx={{ paddingTop: '15px' }}> Результаты файла</Typography>
 								<Box sx={{
-									width: '1150px', borderRadius: '50px',
+									width: '90%', borderRadius: '50px',
 									height: '300px', backgroundColor: '#FAFBFF', padding: '25px', marginTop: '16px', marginLeft: '70px',
 								}}>
 									<Box>
@@ -268,7 +272,7 @@ const AddingGraduates: React.FC = () => {
 					}
 				</Box>
 			</Box >
-		</Box>
+		</Box >
 	);
 };
 

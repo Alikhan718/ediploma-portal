@@ -160,9 +160,18 @@ export const MainPageLayout: React.FC = () => {
 				flexDirection: 'row',
 				alignItems: 'center',
 				textAlign: 'center',
-				paddingX: '11rem',
 				overflowX: 'auto',
-				marginBottom: '16px' }}>
+				marginBottom: '16px',
+				paddingX: '11rem',
+				width: '100%',
+				'::-webkit-scrollbar': {
+					width: '50px',
+				},
+				'::-webkit-scrollbar-thumb': {
+					backgroundColor: '#3B82F6',
+					borderRadius: '10px',
+				},
+			}}>
 				<Box sx={{ display: 'flex', gap: '10px', }}>
 					{[1, 2, 3, 4, 5, 6].map((el: any) => {
 						return (<Box key={el} style={{ backgroundColor: '#F8F8F8', padding: '20px', width: '532px', height: '276px', borderRadius: '24px' }}>

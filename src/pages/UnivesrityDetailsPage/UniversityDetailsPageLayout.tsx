@@ -19,7 +19,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { NavigateNext, NavigateBefore } from '@mui/icons-material';
 import star from "./../../assets/icons/Star1.svg";
-import share from "./../../assets/icons/share.svg";
+import share from "./../../assets/icons/Share.svg";
 import dots from "./../../assets/icons/Dots.svg";
 import { useNavigate } from "react-router-dom";
 import { handleLink } from "@src/utils/link";
@@ -53,10 +53,11 @@ function TabPanel(props: TabPanelProps) {
 			hidden={value !== index}
 			id={`simple-tabpanel-${index}`}
 			aria-labelledby={`simple-tab-${index}`}
+
 			{...other}
 		>
 			{value === index && (
-				<Box pr={3} pt={2}>
+				<Box pr={3} pt={2} sx={{ paddingRight: 'unset' }}>
 					<Typography>{children}</Typography>
 				</Box>
 			)}
@@ -116,23 +117,52 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 			{/*<Box sx={{ width: '300px' }}>Sidebar</Box>*/}
 			<Box display='flex' flexWrap='wrap'>
 
-				<Box ml={'2rem'} width={"100%"}>
-					<Box width="100%" display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px', }} className={styles.contentContainer}>
+				<Box ml={'2rem'} width={"95%"}>
+					<Box display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px', }}>
 						<UniversityDetailsPageHeader />
-						<Box sx={{ paddingLeft: '28px' }}>
-							<Box display="flex" alignItems="center"><Typography
-								className={styles.nameText}
-								fontWeight='600'
-								sx={{ paddingBottom: '34px', fontSize: '40px', }}
+						<Box sx={{ paddingLeft: '18px' }}>
+							<Box
+								display="flex"
+								alignItems="center"
+								sx={{
+									flexDirection: 'row',
+									justifyContent: 'space-between',
+									width: '100%',
+									alignItems: 'center',
+								}}
 							>
-								Казахстанско-Британский Технический Университет
-							</Typography>
-								<Box marginLeft="210px" marginBottom="25px">
-									<img src={star} style={{ marginRight: '15px' }} />
-									<img src={share} style={{ marginRight: '20px' }} />
-									<img src={dots} style={{ marginRight: '20px' }} />
+								<Typography
+									className={styles.nameText}
+									fontWeight='600'
+									sx={{
+										paddingBottom: '34px',
+										fontSize: '34px',
+										'@media (max-width: 998px)': {
+											fontSize: '24px',
+
+										},
+										'@media (max-width: 768px)': {
+											fontSize: '24px',
+										},
+									}}
+								>
+									Казахстанско-Британский Технический Университет
+								</Typography>
+								<Box marginBottom="25px">
+									<img src={star} style={{
+										marginRight: '15px',
+
+									}} />
+									<img src={share} style={{
+										marginRight: '20px',
+
+									}} />
+									<img src={dots} style={{
+										marginRight: '10px',
+									}} />
 								</Box>
 							</Box>
+
 
 							<Box display='flex' flexDirection='column'>
 								<Typography className={styles.textSm} sx={{ paddingBottom: '16px' }}>
@@ -147,26 +177,30 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
 							</Box>
 							<Box className={styles.contentContainer}>
-								<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingTop: '32px' }}>
-									<Box flex='1'>
+								<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingTop: '32px', paddingBottom: '20px' }}>
+									<Box flex='1' sx={{ marginRight: '50px' }}>
 										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>10256</Typography>
 										<Typography >
 											Кол-во студентов
 										</Typography>
 									</Box>
-									<Box flex='1' sx={{ marginRight: '0' }}>
+									<Box flex='1' sx={{ marginRight: '50px' }}>
 										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>12450</Typography>
 										<Typography >
 											Кол-во <br /> выпускников
 										</Typography>
 									</Box>
-									<Box flex='1'>
+									<Box flex='1 ' sx={{ marginRight: '50px' }}>
 										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>8045</Typography>
 										<Typography className={styles.textSm}>
 											Количество<br /> с отличием
 										</Typography>
 									</Box>
-									<Box flex='5'>
+									<Box flex='5' sx={{
+										'@media (max-width: 768px)': {
+											display: 'none', // Show on mobile screens (768px and below)
+										}
+									}}>
 
 										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>5.1</Typography>
 										<Typography className={styles.textSm}>
@@ -240,24 +274,28 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '20px', marginBottom: '20px' }}
 								className={styles.diplomasContainer}>
 								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Дипломы выпускников</Typography>
-								<Box display="flex" alignItems="center" paddingBottom='50px' >
-									<Button variant="outlined" sx={{ borderRadius: '20px', padding: '5px', width: '150px', color: '#3B82F6', marginLeft: '20px', marginRight: '15px' }}>
-										<Filter style={{ marginRight: '10px', }} />
-										Фильтр
-									</Button>
-									<Box sx={{}}>
-										<Label label="" />
-										<Input
-											type="text"
-											name="email"
-											placeholder="Найти"
-											sx={{ width: '555px', paddingLeft: '10px', marginRight: "600px" }}
-										/>
+								<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', marginBottom: '50px' }}>
+									<Box display="flex" alignItems="center"  >
+										<Button variant="outlined" sx={{ borderRadius: '20px', padding: '5px', width: '150px', color: '#3B82F6', marginLeft: '20px', marginRight: '15px' }}>
+											<Filter style={{ marginRight: '10px', }} />
+											Фильтр
+										</Button>
+										<Box display="flex" alignItems="center">
+											<Label label="" />
+											<Input
+												type="text"
+												name="email"
+												placeholder="Найти"
+												sx={{ width: '150%', paddingLeft: '10px' }}
+											/>
+
+										</Box>
+										<Box>
+										</Box>
+
 									</Box>
-									<Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-										<img src={univ} style={{ marginRight: '' }} />
-										<img src={univ} style={{ marginRight: '' }} />
-									</Box>
+									<Box>	<img src={univ} style={{ marginRight: '5px' }} />
+										<img src={univ} /></Box>
 								</Box>
 
 							</Box>
@@ -273,9 +311,11 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								<Box
 									display="flex"
 									flexDirection="column"
+									width="100%"
 									alignItems="start"
 									sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '10px' }}
 									className={styles.diplomasContainer}
+
 								>
 									{currentDiplomaPage.map((e: any) => (
 										<Box
@@ -288,7 +328,9 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 												width: '100%',
 												cursor: 'pointer',
 												borderRadius: '10px',
-												marginBottom: '1.5rem'
+												marginBottom: '1.5rem', display: 'flex',
+												flexDirection: 'row', // Default layout for larger screens
+												alignItems: 'center',
 											}}
 										>
 											<Box
@@ -346,7 +388,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										}}>
 											{Array.from({ length: Math.ceil(diplomaList.length / diplomasPerPage) }, (_, index) => {
 												if (index < 6 || index >= Math.ceil(diplomaList.length / diplomasPerPage) - 5) {
-													// Show the first 6 page numbers and the last 5 page numbers
+
 													return (
 														<Button
 															key={index}
