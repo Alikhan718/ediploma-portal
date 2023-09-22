@@ -6,5 +6,6 @@ export interface InputProps extends Omit<OutlinedInputProps, 'label'> {
 	label?: string;
 	textALign?: 'start' | 'center' | 'end';
 	helper?: React.ReactNode | string;
+	reducePadding?: boolean;
 	activeBorderColor?: 'primary' | 'success' | 'warning'
 };
