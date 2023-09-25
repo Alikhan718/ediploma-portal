@@ -6,21 +6,10 @@ import {
 import { Button, Input, Label } from '@src/components';
 import web from "@src/assets/icons/Website.svg";
 import icon from "@src/assets/icons/Logo (2).svg";
+import add from "@src/assets/icons/All.svg";
 
 const SettingsPage: React.FC = () => {
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0];
-		if (file) {
-			if (file.type === 'image/png' || file.type === 'image/jpeg') {
-				// Set the selected image in the state
-				setSelectedImage(URL.createObjectURL(file));
-			} else {
-				alert('Please select a valid PNG or JPEG image file.');
-			}
-		}
-	};
 	return (
 		<Box display="flex" flexDirection="row" sx={{ backgroundColor: '#FAFBFF', minHeight: "100vh", paddingRight: '10px', width: '100%' }}>
 
@@ -45,11 +34,11 @@ const SettingsPage: React.FC = () => {
 								justifyContent: 'flex-start',
 							}}
 						>
-							<Box>sadsadas</Box>
-							<Box>asdasdasf</Box>
-							<Box>zvcvcv</Box>
-							<Box>dsgafgdfg</Box>
-							<Box>sgadfgdfhdh</Box>
+							<Box sx={{ flex: 1, color: '#A28D8D' }}> Основная Информация</Box>
+							<Box sx={{ flex: 1, color: '#A28D8D' }}>Почта</Box>
+							<Box sx={{ flex: 1, color: '#A28D8D' }}>Пароль</Box>
+							<Box sx={{ flex: 1, color: '#A28D8D' }}>Уведомления</Box>
+							<Box sx={{ flex: 1, color: '#A28D8D' }}>Удалить аккаунт</Box>
 						</Box>
 					</Grid>
 				</Grid>
@@ -62,11 +51,9 @@ const SettingsPage: React.FC = () => {
 					backgroundColor: '#E8EBF1',
 					height: '250px',
 					marginBottom: '20px',
-					marginRight: '10px',
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'flex-start',
-					marginLeft: '10px',
 
 				}}>
 
@@ -77,6 +64,16 @@ const SettingsPage: React.FC = () => {
 						marginTop: '130px',
 					}}>
 						<img src={icon} />
+					</Box>
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'flex-end',
+							alignItems: 'flex-end',
+							marginTop: '-70px',
+						}}
+					>
+						<img src={add} />
 					</Box>
 				</Container>
 
@@ -92,21 +89,21 @@ const SettingsPage: React.FC = () => {
 				}}>
 					<Typography variant="h6">Основная информация</Typography>
 					<Box>
-						<Label label="Почта*" />
+						<Label label="Название университета" />
 						<Input
 							type="text"
 							name="email"
-							placeholder="Логин или Email"
+							placeholder="Введите полное название университета"
 						/>
 					</Box>
 					<Box sx={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
 						{/* Telephone Input */}
 						<Box sx={{ width: '100%' }}>
-							<Label label="Телефон*" />
+							<Label label="Номер телефона" />
 							<Input
 								type="text"
 								name="telephone"
-								placeholder="Номер телефона"
+								placeholder="+7"
 							/>
 						</Box>
 
@@ -319,7 +316,10 @@ const SettingsPage: React.FC = () => {
 							<MenuItem value={30}>Thirty</MenuItem>
 						</Select>
 					</FormControl>
-
+					<Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '36px' }}>
+						<Button sx={{ marginRight: '16px' }}>Button 1</Button>
+						<Button sx={{}} variant="contained" borderRadius="3rem">Button 2</Button>
+					</Box>
 				</Container>
 
 				<Container sx={{
@@ -438,6 +438,10 @@ const SettingsPage: React.FC = () => {
 							{/* Add your button text here */}
 							Кнопка
 						</Button>
+					</Box>
+					<Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '36px' }}>
+						<Button sx={{ marginRight: '16px' }}>Button 1</Button>
+						<Button sx={{}} variant="contained" borderRadius="3rem">Button 2</Button>
 					</Box>
 				</Container>
 

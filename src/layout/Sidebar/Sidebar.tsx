@@ -9,7 +9,8 @@ import {
 	Typography,
 	CircularProgress, Divider
 } from '@mui/material';
-
+import out from "./../../assets/icons/Logout.svg";
+import settings from "./../../assets/icons/Settings.svg"
 import { Button, Input, Modal } from '@src/components';
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import LogoutIcon from '@src/assets/icons/out.png';
@@ -123,7 +124,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 													display: 'flex', flexDirection: 'row',
 													background: `${activeNav === nav.id ? '#3B82F6' : 'unset'}`,
 													padding: '15px',
-													borderRadius: '19px',
+													borderRadius: '19px', marginRight: '10px'
 												}}
 											>
 												<Box mr='18px' ml='8px'>
@@ -142,15 +143,15 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 										)}
 
 									</Box>
-									<Box sx={{ marginTop: 'auto', padding: '10px' }}>
-										<Typography sx={{ color: '#697B7A', fontSize: '14px', }}>Аккаунт</Typography>
+									<Box sx={{ marginTop: 'auto', padding: '10px', }}>
+										<Typography sx={{ color: '#B6B6B6', fontSize: '16px', }}>Аккаунт</Typography>
 
-										<Box mt="1rem" >
-											<Button sx={{ color: '#697B7A', fontSize: '14px' }} onClick={() => navigate(routes.settings)}>
-												Настройки
+										<Box mt="0.5rem" sx={{ marginRight: '50px' }}>
+											<Button sx={{ color: '#697B7A', fontSize: '16px' }} onClick={() => navigate(routes.settings)}>
+												<img src={settings} style={{ marginRight: '10px', }} />Настройки
 											</Button>
 										</Box>
-										<Box mt="0rem" mb="2rem">
+										<Box mt="0rem" mb="3rem">
 											<Button
 												onClick={() => {
 													fetchAuthLogout();
@@ -160,7 +161,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 
 												variant='text'
 												width={120}
-											>
+											> <img src={out} style={{ marginRight: '10px' }} />
 												<Typography
 													variant='h4'
 													color={'red'}
@@ -174,7 +175,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 										</Box>
 										<Box sx={{
 											backgroundColor: '#3B82F6', width: '100%', height: '144px',
-											borderRadius: '20px', marginBoottom: '50px',
+											borderRadius: '20px', marginBoottom: '10px', marginTop: '30px',
 											display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center'
 										}}>
 											<img src={icon} style={{ marginTop: "20px" }} />

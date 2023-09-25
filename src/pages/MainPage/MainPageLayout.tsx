@@ -129,8 +129,11 @@ export const MainPageLayout: React.FC = () => {
 					Проверьте диплом и найдите себе лучших <br />
 					выпускников в компанию
 				</Box>
-				<Box sx={{ display: 'flex', gap: '24px' }}>
-					<Box sx={{ backgroundColor: '#F8F8F8', padding: '38px 48px', width: '645px', display: 'flex', textAlign: 'left', flexDirection: 'column', borderRadius: '24px' }}>
+				<Box sx={{
+					display: 'flex', gap: '24px',
+					width: '100%'
+				}}>
+					<Box sx={{ backgroundColor: '#F8F8F8', padding: '38px 48px', width: '60%', display: 'flex', textAlign: 'left', flexDirection: 'column', borderRadius: '24px' }}>
 						<Box sx={{ paddingBottom: '20px' }}>
 							<img src={download} style={{ width: '80px' }} />
 						</Box>
@@ -140,7 +143,7 @@ export const MainPageLayout: React.FC = () => {
 						</Box>
 					</Box>
 
-					<Box sx={{ backgroundColor: '#F8F8F8', padding: '38px 48px', width: '645px', display: 'flex', textAlign: 'left', flexDirection: 'column', borderRadius: '24px' }}>
+					<Box sx={{ backgroundColor: '#F8F8F8', padding: '38px 48px', width: '60%', display: 'flex', textAlign: 'left', flexDirection: 'column', borderRadius: '24px' }}>
 						<Box sx={{ paddingBottom: '20px' }}>
 							<img src={file} style={{ width: '80px' }} />
 						</Box>
@@ -150,7 +153,7 @@ export const MainPageLayout: React.FC = () => {
 						</Box>
 					</Box>
 				</Box>
-			</Container>
+			</Container >
 			<Container sx={{ fontSize: '48px', overflowX: 'hidden' }}>
 
 				<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', fontSize: '48px', paddingTop: '100px', paddingBottom: '55px' }}>Отзывы</Box>
@@ -160,16 +163,17 @@ export const MainPageLayout: React.FC = () => {
 				flexDirection: 'row',
 				alignItems: 'center',
 				textAlign: 'center',
-				overflowX: 'auto',
+				overflow: 'scroll',
 				marginBottom: '16px',
 				paddingX: '11rem',
 				width: '100%',
 				'::-webkit-scrollbar': {
-					width: '50px',
+					height: '0.2em', scrollSnapMarginRight: '20px'
 				},
 				'::-webkit-scrollbar-thumb': {
 					backgroundColor: '#3B82F6',
-					borderRadius: '10px',
+					borderRadius: '10px', scrollPadding: '60px',
+					scrollbarWidth: 'thin',
 				},
 			}}>
 				<Box sx={{ display: 'flex', gap: '10px', }}>

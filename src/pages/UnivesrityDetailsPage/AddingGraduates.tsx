@@ -4,6 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import excel from "./../../assets/icons/File_check.svg";
+import files from "./../../assets/icons/Excel.svg"
 
 const AddingGraduates: React.FC = () => {
 	const [progress, setProgress] = useState(0);
@@ -38,7 +39,7 @@ const AddingGraduates: React.FC = () => {
 	const currentStep = progress;
 
 	return (
-		<Box sx={{ backgroundColor: "#FAFBFF", }}>
+		<Box sx={{}}>
 			<Box sx={{
 				textAlign: "center", backgroundColor: "#FAFBFF", width: '100%', padding: '40px', '@media (max-width: 998px)': {
 					padding: '15px',
@@ -93,7 +94,7 @@ const AddingGraduates: React.FC = () => {
 
 				{/* File Input */}
 				<Box sx={{
-					backgroundColor: 'white', paddingBottom: '30px', borderRadius: '30px'
+					backgroundColor: 'white', paddingBottom: '10px', borderRadius: '30px'
 				}}>
 					<Box
 						sx={{
@@ -104,12 +105,12 @@ const AddingGraduates: React.FC = () => {
 						}}
 					>
 						{currentStep > 0 && (
-							<IconButton onClick={goBack} color="primary">
+							<IconButton onClick={goBack} color="primary" sx={{ marginLeft: '50px', marginTop: '10px', marginBottom: '-70px' }}>
 								<ArrowBackIcon />
 							</IconButton>
 						)}
 						{currentStep < steps.length - 1 && (
-							<IconButton onClick={goForward} color="primary">
+							<IconButton onClick={goForward} color="primary" sx={{ marginRight: '50px', marginTop: '10px', marginBottom: '-70px' }}>
 								<ArrowForwardIcon />
 							</IconButton>
 						)}
@@ -171,8 +172,8 @@ const AddingGraduates: React.FC = () => {
 					)}
 
 					{currentStep === 1 && file && (
-						<Box sx={{ marginTop: 4, }}>
-							<Typography variant="h6" sx={{}}>Подписать с ЭЦП</Typography>
+						<Box sx={{ marginTop: 4, marginBottom: '20px' }}>
+							<Typography variant="h6" sx={{}}>Проверьте данные на коректность</Typography>
 							<Box sx={{
 								width: '90%', borderRadius: '50px',
 								height: '300px', backgroundColor: '#FAFBFF', padding: '25px', marginTop: '16px', marginLeft: '70px',
@@ -184,7 +185,10 @@ const AddingGraduates: React.FC = () => {
 								</Box>
 
 								<Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginBottom: '16px', whiteSpace: 'nowrap', textAlign: 'left', padding: '28px' }}>
-									<Typography variant="body1" >{file.name}</Typography>
+									<Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', marginTop: '-10px' }}>
+										<img src={files} alt="" style={{ marginRight: '8px' }} />
+										{file.name}
+									</Typography>
 									<Typography variant="body1" >{fileSizeInKB}KB</Typography>
 									<Typography variant="body1">Проверка</Typography>
 								</Box>
@@ -195,7 +199,7 @@ const AddingGraduates: React.FC = () => {
 					)}
 
 					{currentStep === 2 && file && (
-						<Box sx={{ marginTop: 4, }}>
+						<Box sx={{ marginTop: 4, marginBottom: '20px' }}>
 							<Typography variant="h6" sx={{}}>Подписать с ЭЦП</Typography>
 							<Box sx={{
 								width: '90%', borderRadius: '50px',
@@ -208,7 +212,10 @@ const AddingGraduates: React.FC = () => {
 								</Box>
 
 								<Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginBottom: '16px', whiteSpace: 'nowrap', textAlign: 'left', padding: '28px' }}>
-									<Typography variant="body1" >{file.name}</Typography>
+									<Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', marginTop: '-10px' }}>
+										<img src={files} alt="" style={{}} />
+										{file.name}
+									</Typography>
 									<Typography variant="body1" >{fileSizeInKB}KB</Typography>
 									<Typography variant="body1">Проверка</Typography>
 								</Box>
@@ -224,7 +231,7 @@ const AddingGraduates: React.FC = () => {
 					{
 						currentStep === 3 && file && (
 
-							<Box>
+							<Box sx={{ marginBottom: '20px' }}>
 
 								<Typography variant="h6" sx={{ paddingTop: '15px' }}> Результаты файла</Typography>
 								<Box sx={{
@@ -247,7 +254,7 @@ const AddingGraduates: React.FC = () => {
 										<Typography variant="body1" sx={{ fontSize: '16px' }}>
 											Ссылка на адрес
 										</Typography>
-										<Button variant="contained" color="primary" sx={{ marginLeft: 'auto', height: '30px', borderRadius: '32px' }}> Cкопировать</Button>
+										<Button variant="contained" color="primary" sx={{ marginLeft: 'auto', height: '34px', borderRadius: '32px' }}> Cкопировать</Button>
 									</Box>
 									<Box>
 										<Typography variant="h3" sx={{ textAlign: 'left', paddingTop: '20px', color: '#A1A1A1' }}>Смарт контакт:</Typography>
@@ -263,7 +270,7 @@ const AddingGraduates: React.FC = () => {
 										<Typography variant="body1" sx={{ textAlign: 'left', fontSize: '16px' }}>
 											Ссылка на смарт контакт
 										</Typography>
-										<Button variant="contained" color="primary" sx={{ marginLeft: 'auto', height: '30px', borderRadius: '32px' }}> Cкопировать</Button>
+										<Button variant="contained" color="primary" sx={{ marginLeft: 'auto', height: '34px', borderRadius: '32px' }}> Cкопировать</Button>
 									</Box>
 								</Box>
 								<Button variant="contained" color="primary" sx={{ marginTop: 2, borderRadius: '15px' }}> Подписать с ЭЦП</Button>

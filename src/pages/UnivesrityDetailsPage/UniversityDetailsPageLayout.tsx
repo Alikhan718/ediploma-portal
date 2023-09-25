@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { ReactComponent as SearchIcon } from '@src/assets/icons/search-icon.svg';
 import { Box, Card, CardContent, CardMedia, TextField, Button, Divider, MenuItem, Select, SelectChangeEvent, Typography, useMediaQuery, Pagination, Stack, PaginationItem } from '@mui/material';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
@@ -37,12 +36,13 @@ import { CitiesGrantsGraph } from './components/CitiesGrantsGraph';
 import { GrantsGraph } from './components/GrantsGraph';
 import { selectUserRole } from '@src/store/auth/selector';
 
+import Rating from '@mui/material/Rating';
+
 interface TabPanelProps {
 	children?: React.ReactNode;
 	index: number;
 	value: number;
 }
-const diplomasPerPage = 8;
 
 function TabPanel(props: TabPanelProps) {
 	const { children, value, index, ...other } = props;
@@ -74,16 +74,19 @@ function a11yProps(index: number) {
 export const UniversityDetailsPageLayout: React.FC = () => {
 	const [showFull, setShowFull] = React.useState(false);
 	const [page, setPage] = useState(0);
-	const [currentPage, setCurrentPage] = useState(1);
-
 	const diplomaList = useSelector(selectDiplomaList);
-	const startIndex = (currentPage - 1) * diplomasPerPage;
-	const endIndex = startIndex + diplomasPerPage;
-	const currentDiplomaPage = diplomaList.slice(startIndex, endIndex);
 	const nextPage = () => {
 		setCurrentPage((prevPage) => prevPage + 1);
 	};
+	const [currentPage, setCurrentPage] = useState(1);
 
+	const diplomasPerPage = 10; // Change this number as needed
+	const totalDiplomas = diplomaList.length;
+	const totalPages = Math.ceil(totalDiplomas / diplomasPerPage);
+
+	const startIndex = (currentPage - 1) * diplomasPerPage;
+	const endIndex = startIndex + diplomasPerPage;
+	const currentDiplomaPage = diplomaList.slice(startIndex, endIndex);
 	const prevPage = () => {
 		if (currentPage > 1) {
 			setCurrentPage((prevPage) => prevPage - 1);
@@ -95,7 +98,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 	};
 	const handleText = (text: string): string => {
 		const matchesSm = useMediaQuery('(max-width:768px)');
-		const trimLimit = matchesSm ? 45 : 115;
+		const trimLimit = matchesSm ? 85 : 115;
 		return showFull ? text : text.substring(0, trimLimit) + "...";
 	};
 
@@ -135,7 +138,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									className={styles.nameText}
 									fontWeight='600'
 									sx={{
-										paddingBottom: '34px',
+										paddingBottom: '14px',
 										fontSize: '34px',
 										'@media (max-width: 998px)': {
 											fontSize: '24px',
@@ -148,7 +151,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								>
 									Казахстанско-Британский Технический Университет
 								</Typography>
-								<Box marginBottom="25px">
+								<Box marginBottom="15px">
 									<img src={star} style={{
 										marginRight: '15px',
 
@@ -164,9 +167,21 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 							</Box>
 
 
-							<Box display='flex' flexDirection='column'>
-								<Typography className={styles.textSm} sx={{ paddingBottom: '16px' }}>
-									Почта: <span style={{ fontWeight: 'bold', fontSize: '18px', }}>info@kbtu.kz</span>
+							<Box display="flex"
+								alignItems="center"
+								sx={{
+									flexDirection: 'row',
+									justifyContent: 'space-between',
+									width: '100%',
+									alignItems: 'center',
+								}}>
+								<Typography className={styles.textSm} sx={{ paddingBottom: '16px', marginRight: '16px' }}>
+									Почта: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@kbtu.kz</span>
+								</Typography>
+
+								{/* Star ratings */}
+								<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
+									4.5 <Rating defaultValue={5} /> (25 отзывов)
 								</Typography>
 							</Box>
 
@@ -177,7 +192,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
 							</Box>
 							<Box className={styles.contentContainer}>
-								<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingTop: '32px', paddingBottom: '20px' }}>
+								<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
 									<Box flex='1' sx={{ marginRight: '50px' }}>
 										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>10256</Typography>
 										<Typography >
@@ -217,8 +232,6 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									<Box ><WebIcon className={styles.social} onClick={() => {
 										handleLink("https://kbtu.edu.kz/ru/");
 									}} /></Box>
-
-
 								</Box>
 								{/* */}
 
@@ -227,7 +240,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									<Typography className={styles.textSm} color="#818181">
 										{handleText("eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов. Портал eDiploma предоставляет возможность выпускникам, работодателям и администрации университетов взаимодействовать с дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации выпускников.")}
 									</Typography>
-									<Typography style={{ cursor: "pointer" }} className={styles.textSm} fontWeight='600' color='gray'
+									<Typography style={{ cursor: "pointer" }} className={styles.textSm} fontWeight='600' color='#629BF8' sx={{ paddingBottom: '20px' }}
 										onClick={() => {
 											setShowFull(!showFull);
 										}}>
@@ -271,53 +284,106 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 							<Box display="flex"
 								flexDirection="column"
 								alignItems="start"
-								sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '20px', marginBottom: '20px' }}
+								sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '20px', }}
 								className={styles.diplomasContainer}>
 								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Дипломы выпускников</Typography>
-								<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', marginBottom: '50px' }}>
+								<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', marginBottom: '20px' }}>
 									<Box display="flex" alignItems="center"  >
 										<Button variant="outlined" sx={{ borderRadius: '20px', padding: '5px', width: '150px', color: '#3B82F6', marginLeft: '20px', marginRight: '15px' }}>
 											<Filter style={{ marginRight: '10px', }} />
 											Фильтр
 										</Button>
 										<Box display="flex" alignItems="center">
-											<Label label="" />
+
 											<Input
 												type="text"
 												name="email"
 												placeholder="Найти"
-												sx={{ width: '150%', paddingLeft: '10px' }}
+												sx={{ width: '200%', paddingLeft: '10px' }}
 											/>
-
 										</Box>
 										<Box>
 										</Box>
 
 									</Box>
-									<Box>	<img src={univ} style={{ marginRight: '5px' }} />
-										<img src={univ} /></Box>
+									<Box>	<img src={univ} style={{ marginRight: '15px' }} />
+										<img src={univ} style={{ marginRight: '5px' }} /></Box>
 								</Box>
 
 							</Box>
 							{/* <CardMedia
-												component="img"
-												className={styles.diplomaImg}
-												sx={{ width: "13rem", padding: "1.5rem" }}
-												image={diplomaTemplate}
-												alt="University Image"
-											/> */}
+								component="img"
+								className={styles.diplomaImg}
+								sx={{ width: "50%", padding: "1.5rem" }}
+								image={diplomaTemplate}
+								alt="University Image"
+							/> */}
 
 							<TabPanel value={value} index={0}>
+								<Box display="flex"
+									flexDirection="row"
+									width="100%"
+									alignItems="start"
+									sx={{
+										borderRadius: '15px', padding: '10px', display: 'grid', gridTemplateColumns: '4fr 4fr 2fr 0fr 0fr', gap: '36px',
+										paddingLeft: '20px'
+									}}>
+									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+										<Typography
+											fontSize="14px"
+											mb='.5rem' sx={{ color: '#818181' }}
+											className={styles.mobText}
+										>Ф.И.О
+										</Typography>
+									</Box>
+									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+										<Typography
+											fontSize="14px"
+											mb='.5rem' sx={{ color: '#818181' }}
+											className={styles.mobText}
+										>Специальность
+										</Typography>
+									</Box>
+									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+										<Typography
+											fontSize="14px"
+											mb='.5rem' sx={{ color: '#818181' }}
+											className={styles.mobText}
+										>Год выпуска
+										</Typography>
+									</Box>
+									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+										<Typography
+											fontSize="14px"
+											mb='.5rem' sx={{ color: '#818181' }}
+											className={styles.mobText}
+										>GPA
+										</Typography>
+									</Box>
+									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+										<Typography
+											fontSize="14px"
+											mb='.5rem' sx={{ color: '#818181' }}
+											className={styles.mobText}
+										>Действие
+										</Typography>
+									</Box>
+								</Box>
+
 								<Box
 									display="flex"
 									flexDirection="column"
 									width="100%"
 									alignItems="start"
-									sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '10px' }}
+									sx={{
+										backgroundColor: 'white', borderRadius: '15px', padding: '10px',
+									}}
 									className={styles.diplomasContainer}
 
 								>
+
 									{currentDiplomaPage.map((e: any) => (
+
 										<Box
 											key={e.counter}
 											onClick={() => {
@@ -333,6 +399,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 												alignItems: 'center',
 											}}
 										>
+
 											<Box
 												sx={{
 													display: 'grid', gridTemplateColumns: '4fr 4fr 2fr 1fr 0fr', gap: '36px', marginTop: '20px',
@@ -374,41 +441,29 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									))
 									}
 
-									<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+									<Box sx={{
+										display: 'flex', justifyContent: 'space-between',
+										flexDirection: 'row',
+										alignItems: 'center', width: '100%'
+									}}>
 										<Button onClick={prevPage} disabled={currentPage === 1}>
 											Previous Page
 										</Button>
-										<div style={{
-											display: 'flex',
-											gap: '10px',
-											alignItems: 'center',
-											flexWrap: 'wrap',
-											justifyContent: 'center',
-											flex: 1,
-										}}>
-											{Array.from({ length: Math.ceil(diplomaList.length / diplomasPerPage) }, (_, index) => {
-												if (index < 6 || index >= Math.ceil(diplomaList.length / diplomasPerPage) - 5) {
-
-													return (
-														<Button
-															key={index}
-															onClick={() => setCurrentPage(index + 1)}
-															variant={currentPage === index + 1 ? 'contained' : 'outlined'}
-															color="primary"
-														>
-															{index + 1}
-														</Button>
-													);
-												} else if (index === 6) {
-													return <span key="ellipsis">...</span>;
-												}
-												return null;
-											})}
-										</div>
+										<Box style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+											<Pagination
+												count={totalPages}
+												page={currentPage}
+												onChange={(event, page) => setCurrentPage(page)}
+												shape="rounded"
+												color="primary"
+												size="large"
+											/>
+										</Box>
 										<Button onClick={nextPage} disabled={currentDiplomaPage.length < diplomasPerPage}>
 											Next Page
 										</Button>
 									</Box>
+
 								</Box>
 
 

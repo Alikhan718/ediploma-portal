@@ -10,8 +10,9 @@ import {
 	UniversityDetailsPage,
 	UniversityPage,
 	AddingGraduates,
-	SettingsPage
+	SettingsPage,
 } from '@src/pages';
+import Notifications from './pages/UnivesrityDetailsPage/Notifications';
 import { withLayout } from '@src/layout/Layout';
 import { routes } from '@src/shared/routes';
 import { useDispatch, useSelector } from 'react-redux';
@@ -58,7 +59,7 @@ const App: React.FC = () => {
 					<Route path={routes.register} element={<RegisterPage />} />
 					<Route path={routes.passwordReset} element={<ForgotPassword />} />
 					<Route path={routes.addingGraduates} element={<AddingGraduates />} />
-
+					<Route path={routes.notifications} element={<Notifications />} />
 					<Route path={routes.settings} element={<SettingsPage />} />
 
 					{<Route path='*' element={<Navigate to={routes.main} />} />}
