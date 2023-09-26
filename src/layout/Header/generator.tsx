@@ -14,7 +14,7 @@ export interface AppRoutesNavigation {
 	verticalAlign: string,
 }
 
-export const privateNavigations: AppRoutesNavigation[] = [
+export const sidebarNavigations: AppRoutesNavigation[] = [
 	{
 		id: 1,
 		name: 'Dashboard',
@@ -37,6 +37,54 @@ export const privateNavigations: AppRoutesNavigation[] = [
 		to: routes.addingGraduates,
 		role: '*',
 		icon: <UniversityIcon style={{verticalAlign: "middle"}} />,
+		verticalAlign: '',
+	},
+	// {
+	//     id: 4,
+	//     name: 'Вакансии',
+	//     to: routes.vacancies,
+	//     role: '*',
+	//     icon: <UniversityIcon />,
+	// },
+	// {
+	//     id: 5,
+	//     name: 'Новости',
+	//     to: routes.news,
+	//     role: '*',
+	//     icon: <UniversityIcon />
+	// }
+];
+export const headerNavigations: AppRoutesNavigation[] = [
+	{
+		id: 1,
+		name: 'Dashboard',
+		to: routes.universityDetails,
+		role: "*",
+		icon: null,
+		verticalAlign: "bottom",
+	},
+	{
+		id: 2,
+		name: 'Аналитика',
+		to: routes.notifications,
+		role: "*",
+		icon: null,
+		verticalAlign: "middle",
+	},
+	{
+		id: 3,
+		name: 'Выпустить дипломы',
+		to: routes.addingGraduates,
+		role: '*',
+		icon: null,
+		verticalAlign: '',
+	},
+	{
+		id: 4,
+		name: 'О нас',
+		to: routes.aboutUs,
+		role: '*',
+		icon: null,
 		verticalAlign: '',
 	},
 	// {

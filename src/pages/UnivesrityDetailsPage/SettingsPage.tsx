@@ -11,7 +11,7 @@ import add from "@src/assets/icons/All.svg";
 const SettingsPage: React.FC = () => {
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
 	return (
-		<Box display="flex" flexDirection="row" sx={{ backgroundColor: '#FAFBFF', minHeight: "100vh", paddingRight: '10px', width: '100%' }}>
+		<Box display="flex" flexDirection="row" sx={{ backgroundColor: '#FAFBFF', minHeight: "100vh", paddingRight: '10px', marginTop: "1rem", width: '100%' }}>
 
 			<Container sx={{
 				paddingLeft: '60px', margin: 'unset', width: 'unset', '@media (max-width: 998px)': {

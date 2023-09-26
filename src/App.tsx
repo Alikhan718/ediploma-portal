@@ -3,11 +3,12 @@ import {Navigate, Route, Routes} from 'react-router-dom';
 import {Snackbar} from '@src/components';
 import {
     AboutUsPage,
+    AddingGraduates,
     DiplomaDetailsPage,
     DiplomaPage, ForgotPassword,
     LoginPage,
     MainPage,
-    RegisterPage,
+    RegisterPage, SettingsPage,
     UniversityDetailsPage,
     UniversityPage
 } from '@src/pages';
@@ -19,6 +20,7 @@ import {initalApp} from './store/auth/actionCreators';
 import {selectAuthLoader} from './store/auth/selector';
 import './App.css';
 import ReactGA from 'react-ga';
+import Notifications from "@src/pages/UnivesrityDetailsPage/Notifications";
 
 const App: React.FC = () => {
 
@@ -57,6 +59,10 @@ const App: React.FC = () => {
                     <Route path={routes.login} element={<LoginPage/>}/>
                     <Route path={routes.register} element={<RegisterPage/>}/>
                     <Route path={routes.passwordReset} element={<ForgotPassword/>}/>
+                    <Route path={routes.addingGraduates} element={<AddingGraduates />} />
+					<Route path={routes.notifications} element={<Notifications />} />
+					<Route path={routes.settings} element={<SettingsPage />} />
+
                     {<Route path='*' element={<Navigate to={routes.main}/>}/>}
                 </Routes>
             }

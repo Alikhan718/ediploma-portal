@@ -17,7 +17,7 @@ import {SidebarProps} from './Sidebar.props';
 import {NavLink, useNavigate, useLocation} from 'react-router-dom';
 import {selectAuthLoader, selectUserRole} from '@src/store/auth/selector';
 import {useSelector} from 'react-redux';
-import {privateNavigations} from "@src/layout/Header/generator";
+import {sidebarNavigations} from "@src/layout/Header/generator";
 import {DRAWER_WIDTH} from '../Layout';
 import {routes} from "@src/shared/routes";
 import {fetchAuthLogout} from "@src/store/auth/saga";
@@ -71,7 +71,7 @@ const CustomDrawer = styled(Drawer, {shouldForwardProp: (prop) => prop !== 'open
 );
 
 const role = localStorage.getItem("userRole")
-console.log(privateNavigations, "asfdasdf");
+console.log(sidebarNavigations, "asfdasdf");
 
 export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
     const location = useLocation();
@@ -92,9 +92,23 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("currLocation");
     };
+    const checkRoute = (): boolean => {
+        const urlElements = window.location.href.split('/');
+        const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'settingsPage'];
+        for (const item of sidebarEnabledRoutes) {
+            if (urlElements.includes(item)) {
+                console.log(item);
+                return true;
+            }
+        }
+        return false;
+    };
 
-    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(checkRoute());
 
+    React.useEffect(() => {
+        setIsSidebarVisible(checkRoute);
+    });
 
     return (
         <>
@@ -103,7 +117,15 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                     {!authLoader ? (
                         <Box sx={{height: '100vh'}}>
                             <Box p={`1.5rem 0 0 10px`} sx={{height: '100%'}}>
-                                <img src={AppLogo} style={{width: '75%'}}/>
+                                <img
+                                    src={AppLogo}
+                                    onClick={() => navigate(routes.main)}
+                                    style={{
+                                        width: '75%',
+                                        cursor: "pointer",
+                                        margin: "1rem"
+                                }}
+                                />
                                 <Box sx={{
                                     borderBottom: '1px solid #F8F8F8',
                                     paddingBottom: '24px',
@@ -116,7 +138,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                     height: '80%'
                                 }}>
                                     <Box>
-                                        {privateNavigations.map(nav => (
+                                        {sidebarNavigations.map(nav => (
                                             <NavLink
                                                 to={nav.to}
                                                 key={nav.id}
@@ -133,13 +155,16 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                                     <Box
                                                         sx={{background: `${activeNav === nav.id ? '#white' : 'white'}`}}>
                                                         <Box
-                                                            style={{filter: activeNav === nav.id ? "brightness(4)" : "", verticalAlign: nav.verticalAlign}}>{nav.icon}</Box>
+                                                            style={{
+                                                                filter: activeNav === nav.id ? "brightness(4)" : "",
+                                                                verticalAlign: nav.verticalAlign
+                                                            }}>{nav.icon}</Box>
                                                     </Box>
                                                 </Box>
                                                 <Typography
                                                     color={activeNav === nav.id ? 'white' : '#697B7A'}
                                                     fontWeight='600'
-													alignSelf="center"
+                                                    alignSelf="center"
                                                     sx={{fontSize: '14px'}}
                                                 >
                                                     {nav.name}

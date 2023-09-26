@@ -8,7 +8,7 @@ export const routes: Record<string, string> = {
 	diploma: `${appRoot}/diploma`,
 	diplomaDetails: `${appRoot}/diploma/:id/details`,
 	university: `${appRoot}/university`,
-	universityDetails: `${appRoot}/university/1`,
+	universityDetails: `${appRoot}/university/1/detail`,
 	aboutUs: `${appRoot}/about-us`,
 	vacancies: `${appRoot}/vacancies`,
 	news: `${appRoot}/news`,

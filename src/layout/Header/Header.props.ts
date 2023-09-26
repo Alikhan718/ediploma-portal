@@ -1,6 +1,6 @@
 import { SetStateAction } from "react";
 
 export interface HeaderProps {
-	open: boolean;
+	isSideBarOpen: boolean;
 	setOpen: any;
 }

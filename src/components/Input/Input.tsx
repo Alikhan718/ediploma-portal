@@ -11,13 +11,13 @@ import {ReactComponent as Visibility} from '@src/assets/icons/eye_closed.svg';
 const CustomOutlineInput = styled(OutlinedInput, {
         shouldForwardProp: (prop) => prop !== 'inputSize',
     })
-    < {inputSize: 's' | 'm' | 'l', textALign: 'start' | 'center' | 'end', reducePadding: boolean}> (({inputSize, textALign , theme, reducePadding}) => ({
+    < {inputSize: 's' | 'm' | 'l', textAlign: 'start' | 'center' | 'end', reducePadding: boolean}> (({inputSize, textAlign , theme, reducePadding}) => ({
         borderRadius: !reducePadding ? '48px' : '15px',
         backgroundColor: '#F8F8F8',
         '& .MuiOutlinedInput-input': {
             fontSize: theme.typography.fontSize,
             padding: inputSize === 's' ? !reducePadding ? '12px 20px' : "0 10px" : inputSize === 'm' ? '13.5px 20px' : '8px 0',
-            textAlign: textALign
+            textAlign: textAlign
         },
         '& .MuiOutlinedInput-notchedOutline': {
             borderColor: "#F8F8F8"
@@ -27,7 +27,7 @@ const CustomOutlineInput = styled(OutlinedInput, {
     }));
 
 export const Input: React.FC<InputProps> = (props) => {
-    const {reducePadding = false, textALign = 'start', fullWidth, inputSize = 's',  label, activeBorderColor = 'primary', helper, ...otherProps} = props;
+    const {reducePadding = false, textAlign = 'start', fullWidth, inputSize = 's',  label, activeBorderColor = 'primary', helper, ...otherProps} = props;
 
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -40,7 +40,7 @@ export const Input: React.FC<InputProps> = (props) => {
         <FormControl fullWidth={fullWidth} sx={{width: "100%"}}>
             {label && <Label label={label} helper={helper}/>}
             <CustomOutlineInput
-                textALign={textALign}
+                textAlign={textAlign}
                 fullWidth={fullWidth}
                 inputSize={inputSize}
                 reducePadding={reducePadding}
