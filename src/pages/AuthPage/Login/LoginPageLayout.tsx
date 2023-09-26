@@ -1,10 +1,11 @@
 import React from 'react';
-import {Box, Card, CardContent, Link, Paper, TextField, Typography} from '@mui/material';
+import {Box, CardContent, Link, Typography} from '@mui/material';
 import {Button, Input, Label} from '@src/components';
 import {IAuthLogin} from '@src/pages/AuthPage/types';
 import {useDispatch} from 'react-redux';
-import {fetchLoginRequest} from '@src/store/auth/actionCreators';
+import {fetchAuthDSRequest, fetchLoginRequest} from '@src/store/auth/actionCreators';
 import {isAuthenticated} from '@src/utils/userAuth';
+import * as NcaLayer from '@src/utils/functions';
 import {routes} from '@src/shared/routes';
 import {useNavigate} from 'react-router-dom';
 import ReactGA from 'react-ga';
@@ -24,8 +25,7 @@ export const LoginPageLayout: React.FC = () => {
 
     const onSubmit = async (e: React.SyntheticEvent): Promise<void> => {
         e.preventDefault();
-        const payload = state;
-        dispatch(fetchLoginRequest(payload));
+        dispatch(fetchLoginRequest(state));
 
         // Track login event
         ReactGA.event({
@@ -54,7 +54,7 @@ export const LoginPageLayout: React.FC = () => {
         ReactGA.pageview(window.location.pathname + window.location.search);
 
         // Track cursor movements
-        const handleMouseMove = (e: MouseEvent) => {
+        const handleMouseMove = (e: MouseEvent): void => {
             ReactGA.event({
                 category: 'User',
                 action: 'Cursor Move',
@@ -67,6 +67,32 @@ export const LoginPageLayout: React.FC = () => {
             window.removeEventListener('mousemove', handleMouseMove);
         };
     }, []);
+
+    const authWithDS = (res: any) => {
+        if (res['code'] === "200") {
+            res = res['responseObject'];
+            const subjectDn = res['subjectDn'];
+            let dateTo = res['certNotAfter'];
+            let dateFrom = res['certNotBefore'];
+            const authorityKeyIdentifier = res['authorityKeyIdentifier'];
+            const data = {
+                'subjectDn': subjectDn,
+                'dateTo': dateTo,
+                'dateFrom': dateFrom,
+                'authorityKeyIdentifier': authorityKeyIdentifier
+            };
+            dispatch(fetchAuthDSRequest(data));
+            setTimeout(() => {
+                const urlElements = window.location.href.split('/');
+                if (isAuthenticated() && urlElements.includes('auth')) {
+                    navigate(routes.main, {replace: true});
+                }
+            }, 2000);
+        }
+    };
+    const ncaLayerAuth = () => {
+        NcaLayer.getKeyInfo(authWithDS);
+    };
 
     return (
         <Box sx={{marginY: 'auto', borderRadius: '.8rem', padding: '.6rem', width: "30rem"}}>
@@ -113,7 +139,8 @@ export const LoginPageLayout: React.FC = () => {
                                 Запомнить меня
                             </Typography>
                         </Box>
-                        <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.passwordReset}  alignSelf="center">
+                        <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.passwordReset}
+                              alignSelf="center">
                             <Typography fontWeight="500" fontSize="0.875rem">
                                 Забыли пароль?
                             </Typography>
@@ -122,7 +149,20 @@ export const LoginPageLayout: React.FC = () => {
                     <Button fullWidth={true} variant="contained" borderRadius="3rem" onClick={onSubmit} type="submit">
                         Войти
                     </Button>
-                    <Button fullWidth={true} variant="contained" borderRadius="3rem" sx={{backgroundColor: "#EBF2FE", color: "#2F69C7", "&:hover": {"background-color" : "#3B82F6", color: "white"}}}>
+                    <Button
+                        fullWidth={true}
+                        variant="contained"
+                        borderRadius="3rem"
+                        sx={{
+                            backgroundColor: "#EBF2FE",
+                            color: "#2F69C7",
+                            "&:hover": {
+                                "background-color": "#3B82F6", color: "white"
+                            }
+                        }}
+                        onClick={() => {
+                            ncaLayerAuth();
+                        }}>
                         Выбрать ключ ЭЦП
                     </Button>
                 </form>
