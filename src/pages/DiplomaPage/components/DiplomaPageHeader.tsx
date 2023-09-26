@@ -14,6 +14,7 @@ import { FilterAttributes } from "@src/layout/Header/Header";
 import { ReactComponent as SearchIcon } from '@src/assets/icons/search-icon.svg';
 import { ReactComponent as FilterIcon } from '@src/assets/icons/Filter-icon.svg';
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
+import { HiringPopUp } from '@src/components/HiringPopup/HiringPopUp';
 
 import ReactGA from 'react-ga';
 import { routes } from "@src/shared/routes";
@@ -24,6 +25,8 @@ export const DiplomaPageHeader: React.FC = (props) => {
 	const matchesSm = useMediaQuery('(max-width:768px)');
 
 	const [showFilter, setShowFilter] = React.useState(false);
+
+	const [showPopup, setShowPopup] = React.useState(false);
 
 	const navigate = useNavigate();
 	const searchText = useSelector(selectSearchText);
@@ -97,8 +100,9 @@ export const DiplomaPageHeader: React.FC = (props) => {
 					className={styles.diplomasContainer}>
 					<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', }}>
 						<Box display="flex" alignItems="center"  >
-							<Button variant="outlined" sx={{ borderRadius: '48px', width: '30%', color: '#3B82F6', }}>
+							<Button onClick={()=>{setShowFilter(true)}} variant="outlined" sx={{ borderRadius: '48px', width: '30%', color: '#3B82F6', }}>
 								<Filter style={{ marginRight: '10px', }} />
+								
 								Фильтр
 							</Button>
 							<Box sx={{ marginLeft: '55px', }}>
@@ -140,21 +144,35 @@ export const DiplomaPageHeader: React.FC = (props) => {
 								/>
 
 							</Box>
-
+							<Box sx={{ marginLeft: '200px', }}></Box>
+							<Button
+								className={styles.popupButton} 
+								buttonSize="m"
+								variant="contained"
+								sx={{
+									padding: '16px 32px',
+									borderRadius: '48px',
+									margin: '4px'
+								}}
+								type="button"
+								onClick={()=>{setShowPopup(true)}}
+							>Hiring AI
+							</Button>
+							
 						</Box>
 						<Box>	<img src={univ} style={{ marginRight: '15px' }} />
 							<img src={univ} style={{ marginRight: '5px' }} /></Box>
 					</Box>
 
 				</Box>
-
-				{/* <FilterSection
+				{showPopup ? (<HiringPopUp setShowPopup={setShowPopup}/>):(<div></div>)}
+				<FilterSection
 					triggerSearchFilters={triggerSearchFilters}
 					filterAttributes={filterAttributes}
 					setFilterAttributes={setFilterAttributes}
 					open={showFilter}
 					setOpen={setShowFilter}
-				/> */}
+				/>
 			</Box>
 		</React.Fragment>
 	);
