@@ -123,7 +123,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 				<Box ml={'2rem'} width={"95%"}>
 					<Box display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px', }}>
 						<UniversityDetailsPageHeader />
-						<Box sx={{ paddingLeft: '18px' }}>
+						<Box px="2rem">
 							<Box
 								display="flex"
 								alignItems="center"
@@ -281,11 +281,13 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									<Tab label="Аналитика" disabled={userRole !== 'university admission'} {...a11yProps(1)} />
 								</Tabs> 
 							</Box> */}
-							<Box display="flex"
+							<Box
+								display="flex"
 								flexDirection="column"
 								alignItems="start"
-								sx={{ backgroundColor: 'white', borderRadius: '15px', padding: '20px', }}
-								className={styles.diplomasContainer}>
+								sx={{ backgroundColor: 'white', borderRadius: '15px'}}
+								className={styles.diplomasContainer}
+							>
 								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Дипломы выпускников</Typography>
 								<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', marginBottom: '20px' }}>
 									<Box display="flex" alignItems="center"  >
@@ -442,9 +444,12 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									}
 
 									<Box sx={{
-										display: 'flex', justifyContent: 'space-between',
+										display: 'flex',
+										justifyContent: 'space-between',
 										flexDirection: 'row',
-										alignItems: 'center', width: '100%'
+										alignItems: 'center',
+										width: '100%',
+										marginBottom: "2rem"
 									}}>
 										<Button onClick={prevPage} disabled={currentPage === 1}>
 											Previous Page

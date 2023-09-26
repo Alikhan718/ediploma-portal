@@ -24,7 +24,7 @@ const Notifications: React.FC = () => {
 				width: '100%',
 				alignItems: 'center'
 			}}>
-				<Typography variant="h6" sx={{ fontWeight: '800', fontSize: '26px' }}> Уведомление</Typography>
+				<Typography margin="1rem" variant="h6" sx={{ fontWeight: '800', fontSize: '26px' }}> Уведомление</Typography>
 				<Box><img src={check} style={{ marginRight: '10px' }} alt="" />
 					<img src={settings} alt="" /></Box>
 			</Box>

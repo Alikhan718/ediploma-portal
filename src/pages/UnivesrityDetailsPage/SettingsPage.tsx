@@ -456,8 +456,8 @@ const SettingsPage: React.FC = () => {
                         <Button sx={{}} variant="contained" borderRadius="3rem">Button 2</Button>
                     </Box>
                 </Container>
-
-                <Container></Container>
+                <br/>
+                <br/>
             </Box>
 
 

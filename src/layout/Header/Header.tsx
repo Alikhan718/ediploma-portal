@@ -119,7 +119,16 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     };
     const urlElements = window.location.href.split('/');
     const checkRoute = (): boolean => {
-        const sidebarEnabledRoutes = ['university', 'detail', 'notifications', 'addingGraduates', 'main', 'about-us', 'settingsPage'];
+        const sidebarEnabledRoutes = [
+            'university',
+            'detail',
+            'notifications',
+            'addingGraduates',
+            'main',
+            'about-us',
+            'settingsPage',
+            'diploma',
+        ];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return true;
@@ -201,37 +210,37 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                 ))}
 
 
-                <Box className="diploma-navbar-item" width="100%">
-                    {!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('university') && !window.location.href.split('/').includes('university') &&
-                        <Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'
-                               value={filterAttributes.text}
-                               onChange={handleSearch} startAdornment={<SearchIcon/>}
-                               endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {
-                                   if (isAuthenticated()) {
-                                       setShowFilter(!showFilter);
-                                   } else {
-                                       setOpenModal(true);
-                                   }
-                               }}/>}/>
-                    }</Box>
-                <FilterSection
-                    triggerSearchFilters={triggerSearchFilters}
-                    filterAttributes={filterAttributes}
-                    setFilterAttributes={setFilterAttributes}
-                    open={showFilter}
-                    setOpen={setShowFilter}
-                />
+                {/*<Box className="diploma-navbar-item" width="100%">*/}
+                {/*    {!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('university') && !window.location.href.split('/').includes('university') &&*/}
+                {/*        <Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'*/}
+                {/*               value={filterAttributes.text}*/}
+                {/*               onChange={handleSearch} startAdornment={<SearchIcon/>}*/}
+                {/*               endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {*/}
+                {/*                   if (isAuthenticated()) {*/}
+                {/*                       setShowFilter(!showFilter);*/}
+                {/*                   } else {*/}
+                {/*                       setOpenModal(true);*/}
+                {/*                   }*/}
+                {/*               }}/>}/>*/}
+                {/*    }</Box>*/}
+                {/*<FilterSection*/}
+                {/*    triggerSearchFilters={triggerSearchFilters}*/}
+                {/*    filterAttributes={filterAttributes}*/}
+                {/*    setFilterAttributes={setFilterAttributes}*/}
+                {/*    open={showFilter}*/}
+                {/*    setOpen={setShowFilter}*/}
+                {/*/>*/}
                 {/* REST SELECTOR  */}
-                <div>
-                    <img style={{
-                        cursor: 'pointer'
-                    }} src={HeaderSearchIcon} alt=""/>
-                </div>
-                <div>
-                    <img style={{
-                        cursor: 'pointer'
-                    }} src={RuFlag} alt=""/>
-                </div>
+                {/*<div>*/}
+                {/*    <img style={{*/}
+                {/*        cursor: 'pointer'*/}
+                {/*    }} src={HeaderSearchIcon} alt=""/>*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                {/*    <img style={{*/}
+                {/*        cursor: 'pointer'*/}
+                {/*    }} src={RuFlag} alt=""/>*/}
+                {/*</div>*/}
                 <Box display='flex' justifyContent='flex-end' py='10px' className="diploma-btn-container">
 
 

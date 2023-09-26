@@ -87,6 +87,22 @@ export const headerNavigations: AppRoutesNavigation[] = [
 		icon: null,
 		verticalAlign: '',
 	},
+	{
+		id: 5,
+		name: 'Университеты',
+		to: routes.university,
+		role: '*',
+		icon: null,
+		verticalAlign: '',
+	},
+	{
+		id: 6,
+		name: 'Дипломы',
+		to: routes.diploma,
+		role: '*',
+		icon: null,
+		verticalAlign: '',
+	},
 	// {
 	//     id: 4,
 	//     name: 'Вакансии',
