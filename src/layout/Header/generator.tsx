@@ -10,7 +10,8 @@ export interface AppRoutesNavigation {
 	name: string;
 	to: typeof routes[keyof typeof routes];
 	role: string;
-	icon: React.ReactNode
+	icon: React.ReactNode,
+	verticalAlign: string,
 }
 
 export const privateNavigations: AppRoutesNavigation[] = [
@@ -19,21 +20,24 @@ export const privateNavigations: AppRoutesNavigation[] = [
 		name: 'Dashboard',
 		to: routes.universityDetails,
 		role: "*",
-		icon: <DiplomaIcon />,
+		icon: <DiplomaIcon style={{verticalAlign: "middle"}} />,
+		verticalAlign: "bottom",
 	},
 	{
 		id: 2,
 		name: 'Аналитика',
 		to: routes.notifications,
 		role: "*",
-		icon: <MainPageIcon />,
+		icon: <MainPageIcon style={{verticalAlign: "middle"}} />,
+		verticalAlign: "middle",
 	},
 	{
 		id: 3,
 		name: 'Выпустить дипломы',
 		to: routes.addingGraduates,
 		role: '*',
-		icon: <UniversityIcon />
+		icon: <UniversityIcon style={{verticalAlign: "middle"}} />,
+		verticalAlign: '',
 	},
 	// {
 	//     id: 4,

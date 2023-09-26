@@ -4,7 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import excel from "./../../assets/icons/File_check.svg";
-import files from "./../../assets/icons/Excel.svg"
+import files from "./../../assets/icons/Excel.svg";
 
 const AddingGraduates: React.FC = () => {
 	const [progress, setProgress] = useState(0);
