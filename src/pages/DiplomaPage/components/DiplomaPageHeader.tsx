@@ -157,8 +157,8 @@ export const DiplomaPageHeader: React.FC = (props) => {
 								type="button"
 								onClick={()=>{setShowPopup(true)}}
 							>Hiring AI
+							<SearchIcon style={{ filter: 'brightness(250%) contrast(101%)', width: '54px', marginLeft: '6px' }} />
 							</Button>
-							
 						</Box>
 						<Box>	<img src={univ} style={{ marginRight: '15px' }} />
 							<img src={univ} style={{ marginRight: '5px' }} /></Box>
@@ -166,14 +166,14 @@ export const DiplomaPageHeader: React.FC = (props) => {
 
 				</Box>
 				{showPopup ? (<HiringPopUp setShowPopup={setShowPopup}/>):(<div></div>)}
-				<FilterSection
-					triggerSearchFilters={triggerSearchFilters}
-					filterAttributes={filterAttributes}
-					setFilterAttributes={setFilterAttributes}
-					open={showFilter}
-					setOpen={setShowFilter}
-				/>
 			</Box>
+			<FilterSection
+				triggerSearchFilters={triggerSearchFilters}
+				filterAttributes={filterAttributes}
+				setFilterAttributes={setFilterAttributes}
+				open={showFilter}
+				setOpen={setShowFilter}
+			/>
 		</React.Fragment>
 	);
 };

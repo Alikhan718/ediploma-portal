@@ -61,8 +61,8 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 
     return (
         <React.Fragment>
-            <Box display={open ? 'flex' : 'none'} width='60vw' position='absolute' top='3.3rem'
-                 right='10rem' justifyContent='center'
+            <Box display={open ? 'flex' : 'none'} width='60vw' position='absolute' top='10rem'
+                 right='23rem' justifyContent='center'
                  className={styles.filterContainer}
             >
                 <Card elevation={6} sx={{
