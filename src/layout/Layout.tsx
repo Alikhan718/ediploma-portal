@@ -71,7 +71,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
                              bgcolor='rgba(255, 255, 255, 0.6)'/>
                     )}
                     {children}
-                    <Box className="footer">
+                    {!urlElements.includes('auth') && <Box className="footer">
                         <Typography color="#818181" fontSize="0.75rem">
                             © 2023 Все права защищены
                         </Typography>
@@ -85,7 +85,8 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
                             Помощь
                         </Typography>
                         </Box>
-                    </Box>
+                    </Box>}
+
 
                 </Box>
             </Box>
