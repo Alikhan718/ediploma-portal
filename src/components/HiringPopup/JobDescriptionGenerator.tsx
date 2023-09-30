@@ -1,5 +1,7 @@
 import React from 'react';
+import { Input } from '@src/components';
 import styles from "src/pages/DiplomaPage/DiplomaPage.module.css"
+import { Output } from './Output';
 
 interface JobDescriptionGeneratorProps {
     setHaveDescription:any;
@@ -12,6 +14,8 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
     const [selectedRadio, setSelectedRadio] = React.useState('');
     const [response, setResponse] = React.useState('');
     const [isTask, setIsTask] = React.useState(true);
+    const [gotResponse, setGotResponse] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
 
     const handleOnChange = (event: any) => {
         setSelectedRadio(event.target.value);
@@ -23,11 +27,14 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
     };
 
     const handleButtonSubmit = () => {
-        setIsTask(selectedRadio === '1');
-        handleSubmit(isTask);
+        handleSubmit(selectedRadio === '1');
     };
 
     const handleSubmit = async (isTask: boolean) => {
+        console.log(isTask);
+        setGotResponse(true);
+        setLoading(true);
+
         const textAreaValue: string = (document.getElementById("chat") as HTMLInputElement).value;
         console.log(textAreaValue);
         let apiLink: string = '';
@@ -50,7 +57,8 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
 
             const responseData = await response.json();
             console.log(responseData);
-            setResponse(responseData.message);
+            setResponse(responseData.data);
+            setLoading(false);
         } catch(error) {
             console.log(error);
         }
@@ -58,6 +66,11 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
 
     return(
         <div>
+            {gotResponse ? 
+            (<Output response={response} loading={loading}/>):
+            (<div>
+
+            
             <h1 className={styles.popupHeading}>Сгенерировать описание работы</h1>
             <p className={styles.popupSmallHeading}>Я хочу сгенерировать описание работы с помощью</p>
             <div className={styles.radioButtons}>
@@ -92,13 +105,18 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
                 </div>
             </div>
             <p className={styles.popupSmallHeading}>Задача/проект</p>
-            <textarea 
+            <Input
                 id="chat" 
                 rows={1}
-                placeholder="Опишите вашу задачу"
-                className={styles.textArea}
-                onChange={handleTextareaInput}>   
-            </textarea>
+                placeholder="Опишите вашу задачу/проект"
+                inputSize="m"
+                sx={{
+                    paddingRight: 0,
+                    width: '95%',
+                    marginLeft: '2.5%',
+                    marginBottom: '20px',
+                }}
+            />
             <div className={styles.buttonContainer}>
                 <button 
                     type="button" 
@@ -119,6 +137,8 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
                 >Поиск
                 </button>
             </div>
+
+            </div>)}
         </div>
     )
 };

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from "src/pages/DiplomaPage/DiplomaPage.module.css"
+import { Input } from '@src/components';
 
 interface CandidateSearchProps {
 	jobDescription:string;
@@ -50,14 +51,18 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
             <h1 className={styles.popupHeading}>Поиск кандидатов</h1>
             <p className={styles.popupSmallHeading}>Найти подходящих кандидатов по описанию работу</p>
             <div>
-                <textarea 
-                    id="chat" 
-                    rows={1} 
-                    className={styles.textArea}
-                    placeholder="Описание работы" 
-                    defaultValue={jobDescription}
-                    onChange={handleTextareaInput}>
-                </textarea>
+                <Input
+                id="chat" 
+                rows={1}
+                placeholder="Описание работы"
+                inputSize="m"
+                sx={{
+                    paddingRight: 0,
+                    width: '95%',
+                    marginLeft: '2.5%',
+                    marginBottom: '20px',
+                }}
+                />
                 <div className={styles.buttonContainer}>
                     <button 
                         type="button" 
