@@ -29,6 +29,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
 
     const handleSubmit = async (isTask: boolean) => {
         const textAreaValue: string = (document.getElementById("chat") as HTMLInputElement).value;
+        console.log(textAreaValue);
         let apiLink: string = '';
 
         if(isTask){
