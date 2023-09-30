@@ -12,7 +12,6 @@ import {useNavigate} from "react-router-dom";
 import styles from "./AuthPage.module.css";
 import {selectUserRole} from "@src/store/auth/selector";
 import {useSelector} from "react-redux";
-
 export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
 
     const {children} = props;
@@ -25,6 +24,7 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
             navigate(routes.main, {replace: true});
         }
     }, [userRole]);
+
 
     return (
         <Box className={styles.container}>
@@ -58,3 +58,4 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
         </Box>
     );
 };
+

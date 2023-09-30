@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import MenuIcon from '@src/assets/icons/menu lines.svg';
+import MenuIcon from '@src/assets/icons/menu.svg';
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import HeaderSearchIcon from '@src/assets/icons/search.svg';
 import RuFlag from '@src/assets/icons/ru-flag.svg';
@@ -70,8 +70,6 @@ export interface FilterAttributes {
 }
 
 const AppHeader: React.FC<HeaderProps> = (props) => {
-    const {isSideBarOpen} = props;
-    console.log("isSideBarOpen", isSideBarOpen);
     const [showFilter, setShowFilter] = React.useState(false);
 
     const navigate = useNavigate();
@@ -107,16 +105,17 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         isActive && handleActiveNav(id);
         return "";
     };
-    const getQueryWidth = () => {
-        const matchesLg = useMediaQuery('(min-width:1200px)');
-        const matchesMd = useMediaQuery('(max-width:1180px)');
-        const matchesSm = useMediaQuery('(max-width:768px)');
-        const matchesXs = useMediaQuery('(max-width:576px)');
-        if (matchesXs) return "80%";
-        if (matchesSm) return "60%";
-        if (matchesMd) return "40%";
-        if (matchesLg) return "25%";
-    };
+    // const getQueryWidth = () => {
+    //     const matchesLg = useMediaQuery('(min-width:1200px)');
+    //     const matchesMd = useMediaQuery('(max-width:1180px)');
+    //     const matchesSm = useMediaQuery('(max-width:768px)');
+    //     const matchesXs = useMediaQuery('(max-width:576px)');
+    //     console.log(1);
+    //     if (matchesXs) return "80%";
+    //     if (matchesSm) return "60%";
+    //     if (matchesMd) return "40%";
+    //     if (matchesLg) return "25%";
+    // };
     const urlElements = window.location.href.split('/');
     const checkRoute = (): boolean => {
         const sidebarEnabledRoutes = [
@@ -129,6 +128,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
             'settingsPage',
             'diploma',
         ];
+        console.log(2);
+
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return true;
@@ -137,6 +138,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         return false;
     };
     const checkSideBarRoute = (): boolean => {
+        console.log(3);
+
         const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'settingsPage'];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
@@ -148,45 +151,41 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
     React.useEffect(() => {
         setOpen(checkRoute());
-    });
+    }, [urlElements]);
 
     const userRole = localStorage.getItem("userRole");
 
     return (
         <AppBar open={open}>
             <Box className="diploma-navbar" height='4rem'>
-                <Modal
-                    open={openModal}
-                    handleClose={() => setOpenModal(true)}
-                    maxWidth={getQueryWidth()}
-                    width={getQueryWidth()}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+                {/*<Modal*/}
+                {/*    open={openModal}*/}
+                {/*    handleClose={() => setOpenModal(true)}*/}
+                {/*    width={getQueryWidth()}*/}
+                {/*    aria-labelledby="modal-modal-title"*/}
+                {/*    aria-describedby="modal-modal-description"*/}
+                {/*>*/}
+                {/*    <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>*/}
 
-                        <img src={NeedAuthorizationPic} alt=""/>
-                        <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
-                                    fontWeight='600'
-                                    variant="h6"
-                                    component="h2">
-                            Для использования требуется авторизация
-                        </Typography>
-                        <Button variant='contained' sx={{
-                            marginTop: "1rem",
-                            padding: "1rem",
-                            width: "80%",
-                            fontSize: "1rem",
-                            fontWeight: "600",
-                            borderRadius: "2rem"
-                        }} onClick={() => {
-                            navigate(routes.login);
-                        }}>Авторизоваться</Button>
-                    </Box>
-                </Modal>
-                {/*<img src={MenuIcon} onClick={() => {*/}
-                {/*    (!isSideBarOpen);*/}
-                {/*}} className="menu-icon"/>*/}
+                {/*        <img src={NeedAuthorizationPic} alt=""/>*/}
+                {/*        <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'*/}
+                {/*                    fontWeight='600'*/}
+                {/*                    variant="h6"*/}
+                {/*                    component="h2">*/}
+                {/*            Для использования требуется авторизация*/}
+                {/*        </Typography>*/}
+                {/*        <Button variant='contained' sx={{*/}
+                {/*            marginTop: "1rem",*/}
+                {/*            padding: "1rem",*/}
+                {/*            width: "80%",*/}
+                {/*            fontSize: "1rem",*/}
+                {/*            fontWeight: "600",*/}
+                {/*            borderRadius: "2rem"*/}
+                {/*        }} onClick={() => {*/}
+                {/*            navigate(routes.login);*/}
+                {/*        }}>Авторизоваться</Button>*/}
+                {/*    </Box>*/}
+                {/*</Modal>*/}
                 {checkSideBarRoute() && <img className='diploma-logo' src={AppLogo} onClick={() => {
                     navigate(routes.main);
                 }} alt="logo"/>}
@@ -212,17 +211,23 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
                 {/*<Box className="diploma-navbar-item" width="100%">*/}
                 {/*    {!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('university') && !window.location.href.split('/').includes('university') &&*/}
-                {/*        <Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'*/}
+                {/*        (<Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'*/}
                 {/*               value={filterAttributes.text}*/}
                 {/*               onChange={handleSearch} startAdornment={<SearchIcon/>}*/}
-                {/*               endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {*/}
-                {/*                   if (isAuthenticated()) {*/}
-                {/*                       setShowFilter(!showFilter);*/}
-                {/*                   } else {*/}
-                {/*                       setOpenModal(true);*/}
-                {/*                   }*/}
-                {/*               }}/>}/>*/}
-                {/*    }</Box>*/}
+                {/*               endAdornment={*/}
+                {/*                   <FilterIcon*/}
+                {/*                       style={{cursor: "pointer"}}*/}
+                {/*                       onClick={() => {*/}
+                {/*                           if (isAuthenticated()) {*/}
+                {/*                               setShowFilter(!showFilter);*/}
+                {/*                           }*/}
+                {/*                           else {*/}
+                {/*                               setOpenModal(true);*/}
+                {/*                           }*/}
+                {/*                       }}*/}
+                {/*                   />}*/}
+                {/*        />)}*/}
+                {/*</Box>*/}
                 {/*<FilterSection*/}
                 {/*    triggerSearchFilters={triggerSearchFilters}*/}
                 {/*    filterAttributes={filterAttributes}*/}
@@ -230,19 +235,15 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                 {/*    open={showFilter}*/}
                 {/*    setOpen={setShowFilter}*/}
                 {/*/>*/}
-                {/* REST SELECTOR  */}
-                {/*<div>*/}
-                {/*    <img style={{*/}
-                {/*        cursor: 'pointer'*/}
-                {/*    }} src={HeaderSearchIcon} alt=""/>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    <img style={{*/}
-                {/*        cursor: 'pointer'*/}
-                {/*    }} src={RuFlag} alt=""/>*/}
-                {/*</div>*/}
-                <Box display='flex' justifyContent='flex-end' py='10px' className="diploma-btn-container">
 
+                <Box display='flex' ml="auto" gap="2rem" py='10px' className="diploma-btn-container">
+
+                    <img style={{
+                        cursor: 'pointer'
+                    }} src={HeaderSearchIcon} alt=""/>
+                    <img style={{
+                        cursor: 'pointer'
+                    }} src={RuFlag} alt=""/>
 
                     {!isAuthenticated() ? <Button
                             onClick={() => {
@@ -272,6 +273,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 localStorage.clear();
                                 navigate(routes.login, {replace: true});
                             }}
+                            borderRadius="3rem"
                             startIcon={<img src={LogoutIcon} style={{height: "1rem"}}/>}
                             variant='contained'
                             width={120}
@@ -286,8 +288,13 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             </Typography>
 
                         </Button>
+
                     }
-                    di</Box>
+
+                    <img src={MenuIcon} onClick={() => {
+                        setOpen(!open);
+                    }} className="menu-icon"/>
+                </Box>
             </Box>
             <GlobalLoader/>
         </AppBar>

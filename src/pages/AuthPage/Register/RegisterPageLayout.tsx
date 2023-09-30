@@ -18,6 +18,7 @@ import {isAuthenticated} from "@src/utils/userAuth";
 import {useNavigate} from "react-router-dom";
 import {modelType} from "./generator";
 import * as NcaLayer from '@src/utils/functions';
+import {enableWebSocket} from "@src/utils/functions";
 
 export const RegisterPageLayout: React.FC = () => {
 
@@ -64,6 +65,7 @@ export const RegisterPageLayout: React.FC = () => {
     };
 
     useEffect(() => {
+        enableWebSocket();
         if (step == 3) {
             const payload = {
                 email: state.email,

@@ -10,6 +10,7 @@ import {routes} from '@src/shared/routes';
 import {useNavigate} from 'react-router-dom';
 import ReactGA from 'react-ga';
 import Checkbox from '@mui/material/Checkbox';
+import {enableWebSocket} from "@src/utils/functions";
 
 export const LoginPageLayout: React.FC = () => {
     const [state, setState] = React.useState<IAuthLogin>({
@@ -43,6 +44,7 @@ export const LoginPageLayout: React.FC = () => {
     };
 
     React.useEffect(() => {
+        enableWebSocket();
         const urlElements = window.location.href.split('/');
         if (isAuthenticated() && urlElements.includes('auth')) {
             navigate(routes.main, {replace: true});

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Box} from '@mui/material';
+import {Box, Typography} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {Header} from './Header/Header';
@@ -71,6 +71,22 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
                              bgcolor='rgba(255, 255, 255, 0.6)'/>
                     )}
                     {children}
+                    <Box className="footer">
+                        <Typography color="#818181" fontSize="0.75rem">
+                            © 2023 Все права защищены
+                        </Typography>
+                        <Box className="footerRightItem">
+                            <Typography fontSize="0.75rem">
+                                Политика конфиденциальности
+                            </Typography>
+                            <Typography fontSize="0.75rem">
+                                Пользовательское соглашение
+                            </Typography><Typography fontSize="0.75rem">
+                            Помощь
+                        </Typography>
+                        </Box>
+                    </Box>
+
                 </Box>
             </Box>
         </Box>
