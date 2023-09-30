@@ -285,7 +285,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								display="flex"
 								flexDirection="column"
 								alignItems="start"
-								sx={{ backgroundColor: 'white', borderRadius: '15px'}}
+								sx={{ backgroundColor: 'white', borderRadius: '15px' }}
 								className={styles.diplomasContainer}
 							>
 								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Дипломы выпускников</Typography>

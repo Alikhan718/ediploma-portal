@@ -85,6 +85,20 @@
 
 /* styles for filter section */
 
+.pageOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(59, 130, 246, 0.8);
+	/* Color with alpha (opacity) */
+	backdrop-filter: blur(10px);
+	/* Adjust the blur amount as needed */
+	z-index: 1000;
+	/* Ensure the overlay is above other content */
+}
+
 @media only screen and (max-width: 768px) {
 	.filterContainer {
 		width: 100% !important;
@@ -111,333 +125,345 @@
 }
 
 .popupButton {
-    display: block;
-    max-width: auto;
-    text-align: center;
-    background-color: #3b82f6;
-    color: #fff;
-    border: none;
-    padding: 14px 25px;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 25px;
+	display: block;
+	max-width: auto;
+	text-align: center;
+	background-color: #3b82f6;
+	color: #fff;
+	border: none;
+	padding: 14px 25px;
+	font-weight: 500;
+	cursor: pointer;
+	border-radius: 25px;
 }
-  
+
 .popupButton:hover {
-    background-color: #2a75ed;
+	background-color: #2a75ed;
 }
-  
+
 .popupButton:focus {
-    outline: none;
-    box-shadow: 0 0 0 0.25rem #a3bffa;
-    border-color: #a3bffa;
+	outline: none;
+	box-shadow: 0 0 0 0.25rem #a3bffa;
+	border-color: #a3bffa;
 }
 
 .popupContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+
 .popupBody {
-    position: relative; 
-    text-align: center;
-    border-radius: 25px;
-    border-color: black;
-    background: #FFFFFF;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 10px;
-    max-width: 80%;
-    overflow: auto; 
-    min-width: 600px; 
-    min-height: 150px; 
+	position: relative;
+	text-align: center;
+	border-radius: 25px;
+	border-color: black;
+	background: #FFFFFF;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	padding: 10px;
+	max-width: 80%;
+	overflow: auto;
+	min-width: 600px;
+	min-height: 150px;
 }
 
 .studentOrRecruiter {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px;
+	display: flex;
+	justify-content: space-between;
+	margin: 10px;
 }
 
 .closePopupButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: transparent;
-    color: #6b7280;
-    font-size: 14px;
-    width: 28px;
-    height: 28px;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	background-color: transparent;
+	color: #6b7280;
+	font-size: 14px;
+	width: 28px;
+	height: 28px;
+	border: none;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
 
 .closePopupButton:hover {
-    background-color: #edf2f7;
-    color: #111827;
+	background-color: #edf2f7;
+	color: #111827;
 }
 
 .closeIcon {
-    width: 14px;
-    height: 14px;
-    fill: currentColor;
+	width: 14px;
+	height: 14px;
+	fill: currentColor;
 }
 
 .srOnly {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    border: 0;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
 }
 
 .popupHeading {
-    text-align:left;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 10px;
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #383838;
+	text-align: left;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 10px;
+	padding: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #383838;
 }
 
 .popupSmallHeading {
-    text-align:left;
-    margin-left: 20px;
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: 100;
-    color: #A1A1A1;
-    line-height: 1;
+	text-align: left;
+	margin-left: 20px;
+	margin-bottom: 5px;
+	font-size: 14px;
+	font-weight: 100;
+	color: #A1A1A1;
+	line-height: 1;
 }
 
 .icon {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .inputFile {
-    display: none;
+	display: none;
 }
 
 .radioButtons {
-    display: flex;
-    padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+	display: flex;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .radioButtons div {
-    margin-right: 50px;
+	margin-right: 50px;
 }
 
 .textArea {
-    width: 95%;
-    border-radius: 25px;
-    margin-bottom: 25px;
-    padding: 15px;
-    border-color: #F8F8F8;
-    background-color: #F8F8F8;
-    scrollbar-width: none;
-    -ms-overflow-style: none; 
-    resize: none;
+	width: 95%;
+	border-radius: 25px;
+	margin-bottom: 25px;
+	padding: 15px;
+	border-color: #F8F8F8;
+	background-color: #F8F8F8;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	resize: none;
 }
 
 .textArea::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 .buttonContainer {
-    display: flex;
-    justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .continueButton {
-    max-width: auto;
-    text-align: right;
-    background-color: #3b82f6;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    font-weight: 200;
-    cursor: pointer;
-    border-radius: 25px;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    margin-left: 10px;
+	max-width: auto;
+	text-align: right;
+	background-color: #3b82f6;
+	color: #fff;
+	border: none;
+	padding: 12px 20px;
+	font-weight: 200;
+	cursor: pointer;
+	border-radius: 25px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	margin-left: 10px;
 }
 
 .continueButton:hover {
-    background-color: #2a75ed;
+	background-color: #2a75ed;
 }
-  
+
 .continueButton:focus {
-    outline: none;
-    box-shadow: 0 0 0 0.25rem #a3bffa;
-    border-color: #a3bffa;
+	outline: none;
+	box-shadow: 0 0 0 0.25rem #a3bffa;
+	border-color: #a3bffa;
 }
 
 .studentPlanDiv {
-    display: flex;
-    margin: 9px;
-    justify-content: space-between;
+	display: flex;
+	margin: 9px;
+	justify-content: space-between;
 }
 
 .smallTextAreaContainer {
-    width: 100%;
+	width: 100%;
 }
 
 .studentSmallTextArea {
-    width: 95%;
-    height: 40px;
-    border-radius: 25px;
-    padding-left: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-color: #F8F8F8;
-    background-color: #F8F8F8;
-    scrollbar-width: none;
-    -ms-overflow-style: none; 
-    resize: none;
+	width: 95%;
+	height: 40px;
+	border-radius: 25px;
+	padding-left: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-color: #F8F8F8;
+	background-color: #F8F8F8;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	resize: none;
 }
 
 .studentSmallTextArea::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 .imageContainer {
-    display: flex;
-    justify-content: center; /* Horizontally center the content */
-    align-items: center; /* Vertically center the content */
-    flex-direction: column; /* Stack the content vertically */
-    margin: 10px;
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 25px;
-    background-color: #c6cad3;
-    width: 270px;
-    height: 270px;
+	display: flex;
+	justify-content: center;
+	/* Horizontally center the content */
+	align-items: center;
+	/* Vertically center the content */
+	flex-direction: column;
+	/* Stack the content vertically */
+	margin: 10px;
+	cursor: pointer;
+	overflow: hidden;
+	border-radius: 25px;
+	background-color: #c6cad3;
+	width: 270px;
+	height: 270px;
 }
 
 .image {
-    max-width: 100%;
-    max-height: 100%;
+	max-width: 100%;
+	max-height: 100%;
 }
 
-.imgText{
-    margin-top: 20px;
+.imgText {
+	margin-top: 20px;
 }
 
 input[type="radio"] {
-    display: none;
+	display: none;
 }
 
 .radioButtons {
-    display: flex;
-    padding-left: 15px;
-    overflow: hidden;
+	display: flex;
+	padding-left: 15px;
+	overflow: hidden;
 }
 
 
 .radioButtonContainer {
-    float: left;
-    clear: none;
-    position: relative;
+	float: left;
+	clear: none;
+	position: relative;
 }
 
 .radioButtonContainer label {
-    margin: 25px;
-    float: left;
-    clear: none;
-    display: block;
-    position: relative;
+	margin: 25px;
+	float: left;
+	clear: none;
+	display: block;
+	position: relative;
 }
 
-input[type="radio"] + label::before {
-    content: "";
-    display: inline-block;
-    width: 15px;
-    height: 15px; 
-    border: 2px solid #CFD1D6; 
-    border-radius: 50%; 
-    margin-right: 10px; 
-    float: left;
-    clear: none;
-    position: relative;
-} 
+input[type="radio"]+label::before {
+	content: "";
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border: 2px solid #CFD1D6;
+	border-radius: 50%;
+	margin-right: 10px;
 
-input[type="radio"]:checked + label::before {
-    border: 2px solid #005FF9;
+	clear: none;
+	position: relative;
+}
+
+input[type="radio"]:checked+label::before {
+	border: 2px solid #005FF9;
 }
 
 span.innerCircle1 {
-    content: "";
-    display: block;
-    width: 10px; /* Adjust the size of the inner circle */
-    height: 10px; /* Adjust the size of the inner circle */
-    background-color: #005FF9; /* Blue background color for the inner circle */
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 11%;
-    transform: translate(-50%, -50%); /* Center it precisely */
-    visibility: hidden;
+	content: "";
+	display: block;
+	width: 10px;
+	/* Adjust the size of the inner circle */
+	height: 10px;
+	/* Adjust the size of the inner circle */
+	background-color: #005FF9;
+	/* Blue background color for the inner circle */
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 11%;
+	transform: translate(-50%, -50%);
+	/* Center it precisely */
+	visibility: hidden;
 }
 
 span.innerCircle2 {
-    content: "";
-    display: block;
-    width: 10px; /* Adjust the size of the inner circle */
-    height: 10px; /* Adjust the size of the inner circle */
-    background-color: #005FF9; /* Blue background color for the inner circle */
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 10.5%;
-    transform: translate(-50%, -50%); /* Center it precisely */
-    visibility: hidden;
+	content: "";
+	display: block;
+	width: 10px;
+	/* Adjust the size of the inner circle */
+	height: 10px;
+	/* Adjust the size of the inner circle */
+	background-color: #005FF9;
+	/* Blue background color for the inner circle */
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 10.5%;
+	transform: translate(-50%, -50%);
+	/* Center it precisely */
+	visibility: hidden;
 }
 
-input[type="radio"]:checked + label span.innerCircle1 {
-    visibility: visible;
+input[type="radio"]:checked+label span.innerCircle1 {
+	visibility: visible;
 }
 
-input[type="radio"]:checked + label span.innerCircle2 {
-    visibility: visible;
+input[type="radio"]:checked+label span.innerCircle2 {
+	visibility: visible;
 }
 
-.fileContainer{
-    border-radius: 25px;
-    width: 95%;
-    margin-left: 15px;
-    border: 1px solid #005FF9;
-    border-style: dashed;
-    padding: 10px;
-    margin-bottom: 10px;
+.fileContainer {
+	border-radius: 25px;
+	width: 95%;
+	margin-left: 15px;
+	border: 1px solid #005FF9;
+	border-style: dashed;
+	padding: 10px;
+	margin-bottom: 10px;
 }
 
 .fileContainerDiv {
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .insideFileContainer {
-    width: 50%;
+	width: 50%;
 }
 
 .fileText {
-    text-align: center;
+	text-align: center;
 }

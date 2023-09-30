@@ -20,6 +20,8 @@ import { humanReadableToLocalTime } from "@src/utils/functions";
 import styles from "./DiplomaDetailsPage.module.css";
 import { isAuthenticated } from "@src/utils/userAuth";
 import { routes } from "@src/shared/routes";
+import { ReactComponent as ExpandMore } from '@src/assets/icons/expand_more.svg';
+
 
 interface DiplomaData {
 	name: string;
@@ -107,8 +109,15 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
 		if (matchesMd) return "40%";
 		if (matchesLg) return "25%";
 	};
+	const [showFull, setShowFull] = React.useState(false);
+	const handleText = (text: string): string => {
+		const matchesSm = useMediaQuery('(max-width:768px)');
+		const trimLimit = matchesSm ? 85 : 115;
+		return showFull ? text : text.substring(0, trimLimit) + "...";
+	};
+
 	return (
-		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 3rem' pt='3rem'>
+		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 3rem' pt='2rem'>
 			<Modal
 				open={!iinValidated && !isAuthenticated()}
 				handleClose={handleClose}
@@ -140,25 +149,31 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
 				</Box>
 			</Modal>
 			<Box className={styles.contentLeftContainer}>
-				<Card sx={{ borderRadius: "1.4rem", background: "#CED4D3" }}>
+				<Card sx={{ borderRadius: "1.4rem", background: "#F8F8F8", position: 'relative' }}>
 					<CardMedia
 						component="img"
-						sx={{ padding: "1.4rem", borderRadius: "1.4rem" }}
+						sx={{ padding: "1.1rem", borderRadius: "1.4rem" }}
 						image={data && data.image ? data.image : exampleImage}
 						alt="University Image"
+					/>
+					<Button
+						startIcon={<QRIcon className={styles.iconMobile} />}
+						className={styles.btnMobile}
+
+						onClick={handleQRCodeButtonClick}
+						sx={{
+							borderColor: "#0A66C2",
+							borderRadius: "18px",
+							position: 'absolute',
+							bottom: '8px',
+							right: '8px',
+						}}
 					>
-					</CardMedia>
+						{' '}
+					</Button>
 				</Card>
 				<Box className={styles.contentLeft}>
-					<Button defaultValue="download" className={styles.btnMobile}
-						startIcon={<DownloadIcon className={styles.iconMobile} />} variant='outlined'
-						onClick={() => {
-							let link = data && data.image ? data.image : "";
-							handleLink(link);
-						}}
-						sx={{ borderColor: "#0A66C2", borderRadius: "18px" }}>
-						Скачать
-					</Button>
+
 					<Button startIcon={<ShareIcon className={styles.iconMobile} />} className={styles.btnMobile}
 						variant='outlined'
 						onClick={() => {
@@ -168,56 +183,68 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
 						sx={{ borderColor: "#0A66C2", borderRadius: "18px" }}>
 						Поделиться
 					</Button>
-					<Button startIcon={<QRIcon className={styles.iconMobile} />} className={styles.btnMobile}
-						variant='outlined'
-						onClick={handleQRCodeButtonClick}
-						sx={{ borderColor: "#0A66C2", borderRadius: "18px" }}>
-						QR-код
+					<Button defaultValue="download" className={styles.btnMobile}
+						variant='contained'
+						onClick={() => {
+							let link = data && data.image ? data.image : "";
+							handleLink(link);
+						}}
+						sx={{ borderColor: "#0A66C2", borderRadius: "18px", fontSize: '16px' }}>
+						Скачать
+						<DownloadIcon className={styles.iconMobile} style={{ marginLeft: '10px' }} />
 					</Button>
+
 				</Box>
 			</Box>
 			<Box className={styles.contentRightContainer}>
-				<Typography fontWeight='700' fontSize='1.4rem' className={styles.textMd}>
+				<Typography fontWeight='700' fontSize='2rem' className={styles.textMd}>
 					{data && data.name_kz ? data.name_kz : ''}
 				</Typography>
 				<Box>
-
 					<Box display='flex' mb='.5rem'>
-						<Typography className={styles.textSm} fontSize='1.4rem' mr='.5rem'>
+						<Typography className={styles.textSm} color="#818181" fontSize='1rem' mr='.5rem'>
+							Название университета:
+						</Typography>
+						<Typography fontSize='1rem'
+							className={styles.textSm}
+							fontWeight='700'>Казахстанско-Британский Технический Университет</Typography>
+					</Box>
+					<Box display='flex' mb='.5rem'>
+						<Typography className={styles.textSm} color="#818181" fontSize='1rem' mr='.5rem'>
 							Cтепень:
 						</Typography>
-						<Typography fontSize='1.4rem'
+						<Typography fontSize='1rem'
 							className={styles.textSm}
 							fontWeight='700'>{data && data.degree_ru ? data.degree_ru.replace("ПРИСУЖДЕНА СТЕПЕНЬ ", "")[0].toUpperCase() + data.degree_ru.replace("ПРИСУЖДЕНА СТЕПЕНЬ ", "").toLowerCase().substring(1) : ""}</Typography>
 					</Box>
 
 					<Box display='flex' mb='.5rem'>
-						<Typography fontSize='1.4rem'
-							className={styles.textSm} mr='.5rem'>Специальность:</Typography>
-						<Typography fontSize='1.4rem'
+						<Typography fontSize='1rem'
+							className={styles.textSm} color="#818181" mr='.5rem'>Специальность:</Typography>
+						<Typography fontSize='1rem'
 							className={styles.textSm}
 							fontWeight='700'>{data && data.qualification_kz ? data.qualification_kz.substring(0, data.qualification_kz.search("»") + 1) : ""}</Typography>
 					</Box>
-
-					<Box display='flex' width='100%' gap='2rem' mb='.5rem' className={styles.infoContainer}>
-						<Box display='flex'>
-							<CalendarIcon className={styles.iconSm}
-								style={{ marginTop: ".3rem", marginRight: ".5rem" }} />
-							<Typography className={styles.textSm} fontSize='1.4rem' mr='.5rem'
-								color="#697B7A">{data && data.protocol_en ? humanReadableToLocalTime(data.protocol_en, ".") : "123"}</Typography>
-						</Box>
-						<Box display='flex'>
-							<FileCheckIcon className={styles.iconSm}
-								style={{ marginTop: ".3rem", marginRight: ".5rem" }} />
-							<Typography className={styles.textSm} fontSize='1.4rem' mr='.5rem'
-								color="#697B7A">{id}</Typography>
-						</Box>
-						<Box display='flex'>
-							<CertificateIcon className={styles.iconSm}
-								style={{ marginTop: ".3rem", marginRight: ".5rem" }} />
-							<Typography className={styles.textSm} fontSize='1.4rem' mr='.5rem'
-								color="#697B7A">Оригинал</Typography>
-						</Box>
+					<Box display='flex' mb='.5rem'>
+						<Typography className={styles.textSm} color="#818181" fontSize='1rem' mr='.5rem'>
+							Год окончание:
+						</Typography>
+						<Typography fontSize='1rem'
+							className={styles.textSm}
+							fontWeight='700'>{data && data.protocol_en ? humanReadableToLocalTime(data.protocol_en, ".") : "123"}</Typography>
+					</Box>
+					<Box>
+						<Box sx={{ fontSize: '24px', fontWeight: '600', color: '#4D4D4D', width: '100%', paddingBottom: '10px' }} > Основная Информация </Box>
+						<Typography className={styles.textSm} color="#818181">
+							{handleText("eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов. Портал eDiploma предоставляет возможность выпускникам, работодателям и администрации университетов взаимодействовать с дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации выпускников.")}
+						</Typography>
+						<Typography style={{ cursor: "pointer" }} className={styles.textSm} fontWeight='600' color='#629BF8' sx={{ paddingBottom: '20px' }}
+							onClick={() => {
+								setShowFull(!showFull);
+							}}>
+							Показать {!showFull ? "больше" : " меньше"}
+							<ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
+						</Typography>
 					</Box>
 					<SwitchDetails />
 				</Box>

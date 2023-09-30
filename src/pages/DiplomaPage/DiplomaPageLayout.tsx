@@ -59,7 +59,7 @@ export const DiplomaPageLayout: React.FC = () => {
 									</Box>
 									<Typography mb='.5rem' mt='0.6rem' fontSize="1.25rem" className={styles.mobText}
 										fontWeight="600">
-										Назарбаев Университет(НУ)
+										{e.name_ru}
 									</Typography>
 									<Typography fontSize="16px" mt="0.5rem" color="#818181" className={styles.mobTextSm}>
 										{e.qualification_ru?.substring(e.qualification_ru.search("«"), e.qualification_ru.search("»") + 1)}
