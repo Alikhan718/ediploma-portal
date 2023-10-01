@@ -62,6 +62,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
             setLoading(false);
         } catch(error) {
             console.log(error);
+            setLoading(false);
         }
     };
 

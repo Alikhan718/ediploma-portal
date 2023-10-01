@@ -414,3 +414,10 @@ input[type="radio"]:checked + label span.innerCircle2 {
     margin: 30px;
     padding: 20px;
 }
+
+.searchOutputContainer {
+    text-align: center;
+    padding: 20px;
+    margin-left: 90px;
+    align-items: center; 
+}

@@ -86,6 +86,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
             console.log(responseData);
         }catch(error){
             console.log(error);
+            setLoading(false);
         }
     };
 
