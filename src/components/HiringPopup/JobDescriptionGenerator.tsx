@@ -14,8 +14,9 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
     const [selectedRadio, setSelectedRadio] = React.useState('');
     const [response, setResponse] = React.useState('');
     const [isTask, setIsTask] = React.useState(true);
-    const [gotResponse, setGotResponse] = React.useState(false);
+    const [gotResponse, setGotResponse] = React.useState(false); //change to false
     const [loading, setLoading] = React.useState(false);
+    const [haveSearch, setHaveSearch] = React.useState(true);
 
     const handleOnChange = (event: any) => {
         setSelectedRadio(event.target.value);
@@ -67,7 +68,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
     return(
         <div>
             {gotResponse ? 
-            (<Output response={response} loading={loading}/>):
+            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setHaveDescription} haveSearch={haveSearch}/>): //change to loading state
             (<div>
 
             

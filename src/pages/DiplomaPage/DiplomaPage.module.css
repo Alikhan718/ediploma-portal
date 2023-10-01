@@ -406,3 +406,11 @@ input[type="radio"]:checked + label span.innerCircle2 {
 .fileText {
     text-align: center;
 }
+
+.outputContainer {
+    background-color: #F8F8F8;
+    border-radius: 25px;
+    text-align: left;
+    margin: 30px;
+    padding: 20px;
+}

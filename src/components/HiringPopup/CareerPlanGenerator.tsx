@@ -22,6 +22,8 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
     const [response, setResponse] = React.useState('');
     const [gotResponse, setGotResponse] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
+    const [haveSearch, setHaveSearch] = React.useState(false);
+    
 
     const handleInputChange = (e: any) => {
         const {name, value} = e.target;
@@ -90,7 +92,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
     return(
         <div>
             {gotResponse ? 
-            (<Output response={response} loading={loading}/>):
+            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setGotResponse} haveSearch={haveSearch}/>):
             (<div>
 
             <h1 className={styles.popupHeading}>Сгенерировать карьерный план</h1>
