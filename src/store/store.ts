@@ -5,6 +5,7 @@ import rootSaga from './sagas';
 import {generalsReducer} from './generals/reducer';
 import {authReducer} from './auth/reducer';
 import diplomaReducer from './diplomas/reducer';
+import generatorReducer from "@src/store/generator/reducer";
 
 const sagaMiddleWare = createSagaMiddleWare();
 
@@ -12,6 +13,7 @@ const reducers = combineReducers({
     generals: generalsReducer,
     auth: authReducer,
     diploma: diplomaReducer,
+    generator: generatorReducer,
 });
 
 

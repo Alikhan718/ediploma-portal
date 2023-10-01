@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from "src/pages/DiplomaPage/DiplomaPage.module.css"
-import fileIcon from "src/assets/icons/fileIcon.svg"
+import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
+import fileIcon from "src/assets/icons/fileIcon.svg";
 
 interface CareerPlanGeneratorProps{
     setIsClicked: any;

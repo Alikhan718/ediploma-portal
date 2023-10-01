@@ -71,11 +71,9 @@ const CustomDrawer = styled(Drawer, {shouldForwardProp: (prop) => prop !== 'open
 );
 
 const role = localStorage.getItem("userRole")
-console.log(sidebarNavigations, "asfdasdf");
 
 export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
     const location = useLocation();
-    console.log('pathname', location.pathname);
     const {open, toggleDrawer} = props;
     const navigate = useNavigate();
     const authLoader = useSelector(selectAuthLoader);
@@ -97,7 +95,6 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
         const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'settingsPage'];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
-                console.log(item);
                 return true;
             }
         }

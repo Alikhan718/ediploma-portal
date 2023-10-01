@@ -1,69 +1,53 @@
 import {call, put, takeLatest} from "redux-saga/effects";
 import {
-    FETCH_AUTH_LOGIN_ERROR,
-    FETCH_AUTH_LOGIN_SAGA,
-    FETCH_AUTH_LOGIN_SUCCESS,
-    FETCH_AUTH_LOGOUT,
-    FETCH_AUTH_LOGOUT_SAGA,
-    FETCH_AUTH_REGISTER_ERROR,
-    FETCH_AUTH_REGISTER_SAGA,
-    FETCH_AUTH_REGISTER_SUCCESS,
-    FETCH_AUTH_VALIDATE_EMAIL_ERROR,
-    FETCH_AUTH_VALIDATE_EMAIL_SAGA,
-    FETCH_AUTH_VALIDATE_EMAIL_SUCCESS,
-    FETCH_AUTH_WITH_DS_SAGA,
-    FETCH_GET_OTP_ERROR,
-    FETCH_GET_OTP_SAGA,
-    FETCH_GET_OTP_SUCCESS,
-    FETCH_RESET_PASSWORD_ERROR,
-    FETCH_RESET_PASSWORD_SAGA,
-    FETCH_RESET_PASSWORD_SUCCESS,
-    FETCH_VALIDATE_EMAIL_ERROR,
-    FETCH_VALIDATE_EMAIL_SAGA,
-    FETCH_VALIDATE_EMAIL_SUCCESS
+    POST_AUTH_LOGIN,
+    AUTH_LOGOUT,
+    POST_AUTH_REGISTER,
+    POST_AUTH_VALIDATE_EMAIL,
+    GET_OTP,
+    POST_RESET_PASSWORD,
+    POST_VALIDATE_EMAIL,
+    POST_AUTH_WITH_DS
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
 import {getRequestError} from "@src/utils/getRequestError";
+import {handleResponseBase} from "@src/store/sagas";
 
 export function* fetchAuthLogout() {
-    yield put({type: FETCH_AUTH_LOGOUT});
+    yield put({type: AUTH_LOGOUT.success});
 }
 
 export function* fetchAuthLogin(action: any) {
-    try {
-        const {data} = yield call(authApi.login, action.payload);
-
-        yield put({type: FETCH_AUTH_LOGIN_SUCCESS, payload: data});
-        yield put(setSnackbar({visible: true, message: "Добро пожаловать", status: "success"}));
-
-    } catch (e) {
-        yield put({type: FETCH_AUTH_LOGIN_ERROR});
-        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
-    }
+    yield call(handleResponseBase, {
+            type: POST_AUTH_LOGIN,
+            apiCall: authApi.login,
+            action,
+            successMessage: "Добро пожаловать",
+        }
+    );
 }
 
 export function* fetchAuthRegister(action: any) {
     try {
         const {data} = yield call(authApi.register, action.payload);
         if (data.message && data.message.includes("success")) {
-            yield put({type: FETCH_AUTH_REGISTER_SUCCESS});
+            yield put({type: POST_AUTH_REGISTER.success});
         }
         // yield put(setSnackbar({visible: true, message: "Успешно зарегистрирован!", status: "success"}));
     } catch (e: any) {
-        yield put({type: FETCH_AUTH_REGISTER_ERROR});
+        yield put({type: POST_AUTH_REGISTER.error});
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
     }
 }
 
 export function* fetchAuthWithDS(action: any) {
     try {
-        console.log(action.payload);
         const {data} = yield call(authApi.authDS, action.payload);
-        yield put({type: FETCH_AUTH_LOGIN_SUCCESS, payload: data});
+        yield put({type: POST_AUTH_LOGIN.success, payload: data});
         yield put(setSnackbar({visible: true, message: "Добро пожаловать", status: "success"}));
     } catch (e: any) {
-        yield put({type: FETCH_AUTH_REGISTER_ERROR});
+        yield put({type: POST_AUTH_REGISTER.error});
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
     }
 }
@@ -71,10 +55,10 @@ export function* fetchAuthWithDS(action: any) {
 export function* fetchAuthValidateEmail(action: any) {
     try {
         const {data} = yield call(authApi.validateEmail, action.payload);
-        yield put({type: FETCH_AUTH_VALIDATE_EMAIL_SUCCESS});
+        yield put({type: POST_AUTH_VALIDATE_EMAIL.saga});
         yield put(setSnackbar({visible: true, message: "Валидация пройдена!", status: "success"}));
     } catch (e) {
-        yield put({type: FETCH_AUTH_VALIDATE_EMAIL_ERROR});
+        yield put({type: POST_AUTH_VALIDATE_EMAIL.error});
 
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
     }
@@ -83,10 +67,10 @@ export function* fetchAuthValidateEmail(action: any) {
 export function* fetchValidateEmail(action: any) {
     try {
         const {data} = yield call(authApi.validateEmail, action.payload);
-        yield put({type: FETCH_VALIDATE_EMAIL_SUCCESS});
+        yield put({type: POST_VALIDATE_EMAIL.success});
         yield put(setSnackbar({visible: true, message: "Валидация пройдена!", status: "success"}));
     } catch (e) {
-        yield put({type: FETCH_VALIDATE_EMAIL_ERROR});
+        yield put({type: POST_VALIDATE_EMAIL.error});
 
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
     }
@@ -96,11 +80,11 @@ export function* fetchResetPassword(action: any) {
     try {
         const {data} = yield call(authApi.resetPassword, action.payload);
         if (data && data.includes("success")) {
-            yield put({type: FETCH_RESET_PASSWORD_SUCCESS});
+            yield put({type: POST_RESET_PASSWORD.success});
             yield put(setSnackbar({visible: true, message: "Пароль обновлен!", status: "success"}));
         }
     } catch (e) {
-        yield put({type: FETCH_RESET_PASSWORD_ERROR});
+        yield put({type: POST_RESET_PASSWORD.error});
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
     }
 }
@@ -108,21 +92,21 @@ export function* fetchResetPassword(action: any) {
 export function* fetchGetOtp(action: any) {
     try {
         const {data} = yield call(authApi.getOtp, action.payload);
-        yield put({type: FETCH_GET_OTP_SUCCESS});
+        yield put({type: GET_OTP.success});
         yield put(setSnackbar({visible: true, message: "Код отправлен!", status: "success"}));
     } catch (e) {
-        yield put({type: FETCH_GET_OTP_ERROR});
+        yield put({type: GET_OTP.error});
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
     }
 }
 
 export function* authSagas() {
-    yield takeLatest(FETCH_AUTH_LOGIN_SAGA, fetchAuthLogin);
-    yield takeLatest(FETCH_AUTH_REGISTER_SAGA, fetchAuthRegister);
-    yield takeLatest(FETCH_AUTH_WITH_DS_SAGA, fetchAuthWithDS);
-    yield takeLatest(FETCH_AUTH_LOGOUT_SAGA, fetchAuthLogout);
-    yield takeLatest(FETCH_AUTH_VALIDATE_EMAIL_SAGA, fetchAuthValidateEmail);
-    yield takeLatest(FETCH_VALIDATE_EMAIL_SAGA, fetchValidateEmail);
-    yield takeLatest(FETCH_RESET_PASSWORD_SAGA, fetchResetPassword);
-    yield takeLatest(FETCH_GET_OTP_SAGA, fetchGetOtp);
+    yield takeLatest(POST_AUTH_LOGIN.saga, fetchAuthLogin);
+    yield takeLatest(POST_AUTH_REGISTER.saga, fetchAuthRegister);
+    yield takeLatest(POST_AUTH_WITH_DS.saga, fetchAuthWithDS);
+    yield takeLatest(AUTH_LOGOUT.saga, fetchAuthLogout);
+    yield takeLatest(POST_AUTH_VALIDATE_EMAIL.saga, fetchAuthValidateEmail);
+    yield takeLatest(POST_VALIDATE_EMAIL.saga, fetchValidateEmail);
+    yield takeLatest(POST_RESET_PASSWORD.saga, fetchResetPassword);
+    yield takeLatest(GET_OTP.saga, fetchGetOtp);
 }

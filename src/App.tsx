@@ -16,7 +16,6 @@ import {withLayout} from '@src/layout/Layout';
 import {routes} from '@src/shared/routes';
 import {useDispatch, useSelector} from 'react-redux';
 import {CircularProgress} from '@mui/material';
-import {initalApp} from './store/auth/actionCreators';
 import {selectAuthLoader} from './store/auth/selector';
 import './App.css';
 import ReactGA from 'react-ga';
@@ -30,9 +29,6 @@ const App: React.FC = () => {
     const dispatch = useDispatch();
     const authLoader = useSelector(selectAuthLoader);
 
-    React.useLayoutEffect(() => {
-        dispatch(initalApp());
-    }, []);
     React.useEffect(() => {
         ReactGA.pageview(window.location.pathname + window.location.search);
     }, []);

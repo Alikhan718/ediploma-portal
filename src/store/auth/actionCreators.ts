@@ -1,45 +1,40 @@
 import {
-  FETCH_AUTH_ITEMS_SAGA,
-  FETCH_AUTH_LOGIN_SAGA,
-  FETCH_AUTH_LOGOUT_SAGA,
-  FETCH_AUTH_REGISTER_SAGA,
-  FETCH_AUTH_VALIDATE_EMAIL_SAGA, FETCH_AUTH_WITH_DS_ERROR, FETCH_AUTH_WITH_DS_SAGA,
-  FETCH_GET_OTP_SAGA,
-  FETCH_RESET_PASSWORD_SAGA,
-  FETCH_VALIDATE_EMAIL_SAGA
+    POST_AUTH_REGISTER,
+    GET_OTP,
+    POST_RESET_PASSWORD,
+    POST_AUTH_LOGIN,
+    POST_AUTH_VALIDATE_EMAIL,
+    POST_AUTH_WITH_DS,
+    POST_VALIDATE_EMAIL
 } from "./types/actionTypes";
 
-export const initalApp = () => ({
-  type: FETCH_AUTH_ITEMS_SAGA
-});
-
 export const fetchLoginRequest = (payload: any) => ({
-  type: FETCH_AUTH_LOGIN_SAGA,
-  payload
+    type: POST_AUTH_LOGIN.saga,
+    payload
 });
 
 export const fetchAuthDSRequest = (payload: any) => ({
-  type: FETCH_AUTH_WITH_DS_SAGA,
-  payload
+    type: POST_AUTH_WITH_DS.saga,
+    payload
 });
 
 export const fetchRegisterRequest = (payload: any) => ({
-  type: FETCH_AUTH_REGISTER_SAGA,
-  payload
+    type: POST_AUTH_REGISTER.saga,
+    payload
 });
 export const fetchAuthValidateEmailRequest = (payload: any) => ({
-  type: FETCH_AUTH_VALIDATE_EMAIL_SAGA,
-  payload
+    type: POST_AUTH_VALIDATE_EMAIL.saga,
+    payload
 });
 export const fetchValidateEmailRequest = (payload: any) => ({
-  type: FETCH_VALIDATE_EMAIL_SAGA,
-  payload
+    type: POST_VALIDATE_EMAIL.saga,
+    payload
 });
 export const fetchResetPasswordRequest = (payload: any) => ({
-  type: FETCH_RESET_PASSWORD_SAGA,
-  payload
+    type: POST_RESET_PASSWORD.saga,
+    payload
 });
 export const fetchGetOtpRequest = (payload: any) => ({
-  type: FETCH_GET_OTP_SAGA,
-  payload
+    type: GET_OTP.saga,
+    payload
 });

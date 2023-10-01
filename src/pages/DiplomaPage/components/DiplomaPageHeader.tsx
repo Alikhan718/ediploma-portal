@@ -43,7 +43,6 @@ export const DiplomaPageHeader: React.FC = (props) => {
 
     const [open, setOpen] = React.useState(false);
     // const triggerSearchFilters = (filterAttributes: any) => {
-    // 	console.log(filterAttributes);
     // 	dispatch(fetchSearch(filterAttributes));
     // };
     const getQueryWidth = () => {

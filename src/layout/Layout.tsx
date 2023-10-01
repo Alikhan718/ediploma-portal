@@ -38,7 +38,6 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 
     const [isSidebarVisible, setIsSidebarVisible] = useState(!checkRoute());
     const [isHeaderVisible, setHeaderVisible] = useState(false);
-    console.log("Lay isSidebarVisible", isSidebarVisible);
     const handleWindowResize = () => {
         const windowWidth = window.innerWidth;
         const tabletBreakpoint = 998;

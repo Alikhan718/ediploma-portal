@@ -1,22 +1,11 @@
 import {
-    FETCH_AUTH_ITEMS,
-    FETCH_AUTH_ITEMS_ERROR,
-    FETCH_AUTH_ITEMS_SUCCESS,
-    FETCH_AUTH_LOGIN_ERROR,
-    FETCH_AUTH_LOGIN_SAGA,
-    FETCH_AUTH_LOGIN_SUCCESS,
-    FETCH_AUTH_LOGOUT,
-    FETCH_AUTH_REGISTER_ERROR,
-    FETCH_AUTH_REGISTER_SAGA,
-    FETCH_AUTH_REGISTER_SUCCESS, FETCH_AUTH_VALIDATE_EMAIL_ERROR,
-    FETCH_AUTH_VALIDATE_EMAIL_SAGA,
-    FETCH_AUTH_VALIDATE_EMAIL_SUCCESS, FETCH_AUTH_WITH_DS_SAGA, FETCH_AUTH_WITH_DS_SUCCESS, FETCH_GET_OTP_ERROR,
-    FETCH_GET_OTP_SAGA,
-    FETCH_GET_OTP_SUCCESS,
-    FETCH_RESET_PASSWORD_SAGA,
-    FETCH_RESET_PASSWORD_SUCCESS,
-    FETCH_VALIDATE_EMAIL_SAGA,
-    FETCH_VALIDATE_EMAIL_SUCCESS
+    POST_AUTH_LOGIN,
+    POST_AUTH_REGISTER,
+    POST_AUTH_VALIDATE_EMAIL,
+    POST_AUTH_WITH_DS,
+    GET_OTP,
+    POST_RESET_PASSWORD,
+    POST_VALIDATE_EMAIL, AUTH_LOGOUT
 } from "./types/actionTypes";
 
 const initialState = {
@@ -29,24 +18,13 @@ const initialState = {
 };
 export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
-        case FETCH_AUTH_LOGOUT:
+        case AUTH_LOGOUT.success:
             localStorage.clear();
             return {
                 ...state,
                 userRole: ""
             };
-        case FETCH_AUTH_ITEMS:
-            return {
-                ...state,
-                isLoading: true
-            };
-        case FETCH_AUTH_ITEMS_SUCCESS:
-            return {
-                ...state,
-                userRole: action.payload,
-                isLoading: false
-            };
-        case FETCH_AUTH_LOGIN_SAGA:
+        case POST_AUTH_LOGIN.saga:
             return {
                 ...state,
                 email: action.payload.email,
@@ -54,13 +32,12 @@ export const authReducer = (state = initialState, action: any) => {
                 isLoading: false,
                 otpSent: false
             };
-        case FETCH_AUTH_WITH_DS_SAGA:
-            console.log(action.payload);
+        case POST_AUTH_WITH_DS.saga:
             return {
                 ...state,
                 data: action.payload,
             };
-        case FETCH_AUTH_WITH_DS_SUCCESS:
+        case POST_AUTH_WITH_DS.success:
             const token = action.payload.token;
             localStorage.setItem("token", token);
             localStorage.setItem("userRole", action.payload.role);
@@ -72,7 +49,7 @@ export const authReducer = (state = initialState, action: any) => {
                 isLoading: false
             };
 
-        case FETCH_AUTH_LOGIN_SUCCESS:
+        case POST_AUTH_LOGIN.success:
             const token2 = action.payload.token;
             localStorage.setItem("token", token2);
             localStorage.setItem("userRole", action.payload.role);
@@ -83,7 +60,7 @@ export const authReducer = (state = initialState, action: any) => {
                 userRole: action.payload.role,
                 isLoading: false
             };
-        case FETCH_AUTH_LOGIN_ERROR:
+        case POST_AUTH_LOGIN.error:
             return {
                 ...state,
                 payload: action.payload,
@@ -91,7 +68,7 @@ export const authReducer = (state = initialState, action: any) => {
                 otpSent: false,
                 registrationStep: 1,
             };
-        case FETCH_AUTH_REGISTER_SAGA:
+        case POST_AUTH_REGISTER.saga:
             return {
                 ...state,
                 email: action.payload.email,
@@ -101,7 +78,7 @@ export const authReducer = (state = initialState, action: any) => {
                 registrationStep: 1,
                 isLoading: false
             };
-        case FETCH_AUTH_REGISTER_SUCCESS:
+        case POST_AUTH_REGISTER.success:
             return {
                 ...state,
                 payload: action.payload,
@@ -109,7 +86,7 @@ export const authReducer = (state = initialState, action: any) => {
                 isLoading: false,
                 registrationStep: 3
             };
-        case FETCH_RESET_PASSWORD_SAGA:
+        case POST_RESET_PASSWORD.saga:
             return {
                 ...state,
                 email: action.payload.email,
@@ -117,73 +94,68 @@ export const authReducer = (state = initialState, action: any) => {
                 password: action.payload.password,
                 repass: action.payload.repass,
             };
-        case FETCH_RESET_PASSWORD_SUCCESS:
+        case POST_RESET_PASSWORD.success:
             return {
                 ...state,
                 redirectToLogin: true,
             };
-        case FETCH_GET_OTP_SAGA:
+        case GET_OTP.saga:
             return {
                 ...state,
                 email: action.payload.email,
             };
 
-        case FETCH_GET_OTP_SUCCESS:
+        case GET_OTP.success:
             return {
                 ...state,
                 otpSent: true,
                 forgotStep: 2,
             };
-        case FETCH_GET_OTP_ERROR:
+        case GET_OTP.error:
             return {
                 ...state,
                 otpSent: false,
             };
-        case FETCH_AUTH_VALIDATE_EMAIL_SAGA:
+        case POST_AUTH_VALIDATE_EMAIL.saga:
             return {
                 ...state,
                 email: action.payload.email,
                 code: action.payload.code,
             };
-        case FETCH_AUTH_VALIDATE_EMAIL_SUCCESS:
+        case POST_AUTH_VALIDATE_EMAIL.success:
             return {
                 ...state,
                 otpSent: true,
                 isLoading: false,
                 registrationStep: 2,
             };
-        case FETCH_AUTH_VALIDATE_EMAIL_ERROR:
+        case POST_AUTH_VALIDATE_EMAIL.error:
             return {
                 ...state,
                 otpSent: true,
                 isLoading: false,
                 registrationStep: 1,
             };
-        case FETCH_VALIDATE_EMAIL_SAGA:
+        case POST_VALIDATE_EMAIL.saga:
             return {
                 ...state,
                 email: action.payload.email,
                 code: action.payload.code,
             };
-        case FETCH_VALIDATE_EMAIL_SUCCESS:
+        case POST_VALIDATE_EMAIL.success:
             return {
                 ...state,
                 otpSent: true,
                 isLoading: false,
                 forgotStep: 3,
             };
-        case FETCH_AUTH_REGISTER_ERROR:
+        case POST_AUTH_REGISTER.error:
             return {
                 ...state,
                 payload: action.payload,
                 isLoading: false,
                 otpSent: false,
                 registrationStep: 1
-            };
-        case FETCH_AUTH_ITEMS_ERROR:
-            return {
-                ...state,
-                isLoading: false
             };
         default:
             return state;

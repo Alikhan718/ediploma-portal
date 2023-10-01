@@ -1,13 +1,23 @@
 import axios from 'axios';
+import {data} from "browserslist";
 
 const per_page = process.env.REACT_APP_ORDERS_PER_PAGE;
 const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+const generatorURL = process.env.REACT_APP_GENERATOR_API_BASE_URL;
 
 const instance = axios.create({
-    baseURL: baseURL
+    baseURL: baseURL,
+});
+
+const customInstance = axios.create();
+
+customInstance.interceptors.request.use((request) => {
+    // for custom interceptors
+    return request;
 });
 
 instance.interceptors.request.use((request) => {
+
     if (!request.url!.includes("ipfs")) {
         const token = localStorage.getItem("token");
         if (token) {
@@ -17,29 +27,35 @@ instance.interceptors.request.use((request) => {
         request.headers!["Content-Type"] = "application/json";
     }
 
+
     return request;
 });
-instance.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    async (error) => {
+const instances = [instance, customInstance];
 
-        const prevReq = error?.config;
-        if (error?.response?.status === 401) {
+//for interceptors
+for (let i = 0; i < instances.length; i++) {
+    instances[i].interceptors.response.use(
+        (response) => {
+            return response;
+        },
+        async (error) => {
 
-            try {
-                prevReq.sent = true;
-                // REFRESH TOKEN
+            const prevReq = error?.config;
+            if (error?.response?.status === 401) {
 
-                return instance(prevReq);
-            } catch (e) {
-                return Promise.reject(e);
+                try {
+                    prevReq.sent = true;
+                    // REFRESH TOKEN
+
+                    return instance(prevReq);
+                } catch (e) {
+                    return Promise.reject(e);
+                }
             }
+            return Promise.reject(error);
         }
-        return Promise.reject(error);
-    }
-);
+    );
+}
 
 
 export const authApi = {
@@ -108,7 +124,27 @@ export const diplomasApi = {
         }
         return instance.get(query);
     },
-    getGraduateDetails(name: string) {
-        return instance.get(`graduate-details?name=${name}`);
+    getGraduateDetails(body: any) {
+        console.log(body.name);
+        if (!body.name) {
+            return;
+        }
+        return instance.get(`graduate-details?name=${body.name}`);
     }
+};
+
+export const generatorApi = {
+    parseDataFromFile(body: { file: File }) {
+        const formData = new FormData();
+        formData.append('file', body.file, body.file.name);
+        formData.append('university_id', "1");
+
+        // Send the file using axios
+        return customInstance.post(`http://127.0.0.1:5000/data/parse`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    },
+
 };

@@ -1,14 +1,9 @@
 import {
-    FETCH_CANCEL_FILTER_SAGA,
-    FETCH_CHECK_IIN_ERROR,
-    FETCH_CHECK_IIN_SAGA,
-    FETCH_CHECK_IIN_SUCCESS,
-    FETCH_DIPLOMAS_SAGA,
-    FETCH_DIPLOMAS_SUCCESS,
-    FETCH_GRADUATES_DETAILS_SAGA,
-    FETCH_GRADUATES_DETAILS_SUCCESS,
-    FETCH_SEARCH_SAGA,
-    FETCH_SEARCH_SUCCESS
+    CANCEL_FILTER,
+    GET_CHECK_IIN,
+    GET_DIPLOMAS,
+    GET_GRADUATE_DETAILS,
+    GET_SEARCH,
 } from "./types/types";
 
 interface DiplomaInterface {
@@ -41,13 +36,13 @@ const initialState: DiplomaInterface = {
 
 const diplomaReducer = (state = initialState, action: any) => {
     switch (action.type) {
-        case FETCH_DIPLOMAS_SAGA:
+        case GET_DIPLOMAS.saga:
             return {
                 ...state,
                 isFetching: true,
                 iinValidated: false
             };
-        case FETCH_DIPLOMAS_SUCCESS:
+        case GET_DIPLOMAS.success:
             let temp_diploma_list = [];
             if (state.filtered_names.length) {
                 temp_diploma_list = action.payload.filter((diploma: any) => state.filtered_names.includes(diploma.name));
@@ -60,31 +55,31 @@ const diplomaReducer = (state = initialState, action: any) => {
                 filtered_names: state.filtered_names,
                 isFetching: false,
             };
-        case FETCH_CHECK_IIN_SAGA:
+        case GET_CHECK_IIN.saga:
             return {
                 ...state,
                 name: action.payload.name,
                 iin: action.payload.iin,
                 iinValidated: false
             };
-        case FETCH_CHECK_IIN_SUCCESS:
+        case GET_CHECK_IIN.success:
             return {
                 ...state,
                 isFetching: false,
                 iinValidated: true
             };
-        case FETCH_CHECK_IIN_ERROR:
+        case GET_CHECK_IIN.error:
             return {
                 ...state,
                 isFetching: false,
                 iinValidated: false
             };
-        case FETCH_CANCEL_FILTER_SAGA:
+        case CANCEL_FILTER.saga:
             return {
                 ...state,
                 filtered_names: []
             };
-        case FETCH_SEARCH_SAGA:
+        case GET_SEARCH.saga:
             return {
                 ...state,
                 iinValidated: false,
@@ -96,17 +91,17 @@ const diplomaReducer = (state = initialState, action: any) => {
                 gpaL: action.payload.gpaL,
                 gpaR: action.payload.gpaR,
             };
-        case FETCH_GRADUATES_DETAILS_SAGA:
+        case GET_GRADUATE_DETAILS.saga:
             return {
                 ...state,
                 name: action.payload.name,
             };
-        case FETCH_GRADUATES_DETAILS_SUCCESS:
+        case GET_GRADUATE_DETAILS.success:
             return {
                 ...state,
                 graduate_attributes: action.data
             };
-        case FETCH_SEARCH_SUCCESS:
+        case GET_SEARCH.success:
             return {
                 ...state,
                 iinValidated: false,

@@ -20,7 +20,6 @@ export const DiplomaPageLayout: React.FC = () => {
 	const handleCardClick = (counter: number) => {
 		navigate(`/app/diploma/${counter}/details`);
 	};
-	console.log(diplomaList);
 	return (
 		<Box display="flex" flexWrap="wrap" justifyContent="center" mx="5rem" gap="0 1rem" pt="2rem">
 			<DiplomaPageHeader />

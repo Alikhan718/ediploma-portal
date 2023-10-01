@@ -18,7 +18,6 @@ let webSocket: any = null;
 export const enableWebSocket = () => {
     try {
         if (webSocket == null) {
-            console.log(123);
             webSocket = new WebSocket('wss://127.0.0.1:13579/');
             webSocket!.onopen = (): void => {
                 console.log("Connection opened");

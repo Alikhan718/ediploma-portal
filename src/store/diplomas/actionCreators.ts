@@ -1,13 +1,14 @@
 import {
-    FETCH_CANCEL_FILTER_SAGA,
-    FETCH_CHECK_IIN_SAGA,
-    FETCH_DIPLOMAS_SAGA,
-    FETCH_GRADUATES_DETAILS_SAGA,
-    FETCH_SEARCH_SAGA
+    CANCEL_FILTER,
+    GET_CHECK_IIN,
+    GET_DIPLOMAS,
+    GET_GRADUATE_DETAILS,
+    GET_SEARCH
 } from "./types/types";
 
-export const fetchDiplomas = () => ({type: FETCH_DIPLOMAS_SAGA});
-export const cancelFilters = () => ({type: FETCH_CANCEL_FILTER_SAGA});
-export const fetchCheckIIN = (payload: any) => ({type: FETCH_CHECK_IIN_SAGA, payload});
-export const fetchSearch = (payload: any) => ({type: FETCH_SEARCH_SAGA, payload});
-export const fetchGraduateDetails = (payload: any) => ({type: FETCH_GRADUATES_DETAILS_SAGA, payload});
+console.log(GET_DIPLOMAS);
+export const fetchDiplomas = () => ({type: GET_DIPLOMAS.saga});
+export const cancelFilters = () => ({type: CANCEL_FILTER.saga});
+export const fetchCheckIIN = (payload: any) => ({type: GET_CHECK_IIN.saga, payload});
+export const fetchSearch = (payload: any) => ({type: GET_SEARCH.saga, payload});
+export const fetchGraduateDetails = (payload: any) => ({type: GET_GRADUATE_DETAILS.saga, payload});

@@ -110,7 +110,6 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     //     const matchesMd = useMediaQuery('(max-width:1180px)');
     //     const matchesSm = useMediaQuery('(max-width:768px)');
     //     const matchesXs = useMediaQuery('(max-width:576px)');
-    //     console.log(1);
     //     if (matchesXs) return "80%";
     //     if (matchesSm) return "60%";
     //     if (matchesMd) return "40%";
@@ -128,7 +127,6 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
             'settingsPage',
             'diploma',
         ];
-        console.log(2);
 
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
@@ -138,7 +136,6 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         return false;
     };
     const checkSideBarRoute = (): boolean => {
-        console.log(3);
 
         const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'settingsPage'];
         for (const item of sidebarEnabledRoutes) {

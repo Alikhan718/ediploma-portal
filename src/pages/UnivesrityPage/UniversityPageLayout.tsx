@@ -53,7 +53,7 @@ export const UniversityPageLayout: React.FC = () => {
 								</Typography>
 								<Box display='flex'>
 									<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
-										4.5 <Rating defaultValue={5} /> (25 отзывов)
+										4.5 <Rating defaultValue={5} disabled/> (25 отзывов)
 									</Typography>
 								</Box>
 								<Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>

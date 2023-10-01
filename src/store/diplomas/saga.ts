@@ -3,19 +3,12 @@ import {getRequestError} from "@src/utils/getRequestError";
 import {all, call, put, takeLatest} from "redux-saga/effects";
 import {setSnackbar} from "../generals/actionCreators";
 import {
-    FETCH_CHECK_IIN_SAGA,
-    FETCH_CHECK_IIN_SUCCESS,
-    FETCH_DIPLOMAS_ERROR,
-    FETCH_DIPLOMAS_SAGA,
-    FETCH_DIPLOMAS_SUCCESS,
-    FETCH_GRADUATES_DETAILS_ERROR,
-    FETCH_GRADUATES_DETAILS_SAGA,
-    FETCH_GRADUATES_DETAILS_SUCCESS,
-    FETCH_SEARCH_ERROR,
-    FETCH_SEARCH_SAGA,
-    FETCH_SEARCH_SUCCESS,
-    UPDATE_ATTRIBUTE_GROUP_ERROR
+    GET_CHECK_IIN,
+    GET_DIPLOMAS,
+    GET_GRADUATE_DETAILS,
+    GET_SEARCH,
 } from "./types/types";
+import {handleResponseBase} from "@src/store/sagas";
 
 export function* fetchContractRequest() {
     try {
@@ -39,32 +32,27 @@ export function* fetchContractRequest() {
 
             newData.push(dict);
         });
-        yield put({type: FETCH_DIPLOMAS_SUCCESS, payload: newData});
+        yield put({type: GET_DIPLOMAS.success, payload: newData});
 
 
     } catch (e) {
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
-        yield put({type: UPDATE_ATTRIBUTE_GROUP_ERROR});
+        yield put({type: GET_DIPLOMAS.error});
     }
 }
 
 export function* fetchCheckIINRequest(action: any) {
-    try {
-        const {data} = yield call(diplomasApi.checkIIN, action.payload);
-        if (data) {
-            yield put({type: FETCH_CHECK_IIN_SUCCESS, data});
-            yield put(setSnackbar({visible: true, message: "ИИН подтвержден", status: "success"}));
-        } else {
-            yield put(setSnackbar({visible: true, message: "Неправильно введен ИИН!", status: "error"}));
-        }
-
-    } catch (e) {
-        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
-        yield put({type: FETCH_DIPLOMAS_ERROR});
-    }
+    yield call(handleResponseBase, {
+        type: GET_CHECK_IIN,
+        apiCall: diplomasApi.checkIIN,
+        action:action,
+        successMessage: "ИИН подтвержден",
+        errorMessage: "Неправильно введен ИИН!",
+    });
 }
 
 export function* fetchSearchRequest(action: any) {
+
     try {
         if (!action.payload
             && !action.payload.text
@@ -75,13 +63,13 @@ export function* fetchSearchRequest(action: any) {
             return;
         }
         const {data} = yield call(diplomasApi.search, action.payload);
-        yield put({type: FETCH_DIPLOMAS_SAGA});
+        yield put({type: GET_DIPLOMAS.saga});
         let names = <any>[];
         data.forEach((person: any) => {
             names.push(person.fullnameeng);
         });
 
-        yield put({type: FETCH_SEARCH_SUCCESS, names});
+        yield put({type: GET_SEARCH.success, names});
         if (names.length === 0) {
             yield put(setSnackbar({visible: true, message: "Ничего не найдено", status: "info"}));
         } else {
@@ -91,30 +79,24 @@ export function* fetchSearchRequest(action: any) {
 
     } catch (e) {
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
-        yield put({type: FETCH_SEARCH_ERROR});
+        yield put({type: GET_SEARCH.error});
     }
 }
 
 export function* fetchGraduateDetailsRequest(action: any) {
-    try {
-        if (!action.payload || !action.payload.name) {
-            return;
-        }
-        const {data} = yield call(diplomasApi.getGraduateDetails, action.payload.name);
-        yield put({type: FETCH_GRADUATES_DETAILS_SUCCESS, data});
-
-    } catch (e) {
-        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
-        yield put({type: FETCH_GRADUATES_DETAILS_ERROR});
-    }
+    yield call(handleResponseBase, {
+        type: GET_GRADUATE_DETAILS,
+        apiCall: diplomasApi.getGraduateDetails,
+        action:action,
+    });
 }
 
 
 export function* diplomaSaga() {
     yield all([
-        takeLatest(FETCH_DIPLOMAS_SAGA, fetchContractRequest),
-        takeLatest(FETCH_CHECK_IIN_SAGA, fetchCheckIINRequest),
-        takeLatest(FETCH_SEARCH_SAGA, fetchSearchRequest),
-        takeLatest(FETCH_GRADUATES_DETAILS_SAGA, fetchGraduateDetailsRequest),
+        takeLatest(GET_DIPLOMAS.saga, fetchContractRequest),
+        takeLatest(GET_CHECK_IIN.saga, fetchCheckIINRequest),
+        takeLatest(GET_SEARCH.saga, fetchSearchRequest),
+        takeLatest(GET_GRADUATE_DETAILS.saga, fetchGraduateDetailsRequest),
     ]);
 }
