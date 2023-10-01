@@ -146,19 +146,25 @@ export const DiplomaPageHeader: React.FC = (props) => {
 							</Box>
 							<Box sx={{ marginLeft: '200px', }}></Box>
 							<Button
-								className={styles.popupButton} 
-								buttonSize="m"
-								variant="contained"
-								sx={{
-									padding: '16px 32px',
-									borderRadius: '48px',
-									margin: '4px'
-								}}
-								type="button"
-								onClick={()=>{setShowPopup(true)}}
-							>Hiring AI
-							<SearchIcon style={{ filter: 'brightness(250%) contrast(101%)', width: '54px', marginLeft: '6px' }} />
-							</Button>
+                                 className={styles.popupButton}
+                                 buttonSize="m"
+                                 variant="contained"
+                                 sx={{
+                                     paddingX: '3rem',
+                                     paddingY: '1.8rem',
+                                     borderRadius: '48px',
+                                     margin: '4px'
+                                 }}
+                                 type="button"
+                                 onClick={() => {
+                                     setShowPopup(true);
+                                 }}
+                                 endIcon={<SearchIcon style={{
+                                     filter: 'brightness(250%) contrast(101%)',
+                                 }}/>}
+                             >
+                                 AI Hiring
+                             </Button>
 						</Box>
 						<Box>	<img src={univ} style={{ marginRight: '15px' }} />
 							<img src={univ} style={{ marginRight: '5px' }} /></Box>
