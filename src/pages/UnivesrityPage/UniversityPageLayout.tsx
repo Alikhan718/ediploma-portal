@@ -15,12 +15,12 @@ import styles from "./UniversityPage.module.css";
 
 export const UniversityPageLayout: React.FC = () => {
 	const navigate = useNavigate();
-
+	const defaultS = 4;
 	return (
 		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' pt='2rem'>
 			<UniversityPageHeader />
 			<Box display='flex' flexWrap='wrap' justifyContent='space-between' className={styles.universitiesContainer} gap='0 1rem' width='100%'>
-				{Array.from({ length: 7 }).map((_, index) => (
+				{Array.from({ length: 8 }).map((_, index) => (
 					<Card
 						key={index}
 						onClick={() => {
@@ -28,7 +28,7 @@ export const UniversityPageLayout: React.FC = () => {
 						}}
 						sx={{
 							display: 'flex',
-							width: "32%",
+							width: "24%",
 							flexDirection: 'column',
 							alignItems: 'center',
 							cursor: "pointer",
@@ -47,13 +47,18 @@ export const UniversityPageLayout: React.FC = () => {
 							alt="University Image"
 						/>
 						<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-							<CardContent sx={{ flex: '1 0 auto' }}>
-								<Typography mb='.5rem' fontSize="1.4rem" fontWeight="600" p="">
+							<CardContent sx={{ flex: '0 0 auto' }}>
+								<Typography mb='.5rem' fontSize="1.3rem" fontWeight="600" p="">
 									{index % 2 === 0 ? "Казахстанско-Британский Технический Университет" : "Назарбаев Университет (НУ)"}
 								</Typography>
 								<Box display='flex'>
 									<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
-										4.5 <Rating defaultValue={5} /> (25 отзывов)
+										4.5 <Rating
+											name="text-feedback"
+											value={defaultS}
+											readOnly
+											emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+										/> (25 отзывов)
 									</Typography>
 								</Box>
 								<Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>

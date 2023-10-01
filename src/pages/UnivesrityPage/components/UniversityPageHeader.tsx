@@ -11,6 +11,7 @@ import { fetchSearch } from "@src/store/diplomas/actionCreators";
 import { routes } from "@src/shared/routes";
 import ReactGA from 'react-ga';
 import univ from './../../../assets/icons/FilterUn.svg';
+import secuniv from './../../../assets/icons/Icons.svg';
 import { selectSearchText } from "@src/store/diplomas/selectors";
 import { FilterAttributes } from "@src/layout/Header/Header";
 export const UniversityPageHeader: React.FC = (props) => {
@@ -58,9 +59,10 @@ export const UniversityPageHeader: React.FC = (props) => {
 										placeholder="Фамилия Имя, название вуза"
 										fullWidth={true}
 										inputSize="m"
+										className={styles.responsiveInput}
 										sx={{
 											paddingRight: 0,
-											width: '150%',
+											width: '500px'
 										}}
 										endAdornment={
 											<Button
@@ -94,8 +96,8 @@ export const UniversityPageHeader: React.FC = (props) => {
 								</Box>
 
 							</Box>
-							<Box>	<img src={univ} style={{ marginRight: '15px' }} />
-								<img src={univ} style={{ marginRight: '5px' }} /></Box>
+							<Box>	<img src={secuniv} style={{ marginRight: '15px' }} />
+								<img src={univ} style={{ marginRight: '5px', marginBottom: '5px' }} /></Box>
 						</Box>
 
 					</Box>

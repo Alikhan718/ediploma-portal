@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ReactComponent as SearchIcon } from '@src/assets/icons/search-icon.svg';
-import { Box, Card, CardContent, CardMedia, TextField, Button, Divider, MenuItem, Select, SelectChangeEvent, Typography, useMediaQuery, Pagination, Stack, PaginationItem } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, TextField, Button, Rating, Divider, MenuItem, Select, SelectChangeEvent, Typography, useMediaQuery, Pagination, Stack, PaginationItem } from '@mui/material';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
@@ -35,8 +35,8 @@ import { GenderGraph } from './components/GenderGraph';
 import { CitiesGrantsGraph } from './components/CitiesGrantsGraph';
 import { GrantsGraph } from './components/GrantsGraph';
 import { selectUserRole } from '@src/store/auth/selector';
+import StarIcon from '@mui/icons-material/Star';
 
-import Rating from '@mui/material/Rating';
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -114,7 +114,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 	useEffect(() => {
 		dispatch(fetchDiplomas());
 	}, []);
-
+	const defaultS = 3.5;
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#FAFBFF' }}>
 			{/*<Box sx={{ width: '300px' }}>Sidebar</Box>*/}
@@ -181,7 +181,12 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 
 								{/* Star ratings */}
 								<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
-									4.5 <Rating defaultValue={5} /> (25 отзывов)
+									4.5 <Rating
+										name="text-feedback"
+										value={defaultS}
+										readOnly
+										emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+									/> (25 отзывов)
 								</Typography>
 							</Box>
 

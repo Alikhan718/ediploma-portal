@@ -26,6 +26,11 @@ const AddingGraduates: React.FC = () => {
 	const goForward = () => {
 		if (currentStep < steps.length - 1) {
 			setProgress(currentStep + 1);
+			if ((currentStep === 0 && file) || currentStep > 0) {
+				setProgress(currentStep + 1);
+			} else {
+				console.log("error")
+			}
 		}
 	};
 
@@ -110,7 +115,16 @@ const AddingGraduates: React.FC = () => {
 							</IconButton>
 						)}
 						{currentStep < steps.length - 1 && (
-							<IconButton onClick={goForward} color="primary" sx={{ marginRight: '50px', marginTop: '10px', marginBottom: '-70px' }}>
+							<IconButton
+								onClick={() => {
+									if (currentStep === 0 && !file) {
+									} else {
+										goForward();
+									}
+								}}
+								color="primary"
+								sx={{ marginRight: '50px', marginTop: '10px', marginBottom: '-70px' }}
+							>
 								<ArrowForwardIcon />
 							</IconButton>
 						)}
