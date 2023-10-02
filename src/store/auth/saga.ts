@@ -7,7 +7,7 @@ import {
     GET_OTP,
     POST_RESET_PASSWORD,
     POST_VALIDATE_EMAIL,
-    POST_AUTH_WITH_DS
+    POST_AUTH_WITH_DS, POST_SAVE_XML
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
@@ -24,6 +24,16 @@ export function* fetchAuthLogin(action: any) {
             apiCall: authApi.login,
             action,
             successMessage: "Добро пожаловать",
+        }
+    );
+}
+
+export function* fetchSaveXml(action: any) {
+    yield call(handleResponseBase, {
+            type: POST_SAVE_XML,
+            apiCall: authApi.saveXml,
+            action,
+            successMessage: "Успешно",
         }
     );
 }
@@ -109,4 +119,5 @@ export function* authSagas() {
     yield takeLatest(POST_VALIDATE_EMAIL.saga, fetchValidateEmail);
     yield takeLatest(POST_RESET_PASSWORD.saga, fetchResetPassword);
     yield takeLatest(GET_OTP.saga, fetchGetOtp);
+    yield takeLatest(POST_SAVE_XML.saga, fetchSaveXml);
 }

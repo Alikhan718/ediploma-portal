@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {data} from "browserslist";
 
-const per_page = process.env.REACT_APP_ORDERS_PER_PAGE;
 const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 const generatorURL = process.env.REACT_APP_GENERATOR_API_BASE_URL;
 
@@ -77,6 +76,9 @@ export const authApi = {
     getOtp(body: { email: string }) {
         return instance.post(`/otp/send`, body);
     },
+    saveXml(body: { xml: string }) {
+        return instance.post(`/users/sign-xml-with-ds`, body);
+    },
 };
 
 
@@ -140,7 +142,7 @@ export const generatorApi = {
         formData.append('university_id', "1");
 
         // Send the file using axios
-        return customInstance.post(`http://127.0.0.1:5000/data/parse`, formData, {
+        return customInstance.post(`${generatorURL}/data/parse`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

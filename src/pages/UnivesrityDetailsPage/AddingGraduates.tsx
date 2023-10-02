@@ -13,6 +13,9 @@ import {uploadDataParse} from "@src/store/generator/actionCreators";
 import {selectArchiveLink} from "@src/store/generator/selectors";
 import {routes} from "@src/shared/routes";
 import {useNavigate} from "react-router-dom";
+import * as NcaLayer from '@src/utils/functions';
+import {fetchSaveXmlRequest} from "@src/store/auth/actionCreators";
+import {isAuthenticated} from "@src/utils/userAuth";
 
 const AddingGraduates: React.FC = () => {
     const [progress, setProgress] = useState(0);
@@ -24,7 +27,7 @@ const AddingGraduates: React.FC = () => {
     const navigate = useNavigate();
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-
+        NcaLayer.enableWebSocket();
         const uploadedFile = event.target.files?.[0] || null;
         dispatch(uploadDataParse({file: uploadedFile}));
         setFile(uploadedFile);
@@ -48,7 +51,22 @@ const AddingGraduates: React.FC = () => {
             fileInputRef.current.click();
         }
     };
-
+    const signXmlWithDS = (res: any) => {
+        if (res['code'] === "500") {
+            alert(res['message']);
+        } else if (res['code'] === "200") {
+            res = res['responseObject'];
+            console.log(res);
+            dispatch(fetchSaveXmlRequest({xml: res}));
+            setTimeout(() => {
+                const urlElements = window.location.href.split('/');
+                console.log("SUCCESS DS");
+            }, 2000);
+        }
+    };
+    const ncaLayerXml = () => {
+        NcaLayer.signXml(1, signXmlWithDS);
+    };
     const steps = ["Загрузите Excel файл", "Проверьте данные на корректность", "Подписать с ЭЦП", "Результаты генерации"];
     const currentStep = progress;
 
@@ -317,7 +335,7 @@ const AddingGraduates: React.FC = () => {
 
                             <Button variant="contained" color="primary"
                                     sx={{marginTop: 2, borderRadius: '15px'}}
-                                    onClick={() => goForward()}> Подписать</Button>
+                                    onClick={() => {ncaLayerXml()}}> Подписать</Button>
                         </Box>
                     )
                     }

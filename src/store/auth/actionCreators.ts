@@ -5,7 +5,7 @@ import {
     POST_AUTH_LOGIN,
     POST_AUTH_VALIDATE_EMAIL,
     POST_AUTH_WITH_DS,
-    POST_VALIDATE_EMAIL
+    POST_VALIDATE_EMAIL, POST_SAVE_XML
 } from "./types/actionTypes";
 
 export const fetchLoginRequest = (payload: any) => ({
@@ -15,6 +15,11 @@ export const fetchLoginRequest = (payload: any) => ({
 
 export const fetchAuthDSRequest = (payload: any) => ({
     type: POST_AUTH_WITH_DS.saga,
+    payload
+});
+
+export const fetchSaveXmlRequest = (payload: any) => ({
+    type: POST_SAVE_XML.saga,
     payload
 });
 

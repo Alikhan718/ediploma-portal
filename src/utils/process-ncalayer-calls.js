@@ -111,17 +111,7 @@ function signXmlsBack(result) {
     }
 }
 
-function createCAdESFromFileCall() {
-    let selectedStorage = $('#storageSelect').val();
-    let flag = $("#flag").is(':checked');
-    let filePath = $("#filePath").val();
-    if (filePath !== null && filePath !== "") {
-        blockScreen();
-        createCAdESFromFile(selectedStorage, "SIGNATURE", filePath, flag, "createCAdESFromFileBack");
-    } else {
-        alert("Не выбран файл для подписи!");
-    }
-}
+
 
 function createCAdESFromFileBack(result) {
     unblockScreen();

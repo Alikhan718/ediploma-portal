@@ -69,6 +69,44 @@ export const enableWebSocket = () => {
 
 let callback: any = null;
 
+export const signXml = (university_id: number, callBackFunc: any) => {
+    try {
+        let xmlToSign =
+            `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <Signature>
+                <SignedData>
+                    <FilePath>
+                        http://generator.ediploma.kz/get-file/jsons/1/fullMetadata.json
+                    </FilePath>
+                    <UniversityName>${university_id}</UniversityName>
+                </SignedData>
+            </Signature>`;
+        const signXml = {
+            "module": "kz.gov.pki.knca.commonUtils",
+            "method": "signXml",
+            "args": ['PKCS12', "SIGNATURE", xmlToSign, "", ""]
+        };
+        callback = callBackFunc;
+        webSocket.send(JSON.stringify(signXml));
+    } catch (e) {
+
+        alert("NcaLayer не найден");
+    }
+};
+export const createCAdESFromFile = (university_id: number, callBackFunc: any): any => {
+    try {
+        var createCAdESFromFile = {
+            "module": "kz.gov.pki.knca.commonUtils",
+            "method": "createCAdESFromFile",
+            "args": ['PKCS12', "SIGNATURE", `http://generator.ediploma.kz/get-file/jsons/${university_id}/fullMetadata.json`, true]
+        };
+        callback = callBackFunc;
+        return webSocket.send(JSON.stringify(createCAdESFromFile));
+    } catch (e) {
+
+        alert("NcaLayer не найден");
+    }
+};
 
 export const getKeyInfo = (callBackFunc: any): any => {
     try {
@@ -79,8 +117,7 @@ export const getKeyInfo = (callBackFunc: any): any => {
         };
         callback = callBackFunc;
         return webSocket.send(JSON.stringify(getKeyInfo));
-    }
-    catch (e) {
-        console.log("Ncalayer not found");
+    } catch (e) {
+        alert("NcaLayer не найден");
     }
 };

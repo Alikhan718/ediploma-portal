@@ -109,15 +109,7 @@ function signXmls(storageName, keyType, xmlsToSign, callBack) {
     webSocket.send(JSON.stringify(signXmls));
 }
 
-function createCAdESFromFile(storageName, keyType, filePath, flag, callBack) {
-    var createCAdESFromFile = {
-        "module": "kz.gov.pki.knca.commonUtils",
-        "method": "createCAdESFromFile",
-        "args": [storageName, keyType, filePath, flag]
-    };
-    callback = callBack;
-    webSocket.send(JSON.stringify(createCAdESFromFile));
-}
+
 
 function createCAdESFromBase64(storageName, keyType, base64ToSign, flag, callBack) {
     var createCAdESFromBase64 = {

@@ -5,13 +5,14 @@ import {
     POST_AUTH_WITH_DS,
     GET_OTP,
     POST_RESET_PASSWORD,
-    POST_VALIDATE_EMAIL, AUTH_LOGOUT
+    POST_VALIDATE_EMAIL, AUTH_LOGOUT, POST_SAVE_XML
 } from "./types/actionTypes";
 
 const initialState = {
     userRole: "Guest",
     otpSent: false,
     isLoading: false,
+    signed: false,
     redirectToLogin: false,
     forgotStep: 1, // [1 - send code, 2 - confirm code, 3 - change pass]
     registrationStep: 1, // [1 - send code, 2 - email validated, 3 - registered]
@@ -156,6 +157,21 @@ export const authReducer = (state = initialState, action: any) => {
                 isLoading: false,
                 otpSent: false,
                 registrationStep: 1
+            };
+        case POST_SAVE_XML.saga:
+            return {
+                ...state,
+                xml: action.payload,
+            };
+        case POST_SAVE_XML.success:
+            return {
+                ...state,
+                signed: true,
+            };
+        case POST_SAVE_XML.error:
+            return {
+                ...state,
+                signed: false,
             };
         default:
             return state;
