@@ -19,13 +19,14 @@ export function* fetchAuthLogout() {
 }
 
 export function* fetchAuthLogin(action: any) {
-    yield call(handleResponseBase, {
-            type: POST_AUTH_LOGIN,
-            apiCall: authApi.login,
-            action,
-            successMessage: "Добро пожаловать",
-        }
-    );
+    try {
+        const {data} = yield call(authApi.login, action.payload);
+        yield put({type: POST_AUTH_LOGIN.success, payload: data});
+        yield put(setSnackbar({visible: true, message: "Добро пожаловать", status: "success"}));
+    } catch (e: any) { 
+        yield put({type: POST_AUTH_REGISTER.error});
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+    }
 }
 
 export function* fetchSaveXml(action: any) {
