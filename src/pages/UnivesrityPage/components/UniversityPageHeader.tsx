@@ -49,12 +49,20 @@ export const UniversityPageHeader: React.FC = (props) => {
 						alignItems="start"
 						className={styles.diplomasContainer}>
 						<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', }}>
-							<Box display="flex" alignItems="center"  >
+							<Box display="flex" alignItems="center" sx={{
+								'@media (max-width: 778px)': {
+									display: 'flex', flexDirection: 'column'
+								},
+							}} >
 								<Button variant="outlined" sx={{ borderRadius: '48px', width: '30%', color: '#3B82F6', }}>
 									<Filter style={{ marginRight: '10px', }} />
 									Фильтр
 								</Button>
-								<Box sx={{ marginLeft: '55px', }}>
+								<Box sx={{
+									marginLeft: '55px', '@media (max-width: 778px)': {
+										marginLeft: '0.4rem',
+									},
+								}}>
 									<Input
 										placeholder="Фамилия Имя, название вуза"
 										fullWidth={true}
@@ -96,7 +104,9 @@ export const UniversityPageHeader: React.FC = (props) => {
 								</Box>
 
 							</Box>
-							<Box>	<img src={secuniv} style={{ marginRight: '15px' }} />
+							<Box>	<img src={secuniv} style={{
+								marginRight: '15px',
+							}} />
 								<img src={univ} style={{ marginRight: '5px', marginBottom: '5px' }} /></Box>
 						</Box>
 
