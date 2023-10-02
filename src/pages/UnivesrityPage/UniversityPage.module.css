@@ -1,73 +1,75 @@
 .active {
 
-    border: black 1px;
+	border: black 1px;
 }
 
 .link {
-    display: block;
-    color: gray;
+	display: block;
+	color: gray;
 }
 
 .link:hover {
-    cursor: pointer;
-    color: black;
-    border: black 5px !important;
+	cursor: pointer;
+	color: black;
+	border: black 5px !important;
 }
 
 .universitiesContainer {
-    padding: 0 4rem;
+	padding: 0 4rem;
 }
 
-@media only screen and (max-width: 1080px) {
-    .accessModal {
-        width: 95% !important;
-    }
 
-    .universityItem {
-        width: 100% !important;
-    }
+@media only screen and (max-width: 1080px) {
+	.accessModal {
+		width: 95% !important;
+	}
+
+	.universityItem {
+		width: 100% !important;
+	}
 }
 
 @media only screen and (max-width: 768px) {
-    .universityImg {
-        width: 100% !important;
-    }
+	.universityImg {
+		width: 100% !important;
+	}
 
-    .mobText {
-        font-size: 1rem !important;
-    }
 
-    .mobMb1 {
-        margin-bottom: 1rem !important;
-    }
+	.mobText {
+		font-size: 1rem !important;
+	}
 
-    .mobTextL {
-        font-size: 1.5rem !important;
-    }
+	.mobMb1 {
+		margin-bottom: 1rem !important;
+	}
 
-    .mobTextSm {
-        font-size: .8rem !important;
-    }
+	.mobTextL {
+		font-size: 1.5rem !important;
+	}
 
-    .mobPl2 {
-        padding-left: 2rem;
-    }
+	.mobTextSm {
+		font-size: .8rem !important;
+	}
 
-    .mobPl1 {
-        padding-left: 1rem;
-    }
+	.mobPl2 {
+		padding-left: 2rem;
+	}
 
-    .universitiesContainer {
-        padding: 0 2rem;
-    }
+	.mobPl1 {
+		padding-left: 1rem;
+	}
 
-    .accessModal {
-        width: 95% !important;
-    }
+	.universitiesContainer {
+		padding: 0 2rem;
+	}
 
-    .universityItem {
-        width: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
-    }
+	.accessModal {
+		width: 95% !important;
+	}
+
+	.universityItem {
+		width: 100% !important;
+		display: flex !important;
+		flex-direction: column !important;
+	}
 }

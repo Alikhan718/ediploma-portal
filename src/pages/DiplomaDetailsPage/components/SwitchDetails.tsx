@@ -3,168 +3,172 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import {Chip, Link, useMediaQuery} from "@mui/material";
-import {ReactComponent as SingleCheck} from "@src/assets/icons/single check.svg";
+import { Chip, Link, useMediaQuery } from "@mui/material";
+import { ReactComponent as SingleCheck } from "@src/assets/icons/single check.svg";
 import SmartContractIcon from "@src/assets/icons/contractIcon.png";
-import {ReactComponent as EtherScanIcon} from "@src/assets/icons/Etherscan.svg";
+import { ReactComponent as EtherScanIcon } from "@src/assets/icons/Etherscan.svg";
 import styles from "../DiplomaDetailsPage.module.css";
 import cn from "classnames";
-import {useDispatch, useSelector} from "react-redux";
-import {selectGraduateAttributes} from "@src/store/diplomas/selectors";
-import {isAuthenticated} from "@src/utils/userAuth";
-import {Button, Modal} from "@src/components";
+import { useDispatch, useSelector } from "react-redux";
+import { selectGraduateAttributes } from "@src/store/diplomas/selectors";
+import { isAuthenticated } from "@src/utils/userAuth";
+import { Button, Modal } from "@src/components";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
-import {routes} from "@src/shared/routes";
-import {useNavigate} from "react-router-dom";
+import { routes } from "@src/shared/routes";
+import { useNavigate } from "react-router-dom";
 
 interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
+	children?: React.ReactNode;
+	index: number;
+	value: number;
 }
 
 function TabPanel(props: TabPanelProps) {
-    const {children, value, index, ...other} = props;
+	const { children, value, index, ...other } = props;
 
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{p: 3}}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
+	return (
+		<div
+			role="tabpanel"
+			hidden={value !== index}
+			id={`simple-tabpanel-${index}`}
+			aria-labelledby={`simple-tab-${index}`}
+			{...other}
+		>
+			{value === index && (
+				<Box sx={{}}>
+					<Typography>{children}</Typography>
+				</Box>
+			)}
+		</div>
+	);
 }
 
 function a11yProps(index: number) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
+	return {
+		id: `simple-tab-${index}`,
+		'aria-controls': `simple-tabpanel-${index}`,
+	};
 }
 
 export const SwitchDetails: React.FC = () => {
-    const [value, setValue] = React.useState(0);
-    const [openModal, setOpenModal] = React.useState(false);
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        if (newValue == 1 && !isAuthenticated()) {
-            setOpenModal(true);
-        } else {
-            setValue(newValue);
-        }
-    };
-    const graduateAttributes = useSelector(selectGraduateAttributes);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const getQueryWidth = () => {
-        const matchesLg = useMediaQuery('(min-width:1200px)');
-        const matchesMd = useMediaQuery('(max-width:1180px)');
-        const matchesSm = useMediaQuery('(max-width:768px)');
-        const matchesXs = useMediaQuery('(max-width:576px)');
-        if (matchesXs) return "80%";
-        if (matchesSm) return "60%";
-        if (matchesMd) return "40%";
-        if (matchesLg) return "25%";
-    };
-    return (
+	const [value, setValue] = React.useState(0);
+	const [openModal, setOpenModal] = React.useState(false);
+	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+		if (newValue == 1 && !isAuthenticated()) {
+			setOpenModal(true);
+		} else {
+			setValue(newValue);
+		}
+	};
+	const graduateAttributes = useSelector(selectGraduateAttributes);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const getQueryWidth = () => {
+		const matchesLg = useMediaQuery('(min-width:1200px)');
+		const matchesMd = useMediaQuery('(max-width:1180px)');
+		const matchesSm = useMediaQuery('(max-width:768px)');
+		const matchesXs = useMediaQuery('(max-width:576px)');
+		if (matchesXs) return "80%";
+		if (matchesSm) return "60%";
+		if (matchesMd) return "40%";
+		if (matchesLg) return "25%";
+	};
+	return (
 
-        <Box sx={{width: '100%'}}>
-            <Modal
-                open={openModal}
-                handleClose={() => setOpenModal(false)}
-                maxWidth={getQueryWidth()}
-                width={getQueryWidth()}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+		<Box sx={{ width: '100%', marginRight: '30px' }}>
+			<Modal
+				open={openModal}
+				handleClose={() => setOpenModal(false)}
+				maxWidth={getQueryWidth()}
+				width={getQueryWidth()}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
 
-                    <img src={NeedAuthorizationPic} alt=""/>
-                    <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
-                                fontWeight='600'
-                                variant="h6"
-                                component="h2">
-                        Для использования требуется авторизация
-                    </Typography>
-                    <Button variant='contained' sx={{
-                        marginTop: "1rem",
-                        padding: "1rem",
-                        width: "80%",
-                        fontSize: "1rem",
-                        fontWeight: "600",
-                        borderRadius: "2rem"
-                    }} onClick={() => {
-                        navigate(routes.login);
-                    }}>Авторизоваться</Button>
-                </Box>
-            </Modal>
-            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Проверка" {...a11yProps(0)} />
-                    <Tab label="Данные" {...a11yProps(1)} />
-                </Tabs>
-            </Box>
-            <TabPanel value={value} index={0}>
-                <Box display='flex' mb="1rem">
-                    <Typography className={styles.textMd} fontWeight='700' fontSize={"1.5rem"}>
-                        Статус:
-                    </Typography>
-                    <Chip color="success" style={{marginLeft: "1rem"}}
-                          className={cn(styles.MobMt0, styles.mt02)}
-                          icon={<SingleCheck style={{marginLeft: ".5rem"}}/>}
-                          label={<Typography className={cn(styles.textMd)}
-                                             sx={{marginRight: ".5rem"}}>Подтвержден</Typography>} variant="outlined"/>
-                </Box>
-                <Box display='flex' flexDirection="column">
-                    <Typography className={styles.textMd} fontWeight='700' fontSize={"1.25rem"}>
-                        Выпустил диплом:
-                    </Typography>
-                    <Typography className={styles.textMd} fontSize={"1.25rem"}>
-                        Kazakh British technical University
-                    </Typography>
-                </Box>
+					<img src={NeedAuthorizationPic} alt="" />
+					<Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
+						fontWeight='600'
+						variant="h6"
+						component="h2">
+						Для использования требуется авторизация
+					</Typography>
+					<Button variant='contained' sx={{
+						marginTop: "1rem",
+						padding: "1rem",
+						width: "80%",
+						fontSize: "1rem",
+						fontWeight: "600",
+						borderRadius: "2rem"
+					}} onClick={() => {
+						navigate(routes.login);
+					}}>Авторизоваться</Button>
+				</Box>
+			</Modal>
+			<Box display="flex" flex="row" p=".275rem " style={{ backgroundColor: "#F8F8F8", borderRadius: "3rem" }}>
+				<Button fullWidth={true} variant={value === 0 ? "contained" : "outlined"}
+					color={value === 0 ? "primary" : "secondary"} borderRadius="3rem" onClick={(e) => handleChange(e, 0)}>
+					Проверка
+				</Button>
+				<Button fullWidth={true} color={value === 1 ? "primary" : "secondary"}
+					variant={value === 1 ? "contained" : "outlined"} borderRadius="3rem" onClick={(e) => handleChange(e, 1)}>
+					Данные
+				</Button>
+			</Box>
+			{/* <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+					<Tab label="Проверка" {...a11yProps(0)} />
+					<Tab label="Данные" {...a11yProps(1)} />
+				</Tabs> */}
+			<TabPanel value={value} index={0}>
+				<Box display='flex' flexDirection="column" mb="1rem" mt="1rem">
+					<Typography className={styles.textMd} fontWeight='700' fontSize={"1.5rem"} mb="1rem">
+						Статус:
+					</Typography>
+					<Chip style={{ width: '35%', backgroundColor: '#E9F9EF' }}
+						className={cn(styles.MobMt0, styles.mt02)}
+						icon={<SingleCheck style={{ marginLeft: ".5rem", color: '#22C55E' }} />}
+						label={<Typography className={cn(styles.textMd)}
+							sx={{ marginRight: ".5rem", color: '#22C55E' }}>Подтвержден</Typography>} variant="outlined" />
+				</Box>
 
-                <Box display='flex' flexDirection="column" mt='2rem'>
-                    <Link href={'https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7'}
-                          sx={{textDecoration: "none"}} target={'_blank'}>
-                        <Box display='flex'>
-                            <Box display='flex' mr='.7rem' justifyContent='center' width='2.3rem'>
-                                <EtherScanIcon className={cn(styles.mobPb1)}/>
-                            </Box>
-                            <Typography className={styles.textMd} fontWeight='600' color='gray' fontSize={"1.5rem"}>
-                                Посмотреть на EtherScan
-                            </Typography>
-                        </Box>
-                    </Link>
-                    <Link href={'https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7#code'}
-                          sx={{textDecoration: "none"}} target={'_blank'}>
-                        <Box display='flex' mt='.5rem'>
-                            <Box display='flex' mr='.7rem' justifyContent='center' width='2.3rem'>
-                                <img className={styles.iconSm} src={SmartContractIcon}/>
-                            </Box>
-                            <Typography className={styles.textMd} fontWeight='600' color='gray' fontSize={"1.5rem"}>
-                                Посмотреть на Smart Contract
-                            </Typography>
-                        </Box>
-                    </Link>
-                </Box>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
-                    {graduateAttributes ? graduateAttributes.map((data: any) =>
-                        <Chip size='medium' key={data.label_en} label={data.label_ru + ": " + data.value}
-                              variant={'outlined'}
-                              sx={{borderColor: "#0A66C2", color: "#0A66C2", padding: "1.5rem .5rem"}}></Chip>
-                    ) : null}
-                </Box>
-            </TabPanel>
-        </Box>
-    );
+
+				<Box display='flex' flexDirection="column" mt='1rem'>
+					<Link href={'https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7'}
+						sx={{ textDecoration: "none" }} target={'_blank'}>
+						<Box display='flex'>
+							<Typography className={styles.textMd} fontWeight='600' mb="1rem" color='black' fontSize={"1rem"}>
+								Посмотреть на EtherScan
+							</Typography>
+						</Box>
+					</Link>
+					<Link href={'https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7#code'}
+						sx={{ textDecoration: "none" }} target={'_blank'} mt='0.2rem'>
+						<Box display='flex'>
+							<Typography className={styles.textMd} fontWeight='600' color='black' fontSize={"1rem"}>
+								Посмотреть на Smart Contract
+							</Typography>
+						</Box>
+					</Link>
+				</Box>
+			</TabPanel >
+			<TabPanel value={value} index={1}>
+				<Box mt="1rem" >
+					{graduateAttributes
+						? graduateAttributes.map((data: any) => (
+							<Typography
+								key={data.label_en}
+								sx={{
+									marginBottom: "1rem",
+									display: "block",
+								}}
+							>
+								<span style={{ color: "#818181", fontSize: "16px" }}>{data.label_ru}:</span>{" "}
+								<span style={{ fontWeight: '600', fontSize: "16px" }}>{data.value}:</span>{" "}
+							</Typography>
+						))
+						: null}
+				</Box>
+			</TabPanel>
+		</Box >
+	);
 }

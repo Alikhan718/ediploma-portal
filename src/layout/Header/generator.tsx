@@ -20,7 +20,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
 		name: 'Dashboard',
 		to: routes.universityDetails,
 		role: "*",
-		icon: <DiplomaIcon style={{verticalAlign: "middle"}} />,
+		icon: <DiplomaIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: "bottom",
 	},
 	{
@@ -28,7 +28,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
 		name: 'Аналитика',
 		to: routes.notifications,
 		role: "*",
-		icon: <MainPageIcon style={{verticalAlign: "middle"}} />,
+		icon: <MainPageIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: "middle",
 	},
 	{
@@ -36,7 +36,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
 		name: 'Выпустить дипломы',
 		to: routes.addingGraduates,
 		role: '*',
-		icon: <UniversityIcon style={{verticalAlign: "middle"}} />,
+		icon: <UniversityIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: '',
 	},
 	// {

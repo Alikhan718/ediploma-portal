@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectDiplomaList } from "@src/store/diplomas/selectors";
 import styles from "./DiplomaPage.module.css";
 import diplomaTemplate from "@src/assets/example/diploma_template.jpg";
-import {extractYearFromHumanReadable, humanReadableToLocalTime} from '@src/utils/functions';
 
 export const DiplomaPageLayout: React.FC = () => {
 	const navigate = useNavigate();
@@ -20,8 +19,9 @@ export const DiplomaPageLayout: React.FC = () => {
 	const handleCardClick = (counter: number) => {
 		navigate(`/app/diploma/${counter}/details`);
 	};
+
 	return (
-		<Box display="flex" flexWrap="wrap" justifyContent="center" mx="5rem" gap="0 1rem" pt="2rem">
+		<Box display="flex" flexWrap="wrap" justifyContent="center" gap="0 1rem" pt="2rem">
 			<DiplomaPageHeader />
 			<Box display="flex" flexWrap="wrap" justifyContent="space-between"
 				className={styles.diplomasContainer} width="100%">
@@ -32,9 +32,9 @@ export const DiplomaPageLayout: React.FC = () => {
 							onClick={() => handleCardClick(e.counter!)}
 							sx={{
 								display: 'flex',
-								width: "23%", flexDirection: 'column', alignItems: 'center',
+								width: "32%", flexDirection: 'column', alignItems: 'center',
 								cursor: "pointer",
-								borderRadius: "1.25rem",
+								borderRadius: "10px",
 								marginBottom: "1.5rem"
 							}}
 						> <CardMedia
@@ -42,7 +42,7 @@ export const DiplomaPageLayout: React.FC = () => {
 								component="img"
 								className={styles.diplomaImg}
 								sx={{ width: "100%", }}
-								image={e.image ?? diplomaTemplate}
+								image={diplomaTemplate}
 								alt="University Image"
 							/>
 
@@ -52,16 +52,16 @@ export const DiplomaPageLayout: React.FC = () => {
 									sx={{ flex: '1', display: "flex", flexDirection: "column", width: "100%" }}>
 									<Box display='flex' justifyContent='space-between' alignItems='center'>
 
-										<Typography sx={{ fontWeight: '600', fontSize: '16px' }}> Назарбаев Университет</Typography>
+										<Typography sx={{ fontWeight: '600', fontSize: '16px' }}> Название университета</Typography>
 										<Typography fontSize="1rem" color="#818181">
-											{extractYearFromHumanReadable(e.protocol_en ?? "", "/")}
+											2023
 										</Typography>
 									</Box>
-									<Typography mb='.5rem' mt='0.5rem' fontSize="1.25rem" className={styles.mobText}
+									<Typography mb='.5rem' mt='0.6rem' fontSize="1.25rem" className={styles.mobText}
 										fontWeight="600">
-										{e.name}
+										{e.name_ru}
 									</Typography>
-									<Typography fontSize=".8rem" mt="0" color="#818181" className={styles.mobTextSm}>
+									<Typography fontSize="16px" mt="0.5rem" color="#818181" className={styles.mobTextSm}>
 										{e.qualification_ru?.substring(e.qualification_ru.search("«"), e.qualification_ru.search("»") + 1)}
 									</Typography>
 									{/* <Box display='flex' mt='auto' width='100%'> */}
