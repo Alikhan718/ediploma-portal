@@ -10,7 +10,8 @@ import {
     MainPage,
     RegisterPage, SettingsPage,
     UniversityDetailsPage,
-    UniversityPage
+    UniversityPage,
+    StudentPage
 } from '@src/pages';
 import {withLayout} from '@src/layout/Layout';
 import {routes} from '@src/shared/routes';
@@ -62,6 +63,7 @@ const App: React.FC = () => {
                     <Route path={routes.addingGraduates} element={<AddingGraduates />} />
 					<Route path={routes.notifications} element={<Notifications />} />
 					<Route path={routes.settings} element={<SettingsPage />} />
+                    <Route path={routes.student} element={<StudentPage/>}/>
 
                     {<Route path='*' element={<Navigate to={routes.main}/>}/>}
                 </Routes>
