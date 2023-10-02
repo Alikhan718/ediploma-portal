@@ -12,3 +12,4 @@ export { default as AddingGraduates } from './UnivesrityDetailsPage/AddingGradua
 export { default as SettingsPage } from './UnivesrityDetailsPage/SettingsPage'
 
 export { default as StudentPage } from './StudentPage/StudentPageContainer';
+export { default as EmployerPage } from './EmployerPage/EmployerPageContainer';

@@ -129,6 +129,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
             'settingsPage',
             'diploma',
             'student',
+            'employer'
         ];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
@@ -138,7 +139,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         return false;
     };
     const checkSideBarRoute = (): boolean => {
-        const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'settingsPage', 'student',];
+        const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'settingsPage', 'student', 'employer'];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return false;

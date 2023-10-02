@@ -4,6 +4,8 @@ import { Button, Label } from '@src/components';
 import { ReactComponent as ExpandMore } from '@src/assets/icons/expand_more.svg';
 import { ReactComponent as DownloadIcon } from '@src/assets/icons/download.svg';
 import { ReactComponent as ShareIcon } from '@src/assets/icons/share.svg';
+import star from "./../../assets/icons/Star1.svg";
+import dots from "./../../assets/icons/Dots.svg";
 import { useNavigate } from "react-router-dom";
 import { SwitchDetails } from "@src/pages/DiplomaDetailsPage/components/SwitchDetails";
 import styles from './StudentPage.module.css';
@@ -57,16 +59,22 @@ export const StudentPageLayout: React.FC = () => {
                                         margin: "2rem"
                                     }}
                                 >
-                                    <Typography
-                                        className={styles.nameText}
-                                        fontWeight='600'
-                                        sx={{
-                                            paddingBottom: '14px',
-                                            fontSize: '24px',
-                                        }}
-                                    >
-                                        Сериков Сырым Сержанулы
-                                    </Typography>
+                                    <Box display="flex" justifyContent="space-between">
+                                        <Typography
+                                            className={styles.nameText}
+                                            fontWeight='600'
+                                            sx={{
+                                                paddingBottom: '14px',
+                                                fontSize: '24px',
+                                            }}
+                                        >
+                                            Сериков Сырым Сержанулы
+                                        </Typography>
+                                        <Box marginBottom="15px">
+                                            <img src={star} style={{marginRight: '15px'}}/>
+                                            <img src={dots} style={{marginRight: '10px'}}/>
+                                        </Box>
+                                    </Box>
                                     <Box
                                         display="flex"
                                         alignItems="center"
