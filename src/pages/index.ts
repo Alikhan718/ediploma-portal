@@ -10,3 +10,6 @@ export { default as ForgotPassword } from './AuthPage/ForgotPassword/ForgotPassw
 export { default as AddingGraduates } from './UnivesrityDetailsPage/AddingGraduates'
 
 export { default as SettingsPage } from './UnivesrityDetailsPage/SettingsPage'
+
+export { default as StudentPage } from './StudentPage/StudentPageContainer';
+export { default as EmployerPage } from './EmployerPage/EmployerPageContainer';

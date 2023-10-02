@@ -1,6 +1,8 @@
 import React from 'react';
-import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
-import fileIcon from "src/assets/icons/fileIcon.svg";
+import styles from "src/pages/DiplomaPage/DiplomaPage.module.css"
+import fileIcon from "src/assets/icons/fileIcon.svg"
+import { Input } from '@src/components';
+import { Output } from './Output';
 
 interface CareerPlanGeneratorProps{
     setIsClicked: any;
@@ -18,6 +20,10 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
     });
     const [selectedFileName, setSelectedFileName] = React.useState('');
     const [response, setResponse] = React.useState('');
+    const [gotResponse, setGotResponse] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+    const [haveSearch, setHaveSearch] = React.useState(false);
+    
 
     const handleInputChange = (e: any) => {
         const {name, value} = e.target;
@@ -41,11 +47,18 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
     };
 
     const handleSubmit = async () => {
+        setGotResponse(true);
+        setLoading(true);
+
         const input: any = document.getElementById('cv');
         if (!input.files[0]){
+            setGotResponse(false);
+            setLoading(false);
             return;
         }
         if(Object.values(formData).includes('')){
+            setGotResponse(false);
+            setLoading(false);
             return;
         }
         
@@ -68,74 +81,106 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
             });
 
             const responseData = await response.json();
+            setResponse(responseData.data);
+            setLoading(false);
             console.log(responseData);
         }catch(error){
             console.log(error);
+            setLoading(false);
         }
     };
 
     return(
         <div>
+            {gotResponse ? 
+            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setGotResponse} haveSearch={haveSearch}/>):
+            (<div>
+
             <h1 className={styles.popupHeading}>Сгенерировать карьерный план</h1>
             <div>
                 <div className={styles.studentPlanDiv}>
                     <div className={styles.smallTextAreaContainer}>
                         <p className={styles.popupSmallHeading}>Ваша специальность</p>
-                        <textarea
+                        <Input
                             id="major"
                             name="major"
+                            placeholder="Напишите"
+                            inputSize="s"
                             onChange={handleInputChange}
                             value={formData.major}
-                            className={styles.studentSmallTextArea}
-                            placeholder="Напишите" 
-                        ></textarea>
+                            sx={{
+                                paddingRight: 0,
+                                width: '95%',
+                                marginLeft: '2.5%',
+                            }}
+                        />
                     </div>
                     <div className={styles.smallTextAreaContainer}>
                         <p className={styles.popupSmallHeading}>На каком вы курсе?</p>
-                        <textarea
+                        <Input
                             id="yearOfStudy" 
                             name="yearOfStudy"
+                            placeholder="Напишите"
+                            inputSize="s"
                             onChange={handleInputChange}
                             value={formData.yearOfStudy}
-                            className={styles.studentSmallTextArea}
-                            placeholder="Напишите" 
+                            sx={{
+                                paddingRight: 0,
+                                width: '95%',
+                                marginLeft: '2.5%',
+                            }}
                         />
                     </div>
                 </div>
                 <div className={styles.studentPlanDiv}>
                     <div className={styles.smallTextAreaContainer}>
                         <p className={styles.popupSmallHeading}>Работа мечты</p>
-                        <textarea
+                        <Input
+                            placeholder="Напишите"
+                            inputSize="s"
                             id="dreamJob"
                             name="dreamJob"
                             onChange={handleInputChange}
                             value={formData.dreamJob}
-                            className={styles.studentSmallTextArea}
-                            placeholder="Напишите" 
+                            sx={{
+                                paddingRight: 0,
+                                width: '95%',
+                                marginLeft: '2.5%',
+                            }}
                         />
                     </div>
                     <div className={styles.smallTextAreaContainer}>
                         <p className={styles.popupSmallHeading}>Проект мечты</p>
-                        <textarea
+                        <Input
+                            placeholder="Напишите"
+                            inputSize="s"
                             id="dreamProject" 
                             name="dreamProject"
                             onChange={handleInputChange}
                             value={formData.dreamProject}
-                            className={styles.studentSmallTextArea}
-                            placeholder="Напишите" 
+                            sx={{
+                                paddingRight: 0,
+                                width: '95%',
+                                marginLeft: '2.5%',
+                            }}
                         />
                     </div>
                 </div>
                 <p className={styles.popupSmallHeading}>Какова ваша главная карьерная цель?</p>
-                <textarea 
+                <Input
+                    placeholder="Напишите"
+                    inputSize="s"
                     id="careerGoal"
                     name="careerGoal"
                     onChange={handleInputChange}
                     value={formData.careerGoal}
-                    className={styles.textArea}
-                    placeholder="Описание работы" 
-                    >
-                </textarea>
+                    sx={{
+                        paddingRight: 0,
+                        width: '95%',
+                        marginLeft: '2.5%',
+                        marginBottom: '20px',
+                    }}
+                />
                 <div className={styles.fileContainer}>
                     <label htmlFor="cv" className={styles.fileContainerDiv}>
                         <div className={styles.insideFileContainer}>
@@ -157,6 +202,8 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
                     <button type="button" onClick={handleSubmit} className={styles.continueButton}>Продолжить</button>
                 </div>
             </div>
+
+            </div>)}
         </div>
     )
 };

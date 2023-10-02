@@ -105,7 +105,7 @@ export const SwitchDetails: React.FC = () => {
 					}}>Авторизоваться</Button>
 				</Box>
 			</Modal>
-			<Box display="flex" flex="row" p=".275rem " style={{ backgroundColor: "#F8F8F8", borderRadius: "3rem" }}>
+			<Box width="50%" display="flex" flex="row" p=".275rem " style={{ backgroundColor: "#F8F8F8", borderRadius: "3rem" }}>
 				<Button fullWidth={true} variant={value === 0 ? "contained" : "outlined"}
 					color={value === 0 ? "primary" : "secondary"} borderRadius="3rem" onClick={(e) => handleChange(e, 0)}>
 					Проверка
