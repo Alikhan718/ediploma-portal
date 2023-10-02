@@ -79,7 +79,7 @@ export const diplomasApi = {
         gpaL: number,
         gpaR: number,
     }) {
-        let query = `search?`;
+        let query = `graduates/search?`;
         if (body.text != "") {
             query += `name=${body.text}&`;
         }
