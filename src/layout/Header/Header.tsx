@@ -3,8 +3,8 @@ import MenuIcon from '@src/assets/icons/menu lines.svg';
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import HeaderSearchIcon from '@src/assets/icons/search.svg';
 import RuFlag from '@src/assets/icons/ru-flag.svg';
-import {ReactComponent as UserIcon} from '@src/assets/icons/user.svg';
-import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
+import {ReactComponent as UserIcon} from '@src/assets/icons/profile.svg';
+// import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
 import {ReactComponent as FilterIcon} from '@src/assets/icons/Filter-icon.svg';
 import LogoutIcon from '@src/assets/icons/out.png';
 import {headerNavigations, sidebarNavigations} from "@src/layout/Header/generator";
@@ -38,26 +38,27 @@ interface AppBarProps extends MuiAppBarProps {
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open'
-})<AppBarProps>(({theme, open}) => ({
-    // width: `calc(100% - ${theme.spacing(7)})`,
-    boxShadow: 'none',
-    position: 'unset',
-    display: "none",
-    backgroundColor: '#ffffff',
-    transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        // marginLeft: DRAWER_WIDTH,
-        // width: `calc(100% - ${DRAWER_WIDTH}px)`,
-        display: "flex",
+})<AppBarProps>(({theme, open}) => (
+    {
+        // width: `calc(100% - ${theme.spacing(7)})`,
+        boxShadow: 'none',
+        position: 'unset',
+        display: "none",
+        backgroundColor: '#ffffff',
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
+            duration: theme.transitions.duration.leavingScreen,
         }),
-    }),
-}));
+        ...(open && {
+            // marginLeft: DRAWER_WIDTH,
+            // width: `calc(100% - ${DRAWER_WIDTH}px)`,
+            display: "flex",
+            transition: theme.transitions.create(['width', 'margin'], {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+        }),
+    }));
 
 export interface FilterAttributes {
     text?: string,
@@ -233,66 +234,73 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                 {/*    setOpen={setShowFilter}*/}
                 {/*/>*/}
                 {/* REST SELECTOR  */}
-                {/*<div>*/}
-                {/*    <img style={{*/}
-                {/*        cursor: 'pointer'*/}
-                {/*    }} src={HeaderSearchIcon} alt=""/>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    <img style={{*/}
-                {/*        cursor: 'pointer'*/}
-                {/*    }} src={RuFlag} alt=""/>*/}
-                {/*</div>*/}
-                <Box display='flex' justifyContent='flex-end' py='10px' className="diploma-btn-container">
+                <Box display='flex' ml="auto" justifyContent='flex-end' py='10px' gap="2rem"
+                     className="diploma-btn-container">
+                    <Box display='flex' justifyContent='center'>
+                        <img style={{
+                            cursor: 'pointer',
+                        }} src={HeaderSearchIcon} alt=""/>
+                    </Box>
+                    <Box display='flex' justifyContent='center'>
+                        <img style={{
+                            cursor: 'pointer',
+                            border: '1px',
+                        }} src={RuFlag} alt=""/>
+                    </Box>
 
-
-                    {!isAuthenticated() ? <Button
+                    {!isAuthenticated() ?
+                        <Button
                             onClick={() => {
                                 navigate(routes.login, {replace: true});
                             }}
                             className="diploma-auth-btn"
-                            startIcon={<UserIcon style={{height: "1.2rem"}}/>}
                             variant='contained'
                             borderRadius="3rem"
-                            width={120}
+                            style={{padding: "0 2rem"}}
                         >
                             <Typography
                                 variant='h4'
                                 color={'white'}
                                 fontSize={'16px'}
                                 className="diploma-navbar-item"
-                                fontWeight='450'>
+                                fontWeight='500'>
                                 Войти
                             </Typography>
 
                         </Button>
-                        :
-                        <Button
-                            className="diploma-auth-btn"
-                            onClick={() => {
-                                fetchAuthLogout();
-                                localStorage.clear();
-                                navigate(routes.login, {replace: true});
-                            }}
-                            startIcon={<img src={LogoutIcon} style={{height: "1rem"}}/>}
-                            variant='contained'
-                            width={120}
-                        >
-                            <Typography
-                                variant='h4'
-                                color={'white'}
-                                fontSize={'16px'}
-                                className="diploma-navbar-item"
-                                fontWeight='450'>
-                                Выйти
-                            </Typography>
 
-                        </Button>
+                        :
+                        <Box display='flex' gap="2rem" height="3rem" justifyContent='center'>
+                            <Button
+                                className="diploma-auth-btn"
+                                variant='contained'
+                                borderRadius="3rem"
+                                style={{padding: "0 2rem"}}
+                                onClick={() => {
+                                    fetchAuthLogout();
+                                    localStorage.clear();
+                                    navigate(routes.login, {replace: true});
+                                }}
+                            >
+                                <Typography
+                                    variant='h4'
+                                    color={'white'}
+                                    fontSize={'16px'}
+                                    className="diploma-navbar-item"
+                                    fontWeight='450'>
+                                    Выйти
+                                </Typography>
+
+                            </Button>
+                            <UserIcon style={{height: "100%"}}/>
+
+                        </Box>
                     }
-                    di</Box>
+                </Box>
             </Box>
             <GlobalLoader/>
         </AppBar>
-    );
+    )
+        ;
 };
 export const Header = React.memo(AppHeader);

@@ -13,7 +13,7 @@ import styles from "./AuthPage.module.css";
 import {selectUserRole} from "@src/store/auth/selector";
 import {useSelector} from "react-redux";
 export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
-
+    const role = useSelector(selectUserRole);
     const {children} = props;
     const navigate = useNavigate();
     const userRole = useSelector(selectUserRole);
@@ -21,7 +21,7 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
         const urlElements = window.location.href.split('/');
 
         if (isAuthenticated() && urlElements.includes('auth')) {
-            navigate(routes.main, {replace: true});
+            navigate(routes[role.toLowerCase()], {replace: true});
         }
     }, [userRole]);
 

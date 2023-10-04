@@ -23,7 +23,7 @@ export function* fetchAuthLogin(action: any) {
         const {data} = yield call(authApi.login, action.payload);
         yield put({type: POST_AUTH_LOGIN.success, payload: data});
         yield put(setSnackbar({visible: true, message: "Добро пожаловать", status: "success"}));
-    } catch (e: any) { 
+    } catch (e: any) {
         yield put({type: POST_AUTH_REGISTER.error});
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
     }

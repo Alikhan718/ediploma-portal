@@ -210,7 +210,7 @@ const AddingGraduates: React.FC = () => {
 
                             <Button variant="contained" color="primary"
                                     sx={{marginTop: 2, borderRadius: '15px',}} onClick={() => {
-                                handleLink("http://generator.ediploma.kz/get-sample")
+                                handleLink("https://generator.ediploma.kz/get-sample")
                             }}> Скачать шаблон</Button>
                             <Box sx={{
                                 backgroundColor: '#FAFBFF',

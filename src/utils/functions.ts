@@ -76,7 +76,7 @@ export const signXml = (university_id: number, callBackFunc: any) => {
             <Signature>
                 <SignedData>
                     <FilePath>
-                        http://generator.ediploma.kz/get-file/jsons/1/fullMetadata.json
+                        https://generator.ediploma.kz/get-file/jsons/1/fullMetadata.json
                     </FilePath>
                     <UniversityName>${university_id}</UniversityName>
                 </SignedData>
