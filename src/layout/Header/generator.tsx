@@ -3,7 +3,14 @@ import React from 'react';
 import { routes } from "@src/shared/routes";
 import { ReactComponent as DiplomaIcon } from "@src/assets/icons/Widget.svg";
 import { ReactComponent as MainPageIcon } from "@src/assets/icons/pie.svg";
-import { ReactComponent as UniversityIcon } from "@src/assets/icons/Folder.svg";
+import { ReactComponent as FolderIcon } from "@src/assets/icons/Folder.svg";
+
+import { ReactComponent as HrBankIcon } from "@src/assets/icons/academic_cap.svg";
+import { ReactComponent as UniversityIcon } from "@src/assets/icons/buildings.svg";
+import { ReactComponent as AboutUsIcon } from "@src/assets/icons/jiggle_user.svg";
+
+import { ReactComponent as LangIcon } from "@src/assets/icons/global.svg";
+import { ReactComponent as ModeIcon } from "@src/assets/icons/moon.svg";
 
 export interface AppRoutesNavigation {
 	id: number;
@@ -36,55 +43,17 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
 		name: 'Выпустить дипломы',
 		to: routes.addingGraduates,
 		role: '*',
-		icon: <UniversityIcon style={{ verticalAlign: "middle" }} />,
+		icon: <FolderIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: '',
 	},
-	// {
-	//     id: 4,
-	//     name: 'Вакансии',
-	//     to: routes.vacancies,
-	//     role: '*',
-	//     icon: <UniversityIcon />,
-	// },
-	// {
-	//     id: 5,
-	//     name: 'Новости',
-	//     to: routes.news,
-	//     role: '*',
-	//     icon: <UniversityIcon />
-	// }
 ];
 export const headerNavigations: AppRoutesNavigation[] = [
-	// {
-	// 	id: 1,
-	// 	name: 'Dashboard',
-	// 	to: routes.universityDetails,
-	// 	role: "*",
-	// 	icon: null,
-	// 	verticalAlign: "bottom",
-	// },
-	// {
-	// 	id: 2,
-	// 	name: 'Аналитика',
-	// 	to: routes.notifications,
-	// 	role: "*",
-	// 	icon: null,
-	// 	verticalAlign: "middle",
-	// },
-	// {
-	// 	id: 3,
-	// 	name: 'Выпустить дипломы',
-	// 	to: routes.addingGraduates,
-	// 	role: '*',
-	// 	icon: null,
-	// 	verticalAlign: '',
-	// },
 	{
 		id: 6,
 		name: 'HR Bank',
 		to: routes.diploma,
 		role: '*',
-		icon: null,
+		icon: <HrBankIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: '',
 	},
 	{
@@ -92,7 +61,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
 		name: 'Университеты',
 		to: routes.university,
 		role: '*',
-		icon: null,
+		icon: <UniversityIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: '',
 	},
 	{
@@ -100,21 +69,28 @@ export const headerNavigations: AppRoutesNavigation[] = [
 		name: 'О нас',
 		to: routes.aboutUs,
 		role: '*',
-		icon: null,
+		icon: <AboutUsIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: '',
 	},
-	// {
-	//     id: 4,
-	//     name: 'Вакансии',
-	//     to: routes.vacancies,
-	//     role: '*',
-	//     icon: <UniversityIcon />,
-	// },
-	// {
-	//     id: 5,
-	//     name: 'Новости',
-	//     to: routes.news,
-	//     role: '*',
-	//     icon: <UniversityIcon />
-	// }
+
+];
+export const interFaceOptions: AppRoutesNavigation[] = [
+	{
+		id: 7,
+		name: 'Режим',
+		to: '#',
+		role: '*',
+		icon: <ModeIcon style={{ verticalAlign: "middle" }} />,
+		verticalAlign: '',
+	},
+	{
+		id: 8,
+		name: 'Язык',
+		to: '#',
+		role: '*',
+		icon: <LangIcon style={{ verticalAlign: "middle" }} />,
+		verticalAlign: '',
+	},
+
+
 ];

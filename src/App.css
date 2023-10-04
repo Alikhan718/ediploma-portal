@@ -24,7 +24,11 @@
     background: lightgray;
 }
 
-.diploma-navbar {
+.app-navbar-container {
+    position: relative !important;
+}
+
+.app-navbar {
     margin: 0 9%;
     display: flex;
     justify-content: left;
@@ -47,8 +51,12 @@
     color: #818181;
 }
 
+.app-container {
+    margin-top: 0;
+}
+
 @media only screen and (max-width: 1200px) {
-    .diploma-navbar {
+    .app-navbar {
         margin: 0 3%;
     }
 
@@ -90,7 +98,16 @@
         margin: 0;
     }
 
-    .diploma-navbar {
+    .app-container {
+        margin-top: 3rem;
+    }
+
+    .app-navbar-container {
+        margin: .5rem 0;
+        position: fixed !important;
+    }
+
+    .app-navbar {
         margin: 0 1rem;
     }
 
@@ -107,7 +124,6 @@
     }
 
     .diploma-btn-container {
-        margin-right: .5rem;
     }
 
     /*.diploma-auth-btn {*/
@@ -115,8 +131,9 @@
     /*	border-radius: 5rem !important;*/
     /*}*/
     .menu-icon {
-        display: block;
+        display: flex;
+        justify-content: center;
         cursor: pointer;
-        width: 2.5rem;
+        width: 100%;
     }
 }

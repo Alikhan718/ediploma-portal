@@ -3,7 +3,10 @@
 <defs>
 </defs>
 <rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
-<g transform="matrix(68.4093 0 0 68.4093 499.9998 498.8475)" id="139325">
+<g transform="matrix(59.8931 0 0 59.8931 499.4838 499.4823)" id="457396">
+<path style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; is-custom-font: none; font-file-url: none; fill: rgb(47,47,47); fill-rule: evenodd; opacity: 1;" vector-effect="non-scaling-stroke" transform=" translate(-10.4974, -9.9998)" d="M 4.22212 3.72456 C 4.4662 3.48048 4.86193 3.48048 5.106 3.72456 L 10.4974 9.11598 L 15.8888 3.72461 C 16.1329 3.48053 16.5286 3.48053 16.7727 3.72461 C 17.0168 3.96869 17.0168 4.36442 16.7727 4.60849 L 11.3813 9.99986 L 16.7726 15.3912 C 17.0167 15.6353 17.0167 16.031 16.7726 16.2751 C 16.5285 16.5191 16.1328 16.5191 15.8887 16.2751 L 10.4974 10.8837 L 5.10605 16.2751 C 4.86198 16.5192 4.46625 16.5192 4.22217 16.2751 C 3.97809 16.031 3.97809 15.6353 4.22217 15.3912 L 9.61354 9.99986 L 4.22212 4.60845 C 3.97804 4.36437 3.97804 3.96864 4.22212 3.72456 Z" stroke-linecap="round"/>
+</g>
+<g transform="matrix(1 0 0 1 500 500)" id="139325">
 <g style="" vector-effect="non-scaling-stroke">
 		<g transform="matrix(1 0 0 1 -0.0001 -4.1665)">
 <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; is-custom-font: none; font-file-url: none; fill: rgb(45,45,45); fill-rule: evenodd; opacity: 1;" transform=" translate(-10.4998, -5.8335)" d="M 17.7915 5.8335 C 17.7915 6.17867 17.5117 6.4585 17.1665 6.4585 L 3.83317 6.4585 C 3.48799 6.4585 3.20817 6.17867 3.20817 5.8335 C 3.20817 5.48832 3.48799 5.2085 3.83317 5.2085 L 17.1665 5.2085 C 17.5117 5.2085 17.7915 5.48832 17.7915 5.8335 Z" stroke-linecap="round"/>
