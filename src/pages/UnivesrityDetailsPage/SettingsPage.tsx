@@ -7,7 +7,12 @@ import { Button, Input, Label } from '@src/components';
 import web from "@src/assets/icons/Website.svg";
 import icon from "@src/assets/icons/Logo (2).svg";
 import add from "@src/assets/icons/All.svg";
+import { ReactComponent as PasswordIcon } from "@src/assets/icons/Password.svg";
+import { ReactComponent as NotificatoinsIcon } from "@src/assets/icons/Notificationss.svg";
+import { ReactComponent as SocialIcon } from "@src/assets/icons/Social.svg";
+import { ReactComponent as TrashIcon } from "@src/assets/icons/Trash.svg";
 import { ReactComponent as EmailIcon } from "@src/assets/icons/Letter.svg";
+import FastIcon from '@src/components/FastIcon/FastIcon';
 
 const SettingsPage: React.FC = () => {
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -49,15 +54,16 @@ const SettingsPage: React.FC = () => {
 				<Grid container>
 					<Grid item xs={1}>
 						<Box
-							width={245}
+							width={265}
 							height={200}
 							bgcolor="white"
 							borderRadius={8}
 							boxShadow={1}
-							p={2}
+
 
 							sx={{
 								display: 'flex',
+								padding: '1rem',
 								flexDirection: 'column',
 								justifyContent: 'flex-start',
 							}}
@@ -72,22 +78,26 @@ const SettingsPage: React.FC = () => {
 								onClick={scrollToMainInfo}
 							>
 								<EmailIcon color="primary" style={{ marginRight: '0.2rem' }} /> {/* Add an icon */}
-								<Box sx={{ flex: 1, color: '#A28D8D' }}>Основная Информация</Box>
+								<Box sx={{ flex: 1, color: '#A28D8D', fontSize: '1rem' }}>Основная информация</Box>
 							</Box>
 							<Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer' }} onClick={() => scrollToRef(emailBoxRef)}>
 								<EmailIcon color="primary" style={{ marginRight: '0.2rem' }} />
 								<Box sx={{ flex: 1, color: '#A28D8D' }}> Почта</Box>
 							</Box>
 							<Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer' }} onClick={() => scrollToRef(passwordBoxRef)}>
-								<EmailIcon color="primary" style={{ marginRight: '0.2rem' }} />
+								<PasswordIcon color="primary" style={{ marginRight: '0.2rem' }} />
 								<Box sx={{ flex: 1, color: '#A28D8D' }}>Пароль</Box>
 							</Box>
 							<Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer' }} onClick={() => scrollToRef(notificationBoxRef)}>
-								<EmailIcon color="primary" style={{ marginRight: '0.2rem' }} />
+								<NotificatoinsIcon color="primary" style={{ marginRight: '0.2rem' }} />
 								<Box sx={{ flex: 1, color: '#A28D8D' }}>Уведомление</Box>
 							</Box>
+							<Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer' }} onClick={() => scrollToRef(notificationBoxRef)}>
+								<SocialIcon color="primary" style={{ marginRight: '0.2rem' }} />
+								<Box sx={{ flex: 1, color: '#A28D8D' }}>Социальные Сети</Box>
+							</Box>
 							<Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => scrollToRef(deleteAccountBoxRef)}>
-								<EmailIcon color="primary" /> {/* Add an icon */}
+								<FastIcon name={"trash"} color="primary" /> {/* Add an icon */}
 								<Box sx={{ flex: 1, color: '#A28D8D' }}>Удалить аккаунт</Box>
 							</Box>
 						</Box>

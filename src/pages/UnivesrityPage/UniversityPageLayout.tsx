@@ -34,7 +34,7 @@ export const UniversityPageLayout: React.FC = () => {
 							cursor: "pointer",
 							borderRadius: "10px",
 							marginBottom: "1.5rem",
-							"@media (max-width: 998px)": {
+							"@media (max-width: 1400px)": {
 								width: '32%'
 							},
 							"@media (max-width: 778px)": {

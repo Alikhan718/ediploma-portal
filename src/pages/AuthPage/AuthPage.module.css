@@ -1,67 +1,77 @@
 .container {
-    width: 100%;
-    height: 100vh;
-    /*background: url("/src/assets/auth/background.jpg") no-repeat center center fixed;*/
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    display: flex;
-    justify-content: space-between;
+	width: 100%;
+	height: 100vh;
+	/*background: url("/src/assets/auth/background.jpg") no-repeat center center fixed;*/
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	display: flex;
+	justify-content: space-between;
 }
 
 .navbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    width: 100%;
-    display: flex;
-    padding: 3rem 3rem 0 7.5rem;
-    justify-content: space-between;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	width: 100%;
+	display: flex;
+	padding: 3rem 3rem 0 7.5rem;
+	justify-content: space-between;
 }
 
 .footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-    width: 100%;
-    display: flex;
-    padding: 0 8% 2rem 0;
-    justify-content: space-between;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	width: 100%;
+	display: flex;
+	padding: 0 8% 2rem 0;
+	justify-content: space-between;
 }
 
 .brand {
-    cursor: pointer;
-    height: 2.5rem;
+	cursor: pointer;
+	height: 2.5rem;
 }
+
 .containerRight {
-    background: url("/src/assets/auth/background.png") no-repeat right;
-    width: 50vw;
-    border-radius: 0 0 0 10rem;
-    background-size: cover;
+	background: url("/src/assets/auth/background.png") no-repeat right;
+	width: 50vw;
+	border-radius: 0 0 0 10rem;
+	background-size: cover;
 }
 
 .contentRight {
-    width: 50vw;
-    display: flex;
+	width: 50vw;
+	display: flex;
 }
+
 .contentLeft {
-    width: 50vw;
-    padding: 0 10%;
-    /*padding-right: 6rem;*/
-    display: flex;
+	width: 50vw;
+	padding: 0 10%;
+	/*padding-right: 6rem;*/
+	display: flex;
 }
 
 
 @media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    .contentRight {
-        display: none;
-    }
 
-    .navbar {
-        padding: 1rem 1rem;
-    }
+	/* For mobile phones: */
+	.contentRight {
+		display: none;
+	}
+
+	.containerRight {
+		background: url("/src/assets/auth/background.png") no-repeat right;
+		width: 100vw;
+		border-radius: 0 0 0 10rem;
+		background-size: cover;
+	}
+
+	.navbar {
+		padding: 1rem 1rem;
+	}
 }
