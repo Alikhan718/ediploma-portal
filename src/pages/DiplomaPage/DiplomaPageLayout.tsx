@@ -32,10 +32,16 @@ export const DiplomaPageLayout: React.FC = () => {
 							onClick={() => handleCardClick(e.counter!)}
 							sx={{
 								display: 'flex',
-								width: "32%", flexDirection: 'column', alignItems: 'center',
+								width: "24%", flexDirection: 'column', alignItems: 'center',
 								cursor: "pointer",
 								borderRadius: "10px",
-								marginBottom: "1.5rem"
+								marginBottom: "1.5rem",
+								"@media (max-width: 998px)": {
+									width: '32%'
+								},
+								"@media (max-width: 778px)": {
+									width: '48%'
+								},
 							}}
 						> <CardMedia
 								key={e.counter + "img"}
@@ -64,13 +70,7 @@ export const DiplomaPageLayout: React.FC = () => {
 									<Typography fontSize="16px" mt="0.5rem" color="#818181" className={styles.mobTextSm}>
 										{e.qualification_ru?.substring(e.qualification_ru.search("«"), e.qualification_ru.search("»") + 1)}
 									</Typography>
-									{/* <Box display='flex' mt='auto' width='100%'> */}
-									{/* <Typography fontSize="0.875rem" mr='auto'>
-										</Typography> */}
-									{/* <Typography fontSize="0.875rem" ml='auto' mr='1rem'>
-												  {humanReadableToLocalTime(e.protocol_en, "/")}
-                                        </Typography> */}
-									{/* </Box> */}
+
 								</CardContent>
 							</Box>
 						</Card>
