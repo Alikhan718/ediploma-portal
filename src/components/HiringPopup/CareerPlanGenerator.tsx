@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from "src/pages/DiplomaPage/DiplomaPage.module.css"
-import fileIcon from "src/assets/icons/fileIcon.svg"
+import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
+import fileIcon from "src/assets/icons/fileIcon.svg";
 import { Input } from '@src/components';
 import { Output } from './Output';
 
@@ -25,7 +25,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
     const [haveSearch, setHaveSearch] = React.useState(false);
     
 
-    const handleInputChange = (e: any) => {
+    const handleInputChange = (e: any): void => {
         const {name, value} = e.target;
         setFormData({
             ...formData,
@@ -33,7 +33,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
         });
     };
 
-    const handleFileChange = (e: any) => {
+    const handleFileChange = (e: any): void => {
         const input: any = document.getElementById('cv');
         const inputFile: File = input.files[0];
         console.log(inputFile);
@@ -46,7 +46,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
         }
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (): Promise<void> => {
         setGotResponse(true);
         setLoading(true);
 
@@ -57,6 +57,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
             return;
         }
         if(Object.values(formData).includes('')){
+            console.log(formData);
             setGotResponse(false);
             setLoading(false);
             return;
@@ -84,6 +85,16 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
             setResponse(responseData.data);
             setLoading(false);
             console.log(responseData);
+
+            setFormData({
+                major: '',
+                yearOfStudy: '',
+                dreamJob: '',
+                dreamProject: '',
+                careerGoal: '',
+            });
+            
+            setSelectedFileName('');
         }catch(error){
             console.log(error);
             setLoading(false);
@@ -93,7 +104,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
     return(
         <div>
             {gotResponse ? 
-            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setGotResponse} haveSearch={haveSearch}/>):
+            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setGotResponse} haveSearch={haveSearch} isStudent={true} setJobDescription={null}/>):
             (<div>
 
             <h1 className={styles.popupHeading}>Сгенерировать карьерный план</h1>
@@ -198,12 +209,12 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
                     </label>
                 </div>
                 <div className={styles.buttonContainer}>
-                    <button type="button" onClick={()=>{setIsClicked(true)}} className={styles.continueButton}>Назад</button>
+                    <button type="button" onClick={(): void =>{setIsClicked(true);}} className={styles.continueButton}>Назад</button>
                     <button type="button" onClick={handleSubmit} className={styles.continueButton}>Продолжить</button>
                 </div>
             </div>
 
             </div>)}
         </div>
-    )
+    );
 };

@@ -409,15 +409,51 @@ input[type="radio"]:checked + label span.innerCircle2 {
 
 .outputContainer {
     background-color: #F8F8F8;
+    max-height: 500px;
     border-radius: 25px;
     text-align: left;
     margin: 30px;
     padding: 20px;
+    overflow: auto;
 }
 
 .searchOutputContainer {
+    max-height: 500px;
     text-align: center;
     padding: 20px;
     margin-left: 90px;
     align-items: center; 
+    overflow: auto;
+}
+
+.loadingContainer {
+    max-height: 500px;
+    text-align: center;
+    margin: 30px;
+    padding: 20px;
+    overflow: auto;
+}
+
+.outputButton {
+    max-width: auto;
+    text-align: right;
+    background-color: #f8f8f8;
+    border: none;
+    font-weight: 350;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.outputButton:hover {
+    background-color: #dddddd;
+}
+  
+.outputButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem #a3bffa;
+    border-color: #a3bffa;
+}
+
+.outputButtonsContainer{
+    text-align: right;
 }
