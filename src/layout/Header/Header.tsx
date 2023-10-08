@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MenuIcon from '@src/assets/icons/menu.svg';
+import MenuClosedIcon from '@src/assets/icons/cross.svg';
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import HeaderSearchIcon from '@src/assets/icons/search.svg';
 import RuFlag from '@src/assets/icons/ru-flag.svg';
@@ -9,7 +10,7 @@ import { ReactComponent as UserIcon } from '@src/assets/icons/user.svg';
 import { ReactComponent as AccountCircleIcon } from '@src/assets/icons/profileIcon.svg';
 import { ReactComponent as FilterIcon } from '@src/assets/icons/Filter-icon.svg';
 import LogoutIcon from '@src/assets/icons/out.png';
-import { headerNavigations, sidebarNavigations } from "@src/layout/Header/generator";
+import {headerNavigations, interFaceOptions, sidebarNavigations} from "@src/layout/Header/generator";
 import {
 	AppBar as MuiAppBar,
 	AppBarProps as MuiAppBarProps,

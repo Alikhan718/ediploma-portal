@@ -11,7 +11,7 @@ import {useNavigate} from 'react-router-dom';
 import ReactGA from 'react-ga';
 import Checkbox from '@mui/material/Checkbox';
 import {enableWebSocket} from "@src/utils/functions";
-
+import styles from "@src/pages/AuthPage/AuthPage.module.css";
 export const LoginPageLayout: React.FC = () => {
     const [state, setState] = React.useState<IAuthLogin>({
         email: '',
@@ -97,84 +97,76 @@ export const LoginPageLayout: React.FC = () => {
     };
 
     return (
-        <Box sx={{marginY: 'auto', borderRadius: '.8rem', padding: '.6rem', width: "30rem"}}>
-            <CardContent
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100%',
-                    width: '100%',
-                    justifyContent: 'space-between',
-                }}
-            >
-                <Box>
-                    <Typography fontSize="1.75rem" fontWeight="700">
-                        Войти
-                    </Typography>
-                    <Typography fontSize="0.85rem" color="#818181" width="17rem">
-                        Введите свой адрес электронной почты и пароль для входа в систему!
-                    </Typography>
-                </Box>
-                <form style={{display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem'}}>
-                    <Box>
-                        <Label label="Почта*"/>
-                        <Input
-                            type="text"
-                            name="email"
-                            onChange={handleChange}
-                            placeholder="Логин или Email"
-                        />
-                    </Box>
-                    <Box>
-                        <Label label="Пароль*"/>
-                        <Input
-                            type="password"
-                            name="password"
-                            onChange={handleChange}
-                            placeholder="Пароль"
-                        />
-                    </Box>
-                    <Box display="flex" flex="row" justifyContent="space-between">
-                        <Box display="flex" flex="row">
-                            <Checkbox defaultChecked size="small"/>
-                            <Typography alignSelf="center" fontSize="0.875rem" fontWeight="500" color="#2D2D2D">
-                                Запомнить меня
-                            </Typography>
-                        </Box>
-                        <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.passwordReset}
-                              alignSelf="center">
-                            <Typography fontWeight="500" fontSize="0.875rem">
-                                Забыли пароль?
-                            </Typography>
-                        </Link>
-                    </Box>
-                    <Button fullWidth={true} variant="contained" borderRadius="3rem" onClick={onSubmit} type="submit">
-                        Войти
-                    </Button>
-                    <Button
-                        fullWidth={true}
-                        variant="contained"
-                        borderRadius="3rem"
-                        sx={{
-                            backgroundColor: "#EBF2FE",
-                            color: "#2F69C7",
-                            "&:hover": {
-                                "background-color": "#3B82F6", color: "white"
-                            }
-                        }}
-                        onClick={() => {
-                            ncaLayerAuth();
-                        }}>
-                        Выбрать ключ ЭЦП
-                    </Button>
-                </form>
-                <Typography fontSize=".8rem" textAlign="center" mt="1rem">
-                    Еще не зарегистрировались?{'  '}
-                    <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.register}>
-                        Создать учетную запись
-                    </Link>
+        <>
+            <Box>
+                <Typography className={styles.textLg} fontWeight="700">
+                    Войти
                 </Typography>
-            </CardContent>
-        </Box>
+                <Typography className={styles.textMd} color="#818181" width="17rem">
+                    Введите свой адрес электронной почты и пароль для входа в систему!
+                </Typography>
+            </Box>
+            <form style={{display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem'}}>
+                <Box>
+                    <Label label="Почта*"/>
+                    <Input
+                        type="text"
+                        name="email"
+                        onChange={handleChange}
+                        placeholder="Логин или Email"
+                    />
+                </Box>
+                <Box>
+                    <Label label="Пароль*"/>
+                    <Input
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                        placeholder="Пароль"
+                    />
+                </Box>
+                <Box display="flex" flex="row" justifyContent="space-between">
+                    <Box display="flex" flex="row">
+                        <Checkbox defaultChecked size="small"/>
+                        <Typography alignSelf="center" className={styles.textMd} fontWeight="500" color="#2D2D2D">
+                            Запомнить меня
+                        </Typography>
+                    </Box>
+                    <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.passwordReset}
+                          alignSelf="center">
+                        <Typography fontWeight="500" className={styles.textMd}>
+                            Забыли пароль?
+                        </Typography>
+                    </Link>
+                </Box>
+                <Button fullWidth={true} variant="contained" borderRadius="3rem" onClick={onSubmit} type="submit">
+                    Войти
+                </Button>
+                <Button
+                    fullWidth={true}
+                    variant="contained"
+                    borderRadius="3rem"
+                    className={styles.mobDNone}
+                    sx={{
+                        backgroundColor: "#EBF2FE",
+                        color: "#2F69C7",
+                        "&:hover": {
+                            "background-color": "#3B82F6", color: "white"
+                        }
+                    }}
+                    onClick={() => {
+                        ncaLayerAuth();
+                    }}>
+                    Выбрать ключ ЭЦП
+                </Button>
+            </form>
+            <Typography className={styles.textMd} textAlign="center" mt="1rem">
+                Еще не зарегистрировались?{'  '}
+                <Link sx={{textDecoration: 'none', fontWeight: '600'}} href={routes.register}>
+                    Создать учетную запись
+                </Link>
+            </Typography>
+        </>
+
     );
 };

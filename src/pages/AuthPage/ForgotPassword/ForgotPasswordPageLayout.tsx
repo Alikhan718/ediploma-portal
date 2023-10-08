@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {Box, Button, Card, CardContent, Link, Typography} from '@mui/material';
-import {Input} from '@src/components';
+import {Box, Card, CardContent, Link, Typography, useMediaQuery} from '@mui/material';
+import {Button, Input, Label} from '@src/components';
 // import Visibility from "@material-ui/icons/Visibility";
 // import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import {IResetPassword} from "@src/pages/AuthPage/types";
@@ -11,6 +11,8 @@ import {routes} from "@src/shared/routes";
 import OtpInput from 'react-otp-input';
 import {selectForgotStep, selectOtpSent, selectRedirectToLogin} from "@src/store/auth/selector";
 import {useNavigate} from "react-router-dom";
+import styles from "@src/pages/AuthPage/AuthPage.module.css";
+import cn from "classnames";
 
 export const ForgotPasswordPageLayout: React.FC = () => {
     const [state, setState] = React.useState<IResetPassword>({
@@ -19,6 +21,13 @@ export const ForgotPasswordPageLayout: React.FC = () => {
         repassword: "",
         code: "",
     });
+
+    const getQueryWidth = () => {
+        const matchesLg = useMediaQuery('(min-width:1200px)');
+        const matchesSm = useMediaQuery('(max-width:768px)');
+        if (matchesSm) return false;
+        if (matchesLg) return true;
+    };
     const dispatch = useDispatch();
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>): Promise<any> => {
@@ -51,94 +60,149 @@ export const ForgotPasswordPageLayout: React.FC = () => {
             navigate(routes.login);
         }
     }, [redirectToLogin]);
+
+    const [counter, setCounter] = React.useState(50);
+
+    React.useEffect(() => {
+        if (otpSent && counter > 0) {
+            const timer = setInterval(() => {
+                setCounter(prevCounter => prevCounter - 1);
+            }, 1000);
+
+            return () => clearInterval(timer);
+        }
+    }, [otpSent, counter]);
     return (
-        <Card sx={{marginY: "auto", borderRadius: ".8rem", padding: ".6rem"}}>
-
-            <CardContent style={{
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-                width: "100%",
-                justifyContent: "space-between"
-            }}>
-                <Typography fontSize='1.3rem' fontWeight='700'>
-                    Сброс пароля
-                </Typography>
-                <form>
-                    {step == 1 &&
-                        <Box style={{display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem"}}>
-                            <Typography fontSize='1rem' fontWeight='400' textAlign='center'>
-                                На вашу почту будет <br/> отправлено письмо с кодом
+        <>
+            <Typography className={styles.textLg} fontWeight='700'>
+                {step == 1 ? 'Восстановление пароля' : step == 2 ? 'Подтвердите почту!' : 'Придумайте новый пароль'}
+            </Typography>
+            <form style={{display: 'flex', flexDirection: 'column'}}>
+                {step == 1 &&
+                    <Box style={{display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem"}}>
+                        <Typography color="#818181" className={styles.textMd} fontWeight='400'>
+                            Для восстановления учетной записи введите почту
+                        </Typography>
+                        <Label label="Почта"/>
+                        <Input
+                            type="text"
+                            name="email"
+                            onChange={handleChange}
+                            placeholder="Email"
+                        />
+                        <Button fullWidth={true} variant="contained" style={{marginTop: ".5rem", marginBottom: ".2rem"}} borderRadius="3rem" onClick={sendOtp}
+                                type='submit'>Отправить</Button>
+                    </Box>
+                }
+                {step == 2 &&
+                    <Box mt="1rem" style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "1rem",
+                        width: "100%",
+                    }}>
+                        <Button disabled={counter != 0} style={{borderRadius: "3rem", backgroundColor: "#F8F8F8"}}>
+                            <Typography className={styles.textMd} textAlign="center" color="#B6B6B6">
+                                {`Отправить еще раз через ${counter} сек`}
                             </Typography>
-                            <Input type="text" name="email" sx={{background: "white"}} onChange={handleChange}
-                                   placeholder="Email"/>
-                            <Button fullWidth={true} variant='contained' onClick={sendOtp}
-                                    type='submit'>Отправить</Button>
-                        </Box>
-                    }
-                    {step == 2 &&
-                        <Box style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "1rem",
-                            width: "100%",
-                            marginTop: "1rem",
-                        }}>
-                            <Typography
-                                textAlign="center"
-                                fontSize="1rem"
-                            >
-                                Мы отправили код на <br/>указанную вами почту
-                            </Typography>
-                            <Box display="flex" width="100%" gap='1rem'>
-                                <OtpInput value={otp}
-                                          containerStyle={{
-                                              gap: "1rem",
-                                          }}
-                                          inputType="tel"
-                                          onChange={setOtp}
-                                          numInputs={4}
-                                          inputStyle={{
-                                              borderRadius: ".5rem",
-                                              fontSize: "2rem",
-                                              borderStyle: "solid",
-                                              borderColor: "var(--primary)",
-                                              textAlign: "center",
-                                              padding: ".5rem",
-                                              width: "3rem"
-                                          }}
-                                          renderInput={(props) => <input {...props} />}/>
-                            </Box>
-                            <Button fullWidth={true} variant='contained' onClick={verifyEmail}
-                                    type='submit'>Проверить</Button>
-                        </Box>
-                    }
-                    {step == 3 &&
-                        <Box style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "1rem",
-                            width: "100%",
-                            marginTop: "1rem",
-                        }}>
-                            <Input type="password" name="password" sx={{background: "white"}}
-                                   onChange={handleChange}
-                                   placeholder="Новый пароль"/>
-                            <Input type="password" name="repassword" sx={{background: "white"}}
-                                   onChange={handleChange}
-                                   placeholder="Повтор пароля"/>
-                            <Button fullWidth={true} variant='contained' onClick={changePass}
-                                    type='submit'>Сменить</Button>
-                        </Box>
-                    }
-                </form>
+                        </Button>
 
-                <Typography fontSize=".8rem" textAlign="center" mt="1rem">
-                    Уже есть аккаунт? <Link sx={{textDecoration: "none", fontWeight: "600"}} href={routes.login}>
-                    Войти
-                </Link>
-                </Typography>
-            </CardContent>
-        </Card>
+                        <Box display="flex" width="100%">
+                            <OtpInput value={otp}
+                                      containerStyle={{
+                                          width: "100%",
+                                          padding: "0 0rem",
+                                          justifyContent: "space-between"
+                                      }}
+                                      onChange={setOtp}
+                                      inputType="tel"
+                                      numInputs={4}
+                                      inputStyle={{
+                                          backgroundColor: "#F8F8F8",
+                                          borderRadius: ".5rem",
+                                          color: "#818181",
+                                          fontSize: "2rem",
+                                          borderStyle: "solid",
+                                          borderColor: "#F8F8F8",
+                                          textAlign: "center",
+                                          padding: ".5rem",
+                                          height: getQueryWidth() ? "6rem" : "5rem",
+                                          width: getQueryWidth() ? "5rem" : "4rem",
+                                      }}
+
+                                      renderInput={(props) => <input {...props} />}/>
+                        </Box>
+
+                        <Button fullWidth={true} variant="contained" borderRadius="3rem" sx={{
+                            backgroundColor: otp.length <= 3 ? "#EBF2FE" : "#2F69C7",
+                            color: otp.length <= 3 ? "#2F69C7" : "#EBF2FE",
+                            "&:hover": {"background-color": "#3B82F6", color: "white"}
+                        }}
+                                onClick={verifyEmail}
+                        >
+                            {otp.length <= 3 ? "Отменить" : "Проверить"}
+                        </Button>
+                        <Typography className={styles.textMd} fontSize="0.85rem" mt=".5rem">
+                            Письмо отправлено! Проверьте свой почтовый ящик на наличие этого письма.
+                        </Typography>
+                    </Box>
+
+
+                }
+                {step == 3 &&
+                    <Box style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: ".8rem",
+                        width: "100%",
+                        marginTop: ".5rem",
+                    }}>
+                        <Typography color="#818181" className={styles.textMd} fontWeight='400'>
+                            Для восстановления учетной записи введите почту
+                        </Typography>
+                            <Label label="Пароль"/>
+                            <Input
+                                type="password"
+                                name="password"
+                                onChange={handleChange}
+                                placeholder="Новый пароль"
+                            />
+
+                            <Label label="Повторите пароль"/>
+                            <Input
+                                type="password"
+                                name="repassword"
+                                onChange={handleChange}
+                                placeholder="Повтор пароля"
+                            />
+                        <Button fullWidth={true} variant="contained" borderRadius="3rem" onClick={changePass}
+                                type='submit'>Сменить</Button>
+                        <Typography color="#818181" className={cn(styles.mobTextSm, styles.preLine)} fontWeight='400'>
+                            {`Подсказки для надежного пароля:
+                            1. Используйте комбинацию заглавных и строчных букв
+                            2. Добавьте цифры, чтобы сделать пароль более надежным
+                            3. Включите специальные символы, такие как !, @, #, $ и т.д
+                            4. Не используйте личные данные, такие как даты рождения или имена`}
+                        </Typography>
+                    </Box>
+                }
+                {step != 3 &&
+                    <Button fullWidth={true} variant="contained" borderRadius="3rem" sx={{
+                        backgroundColor: "#EBF2FE",
+                        marginTop: "1rem",
+                        color: "#2F69C7",
+                        "&:hover": {"background-color": "#3B82F6", color: "white"}
+                    }} onClick={(e: any) => {
+                        e.preventDefault();
+                        navigate(routes.login);
+                    }}
+                    >
+                        Войти
+                    </Button>
+                }
+            </form>
+
+        </>
+
     );
 };

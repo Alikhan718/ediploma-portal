@@ -297,13 +297,12 @@ const AddingGraduates: React.FC = () => {
 
                     {currentStep === 2 && file && (
                         <Box sx={{marginTop: 4, marginBottom: '20px'}}>
-                            <Typography variant="h6" sx='@media (max-width: 998px)': {
+                            <Typography variant="h6" sx={{'@media (max-width: 998px)': {
                                     fontSize: '1.3rem'
-                                },>{steps[currentStep]}</Typography>
+                                },
+                            }}>{steps[currentStep]}</Typography>
                             <Box sx={{
                                 width: '90%',
-                                borderRadius: '50px',
-                                height: '300px',
                                 borderRadius: '50px',
                                 height: '300px',
                                 '@media (max-width: 998px)': {
