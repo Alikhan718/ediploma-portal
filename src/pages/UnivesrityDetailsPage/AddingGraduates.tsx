@@ -71,98 +71,100 @@ const AddingGraduates: React.FC = () => {
     const steps = ["Upload File", "Проверьте данные", "Подпись данных через ЭЦП", "Step 4"];
     const currentStep = progress;
 
-    return (
-        <Box sx={{}}>
-            <Box sx={{
-                textAlign: "center",
-                backgroundColor: "#FAFBFF",
-                width: '100%',
-                padding: '40px',
-                '@media (max-width: 998px)': {
-                    padding: '15px',
-                },
-            }}>
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        flexDirection: "column",
-                        width: '100%'
-                    }}
-                >
-                    <Box
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center", backgroundColor: '#FAFBFF', paddingBottom: '15px', width: '90%'
-                        }}
-                    >
-                        {steps.map((step, index) => (
-                            <React.Fragment key={index}>
-                                {index > 0 && (
-                                    <Box
-                                        sx={{
-                                            width: "300px",
-                                            height: "2px",
-                                            backgroundColor:
-                                                index <= currentStep ? "#3B82F6" : "#F8F8F8",
-                                        }}
-                                    />
-                                )}
-                                <Box
-                                    sx={{
-                                        width: 50,
-                                        height: 50,
-                                        borderRadius: "50%",
-                                        backgroundColor:
-                                            index <= currentStep ? "#3B82F6" : "#F8F8F8",
-                                        color: index <= currentStep ? "white" : "#A1A1A1",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    {index + 1}
-                                </Box>
-                            </React.Fragment>
-                        ))}
-                    </Box>
-                </Box>
+	return (
+		<Box sx={{}}>
+			<Box sx={{
+				textAlign: "center", 
+                backgroundColor: "#FAFBFF", 
+                width: '100%', 
+                padding: '40px', '@media (max-width: 998px)': { padding: '15px', },
+			}}>
+				<Box
+					sx={{
+						display: "flex",
+						alignItems: "center",
+						flexDirection: "column",
+						width: '100%'
+					}}
+				>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center", backgroundColor: '#FAFBFF', paddingBottom: '15px', width: '90%'
+						}}
+					>
+						{steps.map((step, index) => (
+							<React.Fragment key={index}>
+								{index > 0 && (
+									<Box
+										sx={{
+											width: "300px",
+											height: "2px",
+											backgroundColor:
+												index <= currentStep ? "#3B82F6" : "#F8F8F8",'@media (max-width: 998px)': { width: '15vw',
+											},
+										}}
 
-                {/* File Input */}
-                <Box sx={{
-                    backgroundColor: 'white', paddingBottom: '10px', borderRadius: '30px'
-                }}>
-                    <Box
-                        sx={{
-                            marginTop: 2,
-                            display: "flex",
-                            justifyContent: currentStep === 0 ? "flex-end" : "space-between",
-                            width: "100%",
-                        }}
-                    >
-                        {currentStep > 0 && (
-                            <IconButton onClick={goBack} color="primary"
-                                        sx={{marginLeft: '50px', marginTop: '10px', marginBottom: '-70px'}}>
-                                <ArrowBackIcon/>
-                            </IconButton>
-                        )}
-                        {currentStep < steps.length - 1 && (
-                            <IconButton
-                                onClick={() => {
-                                    if (currentStep === 0 && !file) {
-                                    } else {
-                                        goForward();
-                                    }
-                                }}
-                                color="primary"
-                                sx={{marginRight: '50px', marginTop: '10px', marginBottom: '-70px'}}
-                            >
-                                <ArrowForwardIcon/>
-                            </IconButton>
-                        )}
-                    </Box>
-                    {currentStep === 0 && (
+									/>
+								)}
+								<Box
+									sx={{
+										width: 50,
+										height: 50,
+										borderRadius: "50%",
+										backgroundColor:
+											index <= currentStep ? "#3B82F6" : "#F8F8F8",
+										color: index <= currentStep ? "white" : "#A1A1A1",
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+
+									}}
+								>
+									{index + 1}
+								</Box>
+							</React.Fragment>
+						))}
+					</Box>
+				</Box >
+
+				{/* File Input */}
+				<Box sx={{
+					backgroundColor: 'white', paddingBottom: '10px', borderRadius: '30px'
+				}}>
+					<Box
+						sx={{
+							marginTop: 2,
+							display: "flex",
+							justifyContent: currentStep === 0 ? "flex-end" : "space-between",
+							width: "100%",
+						}}
+					>
+						{currentStep > 0 && (
+							<IconButton onClick={goBack} color="primary" sx={{
+								marginLeft: '50px', marginTop: '10px', marginBottom: '-70px', '@media (max-width: 998px)': { marginLeft: '10px', marginTop: '10px', marginBottom: '-70px',},
+							}}>
+								<ArrowBackIcon />
+							</IconButton>
+						)}
+						{currentStep < steps.length - 1 && (
+							<IconButton
+								onClick={() => {
+									if (currentStep === 0 && !file) {
+									} else {
+										goForward();
+									}
+								}}
+								color="primary"
+								sx={{ marginRight: '50px', marginTop: '10px', marginBottom: '-70px', '@media (max-width: 998px)': { marginRight: '10px', marginTop: '10px', marginBottom: '-70px',},
+								}}
+							>
+								<ArrowForwardIcon />
+							</IconButton>
+						)}
+					</Box>
+					{currentStep === 0 && (
 
                         <Box sx={{
                             display: "flex",
@@ -172,8 +174,12 @@ const AddingGraduates: React.FC = () => {
                         }}>
 
 
-                            <Typography variant="h6" sx={{paddingTop: '20px', paddingBottom: '20px'}}> Загрузка Excel
-                                Файл</Typography>
+							<Typography variant="h6" sx={{
+								paddingTop: '20px', paddingBottom: '20px',
+								'@media (max-width: 998px)': {
+									fontSize: '1.2rem'
+								},
+							}}> Загрузка Excel Файл</Typography>
 
                             <label
                                 htmlFor="file-input"
@@ -231,42 +237,50 @@ const AddingGraduates: React.FC = () => {
 
                     {currentStep === 1 && file && (
                         <Box sx={{marginTop: 4, marginBottom: '20px'}}>
-                            <Typography variant="h6" sx={{}}>{steps[currentStep]}</Typography>
+                            <Typography variant="h6" sx={{
+                                '@media (max-width: 998px)': {
+                                    fontSize: '1.4rem'
+                                },
+                            }}>{steps[currentStep]}</Typography>
                             <Box sx={{
                                 width: '90%',
                                 borderRadius: '50px',
                                 height: '300px',
-                                backgroundColor: '#FAFBFF',
-                                padding: '25px',
-                                marginTop: '16px',
-                                marginLeft: '70px',
+                                backgroundColor: '#FAFBFF', padding: '25px', marginTop: '16px', marginLeft: '70px',
+                                '@media (max-width: 998px)': {
+                                    width: '95%', padding: '1px', marginLeft: '10px'
+                                },
                             }}>
                                 <Box sx={{
-                                    display: 'grid',
-                                    gridTemplateColumns: '1fr 1fr 1fr',
-                                    marginBottom: '16px',
-                                    whiteSpace: 'nowrap',
-                                    textAlign: 'left',
-                                    padding: '28px 28px 0 28px'
+                                    display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginBottom: '16px',
+                                    whiteSpace: 'nowrap', textAlign: 'left', padding: '28px 28px 0 28px'
                                 }}>
-                                    <Typography variant="subtitle1" sx={{color: '#A1A1A1'}}>Название файла:</Typography>
-                                    <Typography ml="auto" variant="subtitle1"
-                                                sx={{color: '#A1A1A1'}}>Статус:</Typography>
+                                    <Typography variant="subtitle1" sx={{
+                                        color: '#A1A1A1',
+                                        '@media (max-width: 998px)': {
+                                            fontSize: '1rem', marginRight: '10px'
+                                        },
+                                    }}>Название файла:</Typography>
+                                    <Typography ml="auto" variant="subtitle1" sx={{
+                                        color: '#A1A1A1',
+                                        '@media (max-width: 998px)': {
+                                            fontSize: '1rem',
+                                        },
+                                    }}>Статус:</Typography>
                                 </Box>
                                 <Box sx={{
-                                    display: 'grid',
-                                    gridTemplateColumns: '1fr 1fr 1fr',
-                                    marginBottom: '16px',
-                                    whiteSpace: 'nowrap',
-                                    textAlign: 'left',
-                                    padding: '28px'
+                                    display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginBottom: '16px',
+                                    whiteSpace: 'nowrap', textAlign: 'left', padding: '28px 28px 0 28px'
                                 }}>
                                     <Typography variant="body1"
-                                                sx={{display: 'flex', alignItems: 'center'}}>
+                                                sx={{display: 'flex', alignItems: 'center', color: '#A1A1A1',
+                                        '@media (max-width: 998px)': {
+                                            fontSize: '1rem', marginRight: '10px'
+                                        },}}>
                                         <img src={archive} alt=""
-                                             style={{marginRight: '8px', filter: "brightness(2.5)"}}/>
-                                        Архив с дипломами
-                                    </Typography>
+                                             style={{marginRight: '8px', filter: "brightness(2.5)"}}
+                                             />
+                                        Архив с дипломами</Typography>
                                     <Button variant="contained" color="primary"
                                             sx={{marginLeft: "auto", borderRadius: '1rem', padding: ".75rem"}}
                                             onClick={() => {
@@ -283,15 +297,26 @@ const AddingGraduates: React.FC = () => {
 
                     {currentStep === 2 && file && (
                         <Box sx={{marginTop: 4, marginBottom: '20px'}}>
-                            <Typography variant="h6" sx={{}}>{steps[currentStep]}</Typography>
+                            <Typography variant="h6" sx='@media (max-width: 998px)': {
+                                    fontSize: '1.3rem'
+                                },>{steps[currentStep]}</Typography>
                             <Box sx={{
                                 width: '90%',
                                 borderRadius: '50px',
                                 height: '300px',
-                                backgroundColor: '#FAFBFF',
-                                padding: '25px',
-                                marginTop: '16px',
+                                borderRadius: '50px',
+                                height: '300px',
+                                '@media (max-width: 998px)': {
+                                    width: '95%', 
+                                    padding: '1px', 
+                                    marginLeft: '10px'
+                                }, 
+                                backgroundColor: '#FAFBFF', 
+                                padding: '25px', 
+                                marginTop: '16px', 
                                 marginLeft: '70px',
+                            
+
                             }}>
                                 <Box sx={{
                                     display: 'grid',
@@ -301,9 +326,17 @@ const AddingGraduates: React.FC = () => {
                                     textAlign: 'left',
                                     padding: '28px 28px 0 28px'
                                 }}>
-                                    <Typography variant="subtitle1" sx={{color: '#A1A1A1'}}>Название файла:</Typography>
-                                    <Typography ml="auto" variant="subtitle1"
-                                                sx={{color: '#A1A1A1'}}>Статус:</Typography>
+                                    <Typography variant="subtitle1" sx={{color: '#A1A1A1',
+                                    '@media (max-width: 998px)': {
+                                        fontSize: '1rem', marginRight: '10px'
+                                        },
+                                    }}>Название файла:</Typography>
+                                    <Typography ml="auto" variant="subtitle1" sx={{
+                                        color: '#A1A1A1',
+                                        '@media (max-width: 998px)': {
+                                            display: 'none'
+                                        },
+                                    }}>Статус:</Typography>
                                 </Box>
                                 <Box sx={{
                                     display: 'grid',
@@ -314,7 +347,11 @@ const AddingGraduates: React.FC = () => {
                                     padding: '28px'
                                 }}>
                                     <Typography variant="body1"
-                                                sx={{display: 'flex', alignItems: 'center'}}>
+                                                sx={{display: 'flex', alignItems: 'center',
+                                                    '@media (max-width: 998px)': {
+                                                        marginLeft: '1rem'
+                                                    },
+                                                }}>
                                         <img src={archive} alt=""
                                              style={{marginRight: '8px', filter: "brightness(2.5)"}}/>
                                         Архив с дипломами
@@ -341,19 +378,25 @@ const AddingGraduates: React.FC = () => {
 
                             <Box sx={{marginBottom: '20px'}}>
 
-                                <Typography variant="h6" sx={{paddingTop: '15px'}}> Результаты файла</Typography>
+                                <Typography variant="h6" sx={{paddingTop: '15px',
+                                    '@media (max-width: 998px)': {
+                                        fontSize: '1.4rem'
+                                    },
+                                }}> Результаты файла</Typography>
                                 <Box sx={{
-                                    width: '90%',
-                                    borderRadius: '50px',
+                                    width: '90%', borderRadius: '50px',
                                     height: '300px',
-                                    backgroundColor: '#FAFBFF',
-                                    padding: '25px',
-                                    marginTop: '16px',
-                                    marginLeft: '70px',
+                                    '@media (max-width: 998px)': {
+                                        width: '95%', padding: '1px', marginLeft: '10px',
+                                    }, backgroundColor: '#FAFBFF', padding: '25px', marginTop: '16px', marginLeft: '70px',
                                 }}>
                                     <Box>
                                         <Typography variant="h3"
-                                                    sx={{textAlign: 'left', color: '#A1A1A1'}}>Адрес:</Typography>
+                                                    sx={{textAlign: 'left', color: '#A1A1A1',
+                                                        '@media (max-width: 998px)': {
+                                                            width: '95%', padding: '1px', marginTop: '1.5rem', marginLeft: '1rem'
+                                                        },
+                                                    }}>Адрес:</Typography>
                                     </Box>
                                     <Box
                                         sx={{
@@ -376,8 +419,11 @@ const AddingGraduates: React.FC = () => {
                                     </Box>
                                     <Box>
                                         <Typography variant="h3"
-                                                    sx={{textAlign: 'left', paddingTop: '20px', color: '#A1A1A1'}}>Смарт
-                                            контакт:</Typography>
+                                                    sx={{textAlign: 'left', paddingTop: '20px', color: '#A1A1A1',
+                                                    '@media (max-width: 998px)': {
+                                                        width: '95%', padding: '1px', marginTop: '1.5rem', marginLeft: '1rem'
+                                                    },
+                                                    }}>Смарт контакт:</Typography>
                                     </Box>
                                     <Box
                                         sx={{
@@ -387,14 +433,12 @@ const AddingGraduates: React.FC = () => {
                                             alignItems: 'center',
                                         }}
                                     >
-                                        <Typography variant="body1" sx={{textAlign: 'left', fontSize: '16px'}}>
+                                        <Typography variant="body1" sx={{
+                                        textAlign: 'left',
+                                         fontSize: '16px'}}>
                                             Ссылка на смарт контакт
                                         </Typography>
-                                        <Button variant="contained" color="primary" sx={{
-                                            marginLeft: 'auto',
-                                            height: '34px',
-                                            borderRadius: '32px'
-                                        }}> Cкопировать</Button>
+                                        <Button variant="contained" color="primary" sx={{marginLeft: 'auto',height: '34px',borderRadius: '32px'}}> Cкопировать</Button>
                                     </Box>
                                 </Box>
                                 <Button variant="contained" color="primary"

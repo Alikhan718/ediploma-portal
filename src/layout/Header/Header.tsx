@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MenuIcon from '@src/assets/icons/menu.svg';
-import MenuClosedIcon from '@src/assets/icons/close.svg';
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import HeaderSearchIcon from '@src/assets/icons/search.svg';
 import RuFlag from '@src/assets/icons/ru-flag.svg';
-import {ReactComponent as UserIcon} from '@src/assets/icons/profile.svg';
-import {ReactComponent as FilterIcon} from '@src/assets/icons/Filter-icon.svg';
+import KzFlag from '@src/assets/icons/Flag.svg';
+import EnFlag from '@src/assets/icons/EnFlag.svg';
+import { ReactComponent as UserIcon } from '@src/assets/icons/user.svg';
+import { ReactComponent as AccountCircleIcon } from '@src/assets/icons/profileIcon.svg';
+import { ReactComponent as FilterIcon } from '@src/assets/icons/Filter-icon.svg';
 import LogoutIcon from '@src/assets/icons/out.png';
-import {headerNavigations, interFaceOptions, sidebarNavigations} from "@src/layout/Header/generator";
+import { headerNavigations, sidebarNavigations } from "@src/layout/Header/generator";
 import {
 	AppBar as MuiAppBar,
 	AppBarProps as MuiAppBarProps,
@@ -15,26 +17,25 @@ import {
 	Divider,
 	styled,
 	Typography,
-	useMediaQuery
+	useMediaQuery, Menu, MenuItem, ListItemIcon, IconButton
 } from '@mui/material';
-import {HeaderProps} from './Header.props';
-import {GlobalLoader} from './GlobalLoader';
-import {Button, Input, Modal} from '@src/components';
-import {NavLink, useNavigate} from "react-router-dom";
-import {routes} from "@src/shared/routes";
-import {isAuthenticated} from "@src/utils/userAuth";
-import {FilterSection} from "@src/layout/Filter/FilterSection";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchAuthLogout} from "@src/store/auth/saga";
-import {fetchSearch} from "@src/store/diplomas/actionCreators";
-import {selectSearchText} from "@src/store/diplomas/selectors";
+import { HeaderProps } from './Header.props';
+import { GlobalLoader } from './GlobalLoader';
+import { Button, Input, Modal } from '@src/components';
+import { NavLink, useNavigate } from "react-router-dom";
+import { routes } from "@src/shared/routes";
+import { isAuthenticated } from "@src/utils/userAuth";
+import { FilterSection } from "@src/layout/Filter/FilterSection";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAuthLogout } from "@src/store/auth/saga";
+import { fetchSearch } from "@src/store/diplomas/actionCreators";
+import { selectSearchText } from "@src/store/diplomas/selectors";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
-import {Sidebar} from '../Sidebar/Sidebar';
+import { Sidebar } from '../Sidebar/Sidebar';
 
 interface AppBarProps extends MuiAppBarProps {
 	open: boolean;
 }
-
 
 const AppBar = styled(MuiAppBar, {
 	shouldForwardProp: (prop) => prop !== 'open'
@@ -155,7 +156,28 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 		setOpen(checkRoute());
 	});
 
+	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+	const [selectedLanguage, setSelectedLanguage] = useState('ru');
 	const userRole = localStorage.getItem("userRole");
+
+	const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleCloseMenu = () => {
+		setAnchorEl(null);
+	};
+
+	const handleLogout = () => {
+		fetchAuthLogout();
+		localStorage.clear();
+		navigate(routes.login, { replace: true });
+		handleCloseMenu();
+	};
+	const handleFlagSelect = (language: string) => {
+		setSelectedLanguage(language);
+		handleCloseMenu();
+	};
 
 	return (
 		<AppBar open={open} className="app-navbar-container">
@@ -216,27 +238,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 				))}
 
 
-				{/*<Box className="diploma-navbar-item" width="100%">*/}
-				{/*    {!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('university') && !window.location.href.split('/').includes('university') &&*/}
-				{/*        <Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'*/}
-				{/*               value={filterAttributes.text}*/}
-				{/*               onChange={handleSearch} startAdornment={<SearchIcon/>}*/}
-				{/*               endAdornment={<FilterIcon style={{cursor: "pointer"}} onClick={() => {*/}
-				{/*                   if (isAuthenticated()) {*/}
-				{/*                       setShowFilter(!showFilter);*/}
-				{/*                   } else {*/}
-				{/*                       setOpenModal(true);*/}
-				{/*                   }*/}
-				{/*               }}/>}/>*/}
-				{/*    }</Box>*/}
-				{/*<FilterSection*/}
-				{/*    triggerSearchFilters={triggerSearchFilters}*/}
-				{/*    filterAttributes={filterAttributes}*/}
-				{/*    setFilterAttributes={setFilterAttributes}*/}
-				{/*    open={showFilter}*/}
-				{/*    setOpen={setShowFilter}*/}
-				{/*/>*/}
-				{/* REST SELECTOR  */}
+				
 				<Box
 					display='flex'
 					ml="auto"
@@ -251,10 +253,35 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 						}} src={HeaderSearchIcon} alt=""/>
 					</Box>
 					<Box display='flex' justifyContent='center'>
-						<img style={{
+						<IconButton
+						style={{
 							cursor: 'pointer',
 							minHeight: '1.25rem'
-						}} src={RuFlag} alt=""/>
+						}}
+						onClick={handleOpenMenu}
+						>
+							{selectedLanguage === 'ru' && <img src={RuFlag} alt="Russian" />}
+							{selectedLanguage === 'en' && <img src={EnFlag} alt="English" />}
+							{selectedLanguage === 'kz' && <img src={KzFlag} alt="Kazakh" />}
+						</IconButton>
+						<Menu
+							anchorEl={anchorEl}
+							open={Boolean(anchorEl)}
+							onClose={handleCloseMenu}
+						>
+							<MenuItem onClick={() => handleFlagSelect('ru')} sx={{ fontSize: '1rem' }}>
+								<img src={RuFlag} alt="Russian" style={{ marginRight: '0.5rem' }} />
+								Русский
+							</MenuItem>
+							<MenuItem onClick={() => handleFlagSelect('en')} sx={{ fontSize: '1rem' }}>
+								<img src={EnFlag} alt="English" style={{ marginRight: '0.5rem' }} />
+								Англиский
+							</MenuItem>
+							<MenuItem onClick={() => handleFlagSelect('kz')} sx={{ fontSize: '1rem' }}>
+								<img src={KzFlag} alt="French" style={{ marginRight: '0.5rem' }} />
+								Казахский
+							</MenuItem>
+						</Menu>
 					</Box>
 
 					{!isAuthenticated() ?
@@ -291,25 +318,33 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 						:
 						<Box display='flex' justifyContent="center" gap="1.25rem" height="3rem">
 							<Button
+								onClick={handleOpenMenu}
 								className="diploma-auth-btn"
-								variant='contained'
+								startIcon={<AccountCircleIcon style={{ height: "1.2rem" }} />}
+								variant="contained"
 								borderRadius="3rem"
-								style={{padding: "0 2rem"}}
-								onClick={() => {
-									fetchAuthLogout();
-									localStorage.clear();
-									navigate(routes.login, {replace: true});
-								}}
+								width={120}
 							>
 								<Typography
-									variant='h4'
-									color={'white'}
-									fontSize={'16px'}
-									fontWeight='450'>
-									Выйти
+									variant="h4"
+									color="white"
+									fontSize="16px"
+									className="diploma-navbar-item"
+									fontWeight="450"
+								>
+									Профиль
 								</Typography>
-
 							</Button>
+							<Menu
+								anchorEl={anchorEl}
+								open={Boolean(anchorEl)}
+								onClose={handleCloseMenu}
+							>
+								<MenuItem onClick={handleLogout}>
+
+									<Typography variant="inherit">Выйти</Typography>
+								</MenuItem>
+							</Menu>
 
 							<UserIcon style={{
 								height: "100%",
@@ -444,3 +479,59 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 	);
 };
 export const Header = React.memo(AppHeader);
+{/*<Modal*/ }
+{/*    open={openModal}*/ }
+{/*    handleClose={() => setOpenModal(true)}*/ }
+{/*    width={getQueryWidth()}*/ }
+{/*    aria-labelledby="modal-modal-title"*/ }
+{/*    aria-describedby="modal-modal-description"*/ }
+{/*>*/ }
+{/*    <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>*/ }
+
+{/*        <img src={NeedAuthorizationPic} alt=""/>*/ }
+{/*        <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'*/ }
+{/*                    fontWeight='600'*/ }
+{/*                    variant="h6"*/ }
+{/*                    component="h2">*/ }
+{/*            Для использования требуется авторизация*/ }
+{/*        </Typography>*/ }
+{/*        <Button variant='contained' sx={{*/ }
+{/*            marginTop: "1rem",*/ }
+{/*            padding: "1rem",*/ }
+{/*            width: "80%",*/ }
+{/*            fontSize: "1rem",*/ }
+{/*            fontWeight: "600",*/ }
+{/*            borderRadius: "2rem"*/ }
+{/*        }} onClick={() => {*/ }
+{/*            navigate(routes.login);*/ }
+{/*        }}>Авторизоваться</Button>*/ }
+{/*    </Box>*/ }
+{/*</Modal>*/ }
+
+
+{/*<Box className="diploma-navbar-item" width="100%">*/ }
+{/*    {!window.location.href.split('/').includes('main') && !window.location.href.split('/').includes('university') && !window.location.href.split('/').includes('university') &&*/ }
+{/*        (<Input placeholder='Найти по ФИО' fullWidth={true} inputSize='s'*/ }
+{/*               value={filterAttributes.text}*/ }
+{/*               onChange={handleSearch} startAdornment={<SearchIcon/>}*/ }
+{/*               endAdornment={*/ }
+{/*                   <FilterIcon*/ }
+{/*                       style={{cursor: "pointer"}}*/ }
+{/*                       onClick={() => {*/ }
+{/*                           if (isAuthenticated()) {*/ }
+{/*                               setShowFilter(!showFilter);*/ }
+{/*                           }*/ }
+{/*                           else {*/ }
+{/*                               setOpenModal(true);*/ }
+{/*                           }*/ }
+{/*                       }}*/ }
+{/*                   />}*/ }
+{/*        />)}*/ }
+{/*</Box>*/ }
+{/*<FilterSection*/ }
+{/*    triggerSearchFilters={triggerSearchFilters}*/ }
+{/*    filterAttributes={filterAttributes}*/ }
+{/*    setFilterAttributes={setFilterAttributes}*/ }
+{/*    open={showFilter}*/ }
+{/*    setOpen={setShowFilter}*/ }
+{/*/>*/ }

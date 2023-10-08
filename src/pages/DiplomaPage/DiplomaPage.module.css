@@ -89,6 +89,20 @@
 
 /* styles for filter section */
 
+.pageOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(59, 130, 246, 0.8);
+	/* Color with alpha (opacity) */
+	backdrop-filter: blur(10px);
+	/* Adjust the blur amount as needed */
+	z-index: 1000;
+	/* Ensure the overlay is above other content */
+}
+
 @media only screen and (max-width: 768px) {
     .filterContainer {
         width: 100% !important;
@@ -245,6 +259,23 @@
 
 .radioButtons div {
     margin-right: 50px;
+	margin-right: 50px;
+}
+
+.textArea {
+	width: 95%;
+	border-radius: 25px;
+	margin-bottom: 25px;
+	padding: 15px;
+	border-color: #F8F8F8;
+	background-color: #F8F8F8;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	resize: none;
+}
+
+.textArea::-webkit-scrollbar {
+	display: none;
 }
 
 .buttonContainer {
@@ -285,20 +316,43 @@
 
 .smallTextAreaContainer {
     width: 100%;
+	width: 100%;
+}
+
+.studentSmallTextArea {
+	width: 95%;
+	height: 40px;
+	border-radius: 25px;
+	padding-left: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-color: #F8F8F8;
+	background-color: #F8F8F8;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	resize: none;
+}
+
+.studentSmallTextArea::-webkit-scrollbar {
+	display: none;
 }
 
 .imageContainer {
-    display: flex;
-    justify-content: center; /* Horizontally center the content */
-    align-items: center; /* Vertically center the content */
-    flex-direction: column; /* Stack the content vertically */
-    margin: 10px;
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 25px;
-    background-color: #c6cad3;
-    width: 270px;
-    height: 270px;
+	display: flex;
+	justify-content: center;
+	/* Horizontally center the content */
+	align-items: center;
+	/* Vertically center the content */
+	flex-direction: column;
+	/* Stack the content vertically */
+	margin: 10px;
+	cursor: pointer;
+	overflow: hidden;
+	border-radius: 25px;
+	background-color: #c6cad3;
+	width: 270px;
+	height: 270px;
 }
 
 .image {

@@ -107,6 +107,15 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
 		return false;
 	};
 
+	const [anchorEl, setAnchorEl] = useState<null | HTMLButtonElement>(null);
+
+	const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleCloseMenu = () => {
+		setAnchorEl(null);
+	};
 	const [isSidebarVisible, setIsSidebarVisible] = useState(checkRoute());
 
 	const tabletBreakpoint = 992;

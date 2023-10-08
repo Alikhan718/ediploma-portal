@@ -1,14 +1,14 @@
 import React from 'react';
 
-import {Box, Typography} from '@mui/material';
-import {IAuthPageBase} from "@src/pages/AuthPage/types";
-import {isAuthenticated} from '@src/utils/userAuth';
+import { Box, Typography } from '@mui/material';
+import { IAuthPageBase } from "@src/pages/AuthPage/types";
+import { isAuthenticated } from '@src/utils/userAuth';
 import BrandIcon from '@src/assets/icons/brand.svg';
 import ModeIcon from '@src/assets/icons/Mode.svg';
-import {ReactComponent as Web} from '@src/assets/auth/web.svg';
+import { ReactComponent as Web } from '@src/assets/auth/web.svg';
 
-import {routes} from "@src/shared/routes";
-import {useNavigate} from "react-router-dom";
+import { routes } from "@src/shared/routes";
+import { useNavigate } from "react-router-dom";
 import styles from "./AuthPage.module.css";
 import {selectUserRole} from "@src/store/auth/selector";
 import {useSelector} from "react-redux";

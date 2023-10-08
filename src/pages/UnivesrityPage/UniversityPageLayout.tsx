@@ -33,7 +33,13 @@ export const UniversityPageLayout: React.FC = () => {
 							alignItems: 'center',
 							cursor: "pointer",
 							borderRadius: "10px",
-							marginBottom: "1.5rem"
+							marginBottom: "1.5rem",
+							"@media (max-width: 1400px)": {
+								width: '32%'
+							},
+							"@media (max-width: 778px)": {
+								width: '48%'
+							},
 						}}
 					>
 						<CardMedia
@@ -48,11 +54,20 @@ export const UniversityPageLayout: React.FC = () => {
 						/>
 						<Box sx={{ display: 'flex', flexDirection: 'column' }}>
 							<CardContent sx={{ flex: '0 0 auto' }}>
-								<Typography mb='.5rem' fontSize="1.3rem" fontWeight="600" p="">
+								<Typography mb='.5rem' fontSize="1.3rem" fontWeight="600" sx={{
+									"@media (max-width: 778px)": {
+										fontSize: '0.75rem'
+									}, "@media (max-width: 998px)": {
+										fontSize: '1rem'
+									},
+								}}>
 									{index % 2 === 0 ? "Казахстанско-Британский Технический Университет" : "Назарбаев Университет (НУ)"}
 								</Typography>
 								<Box display='flex'>
-									<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
+									<Typography className={styles.textSm} sx={{
+										display: 'flex', alignItems: 'center',
+
+									}}>
 										4.5 <Rating
 											name="text-feedback"
 											value={defaultS}
