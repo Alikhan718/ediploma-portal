@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from "src/pages/DiplomaPage/DiplomaPage.module.css"
+import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { Input } from '@src/components';
 import { set } from 'react-ga';
 import { SearchOutput } from './SearchOutput';
@@ -16,19 +16,19 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
     const [loading, setLoading] = React.useState(false);
     const [response, setResponse] = React.useState('');
 
-    const handleTextareaInput = (e: any) => {
+    const handleTextareaInput = (e: any): void => {
         e.target.style.height = 'auto';
         e.target.style.height = e.target.scrollHeight + 'px';
     };
 
-    useEffect(() => {
+    useEffect((): void => {
         const textarea = document.getElementById('chat') as HTMLInputElement;
         textarea.style.height = 'auto';
         textarea.style.height = textarea.scrollHeight + 'px';
 
     }, [jobDescription]);
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (): Promise<void> => {
         setGotResponse(true);
         setLoading(true);
 
@@ -37,7 +37,7 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
             return;
         }
         
-        console.log('Loading...')
+        console.log('Loading...');
         try{
             const response = await fetch('http://localhost:3002/search', {
                 method: "POST",
@@ -71,6 +71,7 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
                 rows={1}
                 placeholder="Описание работы"
                 inputSize="m"
+                defaultValue={jobDescription}
                 sx={{
                     paddingRight: 0,
                     width: '95%',
@@ -81,7 +82,7 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
                 <div className={styles.buttonContainer}>
                     <button 
                         type="button" 
-                        onClick={()=>{setHaveDescription(false)}} 
+                        onClick={(): void => {setHaveDescription(false);}} 
                         className={styles.continueButton}
                     >Назад
                     </button>
@@ -96,5 +97,5 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
 
             </div>)}
         </div>
-    )
-}
+    );
+};

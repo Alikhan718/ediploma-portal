@@ -1,37 +1,42 @@
 import React from 'react';
 import { Input } from '@src/components';
-import styles from "src/pages/DiplomaPage/DiplomaPage.module.css"
+import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { Output } from './Output';
 
 interface JobDescriptionGeneratorProps {
     setHaveDescription:any;
     setIsClicked:any;
+    setJobDescription:any;
 };
 
 export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (props) => {
-    const {setHaveDescription, setIsClicked} = props;
+    const {setHaveDescription, setIsClicked, setJobDescription} = props;
 
     const [selectedRadio, setSelectedRadio] = React.useState('');
     const [response, setResponse] = React.useState('');
     const [isTask, setIsTask] = React.useState(true);
-    const [gotResponse, setGotResponse] = React.useState(false); //change to false
+    const [gotResponse, setGotResponse] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [haveSearch, setHaveSearch] = React.useState(true);
 
-    const handleOnChange = (event: any) => {
+    const handleOnChange = (event: any): void => {
         setSelectedRadio(event.target.value);
     };
 
-    const handleTextareaInput = (e: any) => {
+    const handleTextareaInput = (e: any): void => {
         e.target.style.height = 'auto';
         e.target.style.height = e.target.scrollHeight + 'px';
     };
 
-    const handleButtonSubmit = () => {
+    const handleButtonSubmit = (): void => {
         handleSubmit(selectedRadio === '1');
     };
 
-    const handleSubmit = async (isTask: boolean) => {
+    const handleSubmit = async (isTask: boolean): Promise<void> => {
+        if((document.getElementById("chat") as HTMLInputElement).value === ''){
+            return;
+        }
+
         console.log(isTask);
         setGotResponse(true);
         setLoading(true);
@@ -59,6 +64,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
             const responseData = await response.json();
             console.log(responseData);
             setResponse(responseData.data);
+            setJobDescription(responseData.data);
             setLoading(false);
         } catch(error) {
             console.log(error);
@@ -69,7 +75,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
     return(
         <div>
             {gotResponse ? 
-            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setHaveDescription} haveSearch={haveSearch}/>): //change to loading state
+            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setHaveDescription} haveSearch={haveSearch} isStudent={false} setJobDescription={setJobDescription}/>):
             (<div>
 
             
@@ -122,7 +128,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
             <div className={styles.buttonContainer}>
                 <button 
                     type="button" 
-                    onClick={()=>{setIsClicked(true)}} 
+                    onClick={(): void => {setIsClicked(true);}} 
                     className={styles.continueButton}
                 >Назад
                 </button>
@@ -134,7 +140,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
                 </button>
                 <button
                     type="button"
-                    onClick={()=>{setHaveDescription(true)}}
+                    onClick={():void => {setHaveDescription(true); setJobDescription('');}}
                     className={styles.continueButton}
                 >Поиск
                 </button>
@@ -142,5 +148,5 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
 
             </div>)}
         </div>
-    )
+    );
 };

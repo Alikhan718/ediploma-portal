@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from "src/pages/DiplomaPage/DiplomaPage.module.css"
+import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { CandidateSearch } from './CandidateSearch';
 import { JobDescriptionGenerator } from './JobDescriptionGenerator';
 
 interface GeneratorProps{
-    setIsClicked:any
+    setIsClicked:any;
 }
 
 export const Generator: React.FC<GeneratorProps> = (props) => {
@@ -16,8 +16,8 @@ export const Generator: React.FC<GeneratorProps> = (props) => {
         <div>
             {haveDescription? 
                 (<CandidateSearch jobDescription={jobDescription} setHaveDescription={setHaveDescription}/>):
-                (<JobDescriptionGenerator setHaveDescription={setHaveDescription} setIsClicked={setIsClicked}/>)
+                (<JobDescriptionGenerator setHaveDescription={setHaveDescription} setIsClicked={setIsClicked} setJobDescription={setJobDescription}/>)
             }
         </div>
-    )
-}
+    );
+};
