@@ -44,6 +44,7 @@ const AppBar = styled(MuiAppBar, {
 		boxShadow: 'none',
 		position: 'unset',
 		display: "none",
+		zIndex: "1",
 		backgroundColor: '#ffffff',
 		transition: theme.transitions.create(['width', 'margin'], {
 			easing: theme.transitions.easing.sharp,
@@ -324,7 +325,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 			<Box className="" display={minimized ? 'none' : 'flex'} flexDirection="column"
 			     style={{
 				     position: "absolute",
-				     zIndex: "99999",
+				     zIndex: "99",
 				     backgroundColor: "white",
 				     width: "100%",
 				     height: "90vh",
@@ -440,7 +441,6 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 			</Box>
 			<GlobalLoader/>
 		</AppBar>
-	)
-		;
+	);
 };
 export const Header = React.memo(AppHeader);

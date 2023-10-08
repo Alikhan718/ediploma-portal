@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from "src/pages/DiplomaPage/DiplomaPage.module.css"
+import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { Generator } from './Generator';
 import { CareerPlanGenerator } from './CareerPlanGenerator';
-import { StudentOrRecruiter } from './StudentOrRecruiter';
+import { StudentOrRecruiter } from '@src/components';
 
 interface HiringPopUpProps {
 	setShowPopup:any;
@@ -13,7 +13,7 @@ export const HiringPopUp: React.FC<HiringPopUpProps>= (props) => {
     const [isStudent, setIsStudent] = React.useState(true);
     const [isClicked, setIsClicked] = React.useState(true);
 
-    return(
+    return (
         <div className={styles.popupContainer}>
             <div className={styles.popupBody}>
                 <button type="button" onClick={()=>{setShowPopup(false)}} className={styles.closePopupButton} data-modal-hide="medium-modal">

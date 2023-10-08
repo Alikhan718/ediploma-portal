@@ -103,7 +103,7 @@
     }
 
     .app-navbar-container {
-        margin: .5rem 0;
+        padding: .5rem 0;
         position: fixed !important;
     }
 

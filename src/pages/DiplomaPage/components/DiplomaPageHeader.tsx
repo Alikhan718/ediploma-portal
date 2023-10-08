@@ -1,24 +1,24 @@
 import React from 'react';
-import { Box, Typography, useMediaQuery, } from "@mui/material";
-import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
+import {Box, Typography, useMediaQuery,} from "@mui/material";
+import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
 import styles from "../DiplomaPage.module.css";
 import cn from "classnames";
 import univ from './../../../assets/icons/FilterUn.svg';
-import { FilterSection, } from "@src/layout/Filter/FilterSection";
-import { Button, Input, Modal } from '@src/components';
-import { fetchSearch } from "@src/store/diplomas/actionCreators";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { selectSearchText } from "@src/store/diplomas/selectors";
-import { FilterAttributes } from "@src/layout/Header/Header";
-import { ReactComponent as SearchIcon } from '@src/assets/icons/search-icon.svg';
-import { ReactComponent as FilterIcon } from '@src/assets/icons/Filter-icon.svg';
+import {FilterSection,} from "@src/layout/Filter/FilterSection";
+import {Button, HiringPopUp, Input, Modal} from '@src/components';
+import {fetchSearch} from "@src/store/diplomas/actionCreators";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {selectSearchText} from "@src/store/diplomas/selectors";
+import {FilterAttributes} from "@src/layout/Header/Header";
+import {ReactComponent as HiringIcon} from '@src/assets/icons/refresh.svg';
+import {ReactComponent as SearchIcon} from '@src/assets/icons/search.svg';
+import {ReactComponent as FilterIcon} from '@src/assets/icons/Filter-icon.svg';
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
-import { HiringPopUp } from '@src/components/HiringPopup/HiringPopUp';
 
 import ReactGA from 'react-ga';
-import { routes } from "@src/shared/routes";
-import { isAuthenticated } from "@src/utils/userAuth";
+import {routes} from "@src/shared/routes";
+import {isAuthenticated} from "@src/utils/userAuth";
 
 export const DiplomaPageHeader: React.FC = (props) => {
 	const dispatch = useDispatch();
@@ -75,11 +75,11 @@ export const DiplomaPageHeader: React.FC = (props) => {
 				>
 					<Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
 
-						<img src={NeedAuthorizationPic} alt="" />
+						<img src={NeedAuthorizationPic} alt=""/>
 						<Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
-							fontWeight='600'
-							variant="h6"
-							component="h2">
+						            fontWeight='600'
+						            variant="h6"
+						            component="h2">
 							Для использования требуется авторизация
 						</Typography>
 						<Button variant='contained' sx={{
@@ -95,24 +95,46 @@ export const DiplomaPageHeader: React.FC = (props) => {
 					</Box>
 				</Modal>
 				<Box display="flex"
-					flexDirection="column"
-					alignItems="start"
-					className={styles.diplomasContainer}>
-					<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', }}>
-						<Box display="flex" alignItems="center"  >
-							<Button onClick={()=>{setShowFilter(true)}} variant="outlined" sx={{ borderRadius: '48px', width: '30%', color: '#3B82F6', }}>
-								<Filter style={{ marginRight: '10px', }} />
-								
+				     flexDirection="column"
+				     alignItems="start"
+				     className={styles.diplomasContainer} mt="2rem">
+					<Typography fontWeight='700' mb="1rem" className={cn(styles.mobPl1, styles.mobTextL)}
+					            fontSize='2.5rem'>
+						HR Bank
+					</Typography>
+				</Box>
+				<Box display="flex"
+				     flexDirection="column"
+				     className={styles.diplomasContainer}>
+					<Box sx={{
+						display: 'flex',
+						flexDirection: 'row',
+						width: '100%',
+					}}>
+						<Box display="flex" width="100%" flexWrap="wrap" flexDirection="row" gap="1rem"
+						     alignItems="center">
+							<Button
+								onClick={() => {
+									setShowFilter(true);
+								}}
+								variant="outlined"
+								sx={{borderRadius: '48px', paddingX: "3rem", color: '#3B82F6',}}
+								startIcon={<Filter/>}
+							>
 								Фильтр
 							</Button>
-							<Box sx={{ marginLeft: '55px', }}>
+							<Box display="flex" gap="1rem" ml="auto" alignContent="flex-end" >
+								<img src={univ}/>
+								<img src={univ}/>
+							</Box>
+							<Box display="flex">
+
 								<Input
 									placeholder="Фамилия Имя, название вуза"
-									fullWidth={true}
+									fullWidth
 									inputSize="m"
 									sx={{
 										paddingRight: 0,
-										width: '150%',
 									}}
 									endAdornment={
 										<Button
@@ -133,45 +155,49 @@ export const DiplomaPageHeader: React.FC = (props) => {
 											}}
 										>
 											Найти
-											<SearchIcon style={{ filter: 'brightness(250%) contrast(101%)', width: '82px', marginLeft: '12px' }} />
+											<SearchIcon style={{
+												filter: 'brightness(250)',
+												width: '82px',
+												marginLeft: '12px'
+											}}/>
 										</Button>
 									}
 									onChange={(e) => {
 										const query = e.target.value;
-										setFilterAttributes({ ...filterAttributes, text: query });
+										setFilterAttributes({...filterAttributes, text: query});
 										setSearchQuery(query);
 									}}
 								/>
-
 							</Box>
-							<Box sx={{ marginLeft: '200px', }}></Box>
+
+
 							<Button
-                                 className={styles.popupButton}
-                                 buttonSize="m"
-                                 variant="contained"
-                                 sx={{
-                                     paddingX: '3rem',
-                                     paddingY: '1.8rem',
-                                     borderRadius: '48px',
-                                     margin: '4px'
-                                 }}
-                                 type="button"
-                                 onClick={() => {
-                                     setShowPopup(true);
-                                 }}
-                                 endIcon={<SearchIcon style={{
-                                     filter: 'brightness(250%) contrast(101%)',
-                                 }}/>}
-                             >
-                                 AI Hiring
-                             </Button>
+								className={styles.popupButton}
+								buttonSize="m"
+								variant="contained"
+								sx={{
+									paddingY: '1.8rem',
+									borderRadius: '48px',
+									margin: '4px',
+									fontSize: "1.2rem"
+								}}
+								type="button"
+								onClick={() => {
+									setShowPopup(true);
+								}}
+								endIcon={<HiringIcon style={{
+									filter: 'brightness(250%) contrast(101%)',
+								}}/>}
+							>
+								AI Hiring
+							</Button>
+
 						</Box>
-						<Box>	<img src={univ} style={{ marginRight: '15px' }} />
-							<img src={univ} style={{ marginRight: '5px' }} /></Box>
+
 					</Box>
 
 				</Box>
-				{showPopup ? (<HiringPopUp setShowPopup={setShowPopup}/>):(<div></div>)}
+				{showPopup ? (<HiringPopUp setShowPopup={setShowPopup}/>) : (<div></div>)}
 			</Box>
 			<FilterSection
 				triggerSearchFilters={triggerSearchFilters}

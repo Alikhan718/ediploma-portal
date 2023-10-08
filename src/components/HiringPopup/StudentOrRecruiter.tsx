@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from "src/pages/DiplomaPage/DiplomaPage.module.css"
-import student from "src/assets/example/student.jpg";
-import recruiter from "src/assets/example/recruiter.jpg";
+import styles from "@src/pages/DiplomaPage/DiplomaPage.module.css";
+import student from "@src/assets/example/student.jpg";
+import recruiter from "@src/assets/example/recruiter.jpg";
 
 interface StudentOrRecruiterProps {
 	setIsStudent:any;
