@@ -73,8 +73,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 
 	return (
 		<>
-			<Box display={open ? 'flex' : 'none'} width='70%' position='absolute' top='10rem'
-				right='13rem' justifyContent='center'
+			<Box display={open ? 'flex' : 'none'} width='70%' position='absolute' top='0' left="0" sx={{transform: "translate(25%, 12%)"}} justifyContent='center'
 			>
 				<Card elevation={6} sx={{
 					width: "100%",
@@ -84,7 +83,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 					display: "flex",
 					flexDirection: "column", backgroundColor: "white",
 				}}
-					className={styles.mobP2}>
+					className={styles.mobP15}>
 					<Box display='flex' justifyContent='space-between'>
 						<Typography
 							fontSize='1.5rem'
