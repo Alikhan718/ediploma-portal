@@ -46,10 +46,10 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
         let apiLink: string = '';
 
         if(isTask){
-            apiLink = 'http://localhost:3001/generate-from-task';
+            apiLink = 'https://agile-job-desc-denerator.onrender.com/generate-from-task';
         }
         else{
-            apiLink = 'http://localhost:3001/generate-from-project';
+            apiLink = 'https://agile-job-desc-denerator.onrender.com/generate-from-project';
         }
 
         try {
