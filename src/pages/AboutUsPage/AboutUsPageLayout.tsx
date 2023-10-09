@@ -68,7 +68,6 @@ export const AboutUsPageLayout: React.FC = () => {
 					/>
 					<CardMedia
 						component="img"
-						height="100%"
 						image={imgTopRight}
 						className={cn(styles.img, styles.imgHeroRight)}
 					/>

@@ -98,7 +98,7 @@ export const createCAdESFromFile = (university_id: number, callBackFunc: any): a
         var createCAdESFromFile = {
             "module": "kz.gov.pki.knca.commonUtils",
             "method": "createCAdESFromFile",
-            "args": ['PKCS12', "SIGNATURE", `http://generator.ediploma.kz/get-file/jsons/${university_id}/fullMetadata.json`, true]
+            "args": ['PKCS12', "SIGNATURE", `https://generator.ediploma.kz/get-file/jsons/${university_id}/fullMetadata.json`, true]
         };
         callback = callBackFunc;
         return webSocket.send(JSON.stringify(createCAdESFromFile));

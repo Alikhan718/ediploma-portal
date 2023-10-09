@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Signature>
     <SignedData>
-        <FilePath>http://generator.ediploma.kz/get-file/jsons/1/fullMetadata.json</FilePath>
+        <FilePath>https://generator.ediploma.kz/get-file/jsons/1/fullMetadata.json</FilePath>
         <UniversityName>KBTU</UniversityName>
     </SignedData>
 </Signature>

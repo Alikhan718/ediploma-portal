@@ -24,7 +24,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 
 	const checkRoute = (): boolean => {
 		const urlElements = window.location.href.split('/');
-		const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates'];
+		const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'student'];
 		for (const item of sidebarEnabledRoutes) {
 			if (urlElements.includes(item)) {
 				return true;
@@ -69,7 +69,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 						<Box position='absolute' zIndex={10} top={0} bottom={0} left={0} right={0}
 						     bgcolor='rgba(255, 255, 255, 0.6)'/>
 					)}
-					<Box className="app-container">
+					<Box className="app-container" mb="2rem">
 						{children}
 					</Box>
 					{!urlElements.includes('auth') && <Box className="footer">

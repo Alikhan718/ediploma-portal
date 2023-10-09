@@ -5,7 +5,7 @@ import {
     POST_AUTH_WITH_DS,
     GET_OTP,
     POST_RESET_PASSWORD,
-    POST_VALIDATE_EMAIL, AUTH_LOGOUT, POST_SAVE_XML
+    POST_VALIDATE_EMAIL, AUTH_LOGOUT, POST_SAVE_XML, GET_DIPLOMA_METADATA_CID, POST_GENERATE_SMART_CONTRACT
 } from "./types/actionTypes";
 
 const initialState = {
@@ -13,6 +13,8 @@ const initialState = {
     otpSent: false,
     isLoading: false,
     signed: false,
+    ipfsLink: "",
+    smartContractLink: "",
     redirectToLogin: false,
     forgotStep: 1, // [1 - send code, 2 - confirm code, 3 - change pass]
     registrationStep: 1, // [1 - send code, 2 - email validated, 3 - registered]
@@ -172,6 +174,33 @@ export const authReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 signed: false,
+            };
+        case GET_DIPLOMA_METADATA_CID.saga:
+            return {
+                ...state,
+                university_id: action.payload.university_id,
+            };
+        case GET_DIPLOMA_METADATA_CID.success:
+            console.log("case GET_DIPLOMA_METADATA_CID.success:", action);
+            return {
+                ...state,
+                ipfsLink: action.payload,
+            };
+        case POST_GENERATE_SMART_CONTRACT.saga:
+            console.log("POST_GENERATE_SMART_CONTRACT.saga:", action);
+
+            return {
+                ...state,
+                CID: action.payload.CID,
+                symbol: action.payload.symbol,
+                name: action.payload.name,
+            };
+        case POST_GENERATE_SMART_CONTRACT.success:
+            console.log("POST_GENERATE_SMART_CONTRACT.success:", action);
+
+            return {
+                ...state,
+                smartContractLink: action.payload
             };
         default:
             return state;

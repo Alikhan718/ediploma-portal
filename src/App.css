@@ -35,6 +35,10 @@
     gap: 40px;
     align-items: center;
 }
+.dropdown {
+    padding: 1rem !important;
+
+}
 
 .footer {
     width: 100%;
@@ -99,11 +103,12 @@
     }
 
     .app-navbar-container {
-        padding: .5rem 0;
+        padding: .5rem 0 !important;
         position: fixed !important;
     }
 
     .app-navbar {
+        gap: 1rem;
         margin: 0 1rem;
     }
 

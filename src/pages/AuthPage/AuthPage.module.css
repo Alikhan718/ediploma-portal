@@ -28,6 +28,7 @@
     left: 0;
     z-index: 2;
     width: 100%;
+    cursor: pointer;
     color: #818181;
     display: flex;
     padding: 0 8% 2rem 8%;

@@ -79,6 +79,12 @@ export const authApi = {
     saveXml(body: { xml: string }) {
         return instance.post(`/users/sign-xml-with-ds`, body);
     },
+    getMetadataCid(body: { university_id: number }) {
+        return customInstance.get(`${generatorURL}/nft/generate/${body.university_id}`);
+    },
+    generateSmartContract(body: { CID: string, symbol: string, name: string }) {
+        return instance.post(`/smart-contract/generate`, body);
+    },
 };
 
 

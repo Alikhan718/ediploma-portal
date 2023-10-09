@@ -119,7 +119,7 @@ export const DiplomaDetailsPageLayout: React.FC = (props) => {
 	return (
 		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 3rem' pt='2rem'>
 			<Modal
-				open={!iinValidated && !isAuthenticated()}
+				open={/*!iinValidated && !isAuthenticated()*/ false}
 				handleClose={handleClose}
 				maxWidth={getQueryWidth()}
 				width={getQueryWidth()}

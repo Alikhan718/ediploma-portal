@@ -202,7 +202,7 @@ const SettingsPage: React.FC = () => {
 								placeholder="Номер телефона"
 							/>
 						</Box>
-						<Box sx={{ width: '340px' }}>
+						<Box sx={{ width: '100%' }}>
 							<Label label="Имя*" />
 							<Input
 								type="text"
@@ -210,7 +210,7 @@ const SettingsPage: React.FC = () => {
 								placeholder="Ваше имя"
 							/>
 						</Box>
-						<Box sx={{ width: '340px' }}>
+						<Box sx={{ width: '100%' }}>
 							<Label label="Имя*" />
 							<Input
 								type="text"
@@ -465,87 +465,6 @@ const SettingsPage: React.FC = () => {
 					<Typography variant="h6">Социальные сети</Typography>
 					<Typography sx={{ fontSize: '16px', paddingBottom: '15px' }}> Ваш текущий email это
 						simple@exmaple.com</Typography>
-					<Box sx={{ display: 'flex', alignItems: 'center', paddingBottom: '15px' }}>
-						<Box sx={{ width: '30px', height: '30px', marginRight: '15px' }}>
-							<img src={web} />
-						</Box>
-						<Box sx={{ marginTop: '10px' }}>
-							<Typography variant="body1" sx={{ fontSize: '16px' }}>Сайт:</Typography>
-							<Typography variant="body1" sx={{
-								'@media (max-width: 778px)': {
-									display: 'none'
-								},
-							}}>
-								{/* Add your URL here */}
-								<a href="https://www.example.com" target="_blank"
-									rel="noopener noreferrer">https://www.example.com</a>
-							</Typography>
-						</Box>
-						<Button variant="contained" color="primary" sx={{ marginLeft: 'auto', borderRadius: '30px' }}>
-							{/* Add your button text here */}
-							Кнопка
-						</Button>
-					</Box>
-					<Box sx={{ display: 'flex', alignItems: 'center', paddingBottom: '15px' }}>
-						<Box sx={{ width: '30px', height: '30px', marginRight: '15px' }}>
-							<img src={web} />
-						</Box>
-						<Box sx={{ marginTop: '10px' }}>
-							<Typography variant="body1" sx={{ fontSize: '16px' }}>Сайт:</Typography>
-							<Typography variant="body1" sx={{
-								'@media (max-width: 778px)': {
-									display: 'none'
-								},
-							}}>
-								<a href="https://www.example.com" target="_blank"
-									rel="noopener noreferrer">https://www.example.com</a>
-							</Typography>
-						</Box>
-						<Button variant="contained" color="primary" sx={{ marginLeft: 'auto', borderRadius: '30px' }}>
-							{/* Add your button text here */}
-							Кнопка
-						</Button>
-					</Box>
-					<Box sx={{ display: 'flex', alignItems: 'center', paddingBottom: '15px' }}>
-						<Box sx={{ width: '30px', height: '30px', marginRight: '15px' }}>
-							<img src={web} />
-						</Box>
-						<Box sx={{ marginTop: '10px' }}>
-							<Typography variant="body1" sx={{ fontSize: '16px' }}>Сайт:</Typography>
-							<Typography variant="body1" sx={{
-								'@media (max-width: 778px)': {
-									display: 'none'
-								},
-							}}>
-								<a href="https://www.example.com" target="_blank"
-									rel="noopener noreferrer">https://www.example.com</a>
-							</Typography>
-						</Box>
-						<Button variant="contained" color="primary" sx={{ marginLeft: 'auto', borderRadius: '30px' }}>
-							{/* Add your button text here */}
-							Кнопка
-						</Button>
-					</Box>
-					<Box sx={{ display: 'flex', alignItems: 'center', paddingBottom: '15px' }}>
-						<Box sx={{ width: '30px', height: '30px', marginRight: '15px' }}>
-							<img src={web} />
-						</Box>
-						<Box sx={{ marginTop: '10px' }}>
-							<Typography variant="body1" sx={{ fontSize: '16px' }}>Сайт:</Typography>
-							<Typography variant="body1" sx={{
-								'@media (max-width: 778px)': {
-									display: 'none'
-								},
-							}}>
-								<a href="https://www.example.com" target="_blank"
-									rel="noopener noreferrer">https://www.example.com</a>
-							</Typography>
-						</Box>
-						<Button variant="contained" color="primary" sx={{ marginLeft: 'auto', borderRadius: '30px' }}>
-							{/* Add your button text here */}
-							Кнопка
-						</Button>
-					</Box>
 					<Box sx={{ display: 'flex', alignItems: 'center', paddingBottom: '15px' }}>
 						<Box sx={{ width: '30px', height: '30px', marginRight: '15px' }}>
 							<img src={web} />

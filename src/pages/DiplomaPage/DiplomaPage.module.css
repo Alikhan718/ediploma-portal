@@ -14,11 +14,25 @@
     border: black 5px !important;
 }
 
+.mainContainer {
+    padding: 0 9%;
+    display: flex;
+    flex-direction: column;
+}
+
+.diplomaImg {
+    z-index: 0 !important;
+
+    /*padding: .5rem;*/
+    /*border: rgb(0, 0, 0, 50%) 1px solid;*/
+    border-radius: 1.5rem 1.5rem 0 0;
+
+}
+
 
 .diplomasContainer {
     border-radius: 2rem;
     border: 1px #4D4D4D;
-    padding: 0 9%;
 }
 
 
@@ -30,17 +44,20 @@
     .diplomaItem {
         width: 100% !important;
     }
+
+    .mainContainer {
+        padding: 0 3%;
+        gap: 4rem;
+    }
 }
 
 @media only screen and (max-width: 768px) {
     .diplomaImg {
         width: 100% !important;
-        padding: 1rem !important;
+        border-radius: 1rem;
+
     }
 
-    .diplomasContainer {
-        padding: 0 3%;
-    }
 
     .accessModal {
         width: 95%;
@@ -80,7 +97,6 @@
     }
 
     .diplomaItem {
-        padding: 0 .1rem !important;
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -90,17 +106,17 @@
 /* styles for filter section */
 
 .pageOverlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(59, 130, 246, 0.8);
-	/* Color with alpha (opacity) */
-	backdrop-filter: blur(10px);
-	/* Adjust the blur amount as needed */
-	z-index: 1000;
-	/* Ensure the overlay is above other content */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(59, 130, 246, 0.8);
+    /* Color with alpha (opacity) */
+    backdrop-filter: blur(10px);
+    /* Adjust the blur amount as needed */
+    z-index: 1000;
+    /* Ensure the overlay is above other content */
 }
 
 @media only screen and (max-width: 768px) {
@@ -259,23 +275,23 @@
 
 .radioButtons div {
     margin-right: 50px;
-	margin-right: 50px;
+    margin-right: 50px;
 }
 
 .textArea {
-	width: 95%;
-	border-radius: 25px;
-	margin-bottom: 25px;
-	padding: 15px;
-	border-color: #F8F8F8;
-	background-color: #F8F8F8;
-	scrollbar-width: none;
-	-ms-overflow-style: none;
-	resize: none;
+    width: 95%;
+    border-radius: 25px;
+    margin-bottom: 25px;
+    padding: 15px;
+    border-color: #F8F8F8;
+    background-color: #F8F8F8;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    resize: none;
 }
 
 .textArea::-webkit-scrollbar {
-	display: none;
+    display: none;
 }
 
 .buttonContainer {
@@ -316,43 +332,43 @@
 
 .smallTextAreaContainer {
     width: 100%;
-	width: 100%;
+    width: 100%;
 }
 
 .studentSmallTextArea {
-	width: 95%;
-	height: 40px;
-	border-radius: 25px;
-	padding-left: 15px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	margin-bottom: 10px;
-	border-color: #F8F8F8;
-	background-color: #F8F8F8;
-	scrollbar-width: none;
-	-ms-overflow-style: none;
-	resize: none;
+    width: 95%;
+    height: 40px;
+    border-radius: 25px;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-color: #F8F8F8;
+    background-color: #F8F8F8;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    resize: none;
 }
 
 .studentSmallTextArea::-webkit-scrollbar {
-	display: none;
+    display: none;
 }
 
 .imageContainer {
-	display: flex;
-	justify-content: center;
-	/* Horizontally center the content */
-	align-items: center;
-	/* Vertically center the content */
-	flex-direction: column;
-	/* Stack the content vertically */
-	margin: 10px;
-	cursor: pointer;
-	overflow: hidden;
-	border-radius: 25px;
-	background-color: #c6cad3;
-	width: 270px;
-	height: 270px;
+    display: flex;
+    justify-content: center;
+    /* Horizontally center the content */
+    align-items: center;
+    /* Vertically center the content */
+    flex-direction: column;
+    /* Stack the content vertically */
+    margin: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 25px;
+    background-color: #c6cad3;
+    width: 270px;
+    height: 270px;
 }
 
 .image {
@@ -442,7 +458,7 @@ input[type="radio"]:checked + label span.innerCircle2 {
     visibility: visible;
 }
 
-.fileContainer{
+.fileContainer {
     border-radius: 25px;
     width: 95%;
     margin-left: 15px;
@@ -480,7 +496,7 @@ input[type="radio"]:checked + label span.innerCircle2 {
     text-align: center;
     padding: 20px;
     margin-left: 90px;
-    align-items: center; 
+    align-items: center;
     overflow: auto;
 }
 
@@ -505,13 +521,13 @@ input[type="radio"]:checked + label span.innerCircle2 {
 .outputButton:hover {
     background-color: #dddddd;
 }
-  
+
 .outputButton:focus {
     outline: none;
     box-shadow: 0 0 0 0.25rem #a3bffa;
     border-color: #a3bffa;
 }
 
-.outputButtonsContainer{
+.outputButtonsContainer {
     text-align: right;
 }

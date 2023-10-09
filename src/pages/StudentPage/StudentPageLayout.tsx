@@ -127,16 +127,16 @@ export const StudentPageLayout: React.FC = () => {
                                         </Box>
                                     </Box>
 
-                                    <Button 
-                                        buttonSize="s" 
-                                        variant="contained" 
-                                        type="button" 
-                                        sx={{
-                                            borderRadius: '25px',
-                                            marginTop: '1rem',
-                                        }}>
-                                        Отправить приглашение
-                                    </Button>
+                                    {/*<Button */}
+                                    {/*    buttonSize="s" */}
+                                    {/*    variant="contained" */}
+                                    {/*    type="button" */}
+                                    {/*    sx={{*/}
+                                    {/*        borderRadius: '25px',*/}
+                                    {/*        marginTop: '1rem',*/}
+                                    {/*    }}>*/}
+                                    {/*    Отправить приглашение*/}
+                                    {/*</Button>*/}
                                 </Box>
 							</Box>
                             <Box margin="2rem">

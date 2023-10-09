@@ -1,4 +1,4 @@
-import {Box, Typography, LinearProgress, TextField, Button, IconButton, Grid} from "@mui/material";
+import {Box, Typography, LinearProgress, TextField, Button, IconButton, Grid, CircularProgress} from "@mui/material";
 import React, {useState, useRef} from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -7,19 +7,26 @@ import excel from "./../../assets/icons/File_check.svg";
 import files from "./../../assets/icons/Excel.svg";
 import * as NcaLayer from '@src/utils/functions';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchSaveXmlRequest} from "@src/store/auth/actionCreators";
+import {fetchGetDiplomaCid, fetchSaveXmlRequest} from "@src/store/auth/actionCreators";
 import {handleLink} from "@src/utils/link";
 import {ReactComponent as DownloadIcon} from "@src/assets/icons/download.svg";
 import archive from "@src/assets/icons/archive.svg";
 import {selectArchiveLink} from "@src/store/generator/selectors";
 import {uploadDataParse} from "@src/store/generator/actionCreators";
+import {selectIpfsLink, selectSmartContractLink, selectXmlSigned} from "@src/store/auth/selector";
+import {fetchMetadataCid} from "@src/store/auth/saga";
+import {setSnackbar} from "@src/store/generals/actionCreators";
+import {routes} from "@src/shared/routes";
+import {useNavigate} from "react-router-dom";
 
 const AddingGraduates: React.FC = () => {
     const [progress, setProgress] = useState(0);
     const [file, setFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const archiveLink = useSelector(selectArchiveLink);
-    NcaLayer.enableWebSocket(); 
+    const xmlSigned = useSelector(selectXmlSigned);
+    const navigate = useNavigate();
+    NcaLayer.enableWebSocket();
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         const uploadedFile = event.target.files?.[0] || null;
@@ -56,115 +63,152 @@ const AddingGraduates: React.FC = () => {
             alert(res['message']);
         } else if (res['code'] === "200") {
             res = res['responseObject'];
-            console.log(res);
             dispatch(fetchSaveXmlRequest({xml: res}));
             setTimeout(() => {
-                const urlElements = window.location.href.split('/');
-                console.log("SUCCESS DS");
             }, 2000);
         }
     };
     const ncaLayerXml = () => {
         NcaLayer.signXml(1, signXmlWithDS);
     };
-
-    const steps = ["Upload File", "Проверьте данные", "Подпись данных через ЭЦП", "Step 4"];
+    React.useEffect(() => {
+        if (xmlSigned == true) {
+            if (progress != 3) {
+                const payload = {"university_id": 1};
+                dispatch(fetchGetDiplomaCid(payload));
+            }
+            setProgress(3);
+        }
+    }, [xmlSigned]);
+    const shortSteps = ["Загрузка фалов", "Проверка", "Подпись ЭЦП", "Результаты"];
+    const steps = ["Загрузка файлов", "Проверьте данные", "Подпись данных через ЭЦП", "Результаты генерации"];
     const currentStep = progress;
 
-	return (
-		<Box sx={{}}>
-			<Box sx={{
-				textAlign: "center", 
-                backgroundColor: "#FAFBFF", 
-                width: '100%', 
-                padding: '40px', '@media (max-width: 998px)': { padding: '15px', },
-			}}>
-				<Box
-					sx={{
-						display: "flex",
-						alignItems: "center",
-						flexDirection: "column",
-						width: '100%'
-					}}
-				>
-					<Box
-						sx={{
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center", backgroundColor: '#FAFBFF', paddingBottom: '15px', width: '90%'
-						}}
-					>
-						{steps.map((step, index) => (
-							<React.Fragment key={index}>
-								{index > 0 && (
-									<Box
-										sx={{
-											width: "300px",
-											height: "2px",
-											backgroundColor:
-												index <= currentStep ? "#3B82F6" : "#F8F8F8",'@media (max-width: 998px)': { width: '15vw',
-											},
-										}}
+    const ipfsLink = useSelector(selectIpfsLink);
+    const smartContractLink = useSelector(selectSmartContractLink);
 
-									/>
-								)}
-								<Box
-									sx={{
-										width: 50,
-										height: 50,
-										borderRadius: "50%",
-										backgroundColor:
-											index <= currentStep ? "#3B82F6" : "#F8F8F8",
-										color: index <= currentStep ? "white" : "#A1A1A1",
-										display: "flex",
-										alignItems: "center",
-										justifyContent: "center",
+    return (
+        <Box sx={{}}>
+            <Box sx={{
+                textAlign: "center",
+                backgroundColor: "#FAFBFF",
+                width: '100%',
+                padding: '40px', '@media (max-width: 998px)': {padding: '15px',},
+            }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        width: '100%'
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center", backgroundColor: '#FAFBFF', paddingBottom: '2rem', width: '90%'
+                        }}
+                    >
+                        {steps.map((step, index) => (
+                            <React.Fragment key={index}>
+                                {index > 0 && (
+                                    <Box
+                                        sx={{
+                                            width: "300px",
+                                            height: "2px",
+                                            backgroundColor:
+                                                index <= currentStep ? "#3B82F6" : "#F8F8F8",
+                                            '@media (max-width: 998px)': {
+                                                width: '15vw',
+                                            },
+                                        }}
 
-									}}
-								>
-									{index + 1}
-								</Box>
-							</React.Fragment>
-						))}
-					</Box>
-				</Box >
+                                    />
+                                )}
+                                <Box
+                                    sx={{
+                                        width: "3.1rem !important",
+                                        height: "3rem !important",
+                                        borderRadius: "50%",
+                                        backgroundColor:
+                                            index <= currentStep ? "#3B82F6" : "#F8F8F8",
+                                        color: index <= currentStep ? "white" : "#A1A1A1",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        position: "relative",
+                                        justifyContent: "center",
 
-				{/* File Input */}
-				<Box sx={{
-					backgroundColor: 'white', paddingBottom: '10px', borderRadius: '30px'
-				}}>
-					<Box
-						sx={{
-							marginTop: 2,
-							display: "flex",
-							justifyContent: currentStep === 0 ? "flex-end" : "space-between",
-							width: "100%",
-						}}
-					>
-						{currentStep > 0 && (
-							<IconButton onClick={goBack} color="primary" sx={{
-								marginLeft: '50px', marginTop: '10px', marginBottom: '-70px', '@media (max-width: 998px)': { marginLeft: '10px', marginTop: '10px', marginBottom: '-70px',},
-							}}>
-								<ArrowBackIcon />
-							</IconButton>
-						)}
-						{currentStep < steps.length - 1 && (
-							<IconButton
-								onClick={() => {
-									if (currentStep === 0 && !file) {
-									} else {
-										goForward();
-									}
-								}}
-								color="primary"
-								sx={{ marginRight: '50px', marginTop: '10px', marginBottom: '-70px', '@media (max-width: 998px)': { marginRight: '10px', marginTop: '10px', marginBottom: '-70px',},
-								}}
-							>
-								<ArrowForwardIcon />
-							</IconButton>
-						)}
-					</Box>
-					{currentStep === 0 && (
+                                    }}
+                                >
+                                    <Typography position="absolute" textAlign="center">
+                                        {index + 1}
+                                    </Typography>
+                                    <Typography position="absolute" fontSize="0.75rem" whiteSpace="nowrap"
+                                                color="#2D2D2D" top="3.3rem" textAlign="center">
+                                        {shortSteps[index]}
+                                    </Typography>
+                                </Box>
+                            </React.Fragment>
+                        ))}
+                    </Box>
+                </Box>
+
+                {/* File Input */}
+                <Box sx={{
+                    backgroundColor: 'white', paddingBottom: '10px', borderRadius: '30px'
+                }}>
+                    <Box
+                        sx={{
+                            marginTop: 2,
+                            display: "flex",
+                            justifyContent: currentStep === 0 ? "flex-end" : "space-between",
+                            width: "100%",
+                        }}
+                    >
+                        {currentStep > 0 && (
+                            <IconButton onClick={goBack} color="primary" sx={{
+                                marginLeft: '50px',
+                                marginTop: '10px',
+                                width: "3.1rem !important",
+                                height: "3rem !important",
+                                marginBottom: '-70px',
+                                '@media (max-width: 998px)': {
+                                    marginLeft: '10px',
+                                    marginTop: '10px',
+                                    marginBottom: '-70px',
+                                },
+                            }}>
+                                <ArrowBackIcon/>
+                            </IconButton>
+                        )}
+                        {currentStep < steps.length - 1 && (
+                            <IconButton
+                                onClick={() => {
+                                    if (currentStep === 0 && !file) {
+                                    } else {
+                                        goForward();
+                                    }
+                                }}
+                                color="primary"
+                                sx={{
+                                    marginRight: '50px',
+                                    marginTop: '10px',
+                                    marginBottom: '-70px',
+                                    width: "3.1rem !important",
+                                    height: "3rem !important",
+                                    '@media (max-width: 998px)': {
+                                        marginRight: '10px',
+                                        marginTop: '10px',
+                                        marginBottom: '-70px',
+                                    },
+                                }}
+                            >
+                                <ArrowForwardIcon/>
+                            </IconButton>
+                        )}
+                    </Box>
+                    {currentStep === 0 && (
 
                         <Box sx={{
                             display: "flex",
@@ -174,12 +218,12 @@ const AddingGraduates: React.FC = () => {
                         }}>
 
 
-							<Typography variant="h6" sx={{
-								paddingTop: '20px', paddingBottom: '20px',
-								'@media (max-width: 998px)': {
-									fontSize: '1.2rem'
-								},
-							}}> Загрузка Excel Файл</Typography>
+                            <Typography variant="h6" sx={{
+                                paddingTop: '20px', paddingBottom: '20px',
+                                '@media (max-width: 998px)': {
+                                    fontSize: '1.2rem'
+                                },
+                            }}> {steps[progress]}</Typography>
 
                             <label
                                 htmlFor="file-input"
@@ -233,7 +277,8 @@ const AddingGraduates: React.FC = () => {
                             </Box>
                         </Box>
 
-                    )}
+                    )
+                    }
 
                     {currentStep === 1 && file && (
                         <Box sx={{marginTop: 4, marginBottom: '20px'}}>
@@ -273,20 +318,27 @@ const AddingGraduates: React.FC = () => {
                                     whiteSpace: 'nowrap', textAlign: 'left', padding: '28px 28px 0 28px'
                                 }}>
                                     <Typography variant="body1"
-                                                sx={{display: 'flex', alignItems: 'center', color: '#A1A1A1',
-                                        '@media (max-width: 998px)': {
-                                            fontSize: '1rem', marginRight: '10px'
-                                        },}}>
+                                                sx={{
+                                                    display: 'flex', alignItems: 'center', color: '#A1A1A1',
+                                                    '@media (max-width: 998px)': {
+                                                        fontSize: '1rem', marginRight: '10px'
+                                                    },
+                                                }}>
                                         <img src={archive} alt=""
                                              style={{marginRight: '8px', filter: "brightness(2.5)"}}
-                                             />
+                                        />
                                         Архив с дипломами</Typography>
-                                    <Button variant="contained" color="primary"
-                                            sx={{marginLeft: "auto", borderRadius: '1rem', padding: ".75rem"}}
-                                            onClick={() => {
-                                                handleLink(archiveLink);
-                                                console.log(archiveLink);
-                                            }}><DownloadIcon style={{filter: "brightness(20)"}}/></Button>
+                                    <Box ml="auto">
+                                        {archiveLink.trim() != "" ?
+                                            <Button variant="contained" color="primary"
+                                                    sx={{borderRadius: '1rem', padding: ".75rem"}}
+                                                    onClick={() => {
+                                                        handleLink(archiveLink);
+                                                        console.log(archiveLink);
+                                                    }}><DownloadIcon style={{filter: "brightness(20)"}}/></Button>
+                                            : <CircularProgress style={{marginLeft: "auto"}}/>
+                                        }
+                                    </Box>
                                 </Box>
                             </Box>
                             <Button variant="contained" color="primary"
@@ -297,7 +349,8 @@ const AddingGraduates: React.FC = () => {
 
                     {currentStep === 2 && file && (
                         <Box sx={{marginTop: 4, marginBottom: '20px'}}>
-                            <Typography variant="h6" sx={{'@media (max-width: 998px)': {
+                            <Typography variant="h6" sx={{
+                                '@media (max-width: 998px)': {
                                     fontSize: '1.3rem'
                                 },
                             }}>{steps[currentStep]}</Typography>
@@ -306,15 +359,15 @@ const AddingGraduates: React.FC = () => {
                                 borderRadius: '50px',
                                 height: '300px',
                                 '@media (max-width: 998px)': {
-                                    width: '95%', 
-                                    padding: '1px', 
+                                    width: '95%',
+                                    padding: '1px',
                                     marginLeft: '10px'
-                                }, 
-                                backgroundColor: '#FAFBFF', 
-                                padding: '25px', 
-                                marginTop: '16px', 
+                                },
+                                backgroundColor: '#FAFBFF',
+                                padding: '25px',
+                                marginTop: '16px',
                                 marginLeft: '70px',
-                            
+
 
                             }}>
                                 <Box sx={{
@@ -325,9 +378,10 @@ const AddingGraduates: React.FC = () => {
                                     textAlign: 'left',
                                     padding: '28px 28px 0 28px'
                                 }}>
-                                    <Typography variant="subtitle1" sx={{color: '#A1A1A1',
-                                    '@media (max-width: 998px)': {
-                                        fontSize: '1rem', marginRight: '10px'
+                                    <Typography variant="subtitle1" sx={{
+                                        color: '#A1A1A1',
+                                        '@media (max-width: 998px)': {
+                                            fontSize: '1rem', marginRight: '10px'
                                         },
                                     }}>Название файла:</Typography>
                                     <Typography ml="auto" variant="subtitle1" sx={{
@@ -346,7 +400,8 @@ const AddingGraduates: React.FC = () => {
                                     padding: '28px'
                                 }}>
                                     <Typography variant="body1"
-                                                sx={{display: 'flex', alignItems: 'center',
+                                                sx={{
+                                                    display: 'flex', alignItems: 'center',
                                                     '@media (max-width: 998px)': {
                                                         marginLeft: '1rem'
                                                     },
@@ -365,11 +420,11 @@ const AddingGraduates: React.FC = () => {
                             </Box>
                             <Button variant="contained" color="primary"
                                     sx={{marginTop: 2, borderRadius: '15px'}}
-                                    onClick={() => {ncaLayerXml()}}> Подписать через ЭЦП</Button>
+                                    onClick={() => {
+                                        ncaLayerXml()
+                                    }}> Подписать через ЭЦП</Button>
                         </Box>
-
-                    )
-                    }
+                    )}
 
                     {/* Upload Button */}
                     {
@@ -377,11 +432,12 @@ const AddingGraduates: React.FC = () => {
 
                             <Box sx={{marginBottom: '20px'}}>
 
-                                <Typography variant="h6" sx={{paddingTop: '15px',
+                                <Typography variant="h6" sx={{
+                                    paddingTop: '15px',
                                     '@media (max-width: 998px)': {
                                         fontSize: '1.4rem'
                                     },
-                                }}> Результаты файла</Typography>
+                                }}> {steps[progress]}</Typography>
                                 <Box sx={{
                                     width: '90%', borderRadius: '50px',
                                     height: '300px',
@@ -391,9 +447,13 @@ const AddingGraduates: React.FC = () => {
                                 }}>
                                     <Box>
                                         <Typography variant="h3"
-                                                    sx={{textAlign: 'left', color: '#A1A1A1',
+                                                    sx={{
+                                                        textAlign: 'left', color: '#A1A1A1',
                                                         '@media (max-width: 998px)': {
-                                                            width: '95%', padding: '1px', marginTop: '1.5rem', marginLeft: '1rem'
+                                                            width: '95%',
+                                                            padding: '1px',
+                                                            marginTop: '1.5rem',
+                                                            marginLeft: '1rem'
                                                         },
                                                     }}>Адрес:</Typography>
                                     </Box>
@@ -408,21 +468,39 @@ const AddingGraduates: React.FC = () => {
                                         }}
                                     >
                                         <Typography variant="body1" sx={{fontSize: '16px'}}>
-                                            Ссылка на адрес
+                                            Ссылка на адрес IPFS
                                         </Typography>
-                                        <Button variant="contained" color="primary" sx={{
-                                            marginLeft: 'auto',
-                                            height: '34px',
-                                            borderRadius: '32px'
-                                        }}> Cкопировать</Button>
+                                        {ipfsLink == "" ?
+                                            <CircularProgress style={{marginLeft: "auto", height: "1.5rem"}}/> :
+                                            <Button variant="contained" color="primary" sx={{
+                                                marginLeft: 'auto',
+                                                height: '34px',
+                                                borderRadius: '32px'
+                                            }}
+                                                    onClick={() => {
+                                                        setSnackbar({
+                                                            visible: true,
+                                                            message: "Скопировано!",
+                                                            status: "success"
+                                                        })
+                                                        navigator.clipboard.writeText(`https://ipfs.io/ipfs/${ipfsLink}`);
+                                                    }}
+                                            > Cкопировать</Button>
+                                        }
                                     </Box>
                                     <Box>
+
                                         <Typography variant="h3"
-                                                    sx={{textAlign: 'left', paddingTop: '20px', color: '#A1A1A1',
-                                                    '@media (max-width: 998px)': {
-                                                        width: '95%', padding: '1px', marginTop: '1.5rem', marginLeft: '1rem'
-                                                    },
+                                                    sx={{
+                                                        textAlign: 'left', paddingTop: '20px', color: '#A1A1A1',
+                                                        '@media (max-width: 998px)': {
+                                                            width: '95%',
+                                                            padding: '1px',
+                                                            marginTop: '1.5rem',
+                                                            marginLeft: '1rem'
+                                                        },
                                                     }}>Смарт контакт:</Typography>
+
                                     </Box>
                                     <Box
                                         sx={{
@@ -433,15 +511,32 @@ const AddingGraduates: React.FC = () => {
                                         }}
                                     >
                                         <Typography variant="body1" sx={{
-                                        textAlign: 'left',
-                                         fontSize: '16px'}}>
+                                            textAlign: 'left',
+                                            fontSize: '16px'
+                                        }}>
                                             Ссылка на смарт контакт
                                         </Typography>
-                                        <Button variant="contained" color="primary" sx={{marginLeft: 'auto',height: '34px',borderRadius: '32px'}}> Cкопировать</Button>
+                                        {smartContractLink == "" ?
+                                            <CircularProgress style={{marginLeft: "auto", height: "1.5rem"}}/> :
+                                            <Button variant="contained" color="primary" sx={{
+                                                marginLeft: 'auto',
+                                                height: '34px',
+                                                borderRadius: '32px'
+                                            }}
+                                                    onClick={() => {
+                                                        setSnackbar({
+                                                            visible: true,
+                                                            message: "Скопировано!",
+                                                            status: "success"
+                                                        })
+                                                        navigator.clipboard.writeText(smartContractLink);
+                                                    }}
+                                            > Cкопировать</Button>
+                                        }
                                     </Box>
                                 </Box>
                                 <Button variant="contained" color="primary"
-                                        sx={{marginTop: 2, borderRadius: '15px'}}> Подписать с ЭЦП</Button>
+                                        sx={{marginTop: 2, borderRadius: '15px'}} onClick={()=> navigate(routes.main)}> Завершить </Button>
                             </Box>
                         )
                     }
