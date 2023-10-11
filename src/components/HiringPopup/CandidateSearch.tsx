@@ -39,7 +39,7 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
         
         console.log('Loading...');
         try{
-            const response = await fetch('http://localhost:3002/search', {
+            const response = await fetch('https://agile-job-search.onrender.com/search', {
                 method: "POST",
                 body: JSON.stringify({jobDescription: textAreaValue}),
                 headers: {
