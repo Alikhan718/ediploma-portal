@@ -105,13 +105,18 @@ export const SwitchDetails: React.FC = () => {
 					}}>Авторизоваться</Button>
 				</Box>
 			</Modal>
-			<Box width="50%" display="flex" flex="row" p=".275rem " style={{ backgroundColor: "#F8F8F8", borderRadius: "3rem" }}>
-				<Button fullWidth={true} variant={value === 0 ? "contained" : "outlined"}
+			<Box width="50%" display="flex" flex="row" p=".275rem " sx={{
+				backgroundColor: "#F8F8F8", borderRadius: "3rem",
+				'@media (max-width: 778px)': {
+					width: '100%'
+				},
+			}}>
+				<Button fullWidth={true} variant="contained"
 					color={value === 0 ? "primary" : "secondary"} borderRadius="3rem" onClick={(e) => handleChange(e, 0)}>
 					Проверка
 				</Button>
 				<Button fullWidth={true} color={value === 1 ? "primary" : "secondary"}
-					variant={value === 1 ? "contained" : "outlined"} borderRadius="3rem" onClick={(e) => handleChange(e, 1)}>
+					variant="contained" borderRadius="3rem" onClick={(e) => handleChange(e, 1)}>
 					Данные
 				</Button>
 			</Box>
@@ -124,14 +129,28 @@ export const SwitchDetails: React.FC = () => {
 					<Typography className={styles.textMd} fontWeight='700' fontSize={"1.5rem"} mb="1rem">
 						Статус:
 					</Typography>
-					<Chip style={{ width: '35%', backgroundColor: '#E9F9EF' }}
+					<Chip
+						sx={{
+							width: '25%', backgroundColor: '#E9F9EF', border: 'none', borderRadius: '20px',
+							'@media (max-width: 778px)': {
+								width: '70%'
+							},
+						}}
 						className={cn(styles.MobMt0, styles.mt02)}
-						icon={<SingleCheck style={{ marginLeft: ".5rem", color: '#22C55E' }} />}
-						label={<Typography className={cn(styles.textMd)}
-							sx={{ marginRight: ".5rem", color: '#22C55E' }}>Подтвержден</Typography>} variant="outlined" />
+						label={
+							<div style={{ display: 'flex', alignItems: 'center' }}>
+								<Typography className={cn(styles.textMd)} sx={{
+									marginRight: '.5rem',
+									color: '#22C55E', fontWeight: '600', paddingTop: '0.9rem', paddingBottom: '0.9rem'
+								}}>
+									Подтвержден
+								</Typography>
+								<SingleCheck style={{ color: '#22C55E' }} />
+							</div>
+						}
+					/>
+
 				</Box>
-
-
 				<Box display='flex' flexDirection="column" mt='1rem'>
 					<Link href={'https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7'}
 						sx={{ textDecoration: "none" }} target={'_blank'}>

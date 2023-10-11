@@ -49,7 +49,7 @@
 		flex-direction: column;
 	}
 
-	.contentLeft {
+	/* .contentLeft {
 		position: absolute;
 		bottom: -10rem;
 		left: 0;
@@ -57,15 +57,9 @@
 		margin-top: 1rem;
 		background-color: #0A66C2 !important;
 		justify-content: space-between;
-	}
+	} */
 
-	.btnMobile {
-		width: 30% !important;
-		border-color: #0A66C2 !important;
-		color: white !important;
-		display: flex !important;
-		flex-direction: column !important;
-	}
+
 
 	.iconMobile {
 		margin-left: .8rem;
