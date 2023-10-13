@@ -1,14 +1,11 @@
 import React from 'react';
-
 import { routes } from "@src/shared/routes";
 import { ReactComponent as DiplomaIcon } from "@src/assets/icons/Widget.svg";
 import { ReactComponent as MainPageIcon } from "@src/assets/icons/pie.svg";
 import { ReactComponent as FolderIcon } from "@src/assets/icons/Folder.svg";
-
 import { ReactComponent as HrBankIcon } from "@src/assets/icons/academic_cap.svg";
 import { ReactComponent as UniversityIcon } from "@src/assets/icons/buildings.svg";
 import { ReactComponent as AboutUsIcon } from "@src/assets/icons/jiggle_user.svg";
-
 import { ReactComponent as LangIcon } from "@src/assets/icons/global.svg";
 import { ReactComponent as ModeIcon } from "@src/assets/icons/moon.svg";
 
@@ -33,7 +30,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
 	{
 		id: 2,
 		name: 'Аналитика',
-		to: routes.notifications,
+		to: routes.main,
 		role: "*",
 		icon: <MainPageIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: "middle",

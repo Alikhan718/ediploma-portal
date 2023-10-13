@@ -18,7 +18,7 @@ import {
 	Divider,
 	styled,
 	Typography, InputAdornment,
-	useMediaQuery, Menu, MenuItem, ListItemIcon, IconButton
+	useMediaQuery, Menu, MenuItem, ListItemIcon, IconButton, Icon
 } from '@mui/material';
 import { HeaderProps } from './Header.props';
 import { GlobalLoader } from './GlobalLoader';
@@ -235,14 +235,18 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 						justifyContent: 'space-between',
 						alignItems: 'center',
 						backgroundColor: 'white',
-						padding: '1rem',
+						padding: '0.8rem',
 						width: '95%',
 						marginLeft: '2rem',
 						borderRadius: '30px',
 						marginBottom: '1rem',
+						'@media (max-width: 778px)': {
+							marginLeft: '1rem',
+							marginBottom: '-2rem',
+						},
 					}}
 				>
-					<Box sx={{ fontSize: '1.2rem', fontWeight: '600' }}>
+					<Box sx={{ fontSize: '1.2rem', fontWeight: '600', marginLeft: '1rem' }}>
 						{headerText}
 					</Box>
 					<Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -250,19 +254,97 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 							type="text"
 							name="email"
 							placeholder="Найти"
-							sx={{ marginRight: '1rem', flex: '1', }}
+							sx={{
+								marginRight: '1rem', flex: '1',
+								'@media (max-width: 778px)': {
+									display: 'none'
+								},
+								'@media (max-width: 1208px)': {
+									display: 'none'
+								},
+							}}
 							endAdornment={
 								<InputAdornment position="end">
 									<HeaderSearchIcon />
 								</InputAdornment>
 							}
 						/>
+						<HeaderSearchIcon className="app-icon-img" />
 
-						<NotIcon style={{ width: '25%', borderLeft: '1px solid gray', }} />
-						<ModeIcon style={{ width: '25%', borderRight: '1px solid gray', }} />
-						<AccountCircleIcon style={{ width: '25%', marginLeft: '0.5rem' }} />
+						<NotIcon style={{
+							borderLeft: '1px solid gray',
+							cursor: 'pointer'
+						}} className="app-icon"
+							onClick={() => {
+								navigate(routes.notifications);
+							}} />
+
+						<ModeIcon style={{ borderRight: '1px solid gray', cursor: 'pointer' }} className="app-icon" />
+
+						<IconButton
+							style={{
+								cursor: 'pointer',
+							}}
+							onClick={(event) => {
+								handleOpenMenu(event, "profile");
+							}}
+						>
+							<AccountCircleIcon style={{ alignSelf: "center", marginLeft: '0.5rem' }} />
+						</IconButton>
 					</Box>
+					<Menu
+						anchorEl={anchorEl}
+						open={showDropdown.profile}
+						onClose={handleCloseMenu}
+						sx={{
+							color: "green",
+							padding: "10rem !important",
+						}}
+					>
+						<MenuItem onClick={() => {
+							navigate(routes[userRole!.toLowerCase()], { replace: true });
+						}}>
+							<Avatar style={{ marginRight: '10px', verticalAlign: "center" }} />
+							<Typography>Профиль</Typography>
+						</MenuItem>
+						<MenuItem onClick={() => {
+							navigate(routes.settings);
+						}}>
+							<Analytics style={{ marginRight: '10px', verticalAlign: "center" }} />
+							<Typography>
+								Аналитика
+							</Typography>
+						</MenuItem>
 
+						<MenuItem onClick={() => {
+							navigate(routes.addingGraduates);
+						}}>
+							<Folder style={{ marginRight: '10px', verticalAlign: "center" }} />
+							<Typography>
+								Выпустить дипломы
+							</Typography>
+						</MenuItem>
+
+						<Divider style={{ margin: "0 1rem" }} />
+
+						<MenuItem onClick={() => {
+							navigate(routes.settings);
+						}}>
+							<Settings style={{ marginRight: '10px', verticalAlign: "center" }} />
+							<Typography>
+								Настройки
+							</Typography>
+						</MenuItem>
+
+						<MenuItem onClick={handleLogout}>
+							<Out style={{ marginRight: '10px' }} />
+							<Typography
+								color='red'>
+								Выйти
+							</Typography>
+
+						</MenuItem>
+					</Menu>
 				</Box>
 
 			) : (

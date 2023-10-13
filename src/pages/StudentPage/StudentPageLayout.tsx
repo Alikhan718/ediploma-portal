@@ -51,7 +51,7 @@ export const StudentPageLayout: React.FC = () => {
 					},
 				}}>
 					<Box display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px', }}>
-						<Box px="2rem" sx={{
+						<Box px="1rem" sx={{
 							'@media (max-width: 778px)': {
 								padding: '0'
 							},
@@ -60,7 +60,6 @@ export const StudentPageLayout: React.FC = () => {
 								display="flex"
 								alignItems="center"
 								margin="1rem"
-
 								className={styles.contentLeftContainer}
 							>
 								<CardMedia
@@ -69,7 +68,7 @@ export const StudentPageLayout: React.FC = () => {
 									className={cn(styles.img)}
 									sx={{
 										width: '25%', height: '25%', '@media (max-width: 778px)': {
-											width: '85%', height: '65%'
+											width: '85%', height: '65%', marginRight: '3rem'
 										},
 									}}
 								/>
@@ -92,7 +91,9 @@ export const StudentPageLayout: React.FC = () => {
 											sx={{
 												paddingBottom: '14px',
 												fontSize: '24px',
-
+												'@media (max-width: 778px)': {
+													fontSize: '22px',
+												},
 											}}
 										>
 											Сериков Сырым Сержанулы
@@ -131,7 +132,7 @@ export const StudentPageLayout: React.FC = () => {
 												<MenuItem onClick={handleClose}><Check style={{ marginRight: '10px', verticalAlign: "center" }} />
 													<Typography>Etherscan</Typography></MenuItem>
 											</Menu>
-											<img src={pen} style={{ marginLeft: '2rem', marginTop: '1rem' }} className={styles.tabletIcon} />
+											<img src={pen} style={{ marginLeft: '2rem', marginTop: '-4.5rem' }} className={styles.tabletIcon} />
 										</Box>
 									</Box>
 									<Box
@@ -198,9 +199,10 @@ export const StudentPageLayout: React.FC = () => {
 									</Button>
 								</Box>
 							</Box>
-							<Box margin="2rem" sx={{
+							<Box margin="1rem" sx={{
+								marginTop: '1.5rem',
 								'@media (max-width: 778px)': {
-									margin: '0.5rem',
+									margin: '0.9rem',
 								},
 							}}>
 								<Box sx={{ fontSize: '24px', fontWeight: '600', color: '#4D4D4D', paddingBottom: '10px' }} > О выпускнике </Box>
@@ -215,9 +217,9 @@ export const StudentPageLayout: React.FC = () => {
 									<ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
 								</Typography>
 							</Box>
-							<Box margin="2rem" sx={{
+							<Box margin="1rem" sx={{
 								'@media (max-width: 778px)': {
-									margin: '0.5rem',
+									margin: '0.9rem',
 									marginTop: '1.5rem'
 								},
 							}}>
@@ -256,7 +258,11 @@ export const StudentPageLayout: React.FC = () => {
 									</Box>
 								</Card>
 							</Box>
-							<Box margin="1rem">
+							<Box margin="1rem" sx={{
+								'@media (max-width: 778px)': {
+									margin: '0.9rem',
+								},
+							}}>
 								<SwitchDetails />
 							</Box>
 							<Box margin="2rem"></Box>
