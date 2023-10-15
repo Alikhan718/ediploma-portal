@@ -7,9 +7,7 @@ import styles from "../UniversityDetailsPage.module.css";
 export const UniversityDetailsPageHeader: React.FC = (props) => {
 	return (
 		<>
-			<Box display='flex' sx={{
-				position: "relative",
-			}} width={'100%'} mb="1rem">
+			<Box display='flex' sx={{position: "relative", width: '100%', height: '100%', '@media (max-width: 768px)': {height: '200%', width: '95%'}}} mb="1rem">
 				<img src={exampleImage}
 					className={styles.headerImg}
 					alt="" style={{ borderRadius: '20px' }} />

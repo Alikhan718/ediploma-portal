@@ -86,10 +86,10 @@ export const EmployerPageLayout: React.FC = () => {
         <Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#FAFBFF' }}>
 			<Box display='flex' flexWrap='wrap'>
 
-				<Box display="flex" justifyContent="space-between" ml={'2rem'} width={"100%"}>
+				<Box className={styles.upperContainer}>
 
                     <Box display='flex' flexDirection='column' margin="1rem" sx={{ backgroundColor: 'white', borderRadius: '15px', }}>
-                        <Box px="2rem">
+                        <Box px="2rem" display='flex' justifyContent='center'>
                             <Box sx={{
                                 backgroundColor: '#3B82F6',
                                 width: '450px',
@@ -205,7 +205,7 @@ export const EmployerPageLayout: React.FC = () => {
 								eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов. Портал eDiploma предоставляет возможность выпускникам, работодателям и администрации университетов взаимодействовать с дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации выпускников.
 							</Typography>
                         </Box>
-                        <Box display="flex" margin="0.5rem" px="2rem">
+                        <Box display="flex" margin="0.5rem" px="2rem" overflow="hidden">
                             <CardMedia
                                 component="img"
                                 image={employreImg}
@@ -244,7 +244,7 @@ export const EmployerPageLayout: React.FC = () => {
 								sx={{ backgroundColor: 'white', borderRadius: '15px'}}
 								className={styles.diplomasContainer}
 							>
-								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Дипломы выпускников</Typography>
+								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Избранное</Typography>
 								<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', marginBottom: '20px' }}>
 									<Box display="flex" alignItems="center"  >
 										<Button variant="outlined" sx={{ borderRadius: '20px', padding: '5px', width: '150px', color: '#3B82F6', marginLeft: '20px', marginRight: '15px' }}>
@@ -257,7 +257,7 @@ export const EmployerPageLayout: React.FC = () => {
 												type="text"
 												name="email"
 												placeholder="Найти"
-												sx={{ width: '200%', paddingLeft: '10px' }}
+												className={styles.input}
 											/>
 										</Box>
 										<Box>
@@ -272,12 +272,12 @@ export const EmployerPageLayout: React.FC = () => {
 							<TabPanel value={value} index={0}>
 								<Box display="flex"
 									flexDirection="row"
-									width="100%"
 									alignItems="start"
 									sx={{
-										borderRadius: '15px', padding: '10px', display: 'grid', gridTemplateColumns: '4fr 4fr 2fr 0fr 0fr', gap: '36px',
-										paddingLeft: '20px'
-									}}>
+										width: '100%', borderRadius: '15px', padding: '10px', display: 'grid', gridTemplateColumns: '4fr 4fr 1fr 1fr 1fr', gap: '36px',
+										paddingLeft: '20px', '@media (max-width: 768px)': {width: '95%',},
+									}}
+									>
 									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
 										<Typography
 											fontSize="14px"
@@ -286,7 +286,7 @@ export const EmployerPageLayout: React.FC = () => {
 										>Ф.И.О
 										</Typography>
 									</Box>
-									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+									<Box sx={{ display: 'flex', flexDirection: 'row', '@media (max-width: 768px)': {display: 'none',} }}>
 										<Typography
 											fontSize="14px"
 											mb='.5rem' sx={{ color: '#818181' }}
@@ -294,7 +294,7 @@ export const EmployerPageLayout: React.FC = () => {
 										>Специальность
 										</Typography>
 									</Box>
-									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+									<Box sx={{ display: 'flex', flexDirection: 'row', '@media (max-width: 768px)': {display: 'none',}  }}>
 										<Typography
 											fontSize="14px"
 											mb='.5rem' sx={{ color: '#818181' }}
@@ -302,7 +302,7 @@ export const EmployerPageLayout: React.FC = () => {
 										>Год выпуска
 										</Typography>
 									</Box>
-									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+									<Box sx={{ display: 'flex', flexDirection: 'row', '@media (max-width: 768px)': {marginLeft: '300px',} }}>
 										<Typography
 											fontSize="14px"
 											mb='.5rem' sx={{ color: '#818181' }}
@@ -310,7 +310,7 @@ export const EmployerPageLayout: React.FC = () => {
 										>GPA
 										</Typography>
 									</Box>
-									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+									<Box sx={{ display: 'flex', flexDirection: 'row', '@media (max-width: 768px)': {display: 'none',} }}>
 										<Typography
 											fontSize="14px"
 											mb='.5rem' sx={{ color: '#818181' }}
@@ -327,9 +327,8 @@ export const EmployerPageLayout: React.FC = () => {
 									alignItems="start"
 									sx={{
 										backgroundColor: 'white', borderRadius: '15px', padding: '10px',
+										'@media (max-width: 768px)': {width: '95%',},
 									}}
-									className={styles.diplomasContainer}
-
 								>
 
 									{currentDiplomaPage.map((e: any) => (
@@ -349,43 +348,40 @@ export const EmployerPageLayout: React.FC = () => {
 												alignItems: 'center',
 											}}
 										>
-
 											<Box
 												sx={{
-													display: 'grid', gridTemplateColumns: '4fr 4fr 2fr 1fr 0fr', gap: '36px', marginTop: '20px',
-													paddingLeft: '20px'
+													display: 'grid', gridTemplateColumns: '8fr 1fr 1fr 1fr', gap: '36px', marginTop: '20px',
+													paddingLeft: '20px', '@media (max-width: 768px)': {gridTemplateColumns: '12fr 1fr 0fr'}
 												}}
 											>
-												<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+												<Box sx={{ display: 'flex', flexDirection: 'row', '@media (max-width: 768px)': {flexDirection: 'column'}}}>
 													<Typography
 														fontSize="20px"
 														fontWeight="600"
 														mb='.5rem'
 														className={styles.mobText}
+														sx={{width:'50%', '@media (max-width: 768px)': {width:'100%'}}}
 													>
 														{e.name_ru}
 													</Typography>
-												</Box>
-
-												<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-													<Typography fontSize="1rem" className={styles.mobTextSm}>
+													<Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm} sx={{ width: '70%', '@media (max-width: 768px)': {marginX: '0', width:'100%'}}}>
 														{e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
 													</Typography>
-
 												</Box>
-
-												<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+												<Box sx={{ display: 'flex', flexDirection: 'column', marginX: '1rem', '@media (max-width: 768px)': {display: 'none',}}}>
 													2023
 												</Box>
 
 												<Box
-													sx={{ display: 'flex', flexDirection: 'column' }} // Adjust spacing as needed
+													sx={{ display: 'flex', marginX: '1rem', flexDirection: 'column' }} // Adjust spacing as needed
 												>
 													<Typography fontSize="0.875rem">
 														3.0
 													</Typography>
 												</Box>
-												<TwitterIcon />
+												<Box sx={{marginLeft: '1rem'}}>
+													<TwitterIcon />
+												</Box>
 											</Box>
 										</Box>
 									))
