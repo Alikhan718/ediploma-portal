@@ -466,7 +466,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                 }}
             >
                 <MenuItem onClick={() => {
-                    navigate(routes[userRole!.toLowerCase()], {replace: true});
+                    navigate(routes[userRole ? userRole.toLowerCase() : "main"], {replace: true});
                 }}>
                     <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>
                     <Typography>Профиль</Typography>
