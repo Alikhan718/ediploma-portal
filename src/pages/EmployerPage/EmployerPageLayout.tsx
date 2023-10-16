@@ -84,19 +84,20 @@ export const EmployerPageLayout: React.FC = () => {
 
     return(
         <Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#FAFBFF' }}>
-			<Box display='flex' flexWrap='wrap'>
+			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
 
 				<Box className={styles.upperContainer}>
 
-                    <Box display='flex' flexDirection='column' margin="1rem" sx={{ backgroundColor: 'white', borderRadius: '15px', }}>
-                        <Box px="2rem" display='flex' justifyContent='center'>
+                    <Box display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px', }}>
+                        <Box display='flex' justifyContent='center'>
                             <Box sx={{
                                 backgroundColor: '#3B82F6',
-                                width: '450px',
+                                width: '100%',
+								marginX: "1rem",
                                 height: '144px',
                                 borderRadius: '20px',
                                 marginBoottom: '10px',
-                                marginTop: '30px',
+                                marginTop: '2rem',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent:'flex-start',
@@ -115,7 +116,7 @@ export const EmployerPageLayout: React.FC = () => {
                                     flexDirection: 'column',
                                     alignItems: 'center',
                                     textAlign: 'center',
-                                    margin: '1rem'}}>
+                                    }}>
                                 <Typography
                                     className={styles.nameText}
                                     fontWeight='600'
@@ -182,8 +183,8 @@ export const EmployerPageLayout: React.FC = () => {
                         </Box>
                     </Box>
 
-                    <Box display='flex' flexDirection='column' margin="1rem" sx={{ backgroundColor: 'white', borderRadius: '15px', }}>
-                        <Box margin="1rem" px="2rem">
+                    <Box display='flex' flexDirection='column' ml="1rem" sx={{ backgroundColor: 'white', borderRadius: '15px', }}>
+                        <Box className={styles.mobP2}>
                             <Box display="flex" justifyContent="space-between">
                                 <Box sx={{ fontSize: '24px', fontWeight: '600', color: '#4D4D4D', paddingBottom: '10px' }} > Оcновная информация </Box>
                                 <Box marginBottom="15px">
@@ -205,7 +206,7 @@ export const EmployerPageLayout: React.FC = () => {
 								eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов. Портал eDiploma предоставляет возможность выпускникам, работодателям и администрации университетов взаимодействовать с дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации выпускников.
 							</Typography>
                         </Box>
-                        <Box display="flex" margin="0.5rem" px="2rem" overflow="hidden">
+                        <Box display="flex" className={styles.mobP15} overflow="hidden">
                             <CardMedia
                                 component="img"
                                 image={employreImg}
@@ -236,7 +237,7 @@ export const EmployerPageLayout: React.FC = () => {
 
 
                 <Box className={styles.contentContainer}>
-						<Box sx={{ marginLeft: "3rem", width: '95%' }}>
+						<Box sx={{ width: '100%' }}>
 							<Box
 								display="flex"
 								flexDirection="column"
@@ -275,7 +276,7 @@ export const EmployerPageLayout: React.FC = () => {
 									alignItems="start"
 									sx={{
 										width: '100%', borderRadius: '15px', padding: '10px', display: 'grid', gridTemplateColumns: '4fr 4fr 1fr 1fr 1fr', gap: '36px',
-										paddingLeft: '20px', '@media (max-width: 768px)': {width: '95%',},
+										paddingLeft: '20px', '@media (max-width: 768px)': {width: '100%',},
 									}}
 									>
 									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -327,7 +328,7 @@ export const EmployerPageLayout: React.FC = () => {
 									alignItems="start"
 									sx={{
 										backgroundColor: 'white', borderRadius: '15px', padding: '10px',
-										'@media (max-width: 768px)': {width: '95%',},
+										'@media (max-width: 768px)': {width: '100%',},
 									}}
 								>
 
@@ -395,9 +396,7 @@ export const EmployerPageLayout: React.FC = () => {
 										width: '100%',
 										marginBottom: "2rem"
 									}}>
-										<Button onClick={prevPage} disabled={currentPage === 1}>
-											Previous Page
-										</Button>
+
 										<Box style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 											<Pagination
 												count={totalPages}
@@ -408,9 +407,7 @@ export const EmployerPageLayout: React.FC = () => {
 												size="large"
 											/>
 										</Box>
-										<Button onClick={nextPage} disabled={currentDiplomaPage.length < diplomasPerPage}>
-											Next Page
-										</Button>
+
 									</Box>
 
 								</Box>
