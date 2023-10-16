@@ -109,11 +109,10 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 	const defaultS = 3.5;
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#FAFBFF' }}>
-			{/*<Box sx={{ width: '300px' }}>Sidebar</Box>*/}
-			<Box display='flex' flexWrap='wrap'>
+			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
 
-				<Box ml={'2rem'} width={"95%"}>
-					<Box display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px', width:'100%', '@media (max-width: 768px)': {width:'95%'}}}>
+				<Box className={styles.upperContainer}>
+					<Box display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px'}}>
 						<UniversityDetailsPageHeader />
 						<Box px="2rem">
 							<Box
@@ -124,6 +123,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									justifyContent: 'space-between',
 									width: '100%',
 									alignItems: 'center',
+									'@media (max-width: 768px)': {position: 'relative'}
 								}}
 							>
 								<Typography
@@ -139,12 +139,13 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										},
 										'@media (max-width: 768px)': {
 											fontSize: '24px',
+											width: '100%',
 										},
 									}}
 								>
 									Казахстанско-Британский Технический Университет
 								</Typography>
-								<Box marginBottom="25px" sx={{flexDirection: 'row', justifyContent: 'space-between'}}>
+								<Box marginBottom="25px" sx={{flexDirection: 'row', justifyContent: 'space-between', '@media (max-width: 768px)': {display: 'none'}}}>
 									<img src={star} style={{
 										marginRight:'10px',
 										marginLeft:'10px',
@@ -164,8 +165,27 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										height: '25px',
 									}} />
 								</Box>
+								<Box sx={{ position: 'absolute', top: 0, right: 0, display: 'none', justifyContent: 'space-between', '@media (max-width: 768px)': {display: 'flex'}}}>
+									<img src={dots} style={{
+										width: '15px',
+										height: '15px',
+										transform: 'rotate(90deg)'
+									}} />
+								</Box>
 							</Box>
-
+							
+							<Box sx={{display:'none', marginBottom:'1rem', flexDirection:'column', '@media (max-width: 768px)': {display: 'flex '} }}>
+								<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
+									4.5 <Rating
+										name="text-feedback"
+										value={defaultS}
+										readOnly
+										emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+									/> (25 отзывов)
+								</Typography>
+								<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
+							</Box>
+							
 
 							<Box display="flex"
 								alignItems="center"
@@ -179,8 +199,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									Почта: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@kbtu.kz</span>
 								</Typography>
 
-								{/* Star ratings */}
-								<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
+								<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', '@media (max-width: 768px)': {display: 'none'}}}>
 									4.5 <Rating
 										name="text-feedback"
 										value={defaultS}
@@ -198,27 +217,27 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 							</Box>
 							<Box className={styles.contentContainer}>
 								<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
-									<Box flex='1' sx={{ marginRight: '50px' }}>
-										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>10256</Typography>
-										<Typography >
+									<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': {marginRight: '5px'} }}>
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{'@media (max-width: 768px)': {fontSize: '20px'}}}>10256</Typography>
+										<Typography sx={{'@media (max-width: 768px)': {fontSize: '15px'}}}>
 											Кол-во студентов
 										</Typography>
 									</Box>
-									<Box flex='1' sx={{ marginRight: '50px' }}>
-										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>12450</Typography>
-										<Typography >
+									<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': {marginRight: '10px'} }}>
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{'@media (max-width: 768px)': {fontSize: '20px'}}}>12450</Typography>
+										<Typography sx={{'@media (max-width: 768px)': {fontSize: '15px'}}}>
 											Кол-во <br /> выпускников
 										</Typography>
 									</Box>
-									<Box flex='1 ' sx={{ marginRight: '50px' }}>
-										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>8045</Typography>
-										<Typography className={styles.textSm}>
+									<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': {marginRight: '5px'}}}>
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{'@media (max-width: 768px)': {fontSize: '20px'}}}>8045</Typography>
+										<Typography sx={{'@media (max-width: 768px)': {fontSize: '15px'}}}>
 											Количество<br /> с отличием
 										</Typography>
 									</Box>
 									<Box flex='5' sx={{
 										'@media (max-width: 768px)': {
-											display: 'none', // Show on mobile screens (768px and below)
+											display: 'none',
 										}
 									}}>
 
@@ -238,8 +257,6 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										handleLink("https://kbtu.edu.kz/ru/");
 									}} /></Box>
 								</Box>
-								{/* */}
-
 								<Box>
 									<Box sx={{ fontSize: '24px', fontWeight: '600', color: '#4D4D4D', paddingBottom: '10px' }} > Основная Информация </Box>
 									<Typography className={styles.textSm} color="#818181">
@@ -256,41 +273,16 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 							</Box>
 						</Box>
 					</Box>
+				</Box>
 
-					<Box className={styles.contentContainer} sx={{width:'100%'}}>
 
-						{/* <Box display='flex' gap='3rem' className={styles.gap1} mt='1rem'>
-								<Box display='flex' flexDirection='column'>
-									<Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>Top
-										34%</Typography>
-									<Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Рейтинг <br />
-										QS Asia 2023</Typography>
-								</Box>
-								<Box display='flex' flexDirection='column'>
-									<Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>9333</Typography>
-									<Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Количество <br />
-										выпускников</Typography>
-								</Box>
-								<Box display='flex' flexDirection='column'>
-									<Typography fontSize='1.5rem' className={styles.textMd} fontWeight='600'>769</Typography>
-									<Typography fontSize='1rem' className={styles.textXs} color='#707A83'>Количество<br />
-										с отличием</Typography>
-								</Box>
-							
-							</Box> */}
-
-						<Box>
-							{/* <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-								 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-									<Tab label="Дипломы" {...a11yProps(0)} />
-									<Tab label="Аналитика" disabled={userRole !== 'university admission'} {...a11yProps(1)} />
-								</Tabs> 
-							</Box> */}
+				<Box className={styles.contentContainer}>
+						<Box sx={{ width: '100%' }}>
 							<Box
 								display="flex"
 								flexDirection="column"
 								alignItems="start"
-								sx={{ backgroundColor: 'white', borderRadius: '15px', '@media (max-width: 768px)': {width:'95%'}}}
+								sx={{ backgroundColor: 'white', borderRadius: '15px', width: '100%',}}
 								className={styles.diplomasContainer}
 							>
 								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Дипломы выпускников</Typography>
@@ -306,7 +298,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 												type="text"
 												name="email"
 												placeholder="Найти"
-												sx={{ width: '200%', paddingLeft: '10px', '@media (max-width: 768px)': {width:'100%'}}}
+												className={styles.input}
 											/>
 										</Box>
 										<Box>
@@ -318,21 +310,13 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								</Box>
 
 							</Box>
-							{/* <CardMedia
-								component="img"
-								className={styles.diplomaImg}
-								sx={{ width: "50%", padding: "1.5rem" }}
-								image={diplomaTemplate}
-								alt="University Image"
-							/> */}
-
 							<TabPanel value={value} index={0}>
 								<Box display="flex"
 									flexDirection="row"
 									alignItems="start"
 									sx={{
 										width: '100%', borderRadius: '15px', padding: '10px', display: 'grid', gridTemplateColumns: '4fr 4fr 1fr 1fr 1fr', gap: '36px',
-										paddingLeft: '20px', '@media (max-width: 768px)': {width: '95%',},
+										paddingLeft: '20px', '@media (max-width: 768px)': {width: '100%',},
 									}}
 									>
 									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -384,7 +368,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									alignItems="start"
 									sx={{
 										backgroundColor: 'white', borderRadius: '15px', padding: '10px',
-										'@media (max-width: 768px)': {width: '95%',},
+										'@media (max-width: 768px)': {width: '100%',},
 									}}
 								>
 
@@ -452,9 +436,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										width: '100%',
 										marginBottom: "2rem"
 									}}>
-										<Button onClick={prevPage} disabled={currentPage === 1}>
-											Previous Page
-										</Button>
+
 										<Box style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 											<Pagination
 												count={totalPages}
@@ -465,15 +447,13 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 												size="large"
 											/>
 										</Box>
-										<Button onClick={nextPage} disabled={currentDiplomaPage.length < diplomasPerPage}>
-											Next Page
-										</Button>
+
 									</Box>
 
 								</Box>
 
 
-							</TabPanel>							
+							</TabPanel>
 							<TabPanel value={value} index={1}>
 								<Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
 									<Box sx={{
@@ -548,10 +528,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 						</Box>
 
 					</Box>
-
-
-				</Box>
 			</Box>
-		</Box >
+		</Box>
 	);
 };

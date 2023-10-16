@@ -121,7 +121,8 @@ export const EmployerPageLayout: React.FC = () => {
                                     className={styles.nameText}
                                     fontWeight='600'
                                     sx={{
-                                        fontSize: '20px'
+                                        fontSize: '20px',
+										padding: '1rem',
                                     }}>
                                     Ф.И. Работодателя
                                 </Typography>
@@ -242,7 +243,7 @@ export const EmployerPageLayout: React.FC = () => {
 								display="flex"
 								flexDirection="column"
 								alignItems="start"
-								sx={{ backgroundColor: 'white', borderRadius: '15px'}}
+								sx={{ backgroundColor: 'white', borderRadius: '15px', width: '100%',}}
 								className={styles.diplomasContainer}
 							>
 								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Избранное</Typography>
