@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Card, CardMedia, Typography, Pagination, useMediaQuery, CardContent } from '@mui/material';
+import { Box, Card, CardMedia, Typography, Pagination } from '@mui/material';
 import { Button, Label, Input } from '@src/components';
 import styles from './EmployerPage.module.css';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';

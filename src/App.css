@@ -1,161 +1,178 @@
 [data-variation="modal"] {
-	background-image: url("/src/assets/auth/background.jpg");
+    background-image: url("/src/assets/auth/background.jpg");
 }
 
 /* width */
 ::-webkit-scrollbar {
-	width: .5rem;
+    width: .5rem;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 5px transparent;
-	border-radius: 4px;
+    box-shadow: inset 0 0 5px transparent;
+    border-radius: 4px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: #E8E8E9;
-	border-radius: 4px;
+    background: #E8E8E9;
+    border-radius: 4px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: lightgray;
+    background: lightgray;
 }
 
 .app-navbar-container {
-	position: relative !important;
+    position: relative !important;
 }
 
 .app-icon-img {
-	display: none;
+    display: none;
 }
 
 .app-navbar {
-	margin: 0 9%;
-	display: flex;
-	justify-content: left;
-	gap: 40px;
-	align-items: center;
+    margin: 0 9%;
+    display: flex;
+    justify-content: left;
+    gap: 40px;
+    align-items: center;
 }
 
 .dropdown {
-	padding: 1rem !important;
+    padding: 1rem !important;
 
 }
 
 .footer {
-	width: 100%;
-	display: flex;
-	padding: 0 8% 2rem 8%;
-	justify-content: space-between;
+    width: 100%;
+    display: flex;
+    padding: 0 8% 2rem 8%;
+    justify-content: space-between;
 }
 
 .footerRightItem {
-	display: flex;
-	flex-direction: row;
-	width: 35vw;
-	justify-content: space-between;
-	color: #818181;
+    display: flex;
+    flex-direction: row;
+    width: 35vw;
+    justify-content: space-between;
+    color: #818181;
 }
 
 .app-icon {
-	width: 25%;
-	margin-right: -0.5rem;
+    width: 25%;
+    margin-right: -0.5rem;
 }
 
 @media only screen and (max-width: 1200px) {
-	.app-navbar {
-		margin: 0 3%;
-	}
+    .app-navbar {
+        margin: 0 3%;
+    }
 
-	.app-icon-img {
-		display: block;
-	}
+    .app-icon-img {
+        display: block;
+    }
 
-	.app-icon {
-		width: 2000%;
-		margin-right: 0.5rem;
-	}
+    .app-icon {
+        width: 2000%;
+        margin-right: 0.5rem;
+    }
 
-	.footer {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-		padding: 0 3%;
-	}
+    .footer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0 3%;
+    }
 
-	.footerRightItem {
-		gap: 1rem;
-		width: 100%;
-		flex-direction: column;
-		margin-bottom: 1.5rem;
-	}
+    .footerRightItem {
+        gap: 1rem;
+        width: 100%;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+    }
 
 }
 
 
 .menu-icon {
-	display: none;
+    display: none;
 }
 
 .diploma-logo {
-	/*add container*/
-	/*margin-left: calc(20px + 60px);*/
-	cursor: pointer;
+    /*add container*/
+    /*margin-left: calc(20px + 60px);*/
+    cursor: pointer;
 }
 
 
 @media only screen and (max-width: 768px) {
 
-	/* For mobile phones: */
-	.diploma-logo {
-		width: 45%;
-		margin: 0;
-	}
+    /* For mobile phones: */
+    .diploma-logo {
+        width: 45%;
+        margin: 0;
+    }
 
-	.app-icon-img {
-		display: inline;
-	}
+    .app-icon-img {
+        display: inline;
+    }
 
-	.app-container {
-		margin-top: 3rem;
-	}
+    .app-container {
+        margin-top: 3rem;
+    }
 
-	.app-navbar-container {
-		padding: .5rem 0 !important;
-		position: fixed !important;
-	}
+    .app-navbar-container {
+        padding: .5rem 0 !important;
+        position: fixed !important;
+    }
 
-	.app-navbar {
-		gap: 1rem;
-		margin: 0 1rem;
-	}
+    .app-navbar {
+        gap: 1rem;
+        margin: 0 1rem;
+    }
 
-	.diploma-navbar-item {
-		display: none !important;
-	}
+    .diploma-navbar-item {
+        display: none !important;
+    }
 
-	.diploma-auth-btn {
-		display: none !important;
-	}
+    .diploma-auth-btn {
+        display: none !important;
+    }
 
-	.diploma-auth-btn span {
-		margin: 0 !important;
-	}
+    .diploma-auth-btn span {
+        margin: 0 !important;
+    }
 
-	/* .diploma-btn-container {} */
+    /* .diploma-btn-container {} */
+    /*.diploma-auth-btn {*/
+    /*	display: block !important;*/
+    /*	border-radius: 5rem !important;*/
+    /*}*/
+    .menu-icon {
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+        width: 100%;
+    }
+}
 
-	/*.diploma-auth-btn {*/
-	/*	display: block !important;*/
-	/*	border-radius: 5rem !important;*/
-	/*}*/
-	.menu-icon {
-		display: flex;
-		justify-content: center;
-		cursor: pointer;
-		width: 100%;
-	}
+@media (min-width: 1200px) {
+    .mediaQueryWidth {
+        width: 25%;
+    }
+}
+
+@media (max-width: 768px) {
+    .mediaQueryWidth {
+        width: 60%;
+    }
+}
+
+@media (max-width: 576px) {
+    .mediaQueryWidth {
+        width: 80%;
+    }
 }

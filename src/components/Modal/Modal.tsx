@@ -19,14 +19,14 @@ const style = {
 };
 
 export const Modal: React.FC<ModalProps> = (props) => {
-	const { open, children, handleClose, maxWidth, width,  marginLeft = "0", marginRight = "0" } = props;
+	const { open, children, handleClose, maxWidth, width,  marginLeft = "0", marginRight = "0" , ...other} = props;
 	style.width = width ? width : style.width;
 	style.maxWidth = maxWidth ? maxWidth : style.maxWidth;
 	style.marginLeft =  marginLeft ? marginLeft : style.marginLeft;
 	style.marginRight =  marginRight ? marginRight : style.marginRight;
 	return (
 		<CustomModal open={open} onClose={handleClose}>
-			<Box sx={style} maxWidth={maxWidth}>
+			<Box sx={style} maxWidth={maxWidth} {...other} className="mediaQueryWidth">
 				{children}
 			</Box>
 		</CustomModal>

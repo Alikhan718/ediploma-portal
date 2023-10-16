@@ -34,7 +34,6 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 	};
 
 	const urlElements = window.location.href.split('/');
-	const isAuthenticatedUser = isAuthenticated();
 
 	const [isSidebarVisible, setIsSidebarVisible] = useState(!checkRoute());
 	const [isHeaderVisible, setHeaderVisible] = useState(false);
@@ -47,9 +46,6 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 	useEffect(() => {
 		window.addEventListener('resize', handleWindowResize);
 		handleWindowResize();
-		return () => {
-			window.removeEventListener('resize', handleWindowResize);
-		};
 	}, []);
 
 
