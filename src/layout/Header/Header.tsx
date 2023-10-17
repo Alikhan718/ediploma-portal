@@ -227,13 +227,13 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             padding: '0.8rem',
                             width: 'calc(100% - (97% - 220px) % 992px)',
                             marginX: "1.5rem",
+                            marginTop: "1rem",
                             borderRadius: '30px',
                             marginBottom: '1rem',
                             '@media (max-width: 778px)': {
                                 width: "100%",
                                 marginX: "0",
                                 marginBottom: '-2rem',
-                                marginTop: "-1rem",
                             },
                         }}
                     >
