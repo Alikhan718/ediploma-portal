@@ -24,31 +24,34 @@ export const DiplomaPageLayout: React.FC = () => {
     return (
         <Box display="flex" flexWrap="wrap" justifyContent="center" className={styles.mainContainer} pt="2rem">
             <DiplomaPageHeader/>
-            <Grid container display="flex" rowSpacing={1} columnSpacing={1} flexWrap="wrap"
+            <Grid container display="flex" rowSpacing={2} columnSpacing={1} flexWrap="wrap"
+                sx={{
+                    margin: "0 !important"
+                }}
                   justifyContent="space-between"
                   className={styles.diplomasContainer} width="100%">
                 {diplomaList ? (
                     diplomaList.map((e: any) => (
-                        <Grid key={e.counter} item xs={12} sm={6} md={4} lg={3}
+                        <Grid key={e.counter} item xs={12} sm={5.9} md={3.9} lg={2.9}
                               onClick={() => handleCardClick(e.counter!)}
                               sx={{
                                   display: 'flex',
                                   flexDirection: 'column', alignItems: 'center',
                                   cursor: "pointer",
+                                  padding: "1rem 1rem 0 1rem !important",
+                                  backgroundColor: "white",
                                   borderRadius: "1.25rem",
                                   marginBottom: "1.5rem"
                               }}
                         >
-                            <Box>
-                                <CardMedia
-                                    key={e.counter + "img"}
-                                    component="img"
-                                    className={styles.diplomaImg}
-                                    sx={{width: "100%",}}
-                                    image={diplomaTemplate}
-                                    alt="University Image"
-                                />
-                            </Box>
+                            <CardMedia
+                                key={e.counter + "img"}
+                                component="img"
+                                className={styles.diplomaImg}
+                                sx={{width: "100%",}}
+                                image={diplomaTemplate}
+                                alt="University Image"
+                            />
 
 
                             <Box sx={{display: 'flex', flexDirection: 'row', width: "100%"}}>

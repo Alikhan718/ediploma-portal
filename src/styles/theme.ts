@@ -10,7 +10,7 @@ export const theme: Theme = createTheme({
 			main: '#3B82F6',
 		},
 		secondary: {
-			main: '#F8F8F8',
+			main: '#F3F6F9',
 			contrastText: '#383838',
 		},
 		error: {
@@ -21,7 +21,7 @@ export const theme: Theme = createTheme({
 			main: '#025F3E',
 		},
 		neutral: {
-			main: '#E8E8E9',
+			main: '#F3F6F9',
 		},
 		onyx: {
 			main: '#040F0F',

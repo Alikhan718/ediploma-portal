@@ -225,11 +225,13 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             alignItems: 'center',
                             backgroundColor: 'white',
                             padding: '0.8rem',
-                            width: '95%',
+                            width: 'calc(100% - (97% - 220px) % 992px)',
+                            marginX: "1.5rem",
                             borderRadius: '30px',
                             marginBottom: '1rem',
                             '@media (max-width: 778px)': {
                                 width: "100%",
+                                marginX: "0",
                                 marginBottom: '-2rem',
                                 marginTop: "-1rem",
                             },
@@ -364,7 +366,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
                 ) : (
                     <AppBar open={open} sx={{padding: "0 !important"}} className="app-navbar-container">
-                        <Box className="app-navbar" height='4rem'>
+                        <Box className="app-navbar" height='4.5rem'>
                             <Modal open={openModal} handleClose={() => setOpenModal(true)}
                                    aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                                 <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>

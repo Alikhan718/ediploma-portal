@@ -108,7 +108,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 	}, []);
 	const defaultS = 3.5;
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#FAFBFF' }}>
+		<Box sx={{ display: 'flex', flexDirection: 'row', /*backgroundColor: '#FAFBFF'*/ }}>
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
 
 				<Box className={styles.upperContainer}>

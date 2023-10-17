@@ -57,7 +57,7 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
                             width: '100%',
                             borderRadius: "2rem",
                             justifyContent: 'space-between',
-                            backgroundColor: "#FAFBFF",
+                            // backgroundColor: "#FAFBFF",
                             '@media (max-width: 1000px)': {
                                 padding: '2rem !important',
                             }

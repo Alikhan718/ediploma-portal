@@ -50,16 +50,16 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 
 
 	return (
-		<Box display='flex' height='100%' sx={{backgroundColor: "#FAFBFF"}}>
+		<Box display='flex' height='100%' sx={{backgroundColor: "#F3F6F9"}} justifyContent="center">
 			<Sidebar open={isSidebarVisible} setOpen={setIsSidebarVisible} toggleDrawer={toggleDrawer}/>
 			<Box
-				mt={!urlElements.includes('auth') ? '1rem' : "0"}
+				// mt={!urlElements.includes('auth') ? '1rem' : "0"}
 				width='100%'
 				height='100vh'
-				p={"0"}
+				p="0"
 				position='relative'
 			>
-				<Box>
+				<Box sx={{backgroundColor: "#F3F6F9"}} >
 					<Header isSideBarOpen={isSidebarVisible} setOpen={setHeaderVisible}/>
 					{isGLoading && (
 						<Box position='absolute' zIndex={10} top={0} bottom={0} left={0} right={0}

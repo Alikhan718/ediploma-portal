@@ -12,7 +12,7 @@ const Notifications: React.FC = () => {
 	return (
 		<Container
 			sx={{
-				backgroundColor: "white",
+				backgroundColor: "#F3F6F9",
 				borderRadius: "30px",
 				paddingTop: "20px",
 				paddingBottom: "25px",

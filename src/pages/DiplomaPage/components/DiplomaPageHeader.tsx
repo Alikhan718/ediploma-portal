@@ -66,7 +66,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
     const [searchQuery, setSearchQuery] = React.useState('');
     return (
         <React.Fragment>
-            <Box width="100%" mb="2rem" className={styles.mobMb1}>
+            <Box width="100%" mb="2rem" className={styles.mobMb1} >
                 <Modal
                     open={open}
                     handleClose={() => setOpen(false)}
@@ -99,7 +99,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
                 <Box display="flex"
                      flexDirection="column"
                      alignItems="start"
-                     className={styles.diplomasContainer} mt="2rem">
+                     className={styles.diplomasContainer}>
                     <Typography fontWeight='700' mb="1rem" className={cn(styles.mobPl1, styles.mobTextL)}
                                 fontSize='2.5rem'>
                         HR Bank

@@ -42,7 +42,7 @@ export const StudentPageLayout: React.FC = () => {
 	};
 
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#FAFBFF' }}>
+		<Box sx={{ display: 'flex', flexDirection: 'row'}}>
 			<Box display='flex' flexWrap='wrap'>
 
 				<Box ml={'2rem'} width={"100%"} sx={{
