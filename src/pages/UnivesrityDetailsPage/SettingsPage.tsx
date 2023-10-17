@@ -37,9 +37,7 @@ const SettingsPage: React.FC = () => {
             flexDirection="row"
             sx={{
                 minHeight: "100vh",
-                paddingRight: '10px',
                 marginTop: "1rem",
-                width: '100%'
             }}>
 
             <Container sx={{
@@ -76,33 +74,34 @@ const SettingsPage: React.FC = () => {
                                 }}
                                 onClick={scrollToMainInfo}
                             >
-                                <EmailIcon color="primary" style={{marginRight: '0.2rem'}}/> {/* Add an icon */}
-                                <Box sx={{flex: 1, color: '#A28D8D', fontSize: '1rem'}}>Основная информация</Box>
+                                <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/> {/* Add an icon */}
+                                <Box sx={{flex: 1, color: 'gray', fontSize: '1rem'}}>Основная информация</Box>
                             </Box>
                             <Box sx={{display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer'}}
                                  onClick={() => scrollToRef(emailBoxRef)}>
-                                <EmailIcon color="primary" style={{marginRight: '0.2rem'}}/>
-                                <Box sx={{flex: 1, color: '#A28D8D'}}> Почта</Box>
+                                <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+                                <Box sx={{flex: 1, color: 'gray'}}> Почта</Box>
                             </Box>
                             <Box sx={{display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer'}}
                                  onClick={() => scrollToRef(passwordBoxRef)}>
-                                <PasswordIcon color="primary" style={{marginRight: '0.2rem'}}/>
-                                <Box sx={{flex: 1, color: '#A28D8D'}}>Пароль</Box>
+                                <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+                                <Box sx={{flex: 1, color: 'gray'}}>Пароль</Box>
                             </Box>
-                            <Box sx={{display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer'}}
+                            {/*<Box sx={{display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer'}}
                                  onClick={() => scrollToRef(notificationBoxRef)}>
                                 <NotificatoinsIcon color="primary" style={{marginRight: '0.2rem'}}/>
                                 <Box sx={{flex: 1, color: '#A28D8D'}}>Уведомление</Box>
-                            </Box>
-                            <Box sx={{display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer'}}
+                            </Box>*/}
+                            {/*<Box sx={{display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer'}}
                                  onClick={() => scrollToRef(notificationBoxRef)}>
                                 <SocialIcon color="primary" style={{marginRight: '0.2rem'}}/>
                                 <Box sx={{flex: 1, color: '#A28D8D'}}>Социальные Сети</Box>
-                            </Box>
+                            </Box>*/}
                             <Box sx={{display: 'flex', alignItems: 'center', cursor: 'pointer'}}
                                  onClick={() => scrollToRef(deleteAccountBoxRef)}>
-                                <FastIcon name={"trash"} color="primary"/> {/* Add an icon */}
-                                <Box sx={{flex: 1, color: '#A28D8D'}}>Удалить аккаунт</Box>
+                                <FastIcon name={"trash"} style={{marginRight: '0.5rem'}}
+                                          color="primary"/> {/* Add an icon */}
+                                <Box sx={{flex: 1, color: 'gray'}}>Удалить аккаунт</Box>
                             </Box>
                         </Box>
                     </Grid>
@@ -111,16 +110,18 @@ const SettingsPage: React.FC = () => {
             <Box display="flex" flexDirection="column">
                 <Container sx={{
                     borderRadius: '30px',
-                    width: '55vw', maxWidth: '100%',
+                    maxWidth: '100vw',
                     paddingTop: '20px',
                     backgroundColor: '#E8EBF1',
                     height: '250px',
+                    marginX: "0",
                     marginBottom: '20px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'flex-start',
                     '@media (max-width: 778px)': {
-                        width: '90vw', marginLeft: '1rem'
+                        width: '90vw',
+                        marginLeft: '1rem'
                     },
                 }} ref={mainInfoContainerRef}>
 
@@ -235,7 +236,7 @@ const SettingsPage: React.FC = () => {
                     </Box>
                     <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
                         <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить изменения</Button>
+                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
                     </Box>
                 </Container>
 
@@ -266,7 +267,7 @@ const SettingsPage: React.FC = () => {
                         />
                         <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
                             <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                            <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить изменения</Button>
+                            <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
                         </Box>
                     </Box>
                 </Container>
@@ -284,7 +285,8 @@ const SettingsPage: React.FC = () => {
                         width: '90vw', marginLeft: '1rem'
                     },
                 }}>
-                    <Typography variant="h6" fontWeight="600" sx={{paddingTop: '15px'}}>Измените свой пароль</Typography>
+                    <Typography variant="h6" fontWeight="600" sx={{paddingTop: '15px'}}>Измените свой
+                        пароль</Typography>
                     <Box>
                         <Label label="Новый адрес*"/>
                         <Input
@@ -318,11 +320,11 @@ const SettingsPage: React.FC = () => {
                     </Box>
                     <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
                         <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить изменения</Button>
+                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
                     </Box>
                 </Container>
 
-                <Container sx={{
+                {/*<Container sx={{
                     backgroundColor: 'white',
                     borderRadius: '30px',
                     width: '55vw', maxWidth: '100%',
@@ -450,11 +452,11 @@ const SettingsPage: React.FC = () => {
                     </Box>
                     <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
                         <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить изменения</Button>
+                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
                     </Box>
                 </Container>
-
-                <Container sx={{
+                */}
+                {/*<Container sx={{
                     backgroundColor: 'white',
                     borderRadius: '30px',
                     width: '55vw', maxWidth: '100%',
@@ -486,7 +488,6 @@ const SettingsPage: React.FC = () => {
                             </Typography>
                         </Box>
                         <Button variant="contained" color="primary" sx={{marginLeft: 'auto', borderRadius: '30px'}}>
-                            {/* Add your button text here */}
                             Кнопка
                         </Button>
                     </Box>
@@ -506,15 +507,15 @@ const SettingsPage: React.FC = () => {
                             </Typography>
                         </Box>
                         <Button variant="contained" color="primary" sx={{marginLeft: 'auto', borderRadius: '30px'}}>
-                            {/* Add your button text here */}
+                             Add your button text here
                             Кнопка
                         </Button>
                     </Box>
                     <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
                         <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить изменения</Button>
+                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
                     </Box>
-                </Container>
+                </Container>*/}
                 <br/>
                 <br/>
             </Box>
@@ -522,9 +523,9 @@ const SettingsPage: React.FC = () => {
 
         </Box>
 
-    )
+    );
 
-}
+};
 
 
 export default SettingsPage;

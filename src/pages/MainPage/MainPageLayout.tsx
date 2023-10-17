@@ -13,7 +13,7 @@ import back1 from "./../../assets/dashboard/Content.png"
 import img1 from "./../../assets/dashboard/Illustration.png"
 import download from "./../../assets/icons/downloadMain.svg";
 import file from "./../../assets/icons/Avatar.svg";
-import profile from "./../../assets/icons/profile.svg"
+import profile from "./../../assets/icons/profileIcon.svg"
 
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import cn from "classnames";
@@ -56,7 +56,7 @@ export const MainPageLayout: React.FC = () => {
     }, []);
 
     return (
-        <Box className={styles.mainContainer}>
+        <Box className={styles.mainContainer} sx={{backgroundColor: "white",}}>
             <Box sx={{
                 marginTop: '1rem',
                 width: '100%',
@@ -70,7 +70,10 @@ export const MainPageLayout: React.FC = () => {
                 borderRadius: "2rem",
                 backgroundSize: "100% 85%",
                 alignItems: 'center',
-                textAlign: 'center'
+                textAlign: 'center',
+                '@media (max-width: 778px)': { 
+                    marginTop: "2rem",
+                }
             }}>
                 <Typography fontSize='48px' fontWeight='600' className={styles.mobTextL}>
                     Цифровой портал
@@ -297,51 +300,51 @@ export const MainPageLayout: React.FC = () => {
             </Box>
 
             <Grid container>
-                <Grid container lg={3} md={12} spacing={1} mb="2.5rem">
+                <Grid container lg={4} md={12} spacing={1} mb="2.5rem">
                     <Grid item lg={12} md={3} sm={12} mr="auto">
                         <img className={styles.applogo} src={AppLogo}/>
                     </Grid>
                     <Grid item lg={12} md={2} xs={12}>
-                        <Typography className={styles.mobTextMd}>#Location</Typography>
+                        <Typography className={styles.mobTextMd}>г. Астана</Typography>
                     </Grid>
                     <Grid item lg={12} md={2} xs={12}>
-                        <Typography className={styles.mobTextMd}>#mail</Typography>
+                        <Typography className={styles.mobTextMd}>info@jasaim.kz</Typography>
                     </Grid>
-                    <Grid item lg={12} md={2} xs={12}>
-                        <Typography className={styles.mobTextMd}>#phone</Typography>
-                    </Grid>
+                    {/*<Grid item lg={12} md={2} xs={12}>*/}
+                    {/*    <Typography className={styles.mobTextMd}>#phone</Typography>*/}
+                    {/*</Grid>*/}
 
                 </Grid>
-                <Grid container spacing={5} lg={9} md={12}>
+                <Grid container spacing={5} lg={8} md={12}>
 
-                    <Grid item xs={6} md={3}>
+                    <Grid item xs={6} md={4}>
                         <Box display="flex" flexDirection="column" gap="1rem">
                             <Typography color='#3B82F6' fontWeight="600"
                                         className={styles.mobTextMd}>eDiploma</Typography>
                             <Typography className={styles.mobTextMd}>О нас</Typography>
-                            <Typography className={styles.mobTextMd}>Новости</Typography>
-                            <Typography className={styles.mobTextMd}>Вакансии</Typography>
+                            {/*<Typography className={styles.mobTextMd}>Новости</Typography>*/}
+                            {/*<Typography className={styles.mobTextMd}>Вакансии</Typography>*/}
                             <Typography className={styles.mobTextMd}>Контакты</Typography>
                         </Box>
                     </Grid>
-                    <Grid item xs={6} md={3} spacing={1}>
-                        <Box display="flex" flexDirection="column" gap="1rem">
-                            <Typography color='#3B82F6' fontWeight="600"
-                                        className={styles.mobTextMd}>Работодателям</Typography>
-                            <Typography className={styles.mobTextMd}>Выпускники</Typography>
-                            <Typography className={styles.mobTextMd}>Университеты</Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={6} md={3} columnSpacing={1}>
+                    {/*<Grid item xs={6} md={3} spacing={1}>*/}
+                    {/*    <Box display="flex" flexDirection="column" gap="1rem">*/}
+                    {/*        <Typography color='#3B82F6' fontWeight="600"*/}
+                    {/*                    className={styles.mobTextMd}>Работодателям</Typography>*/}
+                    {/*        <Typography className={styles.mobTextMd}>Выпускники</Typography>*/}
+                    {/*        <Typography className={styles.mobTextMd}>Университеты</Typography>*/}
+                    {/*    </Box>*/}
+                    {/*</Grid>*/}
+                    <Grid item xs={6} md={4} columnSpacing={1}>
                         <Box display="flex" flexDirection="column" gap="1rem">
                             <Typography color='#3B82F6' fontWeight="600"
                                         className={styles.mobTextMd}>Выпуск</Typography>
-                            <Typography className={styles.mobTextMd}>Резюме</Typography>
+                            {/*<Typography className={styles.mobTextMd}>Резюме</Typography>*/}
                             <Typography className={styles.mobTextMd}>Профиль</Typography>
-                            <Typography className={styles.mobTextMd}>Работа</Typography>
+                            {/*<Typography className={styles.mobTextMd}>Работа</Typography>*/}
                         </Box>
                     </Grid>
-                    <Grid item xs={6} md={3}>
+                    <Grid item xs={6} md={4}>
                         <Box display="flex" flexDirection="column" gap="1rem">
                             <Typography color='#3B82F6' fontWeight="600"
                                         className={styles.mobTextMd}>Университетам</Typography>

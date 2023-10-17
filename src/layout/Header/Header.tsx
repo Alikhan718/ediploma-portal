@@ -366,7 +366,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
                 ) : (
                     <AppBar open={open} sx={{padding: "0 !important"}} className="app-navbar-container">
-                        <Box className="app-navbar" height='4.5rem'>
+                        <Box className="app-navbar" height='5rem'>
                             <Modal open={openModal} handleClose={() => setOpenModal(true)}
                                    aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                                 <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>

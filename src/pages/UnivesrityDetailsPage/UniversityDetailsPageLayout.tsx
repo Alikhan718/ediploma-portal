@@ -282,8 +282,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								display="flex"
 								flexDirection="column"
 								alignItems="start"
-								sx={{ backgroundColor: 'white', borderRadius: '15px', width: '100%',}}
-								className={styles.diplomasContainer}
+								sx={{ backgroundColor: 'white', borderRadius: '15px', width: '100%', paddingX:".5rem"}}
 							>
 								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>Дипломы выпускников</Typography>
 								<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', marginBottom: '20px' }}>
@@ -311,149 +310,207 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 
 							</Box>
 							<TabPanel value={value} index={0}>
-								<Box display="flex"
-									flexDirection="row"
-									alignItems="start"
-									sx={{
-										width: '100%', borderRadius: '15px', padding: '10px', display: 'grid', gridTemplateColumns: '4fr 4fr 1fr 1fr 1fr', gap: '36px',
-										paddingLeft: '20px', '@media (max-width: 768px)': {width: '100%',},
-									}}
-									>
-									<Box sx={{ display: 'flex', flexDirection: 'row' }}>
-										<Typography
-											fontSize="14px"
-											mb='.5rem' sx={{ color: '#818181' }}
-											className={styles.mobText}
-										>Ф.И.О
-										</Typography>
-									</Box>
-									<Box sx={{ display: 'flex', flexDirection: 'row', '@media (max-width: 768px)': {display: 'none',} }}>
-										<Typography
-											fontSize="14px"
-											mb='.5rem' sx={{ color: '#818181' }}
-											className={styles.mobText}
-										>Специальность
-										</Typography>
-									</Box>
-									<Box sx={{ display: 'flex', flexDirection: 'row', '@media (max-width: 768px)': {display: 'none',}  }}>
-										<Typography
-											fontSize="14px"
-											mb='.5rem' sx={{ color: '#818181' }}
-											className={styles.mobText}
-										>Год выпуска
-										</Typography>
-									</Box>
-									<Box sx={{ display: 'flex', flexDirection: 'row', '@media (max-width: 768px)': {marginLeft: '300px',} }}>
-										<Typography
-											fontSize="14px"
-											mb='.5rem' sx={{ color: '#818181' }}
-											className={styles.mobText}
-										>GPA
-										</Typography>
-									</Box>
-									<Box sx={{ display: 'flex', flexDirection: 'row', '@media (max-width: 768px)': {display: 'none',} }}>
-										<Typography
-											fontSize="14px"
-											mb='.5rem' sx={{ color: '#818181' }}
-											className={styles.mobText}
-										>Действие
-										</Typography>
-									</Box>
-								</Box>
+                            <Box display="flex"
+                                 flexDirection="row"
+                                 alignItems="start"
+                                 sx={{
+                                     width: '100%',
+                                     borderRadius: '15px',
+                                     padding: '10px',
+                                     display: 'grid',
+                                     gridTemplateColumns: '4fr 4fr 1fr 1fr',
+                                     gap: '36px',
+                                     paddingLeft: '20px',
+                                     '@media (max-width: 768px)': {
+                                         width: '100%',
+                                         gridTemplateColumns: '4fr 0fr 0fr 4fr',
 
-								<Box
-									display="flex"
-									flexDirection="column"
-									width="100%"
-									alignItems="start"
-									sx={{
-										backgroundColor: 'white', borderRadius: '15px', padding: '10px',
-										'@media (max-width: 768px)': {width: '100%',},
-									}}
-								>
+                                     },
+                                 }}
+                            >
+                                <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                                    <Typography
+                                        fontSize="14px"
+                                        mb='.5rem' sx={{color: '#818181'}}
+                                        className={styles.mobText}
+                                    >Ф.И.О
+                                    </Typography>
+                                </Box>
+                                <Box sx={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    '@media (max-width: 768px)': {display: 'none',}
+                                }}>
+                                    <Typography
+                                        fontSize="14px"
+                                        mb='.5rem' sx={{color: '#818181'}}
+                                        className={styles.mobText}
+                                    >Специальность
+                                    </Typography>
+                                </Box>
+                                <Box sx={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    '@media (max-width: 768px)': {display: 'none',}
+                                }}>
+                                    <Typography
+                                        fontSize="14px"
+                                        mb='.5rem' sx={{color: '#818181'}}
+                                        className={styles.mobText}
+                                    >Год выпуска
+                                    </Typography>
+                                </Box>
+                                <Box sx={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    '@media (max-width: 768px)': {
+                                        marginLeft: "11rem"
+                                    }
+                                }}>
+                                    <Typography
+                                        fontSize="14px"
+                                        mb='.5rem' sx={{color: '#818181'}}
+                                        className={styles.mobText}
+                                    >GPA
+                                    </Typography>
+                                </Box>
+                                {/*<Box sx={{*/}
+                                {/*    display: 'flex',*/}
+                                {/*    flexDirection: 'row',*/}
+                                {/*    '@media (max-width: 768px)': {display: 'none',}*/}
+                                {/*}}>*/}
+                                {/*    <Typography*/}
+                                {/*        fontSize="14px"*/}
+                                {/*        mb='.5rem' sx={{color: '#818181'}}*/}
+                                {/*        className={styles.mobText}*/}
+                                {/*    >Действие*/}
+                                {/*    </Typography>*/}
+                                {/*</Box>*/}
+                            </Box>
 
-									{currentDiplomaPage.map((e: any) => (
+                            <Box
+                                display="flex"
+                                flexDirection="column"
+                                width="100%"
+                                alignItems="start"
+                                sx={{
+                                    backgroundColor: 'white', borderRadius: '15px', padding: '10px',
+                                    '@media (max-width: 768px)': {width: '100%',},
+                                }}
+                            >
 
-										<Box
-											key={e.counter}
-											onClick={() => {
-												navigate(`/app/diploma/${e.counter!}/details`);
-											}}
-											className={styles.diplomaItem}
-											sx={{
-												width: '100%',
-												cursor: 'pointer',
-												borderRadius: '10px',
-												marginBottom: '1.5rem', display: 'flex',
-												flexDirection: 'row', // Default layout for larger screens
-												alignItems: 'center',
-											}}
-										>
-											<Box
-												sx={{
-													display: 'grid', gridTemplateColumns: '8fr 1fr 1fr 1fr', gap: '36px', marginTop: '20px',
-													paddingLeft: '20px', '@media (max-width: 768px)': {gridTemplateColumns: '12fr 1fr 0fr'}
-												}}
-											>
-												<Box sx={{ display: 'flex', flexDirection: 'row', '@media (max-width: 768px)': {flexDirection: 'column'}}}>
-													<Typography
-														fontSize="20px"
-														fontWeight="600"
-														mb='.5rem'
-														className={styles.mobText}
-														sx={{width:'50%', '@media (max-width: 768px)': {width:'100%'}}}
-													>
-														{e.name_ru}
-													</Typography>
-													<Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm} sx={{ width: '70%', '@media (max-width: 768px)': {marginX: '0', width:'100%'}}}>
-														{e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
-													</Typography>
-												</Box>
-												<Box sx={{ display: 'flex', flexDirection: 'column', marginX: '1rem', '@media (max-width: 768px)': {display: 'none',}}}>
-													2023
-												</Box>
+                                {currentDiplomaPage.map((e: any) => (
 
-												<Box
-													sx={{ display: 'flex', marginX: '1rem', flexDirection: 'column' }} // Adjust spacing as needed
-												>
-													<Typography fontSize="0.875rem">
-														3.0
-													</Typography>
-												</Box>
-												<Box sx={{marginLeft: '1rem'}}>
-													<TwitterIcon />
-												</Box>
-											</Box>
-										</Box>
-									))
-									}
+                                    <Box
+                                        key={e.counter}
+                                        onClick={() => {
+                                            navigate(`/app/diploma/${e.counter!}/details`);
+                                        }}
+                                        className={styles.diplomaItem}
+                                        sx={{
+                                            width: '100%',
+                                            cursor: 'pointer',
+                                            borderRadius: '10px',
+                                            marginBottom: '1.5rem', display: 'flex',
+                                            flexDirection: 'row', // Default layout for larger screens
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                width: "100%",
+                                                display: 'grid',
+                                                gridTemplateColumns: '8fr 1fr 1fr',
+                                                gap: '36px',
+                                                marginTop: '20px',
+                                                paddingLeft: '20px',
+                                                '@media (max-width: 768px)': {gridTemplateColumns: '12fr 1fr 0fr'}
+                                            }}
+                                        >
+                                            <Box sx={{
+                                                display: 'flex',
+                                                flexDirection: 'row',
+                                                '@media (max-width: 768px)': {flexDirection: 'column'}
+                                            }}>
+                                                <Typography
+                                                    fontSize="20px"
+                                                    fontWeight="600"
+                                                    mb='.5rem'
+                                                    className={styles.mobText}
+                                                    sx={{width: '50%', '@media (max-width: 768px)': {width: '100%'}}}
+                                                >
+                                                    {e.name_ru}
+                                                </Typography>
+                                                <Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm}
+                                                            sx={{
+                                                                width: '70%',
+                                                                '@media (max-width: 768px)': {
+                                                                    marginX: '0',
+                                                                    width: '100%'
+                                                                }
+                                                            }}>
+                                                    {e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
+                                                </Typography>
+                                            </Box>
+                                            <Box sx={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                marginX: '1rem',
+                                                '@media (max-width: 768px)': {display: 'none',}
+                                            }}>
+                                                2023
+                                            </Box>
 
-									<Box sx={{
-										display: 'flex',
-										justifyContent: 'space-between',
-										flexDirection: 'row',
-										alignItems: 'center',
-										width: '100%',
-										marginBottom: "2rem"
-									}}>
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    marginX: '1rem',
+                                                    flexDirection: 'column'
+                                                }} // Adjust spacing as needed
+                                            >
+                                                <Typography fontSize="0.875rem">
+                                                    3.0
+                                                </Typography>
+                                            </Box>
+                                            {/*<Box sx={{marginLeft: 'auto', marginRight: "3rem"}}>*/}
+                                            {/*    <TwitterIcon/>*/}
+                                            {/*</Box>*/}
+                                        </Box>
+                                    </Box>
+                                ))
+                                }
 
-										<Box style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-											<Pagination
-												count={totalPages}
-												page={currentPage}
-												onChange={(event, page) => setCurrentPage(page)}
-												shape="rounded"
-												color="primary"
-												size="large"
-											/>
-										</Box>
+                                <Box sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    width: '100%',
+                                    marginBottom: "2rem"
+                                }}>
 
-									</Box>
+                                    <Box style={{
+                                        flex: 1,
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}>
+                                        <Pagination
+                                            count={totalPages}
+                                            page={currentPage}
+                                            onChange={(event, page) => setCurrentPage(page)}
+                                            shape="rounded"
+                                            color="primary"
+                                            size="large"
+                                        />
+                                    </Box>
 
-								</Box>
+                                </Box>
+
+                            </Box>
 
 
-							</TabPanel>
+                        </TabPanel>
 							<TabPanel value={value} index={1}>
 								<Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
 									<Box sx={{

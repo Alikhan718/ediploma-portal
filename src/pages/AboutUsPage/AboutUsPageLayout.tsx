@@ -58,7 +58,7 @@ export const AboutUsPageLayout: React.FC = () => {
 
 	return (
 		<Box>
-			<Box className={styles.container}>
+			<Box className={styles.container} sx={{backgroundColor: "white",}}>
 
 				<Box className={styles.hero}>
 					<CardMedia
