@@ -198,6 +198,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         };
 
         const handleCloseMenu = () => {
+            console.log("closing menu");
             setAnchorEl(null);
             setShowDropdown({profile: false, lang: false});
         };
@@ -225,19 +226,24 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             backgroundColor: 'white',
                             padding: '0.8rem',
                             width: '95%',
-                            marginLeft: '2rem',
                             borderRadius: '30px',
                             marginBottom: '1rem',
                             '@media (max-width: 778px)': {
-                                marginLeft: '1rem',
+                                width: "100%",
                                 marginBottom: '-2rem',
+                                marginTop: "-1rem",
                             },
                         }}
                     >
                         <Box sx={{fontSize: '1.2rem', fontWeight: '600', marginLeft: '1rem'}}>
                             {headerText}
                         </Box>
-                        <Box sx={{display: 'flex', alignItems: 'center'}}>
+                        <Box sx={{
+                            display: 'flex', alignItems: 'center',
+                            '@media (max-width: 1000px)': {
+                                gap: ".5rem",
+                            },
+                        }}>
                             <Input
                                 type="text"
                                 name="email"
@@ -258,17 +264,34 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 }
                             />
                             <HeaderSearchIcon className="app-icon-img"/>
-
+                            <Divider orientation="vertical"
+                                     style={{
+                                         borderLeftWidth: "1px",
+                                         borderRightWidth: "0",
+                                         borderColor: "grey",
+                                         height: "1.5rem",
+                                     }}/>
                             <NotIcon style={{
-                                borderLeft: '1px solid gray',
                                 cursor: 'pointer'
                             }} className="app-icon"
                                      onClick={() => {
                                          navigate(routes.notifications);
                                      }}/>
-
-                            <ModeIcon style={{borderRight: '1px solid gray', cursor: 'pointer'}} className="app-icon"/>
-
+                            <Divider orientation="vertical"
+                                     style={{
+                                         borderLeftWidth: "1px",
+                                         borderRightWidth: "0",
+                                         borderColor: "grey",
+                                         height: "1.5rem",
+                                     }}/>
+                            <ModeIcon style={{cursor: 'pointer'}} className="app-icon"/>
+                            <Divider orientation="vertical"
+                                     style={{
+                                         borderLeftWidth: "1px",
+                                         borderRightWidth: "0",
+                                         borderColor: "grey",
+                                         height: "1.5rem",
+                                     }}/>
                             <IconButton
                                 style={{
                                     cursor: 'pointer',
@@ -277,7 +300,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                     handleOpenMenu(event, "profile");
                                 }}
                             >
-                                <AccountCircleIcon style={{alignSelf: "center", marginLeft: '0.5rem'}}/>
+                                <AccountCircleIcon style={{alignSelf: "center"}}/>
                             </IconButton>
                         </Box>
                         <Menu
@@ -291,12 +314,14 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                         >
                             <MenuItem onClick={() => {
                                 navigate(routes[userRole!.toLowerCase()], {replace: true});
+                                handleCloseMenu();
                             }}>
                                 <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>
                                 <Typography>Профиль</Typography>
                             </MenuItem>
                             <MenuItem onClick={() => {
                                 navigate(routes.settings);
+                                handleCloseMenu();
                             }}>
                                 <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>
                                 <Typography>
@@ -306,6 +331,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
                             <MenuItem onClick={() => {
                                 navigate(routes.addingGraduates);
+                                handleCloseMenu();
                             }}>
                                 <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>
                                 <Typography>
@@ -317,6 +343,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
                             <MenuItem onClick={() => {
                                 navigate(routes.settings);
+                                handleCloseMenu();
                             }}>
                                 <Settings style={{marginRight: '10px', verticalAlign: "center"}}/>
                                 <Typography>
@@ -338,7 +365,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                 ) : (
                     <AppBar open={open} sx={{padding: "0 !important"}} className="app-navbar-container">
                         <Box className="app-navbar" height='4rem'>
-                            <Modal open={openModal} handleClose={() => setOpenModal(true)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                            <Modal open={openModal} handleClose={() => setOpenModal(true)}
+                                   aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                                 <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
 
                                     <img src={NeedAuthorizationPic} alt=""/>
@@ -600,11 +628,14 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                         >
                             <MenuItem onClick={() => {
                                 navigate(routes[userRole!.toLowerCase()], {replace: true});
+                                handleCloseMenu();
                             }}>
-                                <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>
+                                <Avatar style={{verticalAlign: "center"}}/>
                                 <Typography>Профиль</Typography>
                             </MenuItem>
                             <MenuItem onClick={() => {
+                                handleCloseMenu();
+
                                 navigate(routes.settings);
                             }}>
                                 <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>
@@ -614,6 +645,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             </MenuItem>
 
                             <MenuItem onClick={() => {
+                                handleCloseMenu();
+
                                 navigate(routes.addingGraduates);
                             }}>
                                 <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>
@@ -625,6 +658,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             <Divider style={{margin: "0 1rem"}}/>
 
                             <MenuItem onClick={() => {
+                                handleCloseMenu();
+
                                 navigate(routes.settings);
                             }}>
                                 <Settings style={{marginRight: '10px', verticalAlign: "center"}}/>
@@ -633,7 +668,10 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 </Typography>
                             </MenuItem>
 
-                            <MenuItem onClick={handleLogout}>
+                            <MenuItem onClick={() => {
+                                handleLogout();
+                            }
+                            }>
                                 <Out style={{marginRight: '10px'}}/>
                                 <Typography
                                     color='red'>
