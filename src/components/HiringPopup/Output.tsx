@@ -15,6 +15,7 @@ interface OutputProps{
 export const Output: React.FC<OutputProps> = (props) => {
     const {response, loading, setGotResponse, setHaveDescription, haveSearch, isStudent, setJobDescription } = props;
     const [isCopied, setIsCopied] = React.useState(false);
+    const urlRegex:RegExp = /(https?:\/\/[^\s\)]+)/g;
 
     const handleCopy = (): void => {
         const textToCopy = response.split('\n').join('\n');
@@ -58,7 +59,20 @@ export const Output: React.FC<OutputProps> = (props) => {
                     </div>)}
                     <p>{response.split('\n').map((paragraph, index) => (
                     <span key={index}>
-                        {paragraph}
+                        {paragraph.split(urlRegex).map((part, idx) => {
+                            if (urlRegex.test(part)) {
+                                return (
+                                    <a key={idx} href={part} target="_blank" rel="noopener noreferrer" className={styles.link}>
+                                        {part}
+                                    </a>
+                                );
+                            }
+                            return (
+                                <span key={index}>
+                                  {part}
+                                </span>
+                            );
+                        })}
                         {index < response.split('\n').length - 1 && <br />}
                     </span>
                         ))}

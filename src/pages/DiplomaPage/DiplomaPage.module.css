@@ -531,3 +531,9 @@ input[type="radio"]:checked + label span.innerCircle2 {
 .outputButtonsContainer {
     text-align: right;
 }
+
+.link {
+    color: rgb(61, 61, 237);
+    text-decoration: underline;
+    cursor: pointer;
+  }
