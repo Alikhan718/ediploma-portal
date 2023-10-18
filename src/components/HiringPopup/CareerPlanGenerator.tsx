@@ -6,10 +6,12 @@ import { Output } from './Output';
 
 interface CareerPlanGeneratorProps{
     setIsClicked: any;
+    setIsDataAlert: any;
+    showAlert: any;
 }
 
 export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) => {
-    const {setIsClicked} = props;
+    const {setIsClicked, setIsDataAlert, showAlert} = props;
 
     const [formData, setFormData] = React.useState({
         major: '',
@@ -47,23 +49,26 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
     };
 
     const handleSubmit = async (): Promise<void> => {
-        setGotResponse(true);
-        setLoading(true);
-
         const input: any = document.getElementById('cv');
         if (!input.files[0]){
             setGotResponse(false);
             setLoading(false);
+            showAlert('Загрузите ваше резюме');
             return;
         }
         if(Object.values(formData).includes('')){
             console.log(formData);
             setGotResponse(false);
             setLoading(false);
+            showAlert('Введите свои личные данные');
             return;
         }
+
+        setGotResponse(true);
+        setLoading(true);
         
         console.log("Loading...");
+        setIsDataAlert(false);
 
         const formDataToSend = new FormData();
 
@@ -209,7 +214,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
                     </label>
                 </div>
                 <div className={styles.buttonContainer}>
-                    <button type="button" onClick={(): void =>{setIsClicked(true);}} className={styles.continueButton}>Назад</button>
+                    <button type="button" onClick={(): void =>{setIsClicked(true); setIsDataAlert(false);}} className={styles.continueButton}>Назад</button>
                     <button type="button" onClick={handleSubmit} className={styles.continueButton}>Продолжить</button>
                 </div>
             </div>

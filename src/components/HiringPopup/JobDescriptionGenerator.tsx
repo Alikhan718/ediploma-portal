@@ -2,15 +2,20 @@ import React from 'react';
 import { Input } from '@src/components';
 import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { Output } from './Output';
+import {setSnackbar} from "@src/store/generals/actionCreators";
+import {put} from "redux-saga/effects";
+import Alert from '@mui/material/Alert';
 
 interface JobDescriptionGeneratorProps {
     setHaveDescription:any;
     setIsClicked:any;
     setJobDescription:any;
+    setIsDataAlert: any;
+    showAlert:any;
 };
 
 export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (props) => {
-    const {setHaveDescription, setIsClicked, setJobDescription} = props;
+    const {setHaveDescription, setIsClicked, setJobDescription, setIsDataAlert, showAlert} = props;
 
     const [selectedRadio, setSelectedRadio] = React.useState('');
     const [response, setResponse] = React.useState('');
@@ -34,8 +39,11 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
 
     const handleSubmit = async (isTask: boolean): Promise<void> => {
         if((document.getElementById("chat") as HTMLInputElement).value === ''){
+            showAlert('Введите вашу задачу или ваш проект')
             return;
         }
+
+        setIsDataAlert(false);
 
         console.log(isTask);
         setGotResponse(true);
@@ -128,7 +136,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
             <div className={styles.buttonContainer}>
                 <button 
                     type="button" 
-                    onClick={(): void => {setIsClicked(true);}} 
+                    onClick={(): void => {setIsClicked(true); setIsDataAlert(false);}} 
                     className={styles.continueButton}
                 >Назад
                 </button>
