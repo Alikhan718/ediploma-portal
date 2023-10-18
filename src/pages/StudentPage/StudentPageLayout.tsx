@@ -40,6 +40,7 @@ export const StudentPageLayout: React.FC = () => {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+	const isMobile = useMediaQuery('(max-width:998px)');
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#FAFBFF' }}>
@@ -141,49 +142,39 @@ export const StudentPageLayout: React.FC = () => {
 										sx={{
 											flexDirection: 'row',
 											ustifyContent: 'space-between',
-											width: '100%',
+											width: '110%',
 											alignItems: 'center',
 										}}
 									>
-										<Box>
-											<Label label="Название вуза: " />
-											<Label label="Cпециальность: " />
-											<Label label="Степень: " />
-											<Label label="Год окончания: " />
-										</Box>
-										<Box marginLeft="1rem" >
-											<Typography
-												className={styles.textSm}
-												fontWeight='500'
-												mb='3px'
-												sx={{ fontSize: '0.875em', }}
-											>
-												Казахстанско-Британский Технический Университет
-											</Typography>
-											<Typography
-												className={styles.textSm}
-												fontWeight='500'
-												mb='3px'
-												sx={{ fontSize: '0.875em', }}
-											>
-												«6B07201 Нефтегазовое дело»
-											</Typography>
-											<Typography
-												className={styles.textSm}
-												fontWeight='500'
-												mb='3px'
-												sx={{ fontSize: '0.875em', }}
-											>
-												Бакалавр
-											</Typography>
-											<Typography
-												className={styles.nameText}
-												fontWeight='500'
-												mb='3px'
-												sx={{ fontSize: '0.875em', }}
-											>
-												28.08.2023
-											</Typography>
+										<Box display="flex" alignItems="center">
+											<Box marginRight="1rem">
+												<Box sx={{
+													"@media (max-width: 998px)": {
+
+														marginBottom: "18px",
+
+													},
+												}}>
+													<Label label="Название вуза: " /></Box>
+												<Label label="Cпециальность: " />
+												<Label label="Степень: " />
+												<Label label="Год окончания: " />
+											</Box>
+											<Box marginLeft="0.2rem">
+												<Typography className={styles.textSm} fontWeight='500' mb='3px' sx={{ fontSize: '0.875em' }}>
+													Казахстанско-Британский
+													Технический Университет
+												</Typography>
+												<Typography className={styles.textSm} fontWeight='500' mb='3px' sx={{ fontSize: '0.875em' }}>
+													«6B07201 Нефтегазовое дело»
+												</Typography>
+												<Typography className={styles.textSm} fontWeight='500' mb='3px' sx={{ fontSize: '0.875em' }}>
+													Бакалавр
+												</Typography>
+												<Typography className={styles.nameText} fontWeight='500' mb='3px' sx={{ fontSize: '0.875em' }}>
+													28.08.2023
+												</Typography>
+											</Box>
 										</Box>
 									</Box>
 

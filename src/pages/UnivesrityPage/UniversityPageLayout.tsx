@@ -15,14 +15,14 @@ import styles from "./UniversityPage.module.css";
 
 export const UniversityPageLayout: React.FC = () => {
 	const navigate = useNavigate();
-	const defaultS = 4;
+	const defaultS = 5;
 	return (
 		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'>
 			<UniversityPageHeader />
 			<Grid container display="flex" rowSpacing={1} columnSpacing={1} flexWrap="wrap"
 				justifyContent="space-between"
 				className={styles.universitiesContainer} width='100%'>
-				{Array.from({ length: 6 }).map((_, index) => (
+				{Array.from({ length: 4 }).map((_, index) => (
 					<Grid
 						key={index} item xs={12} sm={6} md={4} lg={3}
 						onClick={() => {
@@ -56,7 +56,8 @@ export const UniversityPageLayout: React.FC = () => {
 										fontSize: '1rem'
 									},
 								}}>
-									{index % 2 === 0 ? "Казахстанско-Британский Технический Университет" : "Назарбаев Университет (НУ)"}
+									{index % 2 === 0 ? "Казахстанско-Британский Технический Университет" :
+										"Сатпаев Университет (НУ)"}
 								</Typography>
 								<Box display='flex'>
 									<Typography className={styles.textSm} sx={{
