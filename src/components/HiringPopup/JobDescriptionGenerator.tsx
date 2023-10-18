@@ -2,9 +2,6 @@ import React from 'react';
 import { Input } from '@src/components';
 import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { Output } from './Output';
-import {setSnackbar} from "@src/store/generals/actionCreators";
-import {put} from "redux-saga/effects";
-import Alert from '@mui/material/Alert';
 
 interface JobDescriptionGeneratorProps {
     setHaveDescription:any;
