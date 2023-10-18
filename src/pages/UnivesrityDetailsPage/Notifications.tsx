@@ -170,7 +170,6 @@ const Notifications: React.FC = () => {
 							whiteSpace: "nowrap",
 							textAlign: "left",
 							padding: "18px",
-							borderBottom: "1px solid #EBF2FE",
 							marginTop: '-1rem'
 						}}
 					>
