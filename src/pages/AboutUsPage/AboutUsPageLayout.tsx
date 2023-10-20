@@ -58,7 +58,7 @@ export const AboutUsPageLayout: React.FC = () => {
 
 	return (
 		<Box>
-			<Box className={styles.container} sx={{backgroundColor: "white",}}>
+			<Box className={styles.container} sx={{ backgroundColor: "white", }}>
 
 				<Box className={styles.hero}>
 					<CardMedia
@@ -131,7 +131,7 @@ export const AboutUsPageLayout: React.FC = () => {
 						К чему мы стремимся
 					</Typography>
 					<Typography textAlign="center" className={cn(styles.textMd, styles.textGray)}>
-						{"Проверьте диплом и найдите себе лучших выпускников \n в компанию"}
+						{"Исключение риска фальсификации дипломов и полная прозрачность \n их выпуска"}
 					</Typography>
 
 					<Box className={styles.goalItemsContainer}>
@@ -166,7 +166,8 @@ export const AboutUsPageLayout: React.FC = () => {
 
 						<Typography fontSize=".9rem" mt="2rem" color="#818181" whiteSpace="pre-line"
 							className={styles.mobTextSm}>
-							#Location
+							Адрес: <br />
+							Astana, Mangilik el 55/14 C2.2
 						</Typography>
 					</Box>
 					<Box>
@@ -176,23 +177,25 @@ export const AboutUsPageLayout: React.FC = () => {
 						</Typography>
 						<Typography fontSize="1.2rem" color="#4D4D4D" whiteSpace="pre-line"
 							className={styles.mobTextMd}>
-							+7(00)800-08-80
+							Телефон: +7 777 646 32 46
 						</Typography>
 
 						<Box mt="2rem" display="flex" gap="1rem" flexDirection="row">
-							<Typography textAlign="center" fontSize=".9rem" color="#818181"
-								className={styles.mobTextSm}>
-								facebook
-							</Typography>
-							<Typography fontSize=".9rem" color="#818181" className={styles.mobTextSm}>
-								twitter
-							</Typography>
-							<Typography fontSize=".9rem" color="#818181" className={styles.mobTextSm}>
-								instagram
-							</Typography>
-							<Typography fontSize=".9rem" color="#818181" className={styles.mobTextSm}>
-								linkedin
-							</Typography>
+							<a href="https://t.me/jasaimhub" target="_blank" rel="noopener noreferrer">
+								<Typography fontSize=".9rem" color="#818181" className={styles.mobTextSm}>
+									Telegram
+								</Typography>
+							</a>
+							<a href="https://www.instagram.com/jasaim_blockchain/" target="_blank" rel="noopener noreferrer">
+								<Typography fontSize=".9rem" color="#818181" className={styles.mobTextSm}>
+									Instagram
+								</Typography>
+							</a>
+							<a href="https://www.linkedin.com/company/96461080/admin/feed/posts/" target="_blank" rel="noopener noreferrer">
+								<Typography fontSize=".9rem" color="#818181" className={styles.mobTextSm}>
+									Linkedin
+								</Typography>
+							</a>
 
 						</Box>
 					</Box>

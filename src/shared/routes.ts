@@ -17,4 +17,5 @@ export const routes: Record<string, string> = {
 	notifications: `${appRoot}/notifications`,
 	student: `${appRoot}/student/1/details`,
 	employer: `${appRoot}/employer/1/details`,
+	universityProfile: `${appRoot}/university/1/profile`
 };
