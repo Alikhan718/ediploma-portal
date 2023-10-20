@@ -45,10 +45,11 @@ const diplomaReducer = (state = initialState, action: any) => {
         case GET_DIPLOMAS.success:
             let temp_diploma_list = [];
             if (state.filtered_names.length) {
-                temp_diploma_list = action.payload.filter((diploma: any) => state.filtered_names.includes(diploma.name));
+                temp_diploma_list = action.payload.filter((diploma: any) => state.filtered_names.includes(diploma.name_en));
             } else {
                 temp_diploma_list = action.payload;
             }
+            console.log(temp_diploma_list);
             return {
                 ...state,
                 diplomas_list: temp_diploma_list,

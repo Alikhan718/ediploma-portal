@@ -89,6 +89,13 @@ export const authApi = {
 
 
 export const diplomasApi = {
+    getDiplomas(body: {page: number, per_page: number, university_id: number | null}) {
+        let query = `diploma?page=${body.page}&per_page=${body.per_page}&`;
+        if (body.university_id != null) {
+            query += `university_id=${body.university_id}&`;
+        }
+        return instance.get(query);
+    },
     async getContracts() {
         let link = "ipfs://bafybeief3kcfslilus4flria2b77w6w44pd5pn4apxuvmmdkhttgkywnb4/fullMetadata.json";
         link = link.replace("ipfs://", "https://ipfs.io/ipfs/");

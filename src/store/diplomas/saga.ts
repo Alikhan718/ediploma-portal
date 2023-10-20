@@ -10,29 +10,11 @@ import {
 } from "./types/types";
 import {handleResponseBase} from "@src/store/sagas";
 
-export function* fetchContractRequest() {
+export function* fetchDiplomasRequest() {
     try {
-        const {data} = yield call(diplomasApi.getContracts);
-        let newData: { [index: string]: any }[] = [];
+        const {data} = yield call(diplomasApi.getDiplomas, {page: 1, per_page: 800, university_id: null});
 
-        data.forEach((entry: any) => {
-            let dict: { [index: string]: any } = {};
-
-            Object.entries(entry).forEach((e: any) => {
-                const [k, v] = e;
-                if (k !== "attributes") {
-                    const key = String(k);
-                    dict[key] = v;
-                } else {
-                    entry.attributes.forEach((attr: any) => {
-                        dict[attr.name] = attr.value;
-                    });
-                }
-            });
-
-            newData.push(dict);
-        });
-        yield put({type: GET_DIPLOMAS.success, payload: newData});
+        yield put({type: GET_DIPLOMAS.success, payload: data});
 
 
     } catch (e) {
@@ -94,7 +76,7 @@ export function* fetchGraduateDetailsRequest(action: any) {
 
 export function* diplomaSaga() {
     yield all([
-        takeLatest(GET_DIPLOMAS.saga, fetchContractRequest),
+        takeLatest(GET_DIPLOMAS.saga, fetchDiplomasRequest),
         takeLatest(GET_CHECK_IIN.saga, fetchCheckIINRequest),
         takeLatest(GET_SEARCH.saga, fetchSearchRequest),
         takeLatest(GET_GRADUATE_DETAILS.saga, fetchGraduateDetailsRequest),

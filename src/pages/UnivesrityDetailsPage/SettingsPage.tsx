@@ -13,6 +13,8 @@ import {ReactComponent as SocialIcon} from "@src/assets/icons/Social.svg";
 import {ReactComponent as TrashIcon} from "@src/assets/icons/Trash.svg";
 import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
 import FastIcon from '@src/components/FastIcon/FastIcon';
+import {useSelector} from "react-redux";
+import { selectUserState } from '@src/store/auth/selector';
 
 const SettingsPage: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -31,6 +33,12 @@ const SettingsPage: React.FC = () => {
             ref.current.scrollIntoView({behavior: 'smooth'});
         }
     };
+    const userState = useSelector(selectUserState);
+
+    const [state, setState] = React.useState({
+
+    });
+
     return (
         <Box
             display="flex"
@@ -149,6 +157,7 @@ const SettingsPage: React.FC = () => {
                     backgroundColor: 'white',
                     borderRadius: '30px',
                     paddingTop: '20px',
+                    paddingBottom: "1rem",
                     marginLeft: 'unset',
                     display: 'flex',
                     flexDirection: 'column',
@@ -246,6 +255,7 @@ const SettingsPage: React.FC = () => {
                     borderRadius: '30px',
                     paddingTop: '20px',
                     marginTop: '20px',
+                    paddingBottom: "1rem",
                     marginRight: '10px',
                     display: 'flex',
                     flexDirection: 'column',
@@ -263,7 +273,7 @@ const SettingsPage: React.FC = () => {
                         <Input
                             type="text"
                             name="email"
-                            placeholder="Логин или Email"
+                            placeholder="Email"
                         />
                         <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
                             <Button sx={{marginRight: '16px'}}>Отменить</Button>
@@ -275,8 +285,8 @@ const SettingsPage: React.FC = () => {
                 <Container sx={{
                     backgroundColor: 'white',
                     borderRadius: '30px',
-                    width: '55vw', maxWidth: '100%',
                     paddingTop: '20px',
+                    paddingBottom: "1rem",
                     marginTop: '20px',
                     marginRight: '10px',
                     display: 'flex',
@@ -287,12 +297,16 @@ const SettingsPage: React.FC = () => {
                 }}>
                     <Typography variant="h6" fontWeight="600" sx={{paddingTop: '15px'}}>Измените свой
                         пароль</Typography>
-                    <Box>
-                        <Label label="Новый адрес*"/>
+                    <Box width="49%" sx={{
+                        '@media(max-width: 778px)': {
+                            width: "100%"
+                        }
+                    }}>
+                        <Label label="Текущий пароль*"/>
                         <Input
                             type="text"
                             name="email"
-                            placeholder="Логин или Email"
+                            placeholder="Введите текущий пароль"
                         />
                     </Box>
                     <Box sx={{
@@ -302,19 +316,19 @@ const SettingsPage: React.FC = () => {
                         },
                     }}>
                         <Box sx={{width: '100%'}}>
-                            <Label label="Телефон*"/>
+                            <Label label="Новый пароль*"/>
                             <Input
                                 type="text"
                                 name="telephone"
-                                placeholder="Номер телефона"
+                                placeholder="Введите новый пароль"
                             />
                         </Box>
                         <Box sx={{width: '100%'}}>
-                            <Label label="Имя*"/>
+                            <Label label="Подтвердите новый пароль*"/>
                             <Input
                                 type="text"
                                 name="name"
-                                placeholder="Ваше имя"
+                                placeholder="Введите подтверждение нового пароля"
                             />
                         </Box>
                     </Box>

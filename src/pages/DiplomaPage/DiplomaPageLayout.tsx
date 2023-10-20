@@ -32,8 +32,8 @@ export const DiplomaPageLayout: React.FC = () => {
                   className={styles.diplomasContainer} width="100%">
                 {diplomaList ? (
                     diplomaList.map((e: any) => (
-                        <Grid key={e.counter} item xs={12} sm={5.9} md={3.9} lg={2.9}
-                              onClick={() => handleCardClick(e.counter!)}
+                        <Grid key={e.id} item xs={12} sm={5.9} md={3.9} lg={2.9}
+                              onClick={() => handleCardClick(e.id!)}
                               sx={{
                                   display: 'flex',
                                   flexDirection: 'column', alignItems: 'center',
@@ -45,7 +45,7 @@ export const DiplomaPageLayout: React.FC = () => {
                               }}
                         >
                             <CardMedia
-                                key={e.counter + "img"}
+                                key={e.id + "img"}
                                 component="img"
                                 className={styles.diplomaImg}
                                 sx={{width: "100%",}}
@@ -56,13 +56,13 @@ export const DiplomaPageLayout: React.FC = () => {
 
                             <Box sx={{display: 'flex', flexDirection: 'row', width: "100%"}}>
                                 <CardContent
-                                    key={e.counter + "content"}
+                                    key={e.id + "content"}
                                     sx={{flex: '1', display: "flex", flexDirection: "column", width: "100%"}}>
                                     <Box display='flex' justifyContent='space-between' alignItems='center'>
 
                                         <Typography sx={{fontWeight: '600', fontSize: '16px'}}> КБТУ</Typography>
                                         <Typography fontSize="1rem" color="#818181">
-                                            {extractYearFromHumanReadable(e.protocol_en ?? "", "/")}
+                                            {e.year}
                                         </Typography>
                                     </Box>
                                     <Typography mb='.5rem' mt='0.5rem' fontSize="1.25rem" className={styles.mobText}
@@ -70,7 +70,7 @@ export const DiplomaPageLayout: React.FC = () => {
                                         {e.name_ru}
                                     </Typography>
                                     <Typography fontSize=".8rem" mt="0" color="#818181" className={styles.mobTextSm}>
-                                        {e.qualification_ru?.substring(e.qualification_ru.search("«"), e.qualification_ru.search("»") + 1)}
+                                        {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
                                     </Typography>
                                     {/* <Box display='flex' mt='auto' width='100%'> */}
                                     {/* <Typography fontSize="0.875rem" mr='auto'>

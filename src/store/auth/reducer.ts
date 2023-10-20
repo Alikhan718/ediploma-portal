@@ -18,6 +18,15 @@ const initialState = {
     redirectToLogin: false,
     forgotStep: 1, // [1 - send code, 2 - confirm code, 3 - change pass]
     registrationStep: 1, // [1 - send code, 2 - email validated, 3 - registered]
+    userState: {
+        name: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        description: "",
+        avatar: "",
+    }
 };
 export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
