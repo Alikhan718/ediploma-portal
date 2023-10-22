@@ -115,6 +115,7 @@
     }
 
     .app-icon-img {
+        width: 100%;
         display: inline;
     }
 

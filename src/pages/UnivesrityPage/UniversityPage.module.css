@@ -15,10 +15,11 @@
 }
 
 .mainContainer {
-    padding: 0 9%;
-    display: flex;
-    flex-direction: column;
+	padding: 0 9%;
+	display: flex;
+	flex-direction: column;
 }
+
 .universitiesContainer {
 	border-radius: 2rem;
 }
@@ -64,8 +65,7 @@
 		padding-left: 1rem;
 	}
 
-	.universitiesContainer {
-	}
+
 
 	.accessModal {
 		width: 95% !important;

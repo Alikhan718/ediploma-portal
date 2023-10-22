@@ -37,9 +37,10 @@ export const StudentPageLayout: React.FC = () => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+	const isMobile = useMediaQuery('(max-width:998px)');
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
@@ -84,115 +85,100 @@ export const StudentPageLayout: React.FC = () => {
                                             margin: '0.5rem',
                                         },
 
-                                    }}
-                                >
-                                    <Box display="flex" justifyContent="space-between">
-                                        <Typography
-                                            className={styles.nameText}
-                                            fontWeight='600'
-                                            sx={{
-                                                paddingBottom: '14px',
-                                                fontSize: '24px',
-                                                '@media (max-width: 778px)': {
-                                                    fontSize: '22px',
-                                                },
-                                            }}
-                                        >
-                                            Сериков Сырым Сержанулы
-                                        </Typography>
-                                        <Box marginBottom="15px">
-                                            <img src={star} style={{marginRight: '5px'}}
-                                                 className={styles.desktopIcon}/>
-                                            <Button
-                                                aria-controls="simple-menu"
-                                                aria-haspopup="true"
-                                                onClick={handleClick}
-                                                className={styles.desktopIcon}
-                                            >
-                                                <img
-                                                    src={dots}
-                                                    style={{marginRight: '1.4rem', marginBottom: '0.6rem'}}
-                                                    className={styles.desktopIcon}
-                                                />
-                                            </Button>
-                                            <Menu
-                                                anchorEl={anchorEl}
-                                                keepMounted
-                                                open={Boolean(anchorEl)}
-                                                onClose={handleClose}
-                                            >
-                                                <MenuItem onClick={() => {
-                                                    navigate(routes.main);
-                                                }}>
-                                                    <Eye style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                    <Typography>Перейти на сайт</Typography>
-                                                </MenuItem>
-                                                <MenuItem onClick={handleClose}><Star
-                                                    style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                    <Typography>В Избранное</Typography></MenuItem>
-                                                <MenuItem onClick={handleClose}><ShareIcon
-                                                    style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                    <Typography>Поделиться</Typography></MenuItem>
-                                                <Divider style={{margin: "0 1rem"}}/>
-                                                <MenuItem onClick={handleClose}><Check
-                                                    style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                    <Typography>Etherscan</Typography></MenuItem>
-                                            </Menu>
-                                            <img src={pen} style={{marginLeft: '2rem', marginTop: '-4.5rem'}}
-                                                 className={styles.tabletIcon}/>
-                                        </Box>
-                                    </Box>
-                                    <Box
-                                        display="flex"
-                                        alignItems="center"
-                                        sx={{
-                                            flexDirection: 'row',
-                                            ustifyContent: 'space-between',
-                                            width: '100%',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        <Box>
-                                            <Label label="Название вуза: "/>
-                                            <Label label="Cпециальность: "/>
-                                            <Label label="Степень: "/>
-                                            <Label label="Год окончания: "/>
-                                        </Box>
-                                        <Box marginLeft="1rem">
-                                            <Typography
-                                                className={styles.textSm}
-                                                fontWeight='500'
-                                                mb='3px'
-                                                sx={{fontSize: '0.875em',}}
-                                            >
-                                                Казахстанско-Британский Технический Университет
-                                            </Typography>
-                                            <Typography
-                                                className={styles.textSm}
-                                                fontWeight='500'
-                                                mb='3px'
-                                                sx={{fontSize: '0.875em',}}
-                                            >
-                                                «6B07201 Нефтегазовое дело»
-                                            </Typography>
-                                            <Typography
-                                                className={styles.textSm}
-                                                fontWeight='500'
-                                                mb='3px'
-                                                sx={{fontSize: '0.875em',}}
-                                            >
-                                                Бакалавр
-                                            </Typography>
-                                            <Typography
-                                                className={styles.nameText}
-                                                fontWeight='500'
-                                                mb='3px'
-                                                sx={{fontSize: '0.875em',}}
-                                            >
-                                                28.08.2023
-                                            </Typography>
-                                        </Box>
-                                    </Box>
+									}}
+								>
+									<Box display="flex" justifyContent="space-between">
+										<Typography
+											className={styles.nameText}
+											fontWeight='600'
+											sx={{
+												paddingBottom: '14px',
+												fontSize: '24px',
+												'@media (max-width: 778px)': {
+													fontSize: '22px',
+												},
+											}}
+										>
+											Сериков Сырым Сержанулы
+										</Typography>
+										<Box marginBottom="15px">
+											<img src={star} style={{ marginRight: '5px' }} className={styles.desktopIcon} />
+											<Button
+												aria-controls="simple-menu"
+												aria-haspopup="true"
+												onClick={handleClick}
+												className={styles.desktopIcon}
+											>
+												<img
+													src={dots}
+													style={{ marginRight: '1.4rem', marginBottom: '0.6rem' }}
+													className={styles.desktopIcon}
+												/>
+											</Button>
+											<Menu
+												anchorEl={anchorEl}
+												keepMounted
+												open={Boolean(anchorEl)}
+												onClose={handleClose}
+											>
+												<MenuItem onClick={() => {
+													navigate(routes.main);
+												}}>
+													<Eye style={{ marginRight: '10px', verticalAlign: "center" }} />
+													<Typography>Перейти на сайт</Typography>
+												</MenuItem>
+												<MenuItem onClick={handleClose}><Star style={{ marginRight: '10px', verticalAlign: "center" }} />
+													<Typography>В Избранное</Typography></MenuItem>
+												<MenuItem onClick={handleClose}><ShareIcon style={{ marginRight: '10px', verticalAlign: "center" }} />
+													<Typography>Поделиться</Typography></MenuItem>
+												<Divider style={{ margin: "0 1rem" }} />
+												<MenuItem onClick={handleClose}><Check style={{ marginRight: '10px', verticalAlign: "center" }} />
+													<Typography>Etherscan</Typography></MenuItem>
+											</Menu>
+											<img src={pen} style={{ marginLeft: '2rem', marginTop: '-4.5rem' }} className={styles.tabletIcon} />
+										</Box>
+									</Box>
+									<Box
+										display="flex"
+										alignItems="center"
+										sx={{
+											flexDirection: 'row',
+											ustifyContent: 'space-between',
+											width: '110%',
+											alignItems: 'center',
+										}}
+									>
+										<Box display="flex" alignItems="center">
+											<Box marginRight="1rem">
+												<Box sx={{
+													"@media (max-width: 998px)": {
+
+														marginBottom: "18px",
+
+													},
+												}}>
+													<Label label="Название вуза: " /></Box>
+												<Label label="Cпециальность: " />
+												<Label label="Степень: " />
+												<Label label="Год окончания: " />
+											</Box>
+											<Box marginLeft="0.2rem">
+												<Typography className={styles.textSm} fontWeight='500' mb='3px' sx={{ fontSize: '0.875em' }}>
+													Казахстанско-Британский
+													Технический Университет
+												</Typography>
+												<Typography className={styles.textSm} fontWeight='500' mb='3px' sx={{ fontSize: '0.875em' }}>
+													«6B07201 Нефтегазовое дело»
+												</Typography>
+												<Typography className={styles.textSm} fontWeight='500' mb='3px' sx={{ fontSize: '0.875em' }}>
+													Бакалавр
+												</Typography>
+												<Typography className={styles.nameText} fontWeight='500' mb='3px' sx={{ fontSize: '0.875em' }}>
+													28.08.2023
+												</Typography>
+											</Box>
+										</Box>
+									</Box>
 
                                     <Button
                                         buttonSize="s"

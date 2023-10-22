@@ -2,13 +2,15 @@ import React from "react";
 import {
 	Box,
 	Container,
-	Typography,
+	Typography, useMediaQuery
 } from "@mui/material";
 import notFile from "./../../assets/icons/IconFile.svg";
 import check from "./../../assets/icons/Check.svg";
 import settings from "./../../assets/icons/Settings.svg";
 
 const Notifications: React.FC = () => {
+	const isMobile = useMediaQuery('(max-width:998px)');
+
 	return (
 		<Container
 			sx={{
@@ -26,12 +28,12 @@ const Notifications: React.FC = () => {
 				"@media (max-width: 998px)": {
 					alignItems: "flex-start",
 					marginTop: "10px",
-					width: "95vw",
+					width: "100vw",
 				},
 				"@media (max-width: 778px)": {
 					alignItems: "flex-start",
 					marginTop: "10px",
-					width: "70vw",
+					width: "95vw",
 				},
 			}}
 		>
@@ -43,6 +45,10 @@ const Notifications: React.FC = () => {
 					justifyContent: "space-between",
 					width: "100%",
 					alignItems: "center",
+					"@media (max-width: 998px)": {
+						marginTop: '-1rem'
+
+					},
 				}}
 			>
 				<Typography
@@ -53,6 +59,7 @@ const Notifications: React.FC = () => {
 						fontSize: "26px",
 						"@media (max-width: 998px)": {
 							fontSize: "20px",
+
 						},
 					}}
 				>
@@ -81,7 +88,11 @@ const Notifications: React.FC = () => {
 					>
 						<Typography
 							variant="subtitle1"
-							sx={{ color: "#A1A1A1", borderBottom: "1px solid #EBF2FE" }}
+							sx={{
+								color: "#A1A1A1", borderBottom: "1px solid #EBF2FE", '@media (max-width: 998px)': {
+									display: "none",
+								},
+							}}
 						>
 						</Typography>
 						<Typography
@@ -118,12 +129,11 @@ const Notifications: React.FC = () => {
 						textAlign: "left",
 						padding: "18px",
 						borderBottom: "1px solid #EBF2FE",
-						"@media (max-width: 778px)": {
-							display: "flex", // Change to a flex container
-							flexDirection: "column", // Display text next to the icon
-							alignItems: "center", // Center text and icon vertically
-							padding: "8px 8px", // Adjust padding
+						'@media (max-width: 998px)': {
+							display: 'none'
+
 						},
+
 					}}
 				>
 					<img src={notFile} alt="" style={{ marginTop: "-10px" }} />
@@ -132,9 +142,7 @@ const Notifications: React.FC = () => {
 						variant="body1"
 						sx={{
 							color: "#818181",
-							"@media (max-width: 998px)": {
-								fontSize: "16px", display: 'flex', flexDirection: 'column'
-							},
+
 						}}
 					>
 						22.08.2023
@@ -143,9 +151,6 @@ const Notifications: React.FC = () => {
 						variant="body1"
 						sx={{
 							fontWeight: "600",
-							"@media (max-width: 998px)": {
-								fontSize: "14px",
-							},
 						}}
 					>
 						Дипломы успешно выпущены<br />
@@ -157,6 +162,50 @@ const Notifications: React.FC = () => {
 						</Typography>
 					</Typography>
 				</Box>
+				{isMobile && (
+					<Box
+						sx={{
+							display: "grid",
+							gridTemplateColumns: "1fr 3fr",
+							whiteSpace: "nowrap",
+							textAlign: "left",
+							padding: "18px",
+							marginTop: '-1rem'
+						}}
+					>
+						<img src={notFile} alt="" style={{ marginRight: '1rem', marginLeft: '-1rem' }} />
+						<Typography
+							variant="body1"
+							sx={{
+								fontWeight: "600",
+								'@media (max-width: 998px)': {
+									fontSize: '16px',
+								},
+							}}
+						>
+							Дипломы успешно выпущены<br />
+							<Typography
+								variant="body1"
+								sx={{ color: "#818181", fontSize: "smaller", marginBottom: '0.5rem' }}
+							>
+								Дипломы 2023 года “Экономика <br /> КБТУ-21-23” успешно выпущены
+							</Typography>
+							<Typography
+								variant="body1"
+								sx={{
+									color: "#818181",
+									'@media (max-width: 998px)': {
+										fontSize: '16px',
+									},
+								}}
+							>
+								22.08.2023
+							</Typography>
+						</Typography>
+
+					</Box>
+
+				)}
 			</Box>
 		</Container>
 	);
