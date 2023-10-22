@@ -34,7 +34,7 @@ export const UniversityPageHeader: React.FC = (props) => {
 
     const triggerSearchFilters = () => {
         dispatch(fetchSearch(filterAttributes));
-        navigate(routes.diploma);
+        navigate(routes.hr_bank);
     };
 
     const [searchQuery, setSearchQuery] = React.useState('');

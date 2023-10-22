@@ -76,7 +76,7 @@ export const RegisterPageLayout: React.FC = () => {
             setTimeout(() => {
                 const urlElements = window.location.href.split('/');
                 if (isAuthenticated() && urlElements.includes('auth')) {
-                    navigate(routes.main, {replace: true});
+                    navigate(routes.profile, {replace: true});
                 }
             }, 2000);
         }
@@ -114,7 +114,7 @@ export const RegisterPageLayout: React.FC = () => {
             setTimeout(() => {
                 const urlElements = window.location.href.split('/');
                 if (isAuthenticated() && urlElements.includes('auth')) {
-                    navigate(routes.main, {replace: true});
+                    navigate(routes.profile, {replace: true});
                 }
             }, 2000);
         }

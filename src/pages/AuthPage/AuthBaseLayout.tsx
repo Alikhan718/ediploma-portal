@@ -30,7 +30,10 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
 
 
     return (
-        <Box className={styles.container}>
+        <Box className={styles.container}
+             sx={{
+                 backgroundColor: "white",
+             }}>
             <Box className={styles.navbar}>
                 <img src={BrandIcon} className={cn(styles.brand, styles.navItemLg)} onClick={() => {
                     navigate(routes.main);
@@ -57,7 +60,7 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
                             width: '100%',
                             borderRadius: "2rem",
                             justifyContent: 'space-between',
-                            // backgroundColor: "#FAFBFF",
+                            backgroundColor: "white",
                             '@media (max-width: 1000px)': {
                                 padding: '2rem !important',
                             }

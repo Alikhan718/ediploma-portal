@@ -24,7 +24,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 
 	const checkRoute = (): boolean => {
 		const urlElements = window.location.href.split('/');
-		const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'student'];
+		const sidebarEnabledRoutes = ['user', 'graduates'];
 		for (const item of sidebarEnabledRoutes) {
 			if (urlElements.includes(item)) {
 				return true;
@@ -35,7 +35,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 
 	const urlElements = window.location.href.split('/');
 
-	const [isSidebarVisible, setIsSidebarVisible] = useState(!checkRoute());
+	const [isSidebarVisible, setIsSidebarVisible] = useState(checkRoute());
 	const [isHeaderVisible, setHeaderVisible] = useState(false);
 	const handleWindowResize = () => {
 		const windowWidth = window.innerWidth;

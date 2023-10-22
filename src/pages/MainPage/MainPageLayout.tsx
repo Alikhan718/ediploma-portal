@@ -33,7 +33,7 @@ export const MainPageLayout: React.FC = () => {
 
     const triggerSearchFilters = () => {
         dispatch(fetchSearch(filterAttributes));
-        navigate(routes.diploma);
+        navigate(routes.hr_bank);
     };
     React.useEffect(() => {
         const delayDebounceFn = setTimeout(() => {

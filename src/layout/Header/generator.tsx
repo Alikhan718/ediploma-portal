@@ -48,7 +48,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
 	{
 		id: 6,
 		name: 'HR Bank',
-		to: routes.diploma,
+		to: routes.hr_bank,
 		role: '*',
 		icon: <HrBankIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: '',

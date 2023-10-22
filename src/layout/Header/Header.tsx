@@ -32,8 +32,6 @@ import {fetchAuthLogout} from "@src/store/auth/saga";
 import {fetchSearch} from "@src/store/diplomas/actionCreators";
 import {selectSearchText} from "@src/store/diplomas/selectors";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
-import {Sidebar} from '../Sidebar/Sidebar';
-import {selectUserRole} from "@src/store/auth/selector";
 import {ReactComponent as NotIcon} from "@src/assets/icons/Notification.svg";
 import {ReactComponent as ModeIcon} from "@src/assets/icons/Moons.svg";
 import {ReactComponent as Settings} from "@src/assets/icons/Settings.svg";
@@ -41,7 +39,6 @@ import {ReactComponent as Out} from "@src/assets/icons/logout_outline.svg";
 import {ReactComponent as Analytics} from "@src/assets/icons/analytics_outlined.svg";
 import {ReactComponent as Avatar} from "@src/assets/icons/avatar_outlined.svg";
 import {ReactComponent as Folder} from "@src/assets/icons/folder_outilne.svg";
-import {useLocation} from 'react-router';
 
 interface AppBarProps extends MuiAppBarProps {
     open: boolean;
@@ -118,7 +115,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         };
         const checkSecondHeaderRoute = (): boolean => {
             const urlElements = window.location.href.split('/');
-            const secondHeaderEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'settingsPage', 'student', 'employer'];
+            const secondHeaderEnabledRoutes = ['user', 'graduates'];
             for (const item of secondHeaderEnabledRoutes) {
                 if (urlElements.includes(item)) {
                     return true;
@@ -134,19 +131,10 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
         const urlElements = window.location.href.split('/');
         const checkRoute = (): boolean => {
-            const sidebarEnabledRoutes = [
-                'university',
-                'detail',
-                'notifications',
-                'addingGraduates',
-                'main',
-                'about-us',
-                'settingsPage',
-                'diploma',
-                'student',
-                'employer'
+            const headerDisabledRoutes = [
+                'auth',
             ];
-            for (const item of sidebarEnabledRoutes) {
+            for (const item of headerDisabledRoutes) {
                 if (urlElements.includes(item)) {
                     return true;
                 }
@@ -154,7 +142,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
             return false;
         };
         const checkSideBarRoute = (): boolean => {
-            const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'settingsPage', 'student', 'employer'];
+            const sidebarEnabledRoutes = ['user', 'graduates'];
             for (const item of sidebarEnabledRoutes) {
                 if (urlElements.includes(item)) {
                     return false;
@@ -177,7 +165,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         };
 
         React.useEffect(() => {
-            setOpen(checkRoute());
+            setOpen(!checkRoute());
         });
 
         const [showDropdown, setShowDropdown] = useState<{ profile: boolean; lang: boolean }>({
@@ -315,7 +303,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             }}
                         >
                             <MenuItem onClick={() => {
-                                navigate(routes[userRole!.toLowerCase()], {replace: true});
+                                navigate(routes.profile, {replace: true});
                                 handleCloseMenu();
                             }}>
                                 <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>
@@ -629,10 +617,10 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             }}
                         >
                             <MenuItem onClick={() => {
-                                navigate(routes[userRole!.toLowerCase()], {replace: true});
+                                navigate(routes.profile, {replace: true});
                                 handleCloseMenu();
                             }}>
-                                <Avatar style={{verticalAlign: "center"}}/>
+                                <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>
                                 <Typography>Профиль</Typography>
                             </MenuItem>
                             <MenuItem onClick={() => {

@@ -38,7 +38,7 @@ export const LoginPageLayout: React.FC = () => {
         setTimeout(() => {
             const urlElements = window.location.href.split('/');
             if (isAuthenticated() && urlElements.includes('auth')) {
-                navigate(routes.main, {replace: true});
+                navigate(routes.profile, {replace: true});
             }
         }, 2000);
     };
@@ -47,7 +47,7 @@ export const LoginPageLayout: React.FC = () => {
         enableWebSocket();
         const urlElements = window.location.href.split('/');
         if (isAuthenticated() && urlElements.includes('auth')) {
-            navigate(routes.main, {replace: true});
+            navigate(routes.profile, {replace: true});
         }
     }, [localStorage.getItem('token')]);
 
@@ -87,7 +87,7 @@ export const LoginPageLayout: React.FC = () => {
             setTimeout(() => {
                 const urlElements = window.location.href.split('/');
                 if (isAuthenticated() && urlElements.includes('auth')) {
-                    navigate(routes.main, {replace: true});
+                    navigate(routes.profile, {replace: true});
                 }
             }, 2000);
         }

@@ -5,8 +5,6 @@ import {
     GET_GRADUATE_DETAILS,
     GET_SEARCH
 } from "./types/types";
-
-console.log(GET_DIPLOMAS);
 export const fetchDiplomas = () => ({type: GET_DIPLOMAS.saga});
 export const cancelFilters = () => ({type: CANCEL_FILTER.saga});
 export const fetchCheckIIN = (payload: any) => ({type: GET_CHECK_IIN.saga, payload});
