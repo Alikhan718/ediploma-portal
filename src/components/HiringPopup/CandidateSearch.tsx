@@ -7,10 +7,12 @@ import { SearchOutput } from './SearchOutput';
 interface CandidateSearchProps {
 	jobDescription:string;
     setHaveDescription:any;
+    setIsDataAlert: any;
+    showAlert:any;
 };
 
 export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
-    const { jobDescription, setHaveDescription } = props;
+    const { jobDescription, setHaveDescription, setIsDataAlert, showAlert} = props;
 
     const [gotResponse, setGotResponse] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
@@ -29,14 +31,16 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
     }, [jobDescription]);
 
     const handleSubmit = async (): Promise<void> => {
-        setGotResponse(true);
-        setLoading(true);
-
         const textAreaValue = (document.getElementById("chat") as HTMLInputElement).value;
         if(textAreaValue === ''){
+            showAlert('Введите описание работы');
             return;
         }
         
+        setGotResponse(true);
+        setLoading(true);
+        setIsDataAlert(false);
+
         console.log('Loading...');
         try{
             const response = await fetch('https://agile-job-search.onrender.com/search', {
@@ -65,8 +69,7 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
 
             <h1 className={styles.popupHeading}>Поиск кандидатов</h1>
             <p className={styles.popupSmallHeading}>Найти подходящих кандидатов по описанию работу</p>
-            <div>
-                <Input
+            <Input
                 id="chat" 
                 rows={1}
                 placeholder="Описание работы"
@@ -78,11 +81,11 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
                     marginLeft: '2.5%',
                     marginBottom: '20px',
                 }}
-                />
+            />
                 <div className={styles.buttonContainer}>
                     <button 
                         type="button" 
-                        onClick={(): void => {setHaveDescription(false);}} 
+                        onClick={(): void => {setHaveDescription(false); setIsDataAlert(false);}} 
                         className={styles.continueButton}
                     >Назад
                     </button>
@@ -93,8 +96,6 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
                     >Продолжить
                     </button>
                 </div>
-            </div>
-
             </div>)}
         </div>
     );
