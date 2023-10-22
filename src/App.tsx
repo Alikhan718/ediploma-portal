@@ -1,18 +1,19 @@
 import React from 'react';
-import {Navigate, Route, Routes} from 'react-router-dom';
-import {Snackbar} from '@src/components';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { Snackbar } from '@src/components';
 import {
-    AboutUsPage,
-    AddingGraduates,
-    DiplomaDetailsPage,
-    DiplomaPage, ForgotPassword,
-    LoginPage,
-    MainPage,
-    RegisterPage, SettingsPage,
-    UniversityDetailsPage,
-    UniversityPage,
-    StudentPage,
-    EmployerPage,
+	AboutUsPage,
+	AddingGraduates,
+	DiplomaDetailsPage,
+	DiplomaPage, ForgotPassword,
+	LoginPage,
+	MainPage,
+	RegisterPage, SettingsPage,
+	UniversityDetailsPage,
+	UniversityPage,
+	StudentPage,
+	EmployerPage,
+	UniversityProfilePage
 } from '@src/pages';
 import {withLayout} from '@src/layout/Layout';
 import {routes} from '@src/shared/routes';
@@ -27,11 +28,11 @@ import {isAuthenticated} from "@src/utils/userAuth";
 
 const App: React.FC = () => {
 
-    const TRACKING_ID = "G-H12GFWB4FY"; // OUR_TRACKING_ID
-    ReactGA.initialize(TRACKING_ID);
+	const TRACKING_ID = "G-H12GFWB4FY"; // OUR_TRACKING_ID
+	ReactGA.initialize(TRACKING_ID);
 
-    const dispatch = useDispatch();
-    const authLoader = useSelector(selectAuthLoader);
+	const dispatch = useDispatch();
+	const authLoader = useSelector(selectAuthLoader);
 
     React.useEffect(() => {
         ReactGA.pageview(window.location.pathname + window.location.search);
@@ -66,12 +67,12 @@ const App: React.FC = () => {
                     {hasPermission(userRoles, permissions["universityProfile"]) && <Route path={routes.universityProfile} element={<DiplomaDetailsPage/>}/>}
                     {/*{hasPermission(userRoles, permissions["notifications"]) && <Route path={routes.notifications} element={<Notifications/>}/>}*/}
 
-                    {<Route path='*' element={<Navigate to={routes.main}/>}/>}
-                </Routes>
-            }
-            <Snackbar/>
-        </React.Fragment>
-    );
+					{<Route path='*' element={<Navigate to={routes.main} />} />}
+				</Routes>
+			}
+			<Snackbar />
+		</React.Fragment>
+	);
 };
 
 
