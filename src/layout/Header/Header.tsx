@@ -39,6 +39,7 @@ import {ReactComponent as Out} from "@src/assets/icons/logout_outline.svg";
 import {ReactComponent as Analytics} from "@src/assets/icons/analytics_outlined.svg";
 import {ReactComponent as Avatar} from "@src/assets/icons/avatar_outlined.svg";
 import {ReactComponent as Folder} from "@src/assets/icons/folder_outilne.svg";
+import {selectUserRole} from "@src/store/auth/selector";
 
 interface AppBarProps extends MuiAppBarProps {
     open: boolean;
@@ -115,7 +116,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         };
         const checkSecondHeaderRoute = (): boolean => {
             const urlElements = window.location.href.split('/');
-            const secondHeaderEnabledRoutes = ['user', 'graduates'];
+            const secondHeaderEnabledRoutes = ['user', 'profile', 'graduates'];
             for (const item of secondHeaderEnabledRoutes) {
                 if (urlElements.includes(item)) {
                     return true;
@@ -201,6 +202,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
             setSelectedLanguage(language);
             handleCloseMenu();
         };
+        const role = useSelector(selectUserRole);
 
         const headerText = getHeaderText();
         return (
@@ -303,7 +305,13 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             }}
                         >
                             <MenuItem onClick={() => {
-                                navigate(routes.profile, {replace: true});
+                                if (role === "Student") {
+                                    navigate(routes.studentProfile, {replace: true});
+                                } else if (userRole === "Employer") {
+                                    navigate(routes.employerProfile, {replace: true});
+                                } else if (userRole === "University") {
+                                    navigate(routes.universityProfile, {replace: true});
+                                }
                                 handleCloseMenu();
                             }}>
                                 <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>
@@ -617,7 +625,13 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             }}
                         >
                             <MenuItem onClick={() => {
-                                navigate(routes.profile, {replace: true});
+                                if (role === "Student") {
+                                    navigate(routes.studentProfile, {replace: true});
+                                } else if (userRole === "Employer") {
+                                    navigate(routes.employerProfile, {replace: true});
+                                } else if (userRole === "University") {
+                                    navigate(routes.universityProfile, {replace: true});
+                                }
                                 handleCloseMenu();
                             }}>
                                 <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>

@@ -16,7 +16,6 @@ import {useSelector} from "react-redux";
 import cn from "classnames";
 
 export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
-    const role = useSelector(selectUserRole);
     const {children} = props;
     const navigate = useNavigate();
     const userRole = useSelector(selectUserRole);
@@ -24,7 +23,10 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
         const urlElements = window.location.href.split('/');
 
         if (isAuthenticated() && urlElements.includes('auth')) {
-            navigate(routes[role.toLowerCase()], {replace: true});
+            console.log("State Role", userRole);
+            console.log("LocalStore token:", localStorage.getItem('token'));
+            console.log("LocalStore role:", localStorage.getItem('role'));
+            navigate(routes.profile, {replace: true});
         }
     }, [userRole]);
 

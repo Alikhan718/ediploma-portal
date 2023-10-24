@@ -43,7 +43,7 @@ const App: React.FC = () => {
         }
         console.log(isAuthenticated());
     },[!isAuthenticated()]);
-    const [userRoles, setUserRoles] = React.useState(localStorage.getItem('userRole') ?? 'Guest');
+    const [userRoles, setUserRoles] = React.useState(useSelector(selectUserRole));
 
     return (
         <React.Fragment>
@@ -54,7 +54,7 @@ const App: React.FC = () => {
                     {hasPermission(userRoles, permissions["main"]) && <Route path={routes.main} element={<MainPage/>}/>}
                     {hasPermission(userRoles, permissions["university"]) && <Route path={routes.university} element={<UniversityPage/>}/>}
                     {hasPermission(userRoles, permissions["universityDetails"]) && <Route path={routes.universityDetails} element={<UniversityDetailsPage/>}/>}
-                    {hasPermission(userRoles, permissions["hr_bank"]) && <Route path={routes.hr_bank} element={<DiplomaPage/>}/>}
+                    {hasPermission(userRoles, permissions["hr_bank"]) && <Route path={routes.hrBank} element={<DiplomaPage/>}/>}
                     {hasPermission(userRoles, permissions["diplomaDetails"]) && <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage/>}/>}
                     {hasPermission(userRoles, permissions["aboutUs"]) && <Route path={routes.aboutUs} element={<AboutUsPage/>}/>}
                     {hasPermission(userRoles, permissions["login"]) && <Route path={routes.login} element={<LoginPage/>}/>}
@@ -64,7 +64,7 @@ const App: React.FC = () => {
                     {hasPermission(userRoles, permissions["settings"]) && <Route path={routes.settings} element={<SettingsPage/>}/>}
                     {hasPermission(userRoles, permissions["studentProfile"]) && <Route path={routes.studentProfile} element={<StudentPage/>}/>}
                     {hasPermission(userRoles, permissions["employerProfile"]) && <Route path={routes.employerProfile} element={<EmployerPage/>}/>}
-                    {hasPermission(userRoles, permissions["universityProfile"]) && <Route path={routes.universityProfile} element={<DiplomaDetailsPage/>}/>}
+                    {hasPermission(userRoles, permissions["universityProfile"]) && <Route path={routes.universityProfile} element={<UniversityDetailsPage/>}/>}
                     {/*{hasPermission(userRoles, permissions["notifications"]) && <Route path={routes.notifications} element={<Notifications/>}/>}*/}
 
 					{<Route path='*' element={<Navigate to={routes.main} />} />}

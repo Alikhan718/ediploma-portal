@@ -115,9 +115,9 @@ export const DiplomaPageLayout: React.FC = () => {
                 width: '100%',
                 marginBottom: "2rem"
             }}>
-                <Button onClick={prevPage} disabled={currentPage === 1}>
-                    Previous Page
-                </Button>
+                {/*<Button onClick={prevPage} disabled={currentPage === 1}>*/}
+                {/*    Previous Page*/}
+                {/*</Button>*/}
                 <Box style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                     <Pagination
                         count={totalPages}
@@ -128,9 +128,9 @@ export const DiplomaPageLayout: React.FC = () => {
                         size="large"
                     />
                 </Box>
-                <Button onClick={nextPage} disabled={endDiplomaIndex >= diplomaList.length}>
-                    Next Page
-                </Button>
+                {/*<Button onClick={nextPage} disabled={endDiplomaIndex >= diplomaList.length}>*/}
+                {/*    Next Page*/}
+                {/*</Button>*/}
             </Box>
         </Box>
     );

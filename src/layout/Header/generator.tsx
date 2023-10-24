@@ -22,7 +22,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
 	{
 		id: 1,
 		name: 'Dashboard',
-		to: routes.universityDetails,
+		to: routes.universityProfile,
 		role: "*",
 		icon: <DiplomaIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: "bottom",
@@ -48,7 +48,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
 	{
 		id: 6,
 		name: 'HR Bank',
-		to: routes.hr_bank,
+		to: routes.hrBank,
 		role: '*',
 		icon: <HrBankIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: '',

@@ -59,7 +59,7 @@ for (let i = 0; i < instances.length; i++) {
 
 export const authApi = {
     login(body: { email: string, password: string }) {
-        return instance.post(`/login`, body);
+        return instance.post(`/auth/login`, body);
     },
     register(body: { email: string, password: string, name: string }) {
         return instance.post(`/auth/register`, body);
@@ -71,7 +71,7 @@ export const authApi = {
         return instance.post(`/otp/validate`, body);
     },
     resetPassword(body: { email: string, password: string, repassword: string, code: string }) {
-        return instance.post(`/password-reset`, body);
+        return instance.post(`/auth/password-reset`, body);
     },
     getOtp(body: { email: string }) {
         return instance.post(`/otp/send`, body);

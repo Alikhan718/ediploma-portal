@@ -33,7 +33,7 @@ export const AboutUsPageLayout: React.FC = () => {
 
 	const triggerSearchFilters = () => {
 		dispatch(fetchSearch(filterAttributes));
-		navigate(routes.hr_bank);
+		navigate(routes.hrBank);
 	};
 
 	React.useEffect(() => {

@@ -2,7 +2,7 @@ import React from 'react';
 import {Box, CardContent, Link, Typography} from '@mui/material';
 import {Button, Input, Label} from '@src/components';
 import {IAuthLogin} from '@src/pages/AuthPage/types';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {fetchAuthDSRequest, fetchLoginRequest} from '@src/store/auth/actionCreators';
 import {isAuthenticated} from '@src/utils/userAuth';
 import * as NcaLayer from '@src/utils/functions';
@@ -12,6 +12,8 @@ import ReactGA from 'react-ga';
 import Checkbox from '@mui/material/Checkbox';
 import {enableWebSocket} from "@src/utils/functions";
 import styles from "@src/pages/AuthPage/AuthPage.module.css";
+import {selectUserRole} from "@src/store/auth/selector";
+
 export const LoginPageLayout: React.FC = () => {
     const [state, setState] = React.useState<IAuthLogin>({
         email: '',
@@ -37,6 +39,9 @@ export const LoginPageLayout: React.FC = () => {
         // Check authentication status after a delay to ensure the request has completed
         setTimeout(() => {
             const urlElements = window.location.href.split('/');
+            console.log("State Role", role);
+            console.log("LocalStore token:", localStorage.getItem('token'));
+            console.log("LocalStore role:", localStorage.getItem('role'));
             if (isAuthenticated() && urlElements.includes('auth')) {
                 navigate(routes.profile, {replace: true});
             }
@@ -69,7 +74,7 @@ export const LoginPageLayout: React.FC = () => {
             window.removeEventListener('mousemove', handleMouseMove);
         };
     }, []);
-
+    const role = useSelector(selectUserRole);
     const authWithDS = (res: any) => {
         if (res['code'] === "200") {
             res = res['responseObject'];
