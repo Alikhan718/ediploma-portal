@@ -66,7 +66,7 @@ export function* fetchAuthWithDS(action: any) {
 export function* fetchAuthValidateEmail(action: any) {
     try {
         const {data} = yield call(authApi.validateEmail, action.payload);
-        yield put({type: POST_AUTH_VALIDATE_EMAIL.saga});
+        yield put({type: POST_AUTH_VALIDATE_EMAIL.success});
         yield put(setSnackbar({visible: true, message: "Валидация пройдена!", status: "success"}));
     } catch (e) {
         yield put({type: POST_AUTH_VALIDATE_EMAIL.error});

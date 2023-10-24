@@ -186,10 +186,10 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         };
 
         const handleCloseMenu = () => {
-            console.log("closing menu");
             setAnchorEl(null);
             setShowDropdown({profile: false, lang: false});
         };
+
 
         const handleLogout = () => {
             fetchAuthLogout();
