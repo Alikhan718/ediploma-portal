@@ -3,7 +3,7 @@ import {Box, Divider, Typography, Container, TextField, Grid, Rating} from '@mui
 import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
 import {Button, Input, Label} from '@src/components';
 import {FooterSection} from "@src/pages/MainPage/components/FooterSection";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {routes} from "@src/shared/routes";
 import styles from "./MainPage.module.css";
@@ -17,9 +17,11 @@ import profile from "./../../assets/icons/profileIcon.svg";
 import {localization} from "./generator";
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import cn from "classnames";
+import {selectLanguage} from "@src/store/generals/selectors";
 
 export const MainPageLayout: React.FC = () => {
-    const [lang, setLang] = React.useState<keyof typeof localization>("kz");
+    const lang = useSelector(selectLanguage);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [filterAttributes, setFilterAttributes] = React.useState({
@@ -205,7 +207,7 @@ export const MainPageLayout: React.FC = () => {
                      justifyContent="start">
                     {localization[lang].Reviews.elements.map((el: any) => {
                         return (<Box key={el} className={styles.cardItem}>
-                            <img src={profile} style={{width: '3.5rem', alignSelf: "center"}}/>
+                            <img src={el.avatar} style={{width: '3.5rem', borderRadius: "50%", alignSelf: "center"}}/>
                             <Typography fontSize=".9rem" fontWeight="500" color="#2D2D2D" className={styles.mobTextSm}>
                                 {el.fullname}
                             </Typography>

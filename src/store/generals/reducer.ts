@@ -10,10 +10,15 @@ const initialLoaderState: IGeneralsState = {
 	snackbar: {
 		visible: false,
 	},
+	language: localStorage.getItem('language') ?? 'ru',
 };
 
 export const generalsReducer = produce(( draft: Draft<IGeneralsState>, action: GeneralsActions) => {
 	switch (action.type) {
+		case GeneralsType.SET_LANGUAGE:
+			draft.language = action.payload;
+			localStorage.setItem('language', action.payload);
+			break;
 		case GeneralsType.SET_GLOBAL_STATUS:
 			draft.loadingStatus = action.payload;
 			break;
@@ -22,6 +27,7 @@ export const generalsReducer = produce(( draft: Draft<IGeneralsState>, action: G
 			draft.snackbar.visible = action.payload.visible;
 			draft.snackbar.message = action.payload.message;
 			break;
+
 		default:
 			break;
 	}

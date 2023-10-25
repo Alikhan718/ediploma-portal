@@ -22,7 +22,7 @@ import {CircularProgress} from '@mui/material';
 import {selectAuthLoader, selectUserRole} from './store/auth/selector';
 import './App.css';
 import ReactGA from 'react-ga';
-import Notifications from "@src/pages/UnivesrityDetailsPage/Notifications";
+// import Notifications from "@src/pages/UnivesrityDetailsPage/Notifications";
 import { hasPermission, permissions } from '@src/shared/permissions';
 import {isAuthenticated} from "@src/utils/userAuth";
 

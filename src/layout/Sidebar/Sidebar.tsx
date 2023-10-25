@@ -17,11 +17,12 @@ import {SidebarProps} from './Sidebar.props';
 import {NavLink, useNavigate, useLocation} from 'react-router-dom';
 import {selectAuthLoader, selectUserRole} from '@src/store/auth/selector';
 import {useSelector} from 'react-redux';
-import {sidebarNavigations} from "@src/layout/Header/generator";
+import {sidebarNavigations, AppRoutesNavigation, dropdownItemsBottom, localization} from "@src/layout/Header/generator";
 import {DRAWER_WIDTH} from '../Layout';
 import {routes} from "@src/shared/routes";
 import {fetchAuthLogout} from "@src/store/auth/saga";
 import icon from "@src/assets/icons/Logo (2).svg";
+import {selectLanguage} from "@src/store/generals/selectors";
 
 
 interface ICustomDrawer extends DrawerProps {
@@ -76,6 +77,8 @@ const CustomDrawer = styled(Drawer, {shouldForwardProp: (prop) => prop !== 'open
 const role = localStorage.getItem("userRole");
 
 export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
+    const lang = useSelector(selectLanguage);
+
     const location = useLocation();
     // console.log('pathname', location.pathname);
     const {open, toggleDrawer} = props;
@@ -181,44 +184,40 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                                     alignSelf="center"
                                                     sx={{fontSize: '14px'}}
                                                 >
-                                                    {nav.name}
+                                                    {nav.name[lang]}
                                                 </Typography>
                                             </NavLink>)
                                         )}
 
                                     </Box>
-                                    <Box display="flex" height="100%" justifyContent="space-between" flexDirection="column"
+                                    <Box display="flex" height="100%" justifyContent="space-between"
+                                         flexDirection="column"
                                          sx={{marginTop: '3rem', padding: '10px'}}>
-                                        <Typography sx={{color: '#B6B6B6', fontSize: '16px',}}>Аккаунт</Typography>
+                                        <Typography sx={{color: '#B6B6B6', fontSize: '16px',}}>{localization.account[lang]}</Typography>
+                                        {dropdownItemsBottom.map((item, index) => (
+                                            <Box key={index} mt="0.5rem" sx={{marginRight: '50px'}}>
+                                                <Button sx={{color: '#697B7A', fontSize: '16px'}}
+                                                        onClick={() => {
+                                                            if (item.function) {
+                                                                item.function();
+                                                            }
+                                                            handleCloseMenu();
+                                                            navigate(item.to);
+                                                        }}>
+                                                    {item.icon}
+                                                    <Typography
+                                                        variant='h4'
+                                                        color={item.verticalAlign}
+                                                        fontSize={'16px'}
+                                                        className="diploma-navbar-item"
+                                                        fontWeight='450'>
+                                                        {item.name[lang]}
+                                                    </Typography>
+                                                </Button>
+                                            </Box>
+                                        ))}
 
-                                        <Box mt="0.5rem" sx={{marginRight: '50px'}}>
-                                            <Button sx={{color: '#697B7A', fontSize: '16px'}}
-                                                    onClick={() => navigate(routes.settings)}>
-                                                <img src={settings} style={{marginRight: '10px',}}/>Настройки
-                                            </Button>
-                                        </Box>
-                                        <Box>
-                                            <Button
-                                                onClick={() => {
-                                                    fetchAuthLogout();
-                                                    localStorage.clear();
-                                                    navigate(routes.login);
-                                                }}
-                                                variant='text'
-                                                width={120}
-                                            >
-                                                <img src={out} style={{marginRight: '10px'}}/>
-                                                <Typography
-                                                    variant='h4'
-                                                    color={'red'}
-                                                    fontSize={'16px'}
-                                                    className="diploma-navbar-item"
-                                                    fontWeight='450'>
-                                                    Выйти
-                                                </Typography>
 
-                                            </Button>
-                                        </Box>
                                         <Box sx={{
                                             backgroundColor: '#3B82F6',
                                             width: '100%',
@@ -233,21 +232,21 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                             paddingBottom: "1rem",
                                             cursor: "pointer",
                                         }}
-                                            onClick={()=> {navigate(routes.aboutUs)}}
+                                             onClick={() => {
+                                                 navigate(routes.aboutUs);
+                                             }}
 
                                         >
                                             <img src={icon} style={{position: "absolute", top: "-40%"}}/>
                                             <Typography sx={{
                                                 fontSize: '16px',
                                                 padding: '10px',
-                                                color: 'white ',
+                                                color: 'white',
+                                                whiteSpace: 'pre-line',
                                                 textAlign: 'center'
                                             }}>
-                                                Появились вопросы? <br/> Свяжитесь с нами!
+                                                {localization.contactUs[lang]}
                                             </Typography>
-                                            {/*<Box sx={{ color: 'white', marginBottom: '20px' }}>*/}
-                                            {/*	Dashboard*/}
-                                            {/*</Box>*/}
                                         </Box>
                                     </Box>
 

@@ -3,14 +3,17 @@ import MenuIcon from '@src/assets/icons/menu.svg';
 import MenuClosedIcon from '@src/assets/icons/cross.svg';
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import {ReactComponent as HeaderSearchIcon} from '@src/assets/icons/search.svg';
-import RuFlag from '@src/assets/icons/ru-flag.svg';
+import RuFlag from '@src/assets/icons/RuFlag.svg';
 import KzFlag from '@src/assets/icons/Flag.svg';
 import EnFlag from '@src/assets/icons/EnFlag.svg';
-import {ReactComponent as UserIcon} from '@src/assets/icons/user.svg';
 import {ReactComponent as AccountCircleIcon} from '@src/assets/icons/profileIcon.svg';
-import {ReactComponent as FilterIcon} from '@src/assets/icons/Filter-icon.svg';
-import LogoutIcon from '@src/assets/icons/out.png';
-import {headerNavigations, interFaceOptions, sidebarNavigations} from "@src/layout/Header/generator";
+import {
+    headerNavigations,
+    interFaceOptions,
+    sidebarNavigations,
+    dropdownItems,
+    dropdownItemsBottom
+} from "@src/layout/Header/generator";
 import {
     AppBar as MuiAppBar,
     AppBarProps as MuiAppBarProps,
@@ -40,6 +43,8 @@ import {ReactComponent as Analytics} from "@src/assets/icons/analytics_outlined.
 import {ReactComponent as Avatar} from "@src/assets/icons/avatar_outlined.svg";
 import {ReactComponent as Folder} from "@src/assets/icons/folder_outilne.svg";
 import {selectUserRole} from "@src/store/auth/selector";
+import {selectLanguage} from "@src/store/generals/selectors";
+import {setLanguage} from '@src/store/generals/actionCreators';
 
 interface AppBarProps extends MuiAppBarProps {
     open: boolean;
@@ -82,6 +87,8 @@ export interface FilterAttributes {
 
 const AppHeader: React.FC<HeaderProps> = (props) => {
         // const [showFilter, setShowFilter] = React.useState(false);
+        const lang = useSelector(selectLanguage);
+        console.log(lang);
         const tabletBreakpoint = 992;
         const isTablet = window.innerWidth < tabletBreakpoint;
         const navigate = useNavigate();
@@ -199,7 +206,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
             handleCloseMenu();
         };
         const handleFlagSelect = (language: string) => {
-            setSelectedLanguage(language);
+            dispatch(setLanguage(language));
             handleCloseMenu();
         };
         const role = useSelector(selectUserRole);
@@ -304,59 +311,47 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 padding: "10rem !important",
                             }}
                         >
-                            <MenuItem onClick={() => {
-                                if (role === "Student") {
-                                    navigate(routes.studentProfile, {replace: true});
-                                } else if (userRole === "Employer") {
-                                    navigate(routes.employerProfile, {replace: true});
-                                } else if (userRole === "University") {
-                                    navigate(routes.universityProfile, {replace: true});
-                                }
-                                handleCloseMenu();
-                            }}>
-                                <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                <Typography>Профиль</Typography>
-                            </MenuItem>
-                            <MenuItem onClick={() => {
-                                navigate(routes.settings);
-                                handleCloseMenu();
-                            }}>
-                                <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                <Typography>
-                                    Аналитика
-                                </Typography>
-                            </MenuItem>
-
-                            <MenuItem onClick={() => {
-                                navigate(routes.addingGraduates);
-                                handleCloseMenu();
-                            }}>
-                                <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                <Typography>
-                                    Выпустить дипломы
-                                </Typography>
-                            </MenuItem>
-
+                            {dropdownItems.map((item, index) => (
+                                <MenuItem
+                                    key={index}
+                                    onClick={() => {
+                                        if (index === 0) {
+                                            if (role === "Student") {
+                                                navigate(routes.studentProfile, {replace: true});
+                                            } else if (userRole === "Employer") {
+                                                navigate(routes.employerProfile, {replace: true});
+                                            } else if (userRole === "University") {
+                                                navigate(routes.universityProfile, {replace: true});
+                                            }
+                                        }
+                                        handleCloseMenu();
+                                        navigate(item.to);
+                                    }}
+                                >
+                                    {item.icon}
+                                    <Typography>
+                                        {item.name[lang]}
+                                    </Typography>
+                                </MenuItem>
+                            ))}
                             <Divider style={{margin: "0 1rem"}}/>
-
-                            <MenuItem onClick={() => {
-                                navigate(routes.settings);
-                                handleCloseMenu();
-                            }}>
-                                <Settings style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                <Typography>
-                                    Настройки
-                                </Typography>
-                            </MenuItem>
-
-                            <MenuItem onClick={handleLogout}>
-                                <Out style={{marginRight: '10px'}}/>
-                                <Typography
-                                    color='red'>
-                                    Выйти
-                                </Typography>
-
-                            </MenuItem>
+                            {dropdownItemsBottom.map((item, index) => (
+                                <MenuItem
+                                    key={index}
+                                    onClick={() => {
+                                        if (item.function) {
+                                            item.function();
+                                        }
+                                        handleCloseMenu();
+                                        navigate(item.to);
+                                    }}
+                                >
+                                    {item.icon}
+                                    <Typography color={item.verticalAlign}>
+                                        {item.name[lang]}
+                                    </Typography>
+                                </MenuItem>
+                            ))}
                         </Menu>
                     </Box>
 
@@ -409,7 +404,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                             fontSize='16px'
                                             lineHeight='20px'
                                         >
-                                            {nav.name}
+                                            {nav.name[lang]}
                                         </Typography>
                                     </NavLink>
                                 ))
@@ -441,9 +436,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                         handleOpenMenu(event, "lang");
                                     }}
                                 >
-                                    {selectedLanguage === 'ru' && <img src={RuFlag} alt="Russian"/>}
-                                    {selectedLanguage === 'en' && <img src={EnFlag} alt="English"/>}
-                                    {selectedLanguage === 'kz' && <img src={KzFlag} alt="Kazakh"/>}
+                                    {lang == 'ru' && <img src={RuFlag} alt="Russian"/>}
+                                    {lang == 'en' && <img src={EnFlag} alt="English"/>}
+                                    {lang == 'kz' && <img src={KzFlag} alt="Kazakh"/>}
                                 </IconButton>
 
 
@@ -539,7 +534,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                                 alignSelf="center"
                                                 sx={{fontSize: '14px'}}
                                             >
-                                                {nav.name}
+                                                {nav.name[lang]}
                                             </Typography>
                                         </NavLink>
                                     ))}
@@ -575,7 +570,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                                 alignSelf="center"
                                                 sx={{fontSize: '14px'}}
                                             >
-                                                {option.name}
+                                                {option.name[lang]}
                                             </Typography>
                                         </Box>
                                     ))}
@@ -624,65 +619,47 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 padding: "10rem !important",
                             }}
                         >
-                            <MenuItem onClick={() => {
-                                if (role === "Student") {
-                                    navigate(routes.studentProfile, {replace: true});
-                                } else if (userRole === "Employer") {
-                                    navigate(routes.employerProfile, {replace: true});
-                                } else if (userRole === "University") {
-                                    navigate(routes.universityProfile, {replace: true});
-                                }
-                                handleCloseMenu();
-                            }}>
-                                <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                <Typography>Профиль</Typography>
-                            </MenuItem>
-                            <MenuItem onClick={() => {
-                                handleCloseMenu();
-
-                                navigate(routes.settings);
-                            }}>
-                                <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                <Typography>
-                                    Аналитика
-                                </Typography>
-                            </MenuItem>
-
-                            <MenuItem onClick={() => {
-                                handleCloseMenu();
-
-                                navigate(routes.addingGraduates);
-                            }}>
-                                <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                <Typography>
-                                    Выпустить дипломы
-                                </Typography>
-                            </MenuItem>
-
+                            {dropdownItems.map((item, index) => (
+                                <MenuItem
+                                    key={index}
+                                    onClick={() => {
+                                        if (index === 0) {
+                                            if (role === "Student") {
+                                                navigate(routes.studentProfile, {replace: true});
+                                            } else if (userRole === "Employer") {
+                                                navigate(routes.employerProfile, {replace: true});
+                                            } else if (userRole === "University") {
+                                                navigate(routes.universityProfile, {replace: true});
+                                            }
+                                        }
+                                        handleCloseMenu();
+                                        navigate(item.to);
+                                    }}
+                                >
+                                    {item.icon}
+                                    <Typography>
+                                        {item.name[lang]}
+                                    </Typography>
+                                </MenuItem>
+                            ))}
                             <Divider style={{margin: "0 1rem"}}/>
-
-                            <MenuItem onClick={() => {
-                                handleCloseMenu();
-
-                                navigate(routes.settings);
-                            }}>
-                                <Settings style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                <Typography>
-                                    Настройки
-                                </Typography>
-                            </MenuItem>
-
-                            <MenuItem onClick={() => {
-                                handleLogout();
-                            }
-                            }>
-                                <Out style={{marginRight: '10px'}}/>
-                                <Typography
-                                    color='red'>
-                                    Выйти
-                                </Typography>
-
-                            </MenuItem>
+                            {dropdownItemsBottom.map((item, index) => (
+                                <MenuItem
+                                    key={index}
+                                    onClick={() => {
+                                        if (item.function) {
+                                            item.function();
+                                        }
+                                        handleCloseMenu();
+                                        navigate(item.to);
+                                    }}
+                                >
+                                    {item.icon}
+                                    <Typography color={item.verticalAlign}>
+                                        {item.name[lang]}
+                                    </Typography>
+                                </MenuItem>
+                            ))}
                         </Menu>
                         <Menu
                             anchorEl={anchorEl}
