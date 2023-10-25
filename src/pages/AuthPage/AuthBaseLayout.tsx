@@ -14,6 +14,8 @@ import styles from "./AuthPage.module.css";
 import {selectUserRole} from "@src/store/auth/selector";
 import {useSelector} from "react-redux";
 import cn from "classnames";
+import {selectLanguage} from "@src/store/generals/selectors";
+import {localization} from "@src/pages/AuthPage/generator";
 
 export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
     const {children} = props;
@@ -29,7 +31,7 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
             navigate(routes.profile, {replace: true});
         }
     }, [userRole]);
-
+    const lang = useSelector(selectLanguage);
 
     return (
         <Box className={styles.container}
@@ -76,17 +78,17 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
             </Box>
             <Box className={styles.footerAuth}>
                 <Typography fontSize="0.75rem">
-                    © 2023 Все права защищены
+                    {localization.Copyright[lang]}
                 </Typography>
                 <Box display="flex" flex="row" width="35vw" className={styles.footerRightItemsMob}
                      justifyContent="space-between" color="white">
                     <Typography fontSize="0.75rem">
-                        Политика конфиденциальности
+                        {localization.PrivacyPolicy[lang]}
                     </Typography>
                     <Typography fontSize="0.75rem">
-                        Пользовательское соглашение
+                        {localization.UserAgreement[lang]}
                     </Typography><Typography fontSize="0.75rem">
-                    Помощь
+                    {localization.Help[lang]}
                 </Typography>
                 </Box>
             </Box>

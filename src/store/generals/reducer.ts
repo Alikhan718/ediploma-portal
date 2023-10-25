@@ -10,7 +10,7 @@ const initialLoaderState: IGeneralsState = {
 	snackbar: {
 		visible: false,
 	},
-	language: localStorage.getItem('language') ?? 'ru',
+	language: 'ru',
 };
 
 export const generalsReducer = produce(( draft: Draft<IGeneralsState>, action: GeneralsActions) => {
