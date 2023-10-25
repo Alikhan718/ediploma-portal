@@ -9,6 +9,7 @@ export const routes: Record<string, string> = {
 	diplomaDetails: `${appRoot}/diploma/:id/details`,
 	university: `${appRoot}/university`,
 	universityDetails: `${appRoot}/university/1/detail`,
+	universityProfileSecond: `${appRoot}/university/2/profile`,
 	aboutUs: `${appRoot}/about-us`,
 	vacancies: `${appRoot}/vacancies`,
 	news: `${appRoot}/news`,

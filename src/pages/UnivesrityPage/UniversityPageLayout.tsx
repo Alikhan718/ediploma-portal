@@ -19,7 +19,11 @@ export const UniversityPageLayout: React.FC = () => {
 					<Grid
 						key={index} item xs={12} sm={6} md={6} lg={5.5} // Use 6 columns to fit 2 cards in a row
 						onClick={() => {
-							navigate(routes.universityProfile);
+							if (index === 0) {
+								navigate(routes.universityProfile);
+							} else if (index === 1) {
+								navigate(routes.universityProfileSecond);
+							}
 						}}
 						sx={{
 							display: 'flex',
@@ -62,7 +66,7 @@ export const UniversityPageLayout: React.FC = () => {
 									}}>
 										4.5 <Rating
 											name="text-feedback"
-											value={4.5} // Set the rating value
+											value={4.5}
 											readOnly
 											emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
 										/> (25 отзывов)

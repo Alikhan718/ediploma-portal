@@ -9,12 +9,12 @@ import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
 import { ReactComponent as TwitterIcon } from '@src/assets/icons/twitter_black.svg';
 import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
-import { SwitchDetailsUniversity } from './components/SwitchDetailsunivesiyt';
+import { SwitchDetailsUniversity } from '../UniversityProfile/components/SwitchDetailsunivesiyt';
 import univ from './../../assets/icons/FilterUn.svg';
 import { Input } from './../../components';
 import { ReactComponent as ExpandMore } from '@src/assets/icons/expand_more.svg';
-import styles from "./UniversityProfile.module.css";
-import { UniversityProfileHeader } from "@src/pages/UniversityProfile/components/UniversityProfileHeader";
+import styles from "./UniversityDeatailPage.module.css";
+import { UniversityDeatailsHeader } from "@src/pages/UniversityDeatailPage/components/UniversityDeatailsHeader";
 import star from "./../../assets/icons/Star1.svg";
 import share from "./../../assets/icons/share.svg";
 import dots from "./../../assets/icons/Dots.svg";
@@ -62,7 +62,7 @@ function a11yProps(index: number) {
 		'aria-controls': `simple-tabpanel-${index}`,
 	};
 }
-export const UniversityProfileLayout: React.FC = () => {
+export const UniversityDeatailPage: React.FC = () => {
 	const [showFull, setShowFull] = React.useState(false);
 	const [page, setPage] = useState(0);
 	const diplomaList = useSelector(selectDiplomaList);
@@ -114,7 +114,7 @@ export const UniversityProfileLayout: React.FC = () => {
 					<Box display='flex' flexDirection='row'>
 
 						<Box display='flex' flexDirection='column' sx={{ borderRadius: '15px', }}>
-							<UniversityProfileHeader />
+							<UniversityDeatailsHeader />
 							<Box >
 								<Box
 									display="flex"
@@ -144,8 +144,7 @@ export const UniversityProfileLayout: React.FC = () => {
 											},
 										}}
 									>
-										Казахстанско-Британский Технический Университет
-									</Typography>
+										Сатпаев Университет									</Typography>
 									<Box marginBottom="25px" sx={{ flexDirection: 'row', justifyContent: 'space-between', '@media (max-width: 768px)': { display: 'none' } }}>
 										<img src={star} style={{
 											marginRight: '10px',
@@ -197,7 +196,7 @@ export const UniversityProfileLayout: React.FC = () => {
 										alignItems: 'center',
 									}}>
 									<Typography className={styles.textSm} sx={{ paddingBottom: '16px', marginRight: '16px' }}>
-										Почта: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@kbtu.kz</span>
+										Почта: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@satbayev.university</span>
 									</Typography>
 
 									<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', '@media (max-width: 768px)': { display: 'none' } }}>
@@ -219,7 +218,7 @@ export const UniversityProfileLayout: React.FC = () => {
 								<Box className={styles.contentContainer}>
 									<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
 										<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '5px' } }}>
-											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>10256</Typography>
+											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>15256</Typography>
 											<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
 												Кол-во студентов
 											</Typography>
