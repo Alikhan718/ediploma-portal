@@ -1,42 +1,133 @@
+import React from "react";
 
-export const tableHead = [
+import {ReactComponent as PasswordIcon} from "@src/assets/icons/Password.svg";
+import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
+import FastIcon from "@src/components/FastIcon/FastIcon";
 
-	{ id: 1, content: 'Название', sortName: "name" },
-	{ id: 2, content: `Кол-во попыток`, sortName: null },
-	{ id: 3, content: 'Тип', sortName: "delivery" },
-	{ id: 4, content: 'Дата обновления', sortName: "date" },
-	{ id: 5, content: 'Статус', sortName: null }
+export const navigation = [
+    {
+        title: 'Основная информация',
+        reference: 0,
+        icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    },
+    {
+        title: 'Почта',
+        reference: 1,
+        icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    },
+    {
+        title: 'Пароль',
+        reference: 2,
+        icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    },
+    {
+        title: 'Удалить аккаунт',
+        reference: 3,
+        icon: <FastIcon name={"trash"} style={{marginRight: '0.5rem'}} color="primary"/>
+    }
 ];
 
-export const tableBody = [
-	{ name: 'Farsh Menu IIKO', menuType: 'Главное меню', lastDateUpdate: '13/03/2022' },
-	{ name: 'Farsh Menu Glovo', menuType: 'Glovo меню', lastDateUpdate: '13/03/2022' },
-	{ name: 'Farsh Menu Wolt', menuType: 'Wolt меню', lastDateUpdate: '13/03/2022' },
-];
+export const content = {
+        "*": [
+            {
+                title: "Почта",
+                additionalText: "Ваш текущий email это: ",
+                name: "email",
+                reference: 1,
+                forms: [{
+                    type: "email",
+                    name: "email",
+                    label: "Новый адрес*",
+                    placeholder: "Email"
+                }]
+            },
+            {
+                title: "Измените свой пароль",
+                additionalText: null,
+                name: "password",
+                reference: 2,
+                forms: [
+                    {
+                        type: "password",
+                        name: "password",
+                        label: "Текущий пароль*",
+                        placeholder: "Введите текущий пароль"
+                    },
+                    {
+                        type: "password",
+                        name: "newPassword",
+                        label: "Новый пароль*",
+                        placeholder: "Введите новый пароль"
+                    },
+                    {
+                        type: "password",
+                        name: "rePassword",
+                        label: "Подтвердите новый пароль*",
+                        placeholder: "Введите подтверждение нового пароля"
+                    },
+                ]
+            }
+        ],
+        "university":
+            {
+                title: "Основная информация",
+                additionalText: null,
+                name: "main",
+                reference: 0,
+                forms: [
+                    {
+                        type: "text",
+                        name: "name",
+                        label: "Название университета",
+                        placeholder: "Введите полное название университета"
+                    },
+                    {
+                        type: "text",
+                        name: "phone",
+                        label: "Номер телефона",
+                        placeholder: "+7"
+                    },
+                    {
+                        type: "email",
+                        name: "email",
+                        label: "Почта университета",
+                        placeholder: "example@info.kz"
+                    },
+                    {
+                        type: "number",
+                        name: "student-amount",
+                        label: "Кол-во студентов",
+                        placeholder: "####"
+                    },
+                    {
+                        type: "number",
+                        name: "graduate-amount",
+                        label: "Кол-во выпускников",
+                        placeholder: "####"
+                    },
+                    {
+                        type: "number",
+                        name: "highlighting-amount",
+                        label: "Кол-во c отличием",
+                        placeholder: "####"
+                    },
+                    {
+                        type: "text",
+                        name: "description",
+                        label: "Основная информация",
+                        multiline: true,
+                        rows: 4,
+                        placeholder: "Опишите кратко про университет"
+                    },
 
-
-export const MenuUploadStatusesEnum: { [key: string]: string } = {
-	SUCCESS: "Загружен в агрегатор",
-	PARTIALLY_PROCESSED: "Частично загружен в агрегатор",
-
-	PROCESSING: "Публикуется",
-	NOT_PROCESSED: "Не загружен в аггрегатор",
-
-	READY: "Готов к публикации",
-	NOT_READY: "Не готов к публикации",
-
-	ERROR: "Ошибка",
-};
-
-export const MenuUploadStatusesColors: { [key: string]: "error" | "success" | "warning" | "info" } = {
-	SUCCESS: "success",
-	PARTIALLY_PROCESSED: "info",
-
-	PROCESSING: "warning",
-	NOT_PROCESSED: "info",
-
-	READY: "success",
-	NOT_READY: "error",
-
-	ERROR: "error",
-};
+                ]
+            }
+        ,
+        "student":
+            {}
+        ,
+        "employer":
+            {}
+        ,
+    }
+;

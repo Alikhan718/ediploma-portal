@@ -13,8 +13,10 @@ import {ReactComponent as SocialIcon} from "@src/assets/icons/Social.svg";
 import {ReactComponent as TrashIcon} from "@src/assets/icons/Trash.svg";
 import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
 import FastIcon from '@src/components/FastIcon/FastIcon';
-import {useSelector} from "react-redux";
-import { selectUserState } from '@src/store/auth/selector';
+import {useDispatch, useSelector} from "react-redux";
+import {selectUserRole, selectUserState} from '@src/store/auth/selector';
+import {fetchUserProfile} from "@src/store/auth/actionCreators";
+import {content, navigation} from "@src/pages/UnivesrityDetailsPage/generator";
 
 const SettingsPage: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -26,19 +28,61 @@ const SettingsPage: React.FC = () => {
     };
     const emailBoxRef: RefObject<HTMLDivElement> = useRef(null);
     const passwordBoxRef: RefObject<HTMLDivElement> = useRef(null);
-    const notificationBoxRef: RefObject<HTMLDivElement> = useRef(null);
     const deleteAccountBoxRef: RefObject<HTMLDivElement> = useRef(null);
+
+    const notificationBoxRef: RefObject<HTMLDivElement> = useRef(null);
+
+    type ContentKey = keyof typeof content;
+    const role: ContentKey = useSelector(selectUserRole).toLowerCase();
+    const [requiredForm, setRequiredForm] = React.useState<any>(content[role]);
+    React.useEffect(() => {
+        setRequiredForm(content[role]);
+        console.log(requiredForm);
+    }, [requiredForm]);
+    const getRefById = (id: number): RefObject<HTMLDivElement> => {
+        switch (id) {
+            case 0:
+                return mainInfoContainerRef;
+            case 1:
+                return emailBoxRef;
+            case 2:
+                return passwordBoxRef;
+            case 3:
+                return deleteAccountBoxRef;
+            case 4:
+                return notificationBoxRef;
+            default:
+                return mainInfoContainerRef;
+        }
+    };
     const scrollToRef = (ref: RefObject<HTMLDivElement>) => {
         if (ref && ref.current) {
             ref.current.scrollIntoView({behavior: 'smooth'});
         }
     };
+
     const userState = useSelector(selectUserState);
+    const dispatch = useDispatch();
+    React.useEffect(() => {
+        dispatch(fetchUserProfile());
+    }, [!userState]);
+    console.log(userState);
 
-    const [state, setState] = React.useState({
-
-    });
-
+    const [state, setState] = React.useState({});
+    const getGridSize = (elType: string, index: number) => {
+        index = index + 1;
+        let n = 12;
+        switch (elType) {
+            case "lg":
+            case "md":
+                n = 12 / Math.min(Math.ceil((-1 + Math.sqrt(1 + 8 * index)) / 2), 3);
+                break;
+            default:
+                n = 12;
+        }
+        return n;
+        //xs={12} sm={12} md={6} lg={3,4,6}
+    };
     return (
         <Box
             display="flex"
@@ -57,14 +101,12 @@ const SettingsPage: React.FC = () => {
                 },
             }}>
                 <Grid container>
-                    <Grid item xs={1}>
+                    <Grid item xs={0}>
                         <Box
                             width={265}
                             bgcolor="white"
                             borderRadius={5}
                             boxShadow={2}
-
-
                             sx={{
                                 display: 'flex',
                                 paddingX: '1rem',
@@ -73,44 +115,27 @@ const SettingsPage: React.FC = () => {
                                 justifyContent: 'flex-start',
                             }}
                         >
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    marginBottom: '0.5rem',
-                                    cursor: 'pointer',
-                                }}
-                                onClick={scrollToMainInfo}
-                            >
-                                <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/> {/* Add an icon */}
-                                <Box sx={{flex: 1, color: 'gray', fontSize: '1rem'}}>Основная информация</Box>
-                            </Box>
-                            <Box sx={{display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer'}}
-                                 onClick={() => scrollToRef(emailBoxRef)}>
-                                <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
-                                <Box sx={{flex: 1, color: 'gray'}}> Почта</Box>
-                            </Box>
-                            <Box sx={{display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer'}}
-                                 onClick={() => scrollToRef(passwordBoxRef)}>
-                                <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
-                                <Box sx={{flex: 1, color: 'gray'}}>Пароль</Box>
-                            </Box>
-                            {/*<Box sx={{display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer'}}
-                                 onClick={() => scrollToRef(notificationBoxRef)}>
-                                <NotificatoinsIcon color="primary" style={{marginRight: '0.2rem'}}/>
-                                <Box sx={{flex: 1, color: '#A28D8D'}}>Уведомление</Box>
-                            </Box>*/}
-                            {/*<Box sx={{display: 'flex', alignItems: 'center', marginBottom: '0.5rem', cursor: 'pointer'}}
-                                 onClick={() => scrollToRef(notificationBoxRef)}>
-                                <SocialIcon color="primary" style={{marginRight: '0.2rem'}}/>
-                                <Box sx={{flex: 1, color: '#A28D8D'}}>Социальные Сети</Box>
-                            </Box>*/}
-                            <Box sx={{display: 'flex', alignItems: 'center', cursor: 'pointer'}}
-                                 onClick={() => scrollToRef(deleteAccountBoxRef)}>
-                                <FastIcon name={"trash"} style={{marginRight: '0.5rem'}}
-                                          color="primary"/> {/* Add an icon */}
-                                <Box sx={{flex: 1, color: 'gray'}}>Удалить аккаунт</Box>
-                            </Box>
+                            {navigation.map((item, index) => (
+                                <Box
+                                    key={index}
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        marginBottom: '0.5rem',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => {
+                                        if (!item.reference) {
+                                            scrollToMainInfo();
+                                        } else {
+                                            scrollToRef(getRefById(item.reference));
+                                        }
+                                    }}
+                                >
+                                    {item.icon}
+                                    <Box sx={{flex: 1, color: 'gray', fontSize: '1rem'}}>{item.title}</Box>
+                                </Box>
+                            ))}
                         </Box>
                     </Grid>
                 </Grid>
@@ -123,15 +148,14 @@ const SettingsPage: React.FC = () => {
                     backgroundColor: '#E8EBF1',
                     height: '250px',
                     marginX: "0",
-                    marginBottom: '20px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'flex-start',
                     '@media (max-width: 778px)': {
-                        width: '90vw',
+                        width: '92vw',
                         marginLeft: '1rem'
                     },
-                }} ref={mainInfoContainerRef}>
+                }}>
 
                     <Box sx={{
                         display: 'flex',
@@ -153,385 +177,118 @@ const SettingsPage: React.FC = () => {
                     </Box>
                 </Container>
 
-                <Container sx={{
-                    backgroundColor: 'white',
-                    borderRadius: '30px',
-                    paddingTop: '20px',
-                    paddingBottom: "1rem",
-                    marginLeft: 'unset',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    width: '55vw', maxWidth: '100%', '@media (max-width: 778px)': {
-                        width: '90vw', marginLeft: '1rem'
-                    },
-                }} ref={emailBoxRef}>
-                    <Typography variant="h6" fontWeight="600">Основная информация</Typography>
-                    <Box>
-                        <Label label="Название университета"/>
-                        <Input
-                            type="text"
-                            name="univerisity_name"
-                            placeholder="Введите полное название университета"
-                        />
-                    </Box>
-                    <Box sx={{
-                        display: 'flex', gap: '16px', marginBottom: '16px',
-                        '@media (max-width: 778px)': {
-                            display: 'flex', flexDirection: 'column'
-                        },
-                    }}>
-                        {/* Telephone Input */}
-                        <Box sx={{width: '100%'}}>
-                            <Label label="Номер телефона"/>
-                            <Input
-                                type="text"
-                                name="phone"
-                                placeholder="+7"
-                            />
-                        </Box>
 
-                        {/* Name Input */}
-                        <Box sx={{width: '100%'}}>
-                            <Label label="Почта"/>
-                            <Input
-                                type="text"
-                                name="email"
-                                placeholder="example@info.kz"
-                            />
-                        </Box>
-                    </Box>
-                    <Box sx={{
-                        display: 'flex', gap: '16px', marginBottom: '16px',
-                        '@media (max-width: 778px)': {
-                            display: 'flex', flexDirection: 'column'
-                        },
-                    }}>
-
-                        <Box sx={{width: '100%'}}>
-                            <Label label="Кол-во студентов"/>
-                            <Input
-                                type="text"
-                                name="student-amount"
-                                placeholder="####"
-                            />
-                        </Box>
-                        <Box sx={{width: '100%'}}>
-                            <Label label="Кол-во выпускников"/>
-                            <Input
-                                type="text"
-                                name="graduate-amount"
-                                placeholder="####"
-                            />
-                        </Box>
-                        <Box sx={{width: '100%'}}>
-                            <Label label="Кол-во c отличием"/>
-                            <Input
-                                type="text"
-                                name="awarded-graduates-amount"
-                                placeholder="####"
-                            />
-                        </Box>
-
-                    </Box>
-                    <Box sx={{height: '100%'}}>
-                        <Label label="Дополнительная информация"/>
-                        <Input
-                            type="text"
-                            name="description"
-                            placeholder="Опишите кратко о вас или о вашей компаний/университет" multiline={true}
-                            reducePadding={true} minRows={4}
-                        />
-                    </Box>
-                    <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
-                        <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
-                    </Box>
-                </Container>
-
-
-                <Container sx={{
-                    backgroundColor: 'white',
-                    borderRadius: '30px',
-                    paddingTop: '20px',
-                    marginTop: '20px',
-                    paddingBottom: "1rem",
-                    marginRight: '10px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    width: '55vw', maxWidth: '100%',
-                    '@media (max-width: 778px)': {
-                        width: '90vw', marginLeft: '1rem'
-                    },
-                }} ref={passwordBoxRef}>
-                    <Typography variant="h6" fontWeight="600">Почта</Typography>
-                    <Typography sx={{fontSize: '16px', paddingBottom: '15px'}}> Ваш текущий email это
-                        simple@exmaple.com</Typography>
-                    <Box>
-                        <Label label="Новый адрес*"/>
-                        <Input
-                            type="text"
-                            name="email"
-                            placeholder="Email"
-                        />
-                        <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
-                            <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                            <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
-                        </Box>
-                    </Box>
-                </Container>
-
-                <Container sx={{
-                    backgroundColor: 'white',
-                    borderRadius: '30px',
-                    paddingTop: '20px',
-                    paddingBottom: "1rem",
-                    marginTop: '20px',
-                    marginRight: '10px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start', '@media (max-width: 778px)': {
-                        width: '90vw', marginLeft: '1rem'
-                    },
-                }}>
-                    <Typography variant="h6" fontWeight="600" sx={{paddingTop: '15px'}}>Измените свой
-                        пароль</Typography>
-                    <Box width="49%" sx={{
-                        '@media(max-width: 778px)': {
-                            width: "100%"
-                        }
-                    }}>
-                        <Label label="Текущий пароль*"/>
-                        <Input
-                            type="text"
-                            name="email"
-                            placeholder="Введите текущий пароль"
-                        />
-                    </Box>
-                    <Box sx={{
-                        display: 'flex', gap: '16px', marginBottom: '16px',
-                        '@media (max-width: 778px)': {
-                            display: 'flex', flexDirection: 'column'
-                        },
-                    }}>
-                        <Box sx={{width: '100%'}}>
-                            <Label label="Новый пароль*"/>
-                            <Input
-                                type="text"
-                                name="telephone"
-                                placeholder="Введите новый пароль"
-                            />
-                        </Box>
-                        <Box sx={{width: '100%'}}>
-                            <Label label="Подтвердите новый пароль*"/>
-                            <Input
-                                type="text"
-                                name="name"
-                                placeholder="Введите подтверждение нового пароля"
-                            />
-                        </Box>
-                    </Box>
-                    <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
-                        <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
-                    </Box>
-                </Container>
-
-                {/*<Container sx={{
-                    backgroundColor: 'white',
-                    borderRadius: '30px',
-                    width: '55vw', maxWidth: '100%',
-                    paddingTop: '20px',
-                    marginTop: '20px',
-                    marginRight: '10px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start', '@media (max-width: 778px)': {
-                        width: '90vw', marginLeft: '1rem'
-                    },
-                }} ref={notificationBoxRef}>
-                    <Typography variant="h6" fontWeight="600">Уведомление</Typography>
-                    <Box sx={{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginTop: '20px'}}>
-                        <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                            <Typography variant="body1" sx={{color: '#B6B6B6'}}>Тип</Typography>
-                            <Typography variant="body1" sx={{
-                                paddingTop: '10px', color: '#B6B6B6', '@media (max-width: 778px)': {
-                                    fontSize: '1rem'
-                                },
-                            }}>Новости</Typography>
-                            <Typography variant="body1" sx={{
-                                paddingTop: '10px', color: '#B6B6B6',
-                                '@media (max-width: 778px)': {
-                                    fontSize: '1rem'
-                                },
-                            }}>Изменения
-                                аккаунта</Typography>
-                            <Typography variant="body1" sx={{
-                                paddingTop: '10px', color: '#B6B6B6',
-                                '@media (max-width: 778px)': {
-                                    fontSize: '1rem'
-                                },
-                            }}>Подключение
-                                устройство</Typography>
-                        </Box>
-                        <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                            <Typography variant="body1" sx={{color: '#B6B6B6'}}>Почта</Typography>
-                            <FormControlLabel control={<Switch defaultChecked/>} label=""/>
-                            <FormControlLabel control={<Switch defaultChecked/>} label=""/>
-                            <FormControlLabel control={<Switch defaultChecked/>} label=""/>
-                        </Box>
-                        <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                            <Typography variant="body1" sx={{color: '#B6B6B6'}}>Браузер</Typography>
-                            <FormControlLabel control={<Switch defaultChecked/>} label=""/>
-                            <FormControlLabel control={<Switch defaultChecked/>} label=""/>
-                            <FormControlLabel control={<Switch defaultChecked/>} label=""/>
-                        </Box>
-                    </Box>
-
-                    <Typography variant="body1" sx={{
-                        paddingTop: '10px',
-                        '@media (max-width: 778px)': {
-                            display: 'none'
-                        }, color: '#B6B6B6', paddingBottom: '15px'
-                    }}>Когда
-                        отправлять вам уведомление?</Typography>
-                    <Box>
-                        <FormControl sx={{
-                            width: '35%', backgroundColor: '#F8F8F8', borderRadius: '30px',
+                {requiredForm && requiredForm.forms && (
+                    <Container
+                        sx={{
+                            marginTop: "1rem",
+                            backgroundColor: 'white',
+                            borderRadius: '30px',
+                            paddingTop: '20px',
+                            paddingBottom: "1rem",
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'flex-start',
+                            width: '55vw', maxWidth: '100%',
                             '@media (max-width: 778px)': {
-                                display: 'none'
+                                width: '92vw', marginLeft: '1rem'
                             },
-                        }}>
-                            <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select-helper"
-                                sx={{borderRadius: '30px', border: 'none'}}
-                                label="Age"
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '25%', marginLeft: '30px', backgroundColor: '#F8F8F8',
-                                '@media (max-width: 778px)': {
-                                    display: 'none'
-                                }, borderRadius: '30px',
-                            }}>
-                            <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select-helper"
-                                sx={{borderRadius: '30px', border: 'none'}}
-                                label="Age"
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <FormControl
-                            sx={{
-                                width: '25%', marginLeft: '30px', backgroundColor: '#F8F8F8',
-                                '@media (max-width: 778px)': {
-                                    display: 'none'
-                                }, borderRadius: '30px',
-                            }}>
-                            <InputLabel id="demo-simple-select-helper-label">Age</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-helper-label"
-                                id="demo-simple-select-helper"
+                        }}
+                        ref={getRefById(requiredForm.reference)}
+                    >
+                        <Typography variant="h6" fontWeight="600">{requiredForm.title}</Typography>
+                        <Typography sx={{
+                            fontSize: '16px',
+                            paddingBottom: '15px'
+                        }}> {(requiredForm.additionalText ? requiredForm.additionalText : "") + " " + (userState[requiredForm.name] ? userState[requiredForm.name] : "")}</Typography>
+                        <Grid
+                            container
+                            spacing={[3, 2]}
+                        >
+                            {requiredForm.forms && requiredForm.forms.map((el: any, index2: number) => (
+                                <Grid item
+                                      xs={el.multiline ? 12 : getGridSize("xs", index2)}
+                                      sm={el.multiline ? 12 : getGridSize("sm", index2)}
+                                      md={el.multiline ? 12 : getGridSize("md", index2)}
+                                      lg={el.multiline ? 12 : getGridSize("lg", index2)}
+                                      key={index2}>
+                                    <Label label={el.label}/>
+                                    <Input
+                                        type={el.type}
+                                        name={el.name}
+                                        sx={{
+                                            borderRadius: el.multiline ? '1.5rem' : '30px',
+                                            padding: el.multiline ? '0' : '',
+                                        }}
+                                        placeholder={el.placeholder}
+                                        multiline={el.multiline}
+                                        minRows={el.rows}
+                                    />
+                                </Grid>
+                            ))}
+                        </Grid>
+                        {requiredForm.forms && (
+                            <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
+                                <Button sx={{marginRight: '16px'}}>Отменить</Button>
+                                <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
+                            </Box>
+                        )}
+                    </Container>
+                )}
 
-                                sx={{borderRadius: '30px', border: 'none'}}
-                                label="Age"
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                    <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
-                        <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
-                    </Box>
-                </Container>
-                */}
-                {/*<Container sx={{
-                    backgroundColor: 'white',
-                    borderRadius: '30px',
-                    width: '55vw', maxWidth: '100%',
-                    paddingTop: '20px',
-                    marginTop: '20px',
-                    marginRight: '10px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start', '@media (max-width: 778px)': {
-                        width: '90vw', marginLeft: '1rem'
-                    },
-                }} ref={deleteAccountBoxRef}>
-                    <Typography variant="h6" fontWeight="600">Социальные сети</Typography>
-                    <Typography sx={{fontSize: '16px', paddingBottom: '15px'}}> Ваш текущий email это
-                        simple@exmaple.com</Typography>
-                    <Box sx={{display: 'flex', alignItems: 'center', paddingBottom: '15px'}}>
-                        <Box sx={{width: '30px', height: '30px', marginRight: '15px'}}>
-                            <img src={web}/>
-                        </Box>
-                        <Box sx={{marginTop: '10px'}}>
-                            <Typography variant="body1" sx={{fontSize: '16px'}}>Сайт:</Typography>
-                            <Typography variant="body1" sx={{
-                                '@media (max-width: 778px)': {
-                                    display: 'none'
-                                },
-                            }}>
-                                <a href="https://www.example.com" target="_blank"
-                                   rel="noopener noreferrer">https://www.example.com</a>
-                            </Typography>
-                        </Box>
-                        <Button variant="contained" color="primary" sx={{marginLeft: 'auto', borderRadius: '30px'}}>
-                            Кнопка
-                        </Button>
-                    </Box>
-                    <Box sx={{display: 'flex', alignItems: 'center', paddingBottom: '15px'}}>
-                        <Box sx={{width: '30px', height: '30px', marginRight: '15px'}}>
-                            <img src={web}/>
-                        </Box>
-                        <Box sx={{marginTop: '10px'}}>
-                            <Typography variant="body1" sx={{fontSize: '16px'}}>Сайт:</Typography>
-                            <Typography variant="body1" sx={{
-                                '@media (max-width: 778px)': {
-                                    display: 'none'
-                                },
-                            }}>
-                                <a href="https://www.example.com" target="_blank"
-                                   rel="noopener noreferrer">https://www.example.com</a>
-                            </Typography>
-                        </Box>
-                        <Button variant="contained" color="primary" sx={{marginLeft: 'auto', borderRadius: '30px'}}>
-                             Add your button text here
-                            Кнопка
-                        </Button>
-                    </Box>
-                    <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
-                        <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                        <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
-                    </Box>
-                </Container>*/}
-                <br/>
-                <br/>
+                {content['*'].map((item, index) => (
+                    <Container
+                        key={index}
+                        sx={{
+                            backgroundColor: 'white',
+                            borderRadius: '30px',
+                            paddingTop: '20px',
+                            marginTop: '20px',
+                            paddingBottom: "1rem",
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'flex-start',
+                            width: '55vw', maxWidth: '100%',
+                            '@media (max-width: 778px)': {
+                                width: '92vw', marginLeft: '1rem'
+                            },
+                        }}
+                        ref={getRefById(item.reference)}
+                    >
+                        <Typography variant="h6" fontWeight="600">{item.title}</Typography>
+                        <Typography sx={{
+                            fontSize: '16px',
+                            paddingBottom: '15px'
+                        }}> {(item.additionalText ? item.additionalText : "") + " " + (userState[item.name] ? userState[item.name] : "")}</Typography>
+                        <Grid
+                            container
+                            spacing={[3, 2]}
+                        >
+                            {item.forms.map((el, index2) => (
+                                <Grid item
+                                      xs={getGridSize("xs", index2)}
+                                      sm={getGridSize("sm", index2)}
+                                      md={getGridSize("md", index2)}
+                                      lg={getGridSize("lg", index2)}
+                                      key={index2}>
+                                    <Label label={el.label}/>
+                                    <Input
+                                        type={el.type}
+                                        name={el.name}
+                                        placeholder={el.placeholder}
+                                    />
+                                </Grid>
+
+                            ))}
+                        </Grid>
+                        {item.forms.length && (
+                            <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
+                                <Button sx={{marginRight: '16px'}}>Отменить</Button>
+                                <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
+                            </Box>
+                        )}
+                    </Container>
+                ))}
             </Box>
 
 

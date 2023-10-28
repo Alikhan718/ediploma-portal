@@ -7,7 +7,8 @@ import {
     DrawerProps,
     Box,
     Typography,
-    CircularProgress
+    CircularProgress,
+    Divider
 } from '@mui/material';
 import out from "./../../assets/icons/Logout.svg";
 import settings from "./../../assets/icons/Settings.svg"
@@ -132,7 +133,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                 <CustomDrawer variant="permanent" open={isSidebarVisible}>
                     {!authLoader ? (
                         <Box sx={{height: '100vh'}}>
-                            <Box p={`1.5rem 0 0 10px`} sx={{height: '100%'}}>
+                            <Box sx={{height: '100%'}}>
                                 <img
                                     src={AppLogo}
                                     onClick={() => navigate(routes.main)}
@@ -142,16 +143,14 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                         margin: "1rem"
                                     }}
                                 />
-                                <Box sx={{
-                                    borderBottom: '1px solid #F8F8F8',
-                                    paddingBottom: '24px',
-                                    marginBottom: '24px'
-                                }}></Box>
+                                <Divider style={{marginBottom: "1rem" }}/>
+
                                 <Box sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'space-between',
-                                    height: '80%'
+                                    paddingX: '.5rem',
+                                    height: '85%'
                                 }}>
                                     <Box>
                                         {sidebarNavigations.filter((item) => item.role.includes(role.toLowerCase()) || item.role.includes('*')).map(nav => (
@@ -164,7 +163,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                                     display: 'flex', flexDirection: 'row',
                                                     background: `${activeNav === nav.id ? '#3B82F6' : 'unset'}`,
                                                     padding: '15px',
-                                                    borderRadius: '19px', marginRight: '10px'
+                                                    borderRadius: '19px'
                                                 }}
                                             >
                                                 <Box mr='18px' ml='8px'
@@ -188,7 +187,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                     </Box>
                                     <Box display="flex" height="100%" justifyContent="space-between"
                                          flexDirection="column"
-                                         sx={{marginTop: '3rem', padding: '10px'}}>
+                                         sx={{marginY: "auto", padding: '10px', paddingBottom: "0"}}>
                                         <Typography sx={{
                                             color: '#B6B6B6',
                                             fontSize: '16px',
