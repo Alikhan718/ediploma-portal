@@ -16,13 +16,14 @@ import AppLogo from '@src/assets/icons/app-logo.svg';
 import {SidebarProps} from './Sidebar.props';
 import {NavLink, useNavigate, useLocation} from 'react-router-dom';
 import {selectAuthLoader, selectUserRole} from '@src/store/auth/selector';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {sidebarNavigations, AppRoutesNavigation, dropdownItemsBottom, localization} from "@src/layout/Header/generator";
 import {DRAWER_WIDTH} from '../Layout';
 import {routes} from "@src/shared/routes";
 import {fetchAuthLogout} from "@src/store/auth/saga";
 import icon from "@src/assets/icons/Logo (2).svg";
 import {selectLanguage} from "@src/store/generals/selectors";
+import {fetchLogoutAction} from "@src/store/auth/actionCreators";
 
 
 interface ICustomDrawer extends DrawerProps {
@@ -124,7 +125,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
     React.useEffect(() => {
         setIsSidebarVisible(checkRoute);
     });
-
+    const dispatch = useDispatch();
     return (
         <>
             {!isTablet && (
@@ -166,15 +167,12 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                                     borderRadius: '19px', marginRight: '10px'
                                                 }}
                                             >
-                                                <Box mr='18px' ml='8px'>
-                                                    <Box
-                                                        sx={{background: `${activeNav === nav.id ? '#white' : 'white'}`}}>
-                                                        <Box
-                                                            style={{
-                                                                filter: activeNav === nav.id ? "brightness(4)" : "",
-                                                                verticalAlign: nav.verticalAlign
-                                                            }}>{nav.icon}</Box>
-                                                    </Box>
+                                                <Box mr='18px' ml='8px'
+                                                     style={{
+                                                         filter: activeNav === nav.id ? "brightness(4)" : "",
+                                                         verticalAlign: nav.verticalAlign
+                                                     }}>
+                                                    {nav.icon}
                                                 </Box>
                                                 <Typography
                                                     color={activeNav === nav.id ? 'white' : '#697B7A'}
@@ -196,8 +194,29 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                             fontSize: '16px',
                                         }}>{localization.account[lang]}</Typography>
                                         {dropdownItemsBottom.filter((item) => item.role.includes(role.toLowerCase()) || item.role.includes('*')).map((item, index) => (
-                                            <Box key={index} mt="0.5rem" >
-                                                <Button fullWidth sx={{color: '#697B7A', fontSize: '16px'}}
+                                            <NavLink
+                                                to={item.to}
+                                                key={index}
+                                                style={{
+                                                    marginTop: "0.5rem",
+                                                }}
+                                                onClick={() => {
+                                                    if (item.verticalAlign == "red") {
+                                                        dispatch(fetchLogoutAction());
+                                                    }
+                                                    setActiveNav(item.id);
+                                                }}
+                                                className={(props) => handleClassName(props.isActive, item.id)}
+                                            >
+                                                <Button fullWidth sx={{
+                                                    color: '#697B7A',
+                                                    borderRadius: '19px',
+                                                    background: `${activeNav === item.id ? '#3B82F6' : 'unset'}`,
+                                                    fontSize: '16px',
+                                                    '&:hover': {
+                                                        background: `${activeNav === item.id ? '#3B82F6' : 'unset'}`,
+                                                    },
+                                                }}
                                                         onClick={() => {
                                                             if (item.function) {
                                                                 item.function();
@@ -205,11 +224,12 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                                             handleCloseMenu();
                                                             navigate(item.to);
                                                         }}>
-                                                    <Box mr="auto" display="flex" >
+                                                    <Box mr="auto" display="flex"
+                                                         style={{filter: activeNav === item.id ? "brightness(10)" : "",}}>
                                                         {item.icon}
                                                         <Typography
+                                                            color={activeNav === item.id ? 'white' : item.verticalAlign ?? '#697B7A'}
                                                             variant='h4'
-                                                            color={item.verticalAlign}
                                                             fontSize={'16px'}
                                                             className="diploma-navbar-item"
                                                             fontWeight='450'>
@@ -218,7 +238,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                                     </Box>
 
                                                 </Button>
-                                            </Box>
+                                            </NavLink>
                                         ))}
 
 

@@ -11,12 +11,8 @@ import {ReactComponent as ModeIcon} from "@src/assets/icons/moon.svg";
 import {ReactComponent as Avatar} from "@src/assets/icons/avatar_outlined.svg";
 import {ReactComponent as Analytics} from "@src/assets/icons/analytics_outlined.svg";
 import {ReactComponent as Folder} from "@src/assets/icons/folder_outilne.svg";
-import {fetchAuthLogout} from "@src/store/auth/saga";
-import {useNavigate} from "react-router-dom";
 import {ReactComponent as Settings} from "@src/assets/icons/Settings.svg";
 import {ReactComponent as Out} from "@src/assets/icons/logout_outline.svg";
-import {fetchLogoutAction} from "@src/store/auth/actionCreators";
-import {useDispatch} from "react-redux";
 
 export interface AppRoutesNavigation {
     id: number;
@@ -34,7 +30,7 @@ export interface AppRoutesNavigation {
 
 export const sidebarNavigations: AppRoutesNavigation[] = [
     {
-        id: 1,
+        id: 101,
         name: {
             "ru": 'Профиль',
             "kz": 'Профиль',
@@ -46,7 +42,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
         verticalAlign: "bottom",
     },
     {
-        id: 2,
+        id: 102,
         name: {
             "ru": 'Аналитика',
             "kz": 'Аналитика',
@@ -58,7 +54,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
         verticalAlign: "middle",
     },
     {
-        id: 5,
+        id: 103,
         name: {
             "ru": 'Университеты',
             "kz": 'Универститеттер',
@@ -70,19 +66,19 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
         verticalAlign: "middle",
     },
     {
-        id: 6,
+        id: 104,
         name: {
             "ru": 'HR Bank',
             "kz": 'HR Bank',
             "en": 'HR Bank',
         },
-        to: routes.hr_bank,
+        to: routes.hrBank,
         role: ["university", "employer", "student"],
         icon:  <HrBankIcon style={{verticalAlign: "middle"}}/>,
         verticalAlign: "middle",
     },
     {
-        id: 3,
+        id: 105,
         name: {
             "ru": 'Выпустить дипломы',
             "kz": 'Диплом шығару',
@@ -96,7 +92,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
 ];
 export const headerNavigations: AppRoutesNavigation[] = [
     {
-        id: 6,
+        id: 104,
         name: {
             "ru": 'HR Bank',
             "kz": 'HR Bank',
@@ -108,7 +104,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
         verticalAlign: '',
     },
     {
-        id: 5,
+        id: 103,
         name: {
             "ru": 'Университеты',
             "kz": 'Университеттер',
@@ -120,7 +116,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
         verticalAlign: '',
     },
     {
-        id: 4,
+        id: 106,
         name: {
             "ru": 'О нас',
             "kz": 'Біз туралы',
@@ -135,11 +131,11 @@ export const headerNavigations: AppRoutesNavigation[] = [
 ];
 export const interFaceOptions: AppRoutesNavigation[] = [
     {
-        id: 7,
+        id: 201,
         name: {
-            "ru": 'Язык',
-            "kz": 'Язык',
-            "en": 'Language',
+            "ru": 'Режим',
+            "kz": 'Режим',
+            "en": 'Mode',
         },
         to: '#',
         role: ['*'],
@@ -147,11 +143,11 @@ export const interFaceOptions: AppRoutesNavigation[] = [
         verticalAlign: '',
     },
     {
-        id: 8,
+        id: 202,
         name: {
-            "ru": 'Русский',
-            "kz": 'Русский',
-            "en": 'Russian',
+            "ru": 'Язык',
+            "kz": 'Тіл',
+            "en": 'Language',
         },
         to: '#',
         role: ['*'],
@@ -163,7 +159,7 @@ export const interFaceOptions: AppRoutesNavigation[] = [
 ];
 export const dropdownItems: AppRoutesNavigation[] = [
     {
-        id: 1,
+        id: 101,
         name: {
             "ru": 'Профиль',
             "kz": 'Профиль',
@@ -175,7 +171,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
         verticalAlign: '',
     },
     {
-        id: 2,
+        id: 102,
         name: {
             "ru": 'Аналитика',
             "kz": 'Аналитика',
@@ -188,7 +184,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
         verticalAlign: "middle",
     },
     {
-        id: 5,
+        id: 103,
         name: {
             "ru": 'Университеты',
             "kz": 'Универститеттер',
@@ -200,19 +196,19 @@ export const dropdownItems: AppRoutesNavigation[] = [
         verticalAlign: "middle",
     },
     {
-        id: 6,
+        id: 104,
         name: {
             "ru": 'HR Bank',
             "kz": 'HR Bank',
             "en": 'HR Bank',
         },
-        to: routes.hr_bank,
+        to: routes.hrBank,
         role: ["university", "employer", "student"],
         icon:  <HrBankIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
         verticalAlign: "middle",
     },
     {
-        id: 3,
+        id: 105,
         name: {
             "ru": 'Выпустить дипломы',
             "kz": 'Диплом шығару',
@@ -230,7 +226,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
 
 export const dropdownItemsBottom: AppRoutesNavigation[] = [
     {
-        id: 1,
+        id: 106,
         name: {
             "ru": 'Настройки',
             "kz": 'Параметрлер',
@@ -244,7 +240,7 @@ export const dropdownItemsBottom: AppRoutesNavigation[] = [
         },
     },
     {
-        id: 2,
+        id: 401,
         name: {
             "ru": 'Выйти',
             "kz": 'Шығу',

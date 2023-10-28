@@ -26,6 +26,7 @@ import employreImg from "@src/assets/dashboard/employerImg.png";
 import placeholdereImg from "@src/assets/dashboard/Image.jpg";
 import cn from "classnames";
 import icon from "@src/assets/icons/jasaim_icon.png";
+import {handleLink} from "@src/utils/link";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -206,10 +207,15 @@ export const EmployerPageLayout: React.FC = () => {
                                 </Box>
                             </Box>
                             <Box marginTop="0.5rem" marginBottom="0.5rem" display="flex" alignItems="center">
-                                <Box marginRight="25px"><DiscordIcon/></Box>
-                                <Box marginRight="25px"><TwitterIcon/></Box>
-                                <Box marginRight="25px"><SmartContractIcon/></Box>
-                                <Box marginRight="25px"><WebIcon/></Box>
+                                <Box marginRight="25px" sx={{cursor:"pointer"}} onClick={() => {
+                                    handleLink("https://discord.gg/QxjZHUag");
+                                }}><DiscordIcon/></Box>
+                                <Box marginRight="25px" sx={{cursor:"pointer"}} onClick={() => {
+                                    handleLink("https://testnet.bscscan.com/address/0x6A14818b2022D085512a4e57d4021C40c23C5d28");
+                                }}><SmartContractIcon/></Box>
+                                <Box marginRight="25px" sx={{cursor:"pointer"}} onClick={() => {
+                                    handleLink("https://jasaim.kz");
+                                }}><WebIcon/></Box>
                             </Box>
                             <Typography
                                 className={styles.textSm}
