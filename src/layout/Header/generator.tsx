@@ -58,6 +58,30 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
         verticalAlign: "middle",
     },
     {
+        id: 5,
+        name: {
+            "ru": 'Университеты',
+            "kz": 'Универститеттер',
+            "en": 'Universities',
+        },
+        to: routes.university,
+        role: ["university", "employer", "student"],
+        icon: <UniversityIcon style={{verticalAlign: "middle"}}/>,
+        verticalAlign: "middle",
+    },
+    {
+        id: 6,
+        name: {
+            "ru": 'HR Bank',
+            "kz": 'HR Bank',
+            "en": 'HR Bank',
+        },
+        to: routes.hr_bank,
+        role: ["university", "employer", "student"],
+        icon:  <HrBankIcon style={{verticalAlign: "middle"}}/>,
+        verticalAlign: "middle",
+    },
+    {
         id: 3,
         name: {
             "ru": 'Выпустить дипломы',
@@ -161,6 +185,30 @@ export const dropdownItems: AppRoutesNavigation[] = [
         // to: routes.analytics,
         role: ["university"],
         icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
+        verticalAlign: "middle",
+    },
+    {
+        id: 5,
+        name: {
+            "ru": 'Университеты',
+            "kz": 'Универститеттер',
+            "en": 'Universities',
+        },
+        to: routes.university,
+        role: ["university", "employer", "student"],
+        icon: <UniversityIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
+        verticalAlign: "middle",
+    },
+    {
+        id: 6,
+        name: {
+            "ru": 'HR Bank',
+            "kz": 'HR Bank',
+            "en": 'HR Bank',
+        },
+        to: routes.hr_bank,
+        role: ["university", "employer", "student"],
+        icon:  <HrBankIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
         verticalAlign: "middle",
     },
     {

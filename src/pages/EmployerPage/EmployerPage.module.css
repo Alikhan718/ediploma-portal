@@ -1,6 +1,8 @@
 .img {
     border-radius: 1rem;
+    height: 10rem;
     object-fit: cover;
+    object-position: top;
 }
 
 .imgPlaceholder {

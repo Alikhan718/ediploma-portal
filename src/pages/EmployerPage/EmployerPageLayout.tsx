@@ -25,7 +25,7 @@ import dots from "./../../assets/icons/Dots.svg";
 import employreImg from "@src/assets/dashboard/employerImg.png";
 import placeholdereImg from "@src/assets/dashboard/Image.jpg";
 import cn from "classnames";
-import icon from "@src/assets/icons/Logo (2).svg";
+import icon from "@src/assets/icons/jasaim_icon.png";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -94,7 +94,7 @@ export const EmployerPageLayout: React.FC = () => {
                                 backgroundColor: '#3B82F6',
                                 width: '100%',
                                 marginX: "1rem",
-                                height: '144px',
+                                height: '13rem',
                                 borderRadius: '20px',
                                 marginBoottom: '10px',
                                 marginTop: '2rem',
@@ -102,11 +102,13 @@ export const EmployerPageLayout: React.FC = () => {
                                 flexDirection: 'column',
                                 justifyContent: 'flex-start',
                                 alignItems: 'center',
-                                backgroundImage: `url(${employreImg})`,
+                                backgroundImage: `url(https://www.coinspot.com.au/public/img/learn/blockchain-applications-supply-chains.png)`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center center',
                             }}>
-                                <img src={icon} style={{marginTop: "100px"}}/>
+                                <Box sx={{marginTop: "45%", backgroundColor: "white", padding: "1.25rem", borderRadius: "50%", border: "1px solid rgb(18, 33, 74, .7)"}}>
+                                    <img src={icon} style={{width: "2rem"}}/>
+                                </Box>
                             </Box>
                         </Box>
                         <Box display="flex" justifyContent="center" margin="2rem">
@@ -124,7 +126,7 @@ export const EmployerPageLayout: React.FC = () => {
                                         fontSize: '20px',
                                         padding: '1rem',
                                     }}>
-                                    Ф.И. Работодателя
+                                    JASAIM Blockchain
                                 </Typography>
                                 <Label label="Должность"/>
                                 <Box display="flex" justifyContent="center" margin="1rem">
@@ -142,7 +144,7 @@ export const EmployerPageLayout: React.FC = () => {
                                             sx={{
                                                 fontSize: '20px'
                                             }}>
-                                            25
+                                            1
                                         </Typography>
                                         <Label label="Кол-во филлиалов"/>
                                     </Box>
@@ -178,7 +180,7 @@ export const EmployerPageLayout: React.FC = () => {
                                             sx={{
                                                 fontSize: '20px'
                                             }}>
-                                            124
+                                            8
                                         </Typography>
                                         <Label label="Нанято сотрудников"/>
                                     </Box>
@@ -213,39 +215,30 @@ export const EmployerPageLayout: React.FC = () => {
                                 className={styles.textSm}
                                 color="#818181"
                                 sx={{fontSize: '14px'}}>
-                                eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет
-                                оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что
-                                позволяет исключить возможность подделки документов. Портал eDiploma предоставляет
-                                возможность выпускникам, работодателям и администрации университетов взаимодействовать с
-                                дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации
-                                выпускников.
+                                Компания JASAIM, основанная в Астане (Казахстан) в 2022 году,
+                                является разработчиком финансовых, образовательных технологических решений,
+                                которые помогают интегрировать Web3, Blockchain и искусственный интеллект для
+                                потребителей,
+                                продавцов, разработчиков и учреждений по всему миру
                             </Typography>
                         </Box>
-                        <Box display="flex" className={styles.mobP15} overflow="hidden">
-                            <CardMedia
-                                component="img"
-                                image={employreImg}
-                                className={cn(styles.img)}
-                                sx={{width: '25%', height: '80%', margin: "0.5rem"}}
-                            />
-                            <CardMedia
-                                component="img"
-                                image={employreImg}
-                                className={cn(styles.img)}
-                                sx={{width: '30%', height: '80%', margin: "0.5rem"}}
-                            />
-                            <CardMedia
-                                component="img"
-                                image={employreImg}
-                                className={cn(styles.img)}
-                                sx={{width: '30%', height: '80%', margin: "0.5rem"}}
-                            />
-                            <CardMedia
-                                component="img"
-                                image={placeholdereImg}
-                                className={cn(styles.imgPlaceholder)}
-                                sx={{width: '15%', height: '80%', margin: "0.5rem"}}
-                            />
+                        <Box display="flex" className={styles.mobP15} style={{overflowX: "scroll", marginTop: "auto"}} overflow="hidden">
+                            {[
+                                {"image": "https://jasaim.kz/wp-content/uploads/2023/05/Syrym-CEO.webp"},
+                                {"image": "https://jasaim.kz/wp-content/uploads/2023/05/Alikhan-CTO.webp"},
+                                {"image": "https://jasaim.kz/wp-content/uploads/2023/05/Alisher-techlead.webp"},
+                                {"image": "https://jasaim.kz/wp-content/uploads/2023/05/5.webp"},
+                                {"image": "https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp"}
+                            ].map((el, index) =>
+                                <CardMedia
+                                    key={index}
+                                    component="img"
+                                    image={el.image}
+                                    className={cn(styles.img)}
+                                    sx={{width: '25%', margin: "0.5rem"}}
+                                />
+                            )}
+
                         </Box>
                     </Box>
                 </Box>
