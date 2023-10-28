@@ -7,9 +7,14 @@ import { UniversityPageHeader } from "@src/pages/UnivesrityPage/components/Unive
 import { useNavigate } from "react-router-dom";
 import { routes } from "@src/shared/routes";
 import styles from "./UniversityPage.module.css";
+import {selectLanguage} from "@src/store/generals/selectors";
+import {useSelector} from "react-redux";
+import { localization } from '@src/pages/UnivesrityPage/generator';
+
 
 export const UniversityPageLayout: React.FC = () => {
 	const navigate = useNavigate();
+	const lang = useSelector(selectLanguage);
 
 	return (
 		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'>
@@ -52,10 +57,10 @@ export const UniversityPageLayout: React.FC = () => {
 										fontSize: '1rem'
 									},
 								}}>
-									{index % 2 === 0 ? "Казахстанско-Британский Технический Университет" :
-										"Сатпаев Университет (НУ)"}
-									{index === 0 ? "Казахстанско-Британский Технический Университет (КБТУ)" :
-										"Казахский национальный исследовательский технический университет имени К. И. Сатпаева (КазНИТУ)"}
+									{index % 2 === 0 ? localization[lang].UniCards.nameKBTUshort :
+										localization[lang].UniCards.nameSUshort}
+									{index === 0 ? localization[lang].UniCards.nameKBTU :
+										localization[lang].UniCards.nameSU}
 								</Typography>
 								<Box display='flex'>
 									<Typography className={styles.textSm} sx={{
@@ -71,7 +76,7 @@ export const UniversityPageLayout: React.FC = () => {
 									</Typography>
 								</Box>
 								<Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>
-									Специальностей {index === 0 ? 24 : 12}
+									{localization[lang].UniCards.majors} {index === 0 ? 24 : 12}
 								</Typography>
 							</CardContent>
 						</Box>

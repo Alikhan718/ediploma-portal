@@ -16,6 +16,8 @@ import { Button, Modal } from "@src/components";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 import { routes } from "@src/shared/routes";
 import { useNavigate } from "react-router-dom";
+import {selectLanguage} from "@src/store/generals/selectors";
+import { localization } from '@src/pages/DiplomaDetailsPage/generator';
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -51,6 +53,7 @@ function a11yProps(index: number) {
 }
 
 export const SwitchDetails: React.FC = () => {
+	const lang = useSelector(selectLanguage);
 	const [value, setValue] = React.useState(0);
 	const [openModal, setOpenModal] = React.useState(false);
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -91,7 +94,7 @@ export const SwitchDetails: React.FC = () => {
 						fontWeight='600'
 						variant="h6"
 						component="h2">
-						Для использования требуется авторизация
+						{localization[lang].Modal.msg}
 					</Typography>
 					<Button variant='contained' sx={{
 						marginTop: "1rem",
@@ -102,7 +105,7 @@ export const SwitchDetails: React.FC = () => {
 						borderRadius: "2rem"
 					}} onClick={() => {
 						navigate(routes.login);
-					}}>Авторизоваться</Button>
+					}}>{localization[lang].Modal.authorize}</Button>
 				</Box>
 			</Modal>
 			<Box width="50%" display="flex" flex="row" p=".275rem " sx={{
@@ -113,11 +116,11 @@ export const SwitchDetails: React.FC = () => {
 			}}>
 				<Button fullWidth={true} variant="contained"
 					color={value === 0 ? "primary" : "secondary"} borderRadius="3rem" onClick={(e) => handleChange(e, 0)}>
-					Проверка
+					{localization[lang].switchDetails.check}
 				</Button>
 				<Button fullWidth={true} color={value === 1 ? "primary" : "secondary"}
 					variant="contained" borderRadius="3rem" onClick={(e) => handleChange(e, 1)}>
-					Данные
+						{localization[lang].switchDetails.data}
 				</Button>
 			</Box>
 			{/* <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
@@ -127,7 +130,7 @@ export const SwitchDetails: React.FC = () => {
 			<TabPanel value={value} index={0}>
 				<Box display='flex' flexDirection="column" mb="1rem" mt="1rem">
 					<Typography className={styles.textMd} fontWeight='700' fontSize={"1.5rem"} mb="1rem">
-						Статус:
+						{localization[lang].switchDetails.status}
 					</Typography>
 					<Chip
 						sx={{
@@ -143,7 +146,7 @@ export const SwitchDetails: React.FC = () => {
 									marginRight: '.5rem',
 									color: '#22C55E', fontWeight: '600', paddingTop: '0.9rem', paddingBottom: '0.9rem'
 								}}>
-									Подтвержден
+									{localization[lang].switchDetails.confirmed}
 								</Typography>
 								<SingleCheck style={{ color: '#22C55E' }} />
 							</div>
@@ -156,7 +159,7 @@ export const SwitchDetails: React.FC = () => {
 						sx={{ textDecoration: "none" }} target={'_blank'}>
 						<Box display='flex'>
 							<Typography className={styles.textMd} fontWeight='600' mb="1rem" color='black' fontSize={"1rem"}>
-								Посмотреть на EtherScan
+								{localization[lang].switchDetails.seeEtherscan}
 							</Typography>
 						</Box>
 					</Link>
@@ -164,7 +167,7 @@ export const SwitchDetails: React.FC = () => {
 						sx={{ textDecoration: "none" }} target={'_blank'} mt='0.2rem'>
 						<Box display='flex'>
 							<Typography className={styles.textMd} fontWeight='600' color='black' fontSize={"1rem"}>
-								Посмотреть на Smart Contract
+								{localization[lang].switchDetails.seeSmartContract}
 							</Typography>
 						</Box>
 					</Link>

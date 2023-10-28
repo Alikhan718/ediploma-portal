@@ -40,3 +40,54 @@ export const MenuUploadStatusesColors: { [key: string]: "error" | "success" | "w
 
 	ERROR: "error",
 };
+
+export const localization = {
+	"kz":{
+		Header:{
+			filter: "Фильтр",
+			searchBar: "Толық есімі, университеттің атауы",
+			searchButton: "Іздеу",
+			university: "Университеттер",
+		},
+		UniCards:{
+			nameKBTU: "Қазақстан-Британ Техникалық Университеті (КБТУ)",
+			nameKBTUshort: "Қазақстан-Британ Техникалық Университеті",
+			nameSU: "Қ.И.Сәтбаев атындағы Қазақстандық Ұлттық Техниқалық Зерттеу Университеті (ҚазҰТЗУ)",
+			nameSUshort: "Сәтбаев Университет (CУ)",
+			ratings: "пікірлер",
+			majors: "Мамандықтар",
+		},
+	},
+	"ru":{
+		Header:{
+			filter: "Фильтр",
+			searchBar: "Фамилия Имя, название вуза",
+			searchButton: "Поиск",
+			university: "Университеты",
+		},
+		UniCards:{
+			nameKBTU: "Казахстанско-Британский Технический Университет (КБТУ)",
+			nameKBTUshort: "Казахстанско-Британский Технический Университет",
+			nameSU: "Казахский национальный исследовательский технический университет имени К. И. Сатпаева (КазНИТУ)",
+			nameSUshort: "Сатпаев Университет (CУ)",
+			ratings: "отзывов",
+			majors: "Специальностей",
+		},
+	},
+	"en":{
+		Header:{
+			filter: "Filter",
+			searchBar: "Full name, University name",
+			searchButton: "Search",
+			university: "Universities",
+		},
+		UniCards:{
+			nameKBTU: "Kazakh-British Technical University (KBTU)",
+			nameKBTUshort: "Kazakh-British Technical University",
+			nameSU: "Kazakh National Research Technical University named after K. I. Satpayev (KazNTU)",
+			nameSUshort: "Satpaev University (SU)",
+			ratings: "feedbacks",
+			majors: "Majors",
+		}
+	},
+}
