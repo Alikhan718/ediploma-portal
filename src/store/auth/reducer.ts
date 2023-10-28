@@ -5,11 +5,16 @@ import {
     POST_AUTH_WITH_DS,
     GET_OTP,
     POST_RESET_PASSWORD,
-    POST_VALIDATE_EMAIL, AUTH_LOGOUT, POST_SAVE_XML, GET_DIPLOMA_METADATA_CID, POST_GENERATE_SMART_CONTRACT
+    POST_VALIDATE_EMAIL,
+    AUTH_LOGOUT,
+    POST_SAVE_XML,
+    GET_DIPLOMA_METADATA_CID,
+    POST_GENERATE_SMART_CONTRACT,
+    GET_PROFILE_DATA
 } from "./types/actionTypes";
 
 const initialState = {
-    userRole: "Guest",
+    userRole: localStorage.getItem("userRole") ?? "Guest",
     otpSent: false,
     isLoading: false,
     signed: false,
@@ -34,7 +39,7 @@ export const authReducer = (state = initialState, action: any) => {
             localStorage.clear();
             return {
                 ...state,
-                userRole: ""
+                userRole: "Guest"
             };
         case POST_AUTH_LOGIN.saga:
             return {
@@ -70,6 +75,14 @@ export const authReducer = (state = initialState, action: any) => {
                 ...state,
                 payload: action.payload,
                 userRole: action.payload.role,
+                isLoading: false
+            };
+
+        case GET_PROFILE_DATA.success:
+
+            return {
+                ...state,
+                userState: action.payload,
                 isLoading: false
             };
         case POST_AUTH_LOGIN.error:
@@ -196,7 +209,6 @@ export const authReducer = (state = initialState, action: any) => {
                 ipfsLink: action.payload,
             };
         case POST_GENERATE_SMART_CONTRACT.saga:
-            console.log("POST_GENERATE_SMART_CONTRACT.saga:", action);
 
             return {
                 ...state,
@@ -205,7 +217,6 @@ export const authReducer = (state = initialState, action: any) => {
                 name: action.payload.name,
             };
         case POST_GENERATE_SMART_CONTRACT.success:
-            console.log("POST_GENERATE_SMART_CONTRACT.success:", action);
 
             return {
                 ...state,

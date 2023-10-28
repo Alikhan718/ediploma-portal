@@ -393,9 +393,9 @@ export const EmployerPageLayout: React.FC = () => {
                                 {currentDiplomaPage.map((e: any) => (
 
                                     <Box
-                                        key={e.counter}
+                                        key={e.id}
                                         onClick={() => {
-                                            navigate(`/app/diploma/${e.counter!}/details`);
+                                            navigate(`/app/diploma/${e.id!}`);
                                         }}
                                         className={styles.diplomaItem}
                                         sx={{

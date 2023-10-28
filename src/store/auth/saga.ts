@@ -7,7 +7,7 @@ import {
     GET_OTP,
     POST_RESET_PASSWORD,
     POST_VALIDATE_EMAIL,
-    POST_AUTH_WITH_DS, POST_SAVE_XML, GET_DIPLOMA_METADATA_CID, POST_GENERATE_SMART_CONTRACT
+    POST_AUTH_WITH_DS, POST_SAVE_XML, GET_DIPLOMA_METADATA_CID, POST_GENERATE_SMART_CONTRACT, GET_PROFILE_DATA
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
@@ -116,7 +116,6 @@ export function* fetchMetadataCid(action: any) {
         const {data} = yield call(authApi.getMetadataCid, action.payload);
         yield put({type: GET_DIPLOMA_METADATA_CID.success, payload: data});
         yield put(setSnackbar({visible: true, message: "Все файлы загружены!", status: "success"}));
-        console.log("fetchMetadataCid(action: any)", data);
         yield call(fetchGenerateSmartContract,
             {payload: {CID: data, symbol: "KB23", name: "Test KBTU"}}
         );
@@ -127,11 +126,20 @@ export function* fetchMetadataCid(action: any) {
     }
 }
 
+export function* fetchProfileData(action: any) {
+    try {
+        const {data} = yield call(authApi.getProfile);
+        yield put({type: GET_PROFILE_DATA.success, payload: data});
+
+    } catch (e) {
+        yield put({type: GET_PROFILE_DATA.error});
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+    }
+}
+
 export function* fetchGenerateSmartContract(action: any) {
     try {
-        console.log("SMART CONTRACTH NAHUY", action);
         const {data} = yield call(authApi.generateSmartContract, action.payload);
-        console.log(data);
         yield put({type: POST_GENERATE_SMART_CONTRACT.success, payload: data});
         yield put(setSnackbar({visible: true, message: "Успешно создали смарт контракт!", status: "success"}));
     } catch (e) {
@@ -148,6 +156,7 @@ export function* authSagas() {
     yield takeLatest(POST_AUTH_VALIDATE_EMAIL.saga, fetchAuthValidateEmail);
     yield takeLatest(POST_VALIDATE_EMAIL.saga, fetchValidateEmail);
     yield takeLatest(POST_RESET_PASSWORD.saga, fetchResetPassword);
+    yield takeLatest(GET_PROFILE_DATA.saga, fetchProfileData);
     yield takeLatest(GET_OTP.saga, fetchGetOtp);
     yield takeLatest(POST_SAVE_XML.saga, fetchSaveXml);
     yield takeLatest(GET_DIPLOMA_METADATA_CID.saga, fetchMetadataCid);

@@ -19,7 +19,7 @@ export const UniversityPageLayout: React.FC = () => {
 					<Grid
 						key={index} item xs={12} sm={6} md={6} lg={5.5} // Use 6 columns to fit 2 cards in a row
 						onClick={() => {
-							navigate(routes.universityProfile);
+							navigate(routes.universityDetails);
 						}}
 						sx={{
 							display: 'flex',

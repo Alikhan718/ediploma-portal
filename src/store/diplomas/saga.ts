@@ -70,6 +70,7 @@ export function* fetchGraduateDetailsRequest(action: any) {
         type: GET_GRADUATE_DETAILS,
         apiCall: diplomasApi.getGraduateDetails,
         action:action,
+        ignoreError: true
     });
 }
 

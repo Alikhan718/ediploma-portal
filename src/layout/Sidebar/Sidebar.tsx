@@ -74,13 +74,12 @@ const CustomDrawer = styled(Drawer, {shouldForwardProp: (prop) => prop !== 'open
     }),
 );
 
-const role = localStorage.getItem("userRole");
 
 export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
     const lang = useSelector(selectLanguage);
+    const role = useSelector(selectUserRole);
 
     const location = useLocation();
-    // console.log('pathname', location.pathname);
     const {open, toggleDrawer} = props;
     const navigate = useNavigate();
     const authLoader = useSelector(selectAuthLoader);
@@ -99,10 +98,9 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
     };
     const checkRoute = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const sidebarEnabledRoutes = ['user', 'profile', 'graduates'];
+        const sidebarEnabledRoutes = ['details', 'user', 'profile', 'graduates'];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
-                // console.log(item);
                 return true;
             }
         }
@@ -155,7 +153,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                     height: '80%'
                                 }}>
                                     <Box>
-                                        {sidebarNavigations.map(nav => (
+                                        {sidebarNavigations.filter((item) => item.role.includes(role.toLowerCase()) || item.role.includes('*')).map(nav => (
                                             <NavLink
                                                 to={nav.to}
                                                 key={nav.id}
@@ -193,10 +191,13 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                     <Box display="flex" height="100%" justifyContent="space-between"
                                          flexDirection="column"
                                          sx={{marginTop: '3rem', padding: '10px'}}>
-                                        <Typography sx={{color: '#B6B6B6', fontSize: '16px',}}>{localization.account[lang]}</Typography>
-                                        {dropdownItemsBottom.map((item, index) => (
-                                            <Box key={index} mt="0.5rem" sx={{marginRight: '50px'}}>
-                                                <Button sx={{color: '#697B7A', fontSize: '16px'}}
+                                        <Typography sx={{
+                                            color: '#B6B6B6',
+                                            fontSize: '16px',
+                                        }}>{localization.account[lang]}</Typography>
+                                        {dropdownItemsBottom.filter((item) => item.role.includes(role.toLowerCase()) || item.role.includes('*')).map((item, index) => (
+                                            <Box key={index} mt="0.5rem" >
+                                                <Button fullWidth sx={{color: '#697B7A', fontSize: '16px'}}
                                                         onClick={() => {
                                                             if (item.function) {
                                                                 item.function();
@@ -204,15 +205,18 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                                             handleCloseMenu();
                                                             navigate(item.to);
                                                         }}>
-                                                    {item.icon}
-                                                    <Typography
-                                                        variant='h4'
-                                                        color={item.verticalAlign}
-                                                        fontSize={'16px'}
-                                                        className="diploma-navbar-item"
-                                                        fontWeight='450'>
-                                                        {item.name[lang]}
-                                                    </Typography>
+                                                    <Box mr="auto" display="flex" >
+                                                        {item.icon}
+                                                        <Typography
+                                                            variant='h4'
+                                                            color={item.verticalAlign}
+                                                            fontSize={'16px'}
+                                                            className="diploma-navbar-item"
+                                                            fontWeight='450'>
+                                                            {item.name[lang]}
+                                                        </Typography>
+                                                    </Box>
+
                                                 </Button>
                                             </Box>
                                         ))}

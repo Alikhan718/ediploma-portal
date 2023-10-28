@@ -1,276 +1,394 @@
-import React, { useState } from 'react';
-import { Alert, Box, Button, Card, CardMedia, Snackbar, Typography, useMediaQuery } from '@mui/material';
-import { ReactComponent as CalendarIcon } from '@src/assets/icons/calendar.svg';
-import { ReactComponent as FileCheckIcon } from '@src/assets/icons/Lesson.svg';
-import { ReactComponent as CertificateIcon } from '@src/assets/icons/Cerificate.svg';
-import { ReactComponent as DownloadIcon } from '@src/assets/icons/download.svg';
-import { ReactComponent as ShareIcon } from '@src/assets/icons/share.svg';
-import { ReactComponent as QRIcon } from '@src/assets/icons/qr-code.svg';
-import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
-import exampleImage from "@src/assets/example/diploma_template.jpg";
-import { SwitchDetails } from "@src/pages/DiplomaDetailsPage/components/SwitchDetails";
-import QRCode from 'react-qr-code';
-import { Input, Modal } from "@src/components";
-import { handleLink } from "@src/utils/link";
-import { useDispatch, useSelector } from "react-redux";
-import { selectDiplomaList, selectIINValidated } from "@src/store/diplomas/selectors";
-import { fetchCheckIIN, fetchDiplomas, fetchGraduateDetails } from "@src/store/diplomas/actionCreators";
-import { useNavigate, useParams } from "react-router-dom";
-import { humanReadableToLocalTime } from "@src/utils/functions";
-import styles from "./DiplomaDetailsPage.module.css";
-import { isAuthenticated } from "@src/utils/userAuth";
-import { routes } from "@src/shared/routes";
-import { ReactComponent as ExpandMore } from '@src/assets/icons/expand_more.svg';
+import React, {useState} from 'react';
+import {
+    Box,
+    Card,
+    CardMedia,
+    Typography,
+    useMediaQuery,
+    Divider,
+    Menu,
+    MenuItem,
+    IconButton, Alert, Snackbar
+} from '@mui/material';
+import {Button, Label} from '@src/components';
+import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
+import {ReactComponent as DownloadIcon} from '@src/assets/icons/download.svg';
+import {ReactComponent as ShareIcon} from '@src/assets/icons/share.svg';
+import star from "./../../assets/icons/Star1.svg";
+import {ReactComponent as Dots} from "@src/assets/icons/Dots.svg";
+import pen from "./../../assets/icons/penSquare.svg";
+import {ReactComponent as Eye} from "@src/assets/icons/eye.svg";
+import {ReactComponent as Star} from "@src/assets/icons/star.svg";
+import {ReactComponent as Check} from "@src/assets/icons/checkss.svg";
+import {useNavigate, useParams} from "react-router-dom";
+import {SwitchDetails} from "@src/pages/DiplomaDetailsPage/components/SwitchDetails";
+import styles from '@src/pages/StudentPage/StudentPage.module.css';
+import userImg from "@src/assets/dashboard/Image.jpg";
+import cn from "classnames";
+import {routes} from "@src/shared/routes";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchDiplomas, fetchGraduateDetails} from "@src/store/diplomas/actionCreators";
+import {selectDiplomaList} from "@src/store/diplomas/selectors";
+import {isAuthenticated} from "@src/utils/userAuth";
+import {handleDownload} from "@src/utils/link";
+import {selectUserRole, selectUserState} from "@src/store/auth/selector";
+import {fetchUserProfile} from '@src/store/auth/actionCreators';
+
+export const DiplomaDetailsPageLayout: React.FC = () => {
+    const [showFull, setShowFull] = React.useState(false);
+    const navigate = useNavigate();
+    const {id} = useParams();
+    const dispatch = useDispatch();
+    const role = useSelector(selectUserRole);
+
+    const [data, setData] = React.useState<any>();
+
+    let diplomaList = useSelector(selectDiplomaList);
+
+    React.useEffect(() => {
+        dispatch(fetchDiplomas());
+    }, [!diplomaList]);
+
+    React.useEffect(() => {
+        setData(diplomaList.filter((diploma: any) => diploma.id == id)[0]);
+    }, [isAuthenticated(), diplomaList]);
+    React.useEffect(() => {
+        if (isAuthenticated() && data) {
+            dispatch(fetchGraduateDetails({name: data.name_en}));
+        }
+    }, [data]);
+
+    const currentUrl = window.location.href;
+    const [alertOpen, setAlertOpen] = useState(false);
+    const handleAlertClose = () => {
+        setAlertOpen(false);
+    };
+
+    const handleText = (text: string): string => {
+        const matchesSm = useMediaQuery('(max-width:768px)');
+        const trimLimit = matchesSm ? 85 : 115;
+        return showFull ? text : text.substring(0, trimLimit) + "...";
+    };
+
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    // const isMobile = useMediaQuery('(max-width:998px)');
+
+    return (
+        <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
+            <Box display='flex' flexWrap='wrap'>
+
+                <Box minWidth="80vw" sx={{
+                    width: '80vw',
+                    marginX: "1.5rem",
+                    '@media (max-width: 778px)': {
+                        margin: '0.1rem',
+                        marginTop: "3rem",
+                        width: '100vw',
+                    },
+                }}>
+                    <Box display='flex' flexDirection='column' sx={{backgroundColor: 'white', borderRadius: '15px',}}>
+                        <Box px="1rem" sx={{
+                            '@media (max-width: 778px)': {
+                                padding: '0'
+                            },
+                        }}>
+                            <Box
+                                display="flex"
+                                alignItems="center"
+                                margin="1rem"
+                                className={styles.contentLeftContainer}
+                            >
+                                <CardMedia
+                                    component="img"
+                                    image={userImg}
+                                    className={cn(styles.img)}
+                                    sx={{
+                                        width: '25%', height: '25%', '@media (max-width: 778px)': {
+                                            width: '85%', height: '65%', marginRight: '3rem'
+                                        },
+                                    }}
+                                />
+                                <Box
+                                    alignItems="center"
+                                    sx={{
+                                        width: '100%',
+                                        alignItems: 'center',
+                                        margin: "1rem",
+                                        '@media (max-width: 778px)': {
+                                            margin: '0.5rem',
+                                        },
+
+                                    }}
+                                >
+                                    <Box display="flex" justifyContent="space-between">
+                                        <Typography
+                                            className={styles.nameText}
+                                            fontWeight='600'
+                                            sx={{
+                                                paddingBottom: '14px',
+                                                fontSize: '24px',
+                                                '@media (max-width: 778px)': {
+                                                    fontSize: '22px',
+                                                },
+                                            }}
+                                        >
+                                            {data && data.name_kz ? data.name_kz : ""}
+                                        </Typography>
+                                        {id != undefined &&
+                                            <Box marginBottom="15px">
+                                                <IconButton sx={{width: "2.5rem"}}>
+                                                    <Star/>
+                                                </IconButton>
+                                                <IconButton
+                                                    sx={{width: "2.5rem", height: "2.5rem"}}
+                                                    aria-controls="simple-menu"
+                                                    aria-haspopup="true"
+                                                    onClick={handleClick}
+                                                    className={styles.desktopIcon}
+                                                >
+                                                    <Dots className={styles.desktopIcon}/>
+                                                </IconButton>
+
+                                                <Menu
+                                                    anchorEl={anchorEl}
+                                                    keepMounted
+                                                    open={Boolean(anchorEl)}
+                                                    onClose={handleClose}
+                                                >
+                                                    <MenuItem onClick={() => {
+                                                        navigate(routes.main);
+                                                    }}>
+                                                        <Eye style={{marginRight: '10px', verticalAlign: "center"}}/>
+                                                        <Typography>Перейти на сайт</Typography>
+                                                    </MenuItem>
+                                                    <MenuItem onClick={handleClose}><Star
+                                                        style={{marginRight: '10px', verticalAlign: "center"}}/>
+                                                        <Typography>В Избранное</Typography></MenuItem>
+                                                    <MenuItem onClick={handleClose}><ShareIcon
+                                                        style={{marginRight: '10px', verticalAlign: "center"}}/>
+                                                        <Typography>Поделиться</Typography></MenuItem>
+                                                    <Divider style={{margin: "0 1rem"}}/>
+                                                    <MenuItem onClick={handleClose}><Check
+                                                        style={{marginRight: '10px', verticalAlign: "center"}}/>
+                                                        <Typography>Etherscan</Typography></MenuItem>
+                                                </Menu>
 
 
-interface DiplomaData {
-	name: string;
-	description: string,
-	image: string,
-	degree: string;
-	specialization: string;
-	date: string;
-	code: string;
-	type: string;
-}
+                                                <img src={pen} style={{marginLeft: '2rem', marginTop: '-4.5rem'}}
+                                                     className={styles.tabletIcon}/>
+                                            </Box>
+                                        }
+                                    </Box>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        sx={{
+                                            flexDirection: 'row',
+                                            ustifyContent: 'space-between',
+                                            width: '100%',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <Box display="flex" alignItems="center">
+                                            <Box marginRight="1rem">
+                                                <Box sx={{
+                                                    "@media (max-width: 998px)": {
 
-export const DiplomaDetailsPageLayout: React.FC = (props) => {
+                                                        marginBottom: "18px",
 
-	const { id } = useParams();
+                                                    },
+                                                }}>
+                                                    <Label label="Название вуза: "/>
+                                                </Box>
+                                                <Label label="Cпециальность: "/>
+                                                <Label label="Степень: "/>
+                                                <Label label="Год окончания: "/>
+                                            </Box>
+                                            <Box marginLeft="0.2rem">
+                                                <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                            sx={{fontSize: '0.875em'}}>
+                                                    {data && data.university_id && data.university_id == 1 ? "Казахстанско-Британский технический университет" : "Недостаточно данных"}
+                                                </Typography>
+                                                <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                            sx={{fontSize: '0.875em'}}>
+                                                    {data && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) : "Недостаточно данных"}
+                                                </Typography>
+                                                <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                            sx={{fontSize: '0.875em'}}>
+                                                    {data && data.speciality_ru ? data.speciality_ru.split("\n")[0] : "Недостаточно данных"}
+                                                </Typography>
+                                                <Typography className={styles.nameText} fontWeight='500' mb='3px'
+                                                            sx={{fontSize: '0.875em'}}>
+                                                    {data && data.year ? data.year : ""}
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                    </Box>
 
-	const currentUrl = window.location.href;
+                                    <Button
+                                        buttonSize="s"
+                                        variant="contained"
+                                        type="button"
+                                        sx={{
+                                            borderRadius: '25px',
+                                            marginTop: '1rem',
+                                        }}
+                                        disabled>
+                                        Отправить приглашение
+                                    </Button>
+                                </Box>
+                            </Box>
+                            {data && data.description &&
+                                <Box margin="1rem" sx={{
+                                    marginTop: '1.5rem',
+                                    '@media (max-width: 778px)': {
+                                        margin: '0.9rem',
+                                    },
+                                }}
+                                >
+                                    <Box sx={{
+                                        fontSize: '24px',
+                                        fontWeight: '600',
+                                        color: '#4D4D4D',
+                                        paddingBottom: '10px'
+                                    }}> О выпускнике </Box>
+                                    <Typography className={styles.textMd} color="#818181">
+                                        {handleText(data && data.description ? data.description : "")}
+                                    </Typography>
+                                    <Typography style={{cursor: "pointer"}} className={styles.textMd}
+                                                fontWeight='600'
+                                                color='#629BF8' sx={{paddingBottom: '20px'}}
+                                                onClick={() => {
+                                                    setShowFull(!showFull);
+                                                }}>
+                                        Показать {!showFull ? "больше" : " меньше"}
+                                        <ExpandMore
+                                            style={{
+                                                marginLeft: ".2rem",
+                                                transform: showFull ? "rotate(180deg)" : ""
+                                            }}/>
+                                    </Typography>
+                                </Box>
+                            }
 
-	const [iin, setIIN] = useState<string>("");
-	const [data, setData] = useState<any>();
-	const [alertOpen, setAlertOpen] = useState(false);
-	const [showQRCode, setShowQRCode] = useState(false);
+                            <Box margin="1rem" sx={{
+                                marginY: '2rem',
+                                '@media (max-width: 778px)': {
+                                    margin: '0.9rem',
+                                    marginTop: '2rem',
+                                },
+                            }}>
+                                <Box sx={{
+                                    fontSize: '24px', fontWeight: '600', color: '#4D4D4D', paddingBottom: '10px',
+                                    '@media (max-width: 778px)': {
+                                        fontSize: '20px'
+                                    },
+                                }}> Дипломы и сертификаты </Box>
+                                {data && data.image &&
+                                    <Box width="25%" sx={{
+                                        backgroundColor: "rgba(7,117,255,0.11)",
+                                        borderRadius: "1rem",
+                                        padding: "1rem",
+                                        marginTop: "1rem",
+                                        '@media (max-width: 778px)': {
+                                            width: '100%'
+                                        },
+                                    }}>
 
-	const dispatch = useDispatch();
+                                        <Card
+                                            elevation={0}
+                                            sx={{
+                                                display: 'flex',
+                                                width: "100%", flexDirection: 'column', alignItems: 'center',
+                                                cursor: "pointer",
+                                                borderRadius: "10px",
 
-	const iinValidated = useSelector(selectIINValidated);
-	const [open, setOpen] = React.useState(!iinValidated && !isAuthenticated());
-	const navigate = useNavigate();
+                                            }}
+                                        >
+                                            <CardMedia
+                                                component="img"
+                                                className={styles.diplomaImg}
+                                                sx={{width: "100%", position: "relative"}}
+                                                image={data.image}
+                                                alt="University Image"/>
+                                            <Box sx={{
+                                                display: 'flex',
+                                                flexDirection: 'row',
+                                                width: "100%",
+                                                marginTop: "-2.5rem",
+                                                justifyContent: "space-between",
+                                                padding: "0 .5rem .5rem .5rem",
+                                                zIndex: "10"
+                                            }}>
+                                                <IconButton
+                                                    color="primary"
+                                                    sx={{
+                                                        backgroundColor: "rgba(59,130,246,0.78)",
+                                                        '&:hover': {
+                                                            backgroundColor: "rgb(59,130,246)",
+                                                            color: "white"
+                                                        }
+                                                    }}
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(currentUrl);
+                                                        setAlertOpen(true);
+                                                    }}
+                                                >
+                                                    <ShareIcon style={{width: "20", filter: "brightness(10)"}}/>
+                                                </IconButton>
+                                                <IconButton
+                                                    color="primary"
+                                                    sx={{
+                                                        backgroundColor: "rgba(59,130,246,0.78)",
+                                                        '&:hover': {
+                                                            backgroundColor: "rgb(59,130,246)",
+                                                            color: "white"
+                                                        }
+                                                    }}
+                                                    onClick={() => {
+                                                        let link = data && data.image ? data.image : "";
+                                                        handleDownload(link, data && data.name_en ? data.name_en : "diploma");
+                                                    }}
+                                                >
 
-	const handleQRCodeClose = () => {
-		setShowQRCode(false);
-	};
-	const handleAlertClose = () => {
-		setAlertOpen(false);
-	};
-	const handleQRCodeButtonClick = () => {
-		setShowQRCode(true);
-	};
-	let diplomaList = useSelector(selectDiplomaList);
+                                                    <DownloadIcon style={{width: "20", filter: "brightness(10)"}}/>
+                                                </IconButton>
+                                            </Box>
+                                        </Card>
+                                    </Box>
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setIIN(e.target.value);
-	};
-	React.useEffect(() => {
-		dispatch(fetchDiplomas());
-	}, [!diplomaList]);
-	React.useEffect(() => {
+                                }
 
-		if (iinValidated || isAuthenticated()) {
-			setData(diplomaList.filter((diploma: any) => diploma.counter == id)[0]);
-		}
-	}, [iinValidated, isAuthenticated(), diplomaList]);
-	React.useEffect(() => {
-		if (isAuthenticated() && data) {
-			dispatch(fetchGraduateDetails({ name: data.name }));
-		}
-	}, [data]);
-	const handleCheck = async (): Promise<void> => {
-		let nameEng = await diplomaList.filter((diploma: any) => diploma.counter == id)[0].name;
-		let payload = {
-			name: nameEng,
-			iin: iin
-		};
-		dispatch(fetchCheckIIN(payload));
+                            </Box>
+                            <Box margin="1rem" sx={{
+                                '@media (max-width: 778px)': {
+                                    margin: '0.9rem',
+                                },
+                            }}>
+                                <SwitchDetails/>
+                            </Box>
+                            <Snackbar open={alertOpen} autoHideDuration={2000}
+                                      anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                                      onClose={handleAlertClose}>
+                                <Alert onClose={handleAlertClose} severity="success"
+                                       sx={{width: '100%'}}>
+                                    Успешно скопировано!
+                                </Alert>
+                            </Snackbar>
+                            <Box margin="2rem"></Box>
+                        </Box>
+                    </Box>
+                </Box>
 
-		// Check authentication status after a delay to ensure the request has completed
-		// setTimeout(() => {
-		//     if (iinValidated) {
-		//         setOpen(false);
-		//     }
-		// }, 2000);
-	};
-
-	const handleClose = () => {
-		navigate(routes.main);
-		setOpen(false);
-	};
-	const getQueryWidth = () => {
-		const matchesLg = useMediaQuery('(min-width:1200px)');
-		const matchesMd = useMediaQuery('(max-width:1180px)');
-		const matchesSm = useMediaQuery('(max-width:768px)');
-		const matchesXs = useMediaQuery('(max-width:576px)');
-		if (matchesXs) return "80%";
-		if (matchesSm) return "60%";
-		if (matchesMd) return "40%";
-		if (matchesLg) return "25%";
-	};
-	const [showFull, setShowFull] = React.useState(false);
-	const handleText = (text: string): string => {
-		const matchesSm = useMediaQuery('(max-width:768px)');
-		const trimLimit = matchesSm ? 85 : 115;
-		return showFull ? text : text.substring(0, trimLimit) + "...";
-	};
-
-	return (
-		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 3rem' pt='2rem'>
-			<Modal
-				open={/*!iinValidated && !isAuthenticated()*/ false}
-				handleClose={handleClose}
-				maxWidth={getQueryWidth()}
-				width={getQueryWidth()}
-				aria-labelledby="modal-modal-title"
-				aria-describedby="modal-modal-description"
-			>
-				<Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
-
-					<img src={NeedAuthorizationPic} alt="" />
-					<Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
-						fontWeight='600'
-						variant="h6"
-						component="h2">
-						Для просмотра требуется ИИН
-					</Typography>
-					<Input sx={{ backgroundColor: "white" }} onChange={handleChange} inputSize='s' />
-					<Button variant='contained' sx={{
-						marginTop: "1rem",
-						padding: "1rem",
-						width: "80%",
-						fontSize: "1rem",
-						fontWeight: "600",
-						borderRadius: "2rem"
-					}} onClick={() => {
-						handleCheck();
-					}}>Проверить</Button>
-				</Box>
-			</Modal>
-			<Box className={styles.contentLeftContainer}>
-				<Card sx={{ borderRadius: "1.4rem", background: "#F8F8F8", position: 'relative' }}>
-					<CardMedia
-						component="img"
-						sx={{ padding: "1.1rem", borderRadius: "1.4rem" }}
-						image={data && data.image ? data.image : exampleImage}
-						alt="University Image"
-					/>
-					<Button
-						startIcon={<QRIcon className={styles.iconMobile} />}
-						className={styles.btnMobile}
-
-						onClick={handleQRCodeButtonClick}
-						sx={{
-							borderColor: "#0A66C2",
-							borderRadius: "18px",
-							position: 'absolute',
-							bottom: '8px',
-							right: '8px',
-						}}
-					>
-						{' '}
-					</Button>
-				</Card>
-				<Box className={styles.contentLeft}>
-
-					<Button startIcon={<ShareIcon className={styles.iconMobile} />} className={styles.btnMobile}
-						variant='outlined'
-						onClick={() => {
-							navigator.clipboard.writeText(currentUrl);
-							setAlertOpen(true);
-						}}
-						sx={{ borderColor: "#0A66C2", borderRadius: "18px" }}>
-						Поделиться
-					</Button>
-					<Button defaultValue="download" className={styles.btnMobile}
-						variant='contained'
-						onClick={() => {
-							let link = data && data.image ? data.image : "";
-							handleLink(link);
-						}}
-						sx={{ borderColor: "#0A66C2", borderRadius: "18px", fontSize: '16px' }}>
-						Скачать
-						<DownloadIcon className={styles.iconMobile} style={{ marginLeft: '10px' }} />
-					</Button>
-
-				</Box>
-			</Box>
-			<Box className={styles.contentRightContainer}>
-				<Typography fontWeight='700' fontSize='2rem' className={styles.textMd}>
-					{data && data.name_kz ? data.name_kz : ''}
-				</Typography>
-				<Box>
-					<Box display='flex' mb='.5rem'>
-						<Typography className={styles.textSm} color="#818181" fontSize='1rem' mr='.5rem'>
-							Название университета:
-						</Typography>
-						<Typography fontSize='1rem'
-							className={styles.textSm}
-							fontWeight='700'>Казахстанско-Британский Технический Университет</Typography>
-					</Box>
-					<Box display='flex' mb='.5rem'>
-						<Typography className={styles.textSm} color="#818181" fontSize='1rem' mr='.5rem'>
-							Cтепень:
-						</Typography>
-						<Typography fontSize='1rem'
-							className={styles.textSm}
-							fontWeight='700'>{data && data.degree_ru ? data.degree_ru.replace("ПРИСУЖДЕНА СТЕПЕНЬ ", "")[0].toUpperCase() + data.degree_ru.replace("ПРИСУЖДЕНА СТЕПЕНЬ ", "").toLowerCase().substring(1) : ""}</Typography>
-					</Box>
-
-					<Box display='flex' mb='.5rem'>
-						<Typography fontSize='1rem'
-							className={styles.textSm} color="#818181" mr='.5rem'>Специальность:</Typography>
-						<Typography fontSize='1rem'
-							className={styles.textSm}
-							fontWeight='700'>{data && data.qualification_kz ? data.qualification_kz.substring(0, data.qualification_kz.search("»") + 1) : ""}</Typography>
-					</Box>
-					<Box display='flex' mb='.5rem'>
-						<Typography className={styles.textSm} color="#818181" fontSize='1rem' mr='.5rem'>
-							Год окончание:
-						</Typography>
-						<Typography fontSize='1rem'
-							className={styles.textSm}
-							fontWeight='700'>{data && data.protocol_en ? humanReadableToLocalTime(data.protocol_en, ".") : "123"}</Typography>
-					</Box>
-					<Box>
-						<Box sx={{ fontSize: '24px', fontWeight: '600', color: '#4D4D4D', width: '100%', paddingBottom: '10px' }} > Основная Информация </Box>
-						<Typography className={styles.textSm} color="#818181">
-							{handleText("eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов. Портал eDiploma предоставляет возможность выпускникам, работодателям и администрации университетов взаимодействовать с дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации выпускников.")}
-						</Typography>
-						<Typography style={{ cursor: "pointer" }} className={styles.textSm} fontWeight='600' color='#629BF8' sx={{ paddingBottom: '20px' }}
-							onClick={() => {
-								setShowFull(!showFull);
-							}}>
-							Показать {!showFull ? "больше" : " меньше"}
-							<ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
-						</Typography>
-					</Box>
-					<SwitchDetails />
-				</Box>
-			</Box>
-			<Modal
-				open={showQRCode}
-				handleClose={handleQRCodeClose}
-				aria-labelledby="modal-modal-title"
-				aria-describedby="modal-modal-description"
-			>
-				<Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
-
-					{showQRCode && (
-						<Box my="1rem" width="100%" display="flex" justifyContent="center">
-							<QRCode value={currentUrl} />
-						</Box>
-					)}
-				</Box>
-			</Modal>
-			<Snackbar open={alertOpen} autoHideDuration={2000} onClose={handleAlertClose}>
-				<Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
-					Успешно скопировано!
-				</Alert>
-			</Snackbar>
-		</Box>
-
-	);
-}
-	;
+            </Box>
+        </Box>
+    )
+};

@@ -107,7 +107,7 @@ export const UniversityProfileLayout: React.FC = () => {
 	}, []);
 	const defaultS = 3.5;
 	return (
-		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'>
+		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} >
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
 				<Box className={styles.upperContainer}>
 					<Box display='flex' flexDirection='column' sx={{ borderRadius: '15px' }}>
@@ -408,9 +408,9 @@ export const UniversityProfileLayout: React.FC = () => {
 								{currentDiplomaPage.map((e: any) => (
 
 									<Box
-										key={e.counter}
+										key={e.id}
 										onClick={() => {
-											navigate(`/app/diploma/${e.counter!}/details`);
+											navigate(`/app/diploma/${e.id!}`);
 										}}
 										className={styles.diplomaItem}
 										sx={{

@@ -49,7 +49,6 @@ const diplomaReducer = (state = initialState, action: any) => {
             } else {
                 temp_diploma_list = action.payload;
             }
-            console.log(temp_diploma_list);
             return {
                 ...state,
                 diplomas_list: temp_diploma_list,

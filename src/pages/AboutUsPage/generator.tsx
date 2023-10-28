@@ -20,7 +20,6 @@ export const advantages = [
         'subtitle': "Наша команда стремится ко всеобщей цифровизации в разных областях нашей повседневной жизни. Технология Blockchain - один из ключей к решению многих проблем",
     },
 ];
-console.log(typeof advantages[0].image);
 
 export const localization = {
     "kz": {

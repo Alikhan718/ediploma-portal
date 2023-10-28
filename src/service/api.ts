@@ -85,11 +85,14 @@ export const authApi = {
     generateSmartContract(body: { CID: string, symbol: string, name: string }) {
         return instance.post(`/smart-contract/generate`, body);
     },
+    getProfile() {
+        return instance.get(`/users/profile`);
+    }
 };
 
 
 export const diplomasApi = {
-    getDiplomas(body: {page: number, per_page: number, university_id: number | null}) {
+    getDiplomas(body: { page: number, per_page: number, university_id: number | null }) {
         let query = `diploma?page=${body.page}&per_page=${body.per_page}&`;
         if (body.university_id != null) {
             query += `university_id=${body.university_id}&`;
@@ -140,7 +143,6 @@ export const diplomasApi = {
         return instance.get(query);
     },
     getGraduateDetails(body: any) {
-        console.log(body.name);
         if (!body.name) {
             return;
         }

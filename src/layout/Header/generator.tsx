@@ -15,6 +15,8 @@ import {fetchAuthLogout} from "@src/store/auth/saga";
 import {useNavigate} from "react-router-dom";
 import {ReactComponent as Settings} from "@src/assets/icons/Settings.svg";
 import {ReactComponent as Out} from "@src/assets/icons/logout_outline.svg";
+import {fetchLogoutAction} from "@src/store/auth/actionCreators";
+import {useDispatch} from "react-redux";
 
 export interface AppRoutesNavigation {
     id: number;
@@ -39,7 +41,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
             "en": 'Dashboard',
         },
         to: routes.universityProfile,
-        role: ["*"],
+        role: ["student", "employer", "university"],
         icon: <DiplomaIcon style={{verticalAlign: "middle"}}/>,
         verticalAlign: "bottom",
     },
@@ -51,7 +53,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
             "en": 'Analytics',
         },
         to: routes.main,
-        role: ["*"],
+        role: ["university"],
         icon: <MainPageIcon style={{verticalAlign: "middle"}}/>,
         verticalAlign: "middle",
     },
@@ -63,7 +65,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
             "en": 'Issue diplomas',
         },
         to: routes.addingGraduates,
-        role: ['*'],
+        role: ['university'],
         icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
         verticalAlign: '',
     },
@@ -177,6 +179,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
 
 
 ];
+
 export const dropdownItemsBottom: AppRoutesNavigation[] = [
     {
         id: 1,
@@ -204,8 +207,7 @@ export const dropdownItemsBottom: AppRoutesNavigation[] = [
         icon: <Out style={{marginRight: '10px', verticalAlign: "center"}}/>,
         verticalAlign: "red",
         function: () => {
-            fetchAuthLogout();
-            localStorage.clear();
+
         },
     },
 ];

@@ -39,9 +39,6 @@ export const LoginPageLayout: React.FC = () => {
         // Check authentication status after a delay to ensure the request has completed
         setTimeout(() => {
             const urlElements = window.location.href.split('/');
-            console.log("State Role", role);
-            console.log("LocalStore token:", localStorage.getItem('token'));
-            console.log("LocalStore role:", localStorage.getItem('role'));
             if (isAuthenticated() && urlElements.includes('auth')) {
                 navigate(routes.profile, {replace: true});
             }

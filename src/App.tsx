@@ -41,7 +41,6 @@ const App: React.FC = () => {
         if (isAuthenticated()) {
             setUserRoles(localStorage.getItem('userRole') ?? 'Guest');
         }
-        console.log(isAuthenticated());
     },[!isAuthenticated()]);
     const [userRoles, setUserRoles] = React.useState(useSelector(selectUserRole));
 

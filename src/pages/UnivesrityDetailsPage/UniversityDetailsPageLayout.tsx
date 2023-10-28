@@ -108,7 +108,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 	}, []);
 	const defaultS = 3.5;
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'row', /*backgroundColor: '#FAFBFF'*/ }}>
+		<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "center" /*backgroundColor: '#FAFBFF'*/ }}>
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
 
 				<Box className={styles.upperContainer}>
@@ -402,9 +402,9 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                 {currentDiplomaPage.map((e: any) => (
 
                                     <Box
-                                        key={e.counter}
+                                        key={e.id}
                                         onClick={() => {
-                                            navigate(`/app/diploma/${e.counter!}/details`);
+                                            navigate(`/app/diploma/${e.id!}`);
                                         }}
                                         className={styles.diplomaItem}
                                         sx={{

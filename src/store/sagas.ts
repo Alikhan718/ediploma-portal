@@ -16,6 +16,7 @@ interface handleInterface {
     successMessage?: string | null;
     optionalSuccessFunction?: any | null;
     optionalErrorFunction?: any | null;
+    ignoreError?: boolean | null;
 }
 
 // Generator function to handle API responses
@@ -26,8 +27,12 @@ export function* handleResponseBase(
         action,
         errorMessage = null,
         successMessage = null,
-        optionalSuccessFunction = () => {},
-        optionalErrorFunction = () => {},
+
+        optionalSuccessFunction = () => {
+        },
+        optionalErrorFunction = () => {
+        },
+        ignoreError = false,
     }: handleInterface) {
     try {
         // Make an API call and get the response data
@@ -53,8 +58,10 @@ export function* handleResponseBase(
         }
     } catch (e) {
         // Handle exceptions, display an error snackbar, and dispatch an error action
+        if (!ignoreError) {
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
-        yield put({type: type.error});
+            yield put({type: type.error});
+        }
     }
 }
 

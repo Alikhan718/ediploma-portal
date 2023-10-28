@@ -5,12 +5,16 @@ import {
     POST_AUTH_LOGIN,
     POST_AUTH_VALIDATE_EMAIL,
     POST_AUTH_WITH_DS,
-    POST_VALIDATE_EMAIL, POST_SAVE_XML, GET_DIPLOMA_METADATA_CID
+    POST_VALIDATE_EMAIL, POST_SAVE_XML, GET_DIPLOMA_METADATA_CID, AUTH_LOGOUT, GET_PROFILE_DATA
 } from "./types/actionTypes";
 
 export const fetchLoginRequest = (payload: any) => ({
     type: POST_AUTH_LOGIN.saga,
     payload
+});
+
+export const fetchLogoutAction = () => ({
+    type: AUTH_LOGOUT.saga
 });
 
 export const fetchAuthDSRequest = (payload: any) => ({
@@ -47,6 +51,10 @@ export const fetchGetOtpRequest = (payload: any) => ({
 export const fetchGetDiplomaCid = (payload: any) => ({
     type: GET_DIPLOMA_METADATA_CID.saga,
     payload
+});
+
+export const fetchUserProfile = () => ({
+    type: GET_PROFILE_DATA.saga
 });
 
 export const fetchPostGenerateSmartContract = (payload: any) => ({
