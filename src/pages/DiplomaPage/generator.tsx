@@ -1,3 +1,4 @@
+import {routes} from "@src/shared/routes";
 
 export const tableHead = [
 
@@ -40,3 +41,42 @@ export const MenuUploadStatusesColors: { [key: string]: "error" | "success" | "w
 
 	ERROR: "error",
 };
+
+export const localization = {
+	"kz":{
+		Header:{
+			filter: "Фильтр",
+			searchBar: "Толық есімі, университеттің атауы",
+			searchButton: "Іздеу",
+			aiHiring: "ЖИ Жалдау"
+		},
+		Modal:{
+			needAuth: "Қолдану үшін рұқсаттарды растау қажет",
+			authButton: "Рұқсаттарды растау"
+		},
+	},
+	"ru":{
+		Header:{
+			filter: "Фильтр",
+			searchBar: "Фамилия Имя, название вуза",
+			searchButton: "Поиск",
+			aiHiring: "ИИ Найм"
+		},
+		Modal:{
+			needAuth: "Для использования требуется авторизация",
+			authButton: "Авторизоваться"
+		},
+	},
+	"en":{
+		Header:{
+			filter: "Filter",
+			searchBar: "Full name, University name",
+			searchButton: "Search",
+			aiHiring: "AI Hiring"
+		},
+		Modal:{
+			needAuth: "It is required to authorize to use",
+			authButton: "Authorize"
+		},
+	},
+}

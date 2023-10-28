@@ -33,8 +33,11 @@ import {isAuthenticated} from "@src/utils/userAuth";
 import {handleDownload} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
+import {selectLanguage} from "@src/store/generals/selectors";
+import { localization } from '@src/pages/StudentPage/generator';
 
 export const StudentPageLayout: React.FC = () => {
+    const lang = useSelector(selectLanguage);
     const [showFull, setShowFull] = React.useState(false);
     const navigate = useNavigate();
     const {id} = useParams();
@@ -180,14 +183,14 @@ export const StudentPageLayout: React.FC = () => {
                                                         navigate(routes.main);
                                                     }}>
                                                         <Eye style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                        <Typography>Перейти на сайт</Typography>
+                                                        <Typography>{localization[lang].Menu.goto}</Typography>
                                                     </MenuItem>
                                                     <MenuItem onClick={handleClose}><Star
                                                         style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                        <Typography>В Избранное</Typography></MenuItem>
+                                                        <Typography>{localization[lang].Menu.favorite}</Typography></MenuItem>
                                                     <MenuItem onClick={handleClose}><ShareIcon
                                                         style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                        <Typography>Поделиться</Typography></MenuItem>
+                                                        <Typography>{localization[lang].Menu.share}</Typography></MenuItem>
                                                     <Divider style={{margin: "0 1rem"}}/>
                                                     <MenuItem onClick={handleClose}><Check
                                                         style={{marginRight: '10px', verticalAlign: "center"}}/>
@@ -219,24 +222,24 @@ export const StudentPageLayout: React.FC = () => {
 
                                                     },
                                                 }}>
-                                                    <Label label="Название вуза: "/>
+                                                    <Label label={localization[lang].MainInfo.nameUni}/>
                                                 </Box>
-                                                <Label label="Cпециальность: "/>
-                                                <Label label="Степень: "/>
-                                                <Label label="Год окончания: "/>
+                                                <Label label={localization[lang].MainInfo.major}/>
+                                                <Label label={localization[lang].MainInfo.degree}/>
+                                                <Label label={localization[lang].MainInfo.graduationYear}/>
                                             </Box>
                                             <Box marginLeft="0.2rem">
                                                 <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
-                                                    {data && data.university_id && data.university_id == 1 ? "Казахстанско-Британский технический университет" : "Недостаточно данных"}
+                                                    {data && data.university_id && data.university_id == 1 ? localization[lang].MainInfo.kbtu : localization[lang].MainInfo.noData }
                                                 </Typography>
                                                 <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
-                                                    {data && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) : "Недостаточно данных"}
+                                                    {data && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) : localization[lang].MainInfo.noData}
                                                 </Typography>
                                                 <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
-                                                    {data && data.speciality_ru ? data.speciality_ru.split("\n")[0] : "Недостаточно данных"}
+                                                    {data && data.speciality_ru ? data.speciality_ru.split("\n")[0] : localization[lang].MainInfo.noData}
                                                 </Typography>
                                                 <Typography className={styles.nameText} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
@@ -255,7 +258,7 @@ export const StudentPageLayout: React.FC = () => {
                                             marginTop: '1rem',
                                         }}
                                         disabled>
-                                        Отправить приглашение
+                                        {localization[lang].AddInfo.sendInvite}
                                     </Button>
                                 </Box>
                             </Box>
@@ -272,7 +275,7 @@ export const StudentPageLayout: React.FC = () => {
                                         fontWeight: '600',
                                         color: '#4D4D4D',
                                         paddingBottom: '10px'
-                                    }}> О выпускнике </Box>
+                                    }}> {localization[lang].AddInfo.about} </Box>
                                     <Typography className={styles.textMd} color="#818181">
                                         {handleText(data && data.description ? data.description : "")}
                                     </Typography>
@@ -282,7 +285,7 @@ export const StudentPageLayout: React.FC = () => {
                                                 onClick={() => {
                                                     setShowFull(!showFull);
                                                 }}>
-                                        Показать {!showFull ? "больше" : " меньше"}
+                                        {localization[lang].AddInfo.show}{!showFull ? localization[lang].AddInfo.more : localization[lang].AddInfo.less}
                                         <ExpandMore
                                             style={{
                                                 marginLeft: ".2rem",
@@ -304,7 +307,7 @@ export const StudentPageLayout: React.FC = () => {
                                     '@media (max-width: 778px)': {
                                         fontSize: '20px'
                                     },
-                                }}> Дипломы и сертификаты </Box>
+                                }}> {localization[lang].AddInfo.certifications} </Box>
                                 {data && data.image &&
                                     <Box width="25%" sx={{
                                         backgroundColor: "rgba(7,117,255,0.11)",
@@ -393,7 +396,7 @@ export const StudentPageLayout: React.FC = () => {
                                       onClose={handleAlertClose}>
                                 <Alert onClose={handleAlertClose} severity="success"
                                        sx={{width: '100%'}}>
-                                    Успешно скопировано!
+                                    {localization[lang].Alert.copied}
                                 </Alert>
                             </Snackbar>
                             <Box margin="2rem"></Box>

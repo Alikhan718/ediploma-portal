@@ -28,3 +28,49 @@ export const MenuUploadStatusesEnum: { [key: string]: string } = {
 	ERROR: "Ошибка",
 };
 
+export const localization = {
+	"kz":{
+		Modal: {
+			msg: "Қолдану үшін авторизация қажет",
+			authorize: "Авторизация жасау",
+		},
+		switchDetails: {
+			check: "Тексеру", 
+			data: "Ақпарат",
+			status: "Статус:",
+			confirmed: "Расталды",
+			seeEtherscan: "Etherscan-да қарау",
+			seeSmartContract: "Smart Contract-та қарау",
+
+		},
+    },
+	"ru":{
+		Modal: {
+			msg: "Для использования требуется авторизация",
+			authorize: "Авторизоваться",
+		},
+		switchDetails: {
+			check: "Проверка", 
+			data: "Данные",
+			status: "Статус:",
+			confirmed: "Подтвержден",
+			seeEtherscan: "Посмотреть на Etherscan",
+			seeSmartContract: "Посмотреть на Smart Contract",
+
+		},
+    },
+	"en":{
+		Modal: {
+			msg: "Authorization is required to use this feature",
+			authorize: "Authorize",
+		},
+		switchDetails: {
+			check: "Check",
+			data: "Data",
+			status: "Status:",
+			confirmed: "Confirmed",
+			seeEtherscan: "View on Etherscan",
+			seeSmartContract: "View on Smart Contract",
+		},
+    },
+}

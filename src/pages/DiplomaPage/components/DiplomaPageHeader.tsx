@@ -5,7 +5,7 @@ import styles from "../DiplomaPage.module.css";
 import cn from "classnames";
 import univ from './../../../assets/icons/FilterUn.svg';
 import secuniv from './../../../assets/icons/Icons.svg';
-
+import {localization} from "src/pages/DiplomaPage/generator";
 import {FilterSection,} from "@src/layout/Filter/FilterSection";
 import {Button, HiringPopUp, Input, Modal} from '@src/components';
 import {fetchSearch} from "@src/store/diplomas/actionCreators";
@@ -17,12 +17,14 @@ import {ReactComponent as HiringIcon} from '@src/assets/icons/refresh.svg';
 import {ReactComponent as SearchIcon} from '@src/assets/icons/search.svg';
 import {ReactComponent as FilterIcon} from '@src/assets/icons/Filter-icon.svg';
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
+import {selectLanguage} from "@src/store/generals/selectors";
 
 import ReactGA from 'react-ga';
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
 
 export const DiplomaPageHeader: React.FC = (props) => {
+    const lang = useSelector(selectLanguage);
     const dispatch = useDispatch();
     const matchesSm = useMediaQuery('(max-width:768px)');
 
@@ -82,7 +84,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
                                     fontWeight='600'
                                     variant="h6"
                                     component="h2">
-                            Для использования требуется авторизация
+                            {localization[lang].Modal.needAuth}
                         </Typography>
                         <Button variant='contained' sx={{
                             marginTop: "1rem",
@@ -93,7 +95,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
                             borderRadius: "2rem"
                         }} onClick={() => {
                             navigate(routes.login);
-                        }}>Авторизоваться</Button>
+                        }}>{localization[lang].Modal.authButton}</Button>
                     </Box>
                 </Modal>
                 <Box display="flex"
@@ -123,7 +125,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
                                 sx={{borderRadius: '48px', paddingX: "3rem", color: '#3B82F6',}}
                                 startIcon={<Filter/>}
                             >
-                                Фильтр
+                                {localization[lang].Header.filter}
                             </Button>
                             <Box display="flex" gap="1rem" ml="auto" alignContent="flex-end">
                                 <img src={secuniv}/>
@@ -132,7 +134,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
                             <Box display="flex">
 
                                 <Input
-                                    placeholder="Фамилия Имя, название вуза"
+                                    placeholder={localization[lang].Header.searchBar}
                                     fullWidth
                                     inputSize="m"
                                     sx={{
@@ -156,7 +158,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
                                                 margin: '4px'
                                             }}
                                         >
-                                            Найти
+                                            {localization[lang].Header.searchButton}
                                             <SearchIcon style={{
                                                 filter: 'brightness(250)',
                                                 width: '82px',
@@ -191,7 +193,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
                                     filter: 'brightness(250%) contrast(101%)',
                                 }}/>}
                             >
-                                AI Hiring
+                                {localization[lang].Header.aiHiring}
                             </Button>
 
                         </Box>

@@ -14,10 +14,12 @@ import univ from './../../../assets/icons/FilterUn.svg';
 import secuniv from './../../../assets/icons/Icons.svg';
 import {selectSearchText} from "@src/store/diplomas/selectors";
 import {FilterAttributes} from "@src/layout/Header/Header";
+import {selectLanguage} from "@src/store/generals/selectors";
+import { localization } from '@src/pages/UnivesrityPage/generator';
 
 export const UniversityPageHeader: React.FC = (props) => {
 
-
+    const lang = useSelector(selectLanguage);
     const searchText = useSelector(selectSearchText);
     const navigate = useNavigate();
 
@@ -42,7 +44,7 @@ export const UniversityPageHeader: React.FC = (props) => {
         <React.Fragment>
             <Box width='100%' mb='1rem' className={cn(styles.mobMb1, styles.universitiesContainer)} mt="2rem">
                 <Typography fontWeight='700' mb="1rem" className={cn(styles.mobPl1, styles.mobTextL)} fontSize='2.5rem'>
-                    Университеты
+                    {localization[lang].Header.university}
                 </Typography>
                 <Box width="100%" className={styles.mobMb1}>
                     <Box display="flex"
@@ -64,7 +66,7 @@ export const UniversityPageHeader: React.FC = (props) => {
                                     sx={{borderRadius: '48px', paddingX: "3rem", color: '#3B82F6',}}
                                     startIcon={<Filter/>}
                                 >
-                                    Фильтр
+                                    {localization[lang].Header.filter}
                                 </Button>
 
                                 <Box display="flex" gap="1rem" ml="auto" alignContent="flex-end">
@@ -74,7 +76,7 @@ export const UniversityPageHeader: React.FC = (props) => {
                                 <Box display="flex">
 
                                     <Input
-                                        placeholder="Фамилия Имя, название вуза"
+                                        placeholder={localization[lang].Header.searchBar}
                                         fullWidth
                                         inputSize="m"
                                         sx={{
@@ -98,7 +100,7 @@ export const UniversityPageHeader: React.FC = (props) => {
                                                     margin: '4px'
                                                 }}
                                             >
-                                                Найти
+                                                {localization[lang].Header.searchButton}
                                                 <SearchIcon style={{
                                                     filter: 'brightness(250)',
                                                     width: '82px',
