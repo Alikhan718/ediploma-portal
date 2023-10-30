@@ -2,6 +2,9 @@ import React from 'react';
 import { Input } from '@src/components';
 import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { Output } from './Output';
+import { useSelector } from "react-redux";
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from './generator';
 
 interface JobDescriptionGeneratorProps {
     setHaveDescription:any;
@@ -12,8 +15,8 @@ interface JobDescriptionGeneratorProps {
 };
 
 export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (props) => {
+    const lang = useSelector(selectLanguage);
     const {setHaveDescription, setIsClicked, setJobDescription, setIsDataAlert, showAlert} = props;
-
     const [selectedRadio, setSelectedRadio] = React.useState('');
     const [response, setResponse] = React.useState('');
     const [isTask, setIsTask] = React.useState(true);
@@ -36,7 +39,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
 
     const handleSubmit = async (isTask: boolean): Promise<void> => {
         if((document.getElementById("chat") as HTMLInputElement).value === ''){
-            showAlert('Введите вашу задачу или ваш проект')
+            showAlert(localization[lang].Alert.writeTask)
             return;
         }
 
@@ -84,8 +87,8 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
             (<div>
 
             
-            <h1 className={styles.popupHeading}>Сгенерировать описание работы</h1>
-            <p className={styles.popupSmallHeading}>Я хочу сгенерировать описание работы с помощью</p>
+            <h1 className={styles.popupHeading}>{localization[lang].JobDescription.title}</h1>
+            <p className={styles.popupSmallHeading}>{localization[lang].JobDescription.wantGenerate}</p>
             <div className={styles.radioButtons}>
                 <div className={styles.radioButtonContainer}>
                     <input 
@@ -97,7 +100,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
                         name="bordered-radio" 
                     />
                     <label htmlFor="bordered-radio-1">
-                        Задача
+                        {localization[lang].JobDescription.task}
                         <span className={styles.innerCircle1}></span>
                     </label>
 
@@ -112,16 +115,16 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
                         name="bordered-radio" 
                     />
                     <label htmlFor="bordered-radio-2">
-                        Проект
+                        {localization[lang].JobDescription.project}
                         <span className={styles.innerCircle2}></span>
                     </label>
                 </div>
             </div>
-            <p className={styles.popupSmallHeading}>Задача/проект</p>
+            <p className={styles.popupSmallHeading}>{localization[lang].JobDescription.task}/{localization[lang].JobDescription.project}</p>
             <Input
                 id="chat" 
                 rows={1}
-                placeholder="Опишите вашу задачу/проект"
+                placeholder={localization[lang].JobDescription.describe}
                 inputSize="m"
                 sx={{
                     paddingRight: 0,
@@ -135,19 +138,19 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
                     type="button" 
                     onClick={(): void => {setIsClicked(true); setIsDataAlert(false);}} 
                     className={styles.continueButton}
-                >Назад
+                >{localization[lang].JobDescription.Buttons.back}
                 </button>
                 <button
                     type="button"
                     onClick={handleButtonSubmit}
                     className={styles.continueButton}
-                >Продолжить
+                >{localization[lang].JobDescription.Buttons.continue}
                 </button>
                 <button
                     type="button"
                     onClick={():void => {setHaveDescription(true); setJobDescription('');}}
                     className={styles.continueButton}
-                >Поиск
+                >{localization[lang].JobDescription.Buttons.search}
                 </button>
             </div>
 

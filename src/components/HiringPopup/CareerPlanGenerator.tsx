@@ -3,6 +3,9 @@ import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import fileIcon from "src/assets/icons/fileIcon.svg";
 import { Input } from '@src/components';
 import { Output } from './Output';
+import { useSelector } from "react-redux";
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from './generator';
 
 interface CareerPlanGeneratorProps{
     setIsClicked: any;
@@ -11,8 +14,8 @@ interface CareerPlanGeneratorProps{
 }
 
 export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) => {
+    const lang = useSelector(selectLanguage);
     const {setIsClicked, setIsDataAlert, showAlert} = props;
-
     const [formData, setFormData] = React.useState({
         major: '',
         yearOfStudy: '',
@@ -53,14 +56,14 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
         if (!input.files[0]){
             setGotResponse(false);
             setLoading(false);
-            showAlert('Загрузите ваше резюме');
+            showAlert(localization[lang].Alert.addCV);
             return;
         }
         if(Object.values(formData).includes('')){
             console.log(formData);
             setGotResponse(false);
             setLoading(false);
-            showAlert('Введите свои личные данные');
+            showAlert(localization[lang].Alert.addPersonalInfo);
             return;
         }
 
@@ -112,15 +115,15 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
             (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setGotResponse} haveSearch={haveSearch} isStudent={true} setJobDescription={null}/>):
             (<div>
 
-            <h1 className={styles.popupHeading}>Сгенерировать карьерный план</h1>
+            <h1 className={styles.popupHeading}>{localization[lang].CareerPlan.title}</h1>
             <div>
                 <div className={styles.studentPlanDiv}>
                     <div className={styles.smallTextAreaContainer}>
-                        <p className={styles.popupSmallHeading}>Ваша специальность</p>
+                        <p className={styles.popupSmallHeading}>{localization[lang].CareerPlan.major}</p>
                         <Input
                             id="major"
                             name="major"
-                            placeholder="Напишите"
+                            placeholder={localization[lang].CareerPlan.write}
                             inputSize="s"
                             onChange={handleInputChange}
                             value={formData.major}
@@ -132,11 +135,11 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
                         />
                     </div>
                     <div className={styles.smallTextAreaContainer}>
-                        <p className={styles.popupSmallHeading}>На каком вы курсе?</p>
+                        <p className={styles.popupSmallHeading}>{localization[lang].CareerPlan.yearOfStudy}</p>
                         <Input
                             id="yearOfStudy" 
                             name="yearOfStudy"
-                            placeholder="Напишите"
+                            placeholder={localization[lang].CareerPlan.write}
                             inputSize="s"
                             onChange={handleInputChange}
                             value={formData.yearOfStudy}
@@ -150,9 +153,9 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
                 </div>
                 <div className={styles.studentPlanDiv}>
                     <div className={styles.smallTextAreaContainer}>
-                        <p className={styles.popupSmallHeading}>Работа мечты</p>
+                        <p className={styles.popupSmallHeading}>{localization[lang].CareerPlan.dreamJob}</p>
                         <Input
-                            placeholder="Напишите"
+                            placeholder={localization[lang].CareerPlan.write}
                             inputSize="s"
                             id="dreamJob"
                             name="dreamJob"
@@ -166,9 +169,9 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
                         />
                     </div>
                     <div className={styles.smallTextAreaContainer}>
-                        <p className={styles.popupSmallHeading}>Проект мечты</p>
+                        <p className={styles.popupSmallHeading}>{localization[lang].CareerPlan.dreamProject}</p>
                         <Input
-                            placeholder="Напишите"
+                            placeholder={localization[lang].CareerPlan.write}
                             inputSize="s"
                             id="dreamProject" 
                             name="dreamProject"
@@ -182,9 +185,9 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
                         />
                     </div>
                 </div>
-                <p className={styles.popupSmallHeading}>Какова ваша главная карьерная цель?</p>
+                <p className={styles.popupSmallHeading}>{localization[lang].CareerPlan.goal}</p>
                 <Input
-                    placeholder="Напишите"
+                    placeholder={localization[lang].CareerPlan.write}
                     inputSize="s"
                     id="careerGoal"
                     name="careerGoal"
@@ -202,7 +205,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
                         <div className={styles.insideFileContainer}>
                             <img src={fileIcon} className={styles.icon}/>
                             <p className={styles.fileText}>
-                                {selectedFileName ? (<span>{selectedFileName}</span>) : ( <span>Нажмите или перетащите чтобы загрузить PDF файл</span>)}
+                                {selectedFileName ? (<span>{selectedFileName}</span>) : ( <span>{localization[lang].CareerPlan.pdf}</span>)}
                             </p>
                         </div>
                         <input type="file"
@@ -214,8 +217,8 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
                     </label>
                 </div>
                 <div className={styles.buttonContainer}>
-                    <button type="button" onClick={(): void =>{setIsClicked(true); setIsDataAlert(false);}} className={styles.continueButton}>Назад</button>
-                    <button type="button" onClick={handleSubmit} className={styles.continueButton}>Продолжить</button>
+                    <button type="button" onClick={(): void =>{setIsClicked(true); setIsDataAlert(false);}} className={styles.continueButton}>{localization[lang].CareerPlan.Buttons.back}</button>
+                    <button type="button" onClick={handleSubmit} className={styles.continueButton}>{localization[lang].CareerPlan.Buttons.continue}</button>
                 </div>
             </div>
 

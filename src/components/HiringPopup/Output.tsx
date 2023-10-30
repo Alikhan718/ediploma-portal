@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { CircularProgress } from '@mui/material';
+import { useSelector } from "react-redux";
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from './generator';
 
 interface OutputProps{
     response:string;
@@ -13,6 +16,7 @@ interface OutputProps{
 }
 
 export const Output: React.FC<OutputProps> = (props) => {
+    const lang = useSelector(selectLanguage);
     const {response, loading, setGotResponse, setHaveDescription, haveSearch, isStudent, setJobDescription } = props;
     const [isCopied, setIsCopied] = React.useState(false);
     const urlRegex:RegExp = /(https?:\/\/[^\s\)]+)/g;
@@ -30,7 +34,7 @@ export const Output: React.FC<OutputProps> = (props) => {
         <div>
             {loading ? 
                 (<div>
-                    <h1 className={styles.popupHeading}>Секундочку...</h1>
+                    <h1 className={styles.popupHeading}>{localization[lang].Output.seconds}</h1>
                     <div className={styles.loadingContainer}>
                         <CircularProgress/>
                     </div>
@@ -38,8 +42,8 @@ export const Output: React.FC<OutputProps> = (props) => {
                 (<div>
                 
                 {isStudent ?
-                (<h1 className={styles.popupHeading}>Ваш план</h1>):
-                (<h1 className={styles.popupHeading}>Описание работы</h1>)}
+                (<h1 className={styles.popupHeading}>{localization[lang].Output.yourPlan}</h1>):
+                (<h1 className={styles.popupHeading}>{localization[lang].Output.jobDescription}</h1>)}
                 
                 <div className={styles.outputContainer} >
                     {isStudent ? null :
@@ -48,13 +52,13 @@ export const Output: React.FC<OutputProps> = (props) => {
                             className={styles.outputButton}
                             type="button"
                             onClick={(): void => {setHaveDescription(true);}}
-                        >Поиск
+                        >{localization[lang].Output.Buttons.search}
                         </button>
                         <button
                             className={styles.outputButton}
                             type="button"
                             onClick={handleCopy}
-                        >{isCopied ? 'Скопировано' : 'Копировать'}
+                        >{isCopied ? localization[lang].Output.Buttons.copied : localization[lang].Output.Buttons.copy }
                         </button>
                     </div>)}
                     <p>{response.split('\n').map((paragraph, index) => (
@@ -83,14 +87,14 @@ export const Output: React.FC<OutputProps> = (props) => {
                     type="button" 
                     onClick={(): void => {setGotResponse(false);}} 
                     className={styles.continueButton}
-                >Назад
+                >{localization[lang].Output.Buttons.back}
                 </button>
                 {haveSearch ? 
                 (<button
                     type="button"
                     onClick={(): void => {setHaveDescription(true); setJobDescription('');}}
                     className={styles.continueButton}
-                >Поиск
+                >{localization[lang].Output.Buttons.search}
                 </button>):
                 null}
             </div>

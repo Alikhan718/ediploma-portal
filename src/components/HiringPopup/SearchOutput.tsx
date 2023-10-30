@@ -2,6 +2,9 @@ import React from 'react';
 import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { StudentCard } from './StudentCard';
 import { Box, CircularProgress } from '@mui/material';
+import { useSelector } from "react-redux";
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from './generator';
 
 interface SearchOutputProps{
     response:any;
@@ -11,18 +14,19 @@ interface SearchOutputProps{
 
 export const SearchOutput: React.FC<SearchOutputProps> = (props) => {
     const {response, loading, setGotResponse} = props;
+    const lang = useSelector(selectLanguage);
 
     return(
         <div>
             {loading ? 
                 (<div>
-                    <h1 className={styles.popupHeading}>Секундочку...</h1>
+                    <h1 className={styles.popupHeading}>{localization[lang].Output.seconds}</h1>
                     <div className={styles.loadingContainer}>
                         <CircularProgress/>
                     </div>
                 </div>):
                 (<div>
-                    <h1 className={styles.popupHeading}>Подходящие кандидаты</h1>
+                    <h1 className={styles.popupHeading}>{localization[lang].Output.suitableCandidates}</h1>
                     <div className={styles.searchOutputContainer}>
                         {response.map((student: any) => (
                             <div key={student.id}>
@@ -37,7 +41,7 @@ export const SearchOutput: React.FC<SearchOutputProps> = (props) => {
                             type="button" 
                             onClick={(): void => {setGotResponse(false);}} 
                             className={styles.continueButton}
-                        >Назад
+                        >{localization[lang].Output.Buttons.back}
                         </button>
                     </div>
                 </div>)}

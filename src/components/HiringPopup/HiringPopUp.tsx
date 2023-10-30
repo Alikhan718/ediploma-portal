@@ -1,20 +1,24 @@
 import React from 'react';
 import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
-import { Generator } from './Generator';
+import { TextGenerator } from './TextGenerator';
 import { CareerPlanGenerator } from './CareerPlanGenerator';
 import { StudentOrRecruiter } from '@src/components';
 import Alert from '@mui/material/Alert';
+import { useSelector } from "react-redux";
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from './generator';
 
 interface HiringPopUpProps {
 	setShowPopup:any;
 };
 
 export const HiringPopUp: React.FC<HiringPopUpProps>= (props) => {
+    const lang = useSelector(selectLanguage);
     const {setShowPopup} = props;
     const [isStudent, setIsStudent] = React.useState(true);
     const [isClicked, setIsClicked] = React.useState(true);
     const [isDataAlert, setIsDataAlert] = React.useState(false);
-    const [alertText, setAlertText] = React.useState('Введите ваши данные');
+    const [alertText, setAlertText] = React.useState(localization[lang].Alert.addData);
 
     const showAlert = (alertText:string):void => {
         setAlertText(alertText);
@@ -36,7 +40,7 @@ export const HiringPopUp: React.FC<HiringPopUpProps>= (props) => {
                     (<StudentOrRecruiter setIsStudent={setIsStudent} setIsClicked={setIsClicked}/>):
                     (
                         <div>
-                            {isStudent ? (<CareerPlanGenerator setIsClicked={setIsClicked} setIsDataAlert={setIsDataAlert} showAlert={showAlert}/>):(<Generator setIsClicked={setIsClicked} setIsDataAlert={setIsDataAlert} showAlert={showAlert}/>)}
+                            {isStudent ? (<CareerPlanGenerator setIsClicked={setIsClicked} setIsDataAlert={setIsDataAlert} showAlert={showAlert}/>):(<TextGenerator setIsClicked={setIsClicked} setIsDataAlert={setIsDataAlert} showAlert={showAlert}/>)}
                         </div>
                     )
                 }
