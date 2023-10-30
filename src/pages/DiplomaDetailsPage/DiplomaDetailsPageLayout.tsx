@@ -33,8 +33,11 @@ import {isAuthenticated} from "@src/utils/userAuth";
 import {handleDownload} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from '@src/pages/DiplomaDetailsPage/generator';
 
 export const DiplomaDetailsPageLayout: React.FC = () => {
+    const lang = useSelector(selectLanguage);
     const [showFull, setShowFull] = React.useState(false);
     const navigate = useNavigate();
     const {id} = useParams();
@@ -140,7 +143,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 },
                                             }}
                                         >
-                                            {data && data.name_kz ? data.name_kz : ""}
+                                            {data && lang === "kz" ? data.name_kz : data && lang === "ru" ? data.name_ru : data && lang === "en" ? data.name_en : ""}
                                         </Typography>
                                         {id != undefined &&
                                             <Box marginBottom="15px">
@@ -167,14 +170,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                         navigate(routes.main);
                                                     }}>
                                                         <Eye style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                        <Typography>Перейти на сайт</Typography>
+                                                        <Typography>{localization[lang].StudentPage.Menu.goto}</Typography>
                                                     </MenuItem>
                                                     <MenuItem onClick={handleClose}><Star
                                                         style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                        <Typography>В Избранное</Typography></MenuItem>
+                                                        <Typography>{localization[lang].StudentPage.Menu.favorite}</Typography></MenuItem>
                                                     <MenuItem onClick={handleClose}><ShareIcon
                                                         style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                        <Typography>Поделиться</Typography></MenuItem>
+                                                        <Typography>{localization[lang].StudentPage.Menu.share}</Typography></MenuItem>
                                                     <Divider style={{margin: "0 1rem"}}/>
                                                     <MenuItem onClick={handleClose}><Check
                                                         style={{marginRight: '10px', verticalAlign: "center"}}/>
@@ -206,24 +209,34 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
                                                     },
                                                 }}>
-                                                    <Label label="Название вуза: "/>
+                                                    <Label label={localization[lang].StudentPage.MainInfo.nameUni}/>
                                                 </Box>
-                                                <Label label="Cпециальность: "/>
-                                                <Label label="Степень: "/>
-                                                <Label label="Год окончания: "/>
+                                                <Label label={localization[lang].StudentPage.MainInfo.major}/>
+                                                <Label label={localization[lang].StudentPage.MainInfo.degree}/>
+                                                <Label label={localization[lang].StudentPage.MainInfo.graduationYear}/>
                                             </Box>
                                             <Box marginLeft="0.2rem">
                                                 <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
-                                                    {data && data.university_id && data.university_id == 1 ? "Казахстанско-Британский технический университет" : "Недостаточно данных"}
+                                                    {data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu : localization[lang].StudentPage.MainInfo.noData}
                                                 </Typography>
                                                 <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
-                                                    {data && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) : "Недостаточно данных"}
+                                                    {
+                                                        data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) : 
+                                                        data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) : 
+                                                        data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) : 
+                                                        localization[lang].StudentPage.MainInfo.noData
+                                                    }
                                                 </Typography>
                                                 <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
-                                                    {data && data.speciality_ru ? data.speciality_ru.split("\n")[0] : "Недостаточно данных"}
+                                                    {
+                                                        data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] : 
+                                                        data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] : 
+                                                        data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] : 
+                                                        localization[lang].StudentPage.MainInfo.noData
+                                                    }
                                                 </Typography>
                                                 <Typography className={styles.nameText} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
@@ -242,7 +255,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                             marginTop: '1rem',
                                         }}
                                         disabled>
-                                        Отправить приглашение
+                                        {localization[lang].StudentPage.AddInfo.sendInvite}
                                     </Button>
                                 </Box>
                             </Box>
@@ -259,7 +272,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                         fontWeight: '600',
                                         color: '#4D4D4D',
                                         paddingBottom: '10px'
-                                    }}> О выпускнике </Box>
+                                    }}> {localization[lang].StudentPage.AddInfo.about} </Box>
                                     <Typography className={styles.textMd} color="#818181">
                                         {handleText(data && data.description ? data.description : "")}
                                     </Typography>
@@ -269,7 +282,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 onClick={() => {
                                                     setShowFull(!showFull);
                                                 }}>
-                                        Показать {!showFull ? "больше" : " меньше"}
+                                        {localization[lang].StudentPage.AddInfo.show} {!showFull ? localization[lang].StudentPage.AddInfo.more : localization[lang].StudentPage.AddInfo.less}
                                         <ExpandMore
                                             style={{
                                                 marginLeft: ".2rem",
@@ -291,7 +304,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                     '@media (max-width: 778px)': {
                                         fontSize: '20px'
                                     },
-                                }}> Дипломы и сертификаты </Box>
+                                }}> {localization[lang].StudentPage.AddInfo.certifications} </Box>
                                 {data && data.image &&
                                     <Box width="25%" sx={{
                                         backgroundColor: "rgba(7,117,255,0.11)",

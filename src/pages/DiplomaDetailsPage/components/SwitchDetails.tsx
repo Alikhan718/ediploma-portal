@@ -184,7 +184,7 @@ export const SwitchDetails: React.FC = () => {
 									display: "block",
 								}}
 							>
-								<span style={{ color: "#818181", fontSize: "16px" }}>{data.label_ru}:</span>{" "}
+								<span style={{ color: "#818181", fontSize: "16px" }}>{ lang === 'ru' ? data.label_ru: lang === 'en' ? data.label_en: lang === 'kz' ? data.label_kz: " "}:</span>{" "}
 								<span style={{ fontWeight: '600', fontSize: "16px" }}>{data.value}:</span>{" "}
 							</Typography>
 						))
