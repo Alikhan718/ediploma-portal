@@ -26,6 +26,8 @@ import employreImg from "@src/assets/dashboard/employerImg.png";
 import placeholdereImg from "@src/assets/dashboard/Image.jpg";
 import cn from "classnames";
 import icon from "@src/assets/icons/Logo (2).svg";
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from '@src/pages/EmployerPage/generator';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -55,6 +57,7 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export const EmployerPageLayout: React.FC = () => {
+    const lang = useSelector(selectLanguage);
     const [currentPage, setCurrentPage] = useState(1);
     const diplomaList = useSelector(selectDiplomaList);
     const diplomasPerPage = 10;
@@ -124,9 +127,9 @@ export const EmployerPageLayout: React.FC = () => {
                                         fontSize: '20px',
                                         padding: '1rem',
                                     }}>
-                                    Ф.И. Работодателя
+                                    {localization[lang].mainInfo.name}
                                 </Typography>
-                                <Label label="Должность"/>
+                                <Label label={localization[lang].mainInfo.position}/>
                                 <Box display="flex" justifyContent="center" margin="1rem">
                                     <Box
                                         sx={{
@@ -144,7 +147,7 @@ export const EmployerPageLayout: React.FC = () => {
                                             }}>
                                             25
                                         </Typography>
-                                        <Label label="Кол-во филлиалов"/>
+                                        <Label label={localization[lang].mainInfo.places}/>
                                     </Box>
                                     <Box
                                         sx={{
@@ -162,7 +165,7 @@ export const EmployerPageLayout: React.FC = () => {
                                             }}>
                                             12
                                         </Typography>
-                                        <Label label="Открытых ваканскии"/>
+                                        <Label label={localization[lang].mainInfo.vacancies}/>
                                     </Box>
                                     <Box
                                         sx={{
@@ -180,7 +183,7 @@ export const EmployerPageLayout: React.FC = () => {
                                             }}>
                                             124
                                         </Typography>
-                                        <Label label="Нанято сотрудников"/>
+                                        <Label label={localization[lang].mainInfo.hired}/>
                                     </Box>
                                 </Box>
                             </Box>
@@ -196,7 +199,7 @@ export const EmployerPageLayout: React.FC = () => {
                                     fontWeight: '600',
                                     color: '#4D4D4D',
                                     paddingBottom: '10px'
-                                }}> Оcновная информация </Box>
+                                }}> {localization[lang].additionalInfo.mainInfo} </Box>
                                 <Box marginBottom="15px">
                                     <img src={star} style={{marginRight: '15px'}}/>
                                     <img src={share} style={{marginRight: '20px'}}/>
@@ -213,12 +216,7 @@ export const EmployerPageLayout: React.FC = () => {
                                 className={styles.textSm}
                                 color="#818181"
                                 sx={{fontSize: '14px'}}>
-                                eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет
-                                оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что
-                                позволяет исключить возможность подделки документов. Портал eDiploma предоставляет
-                                возможность выпускникам, работодателям и администрации университетов взаимодействовать с
-                                дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации
-                                выпускников.
+                                {localization[lang].additionalInfo.description}
                             </Typography>
                         </Box>
                         <Box display="flex" className={styles.mobP15} overflow="hidden">
@@ -261,7 +259,7 @@ export const EmployerPageLayout: React.FC = () => {
                             className={styles.diplomasContainer}
                         >
                             <Typography
-                                sx={{fontWeight: '800', fontSize: '25px', padding: '20px'}}>Избранное</Typography>
+                                sx={{fontWeight: '800', fontSize: '25px', padding: '20px'}}>{localization[lang].studentsPanel.favorite}</Typography>
                             <Box sx={{
                                 display: 'flex',
                                 flexDirection: 'row',
@@ -280,14 +278,14 @@ export const EmployerPageLayout: React.FC = () => {
                                         marginRight: '15px'
                                     }}>
                                         <Filter style={{marginRight: '10px',}}/>
-                                        Фильтр
+                                        {localization[lang].studentsPanel.filter}
                                     </Button>
                                     <Box display="flex" alignItems="center">
 
                                         <Input
                                             type="text"
                                             name="email"
-                                            placeholder="Найти"
+                                            placeholder={localization[lang].studentsPanel.search}
                                             className={styles.input}
                                         />
                                     </Box>
@@ -324,7 +322,7 @@ export const EmployerPageLayout: React.FC = () => {
                                         fontSize="14px"
                                         mb='.5rem' sx={{color: '#818181'}}
                                         className={styles.mobText}
-                                    >Ф.И.О
+                                    >{localization[lang].studentsPanel.Student.name}
                                     </Typography>
                                 </Box>
                                 <Box sx={{
@@ -336,7 +334,7 @@ export const EmployerPageLayout: React.FC = () => {
                                         fontSize="14px"
                                         mb='.5rem' sx={{color: '#818181'}}
                                         className={styles.mobText}
-                                    >Специальность
+                                    >{localization[lang].studentsPanel.Student.major}
                                     </Typography>
                                 </Box>
                                 <Box sx={{
@@ -348,7 +346,7 @@ export const EmployerPageLayout: React.FC = () => {
                                         fontSize="14px"
                                         mb='.5rem' sx={{color: '#818181'}}
                                         className={styles.mobText}
-                                    >Год выпуска
+                                    >{localization[lang].studentsPanel.Student.graduationYear}
                                     </Typography>
                                 </Box>
                                 <Box sx={{
@@ -430,7 +428,7 @@ export const EmployerPageLayout: React.FC = () => {
                                                     className={styles.mobText}
                                                     sx={{width: '50%', '@media (max-width: 768px)': {width: '100%'}}}
                                                 >
-                                                    {e.name_ru}
+                                                    {lang === 'en' ? e.name_en : e.name_ru}
                                                 </Typography>
                                                 <Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm}
                                                             sx={{
