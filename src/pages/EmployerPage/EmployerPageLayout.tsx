@@ -190,23 +190,29 @@ export const EmployerPageLayout: React.FC = () => {
                         </Box>
                     </Box>
 
-                    <Box display='flex' flexDirection='column' ml="1rem"
-                         sx={{backgroundColor: 'white', borderRadius: '15px',}}>
+                    <Box display='flex' flexDirection='column'
+                         sx={{backgroundColor: 'white', borderRadius: '15px', marginLeft: '1rem','@media (max-width: 768px)': {marginLeft: '0rem', marginTop: '1rem'}}}>
                         <Box className={styles.mobP2}>
                             <Box display="flex" justifyContent="space-between">
                                 <Box sx={{
                                     fontSize: '24px',
                                     fontWeight: '600',
                                     color: '#4D4D4D',
-                                    paddingBottom: '10px'
+                                    paddingBottom: '10px',
+                                    '@media (max-width: 768px)': {margin:'0.5rem', fontSize: '20px'}
                                 }}> {localization[lang].additionalInfo.mainInfo} </Box>
-                                <Box marginBottom="15px">
+                                <Box marginBottom="15px" sx={{'@media (max-width: 768px)': {display:'none'}}}>
                                     <img src={star} style={{marginRight: '15px'}}/>
                                     <img src={share} style={{marginRight: '20px'}}/>
                                     <img src={dots} style={{marginRight: '10px'}}/>
                                 </Box>
+                                <Box marginBottom="15px" sx={{display:'none', '@media (max-width: 768px)': {display:'flex'}}}>
+                                    <img src={dots} style={{marginRight: '1rem', marginTop:'0.5rem', transform: 'rotate(90deg)'}}/>
+                                </Box>
                             </Box>
-                            <Box marginTop="0.5rem" marginBottom="0.5rem" display="flex" alignItems="center">
+                            <Box marginTop="0.5rem" marginBottom="0.5rem" display="flex" alignItems="center"
+                                sx={{'@media (max-width: 768px)': {marginTop: '0rem', marginBottom: '0.5rem', marginLeft:'0.5rem'}}}
+                            >
                                 <Box marginRight="25px"><DiscordIcon/></Box>
                                 <Box marginRight="25px"><TwitterIcon/></Box>
                                 <Box marginRight="25px"><SmartContractIcon/></Box>
@@ -215,7 +221,7 @@ export const EmployerPageLayout: React.FC = () => {
                             <Typography
                                 className={styles.textSm}
                                 color="#818181"
-                                sx={{fontSize: '14px'}}>
+                                sx={{fontSize: '14px', '@media (max-width: 768px)': {marginLeft:'0.5rem'}}}>
                                 {localization[lang].additionalInfo.description}
                             </Typography>
                         </Box>
