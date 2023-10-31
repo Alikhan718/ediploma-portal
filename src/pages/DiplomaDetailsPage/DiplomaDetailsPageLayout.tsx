@@ -254,7 +254,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                             borderRadius: '25px',
                                             marginTop: '1rem',
                                         }}
-                                        disabled>
+                                        onClick={()=>{
+                                            const subject = `Приглашение для ${data.name_ru} в компанию`;
+                                            window.location.href = `mailto:mail@sdfs.kz?subject=${encodeURIComponent(subject)}`;
+                                        }}
+                                        >
                                         {localization[lang].StudentPage.AddInfo.sendInvite}
                                     </Button>
                                 </Box>
