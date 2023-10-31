@@ -124,7 +124,7 @@ export const UniversityDeatailPage: React.FC = () => {
 										justifyContent: 'space-between',
 										width: '100%',
 										alignItems: 'center',
-										'@media (max-width: 768px)': { position: 'relative' }
+										'@media (max-width: 768px)': { position: 'relative', }
 									}}
 								>
 									<Typography
@@ -273,14 +273,18 @@ export const UniversityDeatailPage: React.FC = () => {
 								</Box>
 							</Box>
 						</Box>
-						<Box display='flex' flexDirection='column' sx={{ marginLeft: '20px' }}>
+						<Box display='flex' flexDirection='column' sx={{
+							marginLeft: '20px',
+							'@media (max-width: 978px)': {
+								display: 'none',
+							},
+						}}>
 							<img src={imageU} style={{ marginBottom: '10px', borderRadius: '1rem' }} />
 							<img src={imageU} style={{ marginBottom: '10px', borderRadius: '1rem' }} />
 							<img src={imageU} style={{ marginBottom: '10px', borderRadius: '1rem' }} />
 						</Box>
 					</Box>
 				</Box>
-
 				<SwitchDetailsUniversity />
 				<Box className={styles.contentContainer}>
 					<Box sx={{ width: '100%' }}>
@@ -501,7 +505,6 @@ export const UniversityDeatailPage: React.FC = () => {
 									width: '100%',
 									marginBottom: "2rem"
 								}}>
-
 									<Box style={{
 										flex: 1,
 										display: 'flex',
@@ -515,79 +518,15 @@ export const UniversityDeatailPage: React.FC = () => {
 											shape="rounded"
 											color="primary"
 											size="large"
+											siblingCount={window.innerWidth < 600 ? 0 : 1}
+											boundaryCount={window.innerWidth < 600 ? 1 : 2}
 										/>
 									</Box>
-
-								</Box>
-
-							</Box>
-
-
-						</TabPanel>
-						<TabPanel value={value} index={1}>
-							<Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
-								<Box sx={{
-									display: 'flex',
-									flexWrap: 'wrap',
-									gap: "24px",
-									marginBottom: '35px',
-									'@media (max-width: 1335px)': {
-										'& > div': {
-											width: '48%'
-										},
-										justifyContent: 'space-between',
-										marginRight: '2%'
-									},
-									'@media (max-width: 700px)': {
-										'& > div': {
-											width: '98%'
-										},
-										marginRight: 0
-									},
-								}}>
-
-								</Box>
-								<Box sx={{
-									width: "100%",
-									display: "flex",
-									flexDirection: "row",
-									justifyContent: "start",
-									marginBottom: "32px",
-									'@media (max-width: 1335px)': {
-										flexDirection: "column",
-										gap: "32px"
-									}
-								}}>
-									<Box sx={{
-										flex: 3,
-										display: "flex",
-										gap: "32px",
-										flexDirection: "column"
-									}}>
-
-									</Box>
-									<Box sx={{
-										flex: 1,
-										display: "flex",
-										gap: "32px",
-										flexDirection: "column",
-										'@media (max-width: 1335px)': {
-											flexDirection: "row"
-										},
-										'@media (max-width: 700px)': {
-											flexDirection: "column",
-											width: "100%",
-											'& > div': {
-												maxWidth: "100%"
-											}
-										}
-									}}>
-
-									</Box>
 								</Box>
 
 							</Box>
 						</TabPanel>
+
 					</Box>
 
 				</Box>

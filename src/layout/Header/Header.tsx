@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import MenuIcon from '@src/assets/icons/menu.svg';
 import MenuClosedIcon from '@src/assets/icons/cross.svg';
 import AppLogo from '@src/assets/icons/app-logo.svg';
@@ -18,7 +18,7 @@ import {
 	Divider,
 	styled,
 	Typography, InputAdornment,
-	Menu, MenuItem, IconButton
+	Menu, MenuItem, IconButton, useMediaQuery
 } from '@mui/material';
 import { HeaderProps } from './Header.props';
 import { GlobalLoader } from './GlobalLoader';
@@ -213,7 +213,45 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 		setSelectedLanguage(language);
 		handleCloseMenu();
 	};
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
+	const handleOpenModal = () => {
+		setIsModalOpen(true);
+	};
+
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+	};
+
+	const isMobileOrTablet = () => {
+		return window.innerWidth <= 990;
+	};
+
+	useEffect(() => {
+		const handleResize = () => {
+			if (isMobileOrTablet()) {
+				handleOpenModal();
+			} else {
+				handleCloseModal();
+			}
+		};
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
+	const getQueryWidth = () => {
+		const matchesLg = useMediaQuery('(min-width:1200px)');
+		const matchesMd = useMediaQuery('(max-width:1180px)');
+		const matchesSm = useMediaQuery('(max-width:768px)');
+		const matchesXs = useMediaQuery('(max-width:576px)');
+		if (matchesXs) return "80%";
+		if (matchesSm) return "60%";
+		if (matchesMd) return "40%";
+		if (matchesLg) return "25%";
+	};
 	const headerText = getHeaderText();
 	return (
 		<>
@@ -332,8 +370,12 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 						</MenuItem>
 
 						<MenuItem onClick={() => {
-							navigate(routes.addingGraduates);
-							handleCloseMenu();
+							if (isMobileOrTablet()) {
+								handleOpenModal();
+							} else {
+								handleCloseModal();
+								navigate(routes.addingGraduates);
+							}
 						}}>
 							<Folder style={{ marginRight: '10px', verticalAlign: "center" }} />
 							<Typography>
@@ -341,6 +383,23 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 							</Typography>
 						</MenuItem>
 
+
+						<Modal
+							open={isModalOpen}
+							handleClose={handleCloseModal}
+							maxWidth={getQueryWidth()}
+							width={getQueryWidth()}
+							aria-labelledby="modal-modal-title"
+							aria-describedby="modal-modal-description"
+						>
+							<Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+								<img src={NeedAuthorizationPic} alt="" />
+								<Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem' fontWeight='600' variant="h6" component="h2">
+									Чтобы выпустить дипломы вы должны зайти через ПК или Ноутбук
+								</Typography>
+
+							</Box>
+						</Modal>
 						<Divider style={{ margin: "0 1rem" }} />
 
 						<MenuItem onClick={() => {
@@ -642,16 +701,38 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 							</Typography>
 						</MenuItem>
 
-						<MenuItem onClick={() => {
-							handleCloseMenu();
 
-							navigate(routes.addingGraduates);
+						<MenuItem onClick={() => {
+							if (isMobileOrTablet()) {
+								handleOpenModal();
+							} else {
+								handleCloseModal();
+								navigate(routes.addingGraduates);
+							}
 						}}>
 							<Folder style={{ marginRight: '10px', verticalAlign: "center" }} />
 							<Typography>
 								Выпустить дипломы
 							</Typography>
 						</MenuItem>
+
+
+						<Modal
+							open={isModalOpen}
+							handleClose={handleCloseModal}
+							maxWidth={getQueryWidth()}
+							width={getQueryWidth()}
+							aria-labelledby="modal-modal-title"
+							aria-describedby="modal-modal-description"
+						>
+							<Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+								<img src={NeedAuthorizationPic} alt="" />
+								<Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem' fontWeight='600' variant="h6" component="h2">
+									Чтобы выпустить дипломы вы должны зайти через ПК или Ноутбук
+								</Typography>
+
+							</Box>
+						</Modal>
 
 						<Divider style={{ margin: "0 1rem" }} />
 

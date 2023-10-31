@@ -1,8 +1,8 @@
 .mainContainer {
-	padding: 1% 5%;
+	padding: 0 3%;
 	display: flex;
 	flex-direction: column;
-	background-color: white;
+	overflow: hidden;
 }
 
 .contentContainer {
@@ -25,4 +25,88 @@
 	height: 20rem;
 	object-fit: cover;
 	object-position: 0 50%;
+}
+
+@media only screen and (max-width: 1080px) {
+	.accessModal {
+		width: 95% !important;
+	}
+
+	.mainContainer {
+		padding: 0 3%;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.mainContainer {
+		padding: 0 0.9%;
+		display: flex;
+		flex-direction: column;
+		background-color: white;
+	}
+
+	.upperContainer {
+		display: flex;
+		flex-direction: column;
+		width: 90%;
+	}
+
+	.contentContainer {
+		gap: 0 !important;
+	}
+
+	.mobMt1 {
+		margin-top: 1rem !important;
+	}
+
+	.mobMt2 {
+		margin-top: 2rem !important;
+	}
+
+	.mobWrap {
+		display: flex !important;
+		flex-wrap: wrap !important;
+	}
+
+	.cardImgContainer {
+		left: .3rem;
+	}
+
+	.cardImg {
+		width: 4rem !important;
+		border-radius: .5rem !important;
+	}
+
+	.headerImg {
+		height: 14rem !important;
+		width: 100%;
+	}
+
+	.accessModal {
+		width: 95% !important;
+	}
+
+	.social:nth-of-type(-n + 5) {
+		display: none !important;
+	}
+
+	.textMd {
+		font-size: 1.2rem !important;
+	}
+
+	.gap1 {
+		gap: 1rem !important;
+	}
+
+	.textSm {
+		font-size: 1rem !important;
+	}
+
+	.textXs {
+		font-size: .8rem !important;
+	}
+
+	.nameText {
+		font-size: 1.25rem !important;
+	}
 }

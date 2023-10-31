@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
 	Box, Button, Rating, Typography, useMediaQuery, Pagination,
-	InputAdornment, Grid, Container
+	InputAdornment, Grid, Container, Skeleton
 } from '@mui/material';
 import { ReactComponent as HeaderSearchIcon } from '@src/assets/icons/search.svg';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
@@ -124,7 +124,10 @@ export const UniversityProfileLayout: React.FC = () => {
 										justifyContent: 'space-between',
 										width: '100%',
 										alignItems: 'center',
-										'@media (max-width: 768px)': { position: 'relative' }
+										'@media (max-width: 768px)': {
+											position: 'relative',
+											width: '90%'
+										}
 									}}
 								>
 									<Typography
@@ -144,8 +147,7 @@ export const UniversityProfileLayout: React.FC = () => {
 											},
 										}}
 									>
-										Казахстанско-Британский Технический Университет
-									</Typography>
+										Казахстанско-Британский технический университет								</Typography>
 									<Box marginBottom="25px" sx={{ flexDirection: 'row', justifyContent: 'space-between', '@media (max-width: 768px)': { display: 'none' } }}>
 										<img src={star} style={{
 											marginRight: '10px',
@@ -186,8 +188,6 @@ export const UniversityProfileLayout: React.FC = () => {
 									</Typography>
 									<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
 								</Box>
-
-
 								<Box display="flex"
 									alignItems="center"
 									sx={{
@@ -197,7 +197,7 @@ export const UniversityProfileLayout: React.FC = () => {
 										alignItems: 'center',
 									}}>
 									<Typography className={styles.textSm} sx={{ paddingBottom: '16px', marginRight: '16px' }}>
-										Почта: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@kbtu.kz</span>
+										Почта: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@satbayev.university</span>
 									</Typography>
 
 									<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', '@media (max-width: 768px)': { display: 'none' } }}>
@@ -209,7 +209,6 @@ export const UniversityProfileLayout: React.FC = () => {
 										/> (25 отзывов)
 									</Typography>
 								</Box>
-
 								<Box display='flex' flexDirection='column'>
 									<Typography className={styles.textSm}>
 										Номер телефона: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>8 (7273) 57 42 51</span>
@@ -219,7 +218,7 @@ export const UniversityProfileLayout: React.FC = () => {
 								<Box className={styles.contentContainer}>
 									<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
 										<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '5px' } }}>
-											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>10256</Typography>
+											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>15256</Typography>
 											<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
 												Кол-во студентов
 											</Typography>
@@ -241,7 +240,6 @@ export const UniversityProfileLayout: React.FC = () => {
 												display: 'none',
 											}
 										}}>
-
 											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>5.1</Typography>
 											<Typography className={styles.textSm}>
 												Средний GPA
@@ -274,14 +272,18 @@ export const UniversityProfileLayout: React.FC = () => {
 								</Box>
 							</Box>
 						</Box>
-						<Box display='flex' flexDirection='column' sx={{ marginLeft: '20px' }}>
+						<Box display='flex' flexDirection='column' sx={{
+							marginLeft: '20px',
+							'@media (max-width: 978px)': {
+								display: 'none',
+							},
+						}}>
 							<img src={imageU} style={{ marginBottom: '10px', borderRadius: '1rem' }} />
 							<img src={imageU} style={{ marginBottom: '10px', borderRadius: '1rem' }} />
 							<img src={imageU} style={{ marginBottom: '10px', borderRadius: '1rem' }} />
 						</Box>
 					</Box>
 				</Box>
-
 				<SwitchDetailsUniversity />
 				<Box className={styles.contentContainer}>
 					<Box sx={{ width: '100%' }}>
@@ -509,13 +511,15 @@ export const UniversityProfileLayout: React.FC = () => {
 										justifyContent: 'center',
 										alignItems: 'center'
 									}}>
-										<Pagination
+											<Pagination
 											count={totalPages}
 											page={currentPage}
 											onChange={(event, page) => setCurrentPage(page)}
 											shape="rounded"
 											color="primary"
 											size="large"
+											siblingCount={window.innerWidth < 600 ? 0 : 1}
+											boundaryCount={window.innerWidth < 600 ? 1 : 2}
 										/>
 									</Box>
 

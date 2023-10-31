@@ -1,8 +1,6 @@
-.mainContainer {
-	padding: 1% 5%;
-	display: flex;
-	flex-direction: column;
-	background-color: white;
+.active {
+
+	border: black 1px;
 }
 
 .contentContainer {
@@ -11,7 +9,62 @@
 	flex-direction: column;
 	gap: 1rem;
 	margin-top: 1rem;
+}
 
+.social {
+	cursor: pointer;
+	align-self: center;
+}
+
+.link {
+	display: block;
+	color: gray;
+}
+
+.link:hover {
+	cursor: pointer;
+	color: black;
+	border: black 5px !important;
+}
+
+.diplomasContainer {
+	border-radius: 2rem;
+	border: 1px #4D4D4D;
+	padding: 0 9%;
+}
+
+.headerImg {
+	width: 100%;
+	height: 20rem;
+	object-fit: cover;
+	object-position: 0 50%;
+}
+
+.cardImg {
+	width: 10rem;
+	border-radius: .5rem;
+}
+
+.cardImgContainer {
+	position: absolute;
+	bottom: -1rem;
+	left: 2rem;
+	border-radius: 1rem;
+	padding: .4rem
+}
+
+.socialContainer {
+	display: flex;
+	gap: 2rem;
+	height: 100%;
+	margin-right: 2rem;
+}
+
+.mainContainer {
+	padding: 0 3%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
 }
 
 .upperContainer {
@@ -20,9 +73,149 @@
 	width: 100%;
 }
 
-.headerImg {
-	width: 100%;
-	height: 20rem;
-	object-fit: cover;
-	object-position: 0 50%;
+@media only screen and (max-width: 1080px) {
+	.accessModal {
+		width: 95% !important;
+	}
+
+	.diplomaItem {
+		width: 100% !important;
+	}
+
+	.diplomasContainer {
+		padding-right: 2rem !important;
+	}
+
+	.mainContainer {
+		padding: 0 0.6%;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+
+	.contentContainer {
+		gap: 0 !important;
+	}
+
+	.mobMt1 {
+		margin-top: 1rem !important;
+	}
+
+	.mobMt2 {
+		margin-top: 2rem !important;
+	}
+
+	.mobWrap {
+		display: flex !important;
+		flex-wrap: wrap !important;
+	}
+
+	.cardImgContainer {
+		left: .3rem;
+	}
+
+	.cardImg {
+		width: 4rem !important;
+		border-radius: .5rem !important;
+	}
+
+	.headerImg {
+		height: 10rem !important;
+	}
+
+
+	.accessModal {
+		width: 95% !important;
+	}
+
+	.social:nth-of-type(-n + 5) {
+		display: none !important;
+	}
+
+	.textMd {
+		font-size: 1.2rem !important;
+	}
+
+	.gap1 {
+		gap: 1rem !important;
+	}
+
+	.textSm {
+		font-size: 1rem !important;
+	}
+
+	.textXs {
+		font-size: .8rem !important;
+	}
+
+	.nameText {
+		font-size: 1.25rem !important;
+	}
+}
+
+
+@media only screen and (max-width: 1080px) {
+	.accessModal {
+		width: 95%;
+	}
+
+}
+
+@media only screen and (max-width: 768px) {
+	.diplomaImg {
+		width: 100% !important;
+		padding: 0.5rem !important;
+	}
+
+	.diplomasContainer {
+		padding: 0 !important;
+	}
+
+	.upperContainer {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.contentContainer {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+
+	.accessModal {
+		width: 95%;
+	}
+
+	.mobText {
+		font-size: 1rem !important;
+	}
+
+	.mobMb1 {
+		margin-bottom: 1rem !important;
+	}
+
+	.mobTextL {
+		font-size: 1.5rem !important;
+	}
+
+	.mobTextSm {
+		font-size: .8rem !important;
+	}
+
+	.mobPl2 {
+		padding-left: 2rem;
+	}
+
+	.mobPl1 {
+		padding-left: 1rem;
+	}
+
+	.diplomaItem {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+	}
 }
