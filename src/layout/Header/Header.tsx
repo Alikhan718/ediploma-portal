@@ -118,7 +118,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 	};
 	const checkSecondHeaderRoute = (): boolean => {
 		const urlElements = window.location.href.split('/');
-		const secondHeaderEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'settingsPage', 'student', 'employer'];
+		const secondHeaderEnabledRoutes = ['detail',
+			'analysisPage', 'notifications', 'addingGraduates', 'settingsPage', 'student', 'employer'];
 		for (const item of secondHeaderEnabledRoutes) {
 			if (urlElements.includes(item)) {
 				return true;
@@ -144,7 +145,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 			'settingsPage',
 			'diploma',
 			'student',
-			'employer'
+			'employer',
 		];
 		for (const item of sidebarEnabledRoutes) {
 			if (urlElements.includes(item)) {
@@ -154,7 +155,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 		return false;
 	};
 	const checkSideBarRoute = (): boolean => {
-		const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates', 'settingsPage', 'student', 'employer'];
+		const sidebarEnabledRoutes = ['detail', 'notifications', 'addingGraduates',
+			'settingsPage', 'student', 'employer'];
 		for (const item of sidebarEnabledRoutes) {
 			if (urlElements.includes(item)) {
 				return false;
@@ -360,7 +362,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 							<Typography>Профиль</Typography>
 						</MenuItem>
 						<MenuItem onClick={() => {
-							navigate(routes.settings);
+							navigate(routes.analysisPage);
 							handleCloseMenu();
 						}}>
 							<Analytics style={{ marginRight: '10px', verticalAlign: "center" }} />
@@ -693,7 +695,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 						<MenuItem onClick={() => {
 							handleCloseMenu();
 
-							navigate(routes.settings);
+							navigate(routes.analysisPage);
 						}}>
 							<Analytics style={{ marginRight: '10px', verticalAlign: "center" }} />
 							<Typography>

@@ -14,7 +14,7 @@ import {
 	StudentPage,
 	EmployerPage,
 	UniversityProfilePage,
-	UniversityDeatailPage
+	UniversityDeatailPage, AnalysisPage
 } from '@src/pages';
 import { withLayout } from '@src/layout/Layout';
 import { routes } from '@src/shared/routes';
@@ -66,7 +66,7 @@ const App: React.FC = () => {
 					<Route path={routes.employer} element={<EmployerPage />} />
 					<Route path={routes.universityProfile} element={<UniversityProfilePage />} />
 					<Route path={routes.universityProfileSecond} element={<UniversityDeatailPage />} />
-
+					<Route path={routes.analysisPage} element={<AnalysisPage />} />
 					{<Route path='*' element={<Navigate to={routes.main} />} />}
 				</Routes>
 			}

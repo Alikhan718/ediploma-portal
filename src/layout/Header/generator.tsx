@@ -30,7 +30,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
 	{
 		id: 2,
 		name: 'Аналитика',
-		to: routes.main,
+		to: routes.analysisPage,
 		role: "*",
 		icon: <MainPageIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: "middle",
