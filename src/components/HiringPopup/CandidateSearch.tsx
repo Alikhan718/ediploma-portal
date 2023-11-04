@@ -3,6 +3,9 @@ import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { Input } from '@src/components';
 import { set } from 'react-ga';
 import { SearchOutput } from './SearchOutput';
+import { useSelector } from "react-redux";
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from './generator';
 
 interface CandidateSearchProps {
 	jobDescription:string;
@@ -13,7 +16,7 @@ interface CandidateSearchProps {
 
 export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
     const { jobDescription, setHaveDescription, setIsDataAlert, showAlert} = props;
-
+    const lang = useSelector(selectLanguage);
     const [gotResponse, setGotResponse] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [response, setResponse] = React.useState('');
@@ -33,7 +36,7 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
     const handleSubmit = async (): Promise<void> => {
         const textAreaValue = (document.getElementById("chat") as HTMLInputElement).value;
         if(textAreaValue === ''){
-            showAlert('Введите описание работы');
+            showAlert(localization[lang].Alert.addDescription);
             return;
         }
         
@@ -67,12 +70,12 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
             {gotResponse ?(<SearchOutput response={response} loading={loading} setGotResponse={setGotResponse}/>):
             (<div>
 
-            <h1 className={styles.popupHeading}>Поиск кандидатов</h1>
-            <p className={styles.popupSmallHeading}>Найти подходящих кандидатов по описанию работу</p>
+            <h1 className={styles.popupHeading}>{localization[lang].CandidateSearch.title}</h1>
+            <p className={styles.popupSmallHeading}>{localization[lang].CandidateSearch.findCandidate}</p>
             <Input
                 id="chat" 
                 rows={1}
-                placeholder="Описание работы"
+                placeholder={localization[lang].CandidateSearch.description}
                 inputSize="m"
                 defaultValue={jobDescription}
                 sx={{
@@ -87,13 +90,13 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
                         type="button" 
                         onClick={(): void => {setHaveDescription(false); setIsDataAlert(false);}} 
                         className={styles.continueButton}
-                    >Назад
+                    >{localization[lang].CandidateSearch.Buttons.back}
                     </button>
                     <button 
                         type="button"
                         onClick={handleSubmit}
                         className={styles.continueButton}
-                    >Продолжить
+                    >{localization[lang].CandidateSearch.Buttons.search}
                     </button>
                 </div>
             </div>)}

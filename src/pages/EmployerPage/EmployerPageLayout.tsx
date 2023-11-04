@@ -27,6 +27,8 @@ import placeholdereImg from "@src/assets/dashboard/Image.jpg";
 import cn from "classnames";
 import icon from "@src/assets/icons/jasaim_icon.png";
 import {handleLink} from "@src/utils/link";
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from '@src/pages/EmployerPage/generator';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -56,6 +58,7 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export const EmployerPageLayout: React.FC = () => {
+    const lang = useSelector(selectLanguage);
     const [currentPage, setCurrentPage] = useState(1);
     const diplomaList = useSelector(selectDiplomaList);
     const diplomasPerPage = 10;
@@ -127,9 +130,9 @@ export const EmployerPageLayout: React.FC = () => {
                                         fontSize: '20px',
                                         padding: '1rem',
                                     }}>
-                                    JASAIM Blockchain
+                                    {localization[lang].mainInfo.name}
                                 </Typography>
-                                <Label label="Должность"/>
+                                <Label label={localization[lang].mainInfo.position}/>
                                 <Box display="flex" justifyContent="center" margin="1rem">
                                     <Box
                                         sx={{
@@ -147,7 +150,7 @@ export const EmployerPageLayout: React.FC = () => {
                                             }}>
                                             1
                                         </Typography>
-                                        <Label label="Кол-во филлиалов"/>
+                                        <Label label={localization[lang].mainInfo.places}/>
                                     </Box>
                                     <Box
                                         sx={{
@@ -165,7 +168,7 @@ export const EmployerPageLayout: React.FC = () => {
                                             }}>
                                             12
                                         </Typography>
-                                        <Label label="Открытых ваканскии"/>
+                                        <Label label={localization[lang].mainInfo.vacancies}/>
                                     </Box>
                                     <Box
                                         sx={{
@@ -183,27 +186,31 @@ export const EmployerPageLayout: React.FC = () => {
                                             }}>
                                             8
                                         </Typography>
-                                        <Label label="Нанято сотрудников"/>
+                                        <Label label={localization[lang].mainInfo.hired}/>
                                     </Box>
                                 </Box>
                             </Box>
                         </Box>
                     </Box>
 
-                    <Box display='flex' flexDirection='column' ml="1rem"
-                         sx={{backgroundColor: 'white', borderRadius: '15px',}}>
+                    <Box display='flex' flexDirection='column'
+                         sx={{backgroundColor: 'white', borderRadius: '15px', marginLeft: '1rem','@media (max-width: 768px)': {marginLeft: '0rem', marginTop: '1rem'}}}>
                         <Box className={styles.mobP2}>
                             <Box display="flex" justifyContent="space-between">
                                 <Box sx={{
                                     fontSize: '24px',
                                     fontWeight: '600',
                                     color: '#4D4D4D',
-                                    paddingBottom: '10px'
-                                }}> Оcновная информация </Box>
-                                <Box marginBottom="15px">
+                                    paddingBottom: '10px',
+                                    '@media (max-width: 768px)': {margin:'0.5rem', fontSize: '20px'}
+                                }}> {localization[lang].additionalInfo.mainInfo} </Box>
+                                <Box marginBottom="15px" sx={{'@media (max-width: 768px)': {display:'none'}}}>
                                     <img src={star} style={{marginRight: '15px'}}/>
                                     <img src={share} style={{marginRight: '20px'}}/>
                                     <img src={dots} style={{marginRight: '10px'}}/>
+                                </Box>
+                                <Box marginBottom="15px" sx={{display:'none', '@media (max-width: 768px)': {display:'flex'}}}>
+                                    <img src={dots} style={{marginRight: '1rem', marginTop:'0.5rem', transform: 'rotate(90deg)'}}/>
                                 </Box>
                             </Box>
                             <Box marginTop="0.5rem" marginBottom="0.5rem" display="flex" alignItems="center">
@@ -220,12 +227,8 @@ export const EmployerPageLayout: React.FC = () => {
                             <Typography
                                 className={styles.textSm}
                                 color="#818181"
-                                sx={{fontSize: '14px'}}>
-                                Компания JASAIM, основанная в Астане (Казахстан) в 2022 году,
-                                является разработчиком финансовых, образовательных технологических решений,
-                                которые помогают интегрировать Web3, Blockchain и искусственный интеллект для
-                                потребителей,
-                                продавцов, разработчиков и учреждений по всему миру
+                                sx={{fontSize: '14px', '@media (max-width: 768px)': {marginLeft:'0.5rem'}}}>
+                                {localization[lang].additionalInfo.description}
                             </Typography>
                         </Box>
                         <Box display="flex" className={styles.mobP15} style={{overflowX: "scroll", marginTop: "auto"}} overflow="hidden">
@@ -260,7 +263,7 @@ export const EmployerPageLayout: React.FC = () => {
                             className={styles.diplomasContainer}
                         >
                             <Typography
-                                sx={{fontWeight: '800', fontSize: '25px', padding: '20px'}}>Избранное</Typography>
+                                sx={{fontWeight: '800', fontSize: '25px', padding: '20px'}}>{localization[lang].studentsPanel.favorite}</Typography>
                             <Box sx={{
                                 display: 'flex',
                                 flexDirection: 'row',
@@ -279,14 +282,14 @@ export const EmployerPageLayout: React.FC = () => {
                                         marginRight: '15px'
                                     }}>
                                         <Filter style={{marginRight: '10px',}}/>
-                                        Фильтр
+                                        {localization[lang].studentsPanel.filter}
                                     </Button>
                                     <Box display="flex" alignItems="center">
 
                                         <Input
                                             type="text"
                                             name="email"
-                                            placeholder="Найти"
+                                            placeholder={localization[lang].studentsPanel.search}
                                             className={styles.input}
                                         />
                                     </Box>
@@ -323,7 +326,7 @@ export const EmployerPageLayout: React.FC = () => {
                                         fontSize="14px"
                                         mb='.5rem' sx={{color: '#818181'}}
                                         className={styles.mobText}
-                                    >Ф.И.О
+                                    >{localization[lang].studentsPanel.Student.name}
                                     </Typography>
                                 </Box>
                                 <Box sx={{
@@ -335,7 +338,7 @@ export const EmployerPageLayout: React.FC = () => {
                                         fontSize="14px"
                                         mb='.5rem' sx={{color: '#818181'}}
                                         className={styles.mobText}
-                                    >Специальность
+                                    >{localization[lang].studentsPanel.Student.major}
                                     </Typography>
                                 </Box>
                                 <Box sx={{
@@ -347,7 +350,7 @@ export const EmployerPageLayout: React.FC = () => {
                                         fontSize="14px"
                                         mb='.5rem' sx={{color: '#818181'}}
                                         className={styles.mobText}
-                                    >Год выпуска
+                                    >{localization[lang].studentsPanel.Student.graduationYear}
                                     </Typography>
                                 </Box>
                                 <Box sx={{
@@ -429,7 +432,7 @@ export const EmployerPageLayout: React.FC = () => {
                                                     className={styles.mobText}
                                                     sx={{width: '50%', '@media (max-width: 768px)': {width: '100%'}}}
                                                 >
-                                                    {e.name_ru}
+                                                    {lang === 'en' ? e.name_en : e.name_ru}
                                                 </Typography>
                                                 <Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm}
                                                             sx={{

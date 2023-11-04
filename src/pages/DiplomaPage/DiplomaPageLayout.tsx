@@ -13,6 +13,7 @@ import diplomaTemplate from "@src/assets/example/diploma_template.jpg";
 import {extractYearFromHumanReadable} from "@src/utils/functions";
 import {selectLanguage} from "@src/store/generals/selectors";
 
+
 export const DiplomaPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
     const navigate = useNavigate();
@@ -87,10 +88,15 @@ export const DiplomaPageLayout: React.FC = () => {
                                     </Box>
                                     <Typography mb='.5rem' mt='0.5rem' fontSize="1.25rem" className={styles.mobText}
                                                 fontWeight="600">
-                                        {lang==='en' ? e.name_en : e.name_ru}
+                                        {lang === 'en' ? e.name_en : lang === 'ru' ? e.name_ru : e.name_kz}
                                     </Typography>
                                     <Typography fontSize=".8rem" mt="0" color="#818181" className={styles.mobTextSm}>
-                                        {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
+                                        {
+                                            lang === 'ru' ? e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1) :
+                                            lang === 'en' ? e.speciality_en?.substring(e.speciality_en.search("«"), e.speciality_en.search("»") + 1) :
+                                            lang === 'kz' ? e.speciality_kz?.substring(e.speciality_kz.search("«"), e.speciality_kz.search("»") + 1) :
+                                            undefined
+                                        }
                                     </Typography>
                                     {/* <Box display='flex' mt='auto' width='100%'> */}
                                     {/* <Typography fontSize="0.875rem" mr='auto'>
