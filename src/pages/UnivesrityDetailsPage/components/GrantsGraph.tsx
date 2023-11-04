@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Doughnut } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import {
 	Box,
@@ -35,7 +35,7 @@ export const GrantsGraph: React.FC = memo(() => {
 				</Box>
 			</Box>
 			<div style={{ margin: '20px' }}>
-				<Doughnut
+				<Pie
 					data={{
 						labels: [
 							'Грант покредитно',
@@ -47,9 +47,9 @@ export const GrantsGraph: React.FC = memo(() => {
 								label: 'Аналитика по количеству грантов',
 								data: [452, 68, 34],
 								backgroundColor: [
-									'rgb(0,255,255,0.6)',
-									'rgb(255,255,0,0.6)',
-									'rgb(0,255,0,0.6)',
+									'rgb(0, 255, 255, 0.6)',
+									'rgb(255, 255, 0, 0.6)',
+									'rgb(0, 255, 0, 0.6)',
 								],
 							},
 						],
