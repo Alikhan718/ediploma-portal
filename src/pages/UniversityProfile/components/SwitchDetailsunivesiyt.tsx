@@ -108,7 +108,7 @@ export const SwitchDetailsUniversity: React.FC = () => {
 			<Box width="50%" display="flex" flex="row" p=".275rem " sx={{
 				backgroundColor: "#F8F8F8", borderRadius: "3rem",
 				'@media (max-width: 778px)': {
-					width: '100%'
+					width: '100%', padding: '0'
 				},
 			}}>
 				<Button fullWidth={true} variant="contained"

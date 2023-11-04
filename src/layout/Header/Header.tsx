@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import MenuIcon from '@src/assets/icons/menu.svg';
 import MenuClosedIcon from '@src/assets/icons/cross.svg';
 import AppLogo from '@src/assets/icons/app-logo.svg';
@@ -14,26 +14,29 @@ import {
     dropdownItems,
     dropdownItemsBottom
 } from "@src/layout/Header/generator";
+import { ReactComponent as UserIcon } from '@src/assets/icons/user.svg';
+import { ReactComponent as FilterIcon } from '@src/assets/icons/Filter-icon.svg';
+import LogoutIcon from '@src/assets/icons/out.png';
 import {
-    AppBar as MuiAppBar,
-    AppBarProps as MuiAppBarProps,
-    Box,
-    Divider,
-    styled,
-    Typography, InputAdornment,
-    Menu, MenuItem, IconButton
+	AppBar as MuiAppBar,
+	AppBarProps as MuiAppBarProps,
+	Box,
+	Divider,
+	styled,
+	Typography, InputAdornment,
+	Menu, MenuItem, IconButton, useMediaQuery
 } from '@mui/material';
-import {HeaderProps} from './Header.props';
-import {GlobalLoader} from './GlobalLoader';
-import {Button, Input, Modal} from '@src/components';
-import {NavLink, useNavigate} from "react-router-dom";
-import {routes} from "@src/shared/routes";
-import {isAuthenticated} from "@src/utils/userAuth";
-import {FilterSection} from "@src/layout/Filter/FilterSection";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchAuthLogout} from "@src/store/auth/saga";
-import {fetchSearch} from "@src/store/diplomas/actionCreators";
-import {selectSearchText} from "@src/store/diplomas/selectors";
+import { HeaderProps } from './Header.props';
+import { GlobalLoader } from './GlobalLoader';
+import { Button, Input, Modal } from '@src/components';
+import { NavLink, useNavigate } from "react-router-dom";
+import { routes } from "@src/shared/routes";
+import { isAuthenticated } from "@src/utils/userAuth";
+import { FilterSection } from "@src/layout/Filter/FilterSection";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAuthLogout } from "@src/store/auth/saga";
+import { fetchSearch } from "@src/store/diplomas/actionCreators";
+import { selectSearchText } from "@src/store/diplomas/selectors";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 import {ReactComponent as NotIcon} from "@src/assets/icons/Notification.svg";
 import {ReactComponent as ModeIcon} from "@src/assets/icons/Moons.svg";
@@ -46,48 +49,55 @@ import {selectUserRole} from "@src/store/auth/selector";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {setLanguage} from '@src/store/generals/actionCreators';
 import { fetchLogoutAction } from '@src/store/auth/actionCreators';
+import { Sidebar } from '../Sidebar/Sidebar';
+import { selectUserRole } from "@src/store/auth/selector";
+import { useLocation } from 'react-router';
 
 interface AppBarProps extends MuiAppBarProps {
-    open: boolean;
+	open: boolean;
 }
 
 const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open'
-})<AppBarProps>(({theme, open}) => (
-    {
-        // width: `calc(100% - ${theme.spacing(7)})`,
-        boxShadow: 'none',
-        position: 'unset',
-        display: "none",
-        zIndex: "1",
-        backgroundColor: '#ffffff',
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        ...(open && {
-            // marginLeft: DRAWER_WIDTH,
-            // width: `calc(100% - ${DRAWER_WIDTH}px)`,
-            display: "flex",
-            transition: theme.transitions.create(['width', 'margin'], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-        }),
-    }));
+	shouldForwardProp: (prop) => prop !== 'open'
+})<AppBarProps>(({ theme, open }) => (
+	{
+		// width: `calc(100% - ${theme.spacing(7)})`,
+		boxShadow: 'none',
+		position: 'unset',
+		display: "none",
+		zIndex: "1",
+		backgroundColor: '#ffffff',
+		transition: theme.transitions.create(['width', 'margin'], {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen,
+		}),
+		...(open && {
+			// marginLeft: DRAWER_WIDTH,
+			// width: `calc(100% - ${DRAWER_WIDTH}px)`,
+			display: "flex",
+			transition: theme.transitions.create(['width', 'margin'], {
+				easing: theme.transitions.easing.sharp,
+				duration: theme.transitions.duration.enteringScreen,
+			}),
+		}),
+	}));
 
 export interface FilterAttributes {
-    text?: string,
-    specialities?: string;
-    degree?: string;
-    region?: string;
-    year?: number;
-    gpaL?: number;
-    gpaR?: number;
+	text?: string,
+	specialities?: string;
+	degree?: string;
+	region?: string;
+	year?: number;
+	gpaL?: number;
+	gpaR?: number;
 }
 
 const AppHeader: React.FC<HeaderProps> = (props) => {
     // const [showFilter, setShowFilter] = React.useState(false);
+    
+
+
+
     const lang = useSelector(selectLanguage);
     const tabletBreakpoint = 992;
     const isTablet = window.innerWidth < tabletBreakpoint;
@@ -104,7 +114,6 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     });
     const [open, setOpen] = React.useState(false);
     const [minimized, setMinimized] = React.useState(true);
-
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFilterAttributes({...filterAttributes, text: e.target.value.trim()});
         if (e.target.value.trim().length >= 2) {
@@ -123,7 +132,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     };
     const checkSecondHeaderRoute = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const secondHeaderEnabledRoutes = ['user', 'profile', 'graduates'];
+        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates'];
         for (const item of secondHeaderEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return true;

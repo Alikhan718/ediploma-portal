@@ -80,17 +80,20 @@ export const StudentPageLayout: React.FC = () => {
         setAlertOpen(false);
     };
 
-    const handleText = (text: string): string => {
-        const matchesSm = useMediaQuery('(max-width:768px)');
-        const trimLimit = matchesSm ? 85 : 115;
-        return showFull ? text : text.substring(0, trimLimit) + "...";
-    };
+	const handleText = (text: string): string => {
+		const matchesSm = useMediaQuery('(max-width:768px)');
+		const trimLimit = matchesSm ? 85 : 115;
+		return showFull ? text : text.substring(0, trimLimit) + "...";
+	};
 
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const handleCardClick = (counter: number) => {
+		navigate(`/app/diploma/${counter}/details`);
+	};
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
 
     const handleClose = () => {
         setAnchorEl(null);

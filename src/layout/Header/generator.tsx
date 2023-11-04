@@ -48,7 +48,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
             "kz": 'Аналитика',
             "en": 'Analytics',
         },
-        to: routes.main,
+        to: routes.analysisPage,
         role: ["university"],
         icon: <MainPageIcon style={{verticalAlign: "middle"}}/>,
         verticalAlign: "middle",

@@ -1,23 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import {Box, Card, CardMedia, Typography, Pagination} from '@mui/material';
-import {Button, Label, Input} from '@src/components';
+import React, { useEffect, useState } from 'react';
+import { Box, Card, CardMedia, Typography, Pagination } from '@mui/material';
+import { Button, Label, Input } from '@src/components';
 import styles from './EmployerPage.module.css';
-import {ReactComponent as SmartContractIcon} from '@src/assets/icons/smartContract_black.svg';
-import {ReactComponent as WebIcon} from '@src/assets/icons/web_black.svg';
-import {ReactComponent as DiscordIcon} from '@src/assets/icons/discord_black.svg';
-import {ReactComponent as TwitterIcon} from '@src/assets/icons/twitter_black.svg';
-import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
-import {selectDiplomaList} from "@src/store/diplomas/selectors";
-import {AnalyticsCard} from '@src/pages/UnivesrityDetailsPage/components/AnalyticsCard';
-import {FacultyGraph} from '@src/pages/UnivesrityDetailsPage/components/FacultyGraph';
-import {AnalyticsGraph} from '@src/pages/UnivesrityDetailsPage/components/AnalyticsGraph';
-import {CitiesGraph} from '@src/pages/UnivesrityDetailsPage/components/CitiesGraph';
-import {GenderGraph} from '@src/pages/UnivesrityDetailsPage/components/GenderGraph';
-import {CitiesGrantsGraph} from '@src/pages/UnivesrityDetailsPage/components/CitiesGrantsGraph';
-import {GrantsGraph} from '@src/pages/UnivesrityDetailsPage/components/GrantsGraph';
+import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
+import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
+import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
+import { ReactComponent as TwitterIcon } from '@src/assets/icons/twitter_black.svg';
+import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDiplomas } from "@src/store/diplomas/actionCreators";
+import { selectDiplomaList } from "@src/store/diplomas/selectors";
+import { AnalyticsCard } from '@src/pages/UnivesrityDetailsPage/components/AnalyticsCard';
+import { FacultyGraph } from '@src/pages/UnivesrityDetailsPage/components/FacultyGraph';
+import { AnalyticsGraph } from '@src/pages/UnivesrityDetailsPage/components/AnalyticsGraph';
+import { CitiesGraph } from '@src/pages/UnivesrityDetailsPage/components/CitiesGraph';
+import { GenderGraph } from '@src/pages/UnivesrityDetailsPage/components/GenderGraph';
+import { CitiesGrantsGraph } from '@src/pages/UnivesrityDetailsPage/components/CitiesGrantsGraph';
+import { GrantsGraph } from '@src/pages/UnivesrityDetailsPage/components/GrantsGraph';
 import univ from './../../assets/icons/FilterUn.svg';
 import star from "./../../assets/icons/Star1.svg";
 import share from "./../../assets/icons/share.svg";
@@ -31,30 +31,30 @@ import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/pages/EmployerPage/generator';
 
 interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
+	children?: React.ReactNode;
+	index: number;
+	value: number;
 }
 
 function TabPanel(props: TabPanelProps) {
-    const {children, value, index, ...other} = props;
+	const { children, value, index, ...other } = props;
 
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
+	return (
+		<div
+			role="tabpanel"
+			hidden={value !== index}
+			id={`simple-tabpanel-${index}`}
+			aria-labelledby={`simple-tab-${index}`}
 
-            {...other}
-        >
-            {value === index && (
-                <Box pr={3} pt={2} sx={{paddingRight: 'unset'}}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
+			{...other}
+		>
+			{value === index && (
+				<Box pr={3} pt={2} sx={{ paddingRight: 'unset' }}>
+					<Typography>{children}</Typography>
+				</Box>
+			)}
+		</div>
+	);
 }
 
 export const EmployerPageLayout: React.FC = () => {

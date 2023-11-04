@@ -9,8 +9,8 @@ export { default as RegisterPage } from './AuthPage/Register/RegisterPageContain
 export { default as ForgotPassword } from './AuthPage/ForgotPassword/ForgotPasswordPageContainer';
 export { default as AddingGraduates } from './UnivesrityDetailsPage/AddingGraduates'
 export { default as UniversityProfilePage } from './UniversityProfile/UniversityProfileContainer';
-
+export { default as UniversityDeatailPage } from './UniversityDeatailPage/UniversityDeatailPageContainer';
+export { default as AnalysisPage } from './UnivesrityDetailsPage/AnalysisPage';
 export { default as SettingsPage } from './UnivesrityDetailsPage/SettingsPage'
-
 export { default as StudentPage } from './StudentPage/StudentPageContainer';
 export { default as EmployerPage } from './EmployerPage/EmployerPageContainer';

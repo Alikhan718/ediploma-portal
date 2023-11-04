@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
 	Box, Button, Rating, Typography, useMediaQuery, Pagination,
-	InputAdornment, Grid, Container, Skeleton
+	InputAdornment, Grid, Container
 } from '@mui/material';
 import { ReactComponent as HeaderSearchIcon } from '@src/assets/icons/search.svg';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
@@ -9,12 +9,12 @@ import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
 import { ReactComponent as TwitterIcon } from '@src/assets/icons/twitter_black.svg';
 import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
-import { SwitchDetailsUniversity } from './components/SwitchDetailsunivesiyt';
+import { SwitchDetailsUniversity } from '../UniversityProfile/components/SwitchDetailsunivesiyt';
 import univ from './../../assets/icons/FilterUn.svg';
 import { Input } from './../../components';
 import { ReactComponent as ExpandMore } from '@src/assets/icons/expand_more.svg';
-import styles from "./UniversityProfile.module.css";
-import { UniversityProfileHeader } from "@src/pages/UniversityProfile/components/UniversityProfileHeader";
+import styles from "./UniversityDeatailPage.module.css";
+import { UniversityDeatailsHeader } from "@src/pages/UniversityDeatailPage/components/UniversityDeatailsHeader";
 import star from "./../../assets/icons/Star1.svg";
 import share from "./../../assets/icons/share.svg";
 import dots from "./../../assets/icons/Dots.svg";
@@ -62,7 +62,7 @@ function a11yProps(index: number) {
 		'aria-controls': `simple-tabpanel-${index}`,
 	};
 }
-export const UniversityProfileLayout: React.FC = () => {
+export const UniversityDeatailPage: React.FC = () => {
 	const [showFull, setShowFull] = React.useState(false);
 	const [page, setPage] = useState(0);
 	const diplomaList = useSelector(selectDiplomaList);
@@ -107,14 +107,14 @@ export const UniversityProfileLayout: React.FC = () => {
 	}, []);
 	const defaultS = 3.5;
 	return (
-		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} >
+		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'>
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
 
 				<Box className={styles.upperContainer}>
 					<Box display='flex' flexDirection='row'>
 
 						<Box display='flex' flexDirection='column' sx={{ borderRadius: '15px', }}>
-							<UniversityProfileHeader />
+							<UniversityDeatailsHeader />
 							<Box >
 								<Box
 									display="flex"
@@ -124,10 +124,7 @@ export const UniversityProfileLayout: React.FC = () => {
 										justifyContent: 'space-between',
 										width: '100%',
 										alignItems: 'center',
-										'@media (max-width: 768px)': {
-											position: 'relative',
-											width: '90%'
-										}
+										'@media (max-width: 768px)': { position: 'relative', }
 									}}
 								>
 									<Typography
@@ -147,7 +144,7 @@ export const UniversityProfileLayout: React.FC = () => {
 											},
 										}}
 									>
-										Казахстанско-Британский технический университет								</Typography>
+										Сатпаев Университет									</Typography>
 									<Box marginBottom="25px" sx={{ flexDirection: 'row', justifyContent: 'space-between', '@media (max-width: 768px)': { display: 'none' } }}>
 										<img src={star} style={{
 											marginRight: '10px',
@@ -188,6 +185,8 @@ export const UniversityProfileLayout: React.FC = () => {
 									</Typography>
 									<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
 								</Box>
+
+
 								<Box display="flex"
 									alignItems="center"
 									sx={{
@@ -209,6 +208,7 @@ export const UniversityProfileLayout: React.FC = () => {
 										/> (25 отзывов)
 									</Typography>
 								</Box>
+
 								<Box display='flex' flexDirection='column'>
 									<Typography className={styles.textSm}>
 										Номер телефона: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>8 (7273) 57 42 51</span>
@@ -240,6 +240,7 @@ export const UniversityProfileLayout: React.FC = () => {
 												display: 'none',
 											}
 										}}>
+
 											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>5.1</Typography>
 											<Typography className={styles.textSm}>
 												Средний GPA
@@ -418,9 +419,9 @@ export const UniversityProfileLayout: React.FC = () => {
 								{currentDiplomaPage.map((e: any) => (
 
 									<Box
-										key={e.id}
+										key={e.counter}
 										onClick={() => {
-											navigate(`/app/diploma/${e.id!}`);
+											navigate(`/app/diploma/${e.counter!}/details`);
 										}}
 										className={styles.diplomaItem}
 										sx={{
@@ -504,14 +505,13 @@ export const UniversityProfileLayout: React.FC = () => {
 									width: '100%',
 									marginBottom: "2rem"
 								}}>
-
 									<Box style={{
 										flex: 1,
 										display: 'flex',
 										justifyContent: 'center',
 										alignItems: 'center'
 									}}>
-											<Pagination
+										<Pagination
 											count={totalPages}
 											page={currentPage}
 											onChange={(event, page) => setCurrentPage(page)}
@@ -522,77 +522,11 @@ export const UniversityProfileLayout: React.FC = () => {
 											boundaryCount={window.innerWidth < 600 ? 1 : 2}
 										/>
 									</Box>
-
-								</Box>
-
-							</Box>
-
-
-						</TabPanel>
-						<TabPanel value={value} index={1}>
-							<Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
-								<Box sx={{
-									display: 'flex',
-									flexWrap: 'wrap',
-									gap: "24px",
-									marginBottom: '35px',
-									'@media (max-width: 1335px)': {
-										'& > div': {
-											width: '48%'
-										},
-										justifyContent: 'space-between',
-										marginRight: '2%'
-									},
-									'@media (max-width: 700px)': {
-										'& > div': {
-											width: '98%'
-										},
-										marginRight: 0
-									},
-								}}>
-
-								</Box>
-								<Box sx={{
-									width: "100%",
-									display: "flex",
-									flexDirection: "row",
-									justifyContent: "start",
-									marginBottom: "32px",
-									'@media (max-width: 1335px)': {
-										flexDirection: "column",
-										gap: "32px"
-									}
-								}}>
-									<Box sx={{
-										flex: 3,
-										display: "flex",
-										gap: "32px",
-										flexDirection: "column"
-									}}>
-
-									</Box>
-									<Box sx={{
-										flex: 1,
-										display: "flex",
-										gap: "32px",
-										flexDirection: "column",
-										'@media (max-width: 1335px)': {
-											flexDirection: "row"
-										},
-										'@media (max-width: 700px)': {
-											flexDirection: "column",
-											width: "100%",
-											'& > div': {
-												maxWidth: "100%"
-											}
-										}
-									}}>
-
-									</Box>
 								</Box>
 
 							</Box>
 						</TabPanel>
+
 					</Box>
 
 				</Box>

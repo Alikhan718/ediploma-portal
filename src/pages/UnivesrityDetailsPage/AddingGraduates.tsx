@@ -1,5 +1,5 @@
 import { Box, Typography, LinearProgress, TextField, Button, IconButton, Grid, CircularProgress } from "@mui/material";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
@@ -86,8 +86,29 @@ const AddingGraduates: React.FC = () => {
 
 	const ipfsLink = useSelector(selectIpfsLink);
 	const smartContractLink = useSelector(selectSmartContractLink);
+	const [isMobile, setIsMobile] = useState(false);
+	const isMobileOrTablet = () => {
+		return window.innerWidth <= 990;
+	};
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(isMobileOrTablet());
+		};
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+
+	if (isMobile) {
+		navigate(routes.main);
+		return null;
+	}
 
 	return (
+
 		<Box sx={{}}>
 			<Box sx={{
 				textAlign: "center",

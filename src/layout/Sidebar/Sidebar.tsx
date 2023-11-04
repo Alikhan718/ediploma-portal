@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     Drawer,
     styled,
@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import out from "./../../assets/icons/Logout.svg";
 import settings from "./../../assets/icons/Settings.svg"
-import {Button, Input, Modal} from '@src/components';
+import { Button, Input, Modal } from '@src/components';
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import {SidebarProps} from './Sidebar.props';
 import {NavLink, useNavigate, useLocation} from 'react-router-dom';
@@ -28,52 +28,52 @@ import {fetchLogoutAction} from "@src/store/auth/actionCreators";
 
 
 interface ICustomDrawer extends DrawerProps {
-    open: boolean;
+	open: boolean;
 }
 
 const drawerMixin = (theme: Theme, open: boolean): CSSObject => ({
-    overflowX: 'hidden',
-    borderRadius: "0 2rem 2rem 0",
-    boxShadow: "-8rem 0 10rem",
-    transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        ...(open ? {
-            duration: theme.transitions.duration.enteringScreen,
-        } : {
-            duration: theme.transitions.duration.leavingScreen,
-        })
-    }),
-    ...(open ? {
-        width: DRAWER_WIDTH,
-    } : {
-        width: `0px`,
-        left: "-1px",
-    }),
-    '@media (max-width: 1000px)': {
-        display: 'none !important',
-    },
+	overflowX: 'hidden',
+	borderRadius: "0 2rem 2rem 0",
+	boxShadow: "-8rem 0 10rem",
+	transition: theme.transitions.create('width', {
+		easing: theme.transitions.easing.sharp,
+		...(open ? {
+			duration: theme.transitions.duration.enteringScreen,
+		} : {
+			duration: theme.transitions.duration.leavingScreen,
+		})
+	}),
+	...(open ? {
+		width: DRAWER_WIDTH,
+	} : {
+		width: `0px`,
+		left: "-1px",
+	}),
+	'@media (max-width: 1000px)': {
+		display: 'none !important',
+	},
 });
 
-const CustomDrawer = styled(Drawer, {shouldForwardProp: (prop) => prop !== 'open'})<ICustomDrawer>(
-    ({theme, open}) => ({
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        width: DRAWER_WIDTH,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-        boxSizing: 'border-box',
-        zIndex: '999999',
-        boxShadow: 'unset',
-        height: '10%',
-        ...{
-            ...drawerMixin(theme, open),
-            '& .MuiDrawer-paper': {
-                ...drawerMixin(theme, open),
-                backgroundColor: 'white'
-            },
-        }
-    }),
+const CustomDrawer = styled(Drawer, { shouldForwardProp: (prop) => prop !== 'open' })<ICustomDrawer>(
+	({ theme, open }) => ({
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'flex-start',
+		width: DRAWER_WIDTH,
+		flexShrink: 0,
+		whiteSpace: 'nowrap',
+		boxSizing: 'border-box',
+		zIndex: '999999',
+		boxShadow: 'unset',
+		height: '10%',
+		...{
+			...drawerMixin(theme, open),
+			'& .MuiDrawer-paper': {
+				...drawerMixin(theme, open),
+				backgroundColor: 'white'
+			},
+		}
+	}),
 );
 
 
@@ -86,12 +86,12 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
     const navigate = useNavigate();
     const authLoader = useSelector(selectAuthLoader);
 
-    const [activeNav, setActiveNav] = React.useState(0);
+	const [activeNav, setActiveNav] = React.useState(0);
 
-    const handleClassName = (isActive: boolean, id: number): string | undefined => {
-        isActive && setActiveNav(id);
-        return "";
-    };
+	const handleClassName = (isActive: boolean, id: number): string | undefined => {
+		isActive && setActiveNav(id);
+		return "";
+	};
 
     const onSignOut = (): void => {
         localStorage.removeItem("token");
@@ -109,19 +109,19 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
         return false;
     };
 
-    const [anchorEl, setAnchorEl] = useState<null | HTMLButtonElement>(null);
+	const [anchorEl, setAnchorEl] = useState<null | HTMLButtonElement>(null);
 
-    const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+	const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-    const handleCloseMenu = () => {
-        setAnchorEl(null);
-    };
-    const [isSidebarVisible, setIsSidebarVisible] = useState(checkRoute());
+	const handleCloseMenu = () => {
+		setAnchorEl(null);
+	};
+	const [isSidebarVisible, setIsSidebarVisible] = useState(checkRoute());
 
-    const tabletBreakpoint = 992;
-    const isTablet = window.innerWidth < tabletBreakpoint;
+	const tabletBreakpoint = 992;
+	const isTablet = window.innerWidth < tabletBreakpoint;
 
     React.useEffect(() => {
         setIsSidebarVisible(checkRoute);
@@ -273,18 +273,18 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                         </Box>
                                     </Box>
 
-                                </Box>
-                            </Box>
-                        </Box>
-                    ) : (
-                        <CircularProgress color="warning"/>
-                    )}
+								</Box>
+							</Box>
+						</Box>
+					) : (
+						<CircularProgress color="warning" />
+					)}
 
 
-                </CustomDrawer>
-            )}
-        </>
-    );
+				</CustomDrawer>
+			)}
+		</>
+	);
 };
 
 export const Sidebar = React.memo(AppSidebar);

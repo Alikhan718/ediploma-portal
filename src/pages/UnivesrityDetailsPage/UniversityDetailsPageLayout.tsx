@@ -498,14 +498,16 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                         justifyContent: 'center',
                                         alignItems: 'center'
                                     }}>
-                                        <Pagination
-                                            count={totalPages}
-                                            page={currentPage}
-                                            onChange={(event, page) => setCurrentPage(page)}
-                                            shape="rounded"
-                                            color="primary"
-                                            size="large"
-                                        />
+                                       	<Pagination
+											count={totalPages}
+											page={currentPage}
+											onChange={(event, page) => setCurrentPage(page)}
+											shape="rounded"
+											color="primary"
+											size="large"
+											siblingCount={window.innerWidth < 600 ? 0 : 1}
+											boundaryCount={window.innerWidth < 600 ? 1 : 2}
+										/>
                                     </Box>
 
                                 </Box>
