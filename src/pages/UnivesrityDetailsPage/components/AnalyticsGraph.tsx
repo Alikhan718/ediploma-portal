@@ -29,6 +29,7 @@ export const AnalyticsGraph: React.FC = memo(() => {
 				padding: "20px",
 				display: "flex",
 				flexDirection: "column",
+				borderRadius: '30px'
 			}}
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"} margin={"0 20px"}>
