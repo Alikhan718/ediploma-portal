@@ -6,7 +6,7 @@ import { StudentOrRecruiter } from '@src/components';
 import Alert from '@mui/material/Alert';
 import { useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
-import { localization } from './generator';
+import { localization } from '@src/components/HiringPopup/Generator';
 
 interface HiringPopUpProps {
 	setShowPopup:any;

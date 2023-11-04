@@ -4,7 +4,7 @@ import { StudentCard } from './StudentCard';
 import { Box, CircularProgress } from '@mui/material';
 import { useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
-import { localization } from './generator';
+import { localization } from '@src/components/HiringPopup/Generator';
 
 interface SearchOutputProps{
     response:any;

@@ -4,7 +4,7 @@ import student from "@src/assets/example/student.jpg";
 import recruiter from "@src/assets/example/recruiter.jpg";
 import { useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
-import { localization } from './generator';
+import { localization } from '@src/components/HiringPopup/Generator';
 
 interface StudentOrRecruiterProps {
 	setIsStudent:any;

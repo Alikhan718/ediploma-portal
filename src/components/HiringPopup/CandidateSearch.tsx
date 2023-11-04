@@ -5,7 +5,7 @@ import { set } from 'react-ga';
 import { SearchOutput } from './SearchOutput';
 import { useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
-import { localization } from './generator';
+import { localization } from '@src/components/HiringPopup/Generator';
 
 interface CandidateSearchProps {
 	jobDescription:string;

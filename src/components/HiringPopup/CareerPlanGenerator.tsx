@@ -5,7 +5,7 @@ import { Input } from '@src/components';
 import { Output } from './Output';
 import { useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
-import { localization } from './generator';
+import { localization } from '@src/components/HiringPopup/Generator';
 
 interface CareerPlanGeneratorProps{
     setIsClicked: any;

@@ -76,6 +76,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			<Box display={open ? 'flex' : 'none'} width='70%' position='absolute' top="0" left="0"
 				justifyContent='center'
 				sx={{
+					zIndex: "10",
 					transform: "translate(15vw, 15vh)",
 					'@media (max-width: 1000px)': {
 						transform: "translate(5vw, 10vh)",
