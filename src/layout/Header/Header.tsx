@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import MenuIcon from '@src/assets/icons/menu.svg';
 import MenuClosedIcon from '@src/assets/icons/cross.svg';
 import AppLogo from '@src/assets/icons/app-logo.svg';
@@ -10,13 +10,9 @@ import {ReactComponent as AccountCircleIcon} from '@src/assets/icons/profileIcon
 import {
     headerNavigations,
     interFaceOptions,
-    sidebarNavigations,
     dropdownItems,
     dropdownItemsBottom
 } from "@src/layout/Header/generator";
-import { ReactComponent as UserIcon } from '@src/assets/icons/user.svg';
-import { ReactComponent as FilterIcon } from '@src/assets/icons/Filter-icon.svg';
-import LogoutIcon from '@src/assets/icons/out.png';
 import {
 	AppBar as MuiAppBar,
 	AppBarProps as MuiAppBarProps,
@@ -24,7 +20,7 @@ import {
 	Divider,
 	styled,
 	Typography, InputAdornment,
-	Menu, MenuItem, IconButton, useMediaQuery
+	Menu, MenuItem, IconButton
 } from '@mui/material';
 import { HeaderProps } from './Header.props';
 import { GlobalLoader } from './GlobalLoader';
@@ -32,26 +28,16 @@ import { Button, Input, Modal } from '@src/components';
 import { NavLink, useNavigate } from "react-router-dom";
 import { routes } from "@src/shared/routes";
 import { isAuthenticated } from "@src/utils/userAuth";
-import { FilterSection } from "@src/layout/Filter/FilterSection";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuthLogout } from "@src/store/auth/saga";
 import { fetchSearch } from "@src/store/diplomas/actionCreators";
 import { selectSearchText } from "@src/store/diplomas/selectors";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 import {ReactComponent as NotIcon} from "@src/assets/icons/Notification.svg";
 import {ReactComponent as ModeIcon} from "@src/assets/icons/Moons.svg";
-import {ReactComponent as Settings} from "@src/assets/icons/Settings.svg";
-import {ReactComponent as Out} from "@src/assets/icons/logout_outline.svg";
-import {ReactComponent as Analytics} from "@src/assets/icons/analytics_outlined.svg";
-import {ReactComponent as Avatar} from "@src/assets/icons/avatar_outlined.svg";
-import {ReactComponent as Folder} from "@src/assets/icons/folder_outilne.svg";
 import {selectUserRole} from "@src/store/auth/selector";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {setLanguage} from '@src/store/generals/actionCreators';
 import { fetchLogoutAction } from '@src/store/auth/actionCreators';
-import { Sidebar } from '../Sidebar/Sidebar';
-import { selectUserRole } from "@src/store/auth/selector";
-import { useLocation } from 'react-router';
 
 interface AppBarProps extends MuiAppBarProps {
 	open: boolean;

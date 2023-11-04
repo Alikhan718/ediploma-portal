@@ -10,18 +10,15 @@ import {
     CircularProgress,
     Divider
 } from '@mui/material';
-import out from "./../../assets/icons/Logout.svg";
-import settings from "./../../assets/icons/Settings.svg"
 import { Button, Input, Modal } from '@src/components';
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import {SidebarProps} from './Sidebar.props';
 import {NavLink, useNavigate, useLocation} from 'react-router-dom';
 import {selectAuthLoader, selectUserRole} from '@src/store/auth/selector';
 import {useDispatch, useSelector} from 'react-redux';
-import {sidebarNavigations, AppRoutesNavigation, dropdownItemsBottom, localization} from "@src/layout/Header/generator";
+import {sidebarNavigations, dropdownItemsBottom, localization} from "@src/layout/Header/generator";
 import {DRAWER_WIDTH} from '../Layout';
 import {routes} from "@src/shared/routes";
-import {fetchAuthLogout} from "@src/store/auth/saga";
 import icon from "@src/assets/icons/Logo (2).svg";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {fetchLogoutAction} from "@src/store/auth/actionCreators";
@@ -100,7 +97,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
     };
     const checkRoute = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const sidebarEnabledRoutes = ['details', 'user', 'profile', 'graduates'];
+        const sidebarEnabledRoutes = ['analysisPage', 'details', 'user', 'profile', 'graduates'];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return true;

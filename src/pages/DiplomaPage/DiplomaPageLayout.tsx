@@ -26,7 +26,7 @@ export const DiplomaPageLayout: React.FC = () => {
 
 
 	const handleCardClick = (counter: number) => {
-		navigate(`/app/diploma/${counter}/details`);
+		navigate(`/app/diploma/${counter}`);
 	};
 
 	return (
