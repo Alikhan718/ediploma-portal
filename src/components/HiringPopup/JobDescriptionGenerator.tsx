@@ -23,6 +23,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
     const [gotResponse, setGotResponse] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [haveSearch, setHaveSearch] = React.useState(true);
+    const [sessionId, setSessionId] = React.useState('');
 
     const handleOnChange = (event: any): void => {
         setSelectedRadio(event.target.value);
@@ -34,34 +35,25 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
     };
 
     const handleButtonSubmit = (): void => {
-        handleSubmit(selectedRadio === '1');
+        handleSubmit();
     };
 
-    const handleSubmit = async (isTask: boolean): Promise<void> => {
+    const handleSubmit = async (): Promise<void> => {
         if((document.getElementById("chat") as HTMLInputElement).value === ''){
-            showAlert(localization[lang].Alert.writeTask)
+            showAlert(localization[lang].Alert.writeTask);
             return;
         }
 
         setIsDataAlert(false);
-
-        console.log(isTask);
         setGotResponse(true);
         setLoading(true);
+        setResponse('');
 
         const textAreaValue: string = (document.getElementById("chat") as HTMLInputElement).value;
         console.log(textAreaValue);
-        let apiLink: string = '';
-
-        if(isTask){
-            apiLink = 'https://agile-job-desc-denerator.onrender.com/generate-from-task';
-        }
-        else{
-            apiLink = 'https://agile-job-desc-denerator.onrender.com/generate-from-project';
-        }
 
         try {
-            const response = await fetch(apiLink,{
+            const response = await fetch('http://localhost:3001/generate-from-task',{
                 method: "POST",
                 body: JSON.stringify({prompt: textAreaValue}),
                 headers: {
@@ -70,11 +62,9 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
             });
 
             const responseData = await response.json();
-            console.log(responseData);
-            setResponse(responseData.data);
-            setJobDescription(responseData.data);
+            setSessionId(responseData.sessionId);
             setLoading(false);
-        } catch(error) {
+        } catch(error){
             console.log(error);
             setLoading(false);
         }
@@ -83,7 +73,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
     return(
         <div>
             {gotResponse ? 
-            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setHaveDescription} haveSearch={haveSearch} isStudent={false} setJobDescription={setJobDescription}/>):
+            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setHaveDescription} haveSearch={haveSearch} isStudent={false} setJobDescription={setJobDescription} sessionId={sessionId} setResponse={setResponse}/>):
             (<div>
 
             

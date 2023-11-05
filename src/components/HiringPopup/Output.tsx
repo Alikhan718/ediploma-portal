@@ -13,11 +13,13 @@ interface OutputProps{
     haveSearch: any;
     isStudent: any;
     setJobDescription:any;
+    sessionId: any;
+    setResponse: any;
 }
 
 export const Output: React.FC<OutputProps> = (props) => {
     const lang = useSelector(selectLanguage);
-    const {response, loading, setGotResponse, setHaveDescription, haveSearch, isStudent, setJobDescription } = props;
+    const {response, loading, setGotResponse, setHaveDescription, haveSearch, isStudent, setJobDescription, sessionId, setResponse } = props;
     const [isCopied, setIsCopied] = React.useState(false);
     const urlRegex:RegExp = /(https?:\/\/[^\s\)]+)/g;
 
@@ -29,6 +31,32 @@ export const Output: React.FC<OutputProps> = (props) => {
             console.error('Failed to copy text: ', err);
         });
     };
+
+    React.useEffect(()=>{
+        let endpoint:string = '';
+
+        if(isStudent){
+            endpoint = `http://localhost:3003/student-action-plan/stream-text?sessionId=${sessionId}`;
+        }
+        else{
+            endpoint = `http://localhost:3001/stream-text?sessionId=${sessionId}`;
+        }
+
+        const eventSource = new EventSource(endpoint);
+
+        eventSource.addEventListener('newEntry', e=> {
+            setResponse((prevResponse:string) => prevResponse + e.data);
+        });
+
+        eventSource.addEventListener('close', () => {
+            eventSource.close();
+        });
+
+        return (() => {
+            eventSource.close();
+        });
+
+    }, [sessionId]);
 
     return(
         <div>
@@ -61,24 +89,24 @@ export const Output: React.FC<OutputProps> = (props) => {
                         >{isCopied ? localization[lang].Output.Buttons.copied : localization[lang].Output.Buttons.copy }
                         </button>
                     </div>)}
-                    <p>{response.split('\n').map((paragraph, index) => (
-                    <span key={index}>
-                        {paragraph.split(urlRegex).map((part, idx) => {
-                            if (urlRegex.test(part)) {
+                    <p>{response.split('<br>').map((paragraph, index) => (
+                        <span key={index}>
+                            {paragraph.split(urlRegex).map((part, idx) => {
+                                if (urlRegex.test(part)) {
+                                    return (
+                                        <a key={idx} href={part} target="_blank" rel="noopener noreferrer" className={styles.link}>
+                                            {part}
+                                        </a>
+                                    );
+                                }
                                 return (
-                                    <a key={idx} href={part} target="_blank" rel="noopener noreferrer" className={styles.link}>
-                                        {part}
-                                    </a>
+                                    <span key={index}>
+                                    {part}
+                                    </span>
                                 );
-                            }
-                            return (
-                                <span key={index}>
-                                  {part}
-                                </span>
-                            );
-                        })}
-                        {index < response.split('\n').length - 1 && <br />}
-                    </span>
+                            })}
+                            {index < response.split('<br>').length - 1 && <br />}
+                        </span>
                         ))}
                     </p>
                 </div>
