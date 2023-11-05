@@ -36,10 +36,10 @@ export const Output: React.FC<OutputProps> = (props) => {
         let endpoint:string = '';
 
         if(isStudent){
-            endpoint = `http://localhost:3003/student-action-plan/stream-text?sessionId=${sessionId}`;
+            endpoint = `https://agile-job-student.onrender.com/student-action-plan/stream-text?sessionId=${sessionId}`;
         }
         else{
-            endpoint = `http://localhost:3001/stream-text?sessionId=${sessionId}`;
+            endpoint = `https://agile-job-desc-denerator.onrender.com/stream-text?sessionId=${sessionId}`;
         }
 
         const eventSource = new EventSource(endpoint);

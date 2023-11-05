@@ -53,7 +53,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
         console.log(textAreaValue);
 
         try {
-            const response = await fetch('http://localhost:3001/generate-from-task',{
+            const response = await fetch('https://agile-job-desc-denerator.onrender.com/generate-from-task',{
                 method: "POST",
                 body: JSON.stringify({prompt: textAreaValue}),
                 headers: {
