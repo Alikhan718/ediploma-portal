@@ -5,7 +5,6 @@ import styles from './EmployerPage.module.css';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
-import { ReactComponent as TwitterIcon } from '@src/assets/icons/twitter_black.svg';
 import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -465,9 +464,6 @@ export const EmployerPageLayout: React.FC = () => {
                                                     3.0
                                                 </Typography>
                                             </Box>
-                                            {/*<Box sx={{marginLeft: 'auto', marginRight: "3rem"}}>*/}
-                                            {/*    <TwitterIcon/>*/}
-                                            {/*</Box>*/}
                                         </Box>
                                     </Box>
                                 ))
