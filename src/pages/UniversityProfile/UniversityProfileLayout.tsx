@@ -7,7 +7,6 @@ import { ReactComponent as HeaderSearchIcon } from '@src/assets/icons/search.svg
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
-import { ReactComponent as TwitterIcon } from '@src/assets/icons/twitter_black.svg';
 import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
 import { SwitchDetailsUniversity } from './components/SwitchDetailsunivesiyt';
 import univ from './../../assets/icons/FilterUn.svg';
@@ -250,7 +249,6 @@ export const UniversityProfileLayout: React.FC = () => {
 									<Box marginRight="25px">
 										<DiscordIcon />
 									</Box>
-									<Box marginRight="25px"><TwitterIcon /></Box>
 									<Box marginRight="25px"><SmartContractIcon /></Box>
 									<Box ><WebIcon className={styles.social} onClick={() => {
 										handleLink("https://kbtu.edu.kz/ru/");
@@ -478,9 +476,6 @@ export const UniversityProfileLayout: React.FC = () => {
 													3.0
 												</Typography>
 											</Box>
-											{/*<Box sx={{marginLeft: 'auto', marginRight: "3rem"}}>*/}
-											{/*    <TwitterIcon/>*/}
-											{/*</Box>*/}
 										</Box>
 									</Box>
 								))
