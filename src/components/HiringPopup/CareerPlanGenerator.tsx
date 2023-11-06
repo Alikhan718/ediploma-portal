@@ -28,6 +28,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
     const [gotResponse, setGotResponse] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [haveSearch, setHaveSearch] = React.useState(false);
+    const [sessionId, setSessionId] = React.useState('');
     
 
     const handleInputChange = (e: any): void => {
@@ -69,7 +70,8 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
 
         setGotResponse(true);
         setLoading(true);
-        
+        setResponse('');
+
         console.log("Loading...");
         setIsDataAlert(false);
 
@@ -90,7 +92,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
             });
 
             const responseData = await response.json();
-            setResponse(responseData.data);
+            setSessionId(responseData.sessionId);
             setLoading(false);
             console.log(responseData);
 
@@ -112,7 +114,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
     return(
         <div>
             {gotResponse ? 
-            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setGotResponse} haveSearch={haveSearch} isStudent={true} setJobDescription={null}/>):
+            (<Output response={response} loading={loading} setGotResponse={setGotResponse} setHaveDescription={setGotResponse} haveSearch={haveSearch} isStudent={true} setJobDescription={null} sessionId={sessionId} setResponse={setResponse}/>):
             (<div>
 
             <h1 className={styles.popupHeading}>{localization[lang].CareerPlan.title}</h1>
