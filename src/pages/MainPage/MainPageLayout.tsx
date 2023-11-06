@@ -18,6 +18,7 @@ import {localization} from "./generator";
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import cn from "classnames";
 import {selectLanguage} from "@src/store/generals/selectors";
+import reviewAvatar from "@src/assets/icons/gabdullin_m.png";
 
 export const MainPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
@@ -207,7 +208,7 @@ export const MainPageLayout: React.FC = () => {
                      justifyContent="start">
                     {localization[lang].Reviews.elements.map((el: any) => {
                         return (<Box key={el} className={styles.cardItem}>
-                            <img src={el.avatar} style={{width: '3.5rem', borderRadius: "50%", alignSelf: "center"}}/>
+                            <img src={reviewAvatar} style={{width: '3.5rem', borderRadius: "50%", alignSelf: "center"}}/>
                             <Typography fontSize=".9rem" fontWeight="500" color="#2D2D2D" className={styles.mobTextSm}>
                                 {el.fullname}
                             </Typography>
