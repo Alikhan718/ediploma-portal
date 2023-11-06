@@ -28,7 +28,7 @@ import { CitiesGrantsGraph } from './components/CitiesGrantsGraph';
 import { GrantsGraph } from './components/GrantsGraph';
 import { selectUserRole } from '@src/store/auth/selector';
 import StarIcon from '@mui/icons-material/Star';
-import {selectLanguage} from "@src/store/generals/selectors";
+import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
 
 
@@ -115,7 +115,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
 
 				<Box className={styles.upperContainer}>
-					<Box display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px'}}>
+					<Box display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px' }}>
 						<UniversityDetailsPageHeader />
 						<Box px="2rem">
 							<Box
@@ -126,7 +126,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									justifyContent: 'space-between',
 									width: '100%',
 									alignItems: 'center',
-									'@media (max-width: 768px)': {position: 'relative'}
+									'@media (max-width: 768px)': { position: 'relative' }
 								}}
 							>
 								<Typography
@@ -148,27 +148,27 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								>
 									{localization[lang].MainCard.uniName}
 								</Typography>
-								<Box marginBottom="25px" sx={{flexDirection: 'row', justifyContent: 'space-between', '@media (max-width: 768px)': {display: 'none'}}}>
+								<Box marginBottom="25px" sx={{ flexDirection: 'row', justifyContent: 'space-between', '@media (max-width: 768px)': { display: 'none' } }}>
 									<img src={star} style={{
-										marginRight:'10px',
-										marginLeft:'10px',
+										marginRight: '10px',
+										marginLeft: '10px',
 										width: '25px',
 										height: '25px',
 									}} />
 									<img src={share} style={{
-										marginRight:'10px',
-										marginLeft:'10px',
+										marginRight: '10px',
+										marginLeft: '10px',
 										width: '25px',
 										height: '25px',
 									}} />
 									<img src={dots} style={{
-										marginRight:'10px',
-										marginLeft:'10px',
+										marginRight: '10px',
+										marginLeft: '10px',
 										width: '25px',
 										height: '25px',
 									}} />
 								</Box>
-								<Box sx={{ position: 'absolute', top: 0, right: 0, display: 'none', justifyContent: 'space-between', '@media (max-width: 768px)': {display: 'flex'}}}>
+								<Box sx={{ position: 'absolute', top: 0, right: 0, display: 'none', justifyContent: 'space-between', '@media (max-width: 768px)': { display: 'flex' } }}>
 									<img src={dots} style={{
 										width: '15px',
 										height: '15px',
@@ -176,8 +176,8 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									}} />
 								</Box>
 							</Box>
-							
-							<Box sx={{display:'none', marginBottom:'1rem', flexDirection:'column', '@media (max-width: 768px)': {display: 'flex '} }}>
+
+							<Box sx={{ display: 'none', marginBottom: '1rem', flexDirection: 'column', '@media (max-width: 768px)': { display: 'flex ' } }}>
 								<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
 									4.5 <Rating
 										name="text-feedback"
@@ -188,7 +188,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								</Typography>
 								<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
 							</Box>
-							
+
 
 							<Box display="flex"
 								alignItems="center"
@@ -202,7 +202,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									{localization[lang].MainCard.mail}: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@kbtu.kz</span>
 								</Typography>
 
-								<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', '@media (max-width: 768px)': {display: 'none'}}}>
+								<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', '@media (max-width: 768px)': { display: 'none' } }}>
 									4.5 <Rating
 										name="text-feedback"
 										value={defaultS}
@@ -220,21 +220,21 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 							</Box>
 							<Box className={styles.contentContainer}>
 								<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
-									<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': {marginRight: '5px'} }}>
-										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{'@media (max-width: 768px)': {fontSize: '20px'}}}>10256</Typography>
-										<Typography sx={{'@media (max-width: 768px)': {fontSize: '15px'}}}>
+									<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '5px' } }}>
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>10256</Typography>
+										<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
 											{localization[lang].MainCard.numStudents}
 										</Typography>
 									</Box>
-									<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': {marginRight: '10px'} }}>
-										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{'@media (max-width: 768px)': {fontSize: '20px'}}}>12450</Typography>
-										<Typography sx={{'@media (max-width: 768px)': {fontSize: '15px'}}}>
+									<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '10px' } }}>
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>12450</Typography>
+										<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
 											{localization[lang].MainCard.numAlumnies}
 										</Typography>
 									</Box>
-									<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': {marginRight: '5px'}}}>
-										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{'@media (max-width: 768px)': {fontSize: '20px'}}}>8045</Typography>
-										<Typography sx={{'@media (max-width: 768px)': {fontSize: '15px'}}}>
+									<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '5px' } }}>
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>8045</Typography>
+										<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
 											{localization[lang].MainCard.numExtra}
 										</Typography>
 									</Box>
@@ -244,7 +244,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										}
 									}}>
 
-										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>5.1</Typography>
+										<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>2.8</Typography>
 										<Typography className={styles.textSm}>
 											{localization[lang].MainCard.gpa}
 										</Typography>
@@ -269,7 +269,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										onClick={() => {
 											setShowFull(!showFull);
 										}}>
-										{localization[lang].MainCard.show} {!showFull ? localization[lang].MainCard.more : localization[lang].MainCard.less }
+										{localization[lang].MainCard.show} {!showFull ? localization[lang].MainCard.more : localization[lang].MainCard.less}
 										<ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
 									</Typography>
 								</Box>
@@ -280,225 +280,225 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 
 
 				<Box className={styles.contentContainer}>
-						<Box sx={{ width: '100%' }}>
+					<Box sx={{ width: '100%' }}>
+						<Box
+							display="flex"
+							flexDirection="column"
+							alignItems="start"
+							sx={{ backgroundColor: 'white', borderRadius: '15px', width: '100%', paddingX: ".5rem" }}
+						>
+							<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>{localization[lang].Students.diplomas}</Typography>
+							<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', marginBottom: '20px' }}>
+								<Box display="flex" alignItems="center"  >
+									<Button variant="outlined" sx={{ borderRadius: '20px', padding: '5px', width: '150px', color: '#3B82F6', marginLeft: '20px', marginRight: '15px' }}>
+										<Filter style={{ marginRight: '10px', }} />
+										{localization[lang].Students.filter}
+									</Button>
+									<Box display="flex" alignItems="center">
+
+										<Input
+											type="text"
+											name="email"
+											placeholder={localization[lang].Students.searchBar}
+											className={styles.input}
+										/>
+									</Box>
+									<Box>
+									</Box>
+
+								</Box>
+								<Box>	<img src={univ} style={{ marginRight: '15px' }} />
+									<img src={univ} style={{ marginRight: '5px' }} /></Box>
+							</Box>
+
+						</Box>
+						<TabPanel value={value} index={0}>
+							<Box display="flex"
+								flexDirection="row"
+								alignItems="start"
+								sx={{
+									width: '100%',
+									borderRadius: '15px',
+									padding: '10px',
+									display: 'grid',
+									gridTemplateColumns: '4fr 4fr 1fr 1fr',
+									gap: '36px',
+									paddingLeft: '20px',
+									'@media (max-width: 768px)': {
+										width: '100%',
+										gridTemplateColumns: '4fr 0fr 0fr 4fr',
+
+									},
+								}}
+							>
+								<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+									<Typography
+										fontSize="14px"
+										mb='.5rem' sx={{ color: '#818181' }}
+										className={styles.mobText}
+									>{localization[lang].Students.fullname}
+									</Typography>
+								</Box>
+								<Box sx={{
+									display: 'flex',
+									flexDirection: 'row',
+									'@media (max-width: 768px)': { display: 'none', }
+								}}>
+									<Typography
+										fontSize="14px"
+										mb='.5rem' sx={{ color: '#818181' }}
+										className={styles.mobText}
+									>{localization[lang].Students.major}
+									</Typography>
+								</Box>
+								<Box sx={{
+									display: 'flex',
+									flexDirection: 'row',
+									'@media (max-width: 768px)': { display: 'none', }
+								}}>
+									<Typography
+										fontSize="14px"
+										mb='.5rem' sx={{ color: '#818181' }}
+										className={styles.mobText}
+									>{localization[lang].Students.graduationYear}
+									</Typography>
+								</Box>
+								<Box sx={{
+									display: 'flex',
+									flexDirection: 'row',
+									'@media (max-width: 768px)': {
+										marginLeft: "11rem"
+									}
+								}}>
+									<Typography
+										fontSize="14px"
+										mb='.5rem' sx={{ color: '#818181' }}
+										className={styles.mobText}
+									>GPA
+									</Typography>
+								</Box>
+								{/*<Box sx={{*/}
+								{/*    display: 'flex',*/}
+								{/*    flexDirection: 'row',*/}
+								{/*    '@media (max-width: 768px)': {display: 'none',}*/}
+								{/*}}>*/}
+								{/*    <Typography*/}
+								{/*        fontSize="14px"*/}
+								{/*        mb='.5rem' sx={{color: '#818181'}}*/}
+								{/*        className={styles.mobText}*/}
+								{/*    >Действие*/}
+								{/*    </Typography>*/}
+								{/*</Box>*/}
+							</Box>
+
 							<Box
 								display="flex"
 								flexDirection="column"
+								width="100%"
 								alignItems="start"
-								sx={{ backgroundColor: 'white', borderRadius: '15px', width: '100%', paddingX:".5rem"}}
+								sx={{
+									backgroundColor: 'white', borderRadius: '15px', padding: '10px',
+									'@media (max-width: 768px)': { width: '100%', },
+								}}
 							>
-								<Typography sx={{ fontWeight: '800', fontSize: '25px', padding: '20px' }}>{localization[lang].Students.diplomas}</Typography>
-								<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center', marginBottom: '20px' }}>
-									<Box display="flex" alignItems="center"  >
-										<Button variant="outlined" sx={{ borderRadius: '20px', padding: '5px', width: '150px', color: '#3B82F6', marginLeft: '20px', marginRight: '15px' }}>
-											<Filter style={{ marginRight: '10px', }} />
-											{localization[lang].Students.filter}
-										</Button>
-										<Box display="flex" alignItems="center">
 
-											<Input
-												type="text"
-												name="email"
-												placeholder={localization[lang].Students.searchBar}
-												className={styles.input}
-											/>
-										</Box>
-										<Box>
-										</Box>
+								{currentDiplomaPage.map((e: any) => (
 
+									<Box
+										key={e.id}
+										onClick={() => {
+											navigate(`/app/diploma/${e.id!}`);
+										}}
+										className={styles.diplomaItem}
+										sx={{
+											width: '100%',
+											cursor: 'pointer',
+											borderRadius: '10px',
+											marginBottom: '1.5rem', display: 'flex',
+											flexDirection: 'row', // Default layout for larger screens
+											alignItems: 'center',
+										}}
+									>
+										<Box
+											sx={{
+												width: "100%",
+												display: 'grid',
+												gridTemplateColumns: '8fr 1fr 1fr',
+												gap: '36px',
+												marginTop: '20px',
+												paddingLeft: '20px',
+												'@media (max-width: 768px)': { gridTemplateColumns: '12fr 1fr 0fr' }
+											}}
+										>
+											<Box sx={{
+												display: 'flex',
+												flexDirection: 'row',
+												'@media (max-width: 768px)': { flexDirection: 'column' }
+											}}>
+												<Typography
+													fontSize="20px"
+													fontWeight="600"
+													mb='.5rem'
+													className={styles.mobText}
+													sx={{ width: '50%', '@media (max-width: 768px)': { width: '100%' } }}
+												>
+													{lang === "en" ? e.name_en : e.name_ru}
+												</Typography>
+												<Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm}
+													sx={{
+														width: '70%',
+														'@media (max-width: 768px)': {
+															marginX: '0',
+															width: '100%'
+														}
+													}}>
+													{e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
+												</Typography>
+											</Box>
+											<Box sx={{
+												display: 'flex',
+												flexDirection: 'column',
+												marginX: '1rem',
+												'@media (max-width: 768px)': { display: 'none', }
+											}}>
+												2023
+											</Box>
+
+											<Box
+												sx={{
+													display: 'flex',
+													marginX: '1rem',
+													flexDirection: 'column'
+												}} // Adjust spacing as needed
+											>
+												<Typography fontSize="0.875rem">
+													3.0
+												</Typography>
+											</Box>
+											{/*<Box sx={{marginLeft: 'auto', marginRight: "3rem"}}>*/}
+											{/*    <TwitterIcon/>*/}
+											{/*</Box>*/}
+										</Box>
 									</Box>
-									<Box>	<img src={univ} style={{ marginRight: '15px' }} />
-										<img src={univ} style={{ marginRight: '5px' }} /></Box>
-								</Box>
+								))
+								}
 
-							</Box>
-							<TabPanel value={value} index={0}>
-                            <Box display="flex"
-                                 flexDirection="row"
-                                 alignItems="start"
-                                 sx={{
-                                     width: '100%',
-                                     borderRadius: '15px',
-                                     padding: '10px',
-                                     display: 'grid',
-                                     gridTemplateColumns: '4fr 4fr 1fr 1fr',
-                                     gap: '36px',
-                                     paddingLeft: '20px',
-                                     '@media (max-width: 768px)': {
-                                         width: '100%',
-                                         gridTemplateColumns: '4fr 0fr 0fr 4fr',
+								<Box sx={{
+									display: 'flex',
+									justifyContent: 'space-between',
+									flexDirection: 'row',
+									alignItems: 'center',
+									width: '100%',
+									marginBottom: "2rem"
+								}}>
 
-                                     },
-                                 }}
-                            >
-                                <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >{localization[lang].Students.fullname}
-                                    </Typography>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    '@media (max-width: 768px)': {display: 'none',}
-                                }}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >{localization[lang].Students.major}
-                                    </Typography>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    '@media (max-width: 768px)': {display: 'none',}
-                                }}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >{localization[lang].Students.graduationYear}
-                                    </Typography>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    '@media (max-width: 768px)': {
-                                        marginLeft: "11rem"
-                                    }
-                                }}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >GPA
-                                    </Typography>
-                                </Box>
-                                {/*<Box sx={{*/}
-                                {/*    display: 'flex',*/}
-                                {/*    flexDirection: 'row',*/}
-                                {/*    '@media (max-width: 768px)': {display: 'none',}*/}
-                                {/*}}>*/}
-                                {/*    <Typography*/}
-                                {/*        fontSize="14px"*/}
-                                {/*        mb='.5rem' sx={{color: '#818181'}}*/}
-                                {/*        className={styles.mobText}*/}
-                                {/*    >Действие*/}
-                                {/*    </Typography>*/}
-                                {/*</Box>*/}
-                            </Box>
-
-                            <Box
-                                display="flex"
-                                flexDirection="column"
-                                width="100%"
-                                alignItems="start"
-                                sx={{
-                                    backgroundColor: 'white', borderRadius: '15px', padding: '10px',
-                                    '@media (max-width: 768px)': {width: '100%',},
-                                }}
-                            >
-
-                                {currentDiplomaPage.map((e: any) => (
-
-                                    <Box
-                                        key={e.id}
-                                        onClick={() => {
-                                            navigate(`/app/diploma/${e.id!}`);
-                                        }}
-                                        className={styles.diplomaItem}
-                                        sx={{
-                                            width: '100%',
-                                            cursor: 'pointer',
-                                            borderRadius: '10px',
-                                            marginBottom: '1.5rem', display: 'flex',
-                                            flexDirection: 'row', // Default layout for larger screens
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                width: "100%",
-                                                display: 'grid',
-                                                gridTemplateColumns: '8fr 1fr 1fr',
-                                                gap: '36px',
-                                                marginTop: '20px',
-                                                paddingLeft: '20px',
-                                                '@media (max-width: 768px)': {gridTemplateColumns: '12fr 1fr 0fr'}
-                                            }}
-                                        >
-                                            <Box sx={{
-                                                display: 'flex',
-                                                flexDirection: 'row',
-                                                '@media (max-width: 768px)': {flexDirection: 'column'}
-                                            }}>
-                                                <Typography
-                                                    fontSize="20px"
-                                                    fontWeight="600"
-                                                    mb='.5rem'
-                                                    className={styles.mobText}
-                                                    sx={{width: '50%', '@media (max-width: 768px)': {width: '100%'}}}
-                                                >
-                                                    {lang === "en" ? e.name_en : e.name_ru}
-                                                </Typography>
-                                                <Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm}
-                                                            sx={{
-                                                                width: '70%',
-                                                                '@media (max-width: 768px)': {
-                                                                    marginX: '0',
-                                                                    width: '100%'
-                                                                }
-                                                            }}>
-                                                    {e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
-                                                </Typography>
-                                            </Box>
-                                            <Box sx={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                marginX: '1rem',
-                                                '@media (max-width: 768px)': {display: 'none',}
-                                            }}>
-                                                2023
-                                            </Box>
-
-                                            <Box
-                                                sx={{
-                                                    display: 'flex',
-                                                    marginX: '1rem',
-                                                    flexDirection: 'column'
-                                                }} // Adjust spacing as needed
-                                            >
-                                                <Typography fontSize="0.875rem">
-                                                    3.0
-                                                </Typography>
-                                            </Box>
-                                            {/*<Box sx={{marginLeft: 'auto', marginRight: "3rem"}}>*/}
-                                            {/*    <TwitterIcon/>*/}
-                                            {/*</Box>*/}
-                                        </Box>
-                                    </Box>
-                                ))
-                                }
-
-                                <Box sx={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    width: '100%',
-                                    marginBottom: "2rem"
-                                }}>
-
-                                    <Box style={{
-                                        flex: 1,
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center'
-                                    }}>
-                                       	<Pagination
+									<Box style={{
+										flex: 1,
+										display: 'flex',
+										justifyContent: 'center',
+										alignItems: 'center'
+									}}>
+										<Pagination
 											count={totalPages}
 											page={currentPage}
 											onChange={(event, page) => setCurrentPage(page)}
@@ -508,88 +508,88 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 											siblingCount={window.innerWidth < 600 ? 0 : 1}
 											boundaryCount={window.innerWidth < 600 ? 1 : 2}
 										/>
-                                    </Box>
-
-                                </Box>
-
-                            </Box>
-
-
-                        </TabPanel>
-							<TabPanel value={value} index={1}>
-								<Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
-									<Box sx={{
-										display: 'flex',
-										flexWrap: 'wrap',
-										gap: "24px",
-										marginBottom: '35px',
-										'@media (max-width: 1335px)': {
-											'& > div': {
-												width: '48%'
-											},
-											justifyContent: 'space-between',
-											marginRight: '2%'
-										},
-										'@media (max-width: 700px)': {
-											'& > div': {
-												width: '98%'
-											},
-											marginRight: 0
-										},
-									}}>
-										<AnalyticsCard text="Количество выпускников" number={705} />
-										<AnalyticsCard text="Выпускники бакалавриата" number={554} />
-										<AnalyticsCard text="Выпускники магистратуры" number={151} />
-										<AnalyticsCard text="Средний гпа" number={3.07} />
-									</Box>
-									<Box sx={{
-										width: "100%",
-										display: "flex",
-										flexDirection: "row",
-										justifyContent: "start",
-										marginBottom: "32px",
-										'@media (max-width: 1335px)': {
-											flexDirection: "column",
-											gap: "32px"
-										}
-									}}>
-										<Box sx={{
-											flex: 3,
-											display: "flex",
-											gap: "32px",
-											flexDirection: "column"
-										}}>
-											<FacultyGraph />
-											<AnalyticsGraph />
-											<GenderGraph />
-										</Box>
-										<Box sx={{
-											flex: 1,
-											display: "flex",
-											gap: "32px",
-											flexDirection: "column",
-											'@media (max-width: 1335px)': {
-												flexDirection: "row"
-											},
-											'@media (max-width: 700px)': {
-												flexDirection: "column",
-												width: "100%",
-												'& > div': {
-													maxWidth: "100%"
-												}
-											}
-										}}>
-											<CitiesGraph />
-											<CitiesGrantsGraph />
-											<GrantsGraph />
-										</Box>
 									</Box>
 
 								</Box>
-							</TabPanel>
-						</Box>
 
+							</Box>
+
+
+						</TabPanel>
+						<TabPanel value={value} index={1}>
+							<Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
+								<Box sx={{
+									display: 'flex',
+									flexWrap: 'wrap',
+									gap: "24px",
+									marginBottom: '35px',
+									'@media (max-width: 1335px)': {
+										'& > div': {
+											width: '48%'
+										},
+										justifyContent: 'space-between',
+										marginRight: '2%'
+									},
+									'@media (max-width: 700px)': {
+										'& > div': {
+											width: '98%'
+										},
+										marginRight: 0
+									},
+								}}>
+									<AnalyticsCard text="Количество выпускников" number={705} />
+									<AnalyticsCard text="Выпускники бакалавриата" number={554} />
+									<AnalyticsCard text="Выпускники магистратуры" number={151} />
+									<AnalyticsCard text="Средний гпа" number={3.07} />
+								</Box>
+								<Box sx={{
+									width: "100%",
+									display: "flex",
+									flexDirection: "row",
+									justifyContent: "start",
+									marginBottom: "32px",
+									'@media (max-width: 1335px)': {
+										flexDirection: "column",
+										gap: "32px"
+									}
+								}}>
+									<Box sx={{
+										flex: 3,
+										display: "flex",
+										gap: "32px",
+										flexDirection: "column"
+									}}>
+										<FacultyGraph />
+										<AnalyticsGraph />
+										<GenderGraph />
+									</Box>
+									<Box sx={{
+										flex: 1,
+										display: "flex",
+										gap: "32px",
+										flexDirection: "column",
+										'@media (max-width: 1335px)': {
+											flexDirection: "row"
+										},
+										'@media (max-width: 700px)': {
+											flexDirection: "column",
+											width: "100%",
+											'& > div': {
+												maxWidth: "100%"
+											}
+										}
+									}}>
+										<CitiesGraph />
+										<CitiesGrantsGraph />
+										<GrantsGraph />
+									</Box>
+								</Box>
+
+							</Box>
+						</TabPanel>
 					</Box>
+
+				</Box>
 			</Box>
 		</Box>
 	);

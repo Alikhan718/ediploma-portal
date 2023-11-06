@@ -18,9 +18,12 @@ import { fetchMetadataCid } from "@src/store/auth/saga";
 import { setSnackbar } from "@src/store/generals/actionCreators";
 import { routes } from "@src/shared/routes";
 import { useNavigate } from "react-router-dom";
+import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { selectLanguage } from "@src/store/generals/selectors";
 
 const AddingGraduates: React.FC = () => {
 	const [progress, setProgress] = useState(0);
+	const lang = useSelector(selectLanguage);
 	const [file, setFile] = useState<File | null>(null);
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
 	const archiveLink = useSelector(selectArchiveLink);
@@ -80,7 +83,12 @@ const AddingGraduates: React.FC = () => {
 			setProgress(3);
 		}
 	}, [xmlSigned]);
-	const shortSteps = ["Загрузка фалов", "Проверка", "Подпись ЭЦП", "Результаты"];
+	const shortSteps = [
+		localization[lang].AddingGratuates.download,
+		localization[lang].AddingGratuates.check,
+		localization[lang].AddingGratuates.sign,
+		localization[lang].AddingGratuates.results,
+	];
 	const steps = ["Загрузка файлов", "Проверьте данные", "Подпись данных через ЭЦП", "Результаты генерации"];
 	const currentStep = progress;
 
@@ -246,7 +254,7 @@ const AddingGraduates: React.FC = () => {
 								'@media (max-width: 998px)': {
 									fontSize: '1.2rem'
 								},
-							}}> {steps[progress]}</Typography>
+							}}> {localization[lang].AddingGratuates.download}</Typography>
 
 							<label
 								htmlFor="file-input"
@@ -264,10 +272,10 @@ const AddingGraduates: React.FC = () => {
 								}}
 							>
 								<img src={excel} style={{ width: '38px', paddingBottom: '15px' }} />
-								Перетащите ваш Excel файл сюда или{" "}
+								{localization[lang].AddingGratuates.file}{" "}
 								<span style={{ textDecoration: "underline", cursor: "pointer" }}
 									onClick={handleChooseFileClick}>
-									выберите с компьютера
+									{localization[lang].AddingGratuates.file2}
 								</span>
 								<input
 									type="file"
@@ -284,7 +292,7 @@ const AddingGraduates: React.FC = () => {
 							<Button variant="contained" color="primary"
 								sx={{ marginTop: 2, borderRadius: '15px', }} onClick={() => {
 									handleLink("https://generator.ediploma.kz/get-sample")
-								}}> Скачать шаблон</Button>
+								}}> {localization[lang].AddingGratuates.template}</Button>
 							<Box sx={{
 								backgroundColor: '#FAFBFF',
 								width: '90%',
@@ -295,8 +303,8 @@ const AddingGraduates: React.FC = () => {
 								padding: '20px',
 								borderRadius: '48px'
 							}}>
-								<Box sx={{ color: '#3B82F6', }}>Примечание</Box>
-								<Box sx={{ marginTop: '10px', color: '#A1A1A1' }}> Описание примечание</Box>
+								<Box sx={{ color: '#3B82F6', }}>{localization[lang].AddingGratuates.note}</Box>
+								<Box sx={{ marginTop: '10px', color: '#A1A1A1' }}>{localization[lang].AddingGratuates.notes}</Box>
 							</Box>
 						</Box>
 
@@ -309,7 +317,7 @@ const AddingGraduates: React.FC = () => {
 								'@media (max-width: 998px)': {
 									fontSize: '1.4rem'
 								},
-							}}>{steps[currentStep]}</Typography>
+							}}>{localization[lang].AddingGratuates.check}</Typography>
 							<Box sx={{
 								width: '90%',
 								borderRadius: '50px',
@@ -328,13 +336,13 @@ const AddingGraduates: React.FC = () => {
 										'@media (max-width: 998px)': {
 											fontSize: '1rem', marginRight: '10px'
 										},
-									}}>Название файла:</Typography>
+									}}>{localization[lang].AddingGratuates.nameFile}:</Typography>
 									<Typography ml="auto" variant="subtitle1" sx={{
 										color: '#A1A1A1',
 										'@media (max-width: 998px)': {
 											fontSize: '1rem',
 										},
-									}}>Статус:</Typography>
+									}}>{localization[lang].AddingGratuates.status}:</Typography>
 								</Box>
 								<Box sx={{
 									display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', marginBottom: '16px',
@@ -366,7 +374,7 @@ const AddingGraduates: React.FC = () => {
 							</Box>
 							<Button variant="contained" color="primary"
 								sx={{ marginTop: 2, borderRadius: '15px' }}
-								onClick={() => goForward()}> Далее</Button>
+								onClick={() => goForward()}> {localization[lang].AddingGratuates.next}</Button>
 						</Box>
 					)}
 
@@ -376,7 +384,7 @@ const AddingGraduates: React.FC = () => {
 								'@media (max-width: 998px)': {
 									fontSize: '1.3rem'
 								},
-							}}>{steps[currentStep]}</Typography>
+							}}>{localization[lang].AddingGratuates.sign}</Typography>
 							<Box sx={{
 								width: '90%',
 								borderRadius: '50px',
@@ -406,13 +414,13 @@ const AddingGraduates: React.FC = () => {
 										'@media (max-width: 998px)': {
 											fontSize: '1rem', marginRight: '10px'
 										},
-									}}>Название файла:</Typography>
+									}}>{localization[lang].AddingGratuates.nameFile}:</Typography>
 									<Typography ml="auto" variant="subtitle1" sx={{
 										color: '#A1A1A1',
 										'@media (max-width: 998px)': {
 											display: 'none'
 										},
-									}}>Статус:</Typography>
+									}}>{localization[lang].AddingGratuates.status}:</Typography>
 								</Box>
 								<Box sx={{
 									display: 'grid',
@@ -445,7 +453,7 @@ const AddingGraduates: React.FC = () => {
 								sx={{ marginTop: 2, borderRadius: '15px' }}
 								onClick={() => {
 									ncaLayerXml()
-								}}> Подписать через ЭЦП</Button>
+								}}> {localization[lang].AddingGratuates.signButton}</Button>
 						</Box>
 					)}
 
@@ -460,7 +468,7 @@ const AddingGraduates: React.FC = () => {
 									'@media (max-width: 998px)': {
 										fontSize: '1.4rem'
 									},
-								}}> {steps[progress]}</Typography>
+								}}> {localization[lang].AddingGratuates.check}</Typography>
 								<Box sx={{
 									width: '90%', borderRadius: '50px',
 									height: '300px',
@@ -478,7 +486,7 @@ const AddingGraduates: React.FC = () => {
 													marginTop: '1.5rem',
 													marginLeft: '1rem'
 												},
-											}}>Адрес:</Typography>
+											}}>{localization[lang].AddingGratuates.adress}:</Typography>
 									</Box>
 									<Box
 										sx={{
@@ -491,7 +499,7 @@ const AddingGraduates: React.FC = () => {
 										}}
 									>
 										<Typography variant="body1" sx={{ fontSize: '16px' }}>
-											Ссылка на адрес IPFS
+											{localization[lang].AddingGratuates.addressLink}
 										</Typography>
 										{ipfsLink == "" ?
 											<CircularProgress style={{ marginLeft: "auto", }} /> :
@@ -522,7 +530,7 @@ const AddingGraduates: React.FC = () => {
 													marginTop: '1.5rem',
 													marginLeft: '1rem'
 												},
-											}}>Смарт контакт:</Typography>
+											}}>{localization[lang].AddingGratuates.smart}:</Typography>
 
 									</Box>
 									<Box
@@ -537,7 +545,7 @@ const AddingGraduates: React.FC = () => {
 											textAlign: 'left',
 											fontSize: '16px'
 										}}>
-											Ссылка на смарт контакт
+											{localization[lang].AddingGratuates.smartlink}
 										</Typography>
 										{smartContractLink == "" ?
 											<CircularProgress style={{ marginLeft: "auto", }} /> :
@@ -559,7 +567,7 @@ const AddingGraduates: React.FC = () => {
 									</Box>
 								</Box>
 								<Button variant="contained" color="primary"
-									sx={{ marginTop: 2, borderRadius: '15px' }} onClick={() => navigate(routes.main)}> Завершить </Button>
+									sx={{ marginTop: 2, borderRadius: '15px' }} onClick={() => navigate(routes.main)}> {localization[lang].AddingGratuates.finish} </Button>
 							</Box>
 						)
 					}
@@ -570,4 +578,3 @@ const AddingGraduates: React.FC = () => {
 };
 
 export default AddingGraduates;
-

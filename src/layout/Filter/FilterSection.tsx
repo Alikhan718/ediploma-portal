@@ -2,13 +2,15 @@ import React from 'react';
 import { Box, Card, MenuItem, Slider, Typography } from "@mui/material";
 import { IFilter } from "@src/layout/Filter/FilterSection.props";
 import { ReactComponent as CloseIcon } from "@src/assets/icons/cross.svg";
-import { degree, regions, specialities, years } from "@src/layout/Filter/generator";
+import { degree, regions, specialities, years, localization } from "@src/layout/Filter/generator";
 import { Button } from "@src/components";
 import styles from "@src/pages/DiplomaPage/DiplomaPage.module.css";
 import cn from "classnames";
 import { MultiSelect } from "@src/components/MultiSelect/MuiltiSelect";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { cancelFilters, fetchDiplomas } from "@src/store/diplomas/actionCreators";
+import { selectLanguage } from "@src/store/generals/selectors";
+
 
 export const FilterSection: React.FC<IFilter> = (props) => {
 	const { open, setOpen, filterAttributes, setFilterAttributes, triggerSearchFilters } = props;
@@ -70,6 +72,9 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	const handleGPA = (event: Event, newValue: number | number[]) => {
 		setSelectedGPA(newValue as number[]);
 	};
+	const lang = useSelector(selectLanguage);
+	const translatedSpecialities = specialities[lang];
+	const translatedRegions = regions[lang];
 
 	return (
 		<>
@@ -98,7 +103,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 							fontWeight='600'
 							className={styles.mobTextMd}
 						>
-							Фильтр
+							{localization[lang].MainCard.filter}
 						</Typography>
 						<CloseIcon style={{ cursor: "pointer" }} onClick={() => {
 							setOpen(false);
@@ -108,13 +113,13 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 						gap='2.5rem 0rem'>
 						<Box width='48%' className={styles.mobW100}>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
-								Специальности
+								{localization[lang].MainCard.speciality}
 							</Typography>
 							<Box display='flex' gap='.5rem' flexWrap='wrap' p=".5rem" mt='.5rem' height="100%"
 								overflow="hidden scroll" sx={{
 
 								}}>
-								{specialities.slice(0, 5).map((speciality) => (
+								{translatedSpecialities.slice(0, 5).map((speciality) => (
 									<Button
 										variant='outlined'
 										onClick={() => {
@@ -153,7 +158,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 						<Box width='50%' className={styles.mobW100}
 						>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
-								Регион
+								{localization[lang].MainCard.region}
 							</Typography>
 
 							{/* <MultiSelect innerLabel="Список регионов" handleChange={setSelectedRegions} fullWidth>
@@ -167,7 +172,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 										gap: '.2rem'
 									}
 								}}>
-								{regions.slice(0, 7).map((region) =>
+								{translatedRegions.slice(0, 7).map((region) =>
 									<Button variant='outlined'
 										onClick={() => {
 											handleChange(region.name, selectedRegions, setSelectedRegions);
@@ -201,7 +206,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 						</Box>
 						<Box width='48%' className={styles.mobW100} sx={{ marginTop: '10px', marginBottom: '-50px' }}>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
-								Год выпуска
+								{localization[lang].MainCard.year}
 							</Typography>
 							<Box display='flex' gap='.5rem' flexWrap='wrap' my='1rem' >
 								{years.map((year) =>
@@ -234,7 +239,8 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 									}
 									// handleChange(year.year, selectedYear, setSelectedYear);
 								}}>
-								Применить
+
+								{localization[lang].MainCard.apply}
 							</Button>
 
 						</Box>

@@ -16,6 +16,8 @@ import { Button, Modal } from "@src/components";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 import { routes } from "@src/shared/routes";
 import { useNavigate } from "react-router-dom";
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -51,6 +53,7 @@ function a11yProps(index: number) {
 }
 
 export const SwitchDetailsUniversity: React.FC = () => {
+	const lang = useSelector(selectLanguage);
 	const [value, setValue] = React.useState(0);
 	const [openModal, setOpenModal] = React.useState(false);
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -113,11 +116,11 @@ export const SwitchDetailsUniversity: React.FC = () => {
 			}}>
 				<Button fullWidth={true} variant="contained"
 					color={value === 0 ? "primary" : "secondary"} borderRadius="3rem" onClick={(e) => handleChange(e, 0)}>
-					Дипломы
+					{localization[lang].MainCard.diploma}
 				</Button>
 				<Button fullWidth={true} color={value === 1 ? "primary" : "secondary"}
 					variant="contained" borderRadius="3rem" onClick={(e) => handleChange(e, 1)}>
-					Аналитика
+					{localization[lang].MainCard.analytics}
 				</Button>
 			</Box>
 
