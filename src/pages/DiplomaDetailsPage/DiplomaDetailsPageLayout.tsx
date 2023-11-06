@@ -28,7 +28,7 @@ import cn from "classnames";
 import {routes} from "@src/shared/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchDiplomas, fetchGraduateDetails} from "@src/store/diplomas/actionCreators";
-import {selectDiplomaList} from "@src/store/diplomas/selectors";
+import {selectDiplomaList, selectGraduateAttributes} from "@src/store/diplomas/selectors";
 import {isAuthenticated} from "@src/utils/userAuth";
 import {handleDownload} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
@@ -43,7 +43,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     const {id} = useParams();
     const dispatch = useDispatch();
     const role = useSelector(selectUserRole);
-
+    const graduateAttributes = useSelector(selectGraduateAttributes);
     const [data, setData] = React.useState<any>();
 
     let diplomaList = useSelector(selectDiplomaList);
@@ -83,6 +83,29 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         setAnchorEl(null);
     };
     // const isMobile = useMediaQuery('(max-width:998px)');
+
+    function hasValidEmail(): boolean {
+        if (graduateAttributes) {
+
+            for (const item of graduateAttributes) {
+                if (item.label_ru === 'Почта') {
+                return true;
+              }
+            }
+        }
+        return false;
+    }
+
+    function getEmail(): string {
+        if (graduateAttributes) {
+            for (const item of graduateAttributes) {
+                if (item.label_ru === 'Почта') {
+                return item.value;
+              }
+            }
+        }
+        return '';
+    }
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
@@ -254,9 +277,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                             borderRadius: '25px',
                                             marginTop: '1rem',
                                         }}
+                                        disabled={!hasValidEmail()}
                                         onClick={()=>{
                                             const subject = `Приглашение для ${data.name_ru} в компанию`;
-                                            window.location.href = `mailto:mail@sdfs.kz?subject=${encodeURIComponent(subject)}`;
+                                            window.location.href = `mailto:${getEmail()}?subject=${encodeURIComponent(subject)}`;
                                         }}
                                         >
                                         {localization[lang].StudentPage.AddInfo.sendInvite}
