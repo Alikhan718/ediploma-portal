@@ -180,7 +180,7 @@ export const UniversityDeatailPage: React.FC = () => {
 											value={defaultS}
 											readOnly
 											emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-										/> (25 отзывов)
+										/>
 									</Typography>
 									<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
 								</Box>
@@ -204,7 +204,7 @@ export const UniversityDeatailPage: React.FC = () => {
 											value={defaultS}
 											readOnly
 											emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-										/> (25 отзывов)
+										/>
 									</Typography>
 								</Box>
 

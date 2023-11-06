@@ -207,7 +207,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										value={defaultS}
 										readOnly
 										emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-									/> (25 {localization[lang].MainCard.ratings})
+									/>
 								</Typography>
 							</Box>
 
