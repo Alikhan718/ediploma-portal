@@ -72,7 +72,7 @@ export const UniversityPageLayout: React.FC = () => {
 											value={4.5} // Set the rating value
 											readOnly
 											emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-										/> (25 {localization[lang].UniCards.ratings})
+										/>
 									</Typography>
 								</Box>
 								<Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>

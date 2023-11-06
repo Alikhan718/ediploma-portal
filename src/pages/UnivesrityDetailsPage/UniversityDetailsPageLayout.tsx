@@ -3,7 +3,6 @@ import { Box, Button, Rating, Typography, useMediaQuery, Pagination } from '@mui
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
-import { ReactComponent as TwitterIcon } from '@src/assets/icons/twitter_black.svg';
 import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
 import univ from './../../assets/icons/FilterUn.svg';
 import { Input } from './../../components';
@@ -184,7 +183,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										value={defaultS}
 										readOnly
 										emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-									/> (25 {localization[lang].MainCard.ratings})
+									/>
 								</Typography>
 								<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
 							</Box>
@@ -208,7 +207,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										value={defaultS}
 										readOnly
 										emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-									/> (25 {localization[lang].MainCard.ratings})
+									/>
 								</Typography>
 							</Box>
 
@@ -254,7 +253,6 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									<Box marginRight="25px">
 										<DiscordIcon />
 									</Box>
-									<Box marginRight="25px"><TwitterIcon /></Box>
 									<Box marginRight="25px"><SmartContractIcon /></Box>
 									<Box ><WebIcon className={styles.social} onClick={() => {
 										handleLink("https://kbtu.edu.kz/ru/");
@@ -475,9 +473,6 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                                     3.0
                                                 </Typography>
                                             </Box>
-                                            {/*<Box sx={{marginLeft: 'auto', marginRight: "3rem"}}>*/}
-                                            {/*    <TwitterIcon/>*/}
-                                            {/*</Box>*/}
                                         </Box>
                                     </Box>
                                 ))
