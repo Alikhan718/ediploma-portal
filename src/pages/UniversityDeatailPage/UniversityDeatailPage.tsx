@@ -240,7 +240,7 @@ export const UniversityDeatailPage: React.FC = () => {
 											}
 										}}>
 
-											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>5.1</Typography>
+											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>2.8</Typography>
 											<Typography className={styles.textSm}>
 												Средний GPA
 											</Typography>
@@ -328,8 +328,8 @@ export const UniversityDeatailPage: React.FC = () => {
 									</Box>
 
 								</Box>
-								<Box>	<img src={univ} style={{ marginRight: '15px' }} />
-									<img src={univ} style={{ marginRight: '5px' }} /></Box>
+								{/* <Box>	<img src={univ} style={{ marginRight: '15px' }} />
+									<img src={univ} style={{ marginRight: '5px' }} /></Box> */}
 							</Box>
 
 						</Box>

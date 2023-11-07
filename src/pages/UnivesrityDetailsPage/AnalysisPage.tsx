@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { AnalyticsCard } from './components/AnalyticsCard';
+import { Button } from '@src/components'
 import { FacultyGraph } from './components/FacultyGraph';
 import { AnalyticsGraph } from './components/AnalyticsGraph';
 import { CitiesGraph } from './components/CitiesGraph';
@@ -30,10 +31,27 @@ function TabPanel(props: TabPanelProps) {
 		</div>
 	);
 }
+const initialGraphVisibility: Record<string, boolean> = {
+	"Количество выпускников": true,
+	"Выпускники бакалавриата": true,
+	"Выпускники магистратуры": true,
+	"FacultyGraph": true,
+	"GenderGraph": true,
+	"CitiesGraph": true,
+	"CitiesGrantsGraph": true,
+	"GrantsGraph": true,
+};
+
 
 export const AnalysisPage: React.FC = () => {
 	const [value, setValue] = React.useState(0);
-
+	const [graphVisibility, setGraphVisibility] = React.useState(initialGraphVisibility);
+	const toggleGraphVisibility = (graphName: string) => {
+		setGraphVisibility((prevVisibility) => ({
+			...prevVisibility,
+			[graphName]: !prevVisibility[graphName],
+		}));
+	};
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
 		setValue(newValue);
 	};
@@ -65,6 +83,43 @@ export const AnalysisPage: React.FC = () => {
 						<AnalyticsCard text="Выпускники бакалавриата" number={2823} />
 						<AnalyticsCard text="Выпускники магистратуры" number={1987} />
 					</Box>
+					<Box >
+						<Button
+							variant={graphVisibility["CitiesGraph"] ? "contained" : "outlined"}
+							onClick={() => toggleGraphVisibility("CitiesGraph")}
+							sx={{ borderRadius: '2rem', marginRight: '1rem' }}
+						>
+							Cities Graph
+						</Button>
+						<Button
+							variant={graphVisibility["FacultyGraph"] ? "contained" : "outlined"}
+							onClick={() => toggleGraphVisibility("FacultyGraph")}
+							sx={{ borderRadius: '2rem', marginRight: '1rem' }}
+						>
+							Faculty Graph
+						</Button>
+						<Button
+							variant={graphVisibility["GenderGraph"] ? "contained" : "outlined"}
+							onClick={() => toggleGraphVisibility("GenderGraph")}
+							sx={{ borderRadius: '2rem', marginRight: '1rem' }}
+						>
+							Gender Graph
+						</Button>
+						<Button
+							variant={graphVisibility["GrantsGraph"] ? "contained" : "outlined"}
+							onClick={() => toggleGraphVisibility("GrantsGraph")}
+							sx={{ borderRadius: '2rem', marginRight: '1rem' }}
+						>
+							Grants Graph
+						</Button>
+						<Button
+							variant={graphVisibility["CitiesGrantsGraph"] ? "contained" : "outlined"}
+							onClick={() => toggleGraphVisibility("CitiesGrantsGraph")}
+							sx={{ borderRadius: '2rem', marginRight: '1rem' }}
+						>
+							Cities Grants Graph
+						</Button>
+					</Box>
 					<Box sx={{
 						width: "100%",
 						display: "flex",
@@ -82,9 +137,9 @@ export const AnalysisPage: React.FC = () => {
 							gap: "32px",
 							flexDirection: "column"
 						}}>
-							<FacultyGraph />
-							<AnalyticsGraph />
-							<GenderGraph />
+							{graphVisibility["FacultyGraph"] && <FacultyGraph />}
+							{/* <AnalyticsGraph /> */}
+							{graphVisibility["GenderGraph"] && <GenderGraph />}
 						</Box>
 						<Box sx={{
 							flex: 1,
@@ -102,9 +157,9 @@ export const AnalysisPage: React.FC = () => {
 								}
 							}
 						}}>
-							<CitiesGraph />
-							<CitiesGrantsGraph />
-							<GrantsGraph />
+							{graphVisibility["CitiesGraph"] && <CitiesGraph />}
+							{graphVisibility["CitiesGrantsGraph"] && <CitiesGrantsGraph />}
+							{graphVisibility["GrantsGraph"] && <GrantsGraph />}
 						</Box>
 					</Box>
 

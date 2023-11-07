@@ -26,6 +26,8 @@ import { fetchDiplomas } from "@src/store/diplomas/actionCreators";
 import cn from "classnames";
 import { selectUserRole } from '@src/store/auth/selector';
 import StarIcon from '@mui/icons-material/Star';
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
 
 
 interface TabPanelProps {
@@ -62,6 +64,7 @@ function a11yProps(index: number) {
 	};
 }
 export const UniversityProfileLayout: React.FC = () => {
+	const lang = useSelector(selectLanguage);
 	const [showFull, setShowFull] = React.useState(false);
 	const [page, setPage] = useState(0);
 	const diplomaList = useSelector(selectDiplomaList);
@@ -81,6 +84,15 @@ export const UniversityProfileLayout: React.FC = () => {
 		if (currentPage > 1) {
 			setCurrentPage((prevPage) => prevPage - 1);
 		}
+	};
+	const copyCurrentURLToClipboard = () => {
+		const currentURL = window.location.href;
+		const textArea = document.createElement('textarea');
+		textArea.value = currentURL;
+		document.body.appendChild(textArea);
+		textArea.select();
+		document.execCommand('copy');
+		document.body.removeChild(textArea);
 	};
 
 	const handlePrevPage = () => {
@@ -145,8 +157,8 @@ export const UniversityProfileLayout: React.FC = () => {
 												width: '100%',
 											},
 										}}
-									>
-										Казахстанско-Британский технический университет								</Typography>
+									>									{localization[lang].MainCard.uniName}
+									</Typography>
 									<Box marginBottom="25px" sx={{ flexDirection: 'row', justifyContent: 'space-between', '@media (max-width: 768px)': { display: 'none' } }}>
 										<img src={star} style={{
 											marginRight: '10px',
@@ -158,8 +170,10 @@ export const UniversityProfileLayout: React.FC = () => {
 											marginRight: '10px',
 											marginLeft: '10px',
 											width: '25px',
-											height: '25px',
-										}} />
+											height: '25px', cursor: 'pointer'
+										}}
+											onClick={copyCurrentURLToClipboard}
+											alt="Share Icon" />
 										<img src={dots} style={{
 											marginRight: '10px',
 											marginLeft: '10px',
@@ -196,7 +210,7 @@ export const UniversityProfileLayout: React.FC = () => {
 										alignItems: 'center',
 									}}>
 									<Typography className={styles.textSm} sx={{ paddingBottom: '16px', marginRight: '16px' }}>
-										Почта: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@satbayev.university</span>
+										{localization[lang].MainCard.mail}: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@kbtu.kz</span>
 									</Typography>
 
 									<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', '@media (max-width: 768px)': { display: 'none' } }}>
@@ -210,28 +224,28 @@ export const UniversityProfileLayout: React.FC = () => {
 								</Box>
 								<Box display='flex' flexDirection='column'>
 									<Typography className={styles.textSm}>
-										Номер телефона: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>8 (7273) 57 42 51</span>
+										{localization[lang].MainCard.phone}: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>8 (7273) 57 42 51</span>
 									</Typography>
 									<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
 								</Box>
 								<Box className={styles.contentContainer}>
 									<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
 										<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '5px' } }}>
-											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>15256</Typography>
+											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>10256</Typography>
 											<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
-												Кол-во студентов
+												{localization[lang].MainCard.numStudents}
 											</Typography>
 										</Box>
 										<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '10px' } }}>
 											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>12450</Typography>
 											<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
-												Кол-во <br /> выпускников
+												{localization[lang].MainCard.numAlumnies}
 											</Typography>
 										</Box>
 										<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '5px' } }}>
 											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>8045</Typography>
 											<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
-												Количество<br /> с отличием
+												{localization[lang].MainCard.numExtra}
 											</Typography>
 										</Box>
 										<Box flex='5' sx={{
@@ -239,9 +253,10 @@ export const UniversityProfileLayout: React.FC = () => {
 												display: 'none',
 											}
 										}}>
-											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>5.1</Typography>
+
+											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>2.8</Typography>
 											<Typography className={styles.textSm}>
-												Средний GPA
+												{localization[lang].MainCard.gpa}
 											</Typography>
 										</Box>
 									</Box>
@@ -255,15 +270,15 @@ export const UniversityProfileLayout: React.FC = () => {
 										}} /></Box>
 									</Box>
 									<Box>
-										<Box sx={{ fontSize: '24px', fontWeight: '600', color: '#4D4D4D', paddingBottom: '10px' }} > Основная Информация </Box>
+										<Box sx={{ fontSize: '24px', fontWeight: '600', color: '#4D4D4D', paddingBottom: '10px' }} > {localization[lang].MainCard.mainInfo} </Box>
 										<Typography className={styles.textSm} color="#818181">
-											{handleText("eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов. Портал eDiploma предоставляет возможность выпускникам, работодателям и администрации университетов взаимодействовать с дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации выпускников.")}
+											{handleText(localization[lang].MainCard.info)}
 										</Typography>
 										<Typography style={{ cursor: "pointer" }} className={styles.textSm} fontWeight='600' color='#629BF8' sx={{ paddingBottom: '20px' }}
 											onClick={() => {
 												setShowFull(!showFull);
 											}}>
-											Показать {!showFull ? "больше" : " меньше"}
+											{localization[lang].MainCard.show} {!showFull ? localization[lang].MainCard.more : localization[lang].MainCard.less}
 											<ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
 										</Typography>
 									</Box>
@@ -304,14 +319,14 @@ export const UniversityProfileLayout: React.FC = () => {
 										width: '150px', color: '#3B82F6', marginLeft: '20px', marginRight: '15px'
 									}}>
 										<Filter style={{ marginRight: '10px', }} />
-										Фильтр
+										{localization[lang].Students.filter}
 									</Button>
 									<Box display="flex" alignItems="center">
 
 										<Input
 											type="text"
 											name="email"
-											placeholder="Найти"
+											placeholder={localization[lang].Students.searchBar}
 											sx={{
 												marginRight: '1rem', flex: '1',
 
@@ -327,8 +342,8 @@ export const UniversityProfileLayout: React.FC = () => {
 									</Box>
 
 								</Box>
-								<Box>	<img src={univ} style={{ marginRight: '15px' }} />
-									<img src={univ} style={{ marginRight: '5px' }} /></Box>
+								{/* <Box>	<img src={univ} style={{ marginRight: '15px' }} />
+									<img src={univ} style={{ marginRight: '5px' }} /></Box> */}
 							</Box>
 
 						</Box>
@@ -357,7 +372,7 @@ export const UniversityProfileLayout: React.FC = () => {
 										fontSize="14px"
 										mb='.5rem' sx={{ color: '#818181' }}
 										className={styles.mobText}
-									>Ф.И.О
+									>{localization[lang].Students.fullname}
 									</Typography>
 								</Box>
 								<Box sx={{
@@ -369,7 +384,7 @@ export const UniversityProfileLayout: React.FC = () => {
 										fontSize="14px"
 										mb='.5rem' sx={{ color: '#818181' }}
 										className={styles.mobText}
-									>Специальность
+									>{localization[lang].Students.major}
 									</Typography>
 								</Box>
 								<Box sx={{
@@ -381,7 +396,7 @@ export const UniversityProfileLayout: React.FC = () => {
 										fontSize="14px"
 										mb='.5rem' sx={{ color: '#818181' }}
 										className={styles.mobText}
-									>Год выпуска
+									>{localization[lang].Students.graduationYear}
 									</Typography>
 								</Box>
 								<Box sx={{
@@ -506,7 +521,7 @@ export const UniversityProfileLayout: React.FC = () => {
 										justifyContent: 'center',
 										alignItems: 'center'
 									}}>
-											<Pagination
+										<Pagination
 											count={totalPages}
 											page={currentPage}
 											onChange={(event, page) => setCurrentPage(page)}
