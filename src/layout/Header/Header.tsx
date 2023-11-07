@@ -257,12 +257,44 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                      borderColor: "grey",
                                      height: "1.5rem",
                                  }}/>
-                        <NotIcon style={{
+                        <IconButton
+                            style={{
+                                cursor: 'pointer',
+                                minHeight: '2.5rem',
+                                minWidth: '3rem'
+                            }}
+                            onClick={(event) => {
+                                handleOpenMenu(event, "lang");
+                            }}
+                        >
+                            {lang == 'ru' && <img src={RuFlag} alt="Russian"/>}
+                            {lang == 'en' && <img src={EnFlag} alt="English"/>}
+                            {lang == 'kz' && <img src={KzFlag} alt="Kazakh"/>}
+                        </IconButton>
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={showDropdown.lang}
+                            onClose={handleCloseMenu}
+                        >
+                            <MenuItem onClick={() => handleFlagSelect('ru')} sx={{fontSize: '1rem'}}>
+                                <img src={RuFlag} alt="Russian" style={{marginRight: '0.5rem'}}/>
+                                Русский
+                            </MenuItem>
+                            <MenuItem onClick={() => handleFlagSelect('en')} sx={{fontSize: '1rem'}}>
+                                <img src={EnFlag} alt="English" style={{marginRight: '0.5rem'}}/>
+                                Англиский
+                            </MenuItem>
+                            <MenuItem onClick={() => handleFlagSelect('kz')} sx={{fontSize: '1rem'}}>
+                                <img src={KzFlag} alt="French" style={{marginRight: '0.5rem'}}/>
+                                Казахский
+                            </MenuItem>
+                        </Menu>
+                        {/*<NotIcon style={{
                             cursor: 'pointer'
                         }} className="app-icon"
                                  onClick={() => {
                                      navigate(routes.notifications);
-                                 }}/>
+                                 }}/>*/}
                         <Divider orientation="vertical"
                                  style={{
                                      borderLeftWidth: "1px",
