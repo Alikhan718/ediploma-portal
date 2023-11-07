@@ -21,7 +21,7 @@ interface DiplomaInterface {
 }
 
 const initialState: DiplomaInterface = {
-    diplomas_list: [0],
+    diplomas_list: [],
     isFetching: false,
     iinValidated: false,
     text: "",

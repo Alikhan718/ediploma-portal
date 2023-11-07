@@ -118,7 +118,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     };
     const checkSecondHeaderRoute = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates'];
+        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates', 'addingGraduates'];
         for (const item of secondHeaderEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return true;
@@ -200,7 +200,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     const role = useSelector(selectUserRole);
     const headerText = getHeaderText();
     return (
-        <Box mb={urlElements.includes('user') || urlElements.includes('detail') || urlElements.includes('diploma') ? "1rem" : ""}>
+        <Box mb={urlElements.includes('user') || urlElements.includes('detail') || urlElements.includes('diploma') || urlElements.includes('addingGraduates') ? "1rem" : ""}>
             {isSecondHeaderVisible ? (
                 <Box
                     sx={{

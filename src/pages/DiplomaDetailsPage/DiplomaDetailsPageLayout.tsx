@@ -8,7 +8,7 @@ import {
     Divider,
     Menu,
     MenuItem,
-    IconButton, Alert, Snackbar
+    IconButton, Alert, Snackbar, Skeleton
 } from '@mui/material';
 import {Button, Label} from '@src/components';
 import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
@@ -33,8 +33,8 @@ import {isAuthenticated} from "@src/utils/userAuth";
 import {handleDownload} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
-import { selectLanguage } from "@src/store/generals/selectors";
-import { localization } from '@src/pages/DiplomaDetailsPage/generator';
+import {selectLanguage} from "@src/store/generals/selectors";
+import {localization} from '@src/pages/DiplomaDetailsPage/generator';
 
 export const DiplomaDetailsPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
@@ -84,6 +84,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     };
     // const isMobile = useMediaQuery('(max-width:998px)');
 
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const handleImageLoad = () => {
+        setImageLoaded(true);
+    };
     return (
         <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
             <Box display='flex' flexWrap='wrap'>
@@ -223,19 +227,19 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
                                                     {
-                                                        data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) : 
-                                                        data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) : 
-                                                        data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) : 
-                                                        localization[lang].StudentPage.MainInfo.noData
+                                                        data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
+                                                            data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
+                                                                data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
+                                                                    localization[lang].StudentPage.MainInfo.noData
                                                     }
                                                 </Typography>
                                                 <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
                                                     {
-                                                        data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] : 
-                                                        data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] : 
-                                                        data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] : 
-                                                        localization[lang].StudentPage.MainInfo.noData
+                                                        data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
+                                                            data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
+                                                                data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
+                                                                    localization[lang].StudentPage.MainInfo.noData
                                                     }
                                                 </Typography>
                                                 <Typography className={styles.nameText} fontWeight='500' mb='3px'
@@ -254,11 +258,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                             borderRadius: '25px',
                                             marginTop: '1rem',
                                         }}
-                                        onClick={()=>{
+                                        onClick={() => {
                                             const subject = `Приглашение для ${data.name_ru} в компанию`;
                                             window.location.href = `mailto:mail@sdfs.kz?subject=${encodeURIComponent(subject)}`;
                                         }}
-                                        >
+                                    >
                                         {localization[lang].StudentPage.AddInfo.sendInvite}
                                     </Button>
                                 </Box>
@@ -333,16 +337,25 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                             <CardMedia
                                                 component="img"
                                                 className={styles.diplomaImg}
-                                                sx={{width: "100%", position: "relative"}}
+                                                sx={{
+                                                    width: "100%",
+                                                    position: "relative",
+                                                    display: imageLoaded ? "block" : "none"
+                                                }}
                                                 image={data.image}
-                                                alt="University Image"/>
+                                                alt="University Image"
+                                                onLoad={handleImageLoad}
+                                            />
+                                            <Skeleton variant="rectangular" width={300} height={180}
+                                                      sx={{display: imageLoaded ? "none" : "block"}}
+                                                      animation="wave"/>
                                             <Box sx={{
-                                                display: 'flex',
+                                                display: imageLoaded ? "flex" : "none",
                                                 flexDirection: 'row',
                                                 width: "100%",
-                                                marginTop: "-2.5rem",
+                                                marginTop: "-3rem",
                                                 justifyContent: "space-between",
-                                                padding: "0 .5rem .5rem .5rem",
+                                                padding: "0 .5rem .4rem .5rem",
                                                 zIndex: "10"
                                             }}>
                                                 <IconButton
@@ -397,7 +410,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                       onClose={handleAlertClose}>
                                 <Alert onClose={handleAlertClose} severity="success"
                                        sx={{width: '100%'}}>
-                                    Успешно скопировано!
+                                    {localization[lang].StudentPage.Alert.copied}
                                 </Alert>
                             </Snackbar>
                             <Box margin="2rem"></Box>
