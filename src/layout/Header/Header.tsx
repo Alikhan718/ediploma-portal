@@ -167,13 +167,24 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 		setOpen(!checkRoute());
 	});
 
-	const [showDropdown, setShowDropdown] = useState<{ profile: boolean; lang: boolean }>({
-		profile: false,
-		lang: false
-	});
-	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-	const [selectedLanguage, setSelectedLanguage] = useState('ru');
-	const userRole = localStorage.getItem("userRole");
+    const handleActiveNav = (navId: number): void => {
+        setActiveNav(navId);
+    };
+    const checkSecondHeaderRoute = (): boolean => {
+        const urlElements = window.location.href.split('/');
+        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates', 'addingGraduates'];
+        for (const item of secondHeaderEnabledRoutes) {
+            if (urlElements.includes(item)) {
+                return true;
+            }
+        }
+        return false;
+    };
+    const isSecondHeaderVisible = checkSecondHeaderRoute();
+    const handleClassName = (isActive: boolean, id: number): string | undefined => {
+        isActive && handleActiveNav(id);
+        return "";
+    };
 
 	const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>, dropDownType: string) => {
 		setAnchorEl(event.currentTarget);
@@ -189,103 +200,93 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 		setShowDropdown({ profile: false, lang: false });
 	};
 
-	const handleFlagSelect = (language: string) => {
-		dispatch(setLanguage(language));
-		handleCloseMenu();
-	};
-	const role = useSelector(selectUserRole);
-	const headerText = getHeaderText();
-	return (
-		<Box mb={urlElements.includes('user') || urlElements.includes('detail') || urlElements.includes('diploma') ? "1rem" : ""}>
-			{isSecondHeaderVisible ? (
-				<Box
-					sx={{
-						display: 'flex',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						backgroundColor: 'white',
-						padding: '0.8rem',
-						width: 'calc(100% - (97% - 220px) % 992px)',
-						marginX: "1.5rem",
-						marginTop: "1rem",
-						borderRadius: '30px',
-						marginBottom: '1rem',
-						'@media (max-width: 778px)': {
-							width: "100%",
-							marginX: "0",
-							marginBottom: '-2rem',
-						},
-					}}
-				>
-					<Box sx={{ fontSize: '1.2rem', fontWeight: '600', marginLeft: '1rem' }}>
-						{headerText}
-					</Box>
-					<Box sx={{
-						display: 'flex', alignItems: 'center',
-						'@media (max-width: 1000px)': {
-							gap: ".5rem",
-						},
-					}}>
-						<Input
-							type="text"
-							name="email"
-							placeholder="Найти"
-							sx={{
-								marginRight: '1rem', flex: '1',
-								'@media (max-width: 778px)': {
-									display: 'none'
-								},
-								'@media (max-width: 1208px)': {
-									display: 'none'
-								},
-							}}
-							endAdornment={
-								<InputAdornment position="end">
-									<HeaderSearchIcon />
-								</InputAdornment>
-							}
-						/>
-						<HeaderSearchIcon className="app-icon-img" />
-						<Divider orientation="vertical"
-							style={{
-								borderLeftWidth: "1px",
-								borderRightWidth: "0",
-								borderColor: "grey",
-								height: "1.5rem",
-							}} />
-						<IconButton
-							style={{
-								cursor: 'pointer',
-								minHeight: '2.5rem',
-								minWidth: '3rem'
-							}}
-							onClick={(event) => {
-								handleOpenMenu(event, "lang");
-							}}
-						>
-							{lang == 'ru' && <img src={RuFlag} alt="Russian" />}
-							{lang == 'en' && <img src={EnFlag} alt="English" />}
-							{lang == 'kz' && <img src={KzFlag} alt="Kazakh" />}
-						</IconButton>
-						<Menu
-							anchorEl={anchorEl}
-							open={showDropdown.lang}
-							onClose={handleCloseMenu}
-						>
-							<MenuItem onClick={() => handleFlagSelect('ru')} sx={{ fontSize: '1rem' }}>
-								<img src={RuFlag} alt="Russian" style={{ marginRight: '0.5rem' }} />
-								Русский
-							</MenuItem>
-							<MenuItem onClick={() => handleFlagSelect('en')} sx={{ fontSize: '1rem' }}>
-								<img src={EnFlag} alt="English" style={{ marginRight: '0.5rem' }} />
-								Англиский
-							</MenuItem>
-							<MenuItem onClick={() => handleFlagSelect('kz')} sx={{ fontSize: '1rem' }}>
-								<img src={KzFlag} alt="French" style={{ marginRight: '0.5rem' }} />
-								Казахский
-							</MenuItem>
-						</Menu>
-						{/* <NotIcon style={{
+    const [showDropdown, setShowDropdown] = useState<{ profile: boolean; lang: boolean }>({
+        profile: false,
+        lang: false
+    });
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+    const [selectedLanguage, setSelectedLanguage] = useState('ru');
+    const userRole = localStorage.getItem("userRole");
+
+    const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>, dropDownType: string) => {
+        setAnchorEl(event.currentTarget);
+        setShowDropdown(prevState => ({
+            ...prevState,
+            [dropDownType]: true,
+            [dropDownType === 'lang' ? 'profile' : 'lang']: false,
+        }));
+    };
+
+    const handleCloseMenu = () => {
+        setAnchorEl(null);
+        setShowDropdown({profile: false, lang: false});
+    };
+
+    const handleFlagSelect = (language: string) => {
+        dispatch(setLanguage(language));
+        handleCloseMenu();
+    };
+    const role = useSelector(selectUserRole);
+    const headerText = getHeaderText();
+    return (
+        <Box mb={urlElements.includes('user') || urlElements.includes('detail') || urlElements.includes('diploma') || urlElements.includes('addingGraduates') ? "1rem" : ""}>
+            {isSecondHeaderVisible ? (
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        backgroundColor: 'white',
+                        padding: '0.8rem',
+                        width: 'calc(100% - (97% - 220px) % 992px)',
+                        marginX: "1.5rem",
+                        marginTop: "1rem",
+                        borderRadius: '30px',
+                        marginBottom: '1rem',
+                        '@media (max-width: 778px)': {
+                            width: "100%",
+                            marginX: "0",
+                            marginBottom: '-2rem',
+                        },
+                    }}
+                >
+                    <Box sx={{fontSize: '1.2rem', fontWeight: '600', marginLeft: '1rem'}}>
+                        {headerText}
+                    </Box>
+                    <Box sx={{
+                        display: 'flex', alignItems: 'center',
+                        '@media (max-width: 1000px)': {
+                            gap: ".5rem",
+                        },
+                    }}>
+                        <Input
+                            type="text"
+                            name="email"
+                            placeholder="Найти"
+                            sx={{
+                                marginRight: '1rem', flex: '1',
+                                '@media (max-width: 778px)': {
+                                    display: 'none'
+                                },
+                                '@media (max-width: 1208px)': {
+                                    display: 'none'
+                                },
+                            }}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <HeaderSearchIcon/>
+                                </InputAdornment>
+                            }
+                        />
+                        <HeaderSearchIcon className="app-icon-img"/>
+                        <Divider orientation="vertical"
+                                 style={{
+                                     borderLeftWidth: "1px",
+                                     borderRightWidth: "0",
+                                     borderColor: "grey",
+                                     height: "1.5rem",
+                                 }}/>
+                        <NotIcon style={{
                             cursor: 'pointer'
                         }} className="app-icon"
                                  onClick={() => {

@@ -8,7 +8,7 @@ import {
     Divider,
     Menu,
     MenuItem,
-    IconButton, Alert, Snackbar
+    IconButton, Alert, Snackbar, Skeleton
 } from '@mui/material';
 import {Button, Label} from '@src/components';
 import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
@@ -34,7 +34,7 @@ import {handleDownload} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
 import {selectLanguage} from "@src/store/generals/selectors";
-import { localization } from '@src/pages/StudentPage/generator';
+import {localization} from '@src/pages/StudentPage/generator';
 
 export const StudentPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
@@ -80,29 +80,35 @@ export const StudentPageLayout: React.FC = () => {
         setAlertOpen(false);
     };
 
-	const handleText = (text: string): string => {
-		const matchesSm = useMediaQuery('(max-width:768px)');
-		const trimLimit = matchesSm ? 85 : 115;
-		return showFull ? text : text.substring(0, trimLimit) + "...";
-	};
+    const handleText = (text: string): string => {
+        const matchesSm = useMediaQuery('(max-width:768px)');
+        const trimLimit = matchesSm ? 85 : 115;
+        return showFull ? text : text.substring(0, trimLimit) + "...";
+    };
 
-	const handleCardClick = (counter: number) => {
-		navigate(`/app/diploma/${counter}/details`);
-	};
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const handleCardClick = (counter: number) => {
+        navigate(`/app/diploma/${counter}/details`);
+    };
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorEl(event.currentTarget);
-	};
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
 
     const handleClose = () => {
         setAnchorEl(null);
     };
     // const isMobile = useMediaQuery('(max-width:998px)');
 
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const handleImageLoad = () => {
+        setImageLoaded(true);
+    };
+
+
     return (
         <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
-            <Box display='flex'  flexWrap='wrap'>
+            <Box display='flex' flexWrap='wrap'>
 
                 <Box width={100} minWidth="79vw" sx={{
                     width: 'calc(100% - (97% - 220px) % 992px)',
@@ -234,7 +240,7 @@ export const StudentPageLayout: React.FC = () => {
                                             <Box marginLeft="0.2rem">
                                                 <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
-                                                    {data && data.university_id && data.university_id == 1 ? localization[lang].MainInfo.kbtu : localization[lang].MainInfo.noData }
+                                                    {data && data.university_id && data.university_id == 1 ? localization[lang].MainInfo.kbtu : localization[lang].MainInfo.noData}
                                                 </Typography>
                                                 <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                             sx={{fontSize: '0.875em'}}>
@@ -335,9 +341,19 @@ export const StudentPageLayout: React.FC = () => {
                                             <CardMedia
                                                 component="img"
                                                 className={styles.diplomaImg}
-                                                sx={{width: "100%", position: "relative"}}
+                                                sx={{
+                                                    width: "100%",
+                                                    position: "relative",
+                                                    display: imageLoaded ? "block" : "none"
+                                                }}
                                                 image={data.image}
-                                                alt="University Image"/>
+                                                alt="University Image"
+                                                onLoad={handleImageLoad}
+                                            />
+                                            <Skeleton variant="rectangular" width={300} height={200}
+                                                      sx={{display: imageLoaded ? "none" : "block"}}
+                                                      animation="wave"/>
+
                                             <Box sx={{
                                                 display: 'flex',
                                                 flexDirection: 'row',
