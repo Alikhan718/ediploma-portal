@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
     Box, CardContent, CardMedia, Grid, Typography,
-    Skeleton
+    Skeleton, Pagination, useMediaQuery
 } from '@mui/material';
 import {DiplomaPageHeader} from "@src/pages/DiplomaPage/components/DiplomaPageHeader";
 import {useNavigate} from "react-router-dom";
@@ -31,12 +31,34 @@ export const DiplomaPageLayout: React.FC = () => {
     };
     const lang = useSelector(selectLanguage);
 
+    const isMobile = useMediaQuery('(max-width:998px)');
 
     const handleCardClick = (counter: number) => {
         isAuthenticated() ? navigate(`/app/diploma/${counter}`) : setOpen(true);
     };
-    const [open, setOpen] = React.useState(false);
 
+    const diplomasPerPage = 8;
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = Math.ceil(diplomaList.length / diplomasPerPage);
+
+
+    const [open, setOpen] = React.useState(false);
+    const nextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const startDiplomaIndex = (currentPage - 1) * diplomasPerPage;
+    const endDiplomaIndex = currentPage * diplomasPerPage;
+    const displayedDiplomas = diplomaList.slice(startDiplomaIndex, endDiplomaIndex);
     return (
         <Box display="flex" flexWrap="wrap" justifyContent="center" className={styles.mainContainer} pt="2rem">
             <DiplomaPageHeader/>
@@ -74,7 +96,7 @@ export const DiplomaPageLayout: React.FC = () => {
                   justifyContent="space-between"
                   className={styles.diplomasContainer} width="100%">
                 {diplomaList ? (
-                    diplomaList.map((e: any) => (
+                    displayedDiplomas.map((e: any) => (
                         <Grid key={e.id} item xs={12} sm={5.9} md={3.9} lg={2.9}
                               onClick={() => handleCardClick(e.id!)}
                               sx={{
@@ -136,6 +158,26 @@ export const DiplomaPageLayout: React.FC = () => {
                     <div>Loading...</div>
                 )}
             </Grid>
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'center',
+                width: '100%',
+                marginBottom: "2rem"
+            }}>
+                <Box style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <Pagination
+                        count={totalPages}
+                        page={currentPage}
+                        onChange={(event, page) => setCurrentPage(page)}
+                        shape="rounded"
+                        color="primary"
+                        size={isMobile ? "medium" : "large"}
+                    />
+                </Box>
+            </Box>
         </Box>
     );
 };
+

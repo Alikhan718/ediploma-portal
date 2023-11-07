@@ -226,43 +226,47 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                     </Box>
                     <Box sx={{
                         display: 'flex', alignItems: 'center',
+                        // width:"100%",
+                        gap: '.5rem',
                         '@media (max-width: 1000px)': {
-                            gap: ".5rem",
+                            // gap: ".5rem",
                         },
                     }}>
-                        <Input
-                            type="text"
-                            name="email"
-                            placeholder="Найти"
-                            sx={{
-                                marginRight: '1rem', flex: '1',
-                                '@media (max-width: 778px)': {
-                                    display: 'none'
-                                },
-                                '@media (max-width: 1208px)': {
-                                    display: 'none'
-                                },
-                            }}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <HeaderSearchIcon/>
-                                </InputAdornment>
-                            }
-                        />
-                        <HeaderSearchIcon className="app-icon-img"/>
-                        <Divider orientation="vertical"
-                                 style={{
-                                     borderLeftWidth: "1px",
-                                     borderRightWidth: "0",
-                                     borderColor: "grey",
-                                     height: "1.5rem",
-                                 }}/>
+                        {/*<Input*/}
+                        {/*    type="text"*/}
+                        {/*    name="email"*/}
+                        {/*    placeholder="Найти"*/}
+                        {/*    sx={{*/}
+                        {/*        marginRight: '1rem', flex: '1',*/}
+                        {/*        '@media (max-width: 778px)': {*/}
+                        {/*            display: 'none'*/}
+                        {/*        },*/}
+                        {/*        '@media (max-width: 1208px)': {*/}
+                        {/*            display: 'none'*/}
+                        {/*        },*/}
+                        {/*    }}*/}
+                        {/*    endAdornment={*/}
+                        {/*        <InputAdornment position="end">*/}
+                        {/*            <HeaderSearchIcon/>*/}
+                        {/*        </InputAdornment>*/}
+                        {/*    }*/}
+                        {/*/>*/}
+                        {/* Какой то нерабочий пойск*/}
+                        {/*<HeaderSearchIcon className="app-icon-img"/>*/}
+                        {/*<Divider orientation="vertical"*/}
+                        {/*         style={{*/}
+                        {/*             borderLeftWidth: "1px",*/}
+                        {/*             borderRightWidth: "0",*/}
+                        {/*             borderColor: "grey",*/}
+                        {/*             height: "1.5rem",*/}
+                        {/*         }}/>*/}
                         <IconButton
                             style={{
                                 cursor: 'pointer',
                                 minHeight: '2.5rem',
-                                minWidth: '3rem'
+                                // minWidth: '3rem'
                             }}
+                            className="app-icon"
                             onClick={(event) => {
                                 handleOpenMenu(event, "lang");
                             }}
