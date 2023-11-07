@@ -15,7 +15,13 @@ const style = {
 	p: '30px 40px',
 	borderRadius: '20px',
 	marginLeft: "0",
-	marginRight: "0"
+	marginRight: "0",
+	"@media (max-width: 1024px)": {
+		width: "60%",
+	},
+	"@media (max-width: 768px)": {
+		width: "95%",
+	}
 };
 
 export const Modal: React.FC<ModalProps> = (props) => {

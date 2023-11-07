@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Box, Card, CardContent, CardMedia, Grid, Typography,
-    Skeleton, useMediaQuery
+    Box, CardContent, CardMedia, Grid, Typography,
+    Skeleton
 } from '@mui/material';
 import {DiplomaPageHeader} from "@src/pages/DiplomaPage/components/DiplomaPageHeader";
 import {useNavigate} from "react-router-dom";
@@ -10,7 +10,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectDiplomaList} from "@src/store/diplomas/selectors";
 import styles from "./DiplomaPage.module.css";
 import diplomaTemplate from "@src/assets/example/diploma_template.jpg";
-import {extractYearFromHumanReadable} from "@src/utils/functions";
+import {Button, Modal} from "@src/components";
+import {isAuthenticated} from "@src/utils/userAuth";
+import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
+
+import {localization} from "src/pages/DiplomaPage/generator";
+import {selectLanguage} from "@src/store/generals/selectors";
+import {routes} from "@src/shared/routes";
 
 export const DiplomaPageLayout: React.FC = () => {
     const navigate = useNavigate();
@@ -23,15 +29,44 @@ export const DiplomaPageLayout: React.FC = () => {
     const handleImageLoad = () => {
         setImageLoaded(true);
     };
+    const lang = useSelector(selectLanguage);
 
 
     const handleCardClick = (counter: number) => {
-        navigate(`/app/diploma/${counter}`);
+        isAuthenticated() ? navigate(`/app/diploma/${counter}`) : setOpen(true);
     };
+    const [open, setOpen] = React.useState(false);
 
     return (
         <Box display="flex" flexWrap="wrap" justifyContent="center" className={styles.mainContainer} pt="2rem">
             <DiplomaPageHeader/>
+            <Modal
+                open={open}
+                handleClose={() => setOpen(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+
+                    <img src={NeedAuthorizationPic} alt=""/>
+                    <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
+                                fontWeight='600'
+                                variant="h6"
+                                component="h2">
+                        {localization[lang].Modal.needAuth}
+                    </Typography>
+                    <Button variant='contained' sx={{
+                        marginTop: "1rem",
+                        padding: "1rem",
+                        width: "80%",
+                        fontSize: "1rem",
+                        fontWeight: "600",
+                        borderRadius: "2rem"
+                    }} onClick={() => {
+                        navigate(routes.login);
+                    }}>{localization[lang].Modal.authButton}</Button>
+                </Box>
+            </Modal>
             <Grid container display="flex" rowSpacing={2} columnSpacing={1} flexWrap="wrap"
                   sx={{
                       margin: "0 !important"

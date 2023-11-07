@@ -51,7 +51,7 @@ export const localization = {
 			aiHiring: "ЖИ Жалдау"
 		},
 		Modal:{
-			needAuth: "Қолдану үшін рұқсаттарды растау қажет",
+			needAuth: "Қарау үшін рұқсаттарды растау қажет",
 			authButton: "Рұқсаттарды растау"
 		},
 	},
@@ -63,7 +63,7 @@ export const localization = {
 			aiHiring: "ИИ Найм"
 		},
 		Modal:{
-			needAuth: "Для использования требуется авторизация",
+			needAuth: "Для просмотра требуется авторизация",
 			authButton: "Авторизоваться"
 		},
 	},
@@ -75,7 +75,7 @@ export const localization = {
 			aiHiring: "AI Hiring"
 		},
 		Modal:{
-			needAuth: "It is required to authorize to use",
+			needAuth: "Authorization required to view",
 			authButton: "Authorize"
 		},
 	},
