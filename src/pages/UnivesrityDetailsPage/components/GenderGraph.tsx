@@ -97,7 +97,14 @@ export const GenderGraph: React.FC = memo(() => {
 					height={300}
 					width={50}
 					options={{
-						maintainAspectRatio: false
+						maintainAspectRatio: false,
+						scales: {
+							x: {
+								grid: {
+									display: false,
+								},
+							},
+						},
 					}}
 				/>
 			</Box>

@@ -83,7 +83,7 @@ export const AnalysisPage: React.FC = () => {
 							flexDirection: "column"
 						}}>
 							<FacultyGraph />
-							{/* <AnalyticsGraph /> */}
+							<AnalyticsGraph />
 							<GenderGraph />
 						</Box>
 						<Box sx={{

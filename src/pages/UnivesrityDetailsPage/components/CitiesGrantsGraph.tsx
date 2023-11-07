@@ -29,7 +29,7 @@ export const CitiesGrantsGraph: React.FC = memo(() => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"nowrap"} margin={"0 20px"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Статистика по городам
+					Статистика
 				</Typography>
 				<Box display="flex" flexDirection={"row"} alignItems={"center"}>
 

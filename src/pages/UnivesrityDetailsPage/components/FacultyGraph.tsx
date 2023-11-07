@@ -63,7 +63,7 @@ export const FacultyGraph: React.FC = memo(() => {
 						labels: ["БШ", "КМА", "МШЭ", "ШГ", "ШИТИ", "ШПМ", "ШХИ", "ШЭНИ"],
 						datasets: [
 							{
-								label: "test",
+								label: "",
 								data: [3.03, 2.72, 2.88, 3.0, 3.13, 3.11, 3.28, 3.03],
 								backgroundColor: [
 									"rgb(234, 85, 69,0.7)",
@@ -115,6 +115,13 @@ export const FacultyGraph: React.FC = memo(() => {
 										];
 										return `${faculty[labelIndex]}: ${studentCount[labelIndex]} students, Avg. GPA: ${averageGPA[labelIndex]}`;
 									},
+								},
+							},
+						},
+						scales: {
+							x: {
+								grid: {
+									display: false,
 								},
 							},
 						},
