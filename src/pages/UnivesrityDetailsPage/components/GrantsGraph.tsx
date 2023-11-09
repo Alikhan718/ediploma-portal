@@ -1,19 +1,26 @@
 import React, { memo } from "react";
-import { Doughnut } from "react-chartjs-2";
-import { Chart, registerables } from "chart.js";
+import {
+	PieChart,
+	Pie,
+	Tooltip,
+	Cell,
+	ResponsiveContainer,
+} from "recharts";
 import {
 	Box,
 	Card,
-	MenuItem,
-	Select,
-	SelectChangeEvent,
 	Typography,
 } from "@mui/material";
-import { ReactComponent as DotIcon } from "@src/assets/icons/Dots.svg";
-Chart.register(...registerables);
+import grantsData from "./data/grants.json"; // Import the JSON data
+
+// Define colors here
+const COLORS = ["rgb(0,255,255,0.6)", "rgb(255,255,0,0.6)", "rgb(0,255,0,0.6)"];
 
 // eslint-disable-next-line react/display-name
 export const GrantsGraph: React.FC = memo(() => {
+	// Use the imported grantsData for the pie chart data
+	const data = grantsData;
+
 	return (
 		<Card
 			elevation={6}
@@ -23,7 +30,8 @@ export const GrantsGraph: React.FC = memo(() => {
 				maxWidth: 352,
 				padding: "20px 0",
 				display: "flex",
-				flexDirection: "column", borderRadius: '30px'
+				flexDirection: "column",
+				borderRadius: '30px',
 			}}
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"nowrap"} margin={"0 20px"}>
@@ -31,54 +39,28 @@ export const GrantsGraph: React.FC = memo(() => {
 					Статистика по грантам
 				</Typography>
 				<Box display="flex" flexDirection={"row"} alignItems={"center"}>
-
 				</Box>
 			</Box>
 			<div style={{ margin: '20px' }}>
-				<Doughnut
-					data={{
-						labels: [
-							'Грант покредитно',
-							'Договор кредитный',
-							'Договор фиксированный',
-						],
-						datasets: [
-							{
-								label: 'Аналитика по количеству грантов',
-								data: [452, 68, 34],
-								backgroundColor: [
-									'rgb(0,255,255,0.6)',
-									'rgb(255,255,0,0.6)',
-									'rgb(0,255,0,0.6)',
-								],
-							},
-						],
-					}}
-					options={{
-						maintainAspectRatio: false,
-						plugins: {
-							legend: {
-								display: false,
-								position: 'left',
-							},
-							tooltip: {
-								callbacks: {
-									label: (context) => {
-										const labelIndex = context.dataIndex;
-										const faculty = [
-											'Грант покредитно',
-											'Договор кредитный',
-											'Договор фиксированный',
-										];
-										const studentCount = [452, 68, 34];
-										const averageGPA = [3.13, 2.68, 2.99];
-										return `${faculty[labelIndex]}: ${studentCount[labelIndex]} students, Avg. GPA: ${averageGPA[labelIndex]}`;
-									},
-								},
-							},
-						},
-					}}
-				/>
+				<ResponsiveContainer width="100%" height={300}>
+					<PieChart>
+						<Pie
+							data={data}
+							dataKey="value"
+							nameKey="name"
+							cx="50%"
+							cy="50%"
+							outerRadius={80}
+							fill="#8884d8"
+							label
+						>
+							{data.map((entry, index) => (
+								<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+							))}
+						</Pie>
+						<Tooltip />
+					</PieChart>
+				</ResponsiveContainer>
 			</div>
 		</Card>
 	);

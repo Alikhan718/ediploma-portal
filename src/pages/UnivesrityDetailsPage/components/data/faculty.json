@@ -1,0 +1,42 @@
+[
+	{
+		"name": "БШ",
+		"students": 78,
+		"avgGPA": 3.03
+	},
+	{
+		"name": "КМА",
+		"students": 23,
+		"avgGPA": 2.72
+	},
+	{
+		"name": "МШЭ",
+		"students": 42,
+		"avgGPA": 2.88
+	},
+	{
+		"name": "ШГ",
+		"students": 18,
+		"avgGPA": 3.0
+	},
+	{
+		"name": "ШИТИ",
+		"students": 109,
+		"avgGPA": 3.13
+	},
+	{
+		"name": "ШПМ",
+		"students": 28,
+		"avgGPA": 3.11
+	},
+	{
+		"name": "ШХИ",
+		"students": 34,
+		"avgGPA": 3.28
+	},
+	{
+		"name": "ШЭНИ",
+		"students": 92,
+		"avgGPA": 3.03
+	}
+]
