@@ -70,21 +70,22 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
             {gotResponse ?(<SearchOutput response={response} loading={loading} setGotResponse={setGotResponse}/>):
             (<div>
 
-            <h1 className={styles.popupHeading}>{localization[lang].CandidateSearch.title}</h1>
-            <p className={styles.popupSmallHeading}>{localization[lang].CandidateSearch.findCandidate}</p>
-            <Input
-                id="chat" 
-                rows={1}
-                placeholder={localization[lang].CandidateSearch.description}
-                inputSize="m"
-                defaultValue={jobDescription}
-                sx={{
-                    paddingRight: 0,
-                    width: '95%',
-                    marginLeft: '2.5%',
-                    marginBottom: '20px',
-                }}
-            />
+                <h1 className={styles.popupHeading}>{localization[lang].CandidateSearch.title}</h1>
+                <p className={styles.popupSmallHeading}>{localization[lang].CandidateSearch.findCandidate}</p>
+                <Input
+                    id="chat" 
+                    rows={1}
+                    placeholder={localization[lang].CandidateSearch.description}
+                    inputSize="m"
+                    defaultValue={jobDescription}
+                    sx={{
+                        height: 'auto',
+                        paddingRight: 0,
+                        width: '95%',
+                        marginLeft: '2.5%',
+                        marginBottom: '20px',
+                    }}
+                />
                 <div className={styles.buttonContainer}>
                     <button 
                         type="button" 
