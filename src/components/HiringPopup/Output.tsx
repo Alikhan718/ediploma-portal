@@ -22,6 +22,7 @@ export const Output: React.FC<OutputProps> = (props) => {
     const {response, loading, setGotResponse, setHaveDescription, haveSearch, isStudent, setJobDescription,  sessionId, setResponse} = props;
     const [isCopied, setIsCopied] = React.useState(false);
     const urlRegex:RegExp = /(https?:\/\/[^\s\)]+)/g;
+    const [isDoneGenerating, setIsDoneGenerating] = React.useState(false);
 
     const handleCopy = (): void => {
         const textToCopy = response.split('\n').join('\n');
@@ -49,6 +50,8 @@ export const Output: React.FC<OutputProps> = (props) => {
         });
 
         eventSource.addEventListener('close', () => {
+            setIsDoneGenerating(true);
+            console.log('Connection closed');
             eventSource.close();
         });
 
@@ -120,8 +123,9 @@ export const Output: React.FC<OutputProps> = (props) => {
                 {haveSearch ? 
                 (<button
                     type="button"
+                    disabled={!isDoneGenerating}
                     onClick={(): void => {setHaveDescription(true); setJobDescription('');}}
-                    className={styles.continueButton}
+                    className={isDoneGenerating ? styles.continueButton : styles.disabledContinueButton}
                 >{localization[lang].Output.Buttons.search}
                 </button>):
                 null}

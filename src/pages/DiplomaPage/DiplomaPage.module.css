@@ -192,6 +192,68 @@
     min-height: 150px;
 }
 
+@media only screen and (max-width: 768px) {
+    .popupBody {
+        position: relative;
+        text-align: center;
+        border-radius: 25px;
+        border-color: black;
+        background: #FFFFFF;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        padding: 10px;
+        max-width: 80%;
+        overflow: auto;
+        min-width: 300px;
+        min-height: 75px;
+    }
+
+    .imageContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: 10px;
+        cursor: pointer;
+        overflow: hidden;
+        border-radius: 25px;
+        background-color: #c6cad3;
+        max-width: 100px;
+        max-height: 150px;
+    }
+
+    .imageContainer img {
+        width: 150%;
+        height: 100%;
+    }
+
+    .image {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .radioButtons {
+        display: flex;
+        padding-left: 0px;
+        overflow: hidden;
+        flex-wrap: wrap;
+    }
+    
+    
+    .radioButtonContainer {
+        float: left;
+        clear: none;
+        position: relative;
+    }
+    
+    .radioButtonContainer label {
+        margin: 0px;
+        float: left;
+        clear: none;
+        display: block;
+        position: relative;
+    }
+}
+
 .studentOrRecruiter {
     display: flex;
     justify-content: space-between;
@@ -266,18 +328,6 @@
     display: none;
 }
 
-.radioButtons {
-    display: flex;
-    padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.radioButtons div {
-    margin-right: 50px;
-    margin-right: 50px;
-}
-
 .textArea {
     width: 95%;
     border-radius: 25px;
@@ -297,12 +347,29 @@
 .buttonContainer {
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap
 }
 
 .continueButton {
     max-width: auto;
     text-align: right;
     background-color: #3b82f6;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 200;
+    cursor: pointer;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.disabledContinueButton {
+    max-width: auto;
+    text-align: right;
+    background-color: #808080;
     color: #fff;
     border: none;
     padding: 12px 20px;

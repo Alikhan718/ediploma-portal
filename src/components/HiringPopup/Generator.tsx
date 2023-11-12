@@ -35,7 +35,8 @@ export const localization = {
             Buttons: {
                 back: "Артқа",
                 continue: "Жалғастыру",
-                search: "Іздеу"
+                search: "Іздеу",
+                haveDesc: "Менде жұмыс сипаттамасы бар",
             }
         },
         CandidateSearch: {
@@ -97,6 +98,7 @@ export const localization = {
                 back: "Назад",
                 continue: "Продолжить",
                 search: "Поиск",
+                haveDesc: "У меня уже есть описание",
             }
         },
         CandidateSearch:{
@@ -157,7 +159,8 @@ export const localization = {
             Buttons: {
                 back: "Back",
                 continue: "Continue",
-                search: "Search"
+                search: "Search",
+                haveDesc: "I already have a description",
             }
         },
         CandidateSearch: {

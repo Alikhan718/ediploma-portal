@@ -77,72 +77,72 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
             (<div>
 
             
-            <h1 className={styles.popupHeading}>{localization[lang].JobDescription.title}</h1>
-            <p className={styles.popupSmallHeading}>{localization[lang].JobDescription.wantGenerate}</p>
-            <div className={styles.radioButtons}>
-                <div className={styles.radioButtonContainer}>
-                    <input 
-                        checked={selectedRadio === '1'}
-                        onChange={handleOnChange}
-                        id="bordered-radio-1" 
-                        type="radio" 
-                        value="1" 
-                        name="bordered-radio" 
-                    />
-                    <label htmlFor="bordered-radio-1">
-                        {localization[lang].JobDescription.task}
-                        <span className={styles.innerCircle1}></span>
-                    </label>
+                <h1 className={styles.popupHeading}>{localization[lang].JobDescription.title}</h1>
+                <p className={styles.popupSmallHeading}>{localization[lang].JobDescription.wantGenerate}</p>
+                <div className={styles.radioButtons}>
+                    <div className={styles.radioButtonContainer}>
+                        <input 
+                            checked={selectedRadio === '1'}
+                            onChange={handleOnChange}
+                            id="bordered-radio-1" 
+                            type="radio" 
+                            value="1" 
+                            name="bordered-radio" 
+                        />
+                        <label htmlFor="bordered-radio-1">
+                            {localization[lang].JobDescription.task}
+                            <span className={styles.innerCircle1}></span>
+                        </label>
 
+                    </div>
+                    <div className={styles.radioButtonContainer}>
+                        <input
+                            checked={selectedRadio === '2'}
+                            onChange={handleOnChange}
+                            id="bordered-radio-2" 
+                            type="radio" 
+                            value="2" 
+                            name="bordered-radio" 
+                        />
+                        <label htmlFor="bordered-radio-2">
+                            {localization[lang].JobDescription.project}
+                            <span className={styles.innerCircle2}></span>
+                        </label>
+                    </div>
                 </div>
-                <div className={styles.radioButtonContainer}>
-                    <input
-                        checked={selectedRadio === '2'}
-                        onChange={handleOnChange}
-                        id="bordered-radio-2" 
-                        type="radio" 
-                        value="2" 
-                        name="bordered-radio" 
-                    />
-                    <label htmlFor="bordered-radio-2">
-                        {localization[lang].JobDescription.project}
-                        <span className={styles.innerCircle2}></span>
-                    </label>
+                <p className={styles.popupSmallHeading}>{localization[lang].JobDescription.task}/{localization[lang].JobDescription.project}</p>
+                <Input
+                    id="chat" 
+                    rows={1}
+                    placeholder={localization[lang].JobDescription.describe}
+                    inputSize="m"
+                    sx={{
+                        paddingRight: 0,
+                        width: '95%',
+                        marginLeft: '2.5%',
+                        marginBottom: '20px',
+                    }}
+                />
+                <div className={styles.buttonContainer}>
+                    <button 
+                        type="button" 
+                        onClick={(): void => {setIsClicked(true); setIsDataAlert(false);}} 
+                        className={styles.continueButton}
+                    >{localization[lang].JobDescription.Buttons.back}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleButtonSubmit}
+                        className={styles.continueButton}
+                    >{localization[lang].JobDescription.Buttons.continue}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={():void => {setHaveDescription(true); setJobDescription('');}}
+                        className={styles.continueButton}
+                    >{localization[lang].JobDescription.Buttons.haveDesc}
+                    </button>
                 </div>
-            </div>
-            <p className={styles.popupSmallHeading}>{localization[lang].JobDescription.task}/{localization[lang].JobDescription.project}</p>
-            <Input
-                id="chat" 
-                rows={1}
-                placeholder={localization[lang].JobDescription.describe}
-                inputSize="m"
-                sx={{
-                    paddingRight: 0,
-                    width: '95%',
-                    marginLeft: '2.5%',
-                    marginBottom: '20px',
-                }}
-            />
-            <div className={styles.buttonContainer}>
-                <button 
-                    type="button" 
-                    onClick={(): void => {setIsClicked(true); setIsDataAlert(false);}} 
-                    className={styles.continueButton}
-                >{localization[lang].JobDescription.Buttons.back}
-                </button>
-                <button
-                    type="button"
-                    onClick={handleButtonSubmit}
-                    className={styles.continueButton}
-                >{localization[lang].JobDescription.Buttons.continue}
-                </button>
-                <button
-                    type="button"
-                    onClick={():void => {setHaveDescription(true); setJobDescription('');}}
-                    className={styles.continueButton}
-                >{localization[lang].JobDescription.Buttons.search}
-                </button>
-            </div>
 
             </div>)}
         </div>
