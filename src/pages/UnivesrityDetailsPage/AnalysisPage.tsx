@@ -40,6 +40,7 @@ const initialGraphVisibility: Record<string, boolean> = {
 	"CitiesGraph": true,
 	"CitiesGrantsGraph": true,
 	"GrantsGraph": true,
+	"AnalyticsGraph": true,
 };
 
 
@@ -67,7 +68,7 @@ export const AnalysisPage: React.FC = () => {
 						marginBottom: '35px',
 						'@media (max-width: 1335px)': {
 							'& > div': {
-								width: '48%'
+								width: '18%'
 							},
 							justifyContent: 'space-between',
 							marginRight: '2%'
@@ -119,6 +120,13 @@ export const AnalysisPage: React.FC = () => {
 						>
 							Cities Grants Graph
 						</Button>
+						<Button
+							variant={graphVisibility["AnalyticsGraph"] ? "contained" : "outlined"}
+							onClick={() => toggleGraphVisibility("AnalyticsGraph")}
+							sx={{ borderRadius: '2rem', marginRight: '1rem' }}
+						>
+							Analytics Graph
+						</Button>
 					</Box>
 					<Box sx={{
 						width: "100%",
@@ -138,7 +146,7 @@ export const AnalysisPage: React.FC = () => {
 							flexDirection: "column"
 						}}>
 							{graphVisibility["FacultyGraph"] && <FacultyGraph />}
-							{/* <AnalyticsGraph /> */}
+							{graphVisibility["AnalyticsGraph"] && <AnalyticsGraph />}
 							{graphVisibility["GenderGraph"] && <GenderGraph />}
 						</Box>
 						<Box sx={{

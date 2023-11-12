@@ -105,6 +105,15 @@ export const UniversityDeatailPage: React.FC = () => {
 		dispatch(fetchDiplomas());
 	}, []);
 	const defaultS = 3.5;
+	const copyCurrentURLToClipboard = () => {
+		const currentURL = window.location.href;
+		const textArea = document.createElement('textarea');
+		textArea.value = currentURL;
+		document.body.appendChild(textArea);
+		textArea.select();
+		document.execCommand('copy');
+		document.body.removeChild(textArea);
+	};
 	return (
 		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'>
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
@@ -156,7 +165,7 @@ export const UniversityDeatailPage: React.FC = () => {
 											marginLeft: '10px',
 											width: '25px',
 											height: '25px',
-										}} />
+										}} onClick={copyCurrentURLToClipboard} />
 										<img src={dots} style={{
 											marginRight: '10px',
 											marginLeft: '10px',
