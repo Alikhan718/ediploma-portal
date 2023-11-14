@@ -5,8 +5,8 @@ import {
 	Typography,
 } from "@mui/material";
 import { ReactComponent as DotIcon } from "@src/assets/icons/Dots.svg";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
-import facultyData from "./data/faculty.json"; // Import the JSON data
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer } from "recharts";
+import facultyData from "./data/faculty.json";
 
 // eslint-disable-next-line react/display-name
 export const FacultyGraph: React.FC = memo(() => {
@@ -17,7 +17,7 @@ export const FacultyGraph: React.FC = memo(() => {
 		<Card
 			elevation={6}
 			sx={{
-				width: "98%",
+				width: "95%",
 				marginRight: "2%",
 				padding: "20px",
 				display: "flex",
@@ -31,20 +31,21 @@ export const FacultyGraph: React.FC = memo(() => {
 				</Typography>
 			</Box>
 			<Box sx={{ maxWidth: 974, width: "100%", margin: "0 auto" }}>
-				<BarChart
-					width={1000}
-					height={300}
-					data={data}
-					margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
-				>
-					<CartesianGrid strokeDasharray="3 3" />
-					<XAxis dataKey="name" />
-					<YAxis />
-					<Tooltip />
-					<Legend />
-					<Bar dataKey="students" fill="rgb(234, 85, 69,0.7)" />
-					<Bar dataKey="avgGPA" fill="rgb(244, 106, 155,0.7)" />
-				</BarChart>
+				<ResponsiveContainer width="100%" height={300}>
+					<BarChart
+
+						data={data}
+						margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="name" />
+						<YAxis />
+						<Tooltip />
+						<Legend />
+						<Bar dataKey="students" fill="rgb(234, 85, 69,0.7)" />
+						<Bar dataKey="avgGPA" fill="rgb(244, 106, 155,0.7)" />
+					</BarChart>
+				</ResponsiveContainer>
 			</Box>
 		</Card >
 	);

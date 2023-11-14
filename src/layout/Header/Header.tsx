@@ -152,13 +152,13 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 	const getHeaderText = () => {
 		const currentPath = window.location.pathname;
 		if (currentPath === routes.detail) {
-			return 'Dashboard';
+			return lang === 'ru' ? 'Профиль' : lang === 'kz' ? 'Профиль' : 'Profile';
 		} else if (currentPath === routes.notifications) {
-			return 'Уведомления';
+			return lang === 'ru' ? 'Уведомления' : lang === 'kz' ? 'Хабарландырулар' : 'Notifications';
 		} else if (currentPath === routes.addingGraduates) {
-			return 'Выпустить дипломы';
+			return lang === 'ru' ? 'Выпустить дипломы' : lang === 'kz' ? 'Диплом тапсыру' : 'Issue Diplomas';
 		} else if (currentPath === routes.settings) {
-			return 'Настройки';
+			return lang === 'ru' ? 'Настройки' : lang === 'kz' ? 'Параметрлер' : 'Settings';
 		}
 		return 'Dashboard';
 	};

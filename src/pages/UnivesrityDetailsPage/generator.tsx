@@ -2,13 +2,14 @@ import React from "react";
 
 import { ReactComponent as PasswordIcon } from "@src/assets/icons/Password.svg";
 import { ReactComponent as EmailIcon } from "@src/assets/icons/Letter.svg";
+import { ReactComponent as ProfileIcon } from "@src/assets/icons/Avatar_out.svg";
 import FastIcon from "@src/components/FastIcon/FastIcon";
 
 export const navigation = [
 	{
 		title: 'Основная информация',
 		reference: 0,
-		icon: <EmailIcon color="primary" style={{ marginRight: '0.5rem' }} />
+		icon: <ProfileIcon color="primary" style={{ marginRight: '0.5rem' }} />
 	},
 	{
 		title: 'Почта',
@@ -20,11 +21,11 @@ export const navigation = [
 		reference: 2,
 		icon: <PasswordIcon color="primary" style={{ marginRight: '0.5rem' }} />
 	},
-	{
-		title: 'Удалить аккаунт',
-		reference: 3,
-		icon: <FastIcon name={"trash"} style={{ marginRight: '0.5rem' }} color="primary" />
-	}
+	// {
+	// 	title: 'Удалить аккаунт',
+	// 	reference: 3,
+	// 	icon: <FastIcon name={"trash"} style={{ marginRight: '0.5rem' }} color="primary" />
+	// }
 ];
 
 export const content = {
@@ -144,11 +145,11 @@ export const localization = {
 			numExtra: "Үздіктер саны",
 			gpa: "Орташа GPA",
 			mainInfo: "Негізгі ақпарат",
-			info: "eDiploma – JASAIM командасы әзірлеген, құжатты бұрмалау мүмкіндігін жоққа шығаратын NFT (нұсқаланбайтын токен) форматындағы түлектердің қағаз дипломдарын цифрлауды қамтамасыз ететін онлайн платформа. eDiploma порталы түлектерге, жұмыс берушілерге және университет әкімшілігіне дипломдармен жеке кабинеттер арқылы өзара әрекеттесу мүмкіндігін береді, бітірушілердің біліктілігін тексеру және растау процестерін жеңілдетеді.",
+			info: "Қазақстан-Британ техникалық университеті-өңірдегі жетекші техникалық университеттердің бірі. Біз сапаның, Академиялық адалдық пен ашықтықтың іргелі құндылықтары үшін әлемдік академиялық қауымдастықпен, корпоративтік және мемлекеттік секторлармен серіктестікте жұмыс істейміз.ҚБТУ-әлемдік экономиканың түрлі салалары үшін ғылыми элита мен жоғары білікті кадрларды ғылыми зерттеумен, оқытумен және даярлаумен айналысатын әлемдік деңгейдегі университет.Біз қоғам мен ғылым арасында, Қазақстан мен әлемнің қалған бөлігі арасында технология мен бизнес сияқты салаларда білім көпірін құрып жатырмыз. Біз әртүрлі мүдделі серіктестермен жұмыс жасай отырып, өз қабілеттеріміз бен мүмкіндіктерімізге сенімдіміз. Инновациялық және шығармашылық тәсіл-ҚБТУ үшін басымдық, біздің жобаларымыз тұжырымдамамен ерекшеленеді және әртүрлі міндеттерді шешеді.",
 			show: "Көрсету",
 			more: "көбірек",
 			less: "аз",
-			diploma: "Диплом",
+			diploma: "Дипломдар",
 			analytics: "Аналитика"
 		},
 		Students: {
@@ -193,11 +194,11 @@ export const localization = {
 			numExtra: "Кол-во c отличием",
 			gpa: "Средний GPA",
 			mainInfo: "Основная информация",
-			info: "eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов. Портал eDiploma предоставляет возможность выпускникам, работодателям и администрации университетов взаимодействовать с дипломами через личные кабинеты, облегчая процессы проверки и подтверждения квалификации выпускников.",
+			info: "Казахстанско-Британский технический университет - один из ведущих технических университетов региона. Мы работаем в партнерстве с мировым академическим сообществом, корпоративным и государственным секторами над фундаментальными ценностями качества, академической честности и открытости.КБТУ - университет мирового уровня, занимающийся научными исследованиями, обучением и подготовкой научной элиты и высококвалифицированных кадров для различных сфер мировой экономики.Мы наводим мост знаний между обществом и наукой, между Казахстаном и остальным миром в таких областях, как технологии и бизнес. Мы уверены в своих силах и возможностях, работая с разными заинтересованными партнерами. Новаторский и творческий подход - приоритет для КБТУ, наши проекты различаются концепцией и решают разные задачи.",
 			show: "Показать",
 			more: "больше",
 			less: "меньше",
-			diploma: "Диплом",
+			diploma: "Дипломы",
 			analytics: "Аналитика"
 		},
 		Students: {
@@ -242,11 +243,11 @@ export const localization = {
 			numExtra: "Number of outstandings",
 			gpa: "Average GPA",
 			mainInfo: "Main information",
-			info: "eDiploma is an online platform developed by the JASAIM team that provides digitization of paper diplomas of graduates in NFT (non-fungible token) format, which eliminates the possibility of document falsification. The eDiploma portal provides an opportunity for graduates, employers and university administrations to interact with diplomas through personal accounts, facilitating the processes of verification and confirmation of graduates’ qualifications.",
+			info: "The Kazakh-British Technical University is one of the leading technical universities in the region. We work in partnership with the global academic community, corporate and public sectors on the fundamental values of quality, academic integrity and openness.KBTU is a world-class university engaged in scientific research, education and training of the scientific elite and highly qualified personnel for various spheres of the world economy.We are building a bridge of knowledge between society and science, between Kazakhstan and the rest of the world in such areas as technology and business. We are confident in our abilities and capabilities, working with various interested partners. Innovative and creative approach is a priority for KBTU, our projects differ in concept and solve different tasks.",
 			show: "Show",
 			more: "more",
 			less: "less",
-			diploma: "Diploma",
+			diploma: "Diplomas",
 			analytics: "Analytics"
 		},
 		Students: {

@@ -56,8 +56,8 @@ export const CitiesGrantsGraph: React.FC = memo(() => {
 				flexWrap={"nowrap"}
 				margin={"0 20px"}
 			>
-				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Статистика по городам
+				<Typography fontWeight={600} color={"#475569"} fontSize={"1.2rem"}>
+					Данные по городам
 				</Typography>
 			</Box>
 			<div style={{ margin: '20px', height: '450px' }}>

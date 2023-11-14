@@ -13,6 +13,7 @@ import {
 	Tooltip,
 	Legend,
 	CartesianGrid,
+	ResponsiveContainer,
 } from "recharts";
 import genderData from "./data/gender.json"; // Import the JSON data
 
@@ -25,7 +26,7 @@ export const GenderGraph: React.FC = memo(() => {
 		<Card
 			elevation={6}
 			sx={{
-				width: "98%",
+				width: "95%",
 				marginRight: "2%",
 				padding: "20px",
 				display: "flex",
@@ -39,20 +40,20 @@ export const GenderGraph: React.FC = memo(() => {
 				</Typography>
 			</Box>
 			<Box sx={{ width: "100%", margin: "0 auto" }}>
-				<BarChart
-					width={1000}
-					height={300}
-					data={data}
-					margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
-				>
-					<CartesianGrid strokeDasharray="3 3" />
-					<XAxis dataKey="name" />
-					<YAxis />
-					<Tooltip />
-					<Legend />
-					<Bar dataKey="male" fill="rgba(54, 162, 235, 0.5)" name="Male" />
-					<Bar dataKey="female" fill="rgba(255, 99, 132, 0.5)" name="Female" />
-				</BarChart>
+				<ResponsiveContainer width="100%" height={300}>
+					<BarChart
+						data={data}
+						margin={{ top: 10, left: 20, bottom: 5 }}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis dataKey="name" />
+						<YAxis />
+						<Tooltip />
+						<Legend />
+						<Bar dataKey="male" fill="rgba(54, 162, 235, 0.5)" name="Male" />
+						<Bar dataKey="female" fill="rgba(255, 99, 132, 0.5)" name="Female" />
+					</BarChart>
+				</ResponsiveContainer>
 			</Box>
 		</Card>
 	);
