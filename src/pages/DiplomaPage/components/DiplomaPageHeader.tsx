@@ -102,6 +102,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
                                     placeholder={localization[lang].Header.searchBar}
                                     fullWidth
                                     inputSize="m"
+                                    autoFocus
                                     sx={{
                                         paddingRight: 0,
                                     }}
