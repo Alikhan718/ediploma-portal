@@ -34,7 +34,7 @@ export const DiplomaPageLayout: React.FC = () => {
     const isMobile = useMediaQuery('(max-width:998px)');
 
     const handleCardClick = (counter: number) => {
-        isAuthenticated() ? navigate(`/app/diploma/${counter}`) : setOpen(true);
+        isAuthenticated() ? navigate(`/diploma/${counter}`) : setOpen(true);
     };
 
     const diplomasPerPage = 8;

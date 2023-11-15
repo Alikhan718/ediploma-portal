@@ -428,7 +428,7 @@ export const UniversityDeatailPage: React.FC = () => {
 									<Box
 										key={e.counter}
 										onClick={() => {
-											navigate(`/app/diploma/${e.counter!}/details`);
+											navigate(`/diploma/${e.counter!}/details`);
 										}}
 										className={styles.diplomaItem}
 										sx={{

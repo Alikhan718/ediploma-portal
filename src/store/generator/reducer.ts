@@ -4,10 +4,12 @@ import {
 
 interface GeneratorInterface {
     archive_link: string,
+    is_uploaded: boolean
 }
 
 const initialState: GeneratorInterface = {
     archive_link: "",
+    is_uploaded: false,
 };
 
 const generatorReducer = (state = initialState, action: any) => {
@@ -17,6 +19,7 @@ const generatorReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 isFetching: false,
+                is_uploaded: true,
                 archive_link: action.data,
             };
         default:

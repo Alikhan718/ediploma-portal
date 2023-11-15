@@ -87,7 +87,7 @@ export const StudentPageLayout: React.FC = () => {
     };
 
     const handleCardClick = (counter: number) => {
-        navigate(`/app/diploma/${counter}/details`);
+        navigate(`/diploma/${counter}/details`);
     };
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

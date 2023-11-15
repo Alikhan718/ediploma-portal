@@ -416,7 +416,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
                                     <Box
                                         key={e.id}
                                         onClick={() => {
-                                            navigate(`/app/diploma/${e.id!}`);
+                                            navigate(`/diploma/${e.id!}`);
                                         }}
                                         className={styles.diplomaItem}
                                         sx={{

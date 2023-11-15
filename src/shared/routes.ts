@@ -1,4 +1,4 @@
-const appRoot = '/app';
+const appRoot = '';
 
 export const routes: Record<string, string> = {
 	login: `/auth/login`,
