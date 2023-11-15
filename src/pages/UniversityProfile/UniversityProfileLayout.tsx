@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
 	Box, Rating, Typography, useMediaQuery, Pagination,
-	InputAdornment, Grid, Container, Skeleton
+	InputAdornment, Grid, Container, Skeleton, IconButton, Menu, Divider, MenuItem
 } from '@mui/material';
 import ReactGA from "react-ga";
 import { ReactComponent as HeaderSearchIcon } from '@src/assets/icons/search.svg';
@@ -10,6 +10,10 @@ import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
 import { ReactComponent as TwitterIcon } from '@src/assets/icons/twitter_black.svg';
 import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
+import { ReactComponent as Eye } from "@src/assets/icons/eye.svg";
+import { ReactComponent as Star } from "@src/assets/icons/star.svg";
+import { ReactComponent as ShareIcon } from '@src/assets/icons/share.svg';
+import { ReactComponent as Check } from "@src/assets/icons/checkss.svg";
 import { SwitchDetailsUniversity } from './components/SwitchDetailsunivesiyt';
 import univ from './../../assets/icons/FilterUn.svg';
 import { Input, Button } from './../../components';
@@ -21,6 +25,7 @@ import share from "./../../assets/icons/share.svg";
 import dots from "./../../assets/icons/Dots.svg";
 import { useNavigate } from "react-router-dom";
 import { handleLink } from "@src/utils/link";
+import { routes } from "@src/shared/routes";
 import imageU from "@src/assets/example/universityKBTU.jpg"
 import { selectDiplomaList, selectSearchText } from "@src/store/diplomas/selectors";
 import { useDispatch, useSelector } from "react-redux";
@@ -135,7 +140,14 @@ export const UniversityProfileLayout: React.FC = () => {
 		document.execCommand('copy');
 		document.body.removeChild(textArea);
 	};
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 	return (
 		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} >
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
@@ -198,14 +210,16 @@ export const UniversityProfileLayout: React.FC = () => {
 											marginLeft: '10px',
 											width: '25px',
 											height: '25px',
-										}} />
+										}} onClick={handleClick} />
+
 									</Box>
 									<Box sx={{ position: 'absolute', top: 0, right: 0, display: 'none', justifyContent: 'space-between', '@media (max-width: 768px)': { display: 'flex' } }}>
 										<img src={dots} style={{
-											width: '15px',
-											height: '15px',
-											transform: 'rotate(90deg)'
-										}} />
+											marginRight: '10px',
+											marginLeft: '10px',
+											width: '25px',
+											height: '25px',
+										}} onClick={handleClick} />
 									</Box>
 								</Box>
 
@@ -350,18 +364,9 @@ export const UniversityProfileLayout: React.FC = () => {
 												paddingRight: 0,
 											}}
 											endAdornment={
-												<Button
-													onClick={triggerSearchFilters}
-													buttonSize="m"
-													variant="contained"
-													sx={{
-														padding: '16px 32px',
-														borderRadius: '48px',
-														margin: '4px'
-													}}
-												>
-													<HeaderSearchIcon style={{ filter: 'brightness(250)', width: '82px', marginLeft: '12px' }} />
-												</Button>
+
+												<HeaderSearchIcon style={{ width: '82px', marginLeft: '12px' }} />
+
 											}
 											onChange={(e) => {
 												const query = e.target.value;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Rating, Typography, useMediaQuery, Pagination } from '@mui/material';
+import { Box, Button, Rating, Typography, useMediaQuery, Pagination, IconButton } from '@mui/material';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
@@ -12,7 +12,7 @@ import styles from "./UniversityDetailsPage.module.css";
 import { UniversityDetailsPageHeader } from "@src/pages/UnivesrityDetailsPage/components/UniversityDetailsPageHeader";
 import star from "./../../assets/icons/Star1.svg";
 import share from "./../../assets/icons/share.svg";
-import dots from "./../../assets/icons/Dots.svg";
+import { ReactComponent as Dots } from "@src/assets/icons/Dots.svg";
 import { useNavigate } from "react-router-dom";
 import { handleLink } from "@src/utils/link";
 import { selectDiplomaList } from "@src/store/diplomas/selectors";
@@ -119,6 +119,11 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 		document.execCommand('copy');
 		document.body.removeChild(textArea);
 	};
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "center" /*backgroundColor: '#FAFBFF'*/ }}>
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
@@ -172,19 +177,26 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 									}}
 										onClick={copyCurrentURLToClipboard}
 										alt="Share Icon" />
-									<img src={dots} style={{
-										marginRight: '10px',
-										marginLeft: '10px',
-										width: '25px',
-										height: '25px',
-									}} />
+									<IconButton
+										sx={{ width: "2.5rem", cursor: "pointer", height: "2.5rem" }}
+										aria-controls="simple-menu"
+										aria-haspopup="true"
+										onClick={handleClick}
+										className={styles.desktopIcon}
+									>
+										<Dots className={styles.desktopIcon} />
+									</IconButton>
 								</Box>
 								<Box sx={{ position: 'absolute', top: 0, right: 0, display: 'none', justifyContent: 'space-between', '@media (max-width: 768px)': { display: 'flex' } }}>
-									<img src={dots} style={{
-										width: '15px',
-										height: '15px',
-										transform: 'rotate(90deg)'
-									}} />
+									<IconButton
+										sx={{ width: "2.5rem", height: "2.5rem" }}
+										aria-controls="simple-menu"
+										aria-haspopup="true"
+										onClick={handleClick}
+										className={styles.desktopIcon}
+									>
+										<Dots className={styles.desktopIcon} />
+									</IconButton>
 								</Box>
 							</Box>
 

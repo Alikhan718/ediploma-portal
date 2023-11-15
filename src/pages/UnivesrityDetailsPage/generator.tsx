@@ -136,6 +136,7 @@ export const content = {
 export const localization = {
 	"kz": {
 		MainCard: {
+			uniNames: "Сәтпаев Университеті",
 			uniName: "Қазақстан-Британ техникалық университеті",
 			ratings: "пікірлер",
 			mail: "Пошта",
@@ -145,6 +146,7 @@ export const localization = {
 			numExtra: "Үздіктер саны",
 			gpa: "Орташа GPA",
 			mainInfo: "Негізгі ақпарат",
+			info2: "Satbayev University-ғылыми-инновациялық зерттеулер мен жоғары дәлдіктегі өндірістің жақсы дамыған инфрақұрылымы бар Қазақстандағы ең ірі ғылыми-білім беру кешені.Кешен негізінде құрылған инновациялық экожүйе университетке технологиялық дамудың жоғары қарқынын қамтамасыз етеді.Университет өндірістерге ғылыми қолдау көрсетуді және ғылыми зерттеулер мен стартаптарды қаржыландыруға көмектесуді ұсынады",
 			info: "Қазақстан-Британ техникалық университеті-өңірдегі жетекші техникалық университеттердің бірі. Біз сапаның, Академиялық адалдық пен ашықтықтың іргелі құндылықтары үшін әлемдік академиялық қауымдастықпен, корпоративтік және мемлекеттік секторлармен серіктестікте жұмыс істейміз.ҚБТУ-әлемдік экономиканың түрлі салалары үшін ғылыми элита мен жоғары білікті кадрларды ғылыми зерттеумен, оқытумен және даярлаумен айналысатын әлемдік деңгейдегі университет.Біз қоғам мен ғылым арасында, Қазақстан мен әлемнің қалған бөлігі арасында технология мен бизнес сияқты салаларда білім көпірін құрып жатырмыз. Біз әртүрлі мүдделі серіктестермен жұмыс жасай отырып, өз қабілеттеріміз бен мүмкіндіктерімізге сенімдіміз. Инновациялық және шығармашылық тәсіл-ҚБТУ үшін басымдық, біздің жобаларымыз тұжырымдамамен ерекшеленеді және әртүрлі міндеттерді шешеді.",
 			show: "Көрсету",
 			more: "көбірек",
@@ -185,6 +187,7 @@ export const localization = {
 	},
 	"ru": {
 		MainCard: {
+			uniNames: "Сатпаевский Университет",
 			uniName: "Казахстанско-Британский Технический Университет",
 			ratings: "отзывов",
 			mail: "Почта",
@@ -194,6 +197,7 @@ export const localization = {
 			numExtra: "Кол-во c отличием",
 			gpa: "Средний GPA",
 			mainInfo: "Основная информация",
+			info2: "Satbayev University – крупнейший в Казахстане научно-образовательный комплекс с хорошо развитой инфраструктурой научно-инновационных исследований и высокоточного производства.Инновационная экосистема, созданная на базе комплекса, обеспечивает университету высокий темп технологического развития.Университет предлагает научную поддержку производств и содействие в поиске финансирования для научных исследований и стартапов.",
 			info: "Казахстанско-Британский технический университет - один из ведущих технических университетов региона. Мы работаем в партнерстве с мировым академическим сообществом, корпоративным и государственным секторами над фундаментальными ценностями качества, академической честности и открытости.КБТУ - университет мирового уровня, занимающийся научными исследованиями, обучением и подготовкой научной элиты и высококвалифицированных кадров для различных сфер мировой экономики.Мы наводим мост знаний между обществом и наукой, между Казахстаном и остальным миром в таких областях, как технологии и бизнес. Мы уверены в своих силах и возможностях, работая с разными заинтересованными партнерами. Новаторский и творческий подход - приоритет для КБТУ, наши проекты различаются концепцией и решают разные задачи.",
 			show: "Показать",
 			more: "больше",
@@ -234,6 +238,7 @@ export const localization = {
 	},
 	"en": {
 		MainCard: {
+			uniNames: "Satpayev University",
 			uniName: "Kazakhstan-British Technical University",
 			ratings: "feedbacks",
 			mail: "E-mail",
@@ -243,6 +248,7 @@ export const localization = {
 			numExtra: "Number of outstandings",
 			gpa: "Average GPA",
 			mainInfo: "Main information",
+			info2: "Satbayev University is the largest scientific and educational complex in Kazakhstan with a well–developed infrastructure of scientific and innovative research and high-precision production.The innovative ecosystem created on the basis of the complex provides the university with a high rate of technological development.The University offers scientific support to industries and assistance in finding funding for research and start-ups",
 			info: "The Kazakh-British Technical University is one of the leading technical universities in the region. We work in partnership with the global academic community, corporate and public sectors on the fundamental values of quality, academic integrity and openness.KBTU is a world-class university engaged in scientific research, education and training of the scientific elite and highly qualified personnel for various spheres of the world economy.We are building a bridge of knowledge between society and science, between Kazakhstan and the rest of the world in such areas as technology and business. We are confident in our abilities and capabilities, working with various interested partners. Innovative and creative approach is a priority for KBTU, our projects differ in concept and solve different tasks.",
 			show: "Show",
 			more: "more",

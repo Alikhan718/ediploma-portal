@@ -312,8 +312,6 @@ export const EmployerPageLayout: React.FC = () => {
 									</Box>
 
 								</Box>
-								<Box> <img src={univ} style={{ marginRight: '15px' }} />
-									<img src={univ} style={{ marginRight: '5px' }} /></Box>
 							</Box>
 
 						</Box>

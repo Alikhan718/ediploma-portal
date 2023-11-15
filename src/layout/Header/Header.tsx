@@ -11,7 +11,7 @@ import {
 	headerNavigations,
 	interFaceOptions,
 	dropdownItems,
-	dropdownItemsBottom
+	dropdownItemsBottom, localization
 } from "@src/layout/Header/generator";
 import {
 	AppBar as MuiAppBar,
@@ -68,6 +68,19 @@ const AppBar = styled(MuiAppBar, {
 		}),
 	}));
 
+interface DropdownItem {
+	id: number;
+	name: {
+		ru: string;
+		kz: string;
+		en: string;
+	};
+	to: string;
+	role: string[];
+	icon: React.ReactNode;
+	verticalAlign: string;
+	function?: () => void;
+}
 export interface FilterAttributes {
 	text?: string,
 	specialities?: string;
@@ -151,7 +164,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 	};
 	const getHeaderText = () => {
 		const currentPath = window.location.pathname;
-		if (currentPath === routes.detail) {
+		if (currentPath === routes.profile) {
 			return lang === 'ru' ? 'Профиль' : lang === 'kz' ? 'Профиль' : 'Profile';
 		} else if (currentPath === routes.notifications) {
 			return lang === 'ru' ? 'Уведомления' : lang === 'kz' ? 'Хабарландырулар' : 'Notifications';
@@ -159,6 +172,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 			return lang === 'ru' ? 'Выпустить дипломы' : lang === 'kz' ? 'Диплом тапсыру' : 'Issue Diplomas';
 		} else if (currentPath === routes.settings) {
 			return lang === 'ru' ? 'Настройки' : lang === 'kz' ? 'Параметрлер' : 'Settings';
+		}
+		else if (currentPath === routes.analysisPage) {
+			return lang === 'ru' ? 'Аналитика' : lang === 'kz' ? 'Аналитика' : 'Analytics';
 		}
 		return 'Dashboard';
 	};
@@ -183,7 +199,17 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 			[dropDownType === 'lang' ? 'profile' : 'lang']: false,
 		}));
 	};
+	const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
+	const openLogoutModal = () => setIsLogoutModalOpen(true);
+	const closeLogoutModal = () => setIsLogoutModalOpen(false);
+	const handleLogoutClick = (item: DropdownItem) => {
+		if (item.verticalAlign === "red") {
+			openLogoutModal();
+		} else {
+			setActiveNav(item.id);
+		}
+	};
 	const handleCloseMenu = () => {
 		setAnchorEl(null);
 		setShowDropdown({ profile: false, lang: false });
@@ -274,16 +300,15 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 						>
 							<MenuItem onClick={() => handleFlagSelect('ru')} sx={{ fontSize: '1rem' }}>
 								<img src={RuFlag} alt="Russian" style={{ marginRight: '0.5rem' }} />
-								Русский
+								{localization.lang1[lang]}
 							</MenuItem>
 							<MenuItem onClick={() => handleFlagSelect('en')} sx={{ fontSize: '1rem' }}>
 								<img src={EnFlag} alt="English" style={{ marginRight: '0.5rem' }} />
-								Англиский
+								{localization.lang3[lang]}
 							</MenuItem>
 							<MenuItem onClick={() => handleFlagSelect('kz')} sx={{ fontSize: '1rem' }}>
 								<img src={KzFlag} alt="French" style={{ marginRight: '0.5rem' }} />
-								Казахский
-							</MenuItem>
+								{localization.lang2[lang]}						</MenuItem>
 						</Menu>
 						{/* <NotIcon style={{
                             cursor: 'pointer'
@@ -354,11 +379,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 							<MenuItem
 								key={index}
 								onClick={() => {
-									if (item.verticalAlign == "red") {
-										dispatch(fetchLogoutAction());
-									}
-									handleCloseMenu();
-									navigate(item.to);
+									handleLogoutClick(item)
 								}}
 							>
 								{item.icon}
@@ -367,9 +388,46 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 								</Typography>
 							</MenuItem>
 						))}
-					</Menu>
-				</Box>
+						<Modal
+							open={isLogoutModalOpen}
+							handleClose={closeLogoutModal}
+							aria-labelledby="modal-modal-title"
+							aria-describedby="modal-modal-description"
+						>
+							<Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
 
+								<Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1.2rem'
+									fontWeight='600'
+								>
+									{localization.logout[lang]}
+								</Typography>
+								<Button variant='contained' sx={{
+									marginTop: "1rem",
+									padding: "1rem",
+									width: "80%",
+									fontSize: "1rem",
+									fontWeight: "600",
+									borderRadius: "2rem"
+								}} onClick={() => {
+									dispatch(fetchLogoutAction());
+									navigate(routes.login);
+
+								}}>{localization.log[lang]}</Button>
+								<Button variant='outlined' sx={{
+									marginTop: "1rem",
+									padding: "1rem",
+									width: "80%",
+									fontSize: "1rem",
+									fontWeight: "600",
+									borderRadius: "2rem"
+								}} onClick={() => {
+									closeLogoutModal();
+								}}>{localization.cancel[lang]}</Button>
+							</Box>
+						</Modal>
+					</Menu>
+
+				</Box>
 			) : (
 				<AppBar open={open} sx={{ padding: "0 !important" }} className="app-navbar-container">
 					<Box className="app-navbar" height='5rem'>
@@ -647,6 +705,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 											navigate(routes.universityProfile, { replace: true });
 										}
 									}
+									handleLogoutClick(item)
 									handleCloseMenu();
 									navigate(item.to);
 								}}
@@ -662,11 +721,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 							<MenuItem
 								key={index}
 								onClick={() => {
-									if (item.verticalAlign == "red") {
-										dispatch(fetchLogoutAction());
-									}
-									handleCloseMenu();
-									navigate(item.to);
+									handleLogoutClick(item)
 								}}
 							>
 								{item.icon}
@@ -675,7 +730,45 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 								</Typography>
 							</MenuItem>
 						))}
+
 					</Menu>
+					<Modal
+						open={isLogoutModalOpen}
+						handleClose={closeLogoutModal}
+						aria-labelledby="modal-modal-title"
+						aria-describedby="modal-modal-description"
+					>
+						<Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+
+							<Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1.2rem'
+								fontWeight='600'
+							>
+								{localization.logout[lang]}
+							</Typography>
+							<Button variant='contained' sx={{
+								marginTop: "1rem",
+								padding: "1rem",
+								width: "80%",
+								fontSize: "1rem",
+								fontWeight: "600",
+								borderRadius: "2rem"
+							}} onClick={() => {
+								dispatch(fetchLogoutAction());
+								navigate(routes.login);
+
+							}}>{localization.log[lang]}</Button>
+							<Button variant='outlined' sx={{
+								marginTop: "1rem",
+								padding: "1rem",
+								width: "80%",
+								fontSize: "1rem",
+								fontWeight: "600",
+								borderRadius: "2rem"
+							}} onClick={() => {
+								closeLogoutModal();
+							}}>{localization.cancel[lang]}</Button>
+						</Box>
+					</Modal>
 					<Menu
 						anchorEl={anchorEl}
 						open={showDropdown.lang}
@@ -683,16 +776,15 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 					>
 						<MenuItem onClick={() => handleFlagSelect('ru')} sx={{ fontSize: '1rem' }}>
 							<img src={RuFlag} alt="Russian" style={{ marginRight: '0.5rem' }} />
-							Русский
+							{localization.lang1[lang]}
 						</MenuItem>
 						<MenuItem onClick={() => handleFlagSelect('en')} sx={{ fontSize: '1rem' }}>
 							<img src={EnFlag} alt="English" style={{ marginRight: '0.5rem' }} />
-							Англиский
+							{localization.lang3[lang]}
 						</MenuItem>
 						<MenuItem onClick={() => handleFlagSelect('kz')} sx={{ fontSize: '1rem' }}>
 							<img src={KzFlag} alt="French" style={{ marginRight: '0.5rem' }} />
-							Казахский
-						</MenuItem>
+							{localization.lang2[lang]}						</MenuItem>
 					</Menu>
 					<GlobalLoader />
 				</AppBar>
