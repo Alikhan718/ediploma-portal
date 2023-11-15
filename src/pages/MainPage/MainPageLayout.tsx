@@ -19,6 +19,7 @@ import AppLogo from '@src/assets/icons/app-logo.svg';
 import cn from "classnames";
 import {selectLanguage} from "@src/store/generals/selectors";
 import reviewAvatar from "@src/assets/icons/gabdullin_m.png";
+import tengriLogo from "@src/assets/icons/tengrilogo.png";
 
 export const MainPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
@@ -223,6 +224,39 @@ export const MainPageLayout: React.FC = () => {
                                 size="large"
                                 sx={{color: '#3B82F6', paddingBottom: '32px'}}
                             /></Box>
+                        </Box>);
+                    })}
+                </Box>
+            </Box>
+
+            <Box>
+                <Typography mb="3.5rem" fontSize='48px' textAlign='center' className={styles.mobTextL}>
+                    {localization[lang].Media.title}
+                </Typography>
+                <Box sx={{
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    overflow: 'scroll',
+                    marginBottom: '16px',
+                    '::-webkit-scrollbar': {
+                        height: '5px',
+                    },
+                    '::-webkit-scrollbar-thumb': {
+                        backgroundColor: '#3B82F6',
+                        borderRadius: '10px',
+                        scrollbarWidth: 'thin',
+                    },
+                }} className={styles.container}
+                     justifyContent="start">
+                    {localization[lang].Media.elements.map((el: any) => {
+                        return (<Box key={el} className={styles.cardItem}>
+                            <img src={tengriLogo} style={{width: '3.5rem', borderRadius: "50%", alignSelf: "center"}}/>
+                            <Typography fontSize=".9rem" fontWeight="500" color="#2D2D2D" className={styles.mobTextSm}>
+                                {el.fullname}
+                            </Typography>
+                            <Typography fontSize="1rem" color="#2D2D2D" className={styles.mobTextMd}>
+                                {el.text}
+                            </Typography>
                         </Box>);
                     })}
                 </Box>
