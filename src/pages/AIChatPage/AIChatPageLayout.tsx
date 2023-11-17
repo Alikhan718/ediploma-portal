@@ -12,39 +12,12 @@ export const AIChatLayout: React.FC = () => {
             text: 'Hello, I am a chatbot. How can I help you? I can help you with the generating the job description, finding the right candidates.',
             type: 'bot'
         },
-        {
-            text: 'Hello, can you help me with the job description? I need job description for the position of a software engineer.',
-            type: 'user'
-        },
-        {
-            text: `Description:
-            A software engineer is responsible for designing, developing, and maintaining software applications. They collaborate with cross-functional teams to analyze user needs and design software solutions that meet those requirements. Software engineers also test and debug software to ensure its functionality and performance.
-            
-            Responsibilities:
-            - Designing, coding, and debugging software applications based on user requirements
-            - Collaborating with cross-functional teams to analyze user needs and develop software solutions
-            - Conducting system testing and debugging to ensure software functionality and performance
-            - Writing and maintaining technical documentation for software applications
-            - Troubleshooting and resolving software defects and issues
-            - Keeping up-to-date with the latest software development trends and technologies
-            
-            Requirements:
-            - Bachelor's degree in computer science, software engineering, or a related field
-            - Proven experience in software development, preferably in a similar role
-            - Proficiency in programming languages such as Java, C++, or Python
-            - Strong problem-solving and analytical skills
-            - Knowledge of software development methodologies and best practices
-            - Familiarity with software testing and debugging techniques
-            - Excellent communication and collaboration skills
-            - Ability to work independently and in a team environment
-            - Attention to detail and strong organizational skills
-            
-            Note: This job description is a general overview and may include other responsibilities and requirements as needed.
-            `,
-            type: 'bot'
-        },
     ]);
     const boxRef = useRef(null);
+    const [sessionId, setSessionId] = useState('');
+    const [response, setResponse] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const urlRegex:RegExp = /(https?:\/\/[^\s\)]+)/g;
 
     useEffect(() => {
         if (boxRef.current) {
@@ -52,19 +25,85 @@ export const AIChatLayout: React.FC = () => {
         }
     }, [messages]);
 
-    const handleButtonClick = () => {
-        if (inputText.trim() !== '') {
-          setMessages((prevMessages) => [
+    const handleButtonClick = async (): Promise<void> => {
+        if (inputText.trim() === ''){
+            return;
+        }
+
+        setMessages((prevMessages) => [
             ...prevMessages,
             {
-              text: inputText,
-              type: 'user',
+                text: inputText,
+                type: 'user',
             },
-          ]);
+        ]);
     
-          setInputText('');
+        setInputText('');
+        setResponse('');
+        setIsLoading(true);
+        setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+                text: '',
+                type: 'bot',
+            },
+        ]);
+
+        try {
+            const response = await fetch('https://agile-job-desc-denerator.onrender.com/generate-from-task',{
+                method: "POST",
+                body: JSON.stringify({prompt: inputText}),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const responseData = await response.json();
+            setSessionId(responseData.sessionId);
+        } catch(error) {
+            console.log(error);
         }
-      };
+    };
+
+    useEffect(()=>{
+        const endpoint:string = `https://agile-job-desc-denerator.onrender.com/stream-text?sessionId=${sessionId}`;
+
+        const eventSource = new EventSource(endpoint);
+
+        eventSource.addEventListener('newEntry', e=> {
+            setResponse((prevResponse:string) => prevResponse + e.data);
+        });
+
+        eventSource.addEventListener('close', () => {
+            console.log('Connection closed');
+            setIsLoading(false);
+            eventSource.close();
+        });
+
+        return (() => {
+            eventSource.close();
+        });
+
+    }, [sessionId]);
+
+    useEffect(()=>{
+        if (response === ''){
+            return;
+        }
+
+        const lastMessage = messages.pop();
+        if(!lastMessage){
+            return;
+        }
+
+        lastMessage.text = response;
+
+        setMessages((prevMessages) => [
+            ...prevMessages,
+            lastMessage,
+        ]);
+
+    }, [response]);
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%'}}>
@@ -93,7 +132,25 @@ export const AIChatLayout: React.FC = () => {
                                     textAlign={el.type==='bot' ? 'left' : 'right'} 
                                     className={styles.mobTextMd}
                                 >
-                                    {el.text}
+                                    {el.text.split('<br>').map((paragraph: string, index: number) => (
+                                        <span key={index}>
+                                            {paragraph.split(urlRegex).map((part:string, idx:number) => {
+                                                if (urlRegex.test(part)) {
+                                                    return (
+                                                        <a key={idx} href={part} target="_blank" rel="noopener noreferrer" className={styles.link}>
+                                                            {part}
+                                                        </a>
+                                                    );
+                                                }
+                                                return (
+                                                    <span key={index}>
+                                                    {part}
+                                                    </span>
+                                                );
+                                            })}
+                                            {index < el.text.split('<br>').length - 1 && <br />}
+                                        </span>
+                                    ))}
                                 </Typography>
                             </Box>
                         );
@@ -116,6 +173,7 @@ export const AIChatLayout: React.FC = () => {
                             onClick={handleButtonClick}
                             buttonSize="m"
                             variant="contained"
+                            disabled={inputText.trim() === '' || isLoading}
                             sx={{
                                 borderRadius: '48px',
                                 margin: '5px'
