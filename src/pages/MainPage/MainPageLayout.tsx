@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Divider, Typography, Container, TextField, Grid, Rating} from '@mui/material';
+import {Box, Typography, Grid, Rating, MobileStepper} from '@mui/material';
 import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
 import {Button, Input, Label} from '@src/components';
 import {FooterSection} from "@src/pages/MainPage/components/FooterSection";
@@ -13,17 +13,18 @@ import back1 from "./../../assets/dashboard/Content.png";
 import img1 from "./../../assets/dashboard/Illustration.png";
 import download from "./../../assets/icons/downloadMain.svg";
 import file from "./../../assets/icons/Avatar.svg";
-import profile from "./../../assets/icons/profileIcon.svg";
 import {localization} from "./generator";
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import cn from "classnames";
 import {selectLanguage} from "@src/store/generals/selectors";
 import reviewAvatar from "@src/assets/icons/gabdullin_m.png";
-import tengriLogo from "@src/assets/icons/tengrilogo.png";
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import { useTheme } from '@mui/material/styles';
 
 export const MainPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
-
+    const theme = useTheme();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [filterAttributes, setFilterAttributes] = React.useState({
@@ -35,6 +36,21 @@ export const MainPageLayout: React.FC = () => {
         gpaR: 0,
     });
     const [searchQuery, setSearchQuery] = React.useState('');
+
+    const [activeStep, setActiveStep] = React.useState(0);
+    const maxSteps = localization[lang].Media.elements.length;
+
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+    
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+    
+    const handleStepChange = (step: number) => {
+        setActiveStep(step);
+    };
 
     const triggerSearchFilters = () => {
         dispatch(fetchSearch(filterAttributes));
@@ -229,36 +245,70 @@ export const MainPageLayout: React.FC = () => {
                 </Box>
             </Box>
 
-            <Box>
-                <Typography mb="3.5rem" fontSize='48px' textAlign='center' className={styles.mobTextL}>
+            <Box display="flex" justifyContent="space-between">
+                <Typography fontSize='48px' textAlign='left' className={styles.mobTextL} width="50%" 
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                    }}
+                >
                     {localization[lang].Media.title}
                 </Typography>
-                <Box sx={{
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    overflow: 'scroll',
-                    marginBottom: '16px',
-                    '::-webkit-scrollbar': {
-                        height: '5px',
-                    },
-                    '::-webkit-scrollbar-thumb': {
-                        backgroundColor: '#3B82F6',
-                        borderRadius: '10px',
-                        scrollbarWidth: 'thin',
-                    },
-                }} className={styles.container}
-                     justifyContent="start">
-                    {localization[lang].Media.elements.map((el: any) => {
-                        return (<Box key={el} className={styles.cardItem}>
-                            <img src={tengriLogo} style={{width: '3.5rem', borderRadius: "50%", alignSelf: "center"}}/>
-                            <Typography fontSize=".9rem" fontWeight="500" color="#2D2D2D" className={styles.mobTextSm}>
-                                {el.fullname}
+                <Box width="50%">
+                    <Box sx={{
+                        alignItems: 'center',
+                        textAlign: 'center',
+                        overflowX: 'scroll',
+                        overflowY: 'hidden', 
+                        }} 
+                        className={styles.container}
+                        justifyContent="start"
+                        width="100%"
+                    >
+                        <Box className={styles.cardItem} sx={{ width: '100%' }}>
+                            <Typography fontSize="1rem" textAlign='left' color="#2D2D2D" className={styles.mobTextMd}>
+                                {localization[lang].Media.elements[activeStep].text}
                             </Typography>
-                            <Typography fontSize="1rem" color="#2D2D2D" className={styles.mobTextMd}>
-                                {el.text}
-                            </Typography>
-                        </Box>);
-                    })}
+                            <Box display="flex" justifyContent="flex-start">
+                                <img src={localization[lang].Media.elements[activeStep].avatar} style={{width: '3.5rem', height: '3.5rem', borderRadius: "50%", alignSelf: "center", objectFit: 'cover',}}/>
+                                <Typography marginLeft="1rem" fontSize=".9rem" fontWeight="500" color="#2D2D2D" className={styles.mobTextSm}
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    {localization[lang].Media.elements[activeStep].fullname}
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                    <MobileStepper
+                        steps={maxSteps}
+                        position="static"
+                        activeStep={activeStep}
+                        nextButton={
+                            <Button
+                                size="small"
+                                onClick={handleNext}
+                                disabled={activeStep === maxSteps - 1}
+                            >
+                                {theme.direction === 'rtl' ? (
+                                <KeyboardArrowLeft />
+                                ) : (
+                                <KeyboardArrowRight />
+                                )}
+                            </Button>
+                        }
+                        backButton={
+                            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                                {theme.direction === 'rtl' ? (
+                                <KeyboardArrowRight />
+                                ) : (
+                                <KeyboardArrowLeft />
+                                )}
+                            </Button>
+                        }
+                    />
                 </Box>
             </Box>
 
