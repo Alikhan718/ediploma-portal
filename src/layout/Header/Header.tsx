@@ -446,6 +446,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                     minHeight: '2.5rem',
                                     minWidth: '3rem'
                                 }}
+                                onClick={(event) => {
+                                    navigate(routes.hrBank, {replace: true});
+                                }}
                             >
                                 <HeaderSearchIcon style={{alignSelf: "center"}}/>
                             </IconButton>

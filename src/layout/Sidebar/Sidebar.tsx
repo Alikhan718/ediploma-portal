@@ -97,7 +97,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
     };
     const checkRoute = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const sidebarEnabledRoutes = ['analysisPage', 'addingGraduates', 'details', 'user', 'profile', 'graduates'];
+        const sidebarEnabledRoutes = ['analysisPage', 'addingGraduates', 'details', 'user', 'profile', 'graduates', 'ai-chat'];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return true;

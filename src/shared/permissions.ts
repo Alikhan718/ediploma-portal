@@ -13,6 +13,7 @@ export const permissions = {
     studentProfile: ['student'],
     employerProfile: ['employer'],
     universityProfile: ['university'],
+    aiChat: ['employer', 'student'],
     // vacancies: ['*'],
     // news: ['*'],
     // notifications: ['employer', 'student', 'university'],

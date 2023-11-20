@@ -1,4 +1,7 @@
 import {routes} from "@src/shared/routes";
+import tengriLogo from "@src/assets/icons/tengrilogo.png";
+import turkmenLogo from "@src/assets/icons/tp_logo.png";
+import profitLogo from "@src/assets/icons/profitLogo.jpeg";
 
 export const localization = {
     "kz": {
@@ -57,6 +60,26 @@ export const localization = {
                     fullname: "КБТУ Ректоры",
                     text: "КБТУ  Қазақстандағы дипломды НФТ түрінде енгізген алғашқы университет. Біздің студенттер бірінші болып блокчейн арқылы дипломдарын растаудың бірегей мүмкіндігіне иеленді.",
                     rate: 5,
+                },
+            ]
+        },
+        Media: {
+            title: 'СМИ о нас',
+            elements: [
+                {
+                    avatar: tengriLogo,
+                    fullname: "Tengrinews",
+                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                },
+                {
+                    avatar: turkmenLogo,
+                    fullname: "Turkmenportal",
+                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                },
+                {
+                    avatar: profitLogo,
+                    fullname: "Profit",
+                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
                 },
             ]
         },
@@ -200,6 +223,26 @@ export const localization = {
                 },
             ]
         },
+        Media: {
+            title: 'СМИ о нас',
+            elements: [
+                {
+                    avatar: tengriLogo,
+                    fullname: "Tengrinews",
+                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                },
+                {
+                    avatar: turkmenLogo,
+                    fullname: "Turkmenportal",
+                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                },
+                {
+                    avatar: profitLogo,
+                    fullname: "Profit",
+                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                },
+            ]
+        },
         AboutUs: {
             contactsTitle: "Контакты",
             description: "Введите свой адрес электронной\n почты для того чтобы мы могли вам ответить!",
@@ -338,6 +381,26 @@ export const localization = {
                     fullname: "KBTU President",
                     text: "KBTU was the first university in Kazakhstan to implement NFT diplomas. Our students now have unique ability to verify their diplomas with blockchain",
                     rate: 5,
+                },
+            ]
+        },
+        Media: {
+            title: 'СМИ о нас',
+            elements: [
+                {
+                    avatar: tengriLogo,
+                    fullname: "Tengrinews",
+                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                },
+                {
+                    avatar: turkmenLogo,
+                    fullname: "Turkmenportal",
+                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                },
+                {
+                    avatar: profitLogo,
+                    fullname: "Profit",
+                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
                 },
             ]
         },

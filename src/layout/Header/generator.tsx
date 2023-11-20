@@ -89,6 +89,18 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
         icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
         verticalAlign: '',
     },
+    {
+        id: 107,
+        name: {
+            "ru": 'ИИ Найм',
+            "kz": 'ЖИ Жалдау',
+            "en": 'AI Hiring',
+        },
+        to: routes.aiChat,
+        role: ["employer", "student"],
+        icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
+        verticalAlign: "middle",
+    },
 ];
 export const headerNavigations: AppRoutesNavigation[] = [
     {
@@ -218,7 +230,18 @@ export const dropdownItems: AppRoutesNavigation[] = [
         icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
         verticalAlign: "middle",
     },
-
+    {
+        id: 107,
+        name: {
+            "ru": 'ИИ Найм',
+            "kz": 'ЖИ Жалдау',
+            "en": 'AI Hiring',
+        },
+        to: routes.aiChat,
+        role: ["employer", "student"],
+        icon: <HrBankIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
+        verticalAlign: "middle",
+    },
 
 ];
 

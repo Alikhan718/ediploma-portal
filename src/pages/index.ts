@@ -14,3 +14,4 @@ export { default as AnalysisPage } from './UnivesrityDetailsPage/AnalysisPage';
 export { default as SettingsPage } from './UnivesrityDetailsPage/SettingsPage'
 export { default as StudentPage } from './StudentPage/StudentPageContainer';
 export { default as EmployerPage } from './EmployerPage/EmployerPageContainer';
+export { default as AIChatPage } from './AIChatPage/AIChatPageContainer';
