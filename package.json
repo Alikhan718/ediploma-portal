@@ -93,10 +93,11 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "node scripts/build.js && npm run upload",
+    "build-stage": "node scripts/build.js && npm run upload-stage",
     "test": "node scripts/test.js",
-    "build:digitalocean": "npm install --production=false && node scripts/build.js && npm ci",
-    "start:digitalocean": "npm run start"
+    "upload-stage": "scp -r ./build myvps:/var/www/portal",
+    "upload": "scp -r ./build myvps:/var/www/production"
   },
   "eslintConfig": {
     "extends": [
