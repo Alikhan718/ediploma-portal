@@ -55,13 +55,13 @@ export const localization = {
 		},
 		Team: {
 			title: 'Біздің команда',
-			description: "Білім беруді трансформациялау үшін блокчейн мен жасанды интеллект технологияларын қолданатын ҚБТУ және РИТ студенттерінің \n адал және құзыретті тобы.",
+			description: "Білім беруді трансформациялау үшін блокчейн мен жасанды интеллект технологияларын қолданатын ҚБТУ және RIT студенттерінің арнайы және құзыретті тобы.",
 			elements: [
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Syrym-CEO.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alikhan-CTO.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alisher-techlead.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/5.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Syrym-CEO.webp', 'subtitle': 'Сырым Серіков' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alikhan-CTO.webp', 'subtitle': 'Әлихан Сейітқадыров' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alisher-techlead.webp', 'subtitle': 'Қуаныш Еңсебаев' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/5.webp', 'subtitle': 'Абылай Сұлтанбеков' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp', 'subtitle': 'Әлішер Бейсембеков' },
 			],
 		},
 		AboutUs: {
@@ -72,7 +72,7 @@ export const localization = {
 				value: "Astana, Mangilik el 55/14 C2.2"
 			},
 			contacts: {
-				email: "jasaim.kz",
+				email: "info@jasaim.kz",
 				phone: "Телефон: +7 777 646 32 46",
 			},
 			links: [
@@ -141,13 +141,13 @@ export const localization = {
 		},
 		Team: {
 			title: 'Наша команда',
-			description: "Преданная и компетентная команда студентов КБТУ и РИТ, которые используют блокчейн и технологии искусственного интеллекта для \n трансформации образования.",
+			description: "Преданная и компетентная команда студентов КБТУ и RIT, которые используют блокчейн и технологии искусственного интеллекта для трансформации образования.",
 			elements: [
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Syrym-CEO.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alikhan-CTO.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alisher-techlead.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/5.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Syrym-CEO.webp', 'subtitle': 'Сырым Сериков' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alikhan-CTO.webp', 'subtitle': 'Алихан Сеиткадыров' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alisher-techlead.webp', 'subtitle': 'Куаныш Енсебаев' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/5.webp', 'subtitle': 'Абылай Султанбеков' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp', 'subtitle': 'Алишер Бейсембеков' },
 			],
 		},
 		AboutUs: {
@@ -158,7 +158,7 @@ export const localization = {
 				value: "Astana, Mangilik el 55/14 C2.2"
 			},
 			contacts: {
-				email: "jasaim.kz",
+				email: "info@jasaim.kz",
 				phone: "Телефон: +7 777 646 32 46",
 			},
 			links: [
@@ -225,14 +225,14 @@ export const localization = {
 			],
 		},
 		Team: {
-			title: 'Our Team',
-			description: "A dedicated and competent team of KBTU and RIT students who use blockchain and artificial intelligence \n technologies to transform education.",
+			title: 'Our team',
+			description: "A dedicated and competent team of KBTU and RIT students who use blockchain and artificial intelligence technologies to transform education.",
 			elements: [
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Syrym-CEO.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alikhan-CTO.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alisher-techlead.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/5.webp' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Syrym-CEO.webp', 'subtitle': ' Syrym Serikov' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alikhan-CTO.webp', 'subtitle': 'Alikhan Seitkadyrov' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alisher-techlead.webp', 'subtitle': ' Kuanysh Yensebayev' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/5.webp', 'subtitle': 'Abylai Sultanbekov' },
+				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp', 'subtitle': 'Alisher Beisembekov' },
 			],
 		},
 		AboutUs: {
@@ -243,7 +243,7 @@ export const localization = {
 				value: "Astana, Mangilik el 55/14 C2.2"
 			},
 			contacts: {
-				email: "jasaim.kz",
+				email: "info@jasaim.kz",
 				phone: "Mobile: +7 777 646 32 46",
 			},
 			links: [

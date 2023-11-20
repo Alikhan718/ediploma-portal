@@ -19,6 +19,8 @@ export const routes: Record<string, string> = {
 	student: `${appRoot}/student/:id`,
 	employer: `${appRoot}/employer/:id`,
 	analysisPage: `${appRoot}/analysisPage`,
+	notFound: `${appRoot}/notFound`,
+	server: `${appRoot}/server`,
 	// universityDetails: `${appRoot}/university/:id/detail`,
 	// aboutUs: `${appRoot}/about-us`,
 	// addingGraduates: `${appRoot}/university/graduates/add`,

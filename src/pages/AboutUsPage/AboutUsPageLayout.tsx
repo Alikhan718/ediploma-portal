@@ -155,7 +155,11 @@ export const AboutUsPageLayout: React.FC = () => {
 								) : (
 									React.createElement(item.image, { style: { alignSelf: 'center', width: '100%', height: '100%' } })
 								)}
-								<Box mt="1rem" />
+								<Box mt="1rem">
+									<Typography variant="subtitle1" className={styles.textMd}>
+										{item.subtitle}
+									</Typography>
+								</Box>
 							</div>
 						))}
 					</Box>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, FormEvent, useState } from 'react';
 import { Box, Divider, Typography, Container, TextField, Grid, Rating } from '@mui/material';
 import { ReactComponent as SearchIcon } from '@src/assets/icons/search-icon.svg';
 import { Button, Input, Label } from '@src/components';
@@ -18,6 +18,7 @@ import { localization } from "./generator";
 import AppLogo from '@src/assets/icons/app-logo.svg';
 import cn from "classnames";
 import { selectLanguage } from "@src/store/generals/selectors";
+import emailjs from '@emailjs/browser';
 
 export const MainPageLayout: React.FC = () => {
 	const lang = useSelector(selectLanguage);
@@ -57,7 +58,53 @@ export const MainPageLayout: React.FC = () => {
 		});
 		ReactGA.pageview(window.location.pathname + window.location.search);
 	}, []);
+	const form = useRef<HTMLFormElement>(null);
+	const [nameError, setNameError] = useState('');
+	const [emailError, setEmailError] = useState('');
 
+	const validateEmail = (email: string) => {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegex.test(email);
+	};
+	const validateForm = () => {
+		let valid = true;
+
+		const nameInput = form.current?.elements.namedItem('from_name') as HTMLInputElement;
+		if (!nameInput.value.trim()) {
+			setNameError('Name is required');
+			valid = false;
+		} else {
+			setNameError('');
+		}
+
+		// Validate email
+		const emailInput = form.current?.elements.namedItem('from_email') as HTMLInputElement;
+		if (!emailInput.value.trim()) {
+			setEmailError('Email is required');
+			valid = false;
+		} else if (!validateEmail(emailInput.value.trim())) {
+			setEmailError('Invalid email format');
+			valid = false;
+		} else {
+			setEmailError('');
+		}
+		return valid;
+	};
+	const sendEmail = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		if (form.current && validateForm()) {
+			emailjs.sendForm('service_2oqtnsn', 'template_fypav6a', form.current, 'rqGCRxQNl9hkIs_53')
+				.then((result) => {
+					console.log(result.text);
+				})
+				.catch((error) => {
+					console.log(error.text);
+				});
+		} else {
+			console.error("Error submitting form");
+		}
+	};
 	return (
 		<Box className={styles.mainContainer} sx={{ backgroundColor: "white", }}>
 			<Box sx={{
@@ -179,9 +226,9 @@ export const MainPageLayout: React.FC = () => {
 							<img src={file} style={{ width: '80px' }} />
 						</Box>
 						<Box sx={{ paddingBottom: '20px', fontWeight: '800', fontSize: '28px' }}
-							className={styles.mobTextMd}>{localization[lang].Select.title}</Box>
+							className={styles.mobTextMd}>{localization[lang].Check.title}</Box>
 						<Box sx={{ color: '#818181', fontSize: '16px' }} className={styles.mobTextSm}>
-							{localization[lang].Select.description}
+							{localization[lang].Check.description}
 						</Box>
 					</Box>
 					<Box sx={{
@@ -214,12 +261,12 @@ export const MainPageLayout: React.FC = () => {
 
 					>
 						<Box sx={{ paddingBottom: '20px' }}>
-							<img src={file} style={{ width: '80px' }} />
+							<img src={download} style={{ width: '80px' }} />
 						</Box>
 						<Box sx={{ paddingBottom: '20px', fontWeight: '800', fontSize: '28px' }}
-							className={styles.mobTextMd}>{localization[lang].Select.title}</Box>
+							className={styles.mobTextMd}>{localization[lang].Results.title}</Box>
 						<Box sx={{ color: '#818181', fontSize: '16px' }} className={styles.mobTextSm}>
-							{localization[lang].Select.description}
+							{localization[lang].Results.description}
 						</Box>
 					</Box>
 				</Box>
@@ -308,28 +355,47 @@ export const MainPageLayout: React.FC = () => {
 
 
 				</Box>
-				<Box className={styles.item} display="flex" flexDirection="column" width="45%"
-					justifyContent="space-between">
-					<Box mb="1rem">
-						<Label label={localization[lang].AboutUs.form.name.label} className={styles.mobTextSm} />
-						<Input type="text" name="name"
-							placeholder={localization[lang].AboutUs.form.name.placeholder} />
+				<form ref={form} onSubmit={sendEmail}>
+					<Box display="flex" width="180%" flexDirection="column" justifyContent="space-between">
+						<Box mb="1rem">
+							<Label label={localization[lang].AboutUs.form.name.label} className={styles.mobTextSm} />
+							<Input
+								type="text"
+								name="from_name"
+								placeholder={localization[lang].AboutUs.form.name.placeholder}
+								required
+								inputProps={{ pattern: "[A-Za-z\s]+" }}
+							/>
+							<Typography variant="body2" color="error">{nameError}</Typography>
+						</Box>
+						<Box mb="1rem">
+							<Label label={localization[lang].AboutUs.form.email.label} className={styles.mobTextSm} />
+							<Input
+								type="email"
+								name="from_email"
+								placeholder={localization[lang].AboutUs.form.email.placeholder}
+								required
+							/>
+							<Typography variant="body2" color="error">{emailError}</Typography>
+						</Box>
+						<Box mb="2rem">
+							<Label label={localization[lang].AboutUs.form.message.label} className={styles.mobTextSm} />
+							<Input
+								type="text"
+								multiline={true}
+								reducePadding={true}
+								minRows={4}
+								name="message"
+								placeholder={localization[lang].AboutUs.form.message.placeholder}
+								required
+							/>
+						</Box>
+						<Button fullWidth={true} variant="contained" borderRadius="3rem" type="submit">
+							{localization[lang].AboutUs.form.send}
+						</Button>
 					</Box>
-					<Box mb="1rem">
-						<Label label={localization[lang].AboutUs.form.email.label} className={styles.mobTextSm} />
-						<Input type="text" name="email"
-							placeholder={localization[lang].AboutUs.form.email.placeholder} />
-					</Box>
-					<Box mb="2rem">
-						<Label label={localization[lang].AboutUs.form.message.label} className={styles.mobTextSm} />
-						<Input type="text" multiline={true} reducePadding={true} minRows={4} name="message"
-							placeholder={localization[lang].AboutUs.form.message.placeholder} />
-					</Box>
-					<Button fullWidth={true} variant="contained" borderRadius="3rem"
-						type="submit">
-						{localization[lang].AboutUs.form.send}
-					</Button>
-				</Box>
+				</form>
+
 			</Box>
 
 			<Grid container>
