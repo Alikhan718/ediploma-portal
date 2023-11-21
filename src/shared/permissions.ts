@@ -6,7 +6,9 @@ export const permissions = {
     diplomaDetails: ['*'],
     hr_bank: ['*'],
     university: ['*'],
-    universityDetails: ['*'],
+    universityDetails: ['*'],	
+    server: ['*'],
+    notFound: ['*'],
     aboutUs: ['*'],
     addingGraduates: ['university'],
     settings: ['employer', 'student', 'university'],
@@ -20,5 +22,5 @@ export const permissions = {
 };
 
 export const hasPermission = (role: string, page: string | string[]): boolean => {
-    return page.includes('*') || page.includes(role.toLowerCase());
+	return page.includes('*') || page.includes(role.toLowerCase());
 };

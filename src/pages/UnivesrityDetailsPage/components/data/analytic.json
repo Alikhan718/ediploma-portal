@@ -1,0 +1,27 @@
+[
+	{
+		"name": "50-60",
+		"averageGPA": 2.72,
+		"count": 13
+	},
+	{
+		"name": "60-70",
+		"averageGPA": 2.77,
+		"count": 51
+	},
+	{
+		"name": "70-80",
+		"averageGPA": 2.85,
+		"count": 92
+	},
+	{
+		"name": "80-90",
+		"averageGPA": 2.96,
+		"count": 402
+	},
+	{
+		"name": "90-100",
+		"averageGPA": 3.21,
+		"count": 303
+	}
+]

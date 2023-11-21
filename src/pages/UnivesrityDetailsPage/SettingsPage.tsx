@@ -40,14 +40,40 @@ const SettingsPage: React.FC = () => {
 
     const notificationBoxRef: RefObject<HTMLDivElement> = useRef(null);
 
-    type ContentKey = keyof typeof content;
-    const role: ContentKey = useSelector(selectUserRole).toLowerCase();
-    const [requiredForm, setRequiredForm] = React.useState<any>(content[role]);
-    React.useEffect(() => {
-        setRequiredForm(content[role]);
-        console.log(requiredForm);
+	type ContentKey = keyof typeof content;
+	const role: ContentKey = useSelector(selectUserRole).toLowerCase();
+	const [requiredForm, setRequiredForm] = React.useState<any>(content[role]);
+	React.useEffect(() => {
+		setRequiredForm(content[role]);
+		console.log(requiredForm);
+	}, [requiredForm]);
+	const getRefById = (id: number): RefObject<HTMLDivElement> => {
+		switch (id) {
+			case 0:
+				return mainInfoContainerRef;
+			case 1:
+				return emailBoxRef;
+			case 2:
+				return passwordBoxRef;
+			case 3:
+				return deleteAccountBoxRef;
+			case 4:
+				return notificationBoxRef;
+			default:
+				return mainInfoContainerRef;
+		}
+	};
+	const scrollToRef = (ref: RefObject<HTMLDivElement>) => {
+		if (ref && ref.current) {
+			ref.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	};
+	const userState = useSelector(selectUserState);
+	const dispatch = useDispatch();
+	React.useEffect(() => {
+		dispatch(fetchUserProfile());
+	}, [!userState]);
 
-    }, [requiredForm]);
     const getRefById = (id: number): RefObject<HTMLDivElement> => {
         switch (id) {
             case 0:

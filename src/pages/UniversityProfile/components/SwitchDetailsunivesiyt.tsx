@@ -109,19 +109,15 @@ export const SwitchDetailsUniversity: React.FC = () => {
 				</Box>
 			</Modal>
 			<Box width="50%" display="flex" flex="row" p=".275rem " sx={{
-				backgroundColor: "#F8F8F8", borderRadius: "3rem",
+				borderRadius: "3rem",
 				'@media (max-width: 778px)': {
 					width: '100%', padding: '0'
 				},
 			}}>
-				<Button fullWidth={true} variant="contained"
-					color={value === 0 ? "primary" : "secondary"} borderRadius="3rem" onClick={(e) => handleChange(e, 0)}>
-					{localization[lang].MainCard.diploma}
-				</Button>
-				<Button fullWidth={true} color={value === 1 ? "primary" : "secondary"}
-					variant="contained" borderRadius="3rem" onClick={(e) => handleChange(e, 1)}>
-					{localization[lang].MainCard.analytics}
-				</Button>
+				<Box sx={{ fontSize: '24px', fontWeight: '600', color: '#4D4D4D', paddingBottom: '10px' }} >
+					{localization[lang].MainCard.diploma} </Box>
+
+
 			</Box>
 
 

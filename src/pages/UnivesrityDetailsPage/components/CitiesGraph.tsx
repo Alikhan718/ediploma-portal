@@ -58,8 +58,8 @@ export const CitiesGraph: React.FC = memo(() => {
 				flexWrap={"nowrap"}
 				margin={"0 20px"}
 			>
-				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Статистика
+				<Typography fontWeight={600} color={"#475569"} fontSize={"1.2rem"}>
+					Данные по регионам
 				</Typography>
 				<Box display="flex" flexDirection={"row"} alignItems={"center"}></Box>
 			</Box>
