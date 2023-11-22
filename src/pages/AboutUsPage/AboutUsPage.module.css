@@ -6,7 +6,7 @@
 	display: flex;
 	justify-content: space-evenly;
 	width: 100%;
-	padding: 2rem 10%;
+	padding: 2rem 10% 0 4rem;
 	padding-top: 6rem;
 	background-color: white;
 }

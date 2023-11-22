@@ -1,7 +1,9 @@
-import React from 'react';
-
-import { Box, Divider, ImageListItem, ImageList, Typography, CardMedia, TextareaAutosize } from '@mui/material';
-
+import React, { useRef, FormEvent, useState, useEffect } from 'react';
+import {
+	Box, Divider,
+	Alert, Snackbar,
+	ImageListItem, ImageList, Typography, CardMedia, TextareaAutosize
+} from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { routes } from "@src/shared/routes";
@@ -15,10 +17,61 @@ import { advantages, localization } from "./generator";
 import { Button, Input, Label } from '@src/components';
 import cn from "classnames";
 import { selectLanguage } from "@src/store/generals/selectors";
+import emailjs from '@emailjs/browser';
 
 export const AboutUsPageLayout: React.FC = () => {
 	const lang = useSelector(selectLanguage);
+	const form = useRef<HTMLFormElement>(null);
+	const [nameError, setNameError] = useState('');
+	const [emailError, setEmailError] = useState('');
+	const [alertOpen, setAlertOpen] = useState(false);
 
+	const validateEmail = (email: string) => {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailRegex.test(email);
+	};
+	const validateForm = () => {
+		let valid = true;
+
+		const nameInput = form.current?.elements.namedItem('from_name') as HTMLInputElement;
+		if (!nameInput.value.trim()) {
+			setNameError('Name is required');
+			valid = false;
+		} else {
+			setNameError('');
+		}
+
+		const emailInput = form.current?.elements.namedItem('from_email') as HTMLInputElement;
+		if (!emailInput.value.trim()) {
+			setEmailError('Email is required');
+			valid = false;
+		} else if (!validateEmail(emailInput.value.trim())) {
+			setEmailError('Invalid email');
+			valid = false;
+		} else {
+			setEmailError('');
+		}
+		return valid;
+	};
+	const sendEmail = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		if (form.current && validateForm()) {
+			emailjs.sendForm('service_2oqtnsn', 'template_fypav6a', form.current, 'rqGCRxQNl9hkIs_53')
+				.then((result) => {
+					console.log(result.text);
+					setAlertOpen(true);
+				})
+				.catch((error) => {
+					console.log(error.text);
+				});
+		} else {
+			console.error("Error");
+		}
+	};
+	const handleAlertClose = () => {
+		setAlertOpen(false);
+	};
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [filterAttributes, setFilterAttributes] = React.useState({
@@ -156,7 +209,7 @@ export const AboutUsPageLayout: React.FC = () => {
 									React.createElement(item.image, { style: { alignSelf: 'center', width: '100%', height: '100%' } })
 								)}
 								<Box mt="1rem">
-									<Typography variant="subtitle1" className={styles.textMd}>
+									<Typography variant="subtitle1" textAlign="center" className={styles.textMd}>
 										{item.subtitle}
 									</Typography>
 								</Box>
@@ -199,40 +252,65 @@ export const AboutUsPageLayout: React.FC = () => {
 						<Box mt="2rem" display="flex" gap="1rem" flexDirection="row">
 							{localization[lang].AboutUs.links.map((el: any) =>
 								<a key={el.value} href={el.link} target="_blank" rel="noopener noreferrer">
-									<Typography fontSize=".9rem" color="#818181" className={styles.mobTextSm}>
+									<Typography fontSize=".9rem" color="#818181" textAlign="center" className={styles.mobTextSm}>
 										{el.title}
 									</Typography>
 								</a>
 							)}
-
-
 						</Box>
 					</Box>
 
 
 				</Box>
-				<Box className={styles.item} display="flex" flexDirection="column" width="45%"
-					justifyContent="space-between">
-					<Box mb="1rem">
-						<Label label={localization[lang].AboutUs.form.name.label} className={styles.mobTextSm} />
-						<Input type="text" name="name"
-							placeholder={localization[lang].AboutUs.form.name.placeholder} />
+				<form ref={form} onSubmit={sendEmail}>
+					<Box display="flex" className={styles.item} width="180%" flexDirection="column" justifyContent="space-between">
+						<Box mb="1rem">
+							<Label label={localization[lang].AboutUs.form.name.label} className={styles.mobTextSm} />
+							<Input
+								type="text"
+								name="from_name"
+								placeholder={localization[lang].AboutUs.form.name.placeholder}
+								required
+								inputProps={{ pattern: "^[A-Za-zА-Яа-я\\s]+$" }}
+							/>
+							<Typography variant="body2" color="error">{nameError}</Typography>
+						</Box>
+						<Box mb="1rem">
+							<Label label={localization[lang].AboutUs.form.email.label} className={styles.mobTextSm} />
+							<Input
+								type="email"
+								name="from_email"
+								placeholder={localization[lang].AboutUs.form.email.placeholder}
+								required
+							/>
+							<Typography variant="body2" color="error">{emailError}</Typography>
+						</Box>
+						<Box mb="2rem">
+							<Label label={localization[lang].AboutUs.form.message.label} className={styles.mobTextSm} />
+							<Input
+								type="text"
+								multiline={true}
+								reducePadding={true}
+								minRows={4}
+								name="message"
+								placeholder={localization[lang].AboutUs.form.message.placeholder}
+								required
+								inputProps={{ pattern: "^[A-Za-zА-Яа-я\\s]+$" }}
+							/>
+						</Box>
+						<Button fullWidth={true} variant="contained" borderRadius="3rem" type="submit">
+							{localization[lang].AboutUs.form.send}
+						</Button>
 					</Box>
-					<Box mb="1rem">
-						<Label label={localization[lang].AboutUs.form.email.label} className={styles.mobTextSm} />
-						<Input type="text" name="email"
-							placeholder={localization[lang].AboutUs.form.email.placeholder} />
-					</Box>
-					<Box mb="2rem">
-						<Label label={localization[lang].AboutUs.form.message.label} className={styles.mobTextSm} />
-						<Input type="text" multiline={true} reducePadding={true} minRows={4} name="message"
-							placeholder={localization[lang].AboutUs.form.message.placeholder} />
-					</Box>
-					<Button fullWidth={true} variant="contained" borderRadius="3rem"
-						type="submit">
-						{localization[lang].AboutUs.form.send}
-					</Button>
-				</Box>
+				</form>
+				<Snackbar open={alertOpen} autoHideDuration={2000}
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					onClose={handleAlertClose}>
+					<Alert onClose={handleAlertClose} severity="success"
+						sx={{ width: '100%' }}>
+						Успешно отправлено!
+					</Alert>
+				</Snackbar>
 			</Box>
 		</Box>
 	);
