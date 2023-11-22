@@ -1,5 +1,9 @@
-import React, { useRef, FormEvent, useState } from 'react';
-import { Box, Divider, Typography, Container, TextField, Grid, Rating } from '@mui/material';
+import React, { useRef, FormEvent, useState, useEffect } from 'react';
+import {
+	Box, Divider, Typography, Container,
+	Alert, Snackbar,
+	TextField, Grid, Rating
+} from '@mui/material';
 import { ReactComponent as SearchIcon } from '@src/assets/icons/search-icon.svg';
 import { Button, Input, Label } from '@src/components';
 import { FooterSection } from "@src/pages/MainPage/components/FooterSection";
@@ -10,9 +14,13 @@ import styles from "./MainPage.module.css";
 import { fetchSearch } from "@src/store/diplomas/actionCreators";
 import ReactGA from "react-ga";
 import back1 from "./../../assets/dashboard/Content.png";
-import img1 from "./../../assets/dashboard/Illustration.png";
+import img2 from "./../../assets/example/illustr1.png";
+import img3 from "./../../assets/example/illustr2.png";
+import img4 from "./../../assets/example/illustr3.png";
 import download from "./../../assets/icons/downloadMain.svg";
 import file from "./../../assets/icons/Avatar.svg";
+import sign from "./../../assets/icons/sign.svg";
+import see from "./../../assets/icons/see.svg";
 import profile from "./../../assets/icons/profileIcon.svg";
 import { localization } from "./generator";
 import AppLogo from '@src/assets/icons/app-logo.svg';
@@ -22,7 +30,18 @@ import emailjs from '@emailjs/browser';
 
 export const MainPageLayout: React.FC = () => {
 	const lang = useSelector(selectLanguage);
+	const imgSrc = [img2, img3, img4];
+	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+	const changeImage = () => {
+		setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imgSrc.length);
+	};
+
+	useEffect(() => {
+		const intervalId = setInterval(changeImage, 2000);
+
+		return () => clearInterval(intervalId);
+	}, []);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [filterAttributes, setFilterAttributes] = React.useState({
@@ -61,7 +80,7 @@ export const MainPageLayout: React.FC = () => {
 	const form = useRef<HTMLFormElement>(null);
 	const [nameError, setNameError] = useState('');
 	const [emailError, setEmailError] = useState('');
-
+	const [alertOpen, setAlertOpen] = useState(false);
 	const validateEmail = (email: string) => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return emailRegex.test(email);
@@ -77,13 +96,12 @@ export const MainPageLayout: React.FC = () => {
 			setNameError('');
 		}
 
-		// Validate email
 		const emailInput = form.current?.elements.namedItem('from_email') as HTMLInputElement;
 		if (!emailInput.value.trim()) {
 			setEmailError('Email is required');
 			valid = false;
 		} else if (!validateEmail(emailInput.value.trim())) {
-			setEmailError('Invalid email format');
+			setEmailError('Invalid email');
 			valid = false;
 		} else {
 			setEmailError('');
@@ -97,13 +115,17 @@ export const MainPageLayout: React.FC = () => {
 			emailjs.sendForm('service_2oqtnsn', 'template_fypav6a', form.current, 'rqGCRxQNl9hkIs_53')
 				.then((result) => {
 					console.log(result.text);
+					setAlertOpen(true);
 				})
 				.catch((error) => {
 					console.log(error.text);
 				});
 		} else {
-			console.error("Error submitting form");
+			console.error("Error");
 		}
+	};
+	const handleAlertClose = () => {
+		setAlertOpen(false);
 	};
 	return (
 		<Box className={styles.mainContainer} sx={{ backgroundColor: "white", }}>
@@ -173,8 +195,8 @@ export const MainPageLayout: React.FC = () => {
 							setSearchQuery(query);
 						}}
 					/>
-				</Box>
-				<Box mt="2.5rem"><img src={img1} style={{ width: '75%' }} /></Box>
+				</Box >
+				<Box mt="-2rem"><img src={imgSrc[currentImageIndex]} style={{ width: '85%' }} alt={`Image ${currentImageIndex + 1}`} /></Box>
 			</Box>
 			<FooterSection />
 			<Box sx={{
@@ -223,7 +245,7 @@ export const MainPageLayout: React.FC = () => {
 
 					>
 						<Box sx={{ paddingBottom: '20px' }}>
-							<img src={file} style={{ width: '80px' }} />
+							<img src={sign} style={{ width: '80px' }} />
 						</Box>
 						<Box sx={{ paddingBottom: '20px', fontWeight: '800', fontSize: '28px' }}
 							className={styles.mobTextMd}>{localization[lang].Check.title}</Box>
@@ -261,7 +283,7 @@ export const MainPageLayout: React.FC = () => {
 
 					>
 						<Box sx={{ paddingBottom: '20px' }}>
-							<img src={download} style={{ width: '80px' }} />
+							<img src={see} style={{ width: '80px' }} />
 						</Box>
 						<Box sx={{ paddingBottom: '20px', fontWeight: '800', fontSize: '28px' }}
 							className={styles.mobTextMd}>{localization[lang].Results.title}</Box>
@@ -356,7 +378,7 @@ export const MainPageLayout: React.FC = () => {
 
 				</Box>
 				<form ref={form} onSubmit={sendEmail}>
-					<Box display="flex" width="180%" flexDirection="column" justifyContent="space-between">
+					<Box display="flex" className={styles.item} width="180%" flexDirection="column" justifyContent="space-between">
 						<Box mb="1rem">
 							<Label label={localization[lang].AboutUs.form.name.label} className={styles.mobTextSm} />
 							<Input
@@ -364,7 +386,7 @@ export const MainPageLayout: React.FC = () => {
 								name="from_name"
 								placeholder={localization[lang].AboutUs.form.name.placeholder}
 								required
-								inputProps={{ pattern: "[A-Za-z\s]+" }}
+								inputProps={{ pattern: "^[A-Za-zА-Яа-я\\s]+$" }}
 							/>
 							<Typography variant="body2" color="error">{nameError}</Typography>
 						</Box>
@@ -388,6 +410,7 @@ export const MainPageLayout: React.FC = () => {
 								name="message"
 								placeholder={localization[lang].AboutUs.form.message.placeholder}
 								required
+								inputProps={{ pattern: "^[A-Za-zА-Яа-я\\s]+$" }}
 							/>
 						</Box>
 						<Button fullWidth={true} variant="contained" borderRadius="3rem" type="submit">
@@ -395,7 +418,14 @@ export const MainPageLayout: React.FC = () => {
 						</Button>
 					</Box>
 				</form>
-
+				<Snackbar open={alertOpen} autoHideDuration={2000}
+					anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+					onClose={handleAlertClose}>
+					<Alert onClose={handleAlertClose} severity="success"
+						sx={{ width: '100%' }}>
+						Успешно отправлено!
+					</Alert>
+				</Snackbar>
 			</Box>
 
 			<Grid container>
