@@ -182,7 +182,7 @@ export const UniversityDeatailPage: React.FC = () => {
 									</Box>
 								</Box>
 
-								<Box sx={{ display: 'none', marginBottom: '1rem', flexDirection: 'column', '@media (max-width: 768px)': { display: 'flex ' } }}>
+								{/* <Box sx={{ display: 'none', marginBottom: '1rem', flexDirection: 'column', '@media (max-width: 768px)': { display: 'flex ' } }}>
 									<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
 										4.5 <Rating
 											name="text-feedback"
@@ -192,10 +192,10 @@ export const UniversityDeatailPage: React.FC = () => {
 										/>
 									</Typography>
 									<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
-								</Box>
+								</Box> */}
 
 
-								<Box display="flex"
+								{/* <Box display="flex"
 									alignItems="center"
 									sx={{
 										flexDirection: 'row',
@@ -215,7 +215,7 @@ export const UniversityDeatailPage: React.FC = () => {
 											emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
 										/>
 									</Typography>
-								</Box>
+								</Box> */}
 
 								<Box display='flex' flexDirection='column'>
 									<Typography className={styles.textSm}>
