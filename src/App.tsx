@@ -15,7 +15,7 @@ import {
 	EmployerPage,
 	UniversityProfilePage,
 	UniversityDeatailPage, AnalysisPage, NotFoundPage,
-	Serverpage
+	Serverpage, AIChatPage
 } from '@src/pages';
 import { withLayout } from '@src/layout/Layout';
 import { routes } from '@src/shared/routes';

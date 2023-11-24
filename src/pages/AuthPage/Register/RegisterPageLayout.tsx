@@ -156,7 +156,7 @@ export const RegisterPageLayout: React.FC = () => {
 							borderRadius="3rem"
 							onClick={() => setType('Employer')}
 						>
-							{localization.University[lang]}
+							{localization.Company[lang]}
 
 						</Button>
 						<Button fullWidth={true} color={type == 'University' ? "primary" : "secondary"}
