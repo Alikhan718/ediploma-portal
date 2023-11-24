@@ -289,7 +289,7 @@ export const localization = {
 	},
 	logout: {
 		"ru": "Вы действительно хотите выйти из профиля?",
-		"kz": "Сіз шынымен профильден шыққыңыз келе ме?",
+		"kz": "Сіз профильден шығуды растайсыз ба?",
 		"en": "Do you want to logout of the profile?"
 	},
 	log: {
