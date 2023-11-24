@@ -43,36 +43,6 @@ const SettingsPage: React.FC = () => {
 	type ContentKey = keyof typeof content;
 	const role: ContentKey = useSelector(selectUserRole).toLowerCase();
 	const [requiredForm, setRequiredForm] = React.useState<any>(content[role]);
-	React.useEffect(() => {
-		setRequiredForm(content[role]);
-		console.log(requiredForm);
-	}, [requiredForm]);
-	const getRefById = (id: number): RefObject<HTMLDivElement> => {
-		switch (id) {
-			case 0:
-				return mainInfoContainerRef;
-			case 1:
-				return emailBoxRef;
-			case 2:
-				return passwordBoxRef;
-			case 3:
-				return deleteAccountBoxRef;
-			case 4:
-				return notificationBoxRef;
-			default:
-				return mainInfoContainerRef;
-		}
-	};
-	const scrollToRef = (ref: RefObject<HTMLDivElement>) => {
-		if (ref && ref.current) {
-			ref.current.scrollIntoView({ behavior: 'smooth' });
-		}
-	};
-	const userState = useSelector(selectUserState);
-	const dispatch = useDispatch();
-	React.useEffect(() => {
-		dispatch(fetchUserProfile());
-	}, [!userState]);
 
     const getRefById = (id: number): RefObject<HTMLDivElement> => {
         switch (id) {
@@ -104,6 +74,13 @@ const SettingsPage: React.FC = () => {
         // console.log("SOMEHTING:");
     }, [!userState]);
     console.log(userState);
+    React.useEffect(() => {
+		setRequiredForm(content[role]);
+		console.log(requiredForm);
+	}, [requiredForm]);
+	React.useEffect(() => {
+		dispatch(fetchUserProfile());
+	}, [!userState]);
 
     const [state, setState] = React.useState({});
     const getGridSize = (elType: string, index: number) => {
