@@ -38,7 +38,7 @@ export const MainPageLayout: React.FC = () => {
 	};
 
 	useEffect(() => {
-		const intervalId = setInterval(changeImage, 2000);
+		const intervalId = setInterval(changeImage, 5000);
 
 		return () => clearInterval(intervalId);
 	}, []);
