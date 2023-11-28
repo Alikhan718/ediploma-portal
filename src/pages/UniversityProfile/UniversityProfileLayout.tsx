@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
 	Box, Button, Rating, Typography, useMediaQuery, Pagination,
-	InputAdornment, Grid, Container, Skeleton
+	InputAdornment, Grid, Container, Skeleton, Alert
 } from '@mui/material';
 import { ReactComponent as HeaderSearchIcon } from '@src/assets/icons/search.svg';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
@@ -64,6 +64,7 @@ function a11yProps(index: number) {
 	};
 }
 export const UniversityProfileLayout: React.FC = () => {
+	const [isDataAlert, setIsDataAlert] = React.useState(false);
 	const lang = useSelector(selectLanguage);
 	const [showFull, setShowFull] = React.useState(false);
 	const [page, setPage] = useState(0);
@@ -93,6 +94,7 @@ export const UniversityProfileLayout: React.FC = () => {
 		textArea.select();
 		document.execCommand('copy');
 		document.body.removeChild(textArea);
+		setIsDataAlert(true);
 	};
 
 	const handlePrevPage = () => {
@@ -117,6 +119,21 @@ export const UniversityProfileLayout: React.FC = () => {
 		dispatch(fetchDiplomas());
 	}, []);
 	const defaultS = 3.5;
+
+	useEffect(() => {
+		const handleScroll = () => {
+		  setIsDataAlert(false);
+		};
+	
+		if (isDataAlert) {
+		  window.addEventListener('scroll', handleScroll);
+		}
+	
+		return () => {
+		  window.removeEventListener('scroll', handleScroll);
+		};
+	}, [isDataAlert]);
+
 	return (
 		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} >
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
@@ -607,6 +624,19 @@ export const UniversityProfileLayout: React.FC = () => {
 
 				</Box>
 			</Box>
+			{isDataAlert ? 
+			(<Alert 
+				sx={{
+					borderRadius:'10rem',
+					position:'fixed',
+					bottom:'2rem',
+					left:'18rem',
+				}}
+				severity="success"
+				>
+					{localization[lang].Alerts.copied}
+			</Alert>):
+			(<></>)}
 		</Box>
 	);
 };
