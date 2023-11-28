@@ -17,8 +17,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectUserRole, selectUserState} from '@src/store/auth/selector';
 import {fetchUserProfile} from "@src/store/auth/actionCreators";
 import {content, navigation} from "@src/pages/UnivesrityDetailsPage/generator";
+import { selectLanguage } from "@src/store/generals/selectors";
 
 const SettingsPage: React.FC = () => {
+    const lang = useSelector(selectLanguage);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
@@ -40,14 +42,20 @@ const SettingsPage: React.FC = () => {
 
     const notificationBoxRef: RefObject<HTMLDivElement> = useRef(null);
 
-    type ContentKey = keyof typeof content;
+    type ContentKey = keyof typeof content[typeof lang];
+    const langContent = content[lang];
     const role: ContentKey = useSelector(selectUserRole).toLowerCase();
-    const [requiredForm, setRequiredForm] = React.useState<any>(content[role]);
+    const [requiredForm, setRequiredForm] = React.useState<any>(langContent[role]);
     React.useEffect(() => {
-        setRequiredForm(content[role]);
-        console.log(requiredForm);
+        if(langContent[role]){
+            setRequiredForm(langContent[role]);
+            console.log(requiredForm);
+        }
+        else{
+            console.error(`No content found for role: ${role}`);
+        }
 
-    }, [requiredForm]);
+    }, [requiredForm, lang]);
     const getRefById = (id: number): RefObject<HTMLDivElement> => {
         switch (id) {
             case 0:
@@ -127,7 +135,7 @@ const SettingsPage: React.FC = () => {
                                 justifyContent: 'flex-start',
                             }}
                         >
-                            {navigation.map((item, index) => (
+                            {navigation[lang].map((item, index) => (
                                 <Box
                                     key={index}
                                     sx={{
@@ -248,7 +256,7 @@ const SettingsPage: React.FC = () => {
                 {/*    </Container>*/}
                 {/*)}*/}
 
-                {[requiredForm, ...content['*']].map((item, index) => {
+                {[requiredForm, ...content[lang]['*']].map((item, index) => {
                         if (item) {
 
                             return (

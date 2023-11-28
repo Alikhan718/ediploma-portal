@@ -4,28 +4,74 @@ import {ReactComponent as PasswordIcon} from "@src/assets/icons/Password.svg";
 import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
 import FastIcon from "@src/components/FastIcon/FastIcon";
 
-export const navigation = [
-    {
-        title: 'Основная информация',
-        reference: 0,
-        icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
-    },
-    {
-        title: 'Почта',
-        reference: 1,
-        icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
-    },
-    {
-        title: 'Пароль',
-        reference: 2,
-        icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
-    },
-    {
-        title: 'Удалить аккаунт',
-        reference: 3,
-        icon: <FastIcon name={"trash"} style={{marginRight: '0.5rem'}} color="primary"/>
-    }
-];
+export const navigation = {
+    "kz":[
+        {
+            title: 'Основная информация',
+            reference: 0,
+            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        },
+        {
+            title: 'Почта',
+            reference: 1,
+            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        },
+        {
+            title: 'Пароль',
+            reference: 2,
+            icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        },
+        {
+            title: 'Удалить аккаунт',
+            reference: 3,
+            icon: <FastIcon name={"trash"} style={{marginRight: '0.5rem'}} color="primary"/>
+        }
+    ],
+    "ru":[
+        {
+            title: 'Основная информация',
+            reference: 0,
+            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        },
+        {
+            title: 'Почта',
+            reference: 1,
+            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        },
+        {
+            title: 'Пароль',
+            reference: 2,
+            icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        },
+        {
+            title: 'Удалить аккаунт',
+            reference: 3,
+            icon: <FastIcon name={"trash"} style={{marginRight: '0.5rem'}} color="primary"/>
+        }
+    ],
+    "en":[
+        {
+            title: 'Main information',
+            reference: 0,
+            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        },
+        {
+            title: 'Email',
+            reference: 1,
+            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        },
+        {
+            title: 'Password',
+            reference: 2,
+            icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        },
+        {
+            title: 'Delete Account',
+            reference: 3,
+            icon: <FastIcon name={"trash"} style={{marginRight: '0.5rem'}} color="primary"/>
+        }
+    ],
+};
 
 const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -63,6 +109,169 @@ const validateField = (type: string, val: string) => {
 };
 
 export const content = {
+    "kz": {
+        "*": [
+            {
+                title: "Пошта",
+                additionalText: "Сіздің қазіргі поштаныз бұл: ",
+                name: "email",
+                reference: 1,
+                forms: [{
+                    type: "email",
+                    name: "email",
+                    multiline: false,
+                    label: "Жаңа пошта*",
+                    placeholder: "Email"
+                }]
+            },
+            {
+                title: "Құпия сөзді өзгертіңіз",
+                additionalText: null,
+                name: "password",
+                reference: 2,
+                forms: [
+                    {
+                        type: "password",
+                        name: "password",
+                        multiline: false,
+                        label: "Қазіргі қүпия сөз*",
+                        placeholder: "Қазіргі қүпия сөзінізді енгізіңіз"
+                    },
+                    {
+                        type: "password",
+                        name: "newPassword",
+                        multiline: false,
+                        label: "Жаңа құпия сөз*",
+                        placeholder: "Жаңа құпия сөзінізді енгізіңіз"
+                    },
+                    {
+                        type: "password",
+                        name: "rePassword",
+                        multiline: false,
+                        label: "Жаңа құпия сөзінізді растаңыз*",
+                        placeholder: "Жаңа құпия сөзінізді растаңыз"
+                    },
+                ]
+            },
+            {
+                title: "Әлеуметтік желілер",
+                additionalText: null,
+                name: "socials",
+                reference: 2,
+                forms: [
+                    {
+                        type: "link",
+                        name: "web_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "Web",
+                        placeholder: "https://www.example.com"
+                    },
+                    {
+                        type: "link",
+                        name: "instagram_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "Instagram",
+                        placeholder: "https://www.example.com"
+                    },
+                    {
+                        type: "link",
+                        name: "telegram_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "Telegram",
+                        placeholder: "https://www.example.com"
+                    },
+                    {
+                        type: "link",
+                        name: "youtube_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "YouTube",
+                        placeholder: "https://www.example.com"
+                    },
+                    {
+                        type: "link",
+                        name: "linkedin_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "Linkedin",
+                        placeholder: "https://www.example.com"
+                    },
+                    {
+                        type: "link",
+                        name: "facebook_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "Facebook",
+                        placeholder: "https://www.example.com"
+                    },
+                ]
+            }
+        ],
+        "university":
+            {
+                title: "Басты ақпарат",
+                additionalText: null,
+                name: "main",
+                reference: 0,
+                forms: [
+                    {
+                        type: "text",
+                        name: "name",
+                        label: "Университеттің аты",
+                        placeholder: "Университеттің толық атауын енгізіңіз"
+                    },
+                    {
+                        type: "phone",
+                        name: "phone",
+                        label: "Қоңырау шалу нөмірі",
+                        placeholder: "+7"
+                    },
+                    {
+                        type: "email",
+                        name: "email",
+                        label: "Университеттің поштасы",
+                        placeholder: "example@info.kz"
+                    },
+                    {
+                        type: "number",
+                        name: "student-amount",
+                        label: "Студенттер саны",
+                        placeholder: "####"
+                    },
+                    {
+                        type: "number",
+                        name: "graduate-amount",
+                        label: "Түлектер саны",
+                        placeholder: "####"
+                    },
+                    {
+                        type: "number",
+                        name: "highlighting-amount",
+                        label: "Үздіктер саны",
+                        placeholder: "####"
+                    },
+                    {
+                        type: "text",
+                        name: "description",
+                        label: "Басты ақпарат",
+                        multiline: true,
+                        rows: 4,
+                        placeholder: "Университетті қысқаша сипаттаңыз"
+                    },
+                ]
+            }
+        ,
+        "student":
+            null
+        ,
+        "employer":
+            null
+        ,
+    },
+    "ru": {
         "*": [
             {
                 title: "Почта",
@@ -224,8 +433,171 @@ export const content = {
         "employer":
             null
         ,
-    }
-;
+    },
+    "en": {
+        "*": [
+            {
+                title: "Email",
+                additionalText: "Your current email is: ",
+                name: "email",
+                reference: 1,
+                forms: [{
+                    type: "email",
+                    name: "email",
+                    multiline: false,
+                    label: "New email*",
+                    placeholder: "Email"
+                }]
+            },
+            {
+                title: "Change your password",
+                additionalText: null,
+                name: "password",
+                reference: 2,
+                forms: [
+                    {
+                        type: "password",
+                        name: "password",
+                        multiline: false,
+                        label: "Current password*",
+                        placeholder: "Enter your current password"
+                    },
+                    {
+                        type: "password",
+                        name: "newPassword",
+                        multiline: false,
+                        label: "New passwords*",
+                        placeholder: "Enter new password"
+                    },
+                    {
+                        type: "password",
+                        name: "rePassword",
+                        multiline: false,
+                        label: "Verify new password*",
+                        placeholder: "Enter the verification of the new password"
+                    },
+                ]
+            },
+            {
+                title: "Social networks",
+                additionalText: null,
+                name: "socials",
+                reference: 2,
+                forms: [
+                    {
+                        type: "link",
+                        name: "web_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "Web",
+                        placeholder: "https://www.example.com"
+                    },
+                    {
+                        type: "link",
+                        name: "instagram_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "Instagram",
+                        placeholder: "https://www.example.com"
+                    },
+                    {
+                        type: "link",
+                        name: "telegram_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "Telegram",
+                        placeholder: "https://www.example.com"
+                    },
+                    {
+                        type: "link",
+                        name: "youtube_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "YouTube",
+                        placeholder: "https://www.example.com"
+                    },
+                    {
+                        type: "link",
+                        name: "linkedin_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "Linkedin",
+                        placeholder: "https://www.example.com"
+                    },
+                    {
+                        type: "link",
+                        name: "facebook_link",
+                        maxRows: 1,
+                        multiline: true,
+                        label: "Facebook",
+                        placeholder: "https://www.example.com"
+                    },
+                ]
+            }
+        ],
+        "university":
+            {
+                title: "Main information",
+                additionalText: null,
+                name: "main",
+                reference: 0,
+                forms: [
+                    {
+                        type: "text",
+                        name: "name",
+                        label: "University name",
+                        placeholder: "Enter te full name of the university"
+                    },
+                    {
+                        type: "phone",
+                        name: "phone",
+                        label: "Phone number",
+                        placeholder: "+7"
+                    },
+                    {
+                        type: "email",
+                        name: "email",
+                        label: "University email",
+                        placeholder: "example@info.kz"
+                    },
+                    {
+                        type: "number",
+                        name: "student-amount",
+                        label: "Number of students",
+                        placeholder: "####"
+                    },
+                    {
+                        type: "number",
+                        name: "graduate-amount",
+                        label: "Number of alumnis",
+                        placeholder: "####"
+                    },
+                    {
+                        type: "number",
+                        name: "highlighting-amount",
+                        label: "Number of outstanding students",
+                        placeholder: "####"
+                    },
+                    {
+                        type: "text",
+                        name: "description",
+                        label: "Main information",
+                        multiline: true,
+                        rows: 4,
+                        placeholder: "Briefly describe the university"
+                    },
+
+                ]
+            }
+        ,
+        "student":
+            null
+        ,
+        "employer":
+            null
+        ,
+    },
+};
 
 export const localization = {
     "kz": {
