@@ -21,11 +21,6 @@ export const navigation = {
             reference: 2,
             icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
         },
-        {
-            title: 'Удалить аккаунт',
-            reference: 3,
-            icon: <FastIcon name={"trash"} style={{marginRight: '0.5rem'}} color="primary"/>
-        }
     ],
     "ru":[
         {
@@ -43,11 +38,6 @@ export const navigation = {
             reference: 2,
             icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
         },
-        {
-            title: 'Удалить аккаунт',
-            reference: 3,
-            icon: <FastIcon name={"trash"} style={{marginRight: '0.5rem'}} color="primary"/>
-        }
     ],
     "en":[
         {
@@ -65,11 +55,6 @@ export const navigation = {
             reference: 2,
             icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
         },
-        {
-            title: 'Delete Account',
-            reference: 3,
-            icon: <FastIcon name={"trash"} style={{marginRight: '0.5rem'}} color="primary"/>
-        }
     ],
 };
 
