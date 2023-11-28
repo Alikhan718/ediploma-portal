@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Rating, Typography, useMediaQuery, Pagination } from '@mui/material';
+import { Box, Button, Rating, Typography, useMediaQuery, Pagination, Alert } from '@mui/material';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
@@ -65,6 +65,7 @@ function a11yProps(index: number) {
 	};
 }
 export const UniversityDetailsPageLayout: React.FC = () => {
+	const [isDataAlert, setIsDataAlert] = React.useState(false);
 	const lang = useSelector(selectLanguage);
 	const [showFull, setShowFull] = React.useState(false);
 	const [page, setPage] = useState(0);
@@ -117,7 +118,23 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 		textArea.select();
 		document.execCommand('copy');
 		document.body.removeChild(textArea);
+		setIsDataAlert(true);
 	};
+
+	useEffect(() => {
+		const handleScroll = () => {
+		  setIsDataAlert(false);
+		};
+	
+		if (isDataAlert) {
+		  window.addEventListener('scroll', handleScroll);
+		}
+	
+		return () => {
+		  window.removeEventListener('scroll', handleScroll);
+		};
+	}, [isDataAlert]);
+
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "center" /*backgroundColor: '#FAFBFF'*/ }}>
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
@@ -167,7 +184,8 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 										marginRight:'10px',
 										marginLeft:'10px',
 										width: '25px',
-										height: '25px', cursor: 'pointer'
+										height: '25px', 
+										cursor: 'pointer'
 									}}
 										onClick={copyCurrentURLToClipboard}
 										alt="Share Icon" />
@@ -597,6 +615,19 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 
 					</Box>
 			</Box>
+			{isDataAlert ? 
+			(<Alert 
+				sx={{
+					borderRadius:'10rem',
+					position:'fixed',
+					bottom:'2rem',
+					left:'2rem',
+				}}
+				severity="success"
+				>
+					{localization[lang].Alerts.copied}
+			</Alert>):
+			(<></>)}
 		</Box>
 	);
 };

@@ -632,6 +632,9 @@ export const localization = {
             smart: "Смарт-контакт",
             smartlink: "Смарт-контактқа сілтеме",
             finish: "Аяқтау"
+        },
+        Alerts: {
+            copied: "Көшірілді!",
         }
     },
     "ru": {
@@ -681,6 +684,9 @@ export const localization = {
             smart: "Смарт-контакт",
             smartlink: "Ссылка на смарт-контакт",
             finish: "Завершить"
+        },
+        Alerts: {
+            copied: "Скопировано!",
         }
     },
     "en": {
@@ -730,7 +736,9 @@ export const localization = {
             smart: "Smart-contact",
             smartlink: "Link to smart-contract",
             finish: "Finish"
-
+        },
+        Alerts: {
+            copied: "Copied!",
         }
     },
 }
