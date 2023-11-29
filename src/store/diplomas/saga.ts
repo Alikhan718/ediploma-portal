@@ -10,9 +10,15 @@ import {
 } from "./types/types";
 import {handleResponseBase} from "@src/store/sagas";
 
-export function* fetchDiplomasRequest() {
+export function* fetchDiplomasRequest(action: any = null) {
     try {
-        const {data} = yield call(diplomasApi.getDiplomas, {page: 1, per_page: 800, university_id: null});
+        console.log("DIPLOMAS:", action);
+        let university_id = null;
+        if (action && action.payload && action.payload.university_id) {
+            university_id = action.payload.university_id;
+        }
+        console.log("DIPLOMAS2:", university_id);
+        const {data} = yield call(diplomasApi.getDiplomas, {page: 1, per_page: 800, university_id: university_id});
 
         yield put({type: GET_DIPLOMAS.success, payload: data});
 

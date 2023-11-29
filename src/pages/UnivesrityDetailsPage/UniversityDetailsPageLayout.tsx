@@ -108,7 +108,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 	const dispatch = useDispatch();
 	const userRole = useSelector(selectUserRole);
 	useEffect(() => {
-		dispatch(fetchDiplomas());
+		dispatch(fetchDiplomas({university_id: 1}));
 	}, []);
 	const defaultS = 3.5;
 	const copyCurrentURLToClipboard = () => {
