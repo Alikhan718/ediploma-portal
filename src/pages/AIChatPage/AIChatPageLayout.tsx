@@ -9,8 +9,8 @@ export const AIChatLayout: React.FC = () => {
     const [inputText, setInputText] = useState('');
     const [messages, setMessages] = useState([
         {
-            text: 'Hello, I am a chatbot. How can I help you? I can help you with the generating the job description, finding the right candidates.',
-            type: 'bot'
+            role: 'system',
+            content: 'Hello, I am a chatbot. How can I help you? I can help you with the generating the job description, finding the right candidates.',
         },
     ]);
     const boxRef = useRef(null);
@@ -33,26 +33,31 @@ export const AIChatLayout: React.FC = () => {
         setMessages((prevMessages) => [
             ...prevMessages,
             {
-                text: inputText,
-                type: 'user',
+                role: 'user',
+                content: inputText,
             },
         ]);
     
         setInputText('');
         setResponse('');
         setIsLoading(true);
-        setMessages((prevMessages) => [
-            ...prevMessages,
+        
+        const newMessages = [
+            ...messages,
             {
-                text: '',
-                type: 'bot',
+                role: 'user',
+                content: inputText,
             },
-        ]);
+        ];
+
+        const last10messages = newMessages.slice(-10)
+
+        const endpoint:string = `https://agile-job-desc-denerator.onrender.com/chat`;
 
         try {
-            const response = await fetch('https://agile-job-desc-denerator.onrender.com/generate-from-task',{
+            const response = await fetch(endpoint,{
                 method: "POST",
-                body: JSON.stringify({prompt: inputText}),
+                body: JSON.stringify({messages: last10messages}),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -63,10 +68,19 @@ export const AIChatLayout: React.FC = () => {
         } catch(error) {
             console.log(error);
         }
+
+        setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+                role: 'system',
+                content: '',
+            },
+        ]);
+
     };
 
     useEffect(()=>{
-        const endpoint:string = `https://agile-job-desc-denerator.onrender.com/stream-text?sessionId=${sessionId}`;
+        const endpoint:string = `https://agile-job-desc-denerator.onrender.com/chat-stream?sessionId=${sessionId}`;
 
         const eventSource = new EventSource(endpoint);
 
@@ -96,7 +110,7 @@ export const AIChatLayout: React.FC = () => {
             return;
         }
 
-        lastMessage.text = response;
+        lastMessage.content = response;
 
         setMessages((prevMessages) => [
             ...prevMessages,
@@ -124,15 +138,15 @@ export const AIChatLayout: React.FC = () => {
                             <Box 
                                 key={el}
                                 className={styles.cardItem}
-                                sx={{ alignSelf: el.type === 'bot' ? 'flex-start' : 'flex-end' }}
+                                sx={{ alignSelf: el.role === 'system' ? 'flex-start' : 'flex-end' }}
                             >
                                 <Typography 
                                     fontSize="1rem"
                                     color="white"
-                                    textAlign={el.type==='bot' ? 'left' : 'right'} 
+                                    textAlign={el.role === 'system' ? 'left' : 'right'} 
                                     className={styles.mobTextMd}
                                 >
-                                    {el.text.split('<br>').map((paragraph: string, index: number) => (
+                                    {el.content.split('<br>').map((paragraph: string, index: number) => (
                                         <span key={index}>
                                             {paragraph.split(urlRegex).map((part:string, idx:number) => {
                                                 if (urlRegex.test(part)) {
@@ -148,7 +162,7 @@ export const AIChatLayout: React.FC = () => {
                                                     </span>
                                                 );
                                             })}
-                                            {index < el.text.split('<br>').length - 1 && <br />}
+                                            {index < el.content.split('<br>').length - 1 && <br />}
                                         </span>
                                     ))}
                                 </Typography>
