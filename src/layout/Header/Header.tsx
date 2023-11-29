@@ -214,6 +214,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
             openLogoutModal();
         } else {
             setActiveNav(item.id);
+            handleCloseMenu();
+            navigate(item.to);
         }
     };
     const handleCloseMenu = () => {
