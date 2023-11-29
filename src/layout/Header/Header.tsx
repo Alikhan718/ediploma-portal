@@ -281,7 +281,19 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 </InputAdornment>
                             }
                         />
-                        <HeaderSearchIcon className="app-icon-img"/>
+                        <Box className="app-icon-img">
+                            <IconButton
+                                style={{
+                                    cursor: 'pointer',
+                                    minHeight: '2.5rem',
+                                    minWidth: '3rem'
+                                }}
+                                onClick={(event) => {
+                                }}
+                            >
+                                <HeaderSearchIcon/>
+                            </IconButton>
+                        </Box>
                         <Divider orientation="vertical"
                                  style={{
                                      borderLeftWidth: "1px",
@@ -333,7 +345,18 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                      borderColor: "grey",
                                      height: "1.5rem",
                                  }}/>
-                        <ModeIcon style={{cursor: 'pointer'}} className="app-icon"/>
+                        <IconButton
+                            style={{
+                                cursor: 'pointer',
+                                minHeight: '2.5rem',
+                                width: '3rem'
+                            }}
+                            onClick={(event) => {
+                            }}
+                        >
+                            <ModeIcon/>
+                        </IconButton>
+
                         <Divider orientation="vertical"
                                  style={{
                                      borderLeftWidth: "1px",
@@ -500,15 +523,16 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             justifyContent='flex-end'
                             gap=".5rem"
                             className="diploma-btn-container">
-                            <IconButton
-                                style={{
-                                    cursor: 'pointer',
-                                    minHeight: '2.5rem',
-                                    minWidth: '3rem'
-                                }}
-                            >
-                                <HeaderSearchIcon style={{alignSelf: "center"}}/>
-                            </IconButton>
+                                <IconButton
+                                    style={{
+                                        cursor: 'pointer',
+                                        minHeight: '2.5rem',
+                                        minWidth: '3rem'
+                                    }}
+                                >
+                                    <HeaderSearchIcon style={{alignSelf: "center"}}/>
+                                </IconButton>
+
                             <IconButton
                                 style={{
                                     cursor: 'pointer',
