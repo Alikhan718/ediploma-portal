@@ -86,9 +86,6 @@ export const StudentPageLayout: React.FC = () => {
         return showFull ? text : text.substring(0, trimLimit) + "...";
     };
 
-    const handleCardClick = (counter: number) => {
-        navigate(`/diploma/${counter}/details`);
-    };
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {

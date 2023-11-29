@@ -447,9 +447,9 @@ export const QLabPageLayout: React.FC = () => {
                                 {currentDiplomaPage.map((e: any) => (
 
                                     <Box
-                                        key={e.counter}
+                                        key={e.id}
                                         onClick={() => {
-                                            navigate(`/diploma/${e.counter!}/details`);
+                                            navigate(`/diploma/${e.id!}`);
                                         }}
                                         className={styles.diplomaItem}
                                         sx={{
