@@ -297,7 +297,7 @@ const SettingsPage: React.FC = () => {
                                                     type={el.type}
                                                     name={el.name}
                                                     placeholder={el.placeholder}
-                                                    errorText={'Some error message'}
+                                                    // errorText={'Some error message'}
                                                 />
                                             </Grid>
                                             //
