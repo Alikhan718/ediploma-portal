@@ -128,7 +128,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     };
     const checkSecondHeaderRoute = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates'];
+        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates',];
         for (const item of secondHeaderEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return true;
@@ -212,6 +212,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     const handleLogoutClick = (item: DropdownItem) => {
         if (item.verticalAlign === "red") {
             openLogoutModal();
+            console.log("Выйти");
         } else {
             setActiveNav(item.id);
             handleCloseMenu();
@@ -739,6 +740,43 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 </Typography>
                             </MenuItem>
                         ))}
+                        <Modal
+                            open={isLogoutModalOpen}
+                            handleClose={closeLogoutModal}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
+
+                                <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1.2rem'
+                                            fontWeight='600'
+                                >
+                                    {localization.logout[lang]}
+                                </Typography>
+                                <Button variant='contained' sx={{
+                                    marginTop: "1rem",
+                                    padding: "1rem",
+                                    width: "80%",
+                                    fontSize: "1rem",
+                                    fontWeight: "600",
+                                    borderRadius: "2rem"
+                                }} onClick={() => {
+                                    closeLogoutModal();
+                                    dispatch(fetchLogoutAction());
+                                    navigate(routes.login);
+                                }}>{localization.log[lang]}</Button>
+                                <Button variant='outlined' sx={{
+                                    marginTop: "1rem",
+                                    padding: "1rem",
+                                    width: "80%",
+                                    fontSize: "1rem",
+                                    fontWeight: "600",
+                                    borderRadius: "2rem"
+                                }} onClick={() => {
+                                    closeLogoutModal();
+                                }}>{localization.cancel[lang]}</Button>
+                            </Box>
+                        </Modal>
 
                     </Menu>
                     {/*<Modal*/}
