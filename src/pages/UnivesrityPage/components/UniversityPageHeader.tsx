@@ -58,7 +58,7 @@ export const UniversityPageHeader: React.FC = (props) => {
 						}}>
 							<Box display="flex" width="100%" flexWrap="wrap" flexDirection="row" gap="1rem"
 								alignItems="center">
-								<Button
+								{/* <Button
 									onClick={() => {
 										// setShowFilter(true);
 									}}
@@ -67,7 +67,7 @@ export const UniversityPageHeader: React.FC = (props) => {
 									startIcon={<Filter />}
 								>
 									{localization[lang].Header.filter}
-								</Button>
+								</Button> */}
 
 								<Box display="flex" gap="1rem" ml="auto" alignContent="flex-end">
 									{/* <img src={secuniv} style={{marginRight: '15px',}}/>
