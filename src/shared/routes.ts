@@ -10,6 +10,7 @@ export const routes: Record<string, string> = {
 	university: `${appRoot}/university`,
 	universityDetails: `${appRoot}/university/:id`,
 	universityProfileSecond: `${appRoot}/university/profile`,
+	qLab: `${appRoot}/university/qlab`,
 	aboutUs: `${appRoot}/about-us`,
 	vacancies: `${appRoot}/vacancies`,
 	news: `${appRoot}/news`,

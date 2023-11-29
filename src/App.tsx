@@ -15,7 +15,7 @@ import {
 	EmployerPage,
 	UniversityProfilePage,
 	UniversityDeatailPage, AnalysisPage, NotFoundPage,
-	Serverpage, AIChatPage
+	Serverpage, AIChatPage, QLabPage
 } from '@src/pages';
 import { withLayout } from '@src/layout/Layout';
 import { routes } from '@src/shared/routes';
@@ -71,6 +71,7 @@ const App: React.FC = () => {
 					{/*{hasPermission(userRoles, permissions["notifications"]) && <Route path={routes.notifications} element={<Notifications/>}/>}*/}
 					<Route path={routes.notFound} element={<NotFoundPage />} />
 					<Route path={routes.server} element={<Serverpage />} />
+					<Route path={routes.qLab} element={<QLabPage />} />
 					{<Route path='*' element={<Navigate to={routes.notFound} />} />}
 				</Routes>
 			}
