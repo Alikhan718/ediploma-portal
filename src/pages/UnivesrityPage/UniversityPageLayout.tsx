@@ -25,7 +25,7 @@ export const UniversityPageLayout: React.FC = () => {
 						key={index} item xs={12} sm={6} md={6} lg={5.5} // Use 6 columns to fit 2 cards in a row
 						onClick={() => {
 							if (index === 0) {
-								navigate(routes.universityProfile);
+								navigate(routes.universityDetails);
 							} else if (index === 1) {
 								navigate(routes.universityProfileSecond);
 							}
@@ -66,7 +66,7 @@ export const UniversityPageLayout: React.FC = () => {
 									{index === 0 ? localization[lang].UniCards.nameKBTU :
 										localization[lang].UniCards.nameSU}
 								</Typography>
-								<Box display='flex'>
+								{/* <Box display='flex'>
 									<Typography className={styles.textSm} sx={{
 										display: 'flex',
 										alignItems: 'center',
@@ -78,7 +78,7 @@ export const UniversityPageLayout: React.FC = () => {
 											emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
 										/>
 									</Typography>
-								</Box>
+								</Box> */}
 								<Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>
 									{localization[lang].UniCards.majors} {index === 0 ? 24 : 12}
 								</Typography>
