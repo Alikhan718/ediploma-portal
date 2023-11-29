@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
 	Box, Button, Rating, Typography, useMediaQuery, Pagination,
-	InputAdornment, Grid, Container
+	InputAdornment, Grid, Container, Alert
 } from '@mui/material';
 import { ReactComponent as HeaderSearchIcon } from '@src/assets/icons/search.svg';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
@@ -64,7 +64,7 @@ function a11yProps(index: number) {
 }
 export const UniversityDeatailPage: React.FC = () => {
 	const lang = useSelector(selectLanguage);
-
+	const [isDataAlert, setIsDataAlert] = React.useState(false);
 	const [showFull, setShowFull] = React.useState(false);
 	const [page, setPage] = useState(0);
 	const diplomaList = useSelector(selectDiplomaList);
@@ -116,7 +116,23 @@ export const UniversityDeatailPage: React.FC = () => {
 		textArea.select();
 		document.execCommand('copy');
 		document.body.removeChild(textArea);
+		setIsDataAlert(true);
 	};
+
+	useEffect(() => {
+		const handleScroll = () => {
+		  setIsDataAlert(false);
+		};
+
+		if (isDataAlert) {
+		  window.addEventListener('scroll', handleScroll);
+		}
+
+		return () => {
+		  window.removeEventListener('scroll', handleScroll);
+		};
+	}, [isDataAlert]);
+
 	return (
 		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'>
 			<Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
@@ -168,6 +184,7 @@ export const UniversityDeatailPage: React.FC = () => {
 											marginLeft: '10px',
 											width: '25px',
 											height: '25px',
+											cursor: 'pointer',
 										}} onClick={copyCurrentURLToClipboard} />
 										<img src={dots} style={{
 											marginRight: '10px',
@@ -537,6 +554,19 @@ export const UniversityDeatailPage: React.FC = () => {
 
 				</Box>
 			</Box>
+			{isDataAlert ? 
+ 			(<Alert 
+ 				sx={{
+ 					borderRadius:'10rem',
+ 					position:'fixed',
+ 					bottom:'2rem',
+ 					left:'2rem',
+ 				}}
+ 				severity="success"
+ 				>
+ 					{localization[lang].Alerts.copied}
+ 			</Alert>):
+ 			(<></>)}
 		</Box>
 	);
 };
