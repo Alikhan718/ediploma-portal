@@ -12,7 +12,6 @@ import {handleResponseBase} from "@src/store/sagas";
 
 export function* fetchDiplomasRequest(action: any = null) {
     try {
-        console.log("DIPLOMAS:", action);
         let university_id = null;
         if (action && action.payload && action.payload.university_id) {
             university_id = action.payload.university_id;

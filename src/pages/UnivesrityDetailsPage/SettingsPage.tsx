@@ -37,14 +37,13 @@ const SettingsPage: React.FC = () => {
 
     const userState = useSelector(selectUserState);
     const dispatch = useDispatch();
-    const [state, setState] = React.useState({});
-    console.log(userState);
+    const [state, setState] = React.useState<Record<string, any>>({});
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setState({ ...state, [e.target.name]: e.target.value });
+        setState({...state, [e.target.name]: e.target.value});
         console.log(state);
-	};
+    };
 
     const scrollToMainInfo = () => {
         if (mainInfoContainerRef.current) {
@@ -94,6 +93,11 @@ const SettingsPage: React.FC = () => {
     React.useEffect(() => {
         dispatch(fetchUserProfile());
     }, [!userState]);
+
+    React.useEffect(() => {
+        setState(userState);
+    }, [userState]);
+
     const getGridSize = (elType: string, index: number) => {
         index = index + 1;
         let n = 12;
@@ -246,7 +250,7 @@ const SettingsPage: React.FC = () => {
                                                     type={el.type}
                                                     name={el.name}
                                                     disabled={el!.disabled ?? false}
-                                                    value={userState[el.name]}
+                                                    value={state[el.name] || ''}
                                                     placeholder={el.placeholder}
                                                     onChange={handleChange}
                                                     // errorText={'Some error message'}
@@ -258,7 +262,8 @@ const SettingsPage: React.FC = () => {
                                     {item.forms.length && (
                                         <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
                                             <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                                            <Button sx={{}} variant="contained" borderRadius="3rem" onClick={handleSubmit}>Сохранить</Button>
+                                            <Button sx={{}} variant="contained" borderRadius="3rem"
+                                                    onClick={handleSubmit}>Сохранить</Button>
                                         </Box>
                                     )}
                                 </Container>

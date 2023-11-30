@@ -9,7 +9,7 @@ import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDiplomaList} from "@src/store/diplomas/selectors";
 import styles from "./DiplomaPage.module.css";
-import diplomaTemplate from "@src/assets/example/diploma_template.jpg";
+import diplomaTemplate from "@src/assets/example/diploma_template.svg";
 import {Button, Modal} from "@src/components";
 import {isAuthenticated} from "@src/utils/userAuth";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";

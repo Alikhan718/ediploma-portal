@@ -50,7 +50,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
 	React.useEffect(() => {
 		dispatch(fetchDiplomas());
-	}, [!diplomaList]);
+	}, []);
 
 	React.useEffect(() => {
 		setData(diplomaList.filter((diploma: any) => diploma.id == id)[0]);

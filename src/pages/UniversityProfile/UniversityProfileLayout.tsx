@@ -109,7 +109,7 @@ export const UniversityProfileLayout: React.FC = () => {
 	};
 	useEffect(() => {
 		dispatch(fetchDiplomas());
-	},);
+	}, [!totalDiplomas]);
 	const handlePrevPage = () => {
 		setPage((prevPage) => prevPage - 1);
 	};
