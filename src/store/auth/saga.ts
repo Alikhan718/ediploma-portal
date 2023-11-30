@@ -7,7 +7,12 @@ import {
     GET_OTP,
     POST_RESET_PASSWORD,
     POST_VALIDATE_EMAIL,
-    POST_AUTH_WITH_DS, POST_SAVE_XML, GET_DIPLOMA_METADATA_CID, POST_GENERATE_SMART_CONTRACT, GET_PROFILE_DATA
+    POST_AUTH_WITH_DS,
+    POST_SAVE_XML,
+    GET_DIPLOMA_METADATA_CID,
+    POST_GENERATE_SMART_CONTRACT,
+    GET_PROFILE_DATA,
+    POST_UPDATE_PROFILE_DATA
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
@@ -136,6 +141,18 @@ export function* fetchProfileData(action: any) {
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
     }
 }
+export function* updateProfileData(action: any) {
+    try {
+        console.log("Payload", action);
+        const {data} = yield call(authApi.updateProfile, action.payload);
+        console.log("updateProfile", data);
+        yield put({type: POST_UPDATE_PROFILE_DATA.success, payload: data});
+        yield put(setSnackbar({visible: true, message: "Данные обновлены!", status: "success"}));
+    } catch (e) {
+        yield put({type: POST_UPDATE_PROFILE_DATA.error});
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+    }
+}
 
 export function* fetchGenerateSmartContract(action: any) {
     try {
@@ -157,6 +174,7 @@ export function* authSagas() {
     yield takeLatest(POST_VALIDATE_EMAIL.saga, fetchValidateEmail);
     yield takeLatest(POST_RESET_PASSWORD.saga, fetchResetPassword);
     yield takeLatest(GET_PROFILE_DATA.saga, fetchProfileData);
+    yield takeLatest(POST_UPDATE_PROFILE_DATA.saga, updateProfileData);
     yield takeLatest(GET_OTP.saga, fetchGetOtp);
     yield takeLatest(POST_SAVE_XML.saga, fetchSaveXml);
     yield takeLatest(GET_DIPLOMA_METADATA_CID.saga, fetchMetadataCid);

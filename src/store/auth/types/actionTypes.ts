@@ -8,6 +8,7 @@ export const POST_AUTH_REGISTER = new ActionType("POST_AUTH_REGISTER");
 export const POST_RESET_PASSWORD = new ActionType("POST_RESET_PASSWORD");
 export const GET_OTP = new ActionType("GET_OTP");
 export const GET_PROFILE_DATA = new ActionType("GET_PROFILE_DATA");
+export const POST_UPDATE_PROFILE_DATA = new ActionType("POST_UPDATE_PROFILE_DATA");
 export const AUTH_LOGOUT = new ActionType("AUTH_LOGOUT");
 export const POST_SAVE_XML = new ActionType("POST_SAVE_XML");
 export const GET_DIPLOMA_METADATA_CID = new ActionType("GET_DIPLOMA_METADATA_CID");

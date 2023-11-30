@@ -15,37 +15,49 @@ import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
 import FastIcon from '@src/components/FastIcon/FastIcon';
 import {useDispatch, useSelector} from "react-redux";
 import {selectUserRole, selectUserState} from '@src/store/auth/selector';
-import {fetchUserProfile} from "@src/store/auth/actionCreators";
+import {fetchUpdateUserProfile, fetchUserProfile} from "@src/store/auth/actionCreators";
 import {content, navigation} from "@src/pages/UnivesrityDetailsPage/generator";
-import { selectLanguage } from "@src/store/generals/selectors";
+import {selectLanguage} from "@src/store/generals/selectors";
 
 const SettingsPage: React.FC = () => {
-    const lang = useSelector(selectLanguage);
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = event.target.files?.[0];
-        if (selectedFile) {
 
-            setSelectedImage(URL.createObjectURL(selectedFile));
-        }
-    };
+    const lang = useSelector(selectLanguage);
 
     const mainInfoContainerRef = useRef<HTMLDivElement | null>(null);
+    const emailBoxRef: RefObject<HTMLDivElement> = useRef(null);
+    const passwordBoxRef: RefObject<HTMLDivElement> = useRef(null);
+    const deleteAccountBoxRef: RefObject<HTMLDivElement> = useRef(null);
+    const notificationBoxRef: RefObject<HTMLDivElement> = useRef(null);
+
+    type ContentKey = keyof typeof content[typeof lang];
+
+    const role: ContentKey = useSelector(selectUserRole).toLowerCase();
+    const langContent = content[lang];
+    const [requiredForm, setRequiredForm] = React.useState<any>(langContent[role]);
+
+    const userState = useSelector(selectUserState);
+    const dispatch = useDispatch();
+    const [state, setState] = React.useState({});
+    console.log(userState);
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setState({ ...state, [e.target.name]: e.target.value });
+        console.log(state);
+	};
+
     const scrollToMainInfo = () => {
         if (mainInfoContainerRef.current) {
             mainInfoContainerRef.current.scrollIntoView({behavior: 'smooth'});
         }
     };
-    const emailBoxRef: RefObject<HTMLDivElement> = useRef(null);
-    const passwordBoxRef: RefObject<HTMLDivElement> = useRef(null);
-    const deleteAccountBoxRef: RefObject<HTMLDivElement> = useRef(null);
 
-    const notificationBoxRef: RefObject<HTMLDivElement> = useRef(null);
-
-	type ContentKey = keyof typeof content[typeof lang];
-	const role: ContentKey = useSelector(selectUserRole).toLowerCase();
-    const langContent = content[lang];
-	const [requiredForm, setRequiredForm] = React.useState<any>(langContent[role]);
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
+        if (selectedFile) {
+            setSelectedImage(URL.createObjectURL(selectedFile));
+        }
+    };
 
     const getRefById = (id: number): RefObject<HTMLDivElement> => {
         switch (id) {
@@ -69,23 +81,19 @@ const SettingsPage: React.FC = () => {
         }
     };
 
-    const userState = useSelector(selectUserState);
-    const dispatch = useDispatch();
+    const handleSubmit = () => {
+        const payload = {"attributes": state};
+        dispatch(fetchUpdateUserProfile(payload));
+    };
+
+    React.useEffect(() => {
+        setRequiredForm(langContent[role]);
+        console.log(requiredForm);
+    }, [requiredForm, lang]);
+
     React.useEffect(() => {
         dispatch(fetchUserProfile());
-
-        // console.log("SOMEHTING:");
     }, [!userState]);
-    console.log(userState);
-    React.useEffect(() => {
-		setRequiredForm(langContent[role]);
-		console.log(requiredForm);
-	}, [requiredForm, lang]);
-	React.useEffect(() => {
-		dispatch(fetchUserProfile());
-	}, [!userState]);
-
-    const [state, setState] = React.useState({});
     const getGridSize = (elType: string, index: number) => {
         index = index + 1;
         let n = 12;
@@ -195,65 +203,6 @@ const SettingsPage: React.FC = () => {
                     </Box>
                 </Container>
 
-
-                {/*{requiredForm && requiredForm.forms && (*/}
-                {/*    <Container*/}
-                {/*        sx={{*/}
-                {/*            marginTop: "1rem",*/}
-                {/*            backgroundColor: 'white',*/}
-                {/*            borderRadius: '30px',*/}
-                {/*            paddingTop: '20px',*/}
-                {/*            paddingBottom: "1rem",*/}
-                {/*            display: 'flex',*/}
-                {/*            flexDirection: 'column',*/}
-                {/*            justifyContent: 'flex-start',*/}
-                {/*            width: '55vw', maxWidth: '100%',*/}
-                {/*            '@media (max-width: 778px)': {*/}
-                {/*                width: '92vw', marginLeft: '1rem'*/}
-                {/*            },*/}
-                {/*        }}*/}
-                {/*        ref={getRefById(requiredForm.reference)}*/}
-                {/*    >*/}
-                {/*        <Typography variant="h6" fontWeight="600">{requiredForm.title}</Typography>*/}
-                {/*        <Typography sx={{*/}
-                {/*            fontSize: '16px',*/}
-                {/*            paddingBottom: '15px'*/}
-                {/*        }}> {(requiredForm.additionalText ? requiredForm.additionalText : "") + " " + (userState[requiredForm.name] ? userState[requiredForm.name] : "")}</Typography>*/}
-                {/*        <Grid*/}
-                {/*            container*/}
-                {/*            spacing={[3, 2]}*/}
-                {/*        >*/}
-                {/*            {requiredForm.forms && requiredForm.forms.map((el: any, index2: number) => (*/}
-                {/*                <Grid item*/}
-                {/*                      xs={el.multiline ? 12 : getGridSize("xs", index2)}*/}
-                {/*                      sm={el.multiline ? 12 : getGridSize("sm", index2)}*/}
-                {/*                      md={el.multiline ? 12 : getGridSize("md", index2)}*/}
-                {/*                      lg={el.multiline ? 12 : getGridSize("lg", index2)}*/}
-                {/*                      key={index2}>*/}
-                {/*                    <Label label={el.label}/>*/}
-                {/*                    <Input*/}
-                {/*                        type={el.type}*/}
-                {/*                        name={el.name}*/}
-                {/*                        sx={{*/}
-                {/*                            borderRadius: el.multiline ? '1.5rem' : '30px',*/}
-                {/*                            padding: el.multiline ? '0' : '',*/}
-                {/*                        }}*/}
-                {/*                        placeholder={el.placeholder}*/}
-                {/*                        multiline={el.multiline}*/}
-                {/*                        minRows={el.rows}*/}
-                {/*                    />*/}
-                {/*                </Grid>*/}
-                {/*            ))}*/}
-                {/*        </Grid>*/}
-                {/*        {requiredForm.forms && (*/}
-                {/*            <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>*/}
-                {/*                <Button sx={{marginRight: '16px'}}>Отменить</Button>*/}
-                {/*                <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>*/}
-                {/*            </Box>*/}
-                {/*        )}*/}
-                {/*    </Container>*/}
-                {/*)}*/}
-
                 {[requiredForm, ...content[lang]['*']].map((item, index) => {
                         if (item) {
 
@@ -296,7 +245,10 @@ const SettingsPage: React.FC = () => {
                                                 <Input
                                                     type={el.type}
                                                     name={el.name}
+                                                    disabled={el!.disabled ?? false}
+                                                    value={userState[el.name]}
                                                     placeholder={el.placeholder}
+                                                    onChange={handleChange}
                                                     // errorText={'Some error message'}
                                                 />
                                             </Grid>
@@ -306,7 +258,7 @@ const SettingsPage: React.FC = () => {
                                     {item.forms.length && (
                                         <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
                                             <Button sx={{marginRight: '16px'}}>Отменить</Button>
-                                            <Button sx={{}} variant="contained" borderRadius="3rem">Сохранить</Button>
+                                            <Button sx={{}} variant="contained" borderRadius="3rem" onClick={handleSubmit}>Сохранить</Button>
                                         </Box>
                                     )}
                                 </Container>

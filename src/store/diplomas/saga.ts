@@ -17,7 +17,6 @@ export function* fetchDiplomasRequest(action: any = null) {
         if (action && action.payload && action.payload.university_id) {
             university_id = action.payload.university_id;
         }
-        console.log("DIPLOMAS2:", university_id);
         const {data} = yield call(diplomasApi.getDiplomas, {page: 1, per_page: 800, university_id: university_id});
 
         yield put({type: GET_DIPLOMAS.success, payload: data});

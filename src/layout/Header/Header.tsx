@@ -212,7 +212,6 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     const handleLogoutClick = (item: DropdownItem) => {
         if (item.verticalAlign === "red") {
             openLogoutModal();
-            console.log("Выйти");
         } else {
             setActiveNav(item.id);
             handleCloseMenu();

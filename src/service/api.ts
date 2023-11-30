@@ -87,6 +87,9 @@ export const authApi = {
     },
     getProfile() {
         return instance.get(`/users/profile`);
+    },
+    updateProfile(body: any) {
+        return instance.post(`/users/profile`, body);
     }
 };
 

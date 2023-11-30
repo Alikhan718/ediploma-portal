@@ -8,7 +8,6 @@ export const Label: React.FC<LabelProps> = (props) => {
         helper,
         ...otherProps
     } = props;
-    console.log(helper);
     return (
         <Box display='flex' alignItems='center' justifyContent='space-between' mb='3px'>
             <FormLabel
