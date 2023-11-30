@@ -4,7 +4,7 @@ export const routes: Record<string, string> = {
 	login: `/auth/login`,
 	register: `/auth/register`,
 	passwordReset: `/auth/password-reset`,
-	main: `${appRoot}/`,
+	main: `${appRoot}`,
 	hrBank: `${appRoot}/hr-bank`,
 	diplomaDetails: `${appRoot}/diploma/:id`,
 	university: `${appRoot}/university`,
