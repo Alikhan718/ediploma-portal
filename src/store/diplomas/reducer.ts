@@ -2,8 +2,10 @@ import {
     CANCEL_FILTER,
     GET_CHECK_IIN,
     GET_DIPLOMAS,
+    GET_FAVORITE_DIPLOMAS,
     GET_GRADUATE_DETAILS,
     GET_SEARCH,
+    POST_TOOGLE_FAVORITE_DIPLOMAS,
 } from "./types/types";
 
 interface DiplomaInterface {
@@ -18,6 +20,7 @@ interface DiplomaInterface {
     gpaR: number,
     filtered_names: string[],
     graduate_attributes: any[],
+    favoriteDiplomas: any[],
 }
 
 const initialState: DiplomaInterface = {
@@ -32,6 +35,7 @@ const initialState: DiplomaInterface = {
     gpaR: 0,
     filtered_names: [],
     graduate_attributes: [],
+    favoriteDiplomas: [],
 };
 
 const diplomaReducer = (state = initialState, action: any) => {
@@ -106,6 +110,46 @@ const diplomaReducer = (state = initialState, action: any) => {
                 ...state,
                 iinValidated: false,
                 filtered_names: action.names,
+            };
+        case POST_TOOGLE_FAVORITE_DIPLOMAS.success:
+            let temp_favorite_diplomas = [];
+            if (state.filtered_names.length) {
+                temp_favorite_diplomas = action.payload.filter((diploma: any) => state.filtered_names.includes(diploma.name_en));
+            } else {
+                temp_favorite_diplomas = action.payload;
+            }
+            return {
+                ...state,
+                favoriteDiplomas: temp_favorite_diplomas,
+                filtered_names: state.filtered_names,
+            };
+        case POST_TOOGLE_FAVORITE_DIPLOMAS.error:
+            return {
+                ...state,
+                isFetching: false,
+            };
+        case GET_FAVORITE_DIPLOMAS.saga:
+                return {
+                    ...state,
+                    isFetching: true,
+                };
+        case GET_FAVORITE_DIPLOMAS.success:
+            let temp_fav_diploma_list = [];
+            if (state.filtered_names.length) {
+                temp_fav_diploma_list = action.payload.filter((diploma: any) => state.filtered_names.includes(diploma.name_en));
+            } else {
+                temp_fav_diploma_list = action.payload;
+            }
+            return {
+                ...state,
+                favoriteDiplomas: temp_fav_diploma_list,
+                filtered_names: state.filtered_names,
+                isFetching: false,
+            };
+        case GET_FAVORITE_DIPLOMAS.error:
+            return {
+                ...state,
+                isFetching: false,
             };
         default:
             return state; // Add this line to return the current state for unhandled actions
