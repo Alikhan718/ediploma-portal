@@ -9,8 +9,8 @@ import { ReactComponent as TwitterIcon } from '@src/assets/icons/twitter_black.s
 import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiplomas } from "@src/store/diplomas/actionCreators";
-import { selectDiplomaList } from "@src/store/diplomas/selectors";
+import { fetchFavoriteDiplomas } from "@src/store/diplomas/actionCreators";
+import { selectFavoriteDiplomas } from "@src/store/diplomas/selectors";
 import { AnalyticsCard } from '@src/pages/UnivesrityDetailsPage/components/AnalyticsCard';
 import { FacultyGraph } from '@src/pages/UnivesrityDetailsPage/components/FacultyGraph';
 import { AnalyticsGraph } from '@src/pages/UnivesrityDetailsPage/components/AnalyticsGraph';
@@ -69,18 +69,18 @@ export const EmployerPageLayout: React.FC = () => {
 		document.body.removeChild(textArea);
 	};
 	const [currentPage, setCurrentPage] = useState(1);
-	const diplomaList = useSelector(selectDiplomaList);
+	const favoriteDiplomas = useSelector(selectFavoriteDiplomas);
 	const diplomasPerPage = 10;
 	const startIndex = (currentPage - 1) * diplomasPerPage;
 	const endIndex = startIndex + diplomasPerPage;
-	const totalDiplomas = diplomaList.length;
+	const totalDiplomas = favoriteDiplomas.length;
 	const totalPages = Math.ceil(totalDiplomas / diplomasPerPage);
-	const currentDiplomaPage = diplomaList.slice(startIndex, endIndex);
+	const currentFavoriteDiplomaPage = favoriteDiplomas.slice(startIndex, endIndex);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(fetchDiplomas());
+		dispatch(fetchFavoriteDiplomas());
 	}, []);
 
 	const prevPage = () => {
@@ -405,8 +405,7 @@ export const EmployerPageLayout: React.FC = () => {
 								}}
 							>
 
-								{currentDiplomaPage.map((e: any) => (
-
+								{currentFavoriteDiplomaPage.map((e: any) => (
 									<Box
 										key={e.id}
 										onClick={() => {

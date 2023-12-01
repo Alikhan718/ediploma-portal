@@ -19,6 +19,7 @@ import { ReactComponent as Dots } from "@src/assets/icons/Dots.svg";
 import pen from "./../../assets/icons/penSquare.svg";
 import { ReactComponent as Eye } from "@src/assets/icons/eye.svg";
 import { ReactComponent as Star } from "@src/assets/icons/star.svg";
+import { ReactComponent as StarPressed } from "@src/assets/icons/StarPressed.svg";
 import { ReactComponent as Check } from "@src/assets/icons/checkss.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { SwitchDetails } from "@src/pages/DiplomaDetailsPage/components/SwitchDetails";
@@ -27,8 +28,8 @@ import userImg from "@src/assets/dashboard/Image.jpg";
 import cn from "classnames";
 import { routes } from "@src/shared/routes";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiplomas, fetchGraduateDetails } from "@src/store/diplomas/actionCreators";
-import { selectDiplomaList } from "@src/store/diplomas/selectors";
+import { fetchDiplomas, fetchGraduateDetails, fetchToogleFavoriteDiplomas, fetchFavoriteDiplomas } from "@src/store/diplomas/actionCreators";
+import { selectDiplomaList, selectToogleFavoriteDiplomas, selectFavoriteDiplomas} from "@src/store/diplomas/selectors";
 import { isAuthenticated } from "@src/utils/userAuth";
 import { handleDownload } from "@src/utils/link";
 import { selectUserRole, selectUserState } from "@src/store/auth/selector";
@@ -43,6 +44,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const role = useSelector(selectUserRole);
+	const [isFavorite, setIsFavorite] = React.useState(false);
 
 	const [data, setData] = React.useState<any>();
 
@@ -92,6 +94,28 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 	const handlePreviewClose = () => {
 		setPreviewOpen(false);
 	};
+
+	const initialFavDiplomas = useSelector(selectFavoriteDiplomas);
+	React.useEffect(()=>{
+		dispatch(fetchFavoriteDiplomas());
+
+		if(initialFavDiplomas){
+			setIsFavorite(initialFavDiplomas.some((item: {id: number}) => item.id === Number(id)));
+		}
+	},[])
+
+
+	const favoriteDiplomas = useSelector(selectToogleFavoriteDiplomas);
+	React.useEffect(() => {
+		if(favoriteDiplomas){
+			setIsFavorite(favoriteDiplomas.some((item: {id: number}) => item.id === Number(id)));
+		}
+	},[favoriteDiplomas]);
+
+	const handleToogleFavoriteDiplomas = async () => {
+		dispatch(fetchToogleFavoriteDiplomas({ diploma_id: id }));
+	};
+
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "center" }}>
 			<Box display='flex' flexWrap='wrap'>
@@ -155,8 +179,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 										</Typography>
 										{id != undefined &&
 											<Box marginBottom="15px">
-												<IconButton sx={{ width: "2.5rem" }}>
-													<Star />
+												<IconButton 
+													sx={{ width: "2.5rem" }}
+													onClick={handleToogleFavoriteDiplomas}>
+													{isFavorite ? <StarPressed /> : <Star />}
 												</IconButton>
 												<IconButton
 													sx={{ width: "2.5rem", height: "2.5rem" }}
