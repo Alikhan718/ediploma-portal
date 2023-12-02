@@ -10,7 +10,7 @@ import {
     GET_DIPLOMA_METADATA_CID,
     AUTH_LOGOUT,
     GET_PROFILE_DATA,
-    POST_UPDATE_PROFILE_DATA
+    POST_UPDATE_PROFILE_DATA, POST_UPLOAD_FILE,
 } from "./types/actionTypes";
 
 export const fetchLoginRequest = (payload: any) => ({
@@ -69,5 +69,10 @@ export const fetchUpdateUserProfile = (payload: any) => ({
 
 export const fetchPostGenerateSmartContract = (payload: any) => ({
     type: GET_DIPLOMA_METADATA_CID.saga,
+    payload
+});
+
+export const fetchUploadFile = (payload: any) => ({
+    type: POST_UPLOAD_FILE.saga,
     payload
 });

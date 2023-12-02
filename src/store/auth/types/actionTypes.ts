@@ -13,3 +13,4 @@ export const AUTH_LOGOUT = new ActionType("AUTH_LOGOUT");
 export const POST_SAVE_XML = new ActionType("POST_SAVE_XML");
 export const GET_DIPLOMA_METADATA_CID = new ActionType("GET_DIPLOMA_METADATA_CID");
 export const POST_GENERATE_SMART_CONTRACT = new ActionType("POST_GENERATE_SMART_CONTRACT");
+export const POST_UPLOAD_FILE = new ActionType("POST_UPLOAD_FILE");

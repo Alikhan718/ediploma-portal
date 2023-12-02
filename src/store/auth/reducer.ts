@@ -10,7 +10,7 @@ import {
     POST_SAVE_XML,
     GET_DIPLOMA_METADATA_CID,
     POST_GENERATE_SMART_CONTRACT,
-    GET_PROFILE_DATA, POST_UPDATE_PROFILE_DATA
+    GET_PROFILE_DATA, POST_UPDATE_PROFILE_DATA, POST_UPLOAD_FILE
 } from "./types/actionTypes";
 
 const initialState = {
@@ -23,10 +23,16 @@ const initialState = {
     redirectToLogin: false,
     forgotStep: 1, // [1 - send code, 2 - confirm code, 3 - change pass]
     registrationStep: 1, // [1 - send code, 2 - email validated, 3 - registered]
-    userState: {}
+    userState: {},
+    image_link: null,
 };
 export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
+        case POST_UPLOAD_FILE.success:
+            return {
+                ...state,
+                image_link: action.data,
+            };
         case AUTH_LOGOUT.success:
             localStorage.clear();
             return {

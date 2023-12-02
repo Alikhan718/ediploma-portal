@@ -90,6 +90,18 @@ export const authApi = {
     },
     updateProfile(body: any) {
         return instance.post(`/users/profile`, body);
+    },
+    uploadFile(body: { file: File }) {
+        const formData = new FormData();
+        formData.append('file', body.file, body.file.name);
+        formData.append('university_id', "1");
+
+        // Send the file using axios
+        return instance.post(`/upload`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
     }
 };
 

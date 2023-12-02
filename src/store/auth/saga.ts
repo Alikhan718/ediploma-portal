@@ -12,7 +12,7 @@ import {
     GET_DIPLOMA_METADATA_CID,
     POST_GENERATE_SMART_CONTRACT,
     GET_PROFILE_DATA,
-    POST_UPDATE_PROFILE_DATA
+    POST_UPDATE_PROFILE_DATA, POST_UPLOAD_FILE
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
@@ -141,6 +141,7 @@ export function* fetchProfileData(action: any) {
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
     }
 }
+
 export function* updateProfileData(action: any) {
     try {
         console.log("Payload", action);
@@ -165,6 +166,14 @@ export function* fetchGenerateSmartContract(action: any) {
     }
 }
 
+export function* uploadFileRequest(action: any) {
+    yield call(handleResponseBase, {
+        type: POST_UPLOAD_FILE,
+        apiCall: authApi.uploadFile,
+        action,
+    });
+}
+
 export function* authSagas() {
     yield takeLatest(POST_AUTH_LOGIN.saga, fetchAuthLogin);
     yield takeLatest(POST_AUTH_REGISTER.saga, fetchAuthRegister);
@@ -179,4 +188,5 @@ export function* authSagas() {
     yield takeLatest(POST_SAVE_XML.saga, fetchSaveXml);
     yield takeLatest(GET_DIPLOMA_METADATA_CID.saga, fetchMetadataCid);
     yield takeLatest(POST_GENERATE_SMART_CONTRACT.saga, fetchGenerateSmartContract);
+    yield takeLatest(POST_UPLOAD_FILE.saga, uploadFileRequest);
 }

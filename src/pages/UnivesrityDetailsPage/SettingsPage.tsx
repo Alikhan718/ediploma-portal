@@ -15,9 +15,14 @@ import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
 import FastIcon from '@src/components/FastIcon/FastIcon';
 import {useDispatch, useSelector} from "react-redux";
 import {selectUserRole, selectUserState} from '@src/store/auth/selector';
-import {fetchUpdateUserProfile, fetchUserProfile} from "@src/store/auth/actionCreators";
+import {
+    fetchUpdateUserProfile,
+    fetchUploadFile,
+    fetchUserProfile
+} from "@src/store/auth/actionCreators";
 import {content, navigation} from "@src/pages/UnivesrityDetailsPage/generator";
 import {selectLanguage} from "@src/store/generals/selectors";
+import {uploadDataParse} from "@src/store/generator/actionCreators";
 
 const SettingsPage: React.FC = () => {
 
@@ -39,10 +44,25 @@ const SettingsPage: React.FC = () => {
     const [state, setState] = React.useState<Record<string, any>>({});
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [file, setFile] = useState<File | null>(null);
+
+    const handleChooseFileClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        const uploadedFile = event.target.files?.[0] || null;
+        dispatch(fetchUploadFile({file: uploadedFile}));
+
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // if (e.target.value.trim().length) {
-            setState({...state, [e.target.name]: e.target.value});
-            console.log(state);
+        setState({...state, [e.target.name]: e.target.value});
+        console.log(state);
         // }
         // else {
         //     setState({...state, [e.target.name]: null});
@@ -209,7 +229,23 @@ const SettingsPage: React.FC = () => {
                             marginTop: '-70px',
                         }}
                     >
-                        <img src={add}/>
+
+                            <img src={add}
+                                 onClick={handleChooseFileClick}
+                                 style={{
+                                     cursor: 'pointer',
+                                 }}
+                            />
+                            <input
+                                type="file"
+                                accept=".jpg,.jpeg,.png, .svg, .webp`, .*"
+                                onChange={handleFileUpload}
+                                style={{
+                                    display: "none",
+                                }}
+                                ref={fileInputRef}
+                            />
+
                     </Box>
                 </Container>
 

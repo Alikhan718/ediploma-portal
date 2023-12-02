@@ -161,7 +161,7 @@ export const UniversityProfileLayout: React.FC = () => {
             handleLink(link);
         };
         if (name.includes('linkedin')) {
-            return <Linkedin className={styles.social} onClick={onClick} />;
+            return <Linkedin className={styles.social} onClick={onClick}/>;
         }
         if (name.includes('facebook')) {
             return <Facebook className={styles.social} onClick={onClick}/>;
@@ -182,15 +182,15 @@ export const UniversityProfileLayout: React.FC = () => {
     };
 
     return (
-        <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer}>
-            <Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
-
-                <Box className={styles.upperContainer}>
+        <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem'>
+            <Box display='flex' flexWrap='wrap' justifyContent="center"
+                className={styles.mainContainer}>
+                <Box className={styles.upperContainer} sx={{borderRadius: '16px', backgroundColor: "white"}}>
                     <Box display='flex' flexDirection='row'>
 
                         <Box display='flex' flexDirection='column' sx={{borderRadius: '15px',}}>
                             <UniversityProfileHeader/>
-                            <Box>
+                            <Box px="3%">
                                 <Box
                                     display="flex"
                                     alignItems="center"
