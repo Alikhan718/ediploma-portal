@@ -40,8 +40,13 @@ const SettingsPage: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setState({...state, [e.target.name]: e.target.value});
-        console.log(state);
+        // if (e.target.value.trim().length) {
+            setState({...state, [e.target.name]: e.target.value});
+            console.log(state);
+        // }
+        // else {
+        //     setState({...state, [e.target.name]: null});
+        // }
     };
 
     const scrollToMainInfo = () => {
@@ -241,6 +246,7 @@ const SettingsPage: React.FC = () => {
                                     </Typography>
                                     <Grid
                                         container
+                                        justifyContent="center"
                                         spacing={[3, 2]}
                                     >
                                         {item.forms.map((el: any, index2: number) => (

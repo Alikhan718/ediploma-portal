@@ -284,6 +284,16 @@ export const content = {
                 placeholder: "####"
             },
             {
+                type: "number",
+                name: "average_gpa",
+                label: {
+                    "en": "Average GPA",
+                    "kz": "Орташа GPA",
+                    "ru": "Средний GPA"
+                },
+                placeholder: "####"
+            },
+            {
                 type: "text",
                 name: "description",
                 label: {
@@ -369,7 +379,6 @@ export const content = {
             {
                 type: "text",
                 name: "name",
-                disabled: true,
                 label: {
                     "kz": "Толық аты жөніңіз",
                     "ru": "Полное имя",
@@ -405,6 +414,51 @@ export const content = {
                     "kz": "Университетті қысқаша сипаттаңыз",
                     "ru": "Описание университета",
                 }
+            },
+            {
+                type: "text",
+                name: "position",
+                label: {
+                    "en": "Position",
+                    "kz": "Қызметі",
+                    "ru": "Должность"
+                },
+                multiline: true,
+                placeholder: {
+                    "en": "for ex. Founder",
+                    "kz": "Мысалы Негізін қалаушы",
+                    "ru": "Например Основатель"
+                },
+            },
+            {
+                type: "number",
+                name: "branches_amount",
+                label: {
+                    "en": "Number of Branches",
+                    "kz": "Филиалдар саны",
+                    "ru": "Кол-во филлиалов"
+                },
+                placeholder: "####"
+            },
+            {
+                type: "number",
+                name: "vacancy_amount",
+                label: {
+                    "en": "Open Vacancies",
+                    "kz": "Бос жұмыс орындар",
+                    "ru": "Открытых ваканскии"
+                },
+                placeholder: "####"
+            },
+            {
+                type: "number",
+                name: "hired_amount",
+                label: {
+                    "en": "Employees Hired",
+                    "kz": "Жұмысқа алынғандар саны",
+                    "ru": "Нанято сотрудников"
+                },
+                placeholder: "####"
             },
         ]
     },
