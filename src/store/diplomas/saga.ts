@@ -7,6 +7,8 @@ import {
     GET_DIPLOMAS,
     GET_GRADUATE_DETAILS,
     GET_SEARCH,
+    POST_TOOGLE_FAVORITE_DIPLOMAS,
+    GET_FAVORITE_DIPLOMAS,
 } from "./types/types";
 import {handleResponseBase} from "@src/store/sagas";
 
@@ -78,6 +80,26 @@ export function* fetchGraduateDetailsRequest(action: any) {
     });
 }
 
+export function* fetchToogleFavoriteDiplomasRequest(action: any) {
+    try {
+        const {data} = yield call(diplomasApi.toogleFavoriteDiplomas, action.payload);
+        yield put({type: POST_TOOGLE_FAVORITE_DIPLOMAS.success, payload: data});
+    } catch (e) {
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+        yield put({type: POST_TOOGLE_FAVORITE_DIPLOMAS.error});
+    }
+};
+
+export function* fetchFavoriteDiplomasRequest(action: any) {
+    try {
+        const {data} = yield call(diplomasApi.getFavoriteDiplomas);
+        yield put({type: GET_FAVORITE_DIPLOMAS.success, payload: data});
+    } catch (e) {
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+        yield put({type: GET_FAVORITE_DIPLOMAS.error});
+    }
+};
+
 
 export function* diplomaSaga() {
     yield all([
@@ -85,5 +107,7 @@ export function* diplomaSaga() {
         takeLatest(GET_CHECK_IIN.saga, fetchCheckIINRequest),
         takeLatest(GET_SEARCH.saga, fetchSearchRequest),
         takeLatest(GET_GRADUATE_DETAILS.saga, fetchGraduateDetailsRequest),
+        takeLatest(POST_TOOGLE_FAVORITE_DIPLOMAS.saga, fetchToogleFavoriteDiplomasRequest),
+        takeLatest(GET_FAVORITE_DIPLOMAS.saga, fetchFavoriteDiplomasRequest),
     ]);
 }

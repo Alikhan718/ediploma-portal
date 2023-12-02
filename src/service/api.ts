@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {data} from "browserslist";
 
-const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+// const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+const baseURL = 'http://localhost:8080';
 const generatorURL = process.env.REACT_APP_GENERATOR_API_BASE_URL;
 
 const instance = axios.create({
@@ -162,6 +163,12 @@ export const diplomasApi = {
             return;
         }
         return instance.get(`graduate-details?name=${body.name}`);
+    },
+    toogleFavoriteDiplomas(body: { diploma_id: number }) {
+        return instance.post(`/users/favorite-diplomas/toogle`, body);
+    },
+    getFavoriteDiplomas() {
+        return instance.get(`/users/favorite-diplomas/get`);
     }
 };
 
