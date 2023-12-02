@@ -4,59 +4,36 @@ import {ReactComponent as PasswordIcon} from "@src/assets/icons/Password.svg";
 import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
 import FastIcon from "@src/components/FastIcon/FastIcon";
 
-export const navigation = {
-    "kz": [
-        {
-            title: 'Основная информация',
-            reference: 0,
-            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+export const navigation = [
+
+    {
+        title: {
+            "en": "Main information",
+            "ru": 'Основная информация',
+            "kz": 'Жеке ақпарат'
         },
-        {
-            title: 'Почта',
-            reference: 1,
-            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        reference: 0,
+        icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    },
+    {
+        title: {
+            "en": "Email",
+            "ru": 'Email',
+            "kz": 'Email'
         },
-        {
-            title: 'Пароль',
-            reference: 2,
-            icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+        reference: 1,
+        icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    },
+    {
+        title: {
+            "en": "Password",
+            "ru": 'Пароль',
+            "kz": 'Кұпия сөз'
         },
-    ],
-    "ru": [
-        {
-            title: 'Основная информация',
-            reference: 0,
-            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
-        },
-        {
-            title: 'Почта',
-            reference: 1,
-            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
-        },
-        {
-            title: 'Пароль',
-            reference: 2,
-            icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
-        },
-    ],
-    "en": [
-        {
-            title: 'Main information',
-            reference: 0,
-            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
-        },
-        {
-            title: 'Email',
-            reference: 1,
-            icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
-        },
-        {
-            title: 'Password',
-            reference: 2,
-            icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
-        },
-    ],
-};
+        reference: 2,
+        icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    },
+];
 
 const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -92,6 +69,7 @@ const validateField = (type: string, val: string) => {
             return true;
     }
 };
+
 const socialForms = [
     {
         type: "link",
@@ -134,516 +112,301 @@ const socialForms = [
         placeholder: "https://www.example.com"
     },
 ];
-//
-// {
-//                         type: "link",
-//                         name: "web_link",
-//                         maxRows: 1,
-//                         multiline: true,
-//                         label: "Web",
-//                         placeholder: "https://www.example.com"
-//                     },
+
 export const content = {
-    "kz": {
-        "*": [
-            {
-                title: "Пошта",
-                additionalText: "Сіздің қазіргі поштаныз бұл: ",
+    "*": [
+        {
+            title: {
+                "en": "Email",
+                "kz": "Email",
+                "ru": "Email"
+            },
+            additionalText: {
+                "en": "Your current email is: ",
+                "kz": "Сіздің қазіргі поштаныз бұл: ",
+                "ru": "Ваша текущая почта: "
+            },
+            name: "email",
+            reference: 1,
+            forms: [{
+                type: "email",
                 name: "email",
-                reference: 1,
-                forms: [{
-                    type: "email",
-                    name: "email",
+                multiline: false,
+                label: {
+                    "en": "New email*",
+                    "kz": "Жаңа пошта*",
+                    "ru": "Новая почта*"
+                },
+                placeholder: "Email"
+            }]
+        },
+        {
+            title: {
+                "en": "Change your password",
+                "kz": "Құпия сөзді өзгертіңіз",
+                "ru": "Смена пароля"
+            },
+            additionalText: null,
+            name: "password",
+            reference: 2,
+            forms: [
+                {
+                    type: "password",
+                    name: "password",
                     multiline: false,
-                    label: "Жаңа пошта*",
-                    placeholder: "Email"
-                }]
+                    label: {
+                        "en": "Current password*",
+                        "kz": "Қазіргі қүпия сөз*",
+                        "ru": "Текущий пароль*"
+                    },
+                    placeholder: {
+                        "en": "Enter your current password",
+                        "kz": "Қазіргі қүпия сөзінізді енгізіңіз",
+                        "ru": "Введите текущий пароль"
+                    }
+                },
+                {
+                    type: "password",
+                    name: "newPassword",
+                    multiline: false,
+                    label: {
+                        "en": "New passwords*",
+                        "kz": "Жаңа құпия сөз*",
+                        "ru": "Новый пароль*"
+                    },
+                    placeholder: {
+                        "en": "Enter new password",
+                        "kz": "Жаңа құпия сөзінізді енгізіңіз",
+                        "ru": "Введите новый пароль"
+                    }
+                },
+                {
+                    type: "password",
+                    name: "rePassword",
+                    multiline: false,
+                    label: {
+                        "en": "Verify new password*",
+                        "kz": "Жаңа құпия сөзінізді растаңыз*",
+                        "ru": "Подтвердите новый пароль"
+                    },
+                    placeholder: {
+                        "en": "Verify new password*",
+                        "kz": "Жаңа құпия сөзінізді растаңыз*",
+                        "ru": "Подтвердите новый пароль"
+                    },
+                },
+            ]
+        },
+        {
+            title: {
+                "en": "Social networks",
+                "kz": "Әлеуметтік желілер",
+                "ru": "Социальные сети"
+            },
+            additionalText: null,
+            name: "socials",
+            reference: 2,
+            forms: socialForms
+        }
+    ],
+    "university": {
+        title: {
+            "en": "Main information",
+            "kz": "Басты ақпарат",
+            "ru": "Основная информация"
+        },
+        additionalText: null,
+        name: "main",
+        reference: 0,
+        forms: [
+            {
+                type: "text",
+                name: "name",
+                label: {
+                    "en": "University name",
+                    "kz": "Университеттің аты",
+                    "ru": "Название университета"
+                },
+                placeholder: {
+                    "en": "Enter full name of the university",
+                    "kz": "Университеттің толық атауын енгізіңіз",
+                    "ru": "Введите имя университета"
+                }
             },
             {
-                title: "Құпия сөзді өзгертіңіз",
-                additionalText: null,
-                name: "password",
-                reference: 2,
-                forms: [
-                    {
-                        type: "password",
-                        name: "password",
-                        multiline: false,
-                        label: "Қазіргі қүпия сөз*",
-                        placeholder: "Қазіргі қүпия сөзінізді енгізіңіз"
-                    },
-                    {
-                        type: "password",
-                        name: "newPassword",
-                        multiline: false,
-                        label: "Жаңа құпия сөз*",
-                        placeholder: "Жаңа құпия сөзінізді енгізіңіз"
-                    },
-                    {
-                        type: "password",
-                        name: "rePassword",
-                        multiline: false,
-                        label: "Жаңа құпия сөзінізді растаңыз*",
-                        placeholder: "Жаңа құпия сөзінізді растаңыз"
-                    },
-                ]
+                type: "phone",
+                name: "phone",
+                label: {
+                    "en": "Phone number",
+                    "kz": "Қоңырау шалу нөмірі",
+                    "ru": "Номер телефона"
+                },
+                placeholder: "+7"
             },
             {
-                title: "Әлеуметтік желілер",
-                additionalText: null,
-                name: "socials",
-                reference: 2,
-                forms: socialForms
-            }
-        ],
-        "university": {
-            title: "Басты ақпарат",
-            additionalText: null,
-            name: "main",
-            reference: 0,
-            forms: [
-                {
-                    type: "text",
-                    name: "name",
-                    label: "Университеттің аты",
-                    placeholder: "Университеттің толық атауын енгізіңіз"
+                type: "email",
+                name: "email",
+                label: {
+                    "en": "University email",
+                    "kz": "Университеттің поштасы",
+                    "ru": "Email университета"
                 },
-                {
-                    type: "phone",
-                    name: "phone",
-                    label: "Қоңырау шалу нөмірі",
-                    placeholder: "+7"
+                placeholder: "example@info.kz"
+            },
+            {
+                type: "number",
+                name: "student_amount",
+                label: {
+                    "en": "Number of students",
+                    "kz": "Студенттер саны",
+                    "ru": "Количество студентов"
                 },
-                {
-                    type: "email",
-                    name: "email",
-                    label: "Университеттің поштасы",
-                    placeholder: "example@info.kz"
+                placeholder: "####"
+            },
+            {
+                type: "number",
+                name: "graduate_amount",
+                label: {
+                    "en": "Number of alumnis",
+                    "kz": "Түлектер саны",
+                    "ru": "Количество алгоритмов"
                 },
-                {
-                    type: "number",
-                    name: "student_amount",
-                    label: "Студенттер саны",
-                    placeholder: "####"
+                placeholder: "####"
+            },
+            {
+                type: "number",
+                name: "highlighting_amount",
+                label: {
+                    "en": "Number of highlighting students",
+                    "kz": "Үздіктер саны",
+                    "ru": "Количество студентов с отличием"
                 },
-                {
-                    type: "number",
-                    name: "graduate_amount",
-                    label: "Түлектер саны",
-                    placeholder: "####"
+                placeholder: "####"
+            },
+            {
+                type: "text",
+                name: "description",
+                label: {
+                    "en": "Description",
+                    "kz": "Сипаттама",
+                    "ru": "Описание"
                 },
-                {
-                    type: "number",
-                    name: "highlighting_amount",
-                    label: "Үздіктер саны",
-                    placeholder: "####"
-                },
-                {
-                    type: "text",
-                    name: "description",
-                    label: "Басты ақпарат",
-                    multiline: true,
-                    rows: 4,
-                    placeholder: "Университетті қысқаша сипаттаңыз"
-                },
-                {
-                    type: "link",
-                    name: "web_link",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Web",
-                    placeholder: "https://www.example.com"
-                },
-            ]
-        },
-        "student": {
-            title: "Личная информация",
-            additionalText: null,
-            name: "main",
-            reference: 0,
-            forms: [
-                {
-                    type: "text",
-                    name: "name",
-                    disabled: true,
-                    label: "Толық аты жөніңіз",
-                    placeholder: ""
-                },
-                {
-                    type: "link",
-                    name: "resume_link",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Резюмеңізге сілтеме",
-                    placeholder: "https://www.example.com"
-                },
-                {
-                    type: "phone",
-                    name: "phone",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Телефон нөміріңіз",
-                    placeholder: "+7"
-                },
-            ]
-        },
-        "employer": {
-            title: "Личная информация",
-            additionalText: null,
-            name: "main",
-            reference: 0,
-            forms: [
-                {
-                    type: "text",
-                    name: "name",
-                    disabled: true,
-                    label: "First name",
-                    placeholder: ""
-                },
-                {
-                    type: "phone",
-                    name: "phone",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Mobile phone",
-                    placeholder: "+7"
-                },
-            ]
-        },
+                multiline: true,
+                rows: 4,
+                placeholder: {
+                    "en": "Briefly describe the university",
+                    "kz": "Университетті қысқаша сипаттаңыз",
+                    "ru": "Описание университета",
+                }
+            },
+            {
+                type: "link",
+                name: "web_link",
+                maxRows: 1,
+                multiline: true,
+                label: "Web",
+                placeholder: "https://www.example.com"
+            },
+        ]
     },
-    "ru": {
-        "*": [
+    "student": {
+        title: {
+            "en": "Personal information",
+            "kz": "Жеке ақпарат",
+            "ru": "Личная информация"
+        },
+        additionalText: null,
+        name: "main",
+        reference: 0,
+        forms: [
             {
-                title: "Почта",
-                additionalText: "Ваш текущий email это: ",
-                name: "email",
-                reference: 1,
-                forms: [{
-                    type: "email",
-                    name: "email",
-                    multiline: false,
-                    label: "Новый адрес*",
-                    placeholder: "Email"
-                }]
+                type: "text",
+                name: "name",
+                disabled: true,
+                label: {
+                    "kz": "Толық аты жөніңіз",
+                    "ru": "Полное имя",
+                    "en": "Full name"
+                },
+                placeholder: ""
             },
             {
-                title: "Измените свой пароль",
-                additionalText: null,
-                name: "password",
-                reference: 2,
-                forms: [
-                    {
-                        type: "password",
-                        name: "password",
-                        multiline: false,
-                        label: "Текущий пароль*",
-                        placeholder: "Введите текущий пароль"
-                    },
-                    {
-                        type: "password",
-                        name: "newPassword",
-                        multiline: false,
-                        label: "Новый пароль*",
-                        placeholder: "Введите новый пароль"
-                    },
-                    {
-                        type: "password",
-                        name: "rePassword",
-                        multiline: false,
-                        label: "Подтвердите новый пароль*",
-                        placeholder: "Введите подтверждение нового пароля"
-                    },
-                ]
+                type: "link",
+                name: "resume_link",
+                maxRows: 1,
+                multiline: true,
+                label: {
+                    "kz": "Резюмеңізге сілтеме",
+                    "ru": "Ссылка на резюме",
+                    "en": "Resume link"
+                },
+                placeholder: "https://www.example.com"
             },
             {
-                title: "Социальные сети",
-                additionalText: null,
-                name: "socials",
-                reference: 2,
-                forms: socialForms
-            }
-        ],
-        "university": {
-            title: "Основная информация",
-            additionalText: null,
-            name: "main",
-            reference: 0,
-            forms: [
-                {
-                    type: "text",
-                    name: "name",
-                    label: "Название университета",
-                    placeholder: "Введите полное название университета"
+                type: "phone",
+                name: "phone",
+                maxRows: 1,
+                multiline: true,
+                label: {
+                    "en": "Mobile phone",
+                    "kz": "Телефон нөміріңіз",
+                    "ru": "Номер телефона"
                 },
-                {
-                    type: "phone",
-                    name: "phone",
-                    label: "Номер телефона",
-                    placeholder: "+7"
-                },
-                {
-                    type: "email",
-                    name: "email",
-                    label: "Почта университета",
-                    placeholder: "example@info.kz"
-                },
-                {
-                    type: "number",
-                    name: "student_amount",
-                    label: "Кол-во студентов",
-                    placeholder: "####"
-                },
-                {
-                    type: "number",
-                    name: "graduate_amount",
-                    label: "Кол-во выпускников",
-                    placeholder: "####"
-                },
-                {
-                    type: "number",
-                    name: "highlighting_amount",
-                    label: "Кол-во c отличием",
-                    placeholder: "####"
-                },
-                {
-                    type: "text",
-                    name: "description",
-                    label: "Основная информация",
-                    multiline: true,
-                    rows: 4,
-                    placeholder: "Опишите кратко про университет"
-                },
-                {
-                    type: "link",
-                    name: "web_link",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Web",
-                    placeholder: "https://www.example.com"
-                },
-            ]
-        },
-        "student": {
-            title: "Личная информация",
-            additionalText: null,
-            name: "main",
-            reference: 0,
-            forms: [
-                {
-                    type: "text",
-                    name: "name",
-                    disabled: true,
-                    label: "ФИО",
-                    placeholder: ""
-                },
-                {
-                    type: "link",
-                    name: "resume_link",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Ссылка на резюме",
-                    placeholder: "https://www.example.com"
-                },
-                {
-                    type: "phone",
-                    name: "phone",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Номер телефона",
-                    placeholder: "+7"
-                },
-            ]
-        },
-        "employer": {
-            title: "Личная информация",
-            additionalText: null,
-            name: "main",
-            reference: 0,
-            forms: [
-                {
-                    type: "text",
-                    name: "name",
-                    disabled: true,
-                    label: "First name",
-                    placeholder: ""
-                },
-                {
-                    type: "phone",
-                    name: "phone",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Mobile phone",
-                    placeholder: "+7"
-                },
-            ]
-        },
+                placeholder: "+7"
+            },
+        ]
     },
-    "en": {
-        "*": [
+    "employer": {
+        title: {
+            "en": "Personal information",
+            "kz": "Жеке ақпарат",
+            "ru": "Личная информация"
+        },
+        additionalText: null,
+        name: "main",
+        reference: 0,
+        forms: [
             {
-                title: "Email",
-                additionalText: "Your current email is: ",
-                name: "email",
-                reference: 1,
-                forms: [{
-                    type: "email",
-                    name: "email",
-                    multiline: false,
-                    label: "New email*",
-                    placeholder: "Email"
-                }]
+                type: "text",
+                name: "name",
+                disabled: true,
+                label: {
+                    "kz": "Толық аты жөніңіз",
+                    "ru": "Полное имя",
+                    "en": "Full name"
+                },
+
+                placeholder: ""
             },
             {
-                title: "Change your password",
-                additionalText: null,
-                name: "password",
-                reference: 2,
-                forms: [
-                    {
-                        type: "password",
-                        name: "password",
-                        multiline: false,
-                        label: "Current password*",
-                        placeholder: "Enter your current password"
-                    },
-                    {
-                        type: "password",
-                        name: "newPassword",
-                        multiline: false,
-                        label: "New passwords*",
-                        placeholder: "Enter new password"
-                    },
-                    {
-                        type: "password",
-                        name: "rePassword",
-                        multiline: false,
-                        label: "Verify new password*",
-                        placeholder: "Enter the verification of the new password"
-                    },
-                ]
+                type: "phone",
+                name: "phone",
+                maxRows: 1,
+                multiline: true,
+                label: {
+                    "en": "Mobile phone",
+                    "kz": "Телефон нөміріңіз",
+                    "ru": "Номер телефона"
+                },
+                placeholder: "+7"
             },
             {
-                title: "Social networks",
-                additionalText: null,
-                name: "socials",
-                reference: 2,
-                forms: socialForms
-            }
-        ],
-        "university": {
-            title: "Main information",
-            additionalText: null,
-            name: "main",
-            reference: 0,
-            forms: [
-                {
-                    type: "text",
-                    name: "name",
-                    label: "University name",
-                    placeholder: "Enter te full name of the university"
+                type: "text",
+                name: "description",
+                label: {
+                    "en": "Description",
+                    "kz": "Сипаттама",
+                    "ru": "Описание"
                 },
-                {
-                    type: "phone",
-                    name: "phone",
-                    label: "Phone number",
-                    placeholder: "+7"
-                },
-                {
-                    type: "email",
-                    name: "email",
-                    label: "University email",
-                    placeholder: "example@info.kz"
-                },
-                {
-                    type: "number",
-                    name: "student_amount",
-                    label: "Number of students",
-                    placeholder: "####"
-                },
-                {
-                    type: "number",
-                    name: "graduate_amount",
-                    label: "Number of alumnis",
-                    placeholder: "####"
-                },
-                {
-                    type: "number",
-                    name: "highlighting_amount",
-                    label: "Number of outstanding students",
-                    placeholder: "####"
-                },
-                {
-                    type: "text",
-                    name: "description",
-                    label: "Main information",
-                    multiline: true,
-                    rows: 4,
-                    placeholder: "Briefly describe the university"
-                },
-                {
-                    type: "link",
-                    name: "web_link",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Web",
-                    placeholder: "https://www.example.com"
-                },
-            ]
-        },
-        "student": {
-            title: "Personal information",
-            additionalText: null,
-            name: "main",
-            reference: 0,
-            forms: [
-                {
-                    type: "text",
-                    name: "name",
-                    disabled: true,
-                    label: "First name",
-                    placeholder: ""
-                },
-                {
-                    type: "link",
-                    name: "resume_link",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Resume link",
-                    placeholder: "https://www.example.com"
-                },
-                {
-                    type: "phone",
-                    name: "phone",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Mobile phone",
-                    placeholder: "+7"
-                },
-            ]
-        },
-        "employer": {
-            title: "Personal information",
-            additionalText: null,
-            name: "main",
-            reference: 0,
-            forms: [
-                {
-                    type: "text",
-                    name: "name",
-                    disabled: true,
-                    label: "First name",
-                    placeholder: ""
-                },
-                {
-                    type: "phone",
-                    name: "phone",
-                    maxRows: 1,
-                    multiline: true,
-                    label: "Mobile phone",
-                    placeholder: "+7"
-                },
-            ]
-        },
+                multiline: true,
+                rows: 4,
+                placeholder: {
+                    "en": "Briefly describe the university",
+                    "kz": "Университетті қысқаша сипаттаңыз",
+                    "ru": "Описание университета",
+                }
+            },
+        ]
     },
 };
 

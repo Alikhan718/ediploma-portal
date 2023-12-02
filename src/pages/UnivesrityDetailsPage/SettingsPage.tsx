@@ -29,11 +29,10 @@ const SettingsPage: React.FC = () => {
     const deleteAccountBoxRef: RefObject<HTMLDivElement> = useRef(null);
     const notificationBoxRef: RefObject<HTMLDivElement> = useRef(null);
 
-    type ContentKey = keyof typeof content[typeof lang];
+    type ContentKey = keyof typeof content;
 
     const role: ContentKey = useSelector(selectUserRole).toLowerCase();
-    const langContent = content[lang];
-    const [requiredForm, setRequiredForm] = React.useState<any>(langContent[role]);
+    const [requiredForm, setRequiredForm] = React.useState<any>(content[role]);
 
     const userState = useSelector(selectUserState);
     const dispatch = useDispatch();
@@ -86,7 +85,7 @@ const SettingsPage: React.FC = () => {
     };
 
     React.useEffect(() => {
-        setRequiredForm(langContent[role]);
+        setRequiredForm(content[role]);
         console.log(requiredForm);
     }, [requiredForm, lang]);
 
@@ -145,7 +144,7 @@ const SettingsPage: React.FC = () => {
                                 justifyContent: 'flex-start',
                             }}
                         >
-                            {navigation[lang].map((item, index) => (
+                            {navigation.map((item, index) => (
                                 <Box
                                     key={index}
                                     sx={{
@@ -163,7 +162,9 @@ const SettingsPage: React.FC = () => {
                                     }}
                                 >
                                     {item.icon}
-                                    <Box sx={{flex: 1, color: 'gray', fontSize: '1rem'}}>{item.title}</Box>
+                                    <Box sx={{flex: 1, color: 'gray', fontSize: '1rem'}}>
+                                        {item.title[lang] ?? ""}
+                                    </Box>
                                 </Box>
                             ))}
                         </Box>
@@ -207,7 +208,7 @@ const SettingsPage: React.FC = () => {
                     </Box>
                 </Container>
 
-                {[requiredForm, ...content[lang]['*']].map((item, index) => {
+                {[requiredForm, ...content['*']].map((item, index) => {
                         if (item) {
 
                             return (
@@ -229,11 +230,15 @@ const SettingsPage: React.FC = () => {
                                     }}
                                     ref={getRefById(item.reference)}
                                 >
-                                    <Typography variant="h6" fontWeight="600">{item.title}</Typography>
+                                    <Typography variant="h6" fontWeight="600">
+                                        {item.title ? item.title[lang] : ""}
+                                    </Typography>
                                     <Typography sx={{
                                         fontSize: '16px',
                                         paddingBottom: '15px'
-                                    }}> {(item.additionalText ? item.additionalText : "") + " " + (userState[item.name] ? userState[item.name] : "")}</Typography>
+                                    }}>
+                                        {(item.additionalText ? item.additionalText[lang] : "") + " " + (userState[item.name] ? userState[item.name] : "")}
+                                    </Typography>
                                     <Grid
                                         container
                                         spacing={[3, 2]}
@@ -245,13 +250,16 @@ const SettingsPage: React.FC = () => {
                                                   md={el.multiline ? 12 : getGridSize("md", index2)}
                                                   lg={el.multiline ? 12 : getGridSize("lg", index2)}
                                                   key={index2}>
-                                                <Label label={el.label}/>
+                                                <Label label={el.label ? (el.label[lang] ?? el.label) : ""}/>
                                                 <Input
                                                     type={el.type}
                                                     name={el.name}
                                                     disabled={el!.disabled ?? false}
                                                     value={state[el.name] || ''}
-                                                    placeholder={el.placeholder}
+                                                    minRows={el.rows ?? 1}
+                                                    reducePadding={(el.multiline ?? false) && el.rows > 1}
+                                                    multiline={(el.multiline ?? false) && el.rows > 1}
+                                                    placeholder={el.placeholder ? (el.placeholder[lang] ?? el.placeholder) : ""}
                                                     onChange={handleChange}
                                                     // errorText={'Some error message'}
                                                 />
