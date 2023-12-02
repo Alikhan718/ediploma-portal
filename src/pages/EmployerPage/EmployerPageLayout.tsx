@@ -81,13 +81,13 @@ export const EmployerPageLayout: React.FC = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchFavoriteDiplomas());
-	}, []);
+	}, [!favoriteDiplomas]);
 
 	const prevPage = () => {
 		if (currentPage > 1) {
 			setCurrentPage((prevPage) => prevPage - 1);
 		}
-	}
+	};
 
 	const [value, setValue] = React.useState(0);
 
