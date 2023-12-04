@@ -53,6 +53,7 @@ for (let i = 0; i < instances.length; i++) {
                 }
             }
             return Promise.reject(error);
+            // hi
         }
     );
 }
