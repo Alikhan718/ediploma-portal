@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {
     Box, CardContent, CardMedia, Grid, Typography,
-    Skeleton, Pagination, useMediaQuery
+    Skeleton, Pagination, useMediaQuery, Alert, Snackbar
 } from '@mui/material';
 import {DiplomaPageHeader} from "@src/pages/DiplomaPage/components/DiplomaPageHeader";
 import {useNavigate} from "react-router-dom";
 import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDiplomaList} from "@src/store/diplomas/selectors";
+import { selectUserRole, selectUserState } from "@src/store/auth/selector";
 import styles from "./DiplomaPage.module.css";
 import diplomaTemplate from "@src/assets/example/diploma_template.svg";
 import {Button, Modal} from "@src/components";
@@ -33,7 +34,17 @@ export const DiplomaPageLayout: React.FC = () => {
 
     const isMobile = useMediaQuery('(max-width:998px)');
 
+    const [alertOpen, setAlertOpen] = useState(false);
+    const handleAlertClose = () => {
+		setAlertOpen(false);
+	};
+
     const handleCardClick = (counter: number) => {
+        if (role === 'Student' && counter != data.id) {
+            setAlertOpen(true);
+            return;
+        }
+
         isAuthenticated() ? navigate(`/diploma/${counter}`) : setOpen(true);
     };
 
@@ -55,6 +66,15 @@ export const DiplomaPageLayout: React.FC = () => {
             setCurrentPage(currentPage - 1);
         }
     };
+
+    const role = useSelector(selectUserRole);
+	const userState = useSelector(selectUserState);
+	const [data, setData] = useState<any>();
+
+	useEffect(() => {
+		setData(userState);
+		console.log(userState);
+	}, [userState]);
 
     const startDiplomaIndex = (currentPage - 1) * diplomasPerPage;
     const endDiplomaIndex = currentPage * diplomasPerPage;
@@ -98,7 +118,7 @@ export const DiplomaPageLayout: React.FC = () => {
                 {diplomaList ? (
                     displayedDiplomas.map((e: any) => (
                         <Grid key={e.id} item xs={12} sm={5.9} md={3.9} lg={2.9}
-                              onClick={() => handleCardClick(e.id!)}
+                            onClick={() => handleCardClick(e.id!)}
                               sx={{
                                   display: 'flex',
                                   flexDirection: 'column', alignItems: 'center',
@@ -177,6 +197,17 @@ export const DiplomaPageLayout: React.FC = () => {
                     />
                 </Box>
             </Box>
+            <Snackbar 
+                open={alertOpen} autoHideDuration={2000}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				onClose={handleAlertClose}>
+				<Alert 
+                    onClose={handleAlertClose} 
+                    severity="error"
+					sx={{ width: '100%' }}>
+						Просмотр данного диплома вам не доступен!
+				</Alert>
+			</Snackbar>
         </Box>
     );
 };
