@@ -29,7 +29,7 @@ import cn from "classnames";
 import { routes } from "@src/shared/routes";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDiplomas, fetchGraduateDetails, fetchToogleFavoriteDiplomas, fetchFavoriteDiplomas } from "@src/store/diplomas/actionCreators";
-import { selectDiplomaList, selectToogleFavoriteDiplomas, selectFavoriteDiplomas} from "@src/store/diplomas/selectors";
+import { selectDiplomaList, selectToogleFavoriteDiplomas, selectFavoriteDiplomas, selectGraduateAttributes} from "@src/store/diplomas/selectors";
 import { isAuthenticated } from "@src/utils/userAuth";
 import { handleDownload } from "@src/utils/link";
 import { selectUserRole, selectUserState } from "@src/store/auth/selector";
@@ -49,6 +49,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 	const [data, setData] = React.useState<any>();
 
 	let diplomaList = useSelector(selectDiplomaList);
+
+	const graduateAttributes = useSelector(selectGraduateAttributes);
 
 	React.useEffect(() => {
 		dispatch(fetchDiplomas());
@@ -115,6 +117,29 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 	const handleToogleFavoriteDiplomas = async () => {
 		dispatch(fetchToogleFavoriteDiplomas({ diploma_id: id }));
 	};
+
+	const hasValidEmail = ():boolean => {
+		if (graduateAttributes) {
+
+			for (const item of graduateAttributes) {
+				if (item.label_ru === 'Почта') {
+				return true;
+			  }
+			}
+		}
+		return false;
+	}
+
+	const getEmail = (): string => {
+		if (graduateAttributes) {
+			for (const item of graduateAttributes) {
+				if (item.label_ru === 'Почта') {
+				return item.value;
+			  }
+			}
+		}
+		return '';
+	}
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: "center" }}>
@@ -284,13 +309,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 										buttonSize="s"
 										variant="contained"
 										type="button"
+										disabled={!hasValidEmail()}
 										sx={{
 											borderRadius: '25px',
 											marginTop: '1rem',
 										}}
 										onClick={() => {
 											const subject = `Приглашение для ${data.name_ru} в компанию`;
-											window.location.href = `mailto:mail@sdfs.kz?subject=${encodeURIComponent(subject)}`;
+											window.location.href = `mailto:${getEmail()}?subject=${encodeURIComponent(subject)}`;
 										}}
 									>
 										{localization[lang].StudentPage.AddInfo.sendInvite}
