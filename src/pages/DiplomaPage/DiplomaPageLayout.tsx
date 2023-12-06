@@ -15,7 +15,7 @@ import {Button, Modal} from "@src/components";
 import {isAuthenticated} from "@src/utils/userAuth";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 
-import {localization} from "src/pages/DiplomaPage/generator";
+import {localization, unis} from "src/pages/DiplomaPage/generator";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {routes} from "@src/shared/routes";
 
@@ -149,7 +149,7 @@ export const DiplomaPageLayout: React.FC = () => {
                                     sx={{flex: '1', display: "flex", flexDirection: "column", width: "100%"}}>
                                     <Box display='flex' justifyContent='space-between' alignItems='center'>
 
-                                        <Typography sx={{fontWeight: '600', fontSize: '16px'}}> КБТУ</Typography>
+                                        <Typography sx={{fontWeight: '600', fontSize: '16px'}}>{unis[lang][e.university_id]}</Typography>
                                         <Typography fontSize="1rem" color="#818181">
                                             {e.year}
                                         </Typography>
