@@ -17,14 +17,15 @@ import { UniversityDeatailsHeader } from "@src/pages/UniversityDeatailPage/compo
 import star from "./../../assets/icons/Star1.svg";
 import share from "./../../assets/icons/share.svg";
 import dots from "./../../assets/icons/Dots.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { handleLink } from "@src/utils/link";
 import imageU from "@src/assets/example/universityKBTU.jpg"
 import { selectDiplomaList } from "@src/store/diplomas/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDiplomas } from "@src/store/diplomas/actionCreators";
+import { fetchUniversitiesList } from '@src/store/auth/actionCreators';
 import cn from "classnames";
-import { selectUserRole } from '@src/store/auth/selector';
+import { selectUniversitiesList, selectUserRole } from '@src/store/auth/selector';
 import StarIcon from '@mui/icons-material/Star';
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
@@ -68,10 +69,23 @@ export const UniversityDeatailPage: React.FC = () => {
 	const [showFull, setShowFull] = React.useState(false);
 	const [page, setPage] = useState(0);
 	const diplomaList = useSelector(selectDiplomaList);
+	// const diplomaList = [];
 	const nextPage = () => {
 		setCurrentPage((prevPage) => prevPage + 1);
 	};
 	const [currentPage, setCurrentPage] = useState(1);
+	const {id} = useParams();
+	const [data, setData] = useState<any>();
+	const universityList = useSelector(selectUniversitiesList);
+
+	React.useEffect(()=>{
+		dispatch(fetchUniversitiesList());
+	}, []);
+
+	React.useEffect(() => {
+		setData(universityList.filter((university: any) => university.id == id)[0]);
+		console.log(universityList);
+	}, [universityList]);
 
 	const diplomasPerPage = 10; // Change this number as needed
 	const totalDiplomas = diplomaList.length;
@@ -105,7 +119,7 @@ export const UniversityDeatailPage: React.FC = () => {
 	const dispatch = useDispatch();
 	const userRole = useSelector(selectUserRole);
 	useEffect(() => {
-		dispatch(fetchDiplomas({university_id: 3}));
+		dispatch(fetchDiplomas({university_id: 1}));
 	}, [diplomaList]);
 	
 	const defaultS = 3.5;
@@ -172,7 +186,9 @@ export const UniversityDeatailPage: React.FC = () => {
 											},
 										}}
 									>
-										{localization[lang].MainCard.uniNames}								</Typography>
+										{/* {localization[lang].MainCard.uniNames} */}
+										{data ? data.name : ""}
+									</Typography>
 									<Box marginBottom="25px" sx={{ flexDirection: 'row', justifyContent: 'space-between', '@media (max-width: 768px)': { display: 'none' } }}>
 										<img src={star} style={{
 											marginRight: '10px',
@@ -240,26 +256,26 @@ export const UniversityDeatailPage: React.FC = () => {
 
 								<Box display='flex' flexDirection='column'>
 									<Typography className={styles.textSm}>
-										{localization[lang].MainCard.phone}: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>8 (7273) 57 42 51</span>
+										{localization[lang].MainCard.phone}: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>{data? data.phone : ""}</span>
 									</Typography>
 									<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
 								</Box>
 								<Box className={styles.contentContainer}>
 									<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
 										<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '5px' } }}>
-											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>15256</Typography>
+											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.student_amount : ""}</Typography>
 											<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
 												{localization[lang].MainCard.numStudents}
 											</Typography>
 										</Box>
 										<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '10px' } }}>
-											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>12450</Typography>
+											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.graduate_amount : ""}</Typography>
 											<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
 												{localization[lang].MainCard.numAlumnies}
 											</Typography>
 										</Box>
 										<Box flex='1' sx={{ marginRight: '50px', '@media (max-width: 768px)': { marginRight: '5px' } }}>
-											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>8045</Typography>
+											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'} sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.highlighting_amount : ""}</Typography>
 											<Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
 												{localization[lang].MainCard.numExtra}											</Typography>
 										</Box>
@@ -269,7 +285,7 @@ export const UniversityDeatailPage: React.FC = () => {
 											}
 										}}>
 
-											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>2.8</Typography>
+											<Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}>{data ? data.average_gpa : ""}</Typography>
 											<Typography className={styles.textSm}>
 												{localization[lang].MainCard.gpa}
 											</Typography>
@@ -287,7 +303,7 @@ export const UniversityDeatailPage: React.FC = () => {
 									<Box>
 										<Box sx={{ fontSize: '24px', fontWeight: '600', color: '#4D4D4D', paddingBottom: '10px' }} > {localization[lang].MainCard.mainInfo} </Box>
 										<Typography className={styles.textSm} color="#818181">
-											{handleText(localization[lang].MainCard.info2)}
+											{handleText(data ? data.description : "")}
 										</Typography>
 										<Typography style={{ cursor: "pointer" }} className={styles.textSm} fontWeight='600' color='#629BF8' sx={{ paddingBottom: '20px' }}
 											onClick={() => {
