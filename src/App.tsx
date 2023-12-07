@@ -53,7 +53,7 @@ const App: React.FC = () => {
 				<Routes>
 					{hasPermission(userRoles, permissions["main"]) && <Route path={routes.main} element={<MainPage />} />}
 					{hasPermission(userRoles, permissions["university"]) && <Route path={routes.university} element={<UniversityPage />} />}
-					{hasPermission(userRoles, permissions["universityDetails"]) && <Route path={routes.universityDetails} element={<UniversityDetailsPage />} />}
+					{hasPermission(userRoles, permissions["universityDetails"]) && <Route path={routes.universityDetails} element={<UniversityDeatailPage />} />}
 					{hasPermission(userRoles, permissions["hr_bank"]) && <Route path={routes.hrBank} element={<DiplomaPage />} />}
 					{hasPermission(userRoles, permissions["diplomaDetails"]) && <Route path={routes.diplomaDetails} element={<DiplomaDetailsPage />} />}
 					{hasPermission(userRoles, permissions["aboutUs"]) && <Route path={routes.aboutUs} element={<AboutUsPage />} />}

@@ -33,7 +33,7 @@ export const UniversityPageLayout: React.FC = () => {
 					<Grid
 						key={university.id} item xs={12} sm={6} md={6} lg={5.5} // Use 6 columns to fit 2 cards in a row
 						onClick={() => {
-							navigate(routes.universityDetails);
+							navigate(`/university/${university.id}`) 
 						}}
 						sx={{
 							display: 'flex',
