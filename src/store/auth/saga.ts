@@ -12,7 +12,9 @@ import {
     GET_DIPLOMA_METADATA_CID,
     POST_GENERATE_SMART_CONTRACT,
     GET_PROFILE_DATA,
-    POST_UPDATE_PROFILE_DATA, POST_UPLOAD_FILE
+    POST_UPDATE_PROFILE_DATA, 
+    POST_UPLOAD_FILE,
+    GET_UNIVERSITY_LIST,
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
@@ -174,6 +176,16 @@ export function* uploadFileRequest(action: any) {
     });
 }
 
+export function* fetchUniversitiesList() {
+    try {
+        const {data} = yield call(authApi.getUniversitiesList);
+        yield put({type: GET_UNIVERSITY_LIST.success, payload: data});
+    } catch (e) {
+        yield put({type: GET_UNIVERSITY_LIST.error});
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+    }
+}
+
 export function* authSagas() {
     yield takeLatest(POST_AUTH_LOGIN.saga, fetchAuthLogin);
     yield takeLatest(POST_AUTH_REGISTER.saga, fetchAuthRegister);
@@ -189,4 +201,5 @@ export function* authSagas() {
     yield takeLatest(GET_DIPLOMA_METADATA_CID.saga, fetchMetadataCid);
     yield takeLatest(POST_GENERATE_SMART_CONTRACT.saga, fetchGenerateSmartContract);
     yield takeLatest(POST_UPLOAD_FILE.saga, uploadFileRequest);
+    yield takeLatest(GET_UNIVERSITY_LIST.saga, fetchUniversitiesList);
 }

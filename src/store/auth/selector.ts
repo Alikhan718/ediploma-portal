@@ -11,3 +11,4 @@ export const selectIpfsLink = (state: RootState) => state.auth.ipfsLink;
 export const selectSmartContractLink = (state: RootState) => state.auth.smartContractLink;
 
 export const selectUserState = (state: RootState) => state.auth.userState;
+export const selectUniversitiesList = (state: RootState) => state.auth.universitiesList;
