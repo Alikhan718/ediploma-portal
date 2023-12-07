@@ -20,15 +20,17 @@ import dots from "./../../assets/icons/Dots.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleLink } from "@src/utils/link";
 import imageU from "@src/assets/example/universityKBTU.jpg"
-import { selectDiplomaList } from "@src/store/diplomas/selectors";
+import { selectDiplomaList, selectSearchText } from "@src/store/diplomas/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiplomas } from "@src/store/diplomas/actionCreators";
+import { fetchDiplomas, fetchSearch } from "@src/store/diplomas/actionCreators";
 import { fetchUniversitiesList } from '@src/store/auth/actionCreators';
 import cn from "classnames";
 import { selectUniversitiesList, selectUserRole } from '@src/store/auth/selector';
 import StarIcon from '@mui/icons-material/Star';
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { FilterSection } from "@src/layout/Filter/FilterSection";
+import { FilterAttributes } from "@src/layout/Header/Header";
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -74,6 +76,19 @@ export const UniversityDeatailPage: React.FC = () => {
 		setCurrentPage((prevPage) => prevPage + 1);
 	};
 	const [currentPage, setCurrentPage] = useState(1);
+	const [searchQuery, setSearchQuery] = React.useState('');
+	const [showFilter, setShowFilter] = React.useState(false);
+	const searchText = useSelector(selectSearchText);
+	const [filterAttributes, setFilterAttributes] = React.useState<FilterAttributes>({
+        text: searchText,
+        specialities: '',
+        region: '',
+        degree: '',
+        year: 0,
+        gpaL: 0,
+        gpaR: 0,
+    });
+	
 	const {id} = useParams();
 	const [data, setData] = useState<any>();
 	const universityList = useSelector(selectUniversitiesList);
@@ -84,13 +99,12 @@ export const UniversityDeatailPage: React.FC = () => {
 
 	React.useEffect(() => {
 		setData(universityList.filter((university: any) => university.id == id)[0]);
-		console.log(universityList);
 	}, [universityList]);
 
 	const diplomasPerPage = 10; // Change this number as needed
 	const totalDiplomas = diplomaList.length;
 	const totalPages = Math.ceil(totalDiplomas / diplomasPerPage);
-
+	
 	const startIndex = (currentPage - 1) * diplomasPerPage;
 	const endIndex = startIndex + diplomasPerPage;
 	const currentDiplomaPage = diplomaList.slice(startIndex, endIndex);
@@ -108,6 +122,10 @@ export const UniversityDeatailPage: React.FC = () => {
 		const trimLimit = matchesSm ? 85 : 115;
 		return showFull ? text : text.substring(0, trimLimit) + "...";
 	};
+	const triggerSearchFilters = () => {
+        dispatch(fetchSearch(filterAttributes));
+        navigate(`/university/${id}`);
+    };
 
 	const [value, setValue] = React.useState(0);
 
@@ -120,7 +138,7 @@ export const UniversityDeatailPage: React.FC = () => {
 	const userRole = useSelector(selectUserRole);
 	useEffect(() => {
 		dispatch(fetchDiplomas({university_id: 1}));
-	}, [diplomaList]);
+	}, [totalDiplomas]);
 	
 	const defaultS = 3.5;
 	const copyCurrentURLToClipboard = () => {
@@ -345,10 +363,14 @@ export const UniversityDeatailPage: React.FC = () => {
 								marginTop: '1rem', marginBottom: '2rem', justifyContent: 'space-between', width: '100%', alignItems: 'center',
 							}}>
 								<Box display="flex" alignItems="center"  >
-									<Button variant="outlined" sx={{
-										borderRadius: '20px', padding: '5px',
-										width: '150px', color: '#3B82F6', marginLeft: '20px', marginRight: '15px'
-									}}>
+									<Button 
+										variant="outlined" 
+										sx={{
+											borderRadius: '20px', padding: '5px', width: '150px',
+											color: '#3B82F6', marginLeft: '20px', marginRight: '15px'
+										}}
+										onClick={() => {setShowFilter(true);}}
+									>
 										<Filter style={{ marginRight: '10px', }} />
 										{localization[lang].Students.filter}
 									</Button>
@@ -367,6 +389,11 @@ export const UniversityDeatailPage: React.FC = () => {
 													<HeaderSearchIcon />
 												</InputAdornment>
 											}
+											onChange={(e) => {
+												const query = e.target.value;
+												setFilterAttributes({...filterAttributes, text: query});
+												setSearchQuery(query);
+											}}
 										/>
 									</Box>
 									<Box>
@@ -584,6 +611,13 @@ export const UniversityDeatailPage: React.FC = () => {
  					{localization[lang].Alerts.copied}
  			</Alert>):
  			(<></>)}
+			<FilterSection
+                triggerSearchFilters={triggerSearchFilters}
+                filterAttributes={filterAttributes}
+                setFilterAttributes={setFilterAttributes}
+                open={showFilter}
+                setOpen={setShowFilter}
+            />
 		</Box>
 	);
 };

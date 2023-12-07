@@ -24,7 +24,7 @@ import dots from "./../../assets/icons/Dots.svg";
 import {useNavigate} from "react-router-dom";
 import {handleLink} from "@src/utils/link";
 import imageU from "@src/assets/example/universityKBTU.jpg";
-import {selectDiplomaList, selectSearchText} from "@src/store/diplomas/selectors";
+import {selectDiplomaList, selectSearchText } from "@src/store/diplomas/selectors";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchDiplomas, fetchSearch} from "@src/store/diplomas/actionCreators";
 import cn from "classnames";
@@ -34,6 +34,8 @@ import {localization} from '@src/pages/UnivesrityDetailsPage/generator';
 import {fetchUserProfile} from "@src/store/auth/actionCreators";
 import {Simulate} from "react-dom/test-utils";
 import keyUp = Simulate.keyUp;
+import { FilterSection } from "@src/layout/Filter/FilterSection";
+import { FilterAttributes } from "@src/layout/Header/Header";
 
 
 interface TabPanelProps {
@@ -96,6 +98,8 @@ export const UniversityProfileLayout: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const userState = useSelector(selectUserState);
+    
+    const [showFilter, setShowFilter] = React.useState(false);
 
     const triggerSearchFilters = () => {
         dispatch(fetchSearch(filterAttributes));
@@ -399,7 +403,7 @@ export const UniversityProfileLayout: React.FC = () => {
                                     <Button variant="outlined" sx={{
                                         borderRadius: '20px', padding: '5px',
                                         width: '150px', color: '#3B82F6', marginLeft: '20px', marginRight: '15px'
-                                    }}>
+                                    }} onClick={()=>{setShowFilter(true)}}>
                                         <Filter style={{marginRight: '10px',}}/>
                                         {localization[lang].Students.filter}
                                     </Button>
@@ -658,6 +662,13 @@ export const UniversityProfileLayout: React.FC = () => {
 
                 </Box>
             </Box>
+            <FilterSection
+                triggerSearchFilters={triggerSearchFilters}
+                filterAttributes={filterAttributes}
+                setFilterAttributes={setFilterAttributes}
+                open={showFilter}
+                setOpen={setShowFilter}
+            />
         </Box>
     );
 };
