@@ -122,7 +122,7 @@ export function* fetchMetadataCid(action: any) {
         yield put({type: GET_DIPLOMA_METADATA_CID.success, payload: data});
         yield put(setSnackbar({visible: true, message: "Все файлы загружены!", status: "success"}));
         yield call(fetchGenerateSmartContract,
-            {payload: {CID: data, symbol: "KB23", name: "Test KBTU"}}
+            {payload: {CID: data, symbol: "KB23", name: "Test KBTU", university_id: 1}}
         );
 
     } catch (e) {
@@ -144,9 +144,7 @@ export function* fetchProfileData(action: any) {
 
 export function* updateProfileData(action: any) {
     try {
-        console.log("Payload", action);
         const {data} = yield call(authApi.updateProfile, action.payload);
-        console.log("updateProfile", data);
         yield put({type: POST_UPDATE_PROFILE_DATA.success, payload: data});
         yield put(setSnackbar({visible: true, message: "Данные обновлены!", status: "success"}));
     } catch (e) {

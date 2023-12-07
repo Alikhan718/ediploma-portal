@@ -28,6 +28,11 @@ const initialState = {
 };
 export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
+        case POST_UPLOAD_FILE.saga:
+            return {
+                ...state,
+                image_link: null,
+            };
         case POST_UPLOAD_FILE.success:
             return {
                 ...state,
@@ -83,6 +88,7 @@ export const authReducer = (state = initialState, action: any) => {
                 userState: action.payload,
                 isLoading: false
             };
+
         case POST_UPDATE_PROFILE_DATA.success:
 
             return {

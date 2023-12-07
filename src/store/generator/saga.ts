@@ -7,6 +7,7 @@ import {handleResponseBase} from "@src/store/sagas";
 
 // Generator function to handle the uploadDataParseRequest action
 export function* uploadDataParseRequest(action: any) {
+    console.log(action.payload);
     // Call the handleResponseBase function with specific parameters
     yield call(handleResponseBase, {
         type: UPLOAD_DATA_PARSE,

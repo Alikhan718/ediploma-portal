@@ -24,7 +24,9 @@ instance.interceptors.request.use((request) => {
             request.headers!["x-auth-token"] = `${token}`;
         }
         request.headers!["x-auth-token"] = `${token}`;
-        request.headers!["Content-Type"] = "application/json";
+        if (!request.headers!["Content-Type"]) {
+            request.headers!["Content-Type"] = "application/json";
+        }
     }
 
 
@@ -83,7 +85,7 @@ export const authApi = {
     getMetadataCid(body: { university_id: number }) {
         return customInstance.get(`${generatorURL}/nft/generate/${body.university_id}`);
     },
-    generateSmartContract(body: { CID: string, symbol: string, name: string }) {
+    generateSmartContract(body: { CID: string, symbol: string, name: string, university_id: number }) {
         return instance.post(`/smart-contract/generate`, body);
     },
     getProfile() {
@@ -93,11 +95,11 @@ export const authApi = {
         return instance.post(`/users/profile`, body);
     },
     uploadFile(body: { file: File }) {
+        console.log(body.file);
         const formData = new FormData();
         formData.append('file', body.file, body.file.name);
         formData.append('university_id', "1");
 
-        // Send the file using axios
         return instance.post(`/upload`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'

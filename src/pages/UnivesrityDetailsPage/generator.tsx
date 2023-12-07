@@ -317,6 +317,17 @@ export const content = {
                 label: "Web",
                 placeholder: "https://www.example.com"
             },
+            {
+                type: "file",
+                name: "gallery",
+                multiline: true,
+                label: {
+                    "en": "University images",
+                    "kz": "Университет суреттері",
+                    "ru": "Изображения университета"
+                },
+                placeholder: null
+            },
         ]
     },
     "student": {
@@ -459,6 +470,14 @@ export const content = {
                     "ru": "Нанято сотрудников"
                 },
                 placeholder: "####"
+            },
+            {
+                type: "link",
+                name: "web_link",
+                maxRows: 1,
+                multiline: true,
+                label: "Web",
+                placeholder: "https://www.example.com"
             },
         ]
     },

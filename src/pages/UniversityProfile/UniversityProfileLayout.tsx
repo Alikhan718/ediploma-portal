@@ -181,6 +181,8 @@ export const UniversityProfileLayout: React.FC = () => {
         return <Web className={styles.social} onClick={onClick}/>;
     };
 
+    const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+
     return (
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem'>
             <Box display='flex' flexWrap='wrap' justifyContent="center"
@@ -189,7 +191,7 @@ export const UniversityProfileLayout: React.FC = () => {
                     <Box display='flex' flexDirection='row'>
 
                         <Box display='flex' flexDirection='column' sx={{borderRadius: '15px',}}>
-                            <UniversityProfileHeader/>
+                            <UniversityProfileHeader image={userState.banner ? `${baseURL}/${userState.banner}` : ''}/>
                             <Box px="3%">
                                 <Box
                                     display="flex"

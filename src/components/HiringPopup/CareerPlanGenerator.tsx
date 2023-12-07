@@ -42,7 +42,6 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
     const handleFileChange = (e: any): void => {
         const input: any = document.getElementById('cv');
         const inputFile: File = input.files[0];
-        console.log(inputFile);
 
         if (inputFile) {
             setSelectedFileName(inputFile.name);
