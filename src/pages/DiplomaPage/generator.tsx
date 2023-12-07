@@ -80,3 +80,24 @@ export const localization = {
 		},
 	},
 }
+
+type Unis = {
+	kz:{[key: number]: string;},
+	ru:{[key: number]: string;},
+	en:{[key: number]: string;},
+};
+
+export const unis: Unis = {
+	kz:{
+		1: "КБТУ",
+		2: "АГП",
+	},
+	ru:{
+		1: "КБТУ",
+		2: "АГП",
+	},
+	en:{
+		1: "KBTU",
+		2: "AGP",
+	},
+}
