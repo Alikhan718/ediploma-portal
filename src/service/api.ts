@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {data} from "browserslist";
 
-const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
-// const baseURL = 'http://localhost:8080';
+// const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+const baseURL = 'http://localhost:8080';
 const generatorURL = process.env.REACT_APP_GENERATOR_API_BASE_URL;
 
 const instance = axios.create({
@@ -106,6 +106,9 @@ export const authApi = {
                 'Content-Type': 'multipart/form-data'
             }
         });
+    },
+    getUniversitiesList(){
+        return instance.get(`/users/universities/get`);
     }
 };
 

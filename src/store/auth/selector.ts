@@ -9,5 +9,7 @@ export const selectRedirectToLogin = (state: RootState) => state.auth.redirectTo
 export const selectXmlSigned = (state: RootState) => state.auth.signed;
 export const selectIpfsLink = (state: RootState) => state.auth.ipfsLink;
 export const selectSmartContractLink = (state: RootState) => state.auth.smartContractLink;
+
 export const selectUserState = (state: RootState) => state.auth.userState;
+export const selectUniversitiesList = (state: RootState) => state.auth.universitiesList;
 export const selectImageLink = (state: RootState) => state.auth.image_link;

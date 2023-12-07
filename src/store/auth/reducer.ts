@@ -10,7 +10,8 @@ import {
     POST_SAVE_XML,
     GET_DIPLOMA_METADATA_CID,
     POST_GENERATE_SMART_CONTRACT,
-    GET_PROFILE_DATA, POST_UPDATE_PROFILE_DATA, POST_UPLOAD_FILE
+    GET_PROFILE_DATA, POST_UPDATE_PROFILE_DATA, POST_UPLOAD_FILE,
+    GET_UNIVERSITY_LIST,
 } from "./types/actionTypes";
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
     registrationStep: 1, // [1 - send code, 2 - email validated, 3 - registered]
     userState: {},
     image_link: null,
+    universitiesList: [],
 };
 export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
@@ -232,6 +234,15 @@ export const authReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 smartContractLink: action.payload
+            };
+        case GET_UNIVERSITY_LIST.saga:
+            return {
+                ...state,
+            };
+        case GET_UNIVERSITY_LIST.success:
+            return {
+                ...state,
+                universitiesList: action.payload
             };
         default:
             return state;

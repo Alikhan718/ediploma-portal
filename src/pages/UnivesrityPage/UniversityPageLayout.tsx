@@ -8,7 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { routes } from "@src/shared/routes";
 import styles from "./UniversityPage.module.css";
 import {selectLanguage} from "@src/store/generals/selectors";
-import {useSelector} from "react-redux";
+import { selectUniversitiesList } from '@src/store/auth/selector';
+import { fetchUniversitiesList } from '@src/store/auth/actionCreators';
+import { useSelector, useDispatch } from "react-redux";
 import { localization } from '@src/pages/UnivesrityPage/generator';
 
 
@@ -16,19 +18,22 @@ export const UniversityPageLayout: React.FC = () => {
 	const navigate = useNavigate();
 	const lang = useSelector(selectLanguage);
 
+    const dispatch = useDispatch();
+
+	const universitiesList = useSelector(selectUniversitiesList);
+	React.useEffect(() => {
+		dispatch(fetchUniversitiesList());
+	}, []);
+
 	return (
 		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'>
 			<UniversityPageHeader />
 			<Grid container display="flex" rowSpacing={1} columnSpacing={1} flexWrap="wrap" justifyContent="space-between" className={styles.universitiesContainer} width='100%'>
-				{[exampleImage, secondImage].map((image, index) => (
+				{universitiesList.map((university:any) => (
 					<Grid
-						key={index} item xs={12} sm={6} md={6} lg={5.5} // Use 6 columns to fit 2 cards in a row
+						key={university.id} item xs={12} sm={6} md={6} lg={5.5} // Use 6 columns to fit 2 cards in a row
 						onClick={() => {
-							if (index === 0) {
-								navigate(routes.universityDetails);
-							} else if (index === 1) {
-								navigate(routes.universityProfileSecond);
-							}
+							navigate(routes.universityDetails);
 						}}
 						sx={{
 							display: 'flex',
@@ -48,7 +53,7 @@ export const UniversityPageLayout: React.FC = () => {
 								borderRadius: "10px",
 
 							}}
-							image={image}
+							image={exampleImage}
 							alt="University Image"
 						/>
 						<Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -61,10 +66,7 @@ export const UniversityPageLayout: React.FC = () => {
 										fontSize: '1rem'
 									},
 								}}>
-									{index % 2 === 0 ? localization[lang].UniCards.nameKBTUshort :
-										localization[lang].UniCards.nameSUshort}
-									{index === 0 ? localization[lang].UniCards.nameKBTU :
-										localization[lang].UniCards.nameSU}
+									{university.name}
 								</Typography>
 								{/* <Box display='flex'>
 									<Typography className={styles.textSm} sx={{
@@ -80,7 +82,7 @@ export const UniversityPageLayout: React.FC = () => {
 									</Typography>
 								</Box> */}
 								<Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>
-									{localization[lang].UniCards.majors} {index === 0 ? 24 : 12}
+									{localization[lang].UniCards.majors} {24}
 								</Typography>
 							</CardContent>
 						</Box>
