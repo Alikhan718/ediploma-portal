@@ -54,7 +54,7 @@ export function* fetchSearchRequest(action: any) {
         yield put({type: GET_DIPLOMAS.saga});
         let names = <any>[];
         data.forEach((person: any) => {
-            names.push(person.fullnameeng);
+            names.push(person.name_en);
         });
 
         yield put({type: GET_SEARCH.success, names});
