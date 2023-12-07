@@ -422,5 +422,5 @@ export const StudentPageLayout: React.FC = () => {
 
             </Box>
         </Box>
-    )
+    );
 };

@@ -19,7 +19,7 @@ interface DiplomaInterface {
     gpaL: number,
     gpaR: number,
     filtered_names: string[],
-    graduate_attributes: any[],
+    graduate_attributes: {},
     favoriteDiplomas: any[],
 }
 

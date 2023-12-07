@@ -377,7 +377,6 @@ const AddingGraduates: React.FC = () => {
                                                     sx={{borderRadius: '1rem', padding: ".75rem"}}
                                                     onClick={() => {
                                                         handleLink(archiveLink);
-                                                        console.log(archiveLink);
                                                     }}><DownloadIcon style={{filter: "brightness(20)"}}/></Button>
                                             : <CircularProgress style={{marginLeft: "auto"}}/>
                                         }
@@ -457,7 +456,6 @@ const AddingGraduates: React.FC = () => {
                                             sx={{marginLeft: "auto", borderRadius: '1rem', padding: ".75rem"}}
                                             onClick={() => {
                                                 handleLink(archiveLink);
-                                                console.log(archiveLink);
                                             }}><DownloadIcon style={{filter: "brightness(20)"}}/></Button>
                                 </Box>
                             </Box>

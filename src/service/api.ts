@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {data} from "browserslist";
 
-// const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
-const baseURL = 'http://localhost:8080';
+const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+// const baseURL = 'http://localhost:8080';
 const generatorURL = process.env.REACT_APP_GENERATOR_API_BASE_URL;
 
 const instance = axios.create({
@@ -96,7 +96,6 @@ export const authApi = {
         return instance.post(`/users/profile`, body);
     },
     uploadFile(body: { file: File }) {
-        console.log(body.file);
         const formData = new FormData();
         formData.append('file', body.file, body.file.name);
         formData.append('university_id', "1");
@@ -164,11 +163,8 @@ export const diplomasApi = {
         }
         return instance.get(query);
     },
-    getGraduateDetails(body: any) {
-        if (!body.name) {
-            return;
-        }
-        return instance.get(`graduate-details?name=${body.name}`);
+    getGraduateDetails(id: number) {
+        return instance.get(`/diploma/${id}`);
     },
     toogleFavoriteDiplomas(body: { diploma_id: number }) {
         return instance.post(`/users/favorite-diplomas/toogle`, body);

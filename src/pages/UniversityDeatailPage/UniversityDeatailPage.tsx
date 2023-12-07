@@ -84,7 +84,6 @@ export const UniversityDeatailPage: React.FC = () => {
 
 	React.useEffect(() => {
 		setData(universityList.filter((university: any) => university.id == id)[0]);
-		console.log(universityList);
 	}, [universityList]);
 
 	const diplomasPerPage = 10; // Change this number as needed

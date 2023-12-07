@@ -144,7 +144,6 @@ const SettingsPage: React.FC = () => {
     //xs={12} sm={12} md={6} lg={3,4,6}
   };
   const uploadGalleryImage = () => {
-    console.log(galleryImages);
     const payload = {
       "attributes": {
         "gallery": JSON.stringify(galleryImages)
