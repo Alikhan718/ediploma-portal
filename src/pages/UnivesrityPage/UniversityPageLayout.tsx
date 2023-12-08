@@ -16,15 +16,15 @@ import { localization } from '@src/pages/UnivesrityPage/generator';
 
 export const UniversityPageLayout: React.FC = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
 	const lang = useSelector(selectLanguage);
-
-    const dispatch = useDispatch();
-
 	const universitiesList = useSelector(selectUniversitiesList);
+
 	React.useEffect(() => {
 		dispatch(fetchUniversitiesList());
 	}, []);
-
+	
 	return (
 		<Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'>
 			<UniversityPageHeader />
@@ -57,7 +57,7 @@ export const UniversityPageLayout: React.FC = () => {
 							alt="University Image"
 						/>
 						<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-							<CardContent sx={{ flex: '0 0 auto' }}>
+							<CardContent sx={{ flex: '0 0 auto'  }}>
 								<Typography mb='.5rem' fontSize="1.3rem" fontWeight="600" sx={{
 									"@media (max-width: 778px)": {
 										fontSize: '0.75rem'
@@ -68,19 +68,6 @@ export const UniversityPageLayout: React.FC = () => {
 								}}>
 									{university.name}
 								</Typography>
-								{/* <Box display='flex'>
-									<Typography className={styles.textSm} sx={{
-										display: 'flex',
-										alignItems: 'center',
-									}}>
-										4.5 <Rating
-											name="text-feedback"
-											value={4.5}
-											readOnly
-											emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-										/>
-									</Typography>
-								</Box> */}
 								<Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>
 									{localization[lang].UniCards.majors} {24}
 								</Typography>

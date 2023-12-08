@@ -66,19 +66,25 @@ function a11yProps(index: number) {
 	};
 }
 export const UniversityDeatailPage: React.FC = () => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const userRole = useSelector(selectUserRole);
 	const lang = useSelector(selectLanguage);
+	const diplomaList = useSelector(selectDiplomaList);
+	const searchText = useSelector(selectSearchText);
+	const {id} = useParams();
+	const universityList = useSelector(selectUniversitiesList);
+	const defaultS = 3.5;
+
 	const [isDataAlert, setIsDataAlert] = React.useState(false);
 	const [showFull, setShowFull] = React.useState(false);
 	const [page, setPage] = useState(0);
-	const diplomaList = useSelector(selectDiplomaList);
-	// const diplomaList = [];
-	const nextPage = () => {
-		setCurrentPage((prevPage) => prevPage + 1);
-	};
 	const [currentPage, setCurrentPage] = useState(1);
 	const [searchQuery, setSearchQuery] = React.useState('');
 	const [showFilter, setShowFilter] = React.useState(false);
-	const searchText = useSelector(selectSearchText);
+	const [data, setData] = useState<any>();
+	const [value, setValue] = React.useState(0);
 	const [filterAttributes, setFilterAttributes] = React.useState<FilterAttributes>({
         text: searchText,
         specialities: '',
@@ -89,25 +95,13 @@ export const UniversityDeatailPage: React.FC = () => {
         gpaR: 0,
     });
 	
-	const {id} = useParams();
-	const [data, setData] = useState<any>();
-	const universityList = useSelector(selectUniversitiesList);
-
-	React.useEffect(()=>{
-		dispatch(fetchUniversitiesList());
-	}, []);
-
-	React.useEffect(() => {
-		setData(universityList.filter((university: any) => university.id == id)[0]);
-	}, [universityList]);
-
 	const diplomasPerPage = 10; // Change this number as needed
 	const totalDiplomas = diplomaList.length;
 	const totalPages = Math.ceil(totalDiplomas / diplomasPerPage);
-	
 	const startIndex = (currentPage - 1) * diplomasPerPage;
 	const endIndex = startIndex + diplomasPerPage;
 	const currentDiplomaPage = diplomaList.slice(startIndex, endIndex);
+
 	const prevPage = () => {
 		if (currentPage > 1) {
 			setCurrentPage((prevPage) => prevPage - 1);
@@ -117,30 +111,26 @@ export const UniversityDeatailPage: React.FC = () => {
 	const handlePrevPage = () => {
 		setPage((prevPage) => prevPage - 1);
 	};
+
 	const handleText = (text: string): string => {
 		const matchesSm = useMediaQuery('(max-width:768px)');
 		const trimLimit = matchesSm ? 85 : 115;
 		return showFull ? text : text.substring(0, trimLimit) + "...";
 	};
+
 	const triggerSearchFilters = () => {
         dispatch(fetchSearch(filterAttributes));
         navigate(`/university/${id}`);
     };
 
-	const [value, setValue] = React.useState(0);
-
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
 		setValue(newValue);
 	};
 
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const userRole = useSelector(selectUserRole);
-	useEffect(() => {
-		dispatch(fetchDiplomas({university_id: 1}));
-	}, [totalDiplomas]);
+	const nextPage = () => {
+		setCurrentPage((prevPage) => prevPage + 1);
+	};
 	
-	const defaultS = 3.5;
 	const copyCurrentURLToClipboard = () => {
 		const currentURL = window.location.href;
 		const textArea = document.createElement('textarea');
@@ -151,6 +141,18 @@ export const UniversityDeatailPage: React.FC = () => {
 		document.body.removeChild(textArea);
 		setIsDataAlert(true);
 	};
+
+	React.useEffect(()=>{
+		dispatch(fetchUniversitiesList());
+	}, []);
+
+	React.useEffect(() => {
+		setData(universityList.filter((university: any) => university.id == id)[0]);
+	}, [universityList]);
+
+	useEffect(() => {
+		dispatch(fetchDiplomas({university_id: 1}));
+	}, [totalDiplomas]);
 
 	useEffect(() => {
 		const handleScroll = () => {
