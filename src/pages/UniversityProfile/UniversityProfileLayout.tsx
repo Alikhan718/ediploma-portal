@@ -419,7 +419,18 @@ export const UniversityProfileLayout: React.FC = () => {
                                             }}
                                             endAdornment={
 
-                                                <HeaderSearchIcon style={{width: '82px', marginLeft: '12px'}}/>
+                                                <HeaderSearchIcon 
+                                                    style={{width: '82px', marginLeft: '12px'}}
+                                                    cursor="pointer"
+													onClick={() => {
+														triggerSearchFilters();
+														ReactGA.event({ 
+                                                            category: 'User',
+                                                            action: 'Search',
+                                                            label: searchQuery,
+                                                        });
+													}}
+                                                />
 
                                             }
                                             onChange={(e) => {
