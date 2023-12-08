@@ -3,6 +3,7 @@ import {
 	Box, Button, Rating, Typography, useMediaQuery, Pagination,
 	InputAdornment, Grid, Container, Alert
 } from '@mui/material';
+import { Button as ButtonAlt } from '@src/components';
 import { ReactComponent as HeaderSearchIcon } from '@src/assets/icons/search.svg';
 import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as WebIcon } from '@src/assets/icons/web_black.svg';
@@ -32,6 +33,7 @@ import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
 import { FilterSection } from "@src/layout/Filter/FilterSection";
 import { FilterAttributes } from "@src/layout/Header/Header";
 import exampleImage from "@src/assets/example/UnivSTU.jpg";
+import ReactGA from 'react-ga';
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -389,7 +391,13 @@ export const UniversityDeatailPage: React.FC = () => {
 											}}
 											endAdornment={
 												<InputAdornment position="end">
-													<HeaderSearchIcon />
+														<HeaderSearchIcon
+															cursor="pointer"
+															onClick={() => {
+																triggerSearchFilters();
+																ReactGA.event({ category: 'User', action: 'Search', label: searchQuery,});
+															}}
+														 />
 												</InputAdornment>
 											}
 											onChange={(e) => {
