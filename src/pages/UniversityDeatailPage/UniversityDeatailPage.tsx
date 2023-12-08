@@ -31,6 +31,7 @@ import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
 import { FilterSection } from "@src/layout/Filter/FilterSection";
 import { FilterAttributes } from "@src/layout/Header/Header";
+import exampleImage from "@src/assets/example/UnivSTU.jpg";
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -130,7 +131,7 @@ export const UniversityDeatailPage: React.FC = () => {
 	const nextPage = () => {
 		setCurrentPage((prevPage) => prevPage + 1);
 	};
-	
+
 	const copyCurrentURLToClipboard = () => {
 		const currentURL = window.location.href;
 		const textArea = document.createElement('textarea');
@@ -176,7 +177,7 @@ export const UniversityDeatailPage: React.FC = () => {
 					<Box display='flex' flexDirection='row'>
 
 						<Box display='flex' flexDirection='column' sx={{ borderRadius: '15px', }}>
-							<UniversityDeatailsHeader />
+							<UniversityDeatailsHeader banner={data ? data.banner : ""}/>
 							<Box >
 								<Box
 									display="flex"

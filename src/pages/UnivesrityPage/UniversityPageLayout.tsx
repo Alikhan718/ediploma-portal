@@ -20,6 +20,7 @@ export const UniversityPageLayout: React.FC = () => {
 
 	const lang = useSelector(selectLanguage);
 	const universitiesList = useSelector(selectUniversitiesList);
+	const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
 	React.useEffect(() => {
 		dispatch(fetchUniversitiesList());
@@ -53,7 +54,7 @@ export const UniversityPageLayout: React.FC = () => {
 								borderRadius: "10px",
 
 							}}
-							image={exampleImage}
+							image={university.banner ? `${baseURL}/${university.banner}` : exampleImage}
 							alt="University Image"
 						/>
 						<Box sx={{ display: 'flex', flexDirection: 'column' }}>
