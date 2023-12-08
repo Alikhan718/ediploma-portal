@@ -567,7 +567,7 @@ export const localization = {
             graduationYear: "Год выпуска",
         },
         AddingGratuates: {
-            download: "Загрузка фалов",
+            download: "Загрузка файлов",
             check: "Проверка",
             digital: "Подписать данные через ЭЦП",
             results: "Результат",
