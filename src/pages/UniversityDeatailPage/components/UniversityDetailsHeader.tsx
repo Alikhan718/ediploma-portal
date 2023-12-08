@@ -4,11 +4,11 @@ import exampleImage from "@src/assets/example/UnivSTU.jpg";
 import exampleIcon from "@src/assets/icons/Logo (2).svg";
 import styles from "../UniversityDeatailPage.module.css";
 
-interface UniversityDeatailsHeaderProps {
+interface UniversityDetailsHeaderProps {
 	banner:string;
 };
 
-export const UniversityDeatailsHeader: React.FC<UniversityDeatailsHeaderProps> = (props) => {
+export const UniversityDetailsHeader: React.FC<UniversityDetailsHeaderProps> = (props) => {
 	const { banner } = props;
 	const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 

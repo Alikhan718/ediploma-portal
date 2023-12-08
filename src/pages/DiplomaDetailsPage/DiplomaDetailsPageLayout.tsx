@@ -8,7 +8,7 @@ import {
     Divider,
     Menu,
     MenuItem,
-    IconButton, Alert, Snackbar
+    IconButton, Alert, Snackbar, Skeleton
 } from '@mui/material';
 import {Button, Label, Modal} from '@src/components';
 import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
@@ -130,7 +130,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
     const hasValidEmail = (): boolean => {
         if (graduateAttributes) {
-            if(graduateAttributes.diploma_email) {
+            if (graduateAttributes.diploma_email) {
                 console.log(graduateAttributes.diploma_email, graduateAttributes.diploma_email.length);
             }
         }
@@ -144,6 +144,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
             return graduateAttributes.diploma_email;
         }
         return '';
+    };
+
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const handleImageLoad = () => {
+        setImageLoaded(true);
     };
 
     return (
@@ -259,7 +264,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                         alignItems="center"
                                         sx={{
                                             flexDirection: 'row',
-                                            ustifyContent: 'space-between',
+                                            justifyContent: 'space-between',
                                             width: '100%',
                                             alignItems: 'center',
                                         }}
@@ -375,10 +380,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                     },
                                 }}> {localization[lang].StudentPage.AddInfo.certifications} </Box>
                                 {data && data.image &&
-                                    <Box width="25%" sx={{
+                                    <Box width="40vh" sx={{
                                         backgroundColor: "rgba(7,117,255,0.11)",
                                         borderRadius: "1rem",
-                                        padding: "1rem",
+                                        padding: ".7rem",
                                         marginTop: "1rem",
                                         '@media (max-width: 778px)': {
                                             width: '100%'
@@ -398,15 +403,25 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                             <CardMedia
                                                 component="img"
                                                 className={styles.diplomaImg}
-                                                sx={{width: "100%", position: "relative"}}
+                                                sx={{
+                                                    width: "100%",
+                                                    position: "relative",
+                                                    display: imageLoaded ? "block" : "none"
+
+                                                }}
                                                 image={data.image}
                                                 alt="University Image"
-                                                onClick={handlePreviewOpen}/>
+                                                onLoad={handleImageLoad}
+                                                onClick={handlePreviewOpen}
+                                            />
+                                            <Skeleton variant="rectangular" width={300} height={200}
+                                                      sx={{display: imageLoaded ? "none" : "block"}}
+                                                      animation="wave"/>
                                             <Box sx={{
                                                 display: 'flex',
                                                 flexDirection: 'row',
                                                 width: "100%",
-                                                marginTop: "-2.5rem",
+                                                marginTop: "-3rem",
                                                 justifyContent: "space-between",
                                                 padding: "0 .5rem .5rem .5rem",
                                                 zIndex: "10"
@@ -449,15 +464,17 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                         <Modal
                                             open={isPreviewOpen}
                                             handleClose={handlePreviewClose}
+                                            width="100vh"
+                                            maxWidth="100vh"
                                         >
-                                            <Box display='flex' width='100%'
-                                                 justifyContent='center'>
                                                 <CardMedia
                                                     component="img"
-                                                    sx={{width: "300%", position: "relative"}}
+                                                    sx={{
+                                                        height: "100%",
+                                                        position: "relative"
+                                                    }}
                                                     image={data.image}
                                                     alt="University Image"/>
-                                            </Box>
                                         </Modal>
                                     </Box>
 

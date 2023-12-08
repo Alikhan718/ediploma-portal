@@ -66,24 +66,12 @@ export const SwitchDetailsUniversity: React.FC = () => {
 	const graduateAttributes = useSelector(selectGraduateAttributes);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const getQueryWidth = () => {
-		const matchesLg = useMediaQuery('(min-width:1200px)');
-		const matchesMd = useMediaQuery('(max-width:1180px)');
-		const matchesSm = useMediaQuery('(max-width:768px)');
-		const matchesXs = useMediaQuery('(max-width:576px)');
-		if (matchesXs) return "80%";
-		if (matchesSm) return "60%";
-		if (matchesMd) return "40%";
-		if (matchesLg) return "25%";
-	};
 	return (
 
 		<Box sx={{ width: '100%', marginRight: '30px' }}>
 			<Modal
 				open={openModal}
 				handleClose={() => setOpenModal(false)}
-				maxWidth={getQueryWidth()}
-				width={getQueryWidth()}
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>

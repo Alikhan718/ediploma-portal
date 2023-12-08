@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { UniversityDeatailPage } from './UniversityDeatailPage'
+import { UniversityDetailsPage } from './UniversityDetailsPage'
 
 const UniversityProfileContainer: React.FC = () => {
 
 	return (
 		<React.Fragment>
-			<UniversityDeatailPage />
+			<UniversityDetailsPage />
 		</React.Fragment>
 	);
 };

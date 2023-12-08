@@ -43,16 +43,6 @@ export const DiplomaPageHeader: React.FC = (props) => {
     // 	console.log(filterAttributes);
     // 	dispatch(fetchSearch(filterAttributes));
     // };
-    const getQueryWidth = () => {
-        const matchesLg = useMediaQuery('(min-width:1200px)');
-        const matchesMd = useMediaQuery('(max-width:1180px)');
-        const matchesSm = useMediaQuery('(max-width:768px)');
-        const matchesXs = useMediaQuery('(max-width:576px)');
-        if (matchesXs) return "80%";
-        if (matchesSm) return "60%";
-        if (matchesMd) return "40%";
-        if (matchesLg) return "25%";
-    };
     const triggerSearchFilters = () => {
         dispatch(fetchSearch(filterAttributes));
         navigate(routes.hrBank);

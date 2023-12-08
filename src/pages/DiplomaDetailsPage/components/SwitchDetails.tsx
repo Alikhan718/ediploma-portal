@@ -58,24 +58,12 @@ export const SwitchDetails: React.FC = () => {
     const graduateAttributes = useSelector(selectGraduateAttributes);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const getQueryWidth = () => {
-        const matchesLg = useMediaQuery('(min-width:1200px)');
-        const matchesMd = useMediaQuery('(max-width:1180px)');
-        const matchesSm = useMediaQuery('(max-width:768px)');
-        const matchesXs = useMediaQuery('(max-width:576px)');
-        if (matchesXs) return "80%";
-        if (matchesSm) return "60%";
-        if (matchesMd) return "40%";
-        if (matchesLg) return "25%";
-    };
     return (
 
         <Box sx={{width: '100%', marginRight: '30px'}}>
             <Modal
                 open={openModal}
                 handleClose={() => setOpenModal(false)}
-                maxWidth={getQueryWidth()}
-                width={getQueryWidth()}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -148,7 +136,7 @@ export const SwitchDetails: React.FC = () => {
 
                 </Box>
                 <Box display='flex' flexDirection="column" mt='1rem'>
-                    <Link href={'https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7'}
+                    <Link href={graduateAttributes && graduateAttributes.smart_contract_link}
                           sx={{textDecoration: "none"}} target={'_blank'}>
                         <Box display='flex'>
                             <Typography className={styles.textMd} fontWeight='600' mb="1rem" color='black'
@@ -157,7 +145,7 @@ export const SwitchDetails: React.FC = () => {
                             </Typography>
                         </Box>
                     </Link>
-                    <Link href={'https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7#code'}
+                    <Link href={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}
                           sx={{textDecoration: "none"}} target={'_blank'} mt='0.2rem'>
                         <Box display='flex'>
                             <Typography className={styles.textMd} fontWeight='600' color='black' fontSize={"1rem"}>

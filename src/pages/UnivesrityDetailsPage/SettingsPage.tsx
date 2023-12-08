@@ -143,7 +143,7 @@ const SettingsPage: React.FC = () => {
     return n;
     //xs={12} sm={12} md={6} lg={3,4,6}
   };
-  const uploadGalleryImage = () => {
+  const uploadGalleryImage = (galleryImages: any) => {
     const payload = {
       "attributes": {
         "gallery": JSON.stringify(galleryImages)
@@ -153,7 +153,7 @@ const SettingsPage: React.FC = () => {
   };
   const handleImageClick = (val: string) => {
     setGalleryImages(galleryImages.filter(v => v !== val));
-    uploadGalleryImage();
+    uploadGalleryImage(galleryImages.filter(v => v !== val));
   };
 
 
@@ -190,7 +190,7 @@ const SettingsPage: React.FC = () => {
       if (!galleryImages.includes(imageLink)) {
         galleryImages.push(imageLink);
       }
-      uploadGalleryImage();
+      uploadGalleryImage(galleryImages);
     }
   }, [imageLink, galleryUpload]);
 
@@ -261,6 +261,9 @@ const SettingsPage: React.FC = () => {
           paddingTop: '20px',
           backgroundColor: '#E8EBF1',
           backgroundImage: userState.banner ? `url(${baseURL}/${userState.banner})` : "",
+          backgroundSize: "cover",
+          backgroundPosition: "0 50%",
+          backgroundRepeat: "no-repeat",
           height: '250px',
           marginX: "0",
           display: 'flex',
@@ -405,6 +408,8 @@ const SettingsPage: React.FC = () => {
                                     marginTop: "1rem",
                                     borderRadius: "15px",
                                     backgroundImage: `url(${baseURL}/${image})`,
+                                    backgroundSize: "cover",
+                                    backgroundRepeat: "no-repeat",
                                     display: "flex"
                                   }}>
                                   <Box

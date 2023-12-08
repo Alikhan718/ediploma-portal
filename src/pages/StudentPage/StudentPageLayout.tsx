@@ -318,7 +318,7 @@ export const StudentPageLayout: React.FC = () => {
                                     <Box width="25%" sx={{
                                         backgroundColor: "rgba(7,117,255,0.11)",
                                         borderRadius: "1rem",
-                                        padding: "1rem",
+                                        padding: ".7rem",
                                         marginTop: "1rem",
                                         '@media (max-width: 778px)': {
                                             width: '100%'
@@ -355,7 +355,7 @@ export const StudentPageLayout: React.FC = () => {
                                                 display: 'flex',
                                                 flexDirection: 'row',
                                                 width: "100%",
-                                                marginTop: "-2.5rem",
+                                                marginTop: "-3rem",
                                                 justifyContent: "space-between",
                                                 padding: "0 .5rem .5rem .5rem",
                                                 zIndex: "10"

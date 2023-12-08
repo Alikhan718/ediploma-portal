@@ -123,7 +123,7 @@ export const DiplomaPageLayout: React.FC = () => {
                                   display: 'flex',
                                   flexDirection: 'column', alignItems: 'center',
                                   cursor: "pointer",
-                                  padding: "1rem 1rem 0 1rem !important",
+                                  padding: ".5rem .5rem 0 .5rem !important",
                                   backgroundColor: "white",
                                   borderRadius: "1.25rem",
                                   marginBottom: "1.5rem"
