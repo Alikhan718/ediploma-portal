@@ -34,6 +34,7 @@ import {FilterSection} from "@src/layout/Filter/FilterSection";
 import {FilterAttributes} from "@src/layout/Header/Header";
 import exampleImage from "@src/assets/example/UnivSTU.jpg";
 import ReactGA from 'react-ga';
+import diplomaTemplate from "@src/assets/example/diploma_template.svg";
 
 const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
@@ -377,9 +378,11 @@ export const UniversityDetailsPage: React.FC = () => {
                 display: 'none',
               },
             }}>
-              {galleryImages.map(image => (
+              { galleryImages.length != 0 ? 
+                galleryImages.map(image => (
                 <img key={image} src={`${baseURL}/${image}`} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
-              ))}
+              )) : <img src={diplomaTemplate} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
+            }
             </Box>
           </Box>
         </Box>
