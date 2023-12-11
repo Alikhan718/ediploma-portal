@@ -207,8 +207,13 @@ export const UniversityDetailsPage: React.FC = () => {
   }, [universityList]);
 
   useEffect(() => {
-    dispatch(fetchDiplomas({university_id: 1}));
-  }, [totalDiplomas]);
+    if (data && data.university_id){
+      dispatch(fetchDiplomas({university_id: data.university_id}));
+      return;
+    }    
+
+    dispatch(fetchDiplomas({university_id: -1}));
+  }, [totalDiplomas, data]);
 
   useEffect(() => {
     const handleScroll = () => {
