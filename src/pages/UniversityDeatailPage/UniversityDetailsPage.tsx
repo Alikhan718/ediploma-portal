@@ -6,8 +6,13 @@ import {
 import {Button as ButtonAlt} from '@src/components';
 import {ReactComponent as HeaderSearchIcon} from '@src/assets/icons/search.svg';
 import {ReactComponent as SmartContractIcon} from '@src/assets/icons/smartContract_black.svg';
-import {ReactComponent as WebIcon} from '@src/assets/icons/web_black.svg';
 import {ReactComponent as DiscordIcon} from '@src/assets/icons/discord_black.svg';
+import {ReactComponent as Web} from '@src/assets/icons/web_black.svg';
+import {ReactComponent as Instagram} from '@src/assets/icons/instragram.svg';
+import {ReactComponent as Telegram} from '@src/assets/icons/telegram.svg';
+import {ReactComponent as Linkedin} from '@src/assets/icons/linkedin.svg';
+import {ReactComponent as Facebook} from '@src/assets/icons/facebook.svg';
+import {ReactComponent as Youtube} from '@src/assets/icons/youtube.svg';
 import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
 import {SwitchDetailsUniversity} from '../UniversityProfile/components/SwitchDetailsunivesiyt';
 import univ from './../../assets/icons/FilterUn.svg';
@@ -92,6 +97,8 @@ export const UniversityDetailsPage: React.FC = () => {
   const [showFilter, setShowFilter] = React.useState(false);
   const [data, setData] = useState<any>();
   const [value, setValue] = React.useState(0);
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [links, setLinks] = React.useState<any[]>([]);
   const [filterAttributes, setFilterAttributes] = React.useState<FilterAttributes>({
     text: searchText,
     specialities: '',
@@ -149,7 +156,43 @@ export const UniversityDetailsPage: React.FC = () => {
     setIsDataAlert(true);
   };
 
-  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const getIconForLink = (name: any, link: any): React.ReactNode => {
+    const onClick = () => {
+      handleLink(link);
+    };
+    if (name.includes('linkedin')) {
+      return <Linkedin cursor="pointer" className={styles.social} onClick={onClick}/>;
+    }
+    if (name.includes('facebook')) {
+      return <Facebook cursor="pointer" className={styles.social} onClick={onClick}/>;
+    }
+    if (name.includes('instagram')) {
+      return <Instagram cursor="pointer" className={styles.social} onClick={onClick}/>;
+    }
+    if (name.includes('telegram')) {
+      return <Telegram cursor="pointer" className={styles.social} onClick={onClick}/>;
+    }
+    if (name.includes('youtube')) {
+      return <Youtube cursor="pointer"className={styles.social} onClick={onClick}/>;
+    }
+    if (name.includes('discord')) {
+      return <DiscordIcon cursor="pointer" className={styles.social} onClick={onClick}/>;
+    }
+    return <Web cursor="pointer" className={styles.social} onClick={onClick}/>;
+  };
+
+  React.useEffect(() => {
+    let temp: any[] = [];
+    for (let key in data) {
+
+      let value = data[key];
+      if (key.includes('link') && value) {
+        temp.push({name: key, value: value});
+      }
+    }
+    setLinks(temp);
+  }, [data, !links]);
+
   React.useEffect(() => {
     dispatch(fetchUniversitiesList());
   }, []);
@@ -342,13 +385,11 @@ export const UniversityDetailsPage: React.FC = () => {
                     </Box>
                   </Box>
                   <Box display="flex" alignItems="center">
-                    <Box marginRight="25px">
-                      <DiscordIcon/>
-                    </Box>
-                    <Box marginRight="25px"><SmartContractIcon/></Box>
-                    <Box><WebIcon className={styles.social} onClick={() => {
-                      handleLink("https://kbtu.edu.kz/ru/");
-                    }}/></Box>
+                    {links.map((link: any, index: number) => (
+                      <Box key={link["name"] + "Box"} marginRight="1rem">
+                        {getIconForLink(link["name"], link["value"])}
+                      </Box>
+                    ))}
                   </Box>
                   <Box>
                     <Box sx={{
