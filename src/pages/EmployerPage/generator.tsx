@@ -19,7 +19,8 @@ export const localization = {
                 name: "Толық аты-жөні",
                 major: "Мамандық",
                 graduationYear: "Аяқталған жылы"
-            }
+            },
+            noFavorites: "Таңдаулылар әлі қосылмаған",
         }
     },      
 	"ru":{
@@ -43,6 +44,7 @@ export const localization = {
                 major: "Специальность",
                 graduationYear: "Год выпуска",
             },
+            noFavorites: "Избранные пока не добавлены",
         },
     },
 	"en":{
@@ -65,7 +67,8 @@ export const localization = {
                 name: "Full Name",
                 major: "Major",
                 graduationYear: "Graduation Year"
-            }
+            },
+            noFavorites: "No favorites yet",
         }
     },  
 }

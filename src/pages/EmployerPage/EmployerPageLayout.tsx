@@ -333,83 +333,72 @@ export const EmployerPageLayout: React.FC = () => {
 
                         </Box>
                         <TabPanel value={value} index={0}>
-                            <Box display="flex"
-                                 flexDirection="row"
-                                 alignItems="start"
-                                 sx={{
-                                     width: '100%',
-                                     borderRadius: '15px',
-                                     padding: '10px',
-                                     display: 'grid',
-                                     gridTemplateColumns: '4fr 4fr 1fr 1fr',
-                                     gap: '36px',
-                                     paddingLeft: '20px',
-                                     '@media (max-width: 768px)': {
-                                         width: '100%',
-                                         gridTemplateColumns: '4fr 0fr 0fr 4fr',
+                            {totalDiplomas != 0 ?
+                                (<Box display="flex"
+                                    flexDirection="row"
+                                    alignItems="start"
+                                    sx={{
+                                        width: '100%',
+                                        borderRadius: '15px',
+                                        padding: '10px',
+                                        display: 'grid',
+                                        gridTemplateColumns: '4fr 4fr 1fr 1fr',
+                                        gap: '36px',
+                                        paddingLeft: '20px',
+                                        '@media (max-width: 768px)': {
+                                            width: '100%',
+                                            gridTemplateColumns: '4fr 0fr 0fr 4fr',
 
-                                     },
-                                 }}
-                            >
-                                <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >{localization[lang].studentsPanel.Student.name}
-                                    </Typography>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    '@media (max-width: 768px)': {display: 'none',}
-                                }}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >{localization[lang].studentsPanel.Student.major}
-                                    </Typography>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    '@media (max-width: 768px)': {display: 'none',}
-                                }}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >{localization[lang].studentsPanel.Student.graduationYear}
-                                    </Typography>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    '@media (max-width: 768px)': {
-                                        marginLeft: "11rem"
-                                    }
-                                }}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >GPA
-                                    </Typography>
-                                </Box>
-                                {/*<Box sx={{*/}
-                                {/*    display: 'flex',*/}
-                                {/*    flexDirection: 'row',*/}
-                                {/*    '@media (max-width: 768px)': {display: 'none',}*/}
-                                {/*}}>*/}
-                                {/*    <Typography*/}
-                                {/*        fontSize="14px"*/}
-                                {/*        mb='.5rem' sx={{color: '#818181'}}*/}
-                                {/*        className={styles.mobText}*/}
-                                {/*    >Действие*/}
-                                {/*    </Typography>*/}
-                                {/*</Box>*/}
-                            </Box>
+                                        },
+                                    }}
+                                >
+                                    <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                                        <Typography
+                                            fontSize="14px"
+                                            mb='.5rem' sx={{color: '#818181'}}
+                                            className={styles.mobText}
+                                        >{localization[lang].studentsPanel.Student.name}
+                                        </Typography>
+                                    </Box>
+                                    <Box sx={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        '@media (max-width: 768px)': {display: 'none',}
+                                    }}>
+                                        <Typography
+                                            fontSize="14px"
+                                            mb='.5rem' sx={{color: '#818181'}}
+                                            className={styles.mobText}
+                                        >{localization[lang].studentsPanel.Student.major}
+                                        </Typography>
+                                    </Box>
+                                    <Box sx={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        '@media (max-width: 768px)': {display: 'none',}
+                                    }}>
+                                        <Typography
+                                            fontSize="14px"
+                                            mb='.5rem' sx={{color: '#818181'}}
+                                            className={styles.mobText}
+                                        >{localization[lang].studentsPanel.Student.graduationYear}
+                                        </Typography>
+                                    </Box>
+                                    <Box sx={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        '@media (max-width: 768px)': {
+                                            marginLeft: "11rem"
+                                        }
+                                    }}>
+                                        <Typography
+                                            fontSize="14px"
+                                            mb='.5rem' sx={{color: '#818181'}}
+                                            className={styles.mobText}
+                                        >GPA
+                                        </Typography>
+                                    </Box>
+                                </Box>) : (<></>)}
 
                             <Box
                                 display="flex"
@@ -510,23 +499,30 @@ export const EmployerPageLayout: React.FC = () => {
                                     width: '100%',
                                     marginBottom: "2rem"
                                 }}>
-
-                                    <Box style={{
-                                        flex: 1,
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center'
-                                    }}>
-                                        <Pagination
-                                            count={totalPages}
-                                            page={currentPage}
-                                            onChange={(event, page) => setCurrentPage(page)}
-                                            shape="rounded"
-                                            color="primary"
-                                            size="large"
-                                        />
-                                    </Box>
-
+                                    {totalDiplomas != 0 ?
+                                        (<Box style={{
+                                            flex: 1,
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center'
+                                        }}>
+                                            <Pagination
+                                                count={totalPages}
+                                                page={currentPage}
+                                                onChange={(event, page) => setCurrentPage(page)}
+                                                shape="rounded"
+                                                color="primary"
+                                                size="large"
+                                            />
+                                        </Box>) : 
+                                        (<Typography
+                                            sx={{
+                                                fontWeight: '800',
+                                                fontSize: '25px',
+                                                padding: '20px'
+                                            }}>{localization[lang].studentsPanel.noFavorites}
+                                        </Typography>)
+                                    }
                                 </Box>
 
                             </Box>
