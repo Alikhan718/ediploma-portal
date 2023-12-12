@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
   Box, Button, Rating, Typography, useMediaQuery, Pagination,
-  InputAdornment, Grid, Container, Alert
+  InputAdornment, Grid, Container, Alert, Snackbar
 } from '@mui/material';
 import {Button as ButtonAlt} from '@src/components';
 import {ReactComponent as HeaderSearchIcon} from '@src/assets/icons/search.svg';
@@ -40,6 +40,7 @@ import {FilterAttributes} from "@src/layout/Header/Header";
 import exampleImage from "@src/assets/example/UnivSTU.jpg";
 import ReactGA from 'react-ga';
 import diplomaTemplate from "@src/assets/example/diploma_template.svg";
+import {isAuthenticated} from "@src/utils/userAuth";
 
 const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
@@ -99,6 +100,7 @@ export const UniversityDetailsPage: React.FC = () => {
   const [value, setValue] = React.useState(0);
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [links, setLinks] = React.useState<any[]>([]);
+  const [alertOpen, setAlertOpen] = useState(false);
   const [filterAttributes, setFilterAttributes] = React.useState<FilterAttributes>({
     text: searchText,
     specialities: '',
@@ -145,6 +147,10 @@ export const UniversityDetailsPage: React.FC = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
+  const handleAlertClose = () => {
+		setAlertOpen(false);
+	};
+
   const copyCurrentURLToClipboard = () => {
     const currentURL = window.location.href;
     const textArea = document.createElement('textarea');
@@ -179,6 +185,15 @@ export const UniversityDetailsPage: React.FC = () => {
       return <DiscordIcon cursor="pointer" className={styles.social} onClick={onClick}/>;
     }
     return <Web cursor="pointer" className={styles.social} onClick={onClick}/>;
+  };
+
+  const handleCardClick = (counter: number) => {
+    if (userRole === 'Student' && counter != data.id) {
+        setAlertOpen(true);
+        return;
+    }
+
+    navigate(`/diploma/${counter}`)
   };
 
   React.useEffect(() => {
@@ -590,7 +605,7 @@ export const UniversityDetailsPage: React.FC = () => {
                   <Box
                     key={e.id}
                     onClick={() => {
-                      navigate(`/diploma/${e.id!}`);
+                      handleCardClick(e.id!)
                     }}
                     className={styles.diplomaItem}
                     sx={{
@@ -710,6 +725,18 @@ export const UniversityDetailsPage: React.FC = () => {
           {localization[lang].Alerts.copied}
         </Alert>) :
         (<></>)}
+        <Snackbar 
+          open={alertOpen} autoHideDuration={2000}
+				  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				  onClose={handleAlertClose}
+        >
+          <Alert 
+                      onClose={handleAlertClose} 
+                      severity="error"
+            sx={{ width: '100%' }}>
+              Просмотр данного диплома вам не доступен!
+          </Alert>
+			  </Snackbar>
       <FilterSection
         triggerSearchFilters={triggerSearchFilters}
         filterAttributes={filterAttributes}
