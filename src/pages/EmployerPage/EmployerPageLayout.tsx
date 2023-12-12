@@ -308,29 +308,19 @@ export const EmployerPageLayout: React.FC = () => {
                                     fontWeight: '800',
                                     fontSize: '25px',
                                     padding: '20px'
-                                }}>{localization[lang].studentsPanel.favorite}</Typography>
+                                }}>{localization[lang].studentsPanel.favorite}
+                            </Typography>
                             <Box sx={{
                                 display: 'flex',
                                 flexDirection: 'row',
                                 justifyContent: 'space-between',
                                 width: '100%',
                                 alignItems: 'center',
-                                marginBottom: '20px'
+                                marginBottom: '20px',
+                                marginLeft: '20px',
                             }}>
                                 <Box display="flex" alignItems="center">
-                                    <Button variant="outlined" sx={{
-                                        borderRadius: '20px',
-                                        padding: '5px',
-                                        width: '150px',
-                                        color: '#3B82F6',
-                                        marginLeft: '20px',
-                                        marginRight: '15px'
-                                    }}>
-                                        <Filter style={{marginRight: '10px',}}/>
-                                        {localization[lang].studentsPanel.filter}
-                                    </Button>
                                     <Box display="flex" alignItems="center">
-
                                         <Input
                                             type="text"
                                             name="email"
@@ -338,9 +328,6 @@ export const EmployerPageLayout: React.FC = () => {
                                             className={styles.input}
                                         />
                                     </Box>
-                                    <Box>
-                                    </Box>
-
                                 </Box>
                             </Box>
 
