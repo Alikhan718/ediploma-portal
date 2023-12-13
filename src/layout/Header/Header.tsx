@@ -261,7 +261,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             gap: ".5rem",
                         },
                     }}>
-                        <Input
+                        {/* <Input
                             type="text"
                             name="email"
                             placeholder="Найти"
@@ -279,7 +279,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                     <HeaderSearchIcon/>
                                 </InputAdornment>
                             }
-                        />
+                        /> */}
                         <Box className="app-icon-img">
                             <IconButton
                                 style={{
@@ -522,7 +522,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             justifyContent='flex-end'
                             gap=".5rem"
                             className="diploma-btn-container">
-                                <IconButton
+                                {/* <IconButton
                                     style={{
                                         cursor: 'pointer',
                                         minHeight: '2.5rem',
@@ -530,7 +530,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                     }}
                                 >
                                     <HeaderSearchIcon style={{alignSelf: "center"}}/>
-                                </IconButton>
+                                </IconButton> */}
 
                             <IconButton
                                 style={{
