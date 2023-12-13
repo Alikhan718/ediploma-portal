@@ -3,10 +3,15 @@ import {Box, Card, CardMedia, Typography, Pagination} from '@mui/material';
 import {Button, Label, Input} from '@src/components';
 import styles from './EmployerPage.module.css';
 import {ReactComponent as SmartContractIcon} from '@src/assets/icons/smartContract_black.svg';
-import {ReactComponent as WebIcon} from '@src/assets/icons/web_black.svg';
+import {ReactComponent as Web} from '@src/assets/icons/web_black.svg';
 import {ReactComponent as DiscordIcon} from '@src/assets/icons/discord_black.svg';
 import {ReactComponent as TwitterIcon} from '@src/assets/icons/twitter_black.svg';
 import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
+import {ReactComponent as Instagram} from '@src/assets/icons/instragram.svg';
+import {ReactComponent as Telegram} from '@src/assets/icons/telegram.svg';
+import {ReactComponent as Linkedin} from '@src/assets/icons/linkedin.svg';
+import {ReactComponent as Facebook} from '@src/assets/icons/facebook.svg';
+import {ReactComponent as Youtube} from '@src/assets/icons/youtube.svg';
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchFavoriteDiplomas} from "@src/store/diplomas/actionCreators";
@@ -60,8 +65,36 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export const EmployerPageLayout: React.FC = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const lang = useSelector(selectLanguage);
+    const userState = useSelector(selectUserState);
+    const favoriteDiplomas = useSelector(selectFavoriteDiplomas);
+    
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [value, setValue] = React.useState(0);
+    const [links, setLinks] = React.useState<any[]>([]);
+    
+    const diplomasPerPage = 10;
+    const startIndex = (currentPage - 1) * diplomasPerPage;
+    const endIndex = startIndex + diplomasPerPage;
+    const totalDiplomas = favoriteDiplomas.length;
+    const totalPages = Math.ceil(totalDiplomas / diplomasPerPage);
+    const currentFavoriteDiplomaPage = favoriteDiplomas.slice(startIndex, endIndex);
+
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage((prevPage) => prevPage - 1);
+        }
+    };
+
+    const nextPage = () => {
+        setCurrentPage((prevPage) => prevPage + 1);
+    };
+
     const copyCurrentURLToClipboard = () => {
+        console.log(userState)
         const currentURL = window.location.href;
         const textArea = document.createElement('textarea');
         textArea.value = currentURL;
@@ -70,38 +103,56 @@ export const EmployerPageLayout: React.FC = () => {
         document.execCommand('copy');
         document.body.removeChild(textArea);
     };
-    const [currentPage, setCurrentPage] = useState(1);
-    const favoriteDiplomas = useSelector(selectFavoriteDiplomas);
-    const diplomasPerPage = 10;
-    const startIndex = (currentPage - 1) * diplomasPerPage;
-    const endIndex = startIndex + diplomasPerPage;
-    const totalDiplomas = favoriteDiplomas.length;
-    const totalPages = Math.ceil(totalDiplomas / diplomasPerPage);
 
-    const currentFavoriteDiplomaPage = favoriteDiplomas.slice(startIndex, endIndex);
+    const getIconForLink = (name: any, link: any): React.ReactNode => {
+        const onClick = () => {
+          handleLink(link);
+        };
+        if (name.includes('linkedin')) {
+          return <Linkedin cursor="pointer" className={styles.social} onClick={onClick}/>;
+        }
+        if (name.includes('facebook')) {
+          return <Facebook cursor="pointer" className={styles.social} onClick={onClick}/>;
+        }
+        if (name.includes('instagram')) {
+          return <Instagram cursor="pointer" className={styles.social} onClick={onClick}/>;
+        }
+        if (name.includes('telegram')) {
+          return <Telegram cursor="pointer" className={styles.social} onClick={onClick}/>;
+        }
+        if (name.includes('youtube')) {
+          return <Youtube cursor="pointer"className={styles.social} onClick={onClick}/>;
+        }
+        if (name.includes('discord')) {
+          return <DiscordIcon cursor="pointer" className={styles.social} onClick={onClick}/>;
+        }
+        return <Web cursor="pointer" className={styles.social} onClick={onClick}/>;
+    };
 
-    const userState = useSelector(selectUserState);
-
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    useEffect(() => {
+    React.useEffect(() => {
         dispatch(fetchFavoriteDiplomas());
     }, [!favoriteDiplomas]);
 
-    const prevPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage((prevPage) => prevPage - 1);
+    React.useEffect(() => {
+        dispatch(fetchFavoriteDiplomas());
+    }, [!favoriteDiplomas]);
+
+    React.useEffect(() => {
+        let temp: any[] = [];
+        for (let key in userState) {
+    
+          let value = userState[key];
+          if (key.includes('link') && value) {
+            temp.push({name: key, value: value});
+          }
         }
-    };
-
-    const [value, setValue] = React.useState(0);
-
-    const nextPage = () => {
-        setCurrentPage((prevPage) => prevPage + 1);
-    };
+        setLinks(temp);
+    }, [userState, !links]);
+    
     React.useEffect(() => {
 
         dispatch(fetchUserProfile());
+        console.log(userState)
     }, [!userState]);
 
     return (
@@ -154,9 +205,9 @@ export const EmployerPageLayout: React.FC = () => {
                                         fontSize: '20px',
                                         padding: '1rem',
                                     }}>
-                                    {localization[lang].mainInfo.name}
+                                    {userState ? userState.name : localization[lang].mainInfo.name}
                                 </Typography>
-                                <Label label={localization[lang].mainInfo.position}/>
+                                <Label label={userState ? userState.position : localization[lang].mainInfo.position}/>
                                 <Box display="flex" justifyContent="center" margin="1rem">
                                     <Box
                                         sx={{
@@ -172,7 +223,7 @@ export const EmployerPageLayout: React.FC = () => {
                                             sx={{
                                                 fontSize: '20px'
                                             }}>
-                                            1
+                                            {userState ? userState.branches_amount : 1}
                                         </Typography>
                                         <Label label={localization[lang].mainInfo.places}/>
                                     </Box>
@@ -190,7 +241,7 @@ export const EmployerPageLayout: React.FC = () => {
                                             sx={{
                                                 fontSize: '20px'
                                             }}>
-                                            12
+                                            {userState ? userState.vacancy_amount : 12}
                                         </Typography>
                                         <Label label={localization[lang].mainInfo.vacancies}/>
                                     </Box>
@@ -208,7 +259,7 @@ export const EmployerPageLayout: React.FC = () => {
                                             sx={{
                                                 fontSize: '20px'
                                             }}>
-                                            8
+                                            {userState ? userState.hired_amount : 8}
                                         </Typography>
                                         <Label label={localization[lang].mainInfo.hired}/>
                                     </Box>
@@ -234,15 +285,17 @@ export const EmployerPageLayout: React.FC = () => {
                                     '@media (max-width: 768px)': {margin: '0.5rem', fontSize: '20px'}
                                 }}> {localization[lang].additionalInfo.mainInfo} </Box>
                                 <Box marginBottom="15px" sx={{'@media (max-width: 768px)': {display: 'none'}}}>
-                                    <img src={star} style={{marginRight: '15px'}}/> <img src={share} style={{
-                                    marginRight: '10px',
-                                    marginLeft: '10px',
-                                    width: '25px',
-                                    height: '25px', cursor: 'pointer'
-                                }}
-                                                                                         onClick={copyCurrentURLToClipboard}
-                                                                                         alt="Share Icon"/>
-                                    <img src={dots} style={{marginRight: '10px'}}/>
+                                {/* <img src={star} style={{marginRight: '15px'}}/>  */}
+                                <img src={share} 
+                                    style={{
+                                        marginRight: '10px',
+                                        marginLeft: '10px',
+                                        width: '25px',
+                                        height: '25px', cursor: 'pointer'
+                                     }}
+                                    onClick={copyCurrentURLToClipboard}
+                                    alt="Share Icon"/>
+                                    {/* <img src={dots} style={{marginRight: '10px'}}/> */}
                                 </Box>
                                 <Box marginBottom="15px"
                                      sx={{display: 'none', '@media (max-width: 768px)': {display: 'flex'}}}>
@@ -254,21 +307,17 @@ export const EmployerPageLayout: React.FC = () => {
                                 </Box>
                             </Box>
                             <Box marginTop="0.5rem" marginBottom="0.5rem" display="flex" alignItems="center">
-                                <Box marginRight="25px" sx={{cursor: "pointer"}} onClick={() => {
-                                    handleLink("https://discord.gg/QxjZHUag");
-                                }}><DiscordIcon/></Box>
-                                <Box marginRight="25px" sx={{cursor: "pointer"}} onClick={() => {
-                                    handleLink("https://testnet.bscscan.com/address/0x6A14818b2022D085512a4e57d4021C40c23C5d28");
-                                }}><SmartContractIcon/></Box>
-                                <Box marginRight="25px" sx={{cursor: "pointer"}} onClick={() => {
-                                    handleLink("https://jasaim.kz");
-                                }}><WebIcon/></Box>
+                                {links.map((link: any, index: number) => (
+                                    <Box key={link["name"] + "Box"} marginRight="1rem">
+                                        {getIconForLink(link["name"], link["value"])}
+                                    </Box>
+                                ))}
                             </Box>
                             <Typography
                                 className={styles.textSm}
                                 color="#818181"
                                 sx={{fontSize: '14px', '@media (max-width: 768px)': {marginLeft: '0.5rem'}}}>
-                                {localization[lang].additionalInfo.description}
+                                {userState ? userState.description : localization[lang].additionalInfo.description}
                             </Typography>
                         </Box>
                         <Box display="flex" className={styles.mobP15} style={{overflowX: "scroll", marginTop: "auto"}}
