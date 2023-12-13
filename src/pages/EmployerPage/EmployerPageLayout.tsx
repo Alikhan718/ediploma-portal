@@ -76,6 +76,7 @@ export const EmployerPageLayout: React.FC = () => {
     const [value, setValue] = React.useState(0);
     const [links, setLinks] = React.useState<any[]>([]);
     
+    const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
     const diplomasPerPage = 10;
     const startIndex = (currentPage - 1) * diplomasPerPage;
     const endIndex = startIndex + diplomasPerPage;
@@ -175,7 +176,7 @@ export const EmployerPageLayout: React.FC = () => {
                                 flexDirection: 'column',
                                 justifyContent: 'flex-start',
                                 alignItems: 'center',
-                                backgroundImage: `url(https://www.coinspot.com.au/public/img/learn/blockchain-applications-supply-chains.png)`,
+                                backgroundImage: userState && userState.avatar ? `url(${baseURL}/${userState.avatar})`: `url(https://www.coinspot.com.au/public/img/learn/blockchain-applications-supply-chains.png)`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center center',
                             }}>

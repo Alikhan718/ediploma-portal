@@ -163,6 +163,7 @@ const SettingsPage: React.FC = () => {
 
   React.useEffect(() => {
     dispatch(fetchUserProfile());
+    console.log(userState);
   }, [!userState]);
 
   React.useEffect(() => {
@@ -175,6 +176,16 @@ const SettingsPage: React.FC = () => {
   }, [userState]);
 
   React.useEffect(() => {
+    if (userState && userState.role === 'Employer' && imageLink && fileUpload) {
+      const payload = {
+        "attributes": {
+          "avatar": imageLink
+        }
+      };
+      dispatch(fetchUpdateUserProfile(payload));
+      return;
+    }
+
     if (imageLink && fileUpload) {
       const payload = {
         "attributes": {
