@@ -271,7 +271,7 @@ const SettingsPage: React.FC = () => {
           maxWidth: '100vw',
           paddingTop: '20px',
           backgroundColor: '#E8EBF1',
-          backgroundImage: userState.banner ? `url(${baseURL}/${userState.banner})` : "",
+          backgroundImage: userState && userState.avatar ? `url(${baseURL}/${userState.avatar})`: "",
           backgroundSize: "cover",
           backgroundPosition: "0 50%",
           backgroundRepeat: "no-repeat",
