@@ -101,8 +101,8 @@ export const UniversityProfileLayout: React.FC = () => {
 
   const [showFilter, setShowFilter] = React.useState(false);
 
-  const triggerSearchFilters = () => {
-    dispatch(fetchSearch(filterAttributes));
+  const triggerSearchFilters = ( filterAttributesNew: any ) => {
+    dispatch(fetchSearch(filterAttributesNew));
     ReactGA.event({
       category: 'User',
       action: 'Search',
@@ -434,7 +434,7 @@ export const UniversityProfileLayout: React.FC = () => {
                           style={{width: '82px', marginLeft: '12px'}}
                           cursor="pointer"
                           onClick={() => {
-                            triggerSearchFilters();
+                            triggerSearchFilters(filterAttributes);
                             ReactGA.event({
                               category: 'User',
                               action: 'Search',

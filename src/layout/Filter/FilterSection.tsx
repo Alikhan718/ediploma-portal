@@ -10,6 +10,7 @@ import { MultiSelect } from "@src/components/MultiSelect/MuiltiSelect";
 import { useDispatch, useSelector } from 'react-redux';
 import { cancelFilters, fetchDiplomas } from "@src/store/diplomas/actionCreators";
 import { selectLanguage } from "@src/store/generals/selectors";
+import e from 'express';
 
 
 export const FilterSection: React.FC<IFilter> = (props) => {
@@ -20,8 +21,39 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	const [selectedYear, setSelectedYear] = React.useState<number[]>([]);
 	const [selectedRegions, setSelectedRegions] = React.useState<string[]>([]);
 	const dispatch = useDispatch();
-	React.useEffect(() => {
-		const filterValues = {
+	// React.useEffect(() => {
+	// 	const filterValues = {
+	// 		text: filterAttributes.text,
+	// 		specialities: selectedSpecialities.join(",") ?? filterAttributes.specialities,
+	// 		region: selectedRegions.join(",") ?? filterAttributes.region,
+	// 		degree: selectedDegree.join(",") ?? filterAttributes.degree,
+	// 		year: selectedYear.join(",") ?? filterAttributes.year,
+	// 		gpaL: selectedGPA[0] ?? filterAttributes.gpaL,
+	// 		gpaR: selectedGPA[1] ?? filterAttributes.gpaR,
+	// 	};
+
+	// 	// Update the filterAttributes state
+	// 	setFilterAttributes(filterValues);
+	// 	setFilterAttributes(filterValues);
+	// 	if (filterValues.text.length ||
+	// 		filterValues.specialities.length ||
+	// 		filterValues.gpaL !== 1 ||
+	// 		filterValues.gpaR !== 4 ||
+	// 		filterValues.year.length ||
+	// 		filterValues.degree.length ||
+	// 		filterValues.region.length) {
+	// 		triggerSearchFilters(filterValues);
+	// 	} else {
+	// 		dispatch(cancelFilters());
+	// 		dispatch(fetchDiplomas());
+	// 	}
+
+
+	// }, [selectedYear, selectedRegions, selectedSpecialities, selectedDegree, selectedGPA]);
+
+	const filter = (type:string, arr: any) => {
+
+		let filterValues = {
 			text: filterAttributes.text,
 			specialities: selectedSpecialities.join(",") ?? filterAttributes.specialities,
 			region: selectedRegions.join(",") ?? filterAttributes.region,
@@ -30,6 +62,20 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			gpaL: selectedGPA[0] ?? filterAttributes.gpaL,
 			gpaR: selectedGPA[1] ?? filterAttributes.gpaR,
 		};
+
+		if (type === "speciality") {
+			filterValues.specialities = arr.join(",");
+		}
+		else if (type === "region") {
+			filterValues.region = arr.join(",");
+		}
+		else if (type === "year"){
+			filterValues.year = arr.join(",");
+		}
+		else if (type === "gpa"){
+			filterValues.gpaL = arr[0];
+			filterValues.gpaR = arr[1];
+		}
 
 		// Update the filterAttributes state
 		setFilterAttributes(filterValues);
@@ -41,14 +87,13 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			filterValues.year.length ||
 			filterValues.degree.length ||
 			filterValues.region.length) {
-			triggerSearchFilters(filterValues);
+				triggerSearchFilters(filterValues);
 		} else {
 			dispatch(cancelFilters());
 			dispatch(fetchDiplomas());
 		}
-
-
-	}, [selectedYear, selectedRegions, selectedSpecialities, selectedDegree, selectedGPA]);
+	};
+	
 	const marks = [
 		{
 			value: 0,
@@ -62,8 +107,14 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	];
 
 
-	const handleChange = (e: any, arr: any, setE: any) => {
-		setE(arr.includes(e) ? arr.filter((i: any) => i != e) : [...arr, e]);
+	const handleChange = (e: any, arr: any, setE: any, type: string) => {
+		setE(arr.includes(e) ? arr.filter((i: any) => i != e) : [e]);
+		if (!arr.includes(e)){
+			filter(type, [e]);
+		}
+		else{
+			filter(type, []);
+		}
 	};
 	const handleDelete = (e: any, arr: any, setE: any) => {
 		setE(arr.filter((i: any) => i != e));
@@ -71,6 +122,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 
 	const handleGPA = (event: Event, newValue: number | number[]) => {
 		setSelectedGPA(newValue as number[]);
+		filter("gpa", newValue);
 	};
 	const lang = useSelector(selectLanguage);
 	const translatedSpecialities = specialities[lang];
@@ -130,7 +182,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 									<Button
 										variant='outlined'
 										onClick={() => {
-											handleChange(speciality.name, selectedSpecialities, setSelectedSpecialities);
+											handleChange(speciality.name, selectedSpecialities, setSelectedSpecialities, "speciality");
 										}}
 										className={cn(
 											((selectedSpecialities.includes(speciality.name) ? 'active' : 'unactive') + 'Chip' + " customChip"),
@@ -182,7 +234,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 								{translatedRegions.slice(0, 7).map((region) =>
 									<Button variant='outlined'
 										onClick={() => {
-											handleChange(region.name, selectedRegions, setSelectedRegions);
+											handleChange(region.name, selectedRegions, setSelectedRegions, "region");
 										}}
 										className={cn(((selectedRegions.includes(region.name) ? 'active' : 'unactive') + 'Chip' + " customChip"), styles.mobPBtn, styles.mobTextSm)}
 										key={region.id}>
@@ -219,7 +271,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 								{years.map((year) =>
 									<Button variant='outlined'
 										onClick={() => {
-											handleChange(year.year, selectedYear, setSelectedYear);
+											handleChange(year.year, selectedYear, setSelectedYear, "year");
 										}}
 										className={cn(((selectedYear.includes(year.year) ? 'active' : 'unactive') + 'Chip' + " customChip"), styles.mobPBtn, styles.mobTextSm)}
 										key={year.id}>

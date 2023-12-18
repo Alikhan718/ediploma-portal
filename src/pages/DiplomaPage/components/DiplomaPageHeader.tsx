@@ -43,8 +43,8 @@ export const DiplomaPageHeader: React.FC = (props) => {
     // 	console.log(filterAttributes);
     // 	dispatch(fetchSearch(filterAttributes));
     // };
-    const triggerSearchFilters = () => {
-        dispatch(fetchSearch(filterAttributes));
+    const triggerSearchFilters = (filterAttributesNew: any) => {
+        dispatch(fetchSearch(filterAttributesNew));
         navigate(routes.hrBank);
     };
 
@@ -99,7 +99,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
                                     endAdornment={
                                         <Button
                                             onClick={() => {
-                                                triggerSearchFilters();
+                                                triggerSearchFilters(filterAttributes);
                                                 ReactGA.event({
                                                     category: 'User',
                                                     action: 'Search',

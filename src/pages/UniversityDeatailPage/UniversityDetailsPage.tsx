@@ -134,8 +134,8 @@ export const UniversityDetailsPage: React.FC = () => {
     return showFull ? text : text.substring(0, trimLimit) + "...";
   };
 
-  const triggerSearchFilters = () => {
-    dispatch(fetchSearch(filterAttributes));
+  const triggerSearchFilters = ( filterAttributesNew:any ) => {
+    dispatch(fetchSearch(filterAttributesNew));
     navigate(`/university/${id}`);
   };
 
@@ -497,7 +497,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           <HeaderSearchIcon
                             cursor="pointer"
                             onClick={() => {
-                              triggerSearchFilters();
+                              triggerSearchFilters(filterAttributes);
                               ReactGA.event({category: 'User', action: 'Search', label: searchQuery,});
                             }}
                           />
