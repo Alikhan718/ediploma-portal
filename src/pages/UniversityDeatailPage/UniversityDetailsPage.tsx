@@ -291,12 +291,12 @@ export const UniversityDetailsPage: React.FC = () => {
                     '@media (max-width: 768px)': {display: 'none'}
                   }}>
 
-                    <img src={star} style={{
+                    {/* <img src={star} style={{
                       marginRight: '10px',
                       marginLeft: '10px',
                       width: '25px',
                       height: '25px',
-                    }}/>
+                    }}/> */}
                     <img src={share} style={{
                       marginRight: '10px',
                       marginLeft: '10px',
@@ -304,12 +304,12 @@ export const UniversityDetailsPage: React.FC = () => {
                       height: '25px',
                       cursor: 'pointer',
                     }} onClick={copyCurrentURLToClipboard}/>
-                    <img src={dots} style={{
+                    {/* <img src={dots} style={{
                       marginRight: '10px',
                       marginLeft: '10px',
                       width: '25px',
                       height: '25px',
-                    }}/>
+                    }}/> */}
                   </Box>
                   <Box sx={{
                     position: 'absolute',

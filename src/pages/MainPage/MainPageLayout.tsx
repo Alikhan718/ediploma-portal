@@ -32,6 +32,7 @@ export const MainPageLayout: React.FC = () => {
 	const lang = useSelector(selectLanguage);
 	const imgSrc = [img2, img3, img4];
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
+	const theme = useTheme();
 
 	const changeImage = () => {
 		setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imgSrc.length);
@@ -127,6 +128,22 @@ export const MainPageLayout: React.FC = () => {
 	const handleAlertClose = () => {
 		setAlertOpen(false);
 	};
+
+	const [activeStep, setActiveStep] = React.useState(0);
+    const maxSteps = localization[lang].Media.elements.length;
+
+    const handleNext = () => {
+         setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+         setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleStepChange = (step: number) => {
+         setActiveStep(step);
+    };
+
 	return (
 		<Box className={styles.mainContainer} sx={{ backgroundColor: "white", }}>
 			<Box sx={{
@@ -333,6 +350,73 @@ export const MainPageLayout: React.FC = () => {
 					})}
 				</Box>
 			</Box>
+
+			<Box display="flex" justifyContent="space-between">
+                <Typography fontSize='48px' textAlign='left' className={styles.mobTextL} width="50%" 
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                    }}
+                >
+                    {localization[lang].Media.title}
+                </Typography>
+                <Box width="50%">
+                    <Box sx={{
+                        alignItems: 'center',
+                        textAlign: 'center',
+                        overflowX: 'scroll',
+                        overflowY: 'hidden', 
+                        }} 
+                        className={styles.container}
+                        justifyContent="start"
+                        width="100%"
+                    >
+                        <Box className={styles.cardItem} sx={{ width: '100%' }}>
+                            <Typography fontSize="1rem" textAlign='left' color="#2D2D2D" className={styles.mobTextMd}>
+                                {localization[lang].Media.elements[activeStep].text}
+                            </Typography>
+                            <Box display="flex" justifyContent="flex-start">
+                                <img src={localization[lang].Media.elements[activeStep].avatar} style={{width: '3.5rem', height: '3.5rem', borderRadius: "50%", alignSelf: "center", objectFit: 'cover',}}/>
+                                <Typography marginLeft="1rem" fontSize=".9rem" fontWeight="500" color="#2D2D2D" className={styles.mobTextSm}
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    {localization[lang].Media.elements[activeStep].fullname}
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+                    <MobileStepper
+                        steps={maxSteps}
+                        position="static"
+                        activeStep={activeStep}
+                        nextButton={
+                            <Button
+                                size="small"
+                                onClick={handleNext}
+                                disabled={activeStep === maxSteps - 1}
+                            >
+                                {theme.direction === 'rtl' ? (
+                                <KeyboardArrowLeft />
+                                ) : (
+                                <KeyboardArrowRight />
+                                )}
+                            </Button>
+                        }
+                        backButton={
+                            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                                {theme.direction === 'rtl' ? (
+                                <KeyboardArrowRight />
+                                ) : (
+                                <KeyboardArrowLeft />
+                                )}
+                            </Button>
+                        }
+                    />
+                </Box>
+            </Box>
 
 			<Box className={styles.contactUsContainer}>
 				<Box className={styles.item} display="flex" flexDirection="column" width="45%"

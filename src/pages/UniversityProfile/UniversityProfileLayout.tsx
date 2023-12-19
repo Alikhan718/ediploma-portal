@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
-  Box, Typography, useMediaQuery, Pagination,
+  Box, Typography, useMediaQuery, Pagination, Alert
 } from '@mui/material';
 import ReactGA from "react-ga";
 import {ReactComponent as HeaderSearchIcon} from '@src/assets/icons/search.svg';
@@ -76,6 +76,7 @@ export const UniversityProfileLayout: React.FC = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
   const [currentPage, setCurrentPage] = useState(1);
+  const [isDataAlert, setIsDataAlert] = React.useState(false);
 
   const diplomasPerPage = 10;
   const totalDiplomas = diplomaList.length;
@@ -150,6 +151,7 @@ export const UniversityProfileLayout: React.FC = () => {
     textArea.select();
     document.execCommand('copy');
     document.body.removeChild(textArea);
+    setIsDataAlert(true);
   };
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -193,6 +195,20 @@ export const UniversityProfileLayout: React.FC = () => {
     }
     return <Web className={styles.social} onClick={onClick}/>;
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsDataAlert(false);
+    };
+
+    if (isDataAlert) {
+      window.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isDataAlert]);
 
   const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
@@ -244,12 +260,12 @@ export const UniversityProfileLayout: React.FC = () => {
                     justifyContent: 'space-between',
                     '@media (max-width: 768px)': {display: 'none'}
                   }}>
-                    <img src={star} style={{
+                    {/* <img src={star} style={{
                       marginRight: '10px',
                       marginLeft: '10px',
                       width: '25px',
                       height: '25px',
-                    }}/>
+                    }}/> */}
                     <img src={share} style={{
                       marginRight: '10px',
                       marginLeft: '10px',
@@ -258,12 +274,12 @@ export const UniversityProfileLayout: React.FC = () => {
                     }}
                          onClick={copyCurrentURLToClipboard}
                          alt="Share Icon"/>
-                    <img src={dots} style={{
+                    {/* <img src={dots} style={{
                       marginRight: '10px',
                       marginLeft: '10px',
                       width: '25px',
                       height: '25px',
-                    }} onClick={handleClick}/>
+                    }} onClick={handleClick}/> */}
 
                   </Box>
                   <Box sx={{
@@ -487,7 +503,7 @@ export const UniversityProfileLayout: React.FC = () => {
                 {/* <Box>	<img src={univ} style={{ marginRight: '15px' }} />
 									<img src={univ} style={{ marginRight: '5px' }} /></Box> */}
               </Box>
-
+            
             </Box>
             <TabPanel value={value} index={0}>
               <Box display="flex"
@@ -674,18 +690,25 @@ export const UniversityProfileLayout: React.FC = () => {
                       boundaryCount={window.innerWidth < 600 ? 1 : 2}
                     />
                   </Box>
-
                 </Box>
-
               </Box>
-
-
             </TabPanel>
-
           </Box>
-
         </Box>
       </Box>
+      {isDataAlert ?
+        (<Alert
+          sx={{
+            borderRadius: '10rem',
+            position: 'fixed',
+            bottom: '2rem',
+            left: '16rem',
+          }}
+          severity="success"
+        >
+          {localization[lang].Alerts.copied}
+        </Alert>) :
+        (<></>)}
       <FilterSection
         triggerSearchFilters={triggerSearchFilters}
         filterAttributes={filterAttributes}

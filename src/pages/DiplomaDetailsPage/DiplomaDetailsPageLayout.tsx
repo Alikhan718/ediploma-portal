@@ -46,6 +46,9 @@ import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
 import {selectLanguage} from "@src/store/generals/selectors";
 import {localization} from '@src/pages/DiplomaDetailsPage/generator';
+import { put } from "redux-saga/effects";
+import { setSnackbar } from '@src/store/generals/actionCreators';
+
 
 export const DiplomaDetailsPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
@@ -151,6 +154,17 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         setImageLoaded(true);
     };
 
+    const copyCurrentURLToClipboard = () => {
+        const currentURL = window.location.href;
+        const textArea = document.createElement('textarea');
+        textArea.value = currentURL;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        setAlertOpen(true);
+    };
+
     return (
         <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
             <Box display='flex' flexWrap='wrap'>
@@ -235,22 +249,29 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     open={Boolean(anchorEl)}
                                                     onClose={handleClose}
                                                 >
-                                                    <MenuItem onClick={() => {
-                                                        navigate(routes.main);
-                                                    }}>
-                                                        <Eye style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                        <Typography>{localization[lang].StudentPage.Menu.goto}</Typography>
+                                                    <MenuItem 
+                                                        onClick={()=>{
+                                                            handleClose();
+                                                            copyCurrentURLToClipboard();
+                                                        }}>
+                                                        <ShareIcon style={{marginRight: '10px', verticalAlign: "center"}}/>
+                                                        <Typography>{localization[lang].StudentPage.Menu.share}</Typography>
                                                     </MenuItem>
-                                                    <MenuItem onClick={handleClose}><Star
-                                                        style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                        <Typography>{localization[lang].StudentPage.Menu.favorite}</Typography></MenuItem>
-                                                    <MenuItem onClick={handleClose}><ShareIcon
-                                                        style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                        <Typography>{localization[lang].StudentPage.Menu.share}</Typography></MenuItem>
                                                     <Divider style={{margin: "0 1rem"}}/>
-                                                    <MenuItem onClick={handleClose}><Check
-                                                        style={{marginRight: '10px', verticalAlign: "center"}}/>
-                                                        <Typography>Etherscan</Typography></MenuItem>
+                                                    <MenuItem 
+                                                        onClick={()=>{
+                                                            handleClose();
+                                                            console.log(graduateAttributes);
+                                                            if (graduateAttributes && graduateAttributes.smart_contract_link){
+                                                                window.open(graduateAttributes.smart_contract_link, '_blank');
+                                                                return;
+                                                            }
+                                                            put(setSnackbar({visible: true, message: "Link cannot be accessed", status: "error"}));
+
+                                                        }}>
+                                                        <Check style={{marginRight: '10px', verticalAlign: "center"}}/>
+                                                        <Typography>Etherscan</Typography>
+                                                    </MenuItem>
                                                 </Menu>
 
 
