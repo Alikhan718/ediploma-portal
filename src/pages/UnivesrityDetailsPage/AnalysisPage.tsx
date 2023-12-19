@@ -16,10 +16,9 @@ import grtantsData from './components/data/grants.json';
 import analysisData from './components/data/analytic.json'
 import * as XLSX from 'xlsx';
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserState } from '@src/store/auth/selector';
-import { fetchUserProfile } from "@src/store/auth/actionCreators";
-import { selectDiplomaList } from "@src/store/diplomas/selectors";
-import { fetchDiplomas } from "@src/store/diplomas/actionCreators";
+import { fetchGraduatesAmount } from '@src/store/analytics/actionCreators';
+import { selectGraduatesAmount } from '@src/store/analytics/selector';
+import { set } from 'react-ga';
 
 
 interface TabPanelProps {
@@ -62,14 +61,8 @@ interface AllGraphData {
 	[key: string]: GraphData[];
 }
 export const AnalysisPage: React.FC = () => {
-	const userState = useSelector(selectUserState);
-	const diplomaList = useSelector(selectDiplomaList);
+	const graduatesAmount = useSelector(selectGraduatesAmount);
 	const dispatch = useDispatch();
-	const totalDiplomas = diplomaList.length;
-
-	const [ bachelor, setBachelor ] = React.useState(0);
-	const [ master, setMaster ] = React.useState(0);
-	const [ graduates, setGraduates ] = React.useState(0);
 
 	const [value, setValue] = React.useState(0);
 	const [graphVisibility, setGraphVisibility] = React.useState(initialGraphVisibility);
@@ -101,41 +94,11 @@ export const AnalysisPage: React.FC = () => {
 
 		XLSX.writeFile(wb, 'graphs_data.xlsx');
 	};
-	
-	React.useEffect(() => {
-		dispatch(fetchUserProfile());
-		console.log(userState);
-	}, [!userState]);
 
 	React.useEffect(() => {
-		dispatch(fetchDiplomas());
-		console.log(diplomaList);
-	}, [!totalDiplomas]);
-
-	React.useEffect(() => {
-		let bachelorCount = 0;
-		let masterCount = 0;
-		let totalCount = 0;
-
-		for (let i = 0; i < diplomaList.length; i++) {
-			if (userState.university_id != diplomaList[i].university_id){
-				continue;
-			}
-
-			totalCount++;
-
-			if (diplomaList[i].speciality_ru.includes('МАГИСТРА')) {
-				masterCount++;
-			}
-			else if (diplomaList[i].speciality_ru.includes('БАКАЛАВРА')){
-				bachelorCount++;
-			}
-		}
-
-		setBachelor(bachelorCount);
-		setMaster(masterCount);
-		setGraduates(totalCount);
-	}, [diplomaList]);
+		dispatch(fetchGraduatesAmount());
+		console.log("GraduatesAmount", graduatesAmount);
+	}, [!graduatesAmount]);
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'row', margin: '2rem' }}>
@@ -175,9 +138,9 @@ export const AnalysisPage: React.FC = () => {
 							marginRight: 0
 						},
 					}}>
-						<AnalyticsCard text="Количество выпускников" number={graduates ?? 0} />
-						<AnalyticsCard text="Выпускники бакалавриата" number={bachelor ?? 0} />
-						<AnalyticsCard text="Выпускники магистратуры" number={master ?? 0} />
+						<AnalyticsCard text="Количество выпускников" number={graduatesAmount.graduatesAmount ?? 0} />
+						<AnalyticsCard text="Выпускники бакалавриата" number={graduatesAmount.bachelorGraduatesAmount ?? 0} />
+						<AnalyticsCard text="Выпускники магистратуры" number={graduatesAmount.masterGraduatesAmount ?? 0} />
 					</Box>
 					<Box sx={{
 

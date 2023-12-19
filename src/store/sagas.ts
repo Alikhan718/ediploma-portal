@@ -2,6 +2,7 @@ import {all, call, put} from "redux-saga/effects";
 import {authSagas} from "./auth/saga";
 import {diplomaSaga} from "./diplomas/saga";
 import {generatorSaga} from "@src/store/generator/saga";
+import {analyticsSaga} from "@src/store/analytics/saga";
 import {TypeInterface} from "./ActionType";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {getRequestError} from "@src/utils/getRequestError";
@@ -70,5 +71,6 @@ export default function* rootSaga() {
         authSagas(),
         diplomaSaga(),
         generatorSaga(),
+        analyticsSaga(),
     ]);
 };

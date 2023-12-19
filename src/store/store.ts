@@ -4,6 +4,7 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import rootSaga from './sagas';
 import {generalsReducer} from './generals/reducer';
 import {authReducer} from './auth/reducer';
+import { analyticsReducer } from './analytics/reducer';
 import diplomaReducer from './diplomas/reducer';
 import generatorReducer from "@src/store/generator/reducer";
 
@@ -14,6 +15,7 @@ const reducers = combineReducers({
     auth: authReducer,
     diploma: diplomaReducer,
     generator: generatorReducer,
+    analytics: analyticsReducer,
 });
 
 
