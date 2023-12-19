@@ -578,7 +578,7 @@ const AddingGraduates: React.FC = () => {
                                 </Box>
                                 <Button variant="contained" color="primary"
                                         sx={{marginTop: 2, borderRadius: '15px'}}
-                                        onClick={() => navigate(routes.main)}> {localization[lang].AddingGratuates.finish} </Button>
+                                        onClick={() => navigate(routes.hrBank)}> {localization[lang].AddingGratuates.finish} </Button>
                             </Box>
                         )
                     }
