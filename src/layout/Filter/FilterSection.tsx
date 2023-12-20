@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Card, MenuItem, Slider, Typography } from "@mui/material";
+import { Box, Card, MenuItem, Slider, Typography, InputLabel, FormControl, Select, SelectChangeEvent } from "@mui/material";
 import { IFilter } from "@src/layout/Filter/FilterSection.props";
 import { ReactComponent as CloseIcon } from "@src/assets/icons/cross.svg";
 import { degree, regions, specialities, years, localization } from "@src/layout/Filter/generator";
@@ -128,6 +128,17 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	const translatedSpecialities = specialities[lang];
 	const translatedRegions = regions[lang];
 
+	const [region, setRegion] = React.useState('');
+	const [specialty, setSpeciality] = React.useState('');
+
+	const handleRegionChange = (event: SelectChangeEvent) => {
+		setRegion(event.target.value as string);
+	};
+
+	const handleSpecialityChange = (event: SelectChangeEvent) => {
+		setSpeciality(event.target.value as string);
+	};
+
 	return (
 		<>
 			<Box id='centeredBox'
@@ -178,7 +189,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 								overflow="hidden scroll" sx={{
 
 								}}>
-								{translatedSpecialities.slice(0, 5).map((speciality) => (
+								{/* {translatedSpecialities.slice(0, 5).map((speciality) => (
 									<Button
 										variant='outlined'
 										onClick={() => {
@@ -199,7 +210,32 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 											{speciality.name}
 										</Typography>
 									</Button>
-								))}
+								))} */}
+								<FormControl fullWidth>
+									<InputLabel id="demo-simple-select-label">{localization[lang].MainCard.speciality}</InputLabel>
+									<Select
+										labelId="demo-simple-select-label"
+										id="demo-simple-select"
+										value={specialty}
+										label={localization[lang].MainCard.speciality}
+										onChange={handleSpecialityChange}
+									>
+										<MenuItem value="" onClick={() => {handleChange('', selectedSpecialities, setSelectedSpecialities, "speciality");}}>
+											<em>None</em>
+										</MenuItem>
+										{translatedSpecialities.slice(0,5).map((speciality) => (
+											<MenuItem 
+												key={speciality.id} 
+												value={speciality.name}
+												onClick={() => {
+													handleChange(speciality.name, selectedSpecialities, setSelectedSpecialities, "speciality");
+												}}
+											>
+												{speciality.name}
+											</MenuItem>
+										))}
+									</Select>
+								</FormControl>
 							</Box>
 						</Box>
 
@@ -231,7 +267,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 										gap: '.2rem'
 									}
 								}}>
-								{translatedRegions.slice(0, 7).map((region) =>
+								{/* {translatedRegions.slice(0, 7).map((region) =>
 									<Button variant='outlined'
 										onClick={() => {
 											handleChange(region.name, selectedRegions, setSelectedRegions, "region");
@@ -246,7 +282,32 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 											}}>
 											{region.name}
 										</Typography>
-									</Button>)}
+									</Button>)} */}
+									<FormControl fullWidth>
+										<InputLabel id="demo-simple-select-label">{localization[lang].MainCard.region}</InputLabel>
+										<Select
+											labelId="demo-simple-select-label"
+											id="demo-simple-select"
+											value={region}
+											label={localization[lang].MainCard.region}
+											onChange={handleRegionChange}
+										>
+											<MenuItem value="" onClick={() => {handleChange('', selectedRegions, setSelectedRegions, "region");}}>
+												<em>None</em>
+											</MenuItem>
+											{translatedRegions.slice(0,5).map((region) => (
+												<MenuItem 
+													key={region.id} 
+													value={region.name}
+													onClick={() => {
+														handleChange(region.name, selectedRegions, setSelectedRegions, "region");
+													}}
+												>
+													{region.name}
+												</MenuItem>
+											))}
+										</Select>
+									</FormControl>
 							</Box>
 						</Box>
 						<Box width='48%' className={styles.mobW100} sx={{ marginTop: '10px', marginBottom: '-50px' }}>
