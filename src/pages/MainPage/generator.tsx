@@ -78,19 +78,22 @@ export const localization = {
                 {
                     avatar: tengriLogo,
                     fullname: "Tengrinews",
-                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                    text: "Қазақстан-Британ техникалық университеті Қазақстандағы дипломдар үшін өзгермейтін NFT токендерін шығарған алғашқы университет болды.",
+                    link: "https://tengrinews.kz/news/v-kazahstane-vpervyie-vyidali-diplomyi-v-vide-nft-504947/",
                 },
                 {
                     avatar: turkmenLogo,
                     fullname: "Turkmenportal",
-                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                    text: "Қазақстан-Британ техникалық университетінің студенттері алған NFT дипломдары білім беру саласында блокчейн технологияларын қолданудың алғашқы оқиғасы болды. Жүйені университет студенттерінің өздері жасаған. Мұндай дипломды қолдан жасауға болмайды және оның түпнұсқалығын жүйенің өзі оңай растайды.",
+                    link: "https://turkmenportal.com/blog/64612/studenty-odnogo-iz-vuzov-kazahstana-vpervye-stali-obladatelyami-nftdiplomov",
                 },
                 {
                     avatar: profitLogo,
                     fullname: "Profit",
-                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                    text: "ҚБТУ білім беру саласындағы инновацияларды ұсынды. NFT технологиясына негізделген цифрлық дипломдардың шығарылымы ҚБТУ және RIT студенттері негізін қалаған JASAIM студенттік стартапымен бірлесіп жарияланды.",
+                    link: "https://profit.kz/news/64771/KBTU-vipustil-NFT-diplomi-sovmestno-so-studencheskim-startapom-JASAIM/",
                 },
-            ]
+            ],
         },
         AboutUs: {
             contactsTitle: "Байланыс \nмәліметтері",
@@ -248,17 +251,20 @@ export const localization = {
                 {
                     avatar: tengriLogo,
                     fullname: "Tengrinews",
-                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                    text: "Казахстанско-Британский технический университет стал первым вузом в Казахстане, который выдал невзаимозаменяемые токены NFT для дипломов.",
+                    link: "https://tengrinews.kz/news/v-kazahstane-vpervyie-vyidali-diplomyi-v-vide-nft-504947/",
                 },
                 {
                     avatar: turkmenLogo,
                     fullname: "Turkmenportal",
-                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                    text: "NFT-дипломы, полученные студентами Казахстанско-Британского технического университета, стали первым случаем использования блокчейн-технологий в области образования. Система была разработана самими студентами университета. Такой диплом нельзя подделать и его подлинность легко подтверждается самой системой.",
+                    link: "https://turkmenportal.com/blog/64612/studenty-odnogo-iz-vuzov-kazahstana-vpervye-stali-obladatelyami-nftdiplomov",
                 },
                 {
                     avatar: profitLogo,
                     fullname: "Profit",
-                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                    text: "КБТУ представил инновацию в образовательной сфере. Объявлено о выпуске цифровых дипломов на основе технологии NFT в сотрудничестве со студенческим стартапом JASAIM, основанным студентами КБТУ и RIT.",
+                    link: "https://profit.kz/news/64771/KBTU-vipustil-NFT-diplomi-sovmestno-so-studencheskim-startapom-JASAIM/",
                 },
             ]
         },
@@ -419,17 +425,20 @@ export const localization = {
                 {
                     avatar: tengriLogo,
                     fullname: "Tengrinews",
-                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                    text: "The Kazakh-British Technical University has become the first university in Kazakhstan to issue non-fungible NFT tokens for diplomas.",
+                    link: "https://tengrinews.kz/news/v-kazahstane-vpervyie-vyidali-diplomyi-v-vide-nft-504947/",
                 },
                 {
                     avatar: turkmenLogo,
                     fullname: "Turkmenportal",
-                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                    text: "NFT diplomas received by students of the Kazakh-British Technical University became the first case of using blockchain technologies in the field of education. The system was developed by university students themselves. Such a diploma cannot be faked and its authenticity is easily confirmed by the system itself.",
+                    link: "https://turkmenportal.com/blog/64612/studenty-odnogo-iz-vuzov-kazahstana-vpervye-stali-obladatelyami-nftdiplomov",
                 },
                 {
                     avatar: profitLogo,
                     fullname: "Profit",
-                    text: "КБТУ стал первым университетом в Казахстане, внедрившим дипломы НФТ. Наши студенты теперь имеют уникальную возможность подтвердить свои дипломы с помощью блокчейна.",
+                    text: "KBTU presented innovation in the educational field. The release of digital diplomas based on NFT technology was announced in collaboration with the student startup JASAIM, founded by students of KBTU and RIT.",
+                    link: "https://profit.kz/news/64771/KBTU-vipustil-NFT-diplomi-sovmestno-so-studencheskim-startapom-JASAIM/",
                 },
             ]
         },

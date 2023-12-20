@@ -365,11 +365,13 @@ export const MainPageLayout: React.FC = () => {
                         alignItems: 'center',
                         textAlign: 'center',
                         overflowX: 'scroll',
-                        overflowY: 'hidden', 
+                        overflowY: 'hidden',
+						cursor: 'pointer',
                         }} 
                         className={styles.container}
                         justifyContent="start"
                         width="100%"
+						onClick={() => {window.open(localization[lang].Media.elements[activeStep].link, '_blank');}}
                     >
                         <Box className={styles.cardItem} sx={{ width: '100%' }}>
                             <Typography fontSize="1rem" textAlign='left' color="#2D2D2D" className={styles.mobTextMd}>
