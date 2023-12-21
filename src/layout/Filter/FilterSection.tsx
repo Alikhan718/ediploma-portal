@@ -212,15 +212,19 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 									</Button>
 								))} */}
 								<FormControl fullWidth>
-									<InputLabel id="demo-simple-select-label">{localization[lang].MainCard.speciality}</InputLabel>
 									<Select
-										labelId="demo-simple-select-label"
-										id="demo-simple-select"
 										value={specialty}
-										label={localization[lang].MainCard.speciality}
 										onChange={handleSpecialityChange}
+										sx={{borderRadius: "2rem"}}
+										displayEmpty
+										inputProps={{ 'aria-label': 'Without label' }}
 									>
-										<MenuItem value="" onClick={() => {handleChange('', selectedSpecialities, setSelectedSpecialities, "speciality");}}>
+										<MenuItem 
+											value="" 
+											onClick={() => {
+												handleChange('', selectedSpecialities, setSelectedSpecialities, "speciality");
+											}}
+										>
 											<em>None</em>
 										</MenuItem>
 										{translatedSpecialities.slice(0,5).map((speciality) => (
@@ -283,14 +287,13 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 											{region.name}
 										</Typography>
 									</Button>)} */}
-									<FormControl fullWidth>
-										<InputLabel id="demo-simple-select-label">{localization[lang].MainCard.region}</InputLabel>
+									<FormControl fullWidth >
 										<Select
-											labelId="demo-simple-select-label"
-											id="demo-simple-select"
+											sx={{borderRadius: "2rem"}}
 											value={region}
-											label={localization[lang].MainCard.region}
 											onChange={handleRegionChange}
+											displayEmpty
+											inputProps={{ 'aria-label': 'Without label' }}
 										>
 											<MenuItem value="" onClick={() => {handleChange('', selectedRegions, setSelectedRegions, "region");}}>
 												<em>None</em>
@@ -310,7 +313,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 									</FormControl>
 							</Box>
 						</Box>
-						<Box width='48%' className={styles.mobW100} sx={{ marginTop: '10px', marginBottom: '-50px' }}>
+						<Box width='44%' className={styles.mobW100}>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
 								GPA
 							</Typography>
@@ -322,6 +325,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 								value={selectedGPA}
 								onChange={handleGPA}
 								valueLabelDisplay="auto"
+								sx={{marginLeft: "1rem"}}
 							/>
 						</Box>
 						<Box width='48%' className={styles.mobW100} sx={{ marginTop: '10px', marginBottom: '-50px' }}>
