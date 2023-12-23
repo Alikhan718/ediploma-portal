@@ -72,7 +72,7 @@ export const UniversityPageLayout: React.FC = () => {
                                     {university.name}
                                 </Typography>
                                 <Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>
-                                    {localization[lang].UniCards.majors} {24}
+                                    {localization[lang].UniCards.majors}: {university.speciality_amount ? `${university.speciality_amount}` :24}
                                 </Typography>
                             </CardContent>
                         </Box>
