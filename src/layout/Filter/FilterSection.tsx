@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Card, MenuItem, Slider, Typography, InputLabel, FormControl, Select, SelectChangeEvent } from "@mui/material";
 import { IFilter } from "@src/layout/Filter/FilterSection.props";
 import { ReactComponent as CloseIcon } from "@src/assets/icons/cross.svg";
-import { degree, regions, specialities, years, localization } from "@src/layout/Filter/generator";
+import { universities, regions, specialities, years, localization } from "@src/layout/Filter/generator";
 import { Button } from "@src/components";
 import styles from "@src/pages/DiplomaPage/DiplomaPage.module.css";
 import cn from "classnames";
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cancelFilters, fetchDiplomas } from "@src/store/diplomas/actionCreators";
 import { selectLanguage } from "@src/store/generals/selectors";
 import e from 'express';
+import { set } from 'react-ga';
 
 
 export const FilterSection: React.FC<IFilter> = (props) => {
@@ -20,6 +21,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	const [selectedDegree, setSelectedDegree] = React.useState<string[]>([]);
 	const [selectedYear, setSelectedYear] = React.useState<number[]>([]);
 	const [selectedRegions, setSelectedRegions] = React.useState<string[]>([]);
+	const [selectedUniversityIDs, setSelectedUniversityIDs] = React.useState<number[]>([]);
 	const dispatch = useDispatch();
 	// React.useEffect(() => {
 	// 	const filterValues = {
@@ -61,6 +63,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			year: selectedYear.join(",") ?? filterAttributes.year,
 			gpaL: selectedGPA[0] ?? filterAttributes.gpaL,
 			gpaR: selectedGPA[1] ?? filterAttributes.gpaR,
+			university_id: selectedUniversityIDs[0] ?? filterAttributes.university_id,
 		};
 
 		if (type === "speciality") {
@@ -76,6 +79,9 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			filterValues.gpaL = arr[0];
 			filterValues.gpaR = arr[1];
 		}
+		else if (type === "university_id"){
+			filterValues.university_id = arr[0];
+		}
 
 		// Update the filterAttributes state
 		setFilterAttributes(filterValues);
@@ -85,6 +91,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			filterValues.gpaL !== 1 ||
 			filterValues.gpaR !== 4 ||
 			filterValues.year.length ||
+			filterValues.university_id !== 0 ||
 			filterValues.degree.length ||
 			filterValues.region.length) {
 				triggerSearchFilters(filterValues);
@@ -127,9 +134,11 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	const lang = useSelector(selectLanguage);
 	const translatedSpecialities = specialities[lang];
 	const translatedRegions = regions[lang];
+	const translatedUniversities = universities[lang];
 
 	const [region, setRegion] = React.useState('');
 	const [specialty, setSpeciality] = React.useState('');
+	const [university, setUniversity] = React.useState('');
 
 	const handleRegionChange = (event: SelectChangeEvent) => {
 		setRegion(event.target.value as string);
@@ -137,6 +146,10 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 
 	const handleSpecialityChange = (event: SelectChangeEvent) => {
 		setSpeciality(event.target.value as string);
+	};
+
+	const handleUniversityChange = (event: SelectChangeEvent) => {
+		setUniversity(event.target.value as string);
 	};
 
 	return (
@@ -254,8 +267,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 								)}
 							</MultiSelect>
 						</Box> */}
-						<Box width='50%' className={styles.mobW100}
-						>
+						<Box width='50%' className={styles.mobW100}>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
 								{localization[lang].MainCard.region}
 							</Typography>
@@ -328,7 +340,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 								sx={{marginLeft: "1rem"}}
 							/>
 						</Box>
-						<Box width='48%' className={styles.mobW100} sx={{ marginTop: '10px', marginBottom: '-50px' }}>
+						{/* <Box width='48%' className={styles.mobW100} sx={{ marginTop: '10px', marginBottom: '-50px' }}>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
 								{localization[lang].MainCard.year}
 							</Typography>
@@ -342,6 +354,44 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 										key={year.id}>
 										{year.year}
 									</Button>)}
+							</Box>
+
+						</Box> */}
+						<Box width='50%' className={styles.mobW100}>
+							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
+								{localization[lang].MainCard.university}
+							</Typography>
+							<Box display='flex' gap='.5rem' flexWrap='wrap' p=".5rem" mt='.5rem' height="100%"
+								overflow="hidden scroll" sx={{
+									'@media (max-width: 1000px)': {
+										gap: '.2rem'
+									}
+								}}
+							>
+								<FormControl fullWidth >
+									<Select
+										sx={{borderRadius: "2rem"}}
+										value={university}
+										onChange={handleUniversityChange}
+										displayEmpty
+										inputProps={{ 'aria-label': 'Without label' }}
+									>
+										<MenuItem value="" onClick={() => {handleChange(0, selectedUniversityIDs, setSelectedUniversityIDs, "university_id");}}>
+											<em>None</em>
+										</MenuItem>
+										{translatedUniversities.slice(0,5).map((university) => (
+											<MenuItem 
+												key={university.id} 
+												value={university.name}
+												onClick={() => {
+													handleChange(university.university_id, selectedUniversityIDs, setSelectedUniversityIDs, "university_id");
+												}}
+											>
+												{university.name}
+											</MenuItem>
+										))}
+									</Select>
+								</FormControl>
 							</Box>
 
 						</Box>

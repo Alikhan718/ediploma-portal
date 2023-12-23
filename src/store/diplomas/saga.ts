@@ -47,7 +47,8 @@ export function* fetchSearchRequest(action: any) {
             && !action.payload.specialities
             && !action.payload.region
             && !action.payload.degree
-            && !action.payload.year) {
+            && !action.payload.year
+            && !action.payload.university_id) {
             return;
         }
         const {data} = yield call(diplomasApi.search, action.payload);

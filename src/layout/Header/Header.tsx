@@ -90,6 +90,7 @@ export interface FilterAttributes {
     year?: number;
     gpaL?: number;
     gpaR?: number;
+    university_id?: number;
 }
 
 const AppHeader: React.FC<HeaderProps> = (props) => {

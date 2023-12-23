@@ -170,7 +170,8 @@ export const localization = {
 			region: "Облыстар",
 			year: "Бітірген жылы",
 			filter: "Сүзгі",
-			apply: "Қолдану"
+			apply: "Қолдану",
+			university: "Университет",
 		}
 	},
 	"ru": {
@@ -179,7 +180,8 @@ export const localization = {
 			region: "Регион",
 			year: "Год выпуска",
 			filter: "Фильтр",
-			apply: "Применить"
+			apply: "Применить",
+			university: "Университет",
 		}
 	},
 	"en": {
@@ -188,7 +190,26 @@ export const localization = {
 			region: "Regions",
 			year: "Year of Graduation",
 			filter: "Filter",
-			apply: "Apply"
+			apply: "Apply",
+			university: "Университет",
 		}
 	},
+}
+
+export const universities = {
+	"kz":[
+		{ id: 1, name: "КБТУ", university_id: 1},
+		{ id: 2, name: "АГП", university_id: 2},
+		{ id: 3, name: "СУ", university_id: 3},
+	],
+	"ru":[
+		{ id: 1, name: "КБТУ", university_id: 1},
+		{ id: 2, name: "АГП", university_id: 2},
+		{ id: 3, name: "СУ", university_id: 3},
+	],
+	"en":[
+		{ id: 1, name: "KBTU", university_id: 1},
+		{ id: 2, name: "AGP", university_id: 2},
+		{ id: 3, name: "SU", university_id: 3},
+	],
 }
