@@ -16,6 +16,7 @@ export const permissions = {
     employerProfile: ['employer'],
     universityProfile: ['university'],
     aiChat: ['employer', 'student'],
+    myDiplomas: ['student'],
     // vacancies: ['*'],
     // news: ['*'],
     // notifications: ['employer', 'student', 'university'],

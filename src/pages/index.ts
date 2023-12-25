@@ -18,3 +18,4 @@ export { default as AIChatPage } from './AIChatPage/AIChatPageContainer';
 export { default as NotFoundPage } from './NotFoundPage/NotFoundPageContainer';
 export { default as Serverpage } from './ServerPage/ServerPageContainer';
 export { default as QLabPage } from './QLabPage/QLabPageContainer';
+export { default as MyDiplomasPage } from './MyDiplomasPage/MyDiplomasPageContainer';

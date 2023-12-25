@@ -33,4 +33,5 @@ export const routes: Record<string, string> = {
 	// news: `${appRoot}/news`,
 	// notifications: `${appRoot}/user/notifications`,
 	aiChat: `${appRoot}/ai-chat`,
+	myDiplomas: `${appRoot}/user/profile/my-diplomas`,
 };
