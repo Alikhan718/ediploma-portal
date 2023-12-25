@@ -15,7 +15,7 @@ export const MyDiplomasPageLayout: React.FC = () => {
     const boxRef = useRef(null);
     const currentUrl = window.location.href;
     const form = useRef<HTMLFormElement>(null);
-    
+
     const lang = useSelector(selectLanguage);
 
     const [diplomas, setDiplomas] = useState([
@@ -57,7 +57,7 @@ export const MyDiplomasPageLayout: React.FC = () => {
                 sx={{
                     backgroundColor: "white",
                     borderRadius: "2rem",
-                    width: '97%',
+                    width: '95.5%',
                     margin: '1rem',
                     height: '70vh',
                     overflowY: 'auto',

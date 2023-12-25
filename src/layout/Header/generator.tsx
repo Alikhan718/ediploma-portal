@@ -101,6 +101,18 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
         icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
         verticalAlign: "middle",
     },
+    {
+        id: 108,
+        name: {
+            "ru": 'Мои дипломы',
+            "kz": 'Менің дипломдарым',
+            "en": 'My diplomas',
+        },
+        to: routes.myDiplomas,
+        role: ["student"],
+        icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
+        verticalAlign: "middle",
+    }
 ];
 export const headerNavigations: AppRoutesNavigation[] = [
 	{
