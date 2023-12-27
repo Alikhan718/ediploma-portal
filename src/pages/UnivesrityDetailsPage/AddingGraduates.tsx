@@ -54,6 +54,10 @@ const AddingGraduates: React.FC = () => {
     const fileSizeInKB = file?.size ? Math.round(file.size / 1024) : 0;
     const goForward = () => {
         if (currentStep < steps.length - 1) {
+            if (currentStep === 2) {
+                alert("Подпишите с помощью ЭЦП");
+                return;
+            }
             setProgress(currentStep + 1);
             if ((currentStep === 0 && file) || currentStep > 0) {
                 setProgress(currentStep + 1);

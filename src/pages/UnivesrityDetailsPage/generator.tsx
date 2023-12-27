@@ -583,7 +583,7 @@ export const localization = {
             sign: "Подписать данные с помощью ЭЦП",
             signButton: "Подписать через ЭЦП",
             adress: "Адрес",
-            addressLink: "Ссылка на адрес IFPS",
+            addressLink: "Ссылка на адрес IPFS",
             smart: "Смарт-контакт",
             smartlink: "Ссылка на смарт-контакт",
             finish: "Завершить"
