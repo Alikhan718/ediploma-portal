@@ -15,12 +15,15 @@ export function extractYearFromHumanReadable(time: string, delimeter: string): s
 }
 
 let webSocket: any = null;
-export const enableWebSocket = () => {
+export const enableWebSocket = (set: any = null) => {
     try {
         if (webSocket == null) {
             webSocket = new WebSocket('wss://127.0.0.1:13579/');
             webSocket!.onopen = (): void => {
                 console.log("Connection opened");
+                if (set){
+                    set(true);
+                }
             };
 
             webSocket!.onclose = (event: any): void => {
@@ -28,6 +31,10 @@ export const enableWebSocket = () => {
                     console.log('connection has been closed');
                 } else {
                     console.log('Connection error');
+                    if (set){
+                        set(false);
+                    }
+                    alert("NCALayer не найден");
                 }
                 console.log('Code: ' + event.code + ' Reason: ' + event.reason);
             };

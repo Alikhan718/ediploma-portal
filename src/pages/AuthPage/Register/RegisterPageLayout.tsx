@@ -36,7 +36,7 @@ export const RegisterPageLayout: React.FC = () => {
 	// Types: [Student, Company, University]
 	const dispatch = useDispatch();
 	const step = useSelector(selectRegistrationStep);
-
+	const [ncaLayerFound, setNcaLayerFound] =  React.useState(false);
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setState({ ...state, [e.target.name]: e.target.value });
 	};
@@ -67,7 +67,7 @@ export const RegisterPageLayout: React.FC = () => {
 	};
 
 	useEffect(() => {
-		NcaLayer.enableWebSocket();
+		NcaLayer.enableWebSocket(setNcaLayerFound);
 		if (step == 3) {
 			const payload = {
 				email: state.email,
@@ -121,6 +121,11 @@ export const RegisterPageLayout: React.FC = () => {
 		}
 	};
 	const ncaLayerAuth = () => {
+		if (!ncaLayerFound) {
+			alert("Подключите NCALayer")
+			return;
+		}
+		
 		NcaLayer.getKeyInfo(authWithDS);
 	};
 

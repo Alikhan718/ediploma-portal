@@ -530,8 +530,8 @@ export const localization = {
             signButton: "ЭЦП арқылы қол қою",
             adress: "Мекен-жай",
             addressLink: "Мекен-жайға сілтеме",
-            smart: "Смарт-контакт",
-            smartlink: "Смарт-контактқа сілтеме",
+            smart: "Смарт-контракт",
+            smartlink: "Смарт-контрактқа сілтеме",
             finish: "Аяқтау"
         },
         Alerts: {
@@ -584,8 +584,8 @@ export const localization = {
             signButton: "Подписать через ЭЦП",
             adress: "Адрес",
             addressLink: "Ссылка на адрес IPFS",
-            smart: "Смарт-контакт",
-            smartlink: "Ссылка на смарт-контакт",
+            smart: "Смарт-контракт",
+            smartlink: "Ссылка на смарт-контракт",
             finish: "Завершить"
         },
         Alerts: {
@@ -637,8 +637,8 @@ export const localization = {
             sign: "Sign data with a digital signature",
             signButton: "Sign data with a digital signature",
             adress: "Adress",
-            addressLink: "Link to IFPS address",
-            smart: "Smart-contact",
+            addressLink: "Link to IPFS address",
+            smart: "Smart-contract",
             smartlink: "Link to smart-contract",
             finish: "Finish"
         },

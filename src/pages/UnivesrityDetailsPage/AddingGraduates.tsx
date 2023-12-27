@@ -30,9 +30,15 @@ const AddingGraduates: React.FC = () => {
     const isUploaded = useSelector(selectIsUploaded);
     const xmlSigned = useSelector(selectXmlSigned);
     const navigate = useNavigate();
-    NcaLayer.enableWebSocket();
-    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const [ncaLayerFound, setNcaLayerFound] = useState(false);
 
+    NcaLayer.enableWebSocket(setNcaLayerFound);
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if(ncaLayerFound == false){
+            alert("Подключите NCALayer");
+            return;
+        }
+        
         const uploadedFile = event.target.files?.[0] || null;
         setFile(uploadedFile);
         dispatch(uploadDataParse({file: uploadedFile}));
