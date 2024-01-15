@@ -48,7 +48,7 @@ import {selectLanguage} from "@src/store/generals/selectors";
 import {localization} from '@src/pages/DiplomaDetailsPage/generator';
 import { put } from "redux-saga/effects";
 import { setSnackbar } from '@src/store/generals/actionCreators';
-
+import { ShareButton } from '@src/components/ShareButton/ShareButton';
 
 export const DiplomaDetailsPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
@@ -509,6 +509,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             }}>
                                 <SwitchDetails/>
                             </Box>
+                            <ShareButton currentUrl={currentUrl} lang={lang}/>
                             <Snackbar open={alertOpen} autoHideDuration={2000}
                                       anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                                       onClose={handleAlertClose}>
