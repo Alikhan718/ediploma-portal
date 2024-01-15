@@ -14,12 +14,13 @@ import {
 import { localization } from './generator'
 
 interface ShareButtonProps {
-    currentUrl: string
+    currentUrl: string;
     lang: "kz" | "ru" | "en";
+    smartContractAddress?: string;
 }
 
 export const ShareButton: React.FC<ShareButtonProps> = (props) => {
-    const { currentUrl, lang } = props
+    const { currentUrl, lang, smartContractAddress } = props
 
     return (
         <Box
@@ -63,9 +64,7 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                 </Box>
                 <Box sx={{ margin: "1rem" }}>
                         <a 
-                            href="https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=Test%20Certificate&organizationId=1337&issueYear=2018
-                                &issueMonth=2&expirationYear=2020&expirationMonth=5&certUrl=
-                                https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Flearn%2Fcertifications%2Fd365-functional-consultant-sales&certId=1234"
+                            href={`https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&issueMonth=7&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`}
                             target="_blank" 
                             rel="noopener noreferrer"
                         >

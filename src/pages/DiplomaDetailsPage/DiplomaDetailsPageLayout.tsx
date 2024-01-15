@@ -76,6 +76,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         if (data) {
             dispatch(fetchGraduateDetails(data.id));
         }
+        console.log(data)
     }, [data]);
 
     const currentUrl = window.location.href;
@@ -509,7 +510,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             }}>
                                 <SwitchDetails/>
                             </Box>
-                            <ShareButton currentUrl={currentUrl} lang={lang}/>
+                            <ShareButton currentUrl={currentUrl} lang={lang} smartContractAddress={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}/>
                             <Snackbar open={alertOpen} autoHideDuration={2000}
                                       anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                                       onClose={handleAlertClose}>
