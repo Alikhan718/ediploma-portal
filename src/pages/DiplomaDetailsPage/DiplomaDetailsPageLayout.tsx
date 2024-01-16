@@ -45,7 +45,7 @@ import {handleDownload} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
 import {selectLanguage} from "@src/store/generals/selectors";
-import {localization} from '@src/pages/DiplomaDetailsPage/generator';
+import {localization, skills, skillsList } from '@src/pages/DiplomaDetailsPage/generator';
 import { put } from "redux-saga/effects";
 import { setSnackbar } from '@src/store/generals/actionCreators';
 import { ShareButton } from '@src/components/ShareButton/ShareButton';
@@ -58,12 +58,41 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     const dispatch = useDispatch();
     const role = useSelector(selectUserRole);
     const [isFavorite, setIsFavorite] = React.useState(false);
+    const [numSkills, setNumSkills] = React.useState(5);
 
     const [data, setData] = React.useState<any>();
 
     let diplomaList = useSelector(selectDiplomaList);
 
     const graduateAttributes = useSelector(selectGraduateAttributes);
+
+    React.useEffect(() => {
+        if (!graduateAttributes) {
+            console.log("no graduate attributes");
+            return;
+        }
+        else {
+            console.log(graduateAttributes);
+            console.log(data);
+        }
+
+        const gpa: number = parseFloat(graduateAttributes.diploma_gpa);
+
+        switch (true) {
+            case gpa >= 3.5 && gpa <= 4:
+                setNumSkills(10);
+                break;
+            case gpa >= 3.2 && gpa < 3.5:
+                setNumSkills(9);
+                break;
+            case gpa >= 3.0 && gpa < 3.2:
+                setNumSkills(8);
+                break;
+            case gpa < 3.0:
+                setNumSkills(7);
+                break;
+          }
+    }, [graduateAttributes]);
 
     React.useEffect(() => {
         dispatch(fetchDiplomas());
@@ -503,6 +532,34 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 }
 
                             </Box>
+                            
+                            {/* skills */}
+                            <Box margin="1rem" sx={{
+                                '@media (max-width: 778px)': {
+                                    margin: '0.9rem',
+                                },
+                                width: '70%'
+                            }}>
+                                <Box sx={{
+                                    fontSize: '24px', fontWeight: '600', color: '#4D4D4D', paddingBottom: '10px',
+                                    '@media (max-width: 778px)': {
+                                        fontSize: '20px'
+                                    },
+                                }}> {localization[lang].StudentPage.AddInfo.skills} 
+                                </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignContent: 'flex-start', margin: '1rem', flexWrap: 'wrap'}}>
+                                    { graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList].slice(0, numSkills).map((skill: any, index: any) => {
+                                        return (
+                                            <Box key={index} sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'rgba(7,117,255,0.11)', borderRadius: '1rem', margin: '1rem', padding: '0.5rem'}}>
+                                                <Typography className={styles.textMd} color="black" sx={{marginLeft: '1rem', marginRight: '1rem'}}>
+                                                    {skill}
+                                                </Typography>
+                                            </Box>
+                                        )
+                                    }) ) : <></>}
+                                </Box>
+                            </Box>
+
                             <Box margin="1rem" sx={{
                                 '@media (max-width: 778px)': {
                                     margin: '0.9rem',
