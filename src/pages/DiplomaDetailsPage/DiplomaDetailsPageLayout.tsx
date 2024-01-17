@@ -548,7 +548,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 }}> {localization[lang].StudentPage.AddInfo.skills} 
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignContent: 'flex-start', margin: '1rem', flexWrap: 'wrap'}}>
-                                    { graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList].slice(0, numSkills).map((skill: any, index: any) => {
+                                    { graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, numSkills).map((skill: any, index: any) => {
                                         return (
                                             <Box key={index} sx={{ display: 'flex', justifyContent: 'center', backgroundColor: 'rgba(7,117,255,0.11)', borderRadius: '1rem', margin: '1rem', padding: '0.5rem'}}>
                                                 <Typography className={styles.textMd} color="black" sx={{marginLeft: '1rem', marginRight: '1rem'}}>
