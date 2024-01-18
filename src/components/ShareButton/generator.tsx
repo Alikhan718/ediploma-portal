@@ -1,6 +1,7 @@
 export const localization = {
     "kz": {
         share: "Бөлісу",
+        copy:"Сілтемені көшіру",
         shareText: "Бұл жетістікті әлеуметтік желіде бөлісіңіз",
         emailSubject: "Платформаға шағымдау",
         tgTitle: "Платформаға шағымдау",
@@ -10,6 +11,7 @@ export const localization = {
     },
     "ru": {
         share:"Поделиться",
+        copy:"Скопировать ссылку",
         shareText:"Поделитесь этим достижением в социальной сети",
         emailSubject:"Приглашение на платформу",
         tgTitle: "Приглашение на платформу",
@@ -19,6 +21,7 @@ export const localization = {
     },
     "en": {
         share: "Share",
+        copy:"Copy link",
         shareText: "Share this achievement on social media",
         emailSubject: "Invitation to the platform",
         tgTitle: "Invitation to the platform",

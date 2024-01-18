@@ -129,7 +129,7 @@ export const SwitchDetails: React.FC = () => {
                                 }}>
                                     {localization[lang].switchDetails.confirmed}
                                 </Typography>
-                                <SingleCheck style={{color: '#22C55E'}}/>
+                                <SingleCheck fill="#22C55E"/>
                             </div>
                         }
                     />

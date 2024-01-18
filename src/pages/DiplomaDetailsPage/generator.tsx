@@ -40,7 +40,9 @@ export const localization = {
             confirmed: "Расталды",
             seeEtherscan: "Etherscan-да қарау",
             seeSmartContract: "Smart Contract-та қарау",
-
+            confirm: "Растау",
+            diplomaConfirmation: "Дипломды растау",
+            acreditation: "Бұл аккредитация расталған организацияға тиесілі",
         },
         StudentPage: {
             Menu: {
@@ -55,6 +57,7 @@ export const localization = {
                 graduationYear: "Аяқтау жылы: ",
                 kbtu: "Қазақстан-Британ Техникалық Университет",
                 noData: "Ақпарат жеткіліксіз",
+                rating: "Академиялық рейтинг: ",
             },
             AddInfo: {
                 sendInvite: "Шақыру жіберу",
@@ -64,6 +67,7 @@ export const localization = {
                 less: "аз",
                 certifications: "Дипломдар және Сертификаттар",
                 skills: "Дағдылар",
+                studentData: "Cтудент жайлы ақпарат",
             },
             Alert: {
                 copied: "Сәтті көшірілді",
@@ -82,7 +86,9 @@ export const localization = {
             confirmed: "Подтвержден",
             seeEtherscan: "Посмотреть на Etherscan",
             seeSmartContract: "Посмотреть на Smart Contract",
-
+            confirm: "Подтвердить",
+            diplomaConfirmation: "Подтверждение диплома",
+            acreditation: "Эта аккредитация принадлежит проверенной организации",
         },
         StudentPage: {
             Menu: {
@@ -97,6 +103,7 @@ export const localization = {
                 graduationYear: "Год окончания: ",
                 kbtu: "Казахстанско-Британский технический университет",
                 noData: "Недостаточно данных",
+                rating: "Академический рейтинг: ",
             },
             AddInfo: {
                 sendInvite: "Отправить приглашение",
@@ -106,6 +113,7 @@ export const localization = {
                 less: "меньше",
                 certifications: "Дипломы и Сертификаты",
                 skills: "Навыки",
+                studentData: "Данные студента",
             },
             Alert: {
                 copied: "Успешно скопировано",
@@ -124,6 +132,9 @@ export const localization = {
             confirmed: "Confirmed",
             seeEtherscan: "View on Etherscan",
             seeSmartContract: "View on Smart Contract",
+            confirm: "Confirm",
+            diplomaConfirmation: "Diploma confirmation",
+            acreditation: "This accreditation belongs to a verified organization",
         },
         StudentPage: {
             Menu: {
@@ -138,6 +149,7 @@ export const localization = {
                 graduationYear: "Graduation year: ",
                 kbtu: "Kazakh-British Technical University",
                 noData: "No data",
+                rating: "Academic rating: ",
             },
             AddInfo: {
                 sendInvite: "Send invitation",
@@ -147,6 +159,7 @@ export const localization = {
                 less: "less",
                 certifications: "Diplomas and Certificates",
                 skills: "Skills",
+                studentData: "Student data",
             },
             Alert: {
                 copied: "Copied successfully",
