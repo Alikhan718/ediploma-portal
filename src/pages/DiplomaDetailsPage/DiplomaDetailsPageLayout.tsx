@@ -393,6 +393,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                                 sx={{fontSize: '0.875em'}}>
                                                         {academicRating}
                                                     </Typography>
+                                                    {/* hi */}
                                                     <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                                 sx={{fontSize: '0.875em'}}>
                                                         {data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu : localization[lang].StudentPage.MainInfo.noData}
