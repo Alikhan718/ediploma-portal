@@ -101,3 +101,9 @@ export const unis: Unis = {
 		2: "AGP",
 	},
 }
+
+export const uniRatings = {
+    1: 4.4,
+    2: 0.0,
+    3: 4.4,
+}

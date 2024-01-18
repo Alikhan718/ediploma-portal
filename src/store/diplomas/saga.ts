@@ -18,7 +18,18 @@ export function* fetchDiplomasRequest(action: any = null) {
         if (action && action.payload && action.payload.university_id) {
             university_id = action.payload.university_id;
         }
-        const {data} = yield call(diplomasApi.getDiplomas, {page: 1, per_page: 800, university_id: university_id});
+        
+        let page = 1;
+        if (action && action.payload && action.payload.page) {
+            page = action.payload.page;
+        }
+
+        let per_page = 800;
+        if (action && action.payload && action.payload.per_page) {
+            per_page = action.payload.per_page;
+        }
+
+        const {data} = yield call(diplomasApi.getDiplomas, {page: page, per_page: per_page, university_id: university_id});
 
         yield put({type: GET_DIPLOMAS.success, payload: data});
 

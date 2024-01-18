@@ -291,18 +291,11 @@ export const fieldLocalizations: Translations = {
     // },
 };
 
-export const skills = [
-    'skill 1',
-    'skill 2',
-    'skill 3',
-    'skill 4',
-    'skill 5',
-    'skill 6',
-    'skill 7',
-    'skill 8',
-    'skill 9',
-    'skill 10',
-];
+export const uniRatings = {
+    1: 4.4,
+    2: 0.0,
+    3: 4.4,
+}
 
 export const skillsList = {
     "ПРИСУЖДЕНА СТЕПЕНЬ БАКАЛАВРА\nТЕХНИКИ И ТЕХНОЛОГИЙ ПО ОБРАЗОВАТЕЛЬНОЙ ПРОГРАММЕ «6B07101 ХИМИЧЕСКАЯ ТЕХНОЛОГИЯ ОРГАНИЧЕСКИХ ВЕЩЕСТВ»": {

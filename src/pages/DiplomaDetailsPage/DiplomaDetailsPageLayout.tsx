@@ -45,7 +45,7 @@ import {handleDownload} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
 import {selectLanguage} from "@src/store/generals/selectors";
-import {localization, skills, skillsList } from '@src/pages/DiplomaDetailsPage/generator';
+import { localization, skillsList, uniRatings } from '@src/pages/DiplomaDetailsPage/generator';
 import { put } from "redux-saga/effects";
 import { setSnackbar } from '@src/store/generals/actionCreators';
 import { ShareButton } from '@src/components/ShareButton/ShareButton';
@@ -59,7 +59,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     const role = useSelector(selectUserRole);
     const [isFavorite, setIsFavorite] = React.useState(false);
     const [numSkills, setNumSkills] = React.useState(5);
-
+    const [academicRating, setAcademicRating] = React.useState(100);
     const [data, setData] = React.useState<any>();
 
     let diplomaList = useSelector(selectDiplomaList);
@@ -71,9 +71,18 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
             console.log("no graduate attributes");
             return;
         }
-        else {
-            console.log(graduateAttributes);
-            console.log(data);
+
+        const gpa: number = parseFloat(graduateAttributes.diploma_gpa);
+        const uniRating = uniRatings[graduateAttributes.university_id as keyof typeof uniRatings];
+
+        const rating = ((gpa/4) * 0.7) + ((1 - uniRating/89) * 0.3);
+        setAcademicRating(Math.round(rating*100));
+    }, [graduateAttributes]);
+
+    React.useEffect(() => {
+        if (!graduateAttributes) {
+            console.log("no graduate attributes");
+            return;
         }
 
         const gpa: number = parseFloat(graduateAttributes.diploma_gpa);
@@ -105,7 +114,6 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         if (data) {
             dispatch(fetchGraduateDetails(data.id));
         }
-        console.log(data)
     }, [data]);
 
     const currentUrl = window.location.href;
@@ -272,7 +280,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 >
                                                     <Dots className={styles.desktopIcon}/>
                                                 </IconButton>
-
+                                                <Box>{academicRating}</Box>
                                                 <Menu
                                                     anchorEl={anchorEl}
                                                     keepMounted
@@ -291,7 +299,6 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     <MenuItem 
                                                         onClick={()=>{
                                                             handleClose();
-                                                            console.log(graduateAttributes);
                                                             if (graduateAttributes && graduateAttributes.smart_contract_link){
                                                                 window.open(graduateAttributes.smart_contract_link, '_blank');
                                                                 return;

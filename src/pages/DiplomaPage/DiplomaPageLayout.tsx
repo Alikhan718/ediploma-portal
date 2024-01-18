@@ -15,7 +15,7 @@ import {Button, Modal} from "@src/components";
 import {isAuthenticated} from "@src/utils/userAuth";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 
-import {localization, unis} from "src/pages/DiplomaPage/generator";
+import {localization, unis, uniRatings} from "src/pages/DiplomaPage/generator";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {routes} from "@src/shared/routes";
 
@@ -48,10 +48,11 @@ export const DiplomaPageLayout: React.FC = () => {
         isAuthenticated() ? navigate(`/diploma/${counter}`) : setOpen(true);
     };
 
-    const diplomasPerPage = 8;
+    const diplomasPerPage: number = 8;
 
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(diplomaList.length / diplomasPerPage);
+    // const totalPages = Math.ceil(diplomaList.length / diplomasPerPage);
+    const [totalPages, setTotalPages] = useState(92);
 
 
     const [open, setOpen] = React.useState(false);
@@ -78,7 +79,18 @@ export const DiplomaPageLayout: React.FC = () => {
 
     const startDiplomaIndex = (currentPage - 1) * diplomasPerPage;
     const endDiplomaIndex = currentPage * diplomasPerPage;
-    const displayedDiplomas = diplomaList.slice(startDiplomaIndex, endDiplomaIndex);
+    // const displayedDiplomas = diplomaList.slice(startDiplomaIndex, endDiplomaIndex);
+    const displayedDiplomas = useSelector(selectDiplomaList);
+    useEffect(() => {
+        dispatch(fetchDiplomas({page: currentPage, per_page: diplomasPerPage}));
+    }, [currentPage]);
+
+    function getRating(university_id: number, gpa: number): number {
+        const uniRating = uniRatings[university_id as keyof typeof uniRatings];
+        const rating = ((gpa/4) * 0.7) + ((1 - uniRating/89) * 0.3);
+        return Math.round(rating * 100);
+    }
+
     return (
         <Box display="flex" flexWrap="wrap" justifyContent="center" className={styles.mainContainer} pt="2rem">
             <DiplomaPageHeader/>
@@ -160,6 +172,9 @@ export const DiplomaPageLayout: React.FC = () => {
                                     </Typography>
                                     <Typography fontSize=".8rem" mt="0" color="#818181" className={styles.mobTextSm}>
                                         {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
+                                    </Typography>
+                                    <Typography>
+                                        {e.gpa ? getRating(e.university_id, e.gpa) : "0.00"}
                                     </Typography>
                                     {/* <Box display='flex' mt='auto' width='100%'> */}
                                     {/* <Typography fontSize="0.875rem" mr='auto'>
