@@ -64,6 +64,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     const [numSkills, setNumSkills] = React.useState(5);
     const [academicRating, setAcademicRating] = React.useState(100);
     const [data, setData] = React.useState<any>();
+    const [value, setValue] = React.useState(0);
 
     let diplomaList = useSelector(selectDiplomaList);
 
@@ -195,6 +196,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         setImageLoaded(true);
     };
 
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        if (newValue == 1 && !isAuthenticated()) {
+            // setOpenModal(true);
+        } else {
+            setValue(newValue);
+        }
+    };
+
     return (
         <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
             <Box display='flex' flexWrap='wrap'>
@@ -207,17 +216,48 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         margin: '0.1rem',
                         marginTop: "3rem",
                         width: '100vw',
-                        
                     },
                 }}>
                     <Box display='flex' flexDirection='column' sx={{backgroundColor: 'white', borderRadius: '15px',}}>
-                        
+                        <Box width="50%" display="flex" flex="row" p=".275rem " sx={{
+                            backgroundColor: "#F8F8F8", borderRadius: "3rem",
+                            marginTop: "0.5rem",
+                            display: 'none',
+                            '@media (max-width: 778px)': {
+                                width: '100%',
+                                display: 'flex',
+                            },
+                        }}>
+                            <Button fullWidth={true} variant="contained"
+                                    color={value === 0 ? "primary" : "secondary"} borderRadius="3rem"
+                                    onClick={(e) => handleChange(e, 0)}>
+                                Диплом
+                            </Button>
+                            <Button fullWidth={true} color={value === 1 ? "primary" : "secondary"}
+                                    variant="contained" borderRadius="3rem" onClick={(e) => handleChange(e, 1)}>
+                                Рекзвезиты
+                            </Button>
+                            <Button fullWidth={true} color={value === 2 ? "primary" : "secondary"}
+                                    variant="contained" borderRadius="3rem" onClick={(e) => handleChange(e, 2)}>
+                                Профиль
+                            </Button>
+                        </Box>
+
                         <Box px="1rem" sx={{
                             '@media (max-width: 778px)': {
                                 padding: '0'
                             },
                         }}>
-                            <Box display='flex' justifyContent='center' alignItems='center'>
+                            <Box 
+                                display='flex' 
+                                justifyContent='center' 
+                                alignItems='center'
+                                sx={{
+                                    "@media (max-width: 778px)": {
+                                        display: value !== 0 ? "none" : "flex"
+                                    }
+                                }}
+                            >
                             {data && data.image &&
                                     <Box width="40vh" sx={{
                                         backgroundColor: "rgba(7,117,255,0.11)",
@@ -225,7 +265,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                         padding: ".7rem",
                                         marginTop: "1rem",
                                         '@media (max-width: 778px)': {
-                                            width: '100%'
+                                            width: '95%'
                                         },
                                     }}>
                                         <Card
@@ -323,159 +363,177 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 margin="1rem"
                                 className={styles.contentLeftContainer}
                             >
-                                <Box display="flex" justifyContent="space-between">
+                                <Box 
+                                    sx={{
+                                        display:"flex",
+                                        justifyContent:"space-between",
+                                        '@media (max-width: 778px)': {
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                        },
+                                    }}
+                                >
                                     <Box
                                         alignItems="center"
                                         sx={{
-                                            width: '60%',
+                                            width: '70%',
                                             alignItems: 'center',
                                             margin: "1rem",
                                             '@media (max-width: 778px)': {
-                                                margin: '0.5rem',
+                                                width: '100%',
+                                                margin: "0rem",
                                             },
 
                                         }}
                                     >
-                                        <Box display="flex" justifyContent="start">
-                                            <Typography
-                                                className={styles.nameText}
-                                                fontWeight='600'
+                                        <Box sx={{
+                                            '@media (max-width: 778px)': {
+                                                display: value !== 1 ? "none" : "flex",
+                                                flexDirection: 'column',
+                                                width: '100%',
+                                            },
+                                        }}>
+                                            <Box display="flex" justifyContent="start">
+                                                <Typography
+                                                    className={styles.nameText}
+                                                    fontWeight='600'
+                                                    sx={{
+                                                        paddingBottom: '14px',
+                                                        fontSize: '24px',
+                                                        '@media (max-width: 778px)': {
+                                                            fontSize: '20px',
+                                                            width: '100%',
+                                                        },
+                                                    }}
+                                                >
+                                                    {data && lang === "kz" ? data.name_kz : data && lang === "ru" ? data.name_ru : data && lang === "en" ? data.name_en : ""}
+                                                </Typography>
+                                                {id != undefined &&
+                                                    <Box marginBottom="15px">
+                                                        <IconButton
+                                                            sx={{width: "2.5rem"}}
+                                                            onClick={handleToogleFavoriteDiplomas}>
+                                                            {isFavorite ? <StarPressed/> : <Star/>}
+                                                        </IconButton>
+                                                    </Box>
+                                                }
+                                            </Box>
+                                            <Box
+                                                display="flex"
+                                                alignItems="center"
                                                 sx={{
-                                                    paddingBottom: '14px',
-                                                    fontSize: '24px',
-                                                    '@media (max-width: 778px)': {
-                                                        fontSize: '22px',
-                                                    },
+                                                    flexDirection: 'row',
+                                                    justifyContent: 'space-between',
+                                                    width: '100%',
+                                                    alignItems: 'center',
                                                 }}
                                             >
-                                                {data && lang === "kz" ? data.name_kz : data && lang === "ru" ? data.name_ru : data && lang === "en" ? data.name_en : ""}
-                                            </Typography>
-                                            {id != undefined &&
-                                                <Box marginBottom="15px">
-                                                    <IconButton
-                                                        sx={{width: "2.5rem"}}
-                                                        onClick={handleToogleFavoriteDiplomas}>
-                                                        {isFavorite ? <StarPressed/> : <Star/>}
-                                                    </IconButton>
-                                                    <img src={pen} style={{marginLeft: '2rem', marginTop: '-4.5rem'}}
-                                                        className={styles.tabletIcon}/>
+                                                <Box display="flex" alignItems="center">
+                                                    <Box marginRight="1rem" fontSize="16px">
+                                                        <Box sx={{
+                                                            "@media (max-width: 998px)": {
+                                                                marginBottom: "18px",
+                                                            },
+                                                        }}>
+                                                            
+                                                            <Label label={localization[lang].StudentPage.MainInfo.rating}/>
+                                                        </Box>
+                                                        <Label label={localization[lang].StudentPage.MainInfo.nameUni}/>
+                                                        <Label label={localization[lang].StudentPage.MainInfo.major}/>
+                                                        <Label label={localization[lang].StudentPage.MainInfo.degree}/>
+                                                        <Label label={localization[lang].StudentPage.MainInfo.graduationYear}/>
+                                                        
+                                                    </Box>
+                                                    <Box marginLeft="0.2rem">
+                                                        <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                                    sx={{fontSize: '0.875em'}}>
+                                                            {academicRating}
+                                                        </Typography>
+                                                        {/* hi */}
+                                                        <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                                    sx={{fontSize: '0.875em'}}>
+                                                            {data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu : localization[lang].StudentPage.MainInfo.noData}
+                                                        </Typography>
+                                                        <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                                    sx={{fontSize: '0.875em'}}>
+                                                            {
+                                                                data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
+                                                                    data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
+                                                                        data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
+                                                                            localization[lang].StudentPage.MainInfo.noData
+                                                            }
+                                                        </Typography>
+                                                        <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                                    sx={{fontSize: '0.875em'}}>
+                                                            {
+                                                                data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
+                                                                    data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
+                                                                        data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
+                                                                            localization[lang].StudentPage.MainInfo.noData
+                                                            }
+                                                        </Typography>
+                                                        <Typography className={styles.nameText} fontWeight='500' mb='3px'
+                                                                    sx={{fontSize: '0.875em'}}>
+                                                            {data && data.year ? data.year : ""}
+                                                        </Typography>
+                                                    </Box>
+                                                </Box>
+                                            </Box>
+
+                                            <Button
+                                                buttonSize="s"
+                                                variant="contained"
+                                                type="button"
+                                                disabled={!hasValidEmail()}
+                                                sx={{
+                                                    borderRadius: '25px',
+                                                    marginTop: '1rem',
+                                                }}
+                                                onClick={() => {
+                                                    const subject = `Приглашение для ${data.name_ru} в компанию`;
+                                                    window.location.href = `mailto:${getEmail()}?subject=${encodeURIComponent(subject)}`;
+                                                }}
+                                            >
+                                                {localization[lang].StudentPage.AddInfo.sendInvite}
+                                            </Button>
+                                            
+                                            {data && data.description &&
+                                                <Box margin="1rem" sx={{
+                                                    marginTop: '1.5rem',
+                                                    '@media (max-width: 778px)': {
+                                                        margin: '0.9rem',
+                                                    },
+                                                }}
+                                                >
+                                                    <Box sx={{
+                                                        fontSize: '24px',
+                                                        fontWeight: '600',
+                                                        color: '#4D4D4D',
+                                                        paddingBottom: '10px'
+                                                    }}> {localization[lang].StudentPage.AddInfo.about} </Box>
+                                                    <Typography className={styles.textMd} color="#818181">
+                                                        {handleText(data && data.description ? data.description : "")}
+                                                    </Typography>
+                                                    <Typography style={{cursor: "pointer"}} className={styles.textMd}
+                                                                fontWeight='600'
+                                                                color='#629BF8' sx={{paddingBottom: '20px'}}
+                                                                onClick={() => {
+                                                                    setShowFull(!showFull);
+                                                                }}>
+                                                        {localization[lang].StudentPage.AddInfo.show} {!showFull ? localization[lang].StudentPage.AddInfo.more : localization[lang].StudentPage.AddInfo.less}
+                                                        <ExpandMore
+                                                            style={{
+                                                                marginLeft: ".2rem",
+                                                                transform: showFull ? "rotate(180deg)" : ""
+                                                            }}/>
+                                                    </Typography>
                                                 </Box>
                                             }
                                         </Box>
-                                        <Box
-                                            display="flex"
-                                            alignItems="center"
-                                            sx={{
-                                                flexDirection: 'row',
-                                                justifyContent: 'space-between',
-                                                width: '100%',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <Box display="flex" alignItems="center">
-                                                <Box marginRight="1rem" fontSize="16px">
-                                                    <Box sx={{
-                                                        "@media (max-width: 998px)": {
-                                                            marginBottom: "18px",
-                                                        },
-                                                    }}>
-                                                        
-                                                        <Label label={localization[lang].StudentPage.MainInfo.rating}/>
-                                                    </Box>
-                                                    <Label label={localization[lang].StudentPage.MainInfo.nameUni}/>
-                                                    <Label label={localization[lang].StudentPage.MainInfo.major}/>
-                                                    <Label label={localization[lang].StudentPage.MainInfo.degree}/>
-                                                    <Label label={localization[lang].StudentPage.MainInfo.graduationYear}/>
-                                                    
-                                                </Box>
-                                                <Box marginLeft="0.2rem">
-                                                    <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                                                                sx={{fontSize: '0.875em'}}>
-                                                        {academicRating}
-                                                    </Typography>
-                                                    {/* hi */}
-                                                    <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                                                                sx={{fontSize: '0.875em'}}>
-                                                        {data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu : localization[lang].StudentPage.MainInfo.noData}
-                                                    </Typography>
-                                                    <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                                                                sx={{fontSize: '0.875em'}}>
-                                                        {
-                                                            data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
-                                                                data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
-                                                                    data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
-                                                                        localization[lang].StudentPage.MainInfo.noData
-                                                        }
-                                                    </Typography>
-                                                    <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                                                                sx={{fontSize: '0.875em'}}>
-                                                        {
-                                                            data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
-                                                                data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
-                                                                    data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
-                                                                        localization[lang].StudentPage.MainInfo.noData
-                                                        }
-                                                    </Typography>
-                                                    <Typography className={styles.nameText} fontWeight='500' mb='3px'
-                                                                sx={{fontSize: '0.875em'}}>
-                                                        {data && data.year ? data.year : ""}
-                                                    </Typography>
-                                                </Box>
-                                            </Box>
-                                        </Box>
 
-                                        <Button
-                                            buttonSize="s"
-                                            variant="contained"
-                                            type="button"
-                                            disabled={!hasValidEmail()}
-                                            sx={{
-                                                borderRadius: '25px',
-                                                marginTop: '1rem',
-                                            }}
-                                            onClick={() => {
-                                                const subject = `Приглашение для ${data.name_ru} в компанию`;
-                                                window.location.href = `mailto:${getEmail()}?subject=${encodeURIComponent(subject)}`;
-                                            }}
-                                        >
-                                            {localization[lang].StudentPage.AddInfo.sendInvite}
-                                        </Button>
-                                        
-                                        {data && data.description &&
-                                            <Box margin="1rem" sx={{
-                                                marginTop: '1.5rem',
-                                                '@media (max-width: 778px)': {
-                                                    margin: '0.9rem',
-                                                },
-                                            }}
-                                            >
-                                                <Box sx={{
-                                                    fontSize: '24px',
-                                                    fontWeight: '600',
-                                                    color: '#4D4D4D',
-                                                    paddingBottom: '10px'
-                                                }}> {localization[lang].StudentPage.AddInfo.about} </Box>
-                                                <Typography className={styles.textMd} color="#818181">
-                                                    {handleText(data && data.description ? data.description : "")}
-                                                </Typography>
-                                                <Typography style={{cursor: "pointer"}} className={styles.textMd}
-                                                            fontWeight='600'
-                                                            color='#629BF8' sx={{paddingBottom: '20px'}}
-                                                            onClick={() => {
-                                                                setShowFull(!showFull);
-                                                            }}>
-                                                    {localization[lang].StudentPage.AddInfo.show} {!showFull ? localization[lang].StudentPage.AddInfo.more : localization[lang].StudentPage.AddInfo.less}
-                                                    <ExpandMore
-                                                        style={{
-                                                            marginLeft: ".2rem",
-                                                            transform: showFull ? "rotate(180deg)" : ""
-                                                        }}/>
-                                                </Typography>
-                                            </Box>
-                                        }
                                         <Box sx={{
                                             '@media (max-width: 778px)': {
-                                                margin: '0.9rem',
+                                                display: value !== 2 ? "none" : "block"
                                             },
                                             marginTop: '1rem',
                                             width: '100%'
@@ -489,10 +547,22 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 {localization[lang].StudentPage.AddInfo.skills} 
                                             </Box>
                                             <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignContent: 'flex-start', flexWrap: 'wrap'}}>
-                                                { graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, numSkills).map((skill: any, index: any) => {
+                                                { graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
                                                     return (
                                                         <Box key={index} sx={{ display: 'flex', justifyContent: 'center', backgroundColor: '#F8F8F8', borderRadius: '1rem', margin: '0.5rem', padding: '0.5rem'}}>
-                                                            <Typography fontSize="16px" color="black" sx={{marginLeft: '1rem', marginRight: '1rem'}}>
+                                                            <Typography 
+                                                                color="black" 
+                                                                sx={{
+                                                                    marginLeft: '1rem', 
+                                                                    marginRight: '1rem',
+                                                                    fontSize: '16px',
+                                                                    "@media (max-width: 778px)": {
+                                                                        fontSize: '14px',
+                                                                        marginLeft: '0.5rem',
+                                                                        marginRight: '0.5rem',
+                                                                    }
+                                                                }}
+                                                            >
                                                                 {skill}
                                                             </Typography>
                                                         </Box>
@@ -501,7 +571,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                             </Box>
                                         </Box>
 
-                                        <Box mt="1rem" mb="1rem">
+                                        <Box mt="1rem" mb="1rem"sx={{
+                                            '@media (max-width: 778px)': {
+                                                display: value !== 2 ? "none" : "block"
+                                            },
+                                        }}>
                                             <Box sx={{
                                                 fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
                                                 '@media (max-width: 778px)': {
@@ -540,12 +614,24 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                         
                                     </Box>
 
-                                    <Box sx={{marginRight: "2.5rem", width: '30%'}}>
+                                    <Box sx={{
+                                        marginRight: "2.5rem", 
+                                        width: '30%',
+                                        "@media (max-width: 778px)": {
+                                            marginRight: "0rem", 
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            flexDirection: 'column',
+                                            width: '100%',
+                                        }
+                                    }}>
                                         <ShareButton 
                                             currentUrl={currentUrl} 
                                             lang={lang} 
                                             smartContractAddress={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}
                                             setAlertOpen={setAlertOpen}
+                                            value={value}
                                         />
                                         <Box
                                             sx={{
@@ -554,8 +640,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 padding: "1rem",
                                                 marginTop: "1rem",
                                                 '@media (max-width: 778px)': {
-                                                    margin: '0.9rem',
-                                                    marginTop: '2rem',
+                                                    display: value !== 1 ? "none" : "block",
+                                                    width: '100%',
                                                 },
                                             }}
                                         >
@@ -612,8 +698,9 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 borderRadius: '1rem',
                                                 marginTop: "1rem",
                                                 '@media (max-width: 778px)': {
-                                                    margin: '0.9rem',
-                                                    marginTop: '2rem',
+                                                    display: value !== 0 ? "none" : "flex",
+                                                    flexDirection: 'column',
+                                                    width: '100%',
                                                 },
                                             }}
                                         >

@@ -19,10 +19,11 @@ interface ShareButtonProps {
     lang: "kz" | "ru" | "en";
     smartContractAddress?: string;
     setAlertOpen: (value: boolean) => void;
+    value: number;
 }
 
 export const ShareButton: React.FC<ShareButtonProps> = (props) => {
-    const { currentUrl, lang, smartContractAddress, setAlertOpen } = props
+    const { currentUrl, lang, smartContractAddress, setAlertOpen, value } = props
 
     const copyCurrentURLToClipboard = () => {
         const currentURL = window.location.href;
@@ -41,8 +42,9 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                 backgroundColor: '#F8F8F8',
                 borderRadius: '1rem',
                 '@media (max-width: 778px)': {
-                    margin: '0.9rem',
-                    marginTop: '2rem',
+                    display: value !== 0 ? "none" : "flex",
+                    flexDirection: 'column',
+                    width: '100%',
                 },
             }}
         >
@@ -55,7 +57,15 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
             }}> 
                 {localization[lang].share}
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: "space-around", flexWrap: 'wrap', paddingBottom: '1rem'}}>
+            <Box sx={{ 
+                display: 'flex', 
+                justifyContent: "space-around", 
+                flexWrap: 'wrap', 
+                paddingBottom: '1rem',
+                '@media (max-width: 778px)': {
+                    flexWrap: 'nowrap',
+                },
+            }}>
                 <Box>
                     <EmailShareButton
                         url={currentUrl}
