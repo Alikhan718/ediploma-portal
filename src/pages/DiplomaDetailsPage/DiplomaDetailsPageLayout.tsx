@@ -84,7 +84,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         setAcademicRating(Math.round(rating*5));
     }, [graduateAttributes]);
 
-    const starsArray = Array.from({ length: academicRating }, (_, index) => index);;
+    const starsArray = Array.from({ length: academicRating }, (_, index) => index);
 
     React.useEffect(() => {
         if (!graduateAttributes) {

@@ -14,7 +14,7 @@ import diplomaTemplate from "@src/assets/example/diploma_template.svg";
 import {Button, Modal} from "@src/components";
 import {isAuthenticated} from "@src/utils/userAuth";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
-
+import { ReactComponent as GoldStar } from "@src/assets/icons/goldStar.svg";
 import {localization, unis, uniRatings} from "src/pages/DiplomaPage/generator";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {routes} from "@src/shared/routes";
@@ -88,7 +88,7 @@ export const DiplomaPageLayout: React.FC = () => {
     function getRating(university_id: number, gpa: number): number {
         const uniRating = uniRatings[university_id as keyof typeof uniRatings];
         const rating = ((gpa/4) * 0.7) + ((1 - uniRating/89) * 0.3);
-        return Math.round(rating * 100);
+        return Math.round(rating * 5);
     }
 
     return (
@@ -173,9 +173,13 @@ export const DiplomaPageLayout: React.FC = () => {
                                     <Typography fontSize=".8rem" mt="0" color="#818181" className={styles.mobTextSm}>
                                         {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
                                     </Typography>
-                                    <Typography>
-                                        {e.gpa ? getRating(e.university_id, e.gpa) : "0.00"}
-                                    </Typography>
+                                    <Box display="flex" marginTop="0.5rem">
+                                        { e.gpa && 
+                                            Array(getRating(e.university_id, parseFloat(e.gpa))).fill(0).map((_, index) => (
+                                                <GoldStar key={index}/>
+                                            ))
+                                        }
+                                    </Box>
                                     {/* <Box display='flex' mt='auto' width='100%'> */}
                                     {/* <Typography fontSize="0.875rem" mr='auto'>
 										</Typography> */}
