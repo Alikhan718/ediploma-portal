@@ -17,6 +17,7 @@ import {ReactComponent as SingleCheck} from "@src/assets/icons/single check.svg"
 import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
 import {ReactComponent as DownloadIcon} from '@src/assets/icons/download.svg';
 import {ReactComponent as ShareIcon} from '@src/assets/icons/share.svg';
+import { ReactComponent as GoldStar } from '@src/assets/icons/goldStar.svg';
 import star from "./../../assets/icons/Star1.svg";
 import {ReactComponent as Dots} from "@src/assets/icons/Dots.svg";
 import pen from "./../../assets/icons/penSquare.svg";
@@ -80,8 +81,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         const uniRating = uniRatings[graduateAttributes.university_id as keyof typeof uniRatings];
 
         const rating = ((gpa/4) * 0.7) + ((1 - uniRating/89) * 0.3);
-        setAcademicRating(Math.round(rating*100));
+        setAcademicRating(Math.round(rating*5));
     }, [graduateAttributes]);
+
+    const starsArray = Array.from({ length: academicRating }, (_, index) => index);;
 
     React.useEffect(() => {
         if (!graduateAttributes) {
@@ -259,7 +262,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 }}
                             >
                             {data && data.image &&
-                                    <Box width="40vh" sx={{
+                                    <Box width="60vh" sx={{
                                         backgroundColor: "rgba(7,117,255,0.11)",
                                         borderRadius: "1rem",
                                         padding: ".7rem",
@@ -428,7 +431,16 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     alignItems: 'center',
                                                 }}
                                             >
-                                                <Box display="flex" alignItems="center">
+                                                <Box 
+                                                    display="flex" 
+                                                    alignItems="center"
+
+                                                    sx={{
+                                                        '@media (max-width: 778px)': {
+                                                            display: 'none',
+                                                        },
+                                                    }}
+                                                >
                                                     <Box marginRight="1rem" fontSize="16px">
                                                         <Box sx={{
                                                             "@media (max-width: 998px)": {
@@ -445,10 +457,9 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                         
                                                     </Box>
                                                     <Box marginLeft="0.2rem">
-                                                        <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                                                                    sx={{fontSize: '0.875em'}}>
-                                                            {academicRating}
-                                                        </Typography>
+                                                        <Box display="flex">
+                                                            {starsArray.map((item, index) => {return (<GoldStar key={index}/>)})}
+                                                        </Box>
                                                         {/* hi */}
                                                         <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                                     sx={{fontSize: '0.875em'}}>
@@ -478,6 +489,78 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                         </Typography>
                                                     </Box>
                                                 </Box>
+                                                <Box 
+                                                    display="none" 
+                                                    alignItems="center"
+                                                    sx={{
+                                                        '@media (max-width: 778px)': {
+                                                            display: 'block',
+                                                        },
+                                                    }}
+                                                >
+                                                    <Box display="flex">
+                                                        <Box width="50%">
+                                                            <Label label={localization[lang].StudentPage.MainInfo.rating}/>
+                                                        </Box>
+                                                        <Box width="50%">
+                                                            {starsArray.map((item, index) => {return (<GoldStar key={index}/>)})}
+                                                        </Box>
+                                                    </Box>
+                                                    <Box display="flex">
+                                                        <Box width="50%">
+                                                            <Label label={localization[lang].StudentPage.MainInfo.nameUni}/>
+                                                        </Box>
+                                                        <Box width="50%">
+                                                            <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                                    sx={{fontSize: '0.875em'}}>
+                                                            {data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu : localization[lang].StudentPage.MainInfo.noData}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                    <Box display="flex">
+                                                        <Box width="50%">
+                                                            <Label label={localization[lang].StudentPage.MainInfo.major}/>
+                                                        </Box>
+                                                        <Box width="50%">
+                                                            <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                                        sx={{fontSize: '0.875em'}}>
+                                                                {
+                                                                    data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
+                                                                        data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
+                                                                            data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
+                                                                                localization[lang].StudentPage.MainInfo.noData
+                                                                }
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                    <Box display="flex">
+                                                        <Box width="50%">
+                                                            <Label label={localization[lang].StudentPage.MainInfo.degree}/>
+                                                        </Box>
+                                                        <Box width="50%">
+                                                            <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                                        sx={{fontSize: '0.875em'}}>
+                                                                {
+                                                                    data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
+                                                                        data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
+                                                                            data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
+                                                                                localization[lang].StudentPage.MainInfo.noData
+                                                                }
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                    <Box display="flex">
+                                                        <Box width="50%">
+                                                            <Label label={localization[lang].StudentPage.MainInfo.graduationYear}/>
+                                                        </Box>
+                                                        <Box width="50%">
+                                                            <Typography className={styles.nameText} fontWeight='500' mb='3px'
+                                                                        sx={{fontSize: '0.875em'}}>
+                                                                {data && data.year ? data.year : ""}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+                                                </Box>
                                             </Box>
 
                                             <Button
@@ -488,6 +571,9 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 sx={{
                                                     borderRadius: '25px',
                                                     marginTop: '1rem',
+                                                    "@media (max-width: 778px)": {
+                                                        marginLeft: '2.5rem',
+                                                    }
                                                 }}
                                                 onClick={() => {
                                                     const subject = `Приглашение для ${data.name_ru} в компанию`;
@@ -615,10 +701,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                     </Box>
 
                                     <Box sx={{
-                                        marginRight: "2.5rem", 
+                                        marginRight: "2.5rem",
                                         width: '30%',
                                         "@media (max-width: 778px)": {
-                                            marginRight: "0rem", 
+                                            marginRight: "0rem",
+                                            marginLeft: "2.5rem",
                                             display: 'flex',
                                             justifyContent: 'center',
                                             alignItems: 'center',
