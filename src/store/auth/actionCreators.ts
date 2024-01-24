@@ -13,6 +13,7 @@ import {
     POST_UPDATE_PROFILE_DATA, 
     POST_UPLOAD_FILE,
     GET_UNIVERSITY_LIST,
+    PUT_VISIBILITY,
 } from "./types/actionTypes";
 
 export const fetchLoginRequest = (payload: any) => ({
@@ -81,4 +82,9 @@ export const fetchUploadFile = (payload: any) => ({
 
 export const fetchUniversitiesList = () => ({
     type: GET_UNIVERSITY_LIST.saga,
+});
+
+export const fetchVisibility = (payload: any) => ({
+    type: PUT_VISIBILITY.saga,
+    payload
 });

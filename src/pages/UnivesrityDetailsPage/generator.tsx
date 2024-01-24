@@ -199,6 +199,21 @@ export const content = {
         },
         {
             title: {
+                "en": "Privacy",
+                "kz": "Privacy",
+                "ru": "Конфидециальность"
+            },
+            additionalText: {
+                "en": "Display diploma for employers",
+                "kz": "Дипломды жұмыс берушіге көрсету",
+                "ru": "Отображать диплом для работодателей"
+            },
+            name: "privacy",
+            reference: 3,
+            forms: [],
+        },
+        {
+            title: {
                 "en": "Social networks",
                 "kz": "Әлеуметтік желілер",
                 "ru": "Социальные сети"

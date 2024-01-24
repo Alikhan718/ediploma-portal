@@ -12,6 +12,7 @@ import {
     POST_GENERATE_SMART_CONTRACT,
     GET_PROFILE_DATA, POST_UPDATE_PROFILE_DATA, POST_UPLOAD_FILE,
     GET_UNIVERSITY_LIST,
+    PUT_VISIBILITY,
 } from "./types/actionTypes";
 
 const initialState = {
@@ -27,6 +28,7 @@ const initialState = {
     userState: {},
     image_link: null,
     universitiesList: [],
+    visibility: null,
 };
 export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
@@ -243,6 +245,16 @@ export const authReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 universitiesList: action.payload
+            };
+        case PUT_VISIBILITY.saga:
+            return {
+                ...state,
+                visibility: action.payload.visibility,
+            };
+        case PUT_VISIBILITY.success:
+            return {
+                ...state,
+                visibility: action.payload.visibility,
             };
         default:
             return state;
