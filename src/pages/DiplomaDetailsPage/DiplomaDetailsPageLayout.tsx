@@ -701,7 +701,6 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 </Box>
                                             </Box>
                                         </Box>
-                                        
                                     </Box>
 
                                     <Box sx={{
