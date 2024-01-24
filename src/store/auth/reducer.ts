@@ -196,6 +196,8 @@ export const authReducer = (state = initialState, action: any) => {
                 registrationStep: 1
             };
         case POST_SAVE_XML.saga:
+            console.log(action.payload);
+            console.log(action);
             return {
                 ...state,
                 xml: action.payload,
@@ -216,7 +218,6 @@ export const authReducer = (state = initialState, action: any) => {
                 university_id: action.payload.university_id,
             };
         case GET_DIPLOMA_METADATA_CID.success:
-            console.log("case GET_DIPLOMA_METADATA_CID.success:", action);
             return {
                 ...state,
                 ipfsLink: action.payload,

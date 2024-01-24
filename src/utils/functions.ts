@@ -67,7 +67,7 @@ export const enableWebSocket = (set: any = null) => {
                 }
             };
         }
-        console.log("Websocket connected!");
+        // console.log("Websocket connected!");
 
     } catch (e: any) {
         console.log(e.getMessage());
@@ -83,7 +83,7 @@ export const signXml = (university_id: number, callBackFunc: any) => {
             <Signature>
                 <SignedData>
                     <FilePath>
-                        https://generator.ediploma.kz/get-file/jsons/1/fullMetadata.json
+                        https://generator.ediploma.kz/get-file/jsons/${university_id}/fullMetadata.json
                     </FilePath>
                     <UniversityName>${university_id}</UniversityName>
                 </SignedData>
@@ -96,7 +96,6 @@ export const signXml = (university_id: number, callBackFunc: any) => {
         callback = callBackFunc;
         webSocket.send(JSON.stringify(signXml));
     } catch (e) {
-
         alert("NcaLayer не найден");
     }
 };

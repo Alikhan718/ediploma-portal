@@ -7,13 +7,13 @@ import excel from "./../../assets/icons/File_check.svg";
 import files from "./../../assets/icons/Excel.svg";
 import * as NcaLayer from '@src/utils/functions';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchGetDiplomaCid, fetchSaveXmlRequest} from "@src/store/auth/actionCreators";
+import {fetchGetDiplomaCid, fetchSaveXmlRequest, fetchUserProfile} from "@src/store/auth/actionCreators";
 import {handleLink} from "@src/utils/link";
 import {ReactComponent as DownloadIcon} from "@src/assets/icons/download.svg";
 import archive from "@src/assets/icons/archive.svg";
 import {selectArchiveLink, selectIsUploaded} from "@src/store/generator/selectors";
 import {uploadDataParse} from "@src/store/generator/actionCreators";
-import {selectIpfsLink, selectSmartContractLink, selectXmlSigned} from "@src/store/auth/selector";
+import {selectIpfsLink, selectSmartContractLink, selectUserState, selectXmlSigned} from "@src/store/auth/selector";
 import {fetchMetadataCid} from "@src/store/auth/saga";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {routes} from "@src/shared/routes";
@@ -31,14 +31,16 @@ const AddingGraduates: React.FC = () => {
     const xmlSigned = useSelector(selectXmlSigned);
     const navigate = useNavigate();
     const [ncaLayerFound, setNcaLayerFound] = useState(false);
+    const userState = useSelector(selectUserState);
 
     NcaLayer.enableWebSocket(setNcaLayerFound);
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if(ncaLayerFound == false){
+        if (ncaLayerFound == false) {
             alert("Подключите NCALayer");
             return;
         }
-        
+        dispatch(fetchUserProfile());
+
         const uploadedFile = event.target.files?.[0] || null;
         setFile(uploadedFile);
         dispatch(uploadDataParse({file: uploadedFile}));
@@ -84,8 +86,9 @@ const AddingGraduates: React.FC = () => {
         if (res['code'] === "500") {
             alert(res['message']);
         } else if (res['code'] === "200") {
+            console.log(userState, userState.name);
             res = res['responseObject'];
-            dispatch(fetchSaveXmlRequest({xml: res}));
+            dispatch(fetchSaveXmlRequest({xml: res, signed_by: userState.name}));
             setTimeout(() => {
             }, 2000);
         }
@@ -472,7 +475,7 @@ const AddingGraduates: React.FC = () => {
                             <Button variant="contained" color="primary"
                                     sx={{marginTop: 2, borderRadius: '15px'}}
                                     onClick={() => {
-                                        ncaLayerXml()
+                                        ncaLayerXml();
                                     }}> {localization[lang].AddingGratuates.signButton}</Button>
                         </Box>
                     )}

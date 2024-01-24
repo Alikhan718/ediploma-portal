@@ -62,3 +62,18 @@
 		padding: 1.5rem 2rem 0;
 	}
 }
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Apply the animation to the element */
+.rotatingElement {
+    /* Set the duration and specify that it should repeat infinitely */
+    animation: rotate 2.5s linear infinite;
+}

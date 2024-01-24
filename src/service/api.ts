@@ -80,7 +80,8 @@ export const authApi = {
     getOtp(body: { email: string }) {
         return instance.post(`/otp/send`, body);
     },
-    saveXml(body: { xml: string }) {
+    saveXml(body: { xml: string, signed_by: string }) {
+        console.log(body);
         return instance.post(`/users/sign-xml-with-ds`, body);
     },
     getMetadataCid(body: { university_id: number }) {
