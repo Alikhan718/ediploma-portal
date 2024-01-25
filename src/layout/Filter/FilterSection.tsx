@@ -18,6 +18,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	const { open, setOpen, filterAttributes, setFilterAttributes, triggerSearchFilters } = props;
 	const [selectedSpecialities, setSelectedSpecialities] = React.useState<string[]>([]);
 	const [selectedGPA, setSelectedGPA] = React.useState(([1.0, 4.0]));
+	const [selectedRating, setSelectedRating] = React.useState<number[]>([0.0, 5.0]);
 	const [selectedDegree, setSelectedDegree] = React.useState<string[]>([]);
 	const [selectedYear, setSelectedYear] = React.useState<number[]>([]);
 	const [selectedRegions, setSelectedRegions] = React.useState<string[]>([]);
@@ -64,6 +65,8 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			gpaL: selectedGPA[0] ?? filterAttributes.gpaL,
 			gpaR: selectedGPA[1] ?? filterAttributes.gpaR,
 			university_id: selectedUniversityIDs[0] ?? filterAttributes.university_id,
+			ratingL : selectedRating[0] ?? filterAttributes.ratingL,
+			ratingR : selectedRating[1] ?? filterAttributes.ratingR,
 		};
 
 		if (type === "speciality") {
@@ -82,6 +85,10 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 		else if (type === "university_id"){
 			filterValues.university_id = arr[0];
 		}
+		else if (type === "rating"){
+			filterValues.ratingL = arr[0];
+			filterValues.ratingR = arr[1];
+		}
 
 		// Update the filterAttributes state
 		setFilterAttributes(filterValues);
@@ -93,7 +100,9 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			filterValues.year.length ||
 			filterValues.university_id !== 0 ||
 			filterValues.degree.length ||
-			filterValues.region.length) {
+			filterValues.region.length ||
+			filterValues.ratingL !== 0 ||
+			filterValues.ratingR !== 5) {
 				triggerSearchFilters(filterValues);
 		} else {
 			dispatch(cancelFilters());
@@ -131,6 +140,11 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 		setSelectedGPA(newValue as number[]);
 		filter("gpa", newValue);
 	};
+	
+	const handleRating = (event: Event, newValue: number | number[]) => {
+		setSelectedRating(newValue as number[]);
+		filter("rating", newValue);
+	}
 	const lang = useSelector(selectLanguage);
 	const translatedSpecialities = specialities[lang];
 	const translatedRegions = regions[lang];
@@ -339,7 +353,21 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 								valueLabelDisplay="auto"
 								sx={{marginLeft: "1rem"}}
 							/>
+							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600" marginTop="1rem">
+								Rating
+							</Typography>
+							<Slider
+								max={5.0}
+								min={0.0}
+								step={0.1}
+								getAriaLabel={() => 'Rating'}
+								value={selectedRating}
+								onChange={handleRating}
+								valueLabelDisplay="auto"
+								sx={{marginLeft: "1rem"}}
+							/>
 						</Box>
+						
 						{/* <Box width='48%' className={styles.mobW100} sx={{ marginTop: '10px', marginBottom: '-50px' }}>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
 								{localization[lang].MainCard.year}

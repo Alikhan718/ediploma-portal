@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {data} from "browserslist";
 
-// const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
-const baseURL = 'http://localhost:8080';
+const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+// const baseURL = 'http://localhost:8080';
 const generatorURL = process.env.REACT_APP_GENERATOR_API_BASE_URL;
 
 const instance = axios.create({
@@ -139,6 +139,8 @@ export const diplomasApi = {
         year: number,
         gpaL: number,
         gpaR: number,
+        ratingL: number,
+        ratingR: number,
     }) {
         let query = `graduates/search?`;
         if (body.text != "") {
@@ -162,6 +164,14 @@ export const diplomasApi = {
             }
             if (body.gpaR != 0) {
                 query += `gpaR=${body.gpaR}&`;
+            }
+        }
+        if (body.ratingL != 0 || body.ratingR != 5) {
+            if (body.ratingL != 0) {
+                query += `ratingL=${body.ratingL}&`;
+            }
+            if (body.ratingR != 0) {
+                query += `ratingR=${body.ratingR}&`;
             }
         }
         return instance.get(query);
