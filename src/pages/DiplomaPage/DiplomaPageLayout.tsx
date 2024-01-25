@@ -51,8 +51,7 @@ export const DiplomaPageLayout: React.FC = () => {
     const diplomasPerPage: number = 8;
 
     const [currentPage, setCurrentPage] = useState(1);
-    // const totalPages = Math.ceil(diplomaList.length / diplomasPerPage);
-    const [totalPages, setTotalPages] = useState(92);
+    const totalPages = Math.ceil(diplomaList.length / diplomasPerPage);
 
 
     const [open, setOpen] = React.useState(false);
@@ -79,17 +78,10 @@ export const DiplomaPageLayout: React.FC = () => {
 
     const startDiplomaIndex = (currentPage - 1) * diplomasPerPage;
     const endDiplomaIndex = currentPage * diplomasPerPage;
-    // const displayedDiplomas = diplomaList.slice(startDiplomaIndex, endDiplomaIndex);
-    const displayedDiplomas = useSelector(selectDiplomaList);
+    const displayedDiplomas = diplomaList.slice(startDiplomaIndex, endDiplomaIndex);
     useEffect(() => {
-        dispatch(fetchDiplomas({page: currentPage, per_page: diplomasPerPage}));
+        dispatch(fetchDiplomas());
     }, [currentPage]);
-
-    function getRating(university_id: number, gpa: number): number {
-        const uniRating = uniRatings[university_id as keyof typeof uniRatings];
-        const rating = ((gpa/4) * 0.7) + ((1 - uniRating/89) * 0.3);
-        return Number( (rating*5).toFixed(1) );
-    }
 
     return (
         <Box display="flex" flexWrap="wrap" justifyContent="center" className={styles.mainContainer} pt="2rem">
@@ -174,8 +166,8 @@ export const DiplomaPageLayout: React.FC = () => {
                                         {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
                                     </Typography>
                                     <Box display="flex" marginTop="0.5rem">
-                                        { e.gpa && 
-                                            <RatingDisplay academicRating={getRating(e.university_id, parseFloat(e.gpa))} />
+                                        { e && 
+                                            <RatingDisplay academicRating={Number(e.rating)} />
                                         }
                                     </Box>
                                     {/* <Box display='flex' mt='auto' width='100%'> */}

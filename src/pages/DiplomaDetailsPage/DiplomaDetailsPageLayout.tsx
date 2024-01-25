@@ -46,26 +46,12 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     const role = useSelector(selectUserRole);
     const [isFavorite, setIsFavorite] = React.useState(false);
     const [numSkills, setNumSkills] = React.useState(5);
-    const [academicRating, setAcademicRating] = React.useState<number>(5);
     const [data, setData] = React.useState<any>();
     const [value, setValue] = React.useState(0);
 
     let diplomaList = useSelector(selectDiplomaList);
 
     const graduateAttributes = useSelector(selectGraduateAttributes);
-
-    React.useEffect(() => {
-        if (!graduateAttributes) {
-            console.log("no graduate attributes");
-            return;
-        }
-
-        const gpa: number = parseFloat(graduateAttributes.diploma_gpa);
-        const uniRating = uniRatings[graduateAttributes.university_id as keyof typeof uniRatings];
-
-        const rating: number = ((gpa/4) * 0.7) + ((1 - uniRating/89) * 0.3);
-        setAcademicRating( Number( (rating*5).toFixed(1) ) );
-    }, [graduateAttributes]);
 
     React.useEffect(() => {
         if (!graduateAttributes) {
@@ -695,8 +681,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                         }}>{localization[lang].StudentPage.MainInfo.rating}</span>
                                                     </Typography>
                                                     <Box display="flex" marginLeft="0.5rem" marginTop="0.25rem">
-                                                        <RatingDisplay academicRating={academicRating}/>
-                                                        <Box marginLeft="0.5rem" > {academicRating} </Box>
+                                                        {graduateAttributes.rating && <RatingDisplay academicRating={Number(graduateAttributes.rating)}/>}
+                                                        <Box marginLeft="0.5rem" > {graduateAttributes.rating && graduateAttributes.rating} </Box>
                                                     </Box>
                                                 </Box>
                                             </Box>
