@@ -15,7 +15,6 @@
 }
 
 .contentLeftContainer {
-	width: 32%;
 	display: flex;
 	flex-direction: column;
 }

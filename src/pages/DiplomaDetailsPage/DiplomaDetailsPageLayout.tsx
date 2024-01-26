@@ -13,8 +13,10 @@ import {Button, Label, Modal} from '@src/components';
 import {ReactComponent as SingleCheck} from "@src/assets/icons/single check.svg";
 import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
 import {ReactComponent as ShareIcon} from '@src/assets/icons/share.svg';
+import { ReactComponent as ArrowIcon } from '@src/assets/icons/arrowIcon.svg';
 import { RatingDisplay } from '@src/components/RatingDisplay/RatingDisplay';
 import { ReactComponent as FavoriteDiploma } from '@src/assets/icons/favoriteDiploma.svg';
+import { ReactComponent as CopyIcon } from '@src/assets/icons/copyIcon.svg';
 import {useNavigate, useParams} from "react-router-dom";
 import styles from '@src/pages/StudentPage/StudentPage.module.css';
 import cn from "classnames";
@@ -175,11 +177,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     };
 
     return (
-        <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
-            <Box display='flex' flexWrap='wrap'>
+        <Box width="100%" sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
+            <Box display='flex' flexWrap='wrap' width="100%">
 
-                <Box minWidth="80vw" sx={{
-                    // width: '80vw',
+                <Box sx={{
+                    // width: '90vw',
                     width: '100%',
                     marginX: "1.5rem",
                     '@media (max-width: 778px)': {
@@ -188,7 +190,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         width: '100vw',
                     },
                 }}>
-                    <Box display='flex' flexDirection='column' sx={{backgroundColor: 'white', borderRadius: '15px',}}>
+                    <IconButton onClick={() => {navigate(-1);}} sx={{'&:hover': {backgroundColor: 'transparent'}}} >
+                        <ArrowIcon/>
+                        <Typography className={styles.textMd} marginLeft="1rem" fontWeight='600' color='#3B82F6' 
+                            fontSize={"1rem"}>
+                            {localization[lang].StudentPage.Menu.back}
+                        </Typography>
+                    </IconButton>
+                    <Box display='flex' flexDirection='column' sx={{backgroundColor: 'white', borderRadius: '15px'}}>
                         <Box width="50%" display="flex" flex="row" p=".275rem " sx={{
                             backgroundColor: "#F8F8F8", borderRadius: "3rem",
                             marginTop: "0.5rem",
@@ -214,6 +223,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         </Box>
 
                         <Box px="1rem" sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            justifyItems: 'center',
+                            width: '100%',
                             '@media (max-width: 778px)': {
                                 padding: '0'
                             },
@@ -340,7 +354,9 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             </Box>
                             <Box
                                 display="flex"
+                                flexDirection="column"
                                 alignItems="center"
+                                alignContent="center"
                                 margin="1rem"
                                 className={styles.contentLeftContainer}
                             >
@@ -348,6 +364,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                     sx={{
                                         display:"flex",
                                         justifyContent:"space-between",
+                                        width: "100%",
                                         '@media (max-width: 778px)': {
                                             flexDirection: 'column',
                                             alignItems: 'center',
@@ -652,22 +669,39 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     Object.keys(graduateAttributes).map((key: any) => {
                                                             if (fieldLocalizations[key] !== undefined && graduateAttributes[key] != undefined && graduateAttributes[key] != '') {
                                                                 return (
-                                                                    <Typography
-                                                                        key={key}
-                                                                        sx={{
-                                                                            marginBottom: "1rem",
-                                                                            display: "block",
-                                                                        }}
-                                                                    >
-                                                                    <span style={{
-                                                                        color: "#818181",
-                                                                        fontSize: "16px"
-                                                                    }}>{fieldLocalizations[key][lang]}:</span>{" "}
+                                                                    <Box key={key} display='flex' justifyContent="space-between">
+                                                                        <Typography
+                                                                            key={key}
+                                                                            sx={{
+                                                                                marginBottom: "1rem",
+                                                                                display: "block",
+                                                                            }}
+                                                                        >
                                                                         <span style={{
-                                                                            fontWeight: '600',
+                                                                            color: "#818181",
                                                                             fontSize: "16px"
-                                                                        }}>{graduateAttributes[key]}</span>{" "}
-                                                                    </Typography>
+                                                                        }}>{fieldLocalizations[key][lang]}:</span>{" "}
+                                                                            <span style={{
+                                                                                fontWeight: '600',
+                                                                                fontSize: "16px"
+                                                                            }}>{graduateAttributes[key]}</span>{" "}
+                                                                        </Typography>
+                                                                        <IconButton
+                                                                            sx={{
+                                                                                display: 'none',
+                                                                                width: "2.5rem", 
+                                                                                height: "2.5rem",
+                                                                                "@media (max-width: 778px)": {
+                                                                                    display: key == 'diploma_email' || key == 'diploma_phone' ? 'flex' : 'none',
+                                                                                }
+                                                                            }}
+                                                                            onClick={() => {
+                                                                                navigator.clipboard.writeText(graduateAttributes[key]);
+                                                                                setAlertOpen(true);
+                                                                            }}>
+                                                                            <CopyIcon/>
+                                                                        </IconButton>
+                                                                    </Box>
                                                                 );
                                                             }
                                                         }
@@ -694,7 +728,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                         width: '30%',
                                         "@media (max-width: 778px)": {
                                             marginRight: "0rem",
-                                            marginLeft: "2.5rem",
+                                            marginLeft: "1.75rem",
                                             display: 'flex',
                                             justifyContent: 'center',
                                             alignItems: 'center',
