@@ -165,11 +165,14 @@ export const DiplomaPageLayout: React.FC = () => {
                                     <Typography fontSize=".8rem" mt="0" color="#818181" className={styles.mobTextSm}>
                                         {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
                                     </Typography>
-                                    <Box display="flex" marginTop="0.5rem">
-                                        { e && 
-                                            <RatingDisplay academicRating={Number(e.rating)} />
-                                        }
-                                    </Box>
+                                    {
+                                        e && e.rating != 0.0 ? (
+                                            <Box display="flex" marginTop="0.5rem" alignItems="center">
+                                                { e && <RatingDisplay academicRating={Number(e.rating)} /> }
+                                                <Box marginLeft='0.5rem'>{ e && e.rating }</Box>
+                                            </Box>
+                                        ): (<></>) 
+                                    }
                                     {/* <Box display='flex' mt='auto' width='100%'> */}
                                     {/* <Typography fontSize="0.875rem" mr='auto'>
 										</Typography> */}
