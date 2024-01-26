@@ -67,10 +67,8 @@ export const StudentPageLayout: React.FC = () => {
         setData(userState);
     }, [userState]);
     React.useEffect(() => {
-        if (isAuthenticated() && data && id != undefined) {
-            dispatch(fetchGraduateDetails({name: data.name_en}));
-        } else {
-            dispatch(fetchGraduateDetails({name: userState.name}));
+        if (data) {
+            dispatch(fetchGraduateDetails(data.id));
         }
     }, [data]);
 
