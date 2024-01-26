@@ -208,11 +208,6 @@ export const fieldLocalizations: Translations = {
         "kz": "Грант",
         "ru": "Грант"
     },
-    "diploma_iin": {
-        "en": "IIN",
-        "kz": "ИИН",
-        "ru": "ИИН"
-    },
     "diploma_nationality": {
         "en": "Nationality",
         "kz": "Ұлты",
