@@ -37,6 +37,8 @@ export const DiplomaPageHeader: React.FC = (props) => {
         gpaL: 0,
         gpaR: 0,
         university_id: 0,
+        ratingL: 0,
+        ratingR: 0,
     });
 
 

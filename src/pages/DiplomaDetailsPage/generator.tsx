@@ -49,6 +49,7 @@ export const localization = {
                 goto: "Сайтқа өту",
                 favorite: "Таңдауларға қосу",
                 share: "Бөлісу",
+                back: "Артқа қайту",
             },
             MainInfo: {
                 nameUni: "Вуз атауы: ",
@@ -102,6 +103,7 @@ export const localization = {
                 goto: "Перейти на сайт",
                 favorite: "В  Избранное",
                 share: "Поделиться",
+                back: "Вернуться назад",
             },
             MainInfo: {
                 nameUni: "Название вуза: ",
@@ -155,6 +157,7 @@ export const localization = {
                 goto: "Go to the website",
                 favorite: "Add to Favorites",
                 share: "Share",
+                back: "Go back",
             },
             MainInfo: {
                 nameUni: "University name: ",
@@ -228,11 +231,6 @@ export const fieldLocalizations: Translations = {
         "en": "Grant",
         "kz": "Грант",
         "ru": "Грант"
-    },
-    "diploma_iin": {
-        "en": "IIN",
-        "kz": "ИИН",
-        "ru": "ИИН"
     },
     "diploma_nationality": {
         "en": "Nationality",

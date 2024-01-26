@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    Box,
+    Box, IconButton
 } from '@mui/material';
 import { Button } from '@src/components';
 import {
@@ -13,6 +13,8 @@ import {
     WhatsappIcon,
 } from "react-share"
 import { localization } from './generator'
+import {ReactComponent as DownloadIcon} from '@src/assets/icons/download.svg';
+import {handleDownload} from "@src/utils/link";
 
 interface ShareButtonProps {
     currentUrl: string;
@@ -20,10 +22,11 @@ interface ShareButtonProps {
     smartContractAddress?: string;
     setAlertOpen: (value: boolean) => void;
     value: number;
+    data: any;
 }
 
 export const ShareButton: React.FC<ShareButtonProps> = (props) => {
-    const { currentUrl, lang, smartContractAddress, setAlertOpen, value } = props
+    const { currentUrl, lang, smartContractAddress, setAlertOpen, value, data } = props
 
     const copyCurrentURLToClipboard = () => {
         const currentURL = window.location.href;
@@ -98,6 +101,24 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                     >
                         <WhatsappIcon size={32} round />
                     </WhatsappShareButton>
+                </Box>
+                <Box>
+                    <IconButton
+                        color="primary"
+                        sx={{
+                            backgroundColor: "rgba(59,130,246,0.78)",
+                            '&:hover': {
+                                backgroundColor: "rgb(59,130,246)",
+                                color: "white"
+                            }
+                        }}
+                        onClick={() => {
+                            let link = data && data.image ? data.image : "";
+                            handleDownload(link, data && data.name_en ? data.name_en : "diploma");
+                        }}
+                    >
+                        <DownloadIcon style={{ width: 16, height: 16 }}/>
+                    </IconButton>
                 </Box>
             </Box>
             <Box display='flex' alignItems="center" justifyContent='center'>

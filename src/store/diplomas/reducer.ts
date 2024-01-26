@@ -18,6 +18,8 @@ interface DiplomaInterface {
     year: number,
     gpaL: number,
     gpaR: number,
+    ratingL: number,
+    ratingR: number,
     university_id: number,
     filtered_names: string[],
     graduate_attributes: {},
@@ -34,6 +36,8 @@ const initialState: DiplomaInterface = {
     year: 0,
     gpaL: 0,
     gpaR: 0,
+    ratingL: 0,
+    ratingR: 0,
     university_id: 0,
     filtered_names: [],
     graduate_attributes: [],
@@ -96,6 +100,8 @@ const diplomaReducer = (state = initialState, action: any) => {
                 year: action.payload.year,
                 gpaL: action.payload.gpaL,
                 gpaR: action.payload.gpaR,
+                ratingL: action.payload.ratingL,
+                ratingR: action.payload.ratingR,
                 university_id: action.payload.university_id,
             };
         case GET_GRADUATE_DETAILS.saga:

@@ -1,7 +1,7 @@
 import React, {useState, useRef, RefObject} from 'react';
 import {
   Box, Container, Typography, FormControlLabel, FormControl, Switch, Select, MenuItem, InputLabel,
-  FormHelperText, Grid
+  FormHelperText, Grid, SwitchProps, styled
 } from '@mui/material';
 import {Button, Input, Label} from '@src/components';
 import web from "@src/assets/icons/Website.svg";
@@ -18,7 +18,8 @@ import {selectImageLink, selectUserRole, selectUserState} from '@src/store/auth/
 import {
   fetchUpdateUserProfile,
   fetchUploadFile,
-  fetchUserProfile
+  fetchUserProfile,
+  fetchVisibility,
 } from "@src/store/auth/actionCreators";
 import {content, navigation} from "@src/pages/UnivesrityDetailsPage/generator";
 import {selectLanguage} from "@src/store/generals/selectors";
@@ -168,6 +169,7 @@ const SettingsPage: React.FC = () => {
 
   React.useEffect(() => {
     setState(userState);
+    console.log(userState);
     if (userState.gallery) {
       let images = JSON.parse(userState.gallery);
       setGalleryImages(images);
@@ -205,6 +207,63 @@ const SettingsPage: React.FC = () => {
     }
   }, [imageLink, galleryUpload]);
 
+  const IOSSwitch = styled((props: SwitchProps) => (
+    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+    ))(({ theme }) => ({
+      width: 42,
+      height: 26,
+      padding: 0,
+      '& .MuiSwitch-switchBase': {
+        padding: 0,
+        margin: 2,
+        transitionDuration: '300ms',
+        '&.Mui-checked': {
+          transform: 'translateX(16px)',
+          color: '#fff',
+          '& + .MuiSwitch-track': {
+            backgroundColor: theme.palette.mode === 'dark' ? '#2277c4' : '#3B82F6',
+            opacity: 1,
+            border: 0,
+          },
+          '&.Mui-disabled + .MuiSwitch-track': {
+            opacity: 0.5,
+          },
+        },
+        '&.Mui-focusVisible .MuiSwitch-thumb': {
+          color: '#33cf4d',
+          border: '6px solid #fff',
+        },
+        '&.Mui-disabled .MuiSwitch-thumb': {
+          color:
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[600],
+        },
+        '&.Mui-disabled + .MuiSwitch-track': {
+          opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+        },
+      },
+      '& .MuiSwitch-thumb': {
+        boxSizing: 'border-box',
+        width: 22,
+        height: 22,
+      },
+      '& .MuiSwitch-track': {
+        borderRadius: 26 / 2,
+        backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+        opacity: 1,
+        transition: theme.transitions.create(['background-color'], {
+          duration: 500,
+        }),
+      },
+  }));
+
+  const [privacyVisible, setPrivacyVisible] = useState<boolean>(false);
+
+  const handlePrivacyVisibleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.checked);
+    dispatch(fetchVisibility({visibility: event.target.checked}));
+  }
 
   return (
     <Box
@@ -344,12 +403,20 @@ const SettingsPage: React.FC = () => {
                 <Typography variant="h6" fontWeight="600">
                   {item.title ? item.title[lang] : ""}
                 </Typography>
-                <Typography sx={{
-                  fontSize: '16px',
-                  paddingBottom: '15px'
-                }}>
-                  {(item.additionalText ? item.additionalText[lang] : "") + " " + (userState[item.name] ? userState[item.name] : "")}
-                </Typography>
+                <Box sx={{display: "flex", justifyItems: "space-between", justifyContent: "space-between"}}>
+                  <Typography sx={{
+                    fontSize: '16px',
+                    paddingBottom: '15px'
+                  }}>
+                    {(item.additionalText ? item.additionalText[lang] : "") + " " + (userState[item.name] ? userState[item.name] : "")}
+                  </Typography>
+                  <Box display={role === 'student' && item.name === 'privacy' ? "block" : "none"}>
+                    <FormControlLabel
+                      control={<IOSSwitch onChange={handlePrivacyVisibleChange} defaultChecked />}
+                      label=""
+                    />
+                  </Box>
+                </Box>
                 <Grid
                   container
                   justifyContent="center"
@@ -477,13 +544,13 @@ const SettingsPage: React.FC = () => {
                   })}
                 </Grid>
                 {
-                  item.forms.length && (
+                  item.forms.length ? (
                     <Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '36px'}}>
                       <Button sx={{marginRight: '16px'}}>Отменить</Button>
                       <Button sx={{}} variant="contained" borderRadius="3rem"
                               onClick={handleSubmit}>Сохранить</Button>
                     </Box>
-                  )
+                  ) : null
                 }
               </Container>
             )

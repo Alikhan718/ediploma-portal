@@ -91,6 +91,8 @@ export interface FilterAttributes {
     gpaL?: number;
     gpaR?: number;
     university_id?: number;
+    ratingL?: number;
+    ratingR?: number;
 }
 
 const AppHeader: React.FC<HeaderProps> = (props) => {
@@ -108,6 +110,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         year: 0,
         gpaL: 0,
         gpaR: 0,
+        
     });
     const [open, setOpen] = React.useState(false);
     const [minimized, setMinimized] = React.useState(true);

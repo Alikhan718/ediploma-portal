@@ -20,10 +20,16 @@ import {ReactComponent as ShareIcon} from '@src/assets/icons/share.svg';
 import {ReactComponent as GoldStar} from '@src/assets/icons/goldStar.svg';
 import {ReactComponent as Star} from "@src/assets/icons/star.svg";
 import {ReactComponent as StarPressed} from "@src/assets/icons/StarPressed.svg";
+import { ReactComponent as ArrowIcon } from '@src/assets/icons/arrowIcon.svg';
+import { RatingDisplay } from '@src/components/RatingDisplay/RatingDisplay';
+import { ReactComponent as FavoriteDiploma } from '@src/assets/icons/favoriteDiploma.svg';
+import { ReactComponent as CopyIcon } from '@src/assets/icons/copyIcon.svg';
 import {useNavigate, useParams} from "react-router-dom";
 import {ReactComponent as CloseIcon} from "@src/assets/icons/close.svg";
 import styles from '@src/pages/StudentPage/StudentPage.module.css';
+import userImg from "@src/assets/dashboard/Image.jpg";
 import cn from "classnames";
+import {routes} from "@src/shared/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {
     fetchDiplomas,
@@ -42,8 +48,8 @@ import {handleDownload, handleLink} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
 import {selectLanguage} from "@src/store/generals/selectors";
-import {fieldLocalizations, localization, skillsList, uniRatings} from '@src/pages/DiplomaDetailsPage/generator';
-import {ShareButton} from '@src/components/ShareButton/ShareButton';
+import { fieldLocalizations, localization, skillsList, uniRatings } from '@src/pages/DiplomaDetailsPage/generator';
+import { ShareButton } from '@src/components/ShareButton/ShareButton';
 import LoadingIcon from '@src/assets/icons/loading.gif';
 import SignedDsIcon from '@src/assets/icons/file_checked.svg';
 import UploadedIcon from '@src/assets/icons/checklist.svg';
@@ -80,11 +86,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         const gpa: number = parseFloat(graduateAttributes.diploma_gpa);
         const uniRating = uniRatings[graduateAttributes.university_id as keyof typeof uniRatings];
 
-        const rating = ((gpa / 4) * 0.7) + ((1 - uniRating / 89) * 0.3);
-        setAcademicRating(Math.round(rating * 5));
+        const rating = ((gpa/4) * 0.7) + ((1 - uniRating/89) * 0.3);
+        setAcademicRating(Math.round(rating*5));
     }, [graduateAttributes]);
 
-    const starsArray = Array.from({length: academicRating}, (_, index) => index);
+    const starsArray = Array.from({ length: academicRating }, (_, index) => index);
 
     React.useEffect(() => {
         if (!graduateAttributes) {
@@ -253,11 +259,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     };
 
     return (
-        <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
-            <Box display='flex' flexWrap='wrap'>
+        <Box width="100%" sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
+            <Box display='flex' flexWrap='wrap' width="100%">
 
-                <Box minWidth="80vw" sx={{
-                    // width: '80vw',
+                <Box sx={{
+                    // width: '90vw',
                     width: '100%',
                     marginX: "1.5rem",
                     '@media (max-width: 778px)': {
@@ -266,7 +272,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         width: '100vw',
                     },
                 }}>
-                    <Box display='flex' flexDirection='column' sx={{backgroundColor: 'white', borderRadius: '15px',}}>
+                    <IconButton onClick={() => {navigate(-1);}} sx={{'&:hover': {backgroundColor: 'transparent'}}} >
+                        <ArrowIcon/>
+                        <Typography className={styles.textMd} marginLeft="1rem" fontWeight='600' color='#3B82F6'
+                            fontSize={"1rem"}>
+                            {localization[lang].StudentPage.Menu.back}
+                        </Typography>
+                    </IconButton>
+                    <Box display='flex' flexDirection='column' sx={{backgroundColor: 'white', borderRadius: '15px'}}>
                         <Box width="50%" display="flex" flex="row" p=".275rem " sx={{
                             backgroundColor: "#F8F8F8", borderRadius: "3rem",
                             marginTop: "0.5rem",
@@ -292,13 +305,18 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         </Box>
 
                         <Box px="1rem" sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            justifyItems: 'center',
+                            width: '100%',
                             '@media (max-width: 778px)': {
                                 padding: '0'
                             },
                         }}>
-                            <Box
-                                display='flex'
-                                justifyContent='center'
+                            <Box 
+                                display='flex' 
+                                justifyContent='center' 
                                 alignItems='center'
                                 sx={{
                                     "@media (max-width: 778px)": {
@@ -306,7 +324,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                     }
                                 }}
                             >
-                                {data && data.image &&
+                            {data && data.image &&
                                     <Box width="60vh" sx={{
                                         backgroundColor: "rgba(7,117,255,0.11)",
                                         borderRadius: "1rem",
@@ -345,46 +363,58 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                       animation="wave"/>
                                             <Box sx={{
                                                 display: 'flex',
-                                                flexDirection: 'row',
+                                                flexDirection: 'row-reverse',
                                                 width: "100%",
                                                 marginTop: "-3rem",
                                                 justifyContent: "space-between",
                                                 padding: "0 .5rem .5rem .5rem",
                                                 zIndex: "10"
                                             }}>
-                                                <IconButton
-                                                    color="primary"
+                                                <Box
                                                     sx={{
-                                                        backgroundColor: "rgba(59,130,246,0.78)",
-                                                        '&:hover': {
-                                                            backgroundColor: "rgb(59,130,246)",
-                                                            color: "white"
-                                                        }
-                                                    }}
-                                                    onClick={() => {
-                                                        navigator.clipboard.writeText(currentUrl);
-                                                        setAlertOpen(true);
+                                                       display: 'flex',
+                                                       "@media (max-width: 778px)": {
+                                                        display: 'none'
+                                                       }
                                                     }}
                                                 >
-                                                    <ShareIcon style={{width: "20", filter: "brightness(10)"}}/>
-                                                </IconButton>
-                                                <IconButton
-                                                    color="primary"
+                                                    <IconButton
+                                                        color="primary"
+                                                        sx={{
+                                                            backgroundColor: "rgba(59,130,246,0.78)",
+                                                            '&:hover': {
+                                                                backgroundColor: "rgb(59,130,246)",
+                                                                color: "white"
+                                                            }
+                                                        }}
+                                                        onClick={() => {
+                                                            navigator.clipboard.writeText(currentUrl);
+                                                            setAlertOpen(true);
+                                                        }}
+                                                    >
+                                                        <ShareIcon style={{width: "20", filter: "brightness(10)"}}/>
+                                                    </IconButton>
+                                                </Box>
+                                                <Box
                                                     sx={{
-                                                        backgroundColor: "rgba(59,130,246,0.78)",
-                                                        '&:hover': {
-                                                            backgroundColor: "rgb(59,130,246)",
-                                                            color: "white"
-                                                        }
-                                                    }}
-                                                    onClick={() => {
-                                                        let link = data && data.image ? data.image : "";
-                                                        handleDownload(link, data && data.name_en ? data.name_en : "diploma");
+                                                       display: 'none',
+                                                       "@media (max-width: 778px)": {
+                                                        display: 'flex'
+                                                       }
                                                     }}
                                                 >
-
-                                                    <DownloadIcon style={{width: "20", filter: "brightness(10)"}}/>
-                                                </IconButton>
+                                                    <IconButton
+                                                    color="primary"
+                                                            sx={{
+                                                                width: "2.5rem",
+                                                                height: "2.5rem",
+                                                                backgroundColor: "#D8E6FD",
+                                                            }}
+                                                            onClick={handleToogleFavoriteDiplomas}>
+                                                            {/* {isFavorite ? <StarPressed/> : <Star/>} */}
+                                                            <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"}/>
+                                                    </IconButton>
+                                                </Box>
                                             </Box>
                                         </Card>
                                         <Modal
@@ -393,28 +423,31 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                             width="100vh"
                                             maxWidth="100vh"
                                         >
-                                            <CardMedia
-                                                component="img"
-                                                sx={{
-                                                    height: "100%",
-                                                    position: "relative"
-                                                }}
-                                                image={data.image}
-                                                alt="University Image"/>
+                                                <CardMedia
+                                                    component="img"
+                                                    sx={{
+                                                        height: "100%",
+                                                        position: "relative"
+                                                    }}
+                                                    image={data.image}
+                                                    alt="University Image"/>
                                         </Modal>
                                     </Box>
-                                }
+                            }
                             </Box>
                             <Box
                                 display="flex"
+                                flexDirection="column"
                                 alignItems="center"
+                                alignContent="center"
                                 margin="1rem"
                                 className={styles.contentLeftContainer}
                             >
-                                <Box
+                                <Box 
                                     sx={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
+                                        display:"flex",
+                                        justifyContent:"space-between",
+                                        width: "100%",
                                         '@media (max-width: 778px)': {
                                             flexDirection: 'column',
                                             alignItems: 'center',
@@ -441,7 +474,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 width: '100%',
                                             },
                                         }}>
-                                            <Box display="flex" justifyContent="start">
+                                            <Box display="flex" justifyContent="space-between">
                                                 <Typography
                                                     className={styles.nameText}
                                                     fontWeight='600'
@@ -459,9 +492,17 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 {id != undefined &&
                                                     <Box marginBottom="15px">
                                                         <IconButton
-                                                            sx={{width: "2.5rem"}}
+                                                            sx={{
+                                                                width: "2.5rem",
+                                                                height: "2.5rem",
+                                                                backgroundColor: "#D8E6FD",
+                                                                "@media (max-width: 778px)": {
+                                                                    display: 'none'
+                                                                }
+                                                            }}
                                                             onClick={handleToogleFavoriteDiplomas}>
-                                                            {isFavorite ? <StarPressed/> : <Star/>}
+                                                            {/* {isFavorite ? <StarPressed/> : <Star/>} */}
+                                                            <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"}/>
                                                         </IconButton>
                                                     </Box>
                                                 }
@@ -476,8 +517,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     alignItems: 'center',
                                                 }}
                                             >
-                                                <Box
-                                                    display="flex"
+                                                <Box 
+                                                    display="flex" 
                                                     alignItems="center"
 
                                                     sx={{
@@ -492,23 +533,13 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                                 marginBottom: "18px",
                                                             },
                                                         }}>
-
-                                                            <Label
-                                                                label={localization[lang].StudentPage.MainInfo.rating}/>
+                                                            <Label label={localization[lang].StudentPage.MainInfo.nameUni}/>
                                                         </Box>
-                                                        <Label label={localization[lang].StudentPage.MainInfo.nameUni}/>
                                                         <Label label={localization[lang].StudentPage.MainInfo.major}/>
                                                         <Label label={localization[lang].StudentPage.MainInfo.degree}/>
-                                                        <Label
-                                                            label={localization[lang].StudentPage.MainInfo.graduationYear}/>
-
+                                                        <Label label={localization[lang].StudentPage.MainInfo.graduationYear}/>
                                                     </Box>
                                                     <Box marginLeft="0.2rem">
-                                                        <Box display="flex">
-                                                            {starsArray.map((item, index) => {
-                                                                return (<GoldStar key={index}/>)
-                                                            })}
-                                                        </Box>
                                                         {/* hi */}
                                                         <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                                     sx={{fontSize: '0.875em'}}>
@@ -532,15 +563,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                                             localization[lang].StudentPage.MainInfo.noData
                                                             }
                                                         </Typography>
-                                                        <Typography className={styles.nameText} fontWeight='500'
-                                                                    mb='3px'
+                                                        <Typography className={styles.nameText} fontWeight='500' mb='3px'
                                                                     sx={{fontSize: '0.875em'}}>
                                                             {data && data.year ? data.year : ""}
                                                         </Typography>
                                                     </Box>
                                                 </Box>
-                                                <Box
-                                                    display="none"
+                                                <Box 
+                                                    display="none" 
                                                     alignItems="center"
                                                     sx={{
                                                         '@media (max-width: 778px)': {
@@ -550,36 +580,21 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 >
                                                     <Box display="flex">
                                                         <Box width="50%">
-                                                            <Label
-                                                                label={localization[lang].StudentPage.MainInfo.rating}/>
+                                                            <Label label={localization[lang].StudentPage.MainInfo.nameUni}/>
                                                         </Box>
                                                         <Box width="50%">
-                                                            {starsArray.map((item, index) => {
-                                                                return (<GoldStar key={index}/>)
-                                                            })}
-                                                        </Box>
-                                                    </Box>
-                                                    <Box display="flex">
-                                                        <Box width="50%">
-                                                            <Label
-                                                                label={localization[lang].StudentPage.MainInfo.nameUni}/>
-                                                        </Box>
-                                                        <Box width="50%">
-                                                            <Typography className={styles.textSm} fontWeight='500'
-                                                                        mb='3px'
-                                                                        sx={{fontSize: '0.875em'}}>
-                                                                {data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu : localization[lang].StudentPage.MainInfo.noData}
+                                                            <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                                                    sx={{fontSize: '0.875em'}}>
+                                                            {data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu : localization[lang].StudentPage.MainInfo.noData}
                                                             </Typography>
                                                         </Box>
                                                     </Box>
                                                     <Box display="flex">
                                                         <Box width="50%">
-                                                            <Label
-                                                                label={localization[lang].StudentPage.MainInfo.major}/>
+                                                            <Label label={localization[lang].StudentPage.MainInfo.major}/>
                                                         </Box>
                                                         <Box width="50%">
-                                                            <Typography className={styles.textSm} fontWeight='500'
-                                                                        mb='3px'
+                                                            <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                                         sx={{fontSize: '0.875em'}}>
                                                                 {
                                                                     data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
@@ -592,12 +607,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     </Box>
                                                     <Box display="flex">
                                                         <Box width="50%">
-                                                            <Label
-                                                                label={localization[lang].StudentPage.MainInfo.degree}/>
+                                                            <Label label={localization[lang].StudentPage.MainInfo.degree}/>
                                                         </Box>
                                                         <Box width="50%">
-                                                            <Typography className={styles.textSm} fontWeight='500'
-                                                                        mb='3px'
+                                                            <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                                         sx={{fontSize: '0.875em'}}>
                                                                 {
                                                                     data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
@@ -610,12 +623,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     </Box>
                                                     <Box display="flex">
                                                         <Box width="50%">
-                                                            <Label
-                                                                label={localization[lang].StudentPage.MainInfo.graduationYear}/>
+                                                            <Label label={localization[lang].StudentPage.MainInfo.graduationYear}/>
                                                         </Box>
                                                         <Box width="50%">
-                                                            <Typography className={styles.nameText} fontWeight='500'
-                                                                        mb='3px'
+                                                            <Typography className={styles.nameText} fontWeight='500' mb='3px'
                                                                         sx={{fontSize: '0.875em'}}>
                                                                 {data && data.year ? data.year : ""}
                                                             </Typography>
@@ -677,100 +688,123 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 </Box>
                                             }
                                         </Box>
-
                                         <Box sx={{
-                                            '@media (max-width: 778px)': {
-                                                display: value !== 2 ? "none" : "block"
-                                            },
-                                            marginTop: '1rem',
-                                            width: '100%'
-                                        }}>
-                                            <Box sx={{
-                                                fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
-                                                '@media (max-width: 778px)': {
-                                                    fontSize: '20px'
-                                                },
-                                            }}>
-                                                {localization[lang].StudentPage.AddInfo.skills}
-                                            </Box>
-                                            <Box sx={{
+                                            "@media (max-width: 778px)": {
                                                 display: 'flex',
-                                                justifyContent: 'flex-start',
-                                                alignContent: 'flex-start',
-                                                flexWrap: 'wrap'
-                                            }}>
-                                                {graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
-                                                    return (
-                                                        <Box key={index} sx={{
-                                                            display: 'flex',
-                                                            justifyContent: 'center',
-                                                            backgroundColor: '#F8F8F8',
-                                                            borderRadius: '1rem',
-                                                            margin: '0.5rem',
-                                                            padding: '0.5rem'
-                                                        }}>
-                                                            <Typography
-                                                                color="black"
-                                                                sx={{
-                                                                    marginLeft: '1rem',
-                                                                    marginRight: '1rem',
-                                                                    fontSize: '16px',
-                                                                    "@media (max-width: 778px)": {
-                                                                        fontSize: '14px',
-                                                                        marginLeft: '0.5rem',
-                                                                        marginRight: '0.5rem',
-                                                                    }
-                                                                }}
-                                                            >
-                                                                {skill}
-                                                            </Typography>
-                                                        </Box>
-                                                    )
-                                                })) : <></>}
-                                            </Box>
-                                        </Box>
-
-                                        <Box mt="1rem" mb="1rem" sx={{
-                                            '@media (max-width: 778px)': {
-                                                display: value !== 2 ? "none" : "block"
-                                            },
+                                                flexDirection: 'column-reverse',
+                                            }
                                         }}>
                                             <Box sx={{
-                                                fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
                                                 '@media (max-width: 778px)': {
-                                                    fontSize: '20px'
+                                                    display: value !== 2 ? "none" : "block"
                                                 },
+                                                marginTop: '1rem',
+                                                width: '100%'
                                             }}>
-                                                {localization[lang].StudentPage.AddInfo.studentData}
-                                            </Box>
-                                            {graduateAttributes
-                                                ?
-                                                Object.keys(graduateAttributes).map((key: any) => {
-                                                        if (fieldLocalizations[key] !== undefined && graduateAttributes[key] != undefined && graduateAttributes[key] != '') {
-                                                            return (
+                                                <Box sx={{
+                                                    fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
+                                                    '@media (max-width: 778px)': {
+                                                        fontSize: '20px'
+                                                    },
+                                                }}>
+                                                    {localization[lang].StudentPage.AddInfo.skills}
+                                                </Box>
+                                            <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignContent: 'flex-start', flexWrap: 'wrap'}}>
+                                                    { graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
+                                                        return (
+                                                        <Box key={index} sx={{ display: 'flex', justifyContent: 'center', backgroundColor: '#F8F8F8', borderRadius: '1rem', margin: '0.5rem', padding: '0.5rem'}}>
                                                                 <Typography
-                                                                    key={key}
+                                                                    color="black"
                                                                     sx={{
-                                                                        marginBottom: "1rem",
-                                                                        display: "block",
+                                                                        marginLeft: '1rem',
+                                                                        marginRight: '1rem',
+                                                                        fontSize: '16px',
+                                                                        "@media (max-width: 778px)": {
+                                                                            fontSize: '14px',
+                                                                            marginLeft: '0.5rem',
+                                                                            marginRight: '0.5rem',
+                                                                        }
                                                                     }}
                                                                 >
-                                                                <span style={{
-                                                                    color: "#818181",
-                                                                    fontSize: "16px"
-                                                                }}>{fieldLocalizations[key][lang]}:</span>{" "}
-                                                                    <span style={{
-                                                                        fontWeight: '600',
-                                                                        fontSize: "16px"
-                                                                    }}>{graduateAttributes[key]}</span>{" "}
+                                                                    {skill}
                                                                 </Typography>
-                                                            );
-                                                        }
-                                                    }
-                                                )
-                                                : null}
-                                        </Box>
+                                                            </Box>
+                                                        )
+                                                    }) ) : <></>}
+                                                </Box>
+                                            </Box>
 
+                                            <Box mt="1rem" mb="1rem"sx={{
+                                                '@media (max-width: 778px)': {
+                                                    display: value !== 2 ? "none" : "block"
+                                                },
+                                            }}>
+                                                <Box sx={{
+                                                    fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
+                                                    '@media (max-width: 778px)': {
+                                                        fontSize: '20px'
+                                                    },
+                                                }}>
+                                                    {localization[lang].StudentPage.AddInfo.studentData}
+                                                </Box>
+                                                {graduateAttributes
+                                                    ?
+                                                    Object.keys(graduateAttributes).map((key: any) => {
+                                                            if (fieldLocalizations[key] !== undefined && graduateAttributes[key] != undefined && graduateAttributes[key] != '') {
+                                                                return (
+                                                                    <Box key={key} display='flex' justifyContent="space-between">
+                                                                        <Typography
+                                                                            key={key}
+                                                                            sx={{
+                                                                                marginBottom: "1rem",
+                                                                                display: "block",
+                                                                            }}
+                                                                        >
+                                                                        <span style={{
+                                                                            color: "#818181",
+                                                                            fontSize: "16px"
+                                                                        }}>{fieldLocalizations[key][lang]}:</span>{" "}
+                                                                            <span style={{
+                                                                                fontWeight: '600',
+                                                                                fontSize: "16px"
+                                                                            }}>{graduateAttributes[key]}</span>{" "}
+                                                                        </Typography>
+                                                                        <IconButton
+                                                                            sx={{
+                                                                                display: 'none',
+                                                                                width: "2.5rem",
+                                                                                height: "2.5rem",
+                                                                                "@media (max-width: 778px)": {
+                                                                                    display: key == 'diploma_email' || key == 'diploma_phone' ? 'flex' : 'none',
+                                                                                }
+                                                                            }}
+                                                                            onClick={() => {
+                                                                                navigator.clipboard.writeText(graduateAttributes[key]);
+                                                                                setAlertOpen(true);
+                                                                            }}>
+                                                                            <CopyIcon/>
+                                                                        </IconButton>
+                                                                    </Box>
+                                                                );
+                                                            }
+                                                        }
+                                                    )
+                                                    : null}
+                                                <Box display='flex'>
+                                                    <Typography>
+                                                        <span style={{
+                                                            color: "#818181",
+                                                            fontSize: "16px"
+                                                        }}>{localization[lang].StudentPage.MainInfo.rating}</span>
+                                                    </Typography>
+                                                    <Box display="flex" marginLeft="0.5rem" marginTop="0.25rem">
+                                                        {graduateAttributes.rating && <RatingDisplay academicRating={Number(graduateAttributes.rating)}/>}
+                                                        <Box marginLeft="0.5rem" > {graduateAttributes.rating && graduateAttributes.rating} </Box>
+                                                    </Box>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                        
                                     </Box>
 
                                     <Box sx={{
@@ -778,20 +812,21 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                         width: '30%',
                                         "@media (max-width: 778px)": {
                                             marginRight: "0rem",
-                                            marginLeft: "2.5rem",
+                                            marginLeft: "1.75rem",
                                             display: 'flex',
                                             justifyContent: 'center',
                                             alignItems: 'center',
-                                            flexDirection: 'column',
+                                            flexDirection: 'column-reverse',
                                             width: '100%',
                                         }
                                     }}>
-                                        <ShareButton
-                                            currentUrl={currentUrl}
-                                            lang={lang}
+                                        <ShareButton 
+                                            currentUrl={currentUrl} 
+                                            lang={lang} 
                                             smartContractAddress={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}
                                             setAlertOpen={setAlertOpen}
                                             value={value}
+                                            data={data}
                                         />
                                         <Box
                                             sx={{
@@ -811,10 +846,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 </Typography>
                                                 <Chip
                                                     sx={{
-                                                        width: '50%',
-                                                        backgroundColor: '#E9F9EF',
-                                                        border: 'none',
-                                                        borderRadius: '20px',
+                                                        width: '50%', backgroundColor: '#E9F9EF', border: 'none', borderRadius: '20px',
                                                         '@media (max-width: 778px)': {
                                                             width: '70%'
                                                         },
@@ -824,10 +856,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                         <div style={{display: 'flex', alignItems: 'center'}}>
                                                             <Typography fontSize="1rem" sx={{
                                                                 marginRight: '.5rem',
-                                                                color: '#22C55E',
-                                                                fontWeight: '600',
-                                                                paddingTop: '0.9rem',
-                                                                paddingBottom: '0.9rem'
+                                                                color: '#22C55E', fontWeight: '600', paddingTop: '0.9rem', paddingBottom: '0.9rem'
                                                             }}>
                                                                 {localization[lang].switchDetails.confirmed}
                                                             </Typography>
@@ -836,25 +865,21 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     }
                                                 />
                                             </Box>
-
+                                        
                                             <Box display='flex' flexDirection="column" mt='1rem'>
-                                                <Link
-                                                    href={graduateAttributes && graduateAttributes.smart_contract_link}
+                                                <Link href={graduateAttributes && graduateAttributes.smart_contract_link}
                                                     sx={{textDecoration: "none"}} target={'_blank'}>
                                                     <Box display='flex'>
-                                                        <Typography className={styles.textMd} fontWeight='600' mb="1rem"
-                                                                    color='#3B82F6'
+                                                        <Typography className={styles.textMd} fontWeight='600' mb="1rem" color='#3B82F6'
                                                                     fontSize={"1rem"}>
                                                             {localization[lang].switchDetails.seeEtherscan}
                                                         </Typography>
                                                     </Box>
                                                 </Link>
-                                                <Link
-                                                    href={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}
+                                                <Link href={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}
                                                     sx={{textDecoration: "none"}} target={'_blank'} mt='0.2rem'>
                                                     <Box display='flex'>
-                                                        <Typography className={styles.textMd} fontWeight='600'
-                                                                    color='#3B82F6' fontSize={"1rem"}>
+                                                        <Typography className={styles.textMd} fontWeight='600' color='#3B82F6' fontSize={"1rem"}>
                                                             {localization[lang].switchDetails.seeSmartContract}
                                                         </Typography>
                                                     </Box>
@@ -862,7 +887,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                             </Box>
                                         </Box>
 
-                                        <Box
+                                        <Box 
                                             sx={{
                                                 backgroundColor: '#F8F8F8',
                                                 borderRadius: '1rem',
@@ -874,14 +899,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 },
                                             }}
                                         >
-                                            <Box display="flex" alignItems="center" padding="1rem">
+                                            <Box display="flex" alignItems="center" padding="1rem"> 
                                                 <Box sx={{
                                                     fontSize: '20px', fontWeight: '600',
                                                     '@media (max-width: 778px)': {
                                                         fontSize: '20px'
                                                     },
                                                     marginRight: "0.5rem"
-                                                }}>
+                                                }}> 
                                                     {localization[lang].switchDetails.diplomaConfirmation}
                                                 </Box>
                                                 <SingleCheck fill="#3B82F6"/>
