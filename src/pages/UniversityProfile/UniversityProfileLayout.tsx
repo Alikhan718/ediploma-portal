@@ -645,7 +645,7 @@ export const UniversityProfileLayout: React.FC = () => {
                         marginX: '1rem',
                         '@media (max-width: 768px)': {display: 'none',}
                       }}>
-                        2023
+                        {e.year ? e.year : ""}
                       </Box>
 
                       <Box
@@ -656,7 +656,7 @@ export const UniversityProfileLayout: React.FC = () => {
                         }}
                       >
                         <Typography fontSize="0.875rem">
-                          3.0
+                          {e.gpa ? e.gpa : ""}
                         </Typography>
                       </Box>
                     </Box>

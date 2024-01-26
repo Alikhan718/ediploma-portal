@@ -71,11 +71,11 @@ export const EmployerPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
     const userState = useSelector(selectUserState);
     const favoriteDiplomas = useSelector(selectFavoriteDiplomas);
-    
+
     const [currentPage, setCurrentPage] = React.useState(1);
     const [value, setValue] = React.useState(0);
     const [links, setLinks] = React.useState<any[]>([]);
-    
+
     const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
     const diplomasPerPage = 10;
     const startIndex = (currentPage - 1) * diplomasPerPage;
@@ -107,25 +107,25 @@ export const EmployerPageLayout: React.FC = () => {
 
     const getIconForLink = (name: any, link: any): React.ReactNode => {
         const onClick = () => {
-          handleLink(link);
+            handleLink(link);
         };
         if (name.includes('linkedin')) {
-          return <Linkedin cursor="pointer" className={styles.social} onClick={onClick}/>;
+            return <Linkedin cursor="pointer" className={styles.social} onClick={onClick}/>;
         }
         if (name.includes('facebook')) {
-          return <Facebook cursor="pointer" className={styles.social} onClick={onClick}/>;
+            return <Facebook cursor="pointer" className={styles.social} onClick={onClick}/>;
         }
         if (name.includes('instagram')) {
-          return <Instagram cursor="pointer" className={styles.social} onClick={onClick}/>;
+            return <Instagram cursor="pointer" className={styles.social} onClick={onClick}/>;
         }
         if (name.includes('telegram')) {
-          return <Telegram cursor="pointer" className={styles.social} onClick={onClick}/>;
+            return <Telegram cursor="pointer" className={styles.social} onClick={onClick}/>;
         }
         if (name.includes('youtube')) {
-          return <Youtube cursor="pointer"className={styles.social} onClick={onClick}/>;
+            return <Youtube cursor="pointer" className={styles.social} onClick={onClick}/>;
         }
         if (name.includes('discord')) {
-          return <DiscordIcon cursor="pointer" className={styles.social} onClick={onClick}/>;
+            return <DiscordIcon cursor="pointer" className={styles.social} onClick={onClick}/>;
         }
         return <Web cursor="pointer" className={styles.social} onClick={onClick}/>;
     };
@@ -141,15 +141,15 @@ export const EmployerPageLayout: React.FC = () => {
     React.useEffect(() => {
         let temp: any[] = [];
         for (let key in userState) {
-    
-          let value = userState[key];
-          if (key.includes('link') && value) {
-            temp.push({name: key, value: value});
-          }
+
+            let value = userState[key];
+            if (key.includes('link') && value) {
+                temp.push({name: key, value: value});
+            }
         }
         setLinks(temp);
     }, [userState, !links]);
-    
+
     React.useEffect(() => {
 
         dispatch(fetchUserProfile());
@@ -176,7 +176,7 @@ export const EmployerPageLayout: React.FC = () => {
                                 flexDirection: 'column',
                                 justifyContent: 'flex-start',
                                 alignItems: 'center',
-                                backgroundImage: userState && userState.avatar ? `url(${baseURL}/${userState.avatar})`: `url(https://www.coinspot.com.au/public/img/learn/blockchain-applications-supply-chains.png)`,
+                                backgroundImage: userState && userState.avatar ? `url(${baseURL}/${userState.avatar})` : `url(https://www.coinspot.com.au/public/img/learn/blockchain-applications-supply-chains.png)`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center center',
                             }}>
@@ -286,16 +286,16 @@ export const EmployerPageLayout: React.FC = () => {
                                     '@media (max-width: 768px)': {margin: '0.5rem', fontSize: '20px'}
                                 }}> {localization[lang].additionalInfo.mainInfo} </Box>
                                 <Box marginBottom="15px" sx={{'@media (max-width: 768px)': {display: 'none'}}}>
-                                {/* <img src={star} style={{marginRight: '15px'}}/>  */}
-                                <img src={share} 
-                                    style={{
-                                        marginRight: '10px',
-                                        marginLeft: '10px',
-                                        width: '25px',
-                                        height: '25px', cursor: 'pointer'
-                                     }}
-                                    onClick={copyCurrentURLToClipboard}
-                                    alt="Share Icon"/>
+                                    {/* <img src={star} style={{marginRight: '15px'}}/>  */}
+                                    <img src={share}
+                                         style={{
+                                             marginRight: '10px',
+                                             marginLeft: '10px',
+                                             width: '25px',
+                                             height: '25px', cursor: 'pointer'
+                                         }}
+                                         onClick={copyCurrentURLToClipboard}
+                                         alt="Share Icon"/>
                                     {/* <img src={dots} style={{marginRight: '10px'}}/> */}
                                 </Box>
                                 <Box marginBottom="15px"
@@ -385,22 +385,22 @@ export const EmployerPageLayout: React.FC = () => {
                         <TabPanel value={value} index={0}>
                             {totalDiplomas != 0 ?
                                 (<Box display="flex"
-                                    flexDirection="row"
-                                    alignItems="start"
-                                    sx={{
-                                        width: '100%',
-                                        borderRadius: '15px',
-                                        padding: '10px',
-                                        display: 'grid',
-                                        gridTemplateColumns: '4fr 4fr 1fr 1fr',
-                                        gap: '36px',
-                                        paddingLeft: '20px',
-                                        '@media (max-width: 768px)': {
-                                            width: '100%',
-                                            gridTemplateColumns: '4fr 0fr 0fr 4fr',
+                                      flexDirection="row"
+                                      alignItems="start"
+                                      sx={{
+                                          width: '100%',
+                                          borderRadius: '15px',
+                                          padding: '10px',
+                                          display: 'grid',
+                                          gridTemplateColumns: '4fr 4fr 1fr 1fr',
+                                          gap: '36px',
+                                          paddingLeft: '20px',
+                                          '@media (max-width: 768px)': {
+                                              width: '100%',
+                                              gridTemplateColumns: '4fr 0fr 0fr 4fr',
 
-                                        },
-                                    }}
+                                          },
+                                      }}
                                 >
                                     <Box sx={{display: 'flex', flexDirection: 'row'}}>
                                         <Typography
@@ -519,7 +519,7 @@ export const EmployerPageLayout: React.FC = () => {
                                                 marginX: '1rem',
                                                 '@media (max-width: 768px)': {display: 'none',}
                                             }}>
-                                                2023
+                                                {e.year ? e.year : ""}
                                             </Box>
 
                                             <Box
@@ -530,7 +530,7 @@ export const EmployerPageLayout: React.FC = () => {
                                                 }} // Adjust spacing as needed
                                             >
                                                 <Typography fontSize="0.875rem">
-                                                    3.0
+                                                    {e.gpa ? e.gpa : ""}
                                                 </Typography>
                                             </Box>
                                             {/*<Box sx={{marginLeft: 'auto', marginRight: "3rem"}}>*/}
@@ -564,7 +564,7 @@ export const EmployerPageLayout: React.FC = () => {
                                                 color="primary"
                                                 size="large"
                                             />
-                                        </Box>) : 
+                                        </Box>) :
                                         (<Typography
                                             sx={{
                                                 fontWeight: '800',

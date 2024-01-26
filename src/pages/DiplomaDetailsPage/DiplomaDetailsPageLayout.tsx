@@ -18,19 +18,12 @@ import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
 import {ReactComponent as DownloadIcon} from '@src/assets/icons/download.svg';
 import {ReactComponent as ShareIcon} from '@src/assets/icons/share.svg';
 import {ReactComponent as GoldStar} from '@src/assets/icons/goldStar.svg';
-import star from "./../../assets/icons/Star1.svg";
-import {ReactComponent as Dots} from "@src/assets/icons/Dots.svg";
-import pen from "./../../assets/icons/penSquare.svg";
-import {ReactComponent as Eye} from "@src/assets/icons/eye.svg";
 import {ReactComponent as Star} from "@src/assets/icons/star.svg";
 import {ReactComponent as StarPressed} from "@src/assets/icons/StarPressed.svg";
-import {ReactComponent as Check} from "@src/assets/icons/checkss.svg";
 import {useNavigate, useParams} from "react-router-dom";
-import {SwitchDetails} from "@src/pages/DiplomaDetailsPage/components/SwitchDetails";
+import {ReactComponent as CloseIcon} from "@src/assets/icons/close.svg";
 import styles from '@src/pages/StudentPage/StudentPage.module.css';
-import userImg from "@src/assets/dashboard/Image.jpg";
 import cn from "classnames";
-import {routes} from "@src/shared/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {
     fetchDiplomas,
@@ -45,7 +38,7 @@ import {
     selectGraduateAttributes
 } from "@src/store/diplomas/selectors";
 import {isAuthenticated} from "@src/utils/userAuth";
-import {handleDownload} from "@src/utils/link";
+import {handleDownload, handleLink} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
 import {selectLanguage} from "@src/store/generals/selectors";
@@ -928,6 +921,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 width="100vh"
                                 maxWidth="100vh"
                             >
+
+                                <Box display="flex" position="absolute"
+                                     p="1rem"
+                                     style={{right: "1rem", top: "1rem", cursor: "pointer"}}
+                                     onClick={() => handleCModalClose()}
+                                >
+                                    <CloseIcon width="1rem" height="1rem"/>
+                                </Box>
                                 <Box display="flex" gap="1rem" flexDirection="column">
                                     {graduateAttributes && graduateAttributes.signed_by &&
                                         <Box display="flex" flexDirection="row">
@@ -992,6 +993,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 color="#818181"
                                                 fontSize="1rem"
                                                 style={{cursor: "pointer", userSelect: "none"}}
+                                                onClick={() => {
+                                                    if (uploadedIcon) {
+                                                        handleLink(graduateAttributes && graduateAttributes.smart_contract_link)
+                                                    }
+                                                }}
                                             >
                                                 {localization[lang].StudentPage.Confirmation.smartContractAddress}
                                             </Typography>

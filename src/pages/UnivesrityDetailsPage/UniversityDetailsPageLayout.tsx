@@ -501,7 +501,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 												marginX: '1rem',
 												'@media (max-width: 768px)': { display: 'none', }
 											}}>
-												2023
+												{e.year ? e.year : ""}
 											</Box>
 
 											<Box
@@ -512,7 +512,7 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 												}} // Adjust spacing as needed
 											>
 												<Typography fontSize="0.875rem">
-													3.0
+													{e.gpa ? e.gpa : ""}
 												</Typography>
 											</Box>
 											{/*<Box sx={{marginLeft: 'auto', marginRight: "3rem"}}>*/}
