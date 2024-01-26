@@ -410,7 +410,7 @@ const SettingsPage: React.FC = () => {
                   }}>
                     {(item.additionalText ? item.additionalText[lang] : "") + " " + (userState[item.name] ? userState[item.name] : "")}
                   </Typography>
-                  <Box display={item.name === 'privacy' ? "block" : "none"}>
+                  <Box display={role === 'student' && item.name === 'privacy' ? "block" : "none"}>
                     <FormControlLabel
                       control={<IOSSwitch onChange={handlePrivacyVisibleChange} defaultChecked />}
                       label=""
