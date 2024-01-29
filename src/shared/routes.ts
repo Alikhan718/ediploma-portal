@@ -25,6 +25,7 @@ export const routes: Record<string, string> = {
 	addingGraduates: `${appRoot}/university/graduates/add`,
 	settings: `${appRoot}/user/settings`,
 	profile: `${appRoot}/user/profile`,
+	resumeGenerator: `${appRoot}/user/resume-generator`,
 	studentProfile: `${appRoot}/user/profile`,
 	employerProfile: `${appRoot}/user/profile`,
 	universityProfile: `${appRoot}/user/profile`,

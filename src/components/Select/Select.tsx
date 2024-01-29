@@ -12,14 +12,13 @@ import {NavLink} from 'react-router-dom';
 const CustomSelect = styled(MuiSelect, {
     shouldForwardProp: (prop) => prop !== 'selectSize',
 })<{ selectSize?: 's' | 'm' | 'l' }>(({selectSize, theme}) => ({
-    borderRadius: '10px',
+    borderRadius: '48px',
     '& .MuiSelect-select': {
-
         fontWeight: '400',
         color: theme.palette.text.primary,
-        borderRadius: '10px',
-        padding: selectSize === 's' ? '6.5px 20px' : '10px 20px',
-        backgroundColor: theme.palette.grey,
+        borderRadius: '48px',
+        padding: selectSize === 's' ? '13.5px 20px' : '10px 20px',
+        backgroundColor: '#F8F8F8',
     },
 }));
 
@@ -38,9 +37,9 @@ export const Select: React.FC<SelectProps> = (props) => {
     return (
         <FormControl fullWidth={fullWidth}>
             {label && <Label label={label} helper={helper}/>}
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" borderRadius="48px">
                 {edit ?
-                    <Box mr="2px" bgcolor="#E8E8E9" padding="4.5px" borderRadius="10px"
+                    <Box mr="2px" bgcolor="#E8E8E9" padding="4.5px" borderRadius="48px"
                          sx={{borderTopRightRadius: 0, borderBottomRightRadius: 0}}>
                         <NavLink to={edit}>
                             <EditIcon/>

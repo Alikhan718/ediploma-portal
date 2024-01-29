@@ -63,12 +63,16 @@ export const StudentPageLayout: React.FC = () => {
         }
 
     }, [isAuthenticated(), diplomaList]);
+
     React.useEffect(() => {
         setData(userState);
     }, [userState]);
+
     React.useEffect(() => {
-        if (data) {
-            dispatch(fetchGraduateDetails(data.id));
+        if (isAuthenticated() && data && id != undefined) {
+            dispatch(fetchGraduateDetails({name: data.name_en}));
+        } else {
+            dispatch(fetchGraduateDetails({name: userState.name}));
         }
     }, [data]);
 

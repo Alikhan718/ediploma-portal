@@ -179,6 +179,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
             return lang === 'ru' ? 'Настройки' : lang === 'kz' ? 'Параметрлер' : 'Settings';
         } else if (currentPath === routes.analysisPage) {
             return lang === 'ru' ? 'Аналитика' : lang === 'kz' ? 'Аналитика' : 'Analytics';
+        } else if (currentPath === routes.resumeGenerator) {
+            return lang === 'ru' ? 'Генерация резюме' : lang === 'kz' ? 'Түйіндемені құру' : 'Resume generator';
         }
         return 'Dashboard';
     };

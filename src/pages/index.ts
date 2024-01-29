@@ -7,11 +7,11 @@ export { default as AboutUsPage } from './AboutUsPage/AboutUsContainer';
 export { default as LoginPage } from './AuthPage/Login/LoginPageContainer';
 export { default as RegisterPage } from './AuthPage/Register/RegisterPageContainer';
 export { default as ForgotPassword } from './AuthPage/ForgotPassword/ForgotPasswordPageContainer';
-export { default as AddingGraduates } from './UnivesrityDetailsPage/AddingGraduates'
+export { default as AddingGraduates } from './UnivesrityDetailsPage/AddingGraduates';
 export { default as UniversityProfilePage } from './UniversityProfile/UniversityProfileContainer';
 export { default as UniversityDeatailPage } from './UniversityDeatailPage/UniversityDeatailPageContainer';
 export { default as AnalysisPage } from './UnivesrityDetailsPage/AnalysisPage';
-export { default as SettingsPage } from './UnivesrityDetailsPage/SettingsPage'
+export { default as SettingsPage } from './UnivesrityDetailsPage/SettingsPage';
 export { default as StudentPage } from './StudentPage/StudentPageContainer';
 export { default as EmployerPage } from './EmployerPage/EmployerPageContainer';
 export { default as AIChatPage } from './AIChatPage/AIChatPageContainer';
@@ -19,3 +19,4 @@ export { default as NotFoundPage } from './NotFoundPage/NotFoundPageContainer';
 export { default as Serverpage } from './ServerPage/ServerPageContainer';
 export { default as QLabPage } from './QLabPage/QLabPageContainer';
 export { default as MyDiplomasPage } from './MyDiplomasPage/MyDiplomasPageContainer';
+export { default as ResumeGeneratorPage } from './ResumeGeneratorPage/ResumeGeneratorContainer';

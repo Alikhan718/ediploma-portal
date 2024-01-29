@@ -198,8 +198,6 @@ export const authReducer = (state = initialState, action: any) => {
                 registrationStep: 1
             };
         case POST_SAVE_XML.saga:
-            console.log(action.payload);
-            console.log(action);
             return {
                 ...state,
                 xml: action.payload,
