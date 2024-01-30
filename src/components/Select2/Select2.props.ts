@@ -4,5 +4,6 @@ export interface Select2Props extends Omit<MuiSelectProps, 'label'> {
 	selectSize?: 's' | 'm' | 'l';
 	helper?: React.ReactNode | string;
 	label?: string;
+	variant2?: boolean;
 	fullWidth?: boolean;
 }

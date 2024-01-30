@@ -6,7 +6,7 @@ import {Select2Props} from "@src/components/Select2/Select2.props";
 
 
 export const Select2: React.FC<Select2Props> = (props) => {
-  const {children, placeholder, label, helper, fullWidth, selectSize = 's', ...otherProps} = props;
+  const {children, variant2, placeholder, label, helper, fullWidth, selectSize = 's', ...otherProps} = props;
   const [selectedArr, setSelectedArr] = useState(Array<any>());
   const handleChange = (e: SelectChangeEvent<any>, child: React.ReactNode): void => {
     if (selectedArr.includes(e.target.value)) {
@@ -22,6 +22,7 @@ export const Select2: React.FC<Select2Props> = (props) => {
     <div className="App">
       <Select
         onChange={handleChange}
+
         fullWidth={fullWidth}
         disableUnderline
         size='small'
@@ -33,7 +34,15 @@ export const Select2: React.FC<Select2Props> = (props) => {
       <div style={{display: "flex", justifyContent: "center", flexWrap: "wrap"}}>
         {selectedArr.map((el) => {
           return (
-            <Chip key={el} size="small" style={{marginLeft: ".25em", marginRight: ".25em", marginTop: ".5em"}} variant="outlined" onDelete={() => handleDelete(el)} label={el}/>
+            <Chip key={el} size="small" style={{
+              marginLeft: ".25em",
+              marginRight: ".25em",
+              marginTop: ".5em",
+              width: variant2 ? "100%": "auto",
+              padding: variant2 ? "1.2rem 2rem" : "auto",
+              display: "flex",
+              justifyContent: "space-between"
+            }} variant="outlined" onClick={() => handleDelete(el)} onDelete={() => handleDelete(el)} label={el}/>
           );
         })}
       </div>

@@ -6,4 +6,5 @@ export interface MuiltiSelectProps extends SelectProps {
   handleChange: (val: any) => void,
   defaultValues?: Array<any>,
   additionalDelete?: any
+  options?: Array<any>
 }

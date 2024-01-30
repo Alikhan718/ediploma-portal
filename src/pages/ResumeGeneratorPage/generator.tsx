@@ -89,7 +89,7 @@ export const content = [
     forms: [
       {
         type: "text",
-        name: "position",
+        name: "desired_position",
         label: {
           "kz": "Должность",
           "ru": "Должность",
@@ -98,8 +98,8 @@ export const content = [
         placeholder: "Например: программист"
       },
       {
-        type: "salary_amount",
-        name: "number",
+        type: "number",
+        name: "desired_salary_amount",
         maxRows: 1,
         multiline: true,
         label: {
@@ -111,7 +111,7 @@ export const content = [
       },
       {
         type: "select",
-        name: "schedule",
+        name: "desired_schedule",
         maxRows: 1,
         multiline: true,
         label: {
@@ -261,9 +261,9 @@ export const content = [
         type: "avatar",
         name: "avatar",
         label: {
-          "kz": "Добавить фотографию",
-          "ru": "Добавить фотографию",
-          "en": "Добавить фотографию"
+          "kz": "Загрузить фотографию",
+          "ru": "Загрузить фотографию",
+          "en": "Загрузить фотографию"
         },
         placeholder: ""
       },
@@ -418,28 +418,8 @@ export const content = [
     reference: 0,
     forms: [
       {
-        type: "month",
-        name: "experience_start",
-        label: {
-          "kz": "Начало работы",
-          "ru": "Начало работы",
-          "en": "Начало работы"
-        },
-        placeholder: "Год"
-      },
-      {
-        type: "month",
-        name: "experience_end",
-        label: {
-          "kz": "Конец работы",
-          "ru": "Конец работы",
-          "en": "Конец работы"
-        },
-        placeholder: "Месяц"
-      },
-      {
         type: "text",
-        name: "company",
+        name: "company_name",
         maxRows: 1,
         multiline: true,
         label: {
@@ -450,8 +430,30 @@ export const content = [
         placeholder: "Название компании/организации"
       },
       {
+        type: "month",
+        name: "experience_start",
+        maxRows: 2,
+        label: {
+          "kz": "Начало работы",
+          "ru": "Начало работы",
+          "en": "Начало работы"
+        },
+        placeholder: "Год"
+      },
+      {
+        type: "month",
+        name: "experience_end",
+        maxRows: 2,
+        label: {
+          "kz": "Конец работы",
+          "ru": "Конец работы",
+          "en": "Конец работы"
+        },
+        placeholder: "Месяц"
+      },
+      {
         type: "text",
-        name: "job_position",
+        name: "desired_job_position",
         maxRows: 1,
         multiline: true,
         label: {
@@ -482,7 +484,7 @@ export const content = [
       "ru": "Навыки"
     },
     additionalText: null,
-    name: "skills",
+    name: "skills_section",
     can_skip: false,
     reference: 0,
     forms: [
@@ -505,13 +507,13 @@ export const content = [
       "ru": "Сертификаты"
     },
     additionalText: null,
-    name: "certificates",
+    name: "cert",
     can_skip: false,
     reference: 0,
     forms: [
       {
         type: "text",
-        name: "organization_name",
+        name: "company_name",
         label: {
           "kz": "Название организация",
           "ru": "Название организация",
@@ -530,7 +532,7 @@ export const content = [
         placeholder: "Например: Python-Разработичик"
       },
       {
-        type: "text",
+        type: "date",
         name: "publish_year",
         label: {
           "kz": "Дата выдачи",
@@ -540,8 +542,8 @@ export const content = [
         placeholder: ""
       },
       {
-        type: "text",
-        name: "publish_year",
+        type: "file",
+        name: "certificates",
         label: {
           "kz": "Загрузите сертификат",
           "ru": "Загрузите сертификат",
@@ -852,7 +854,7 @@ export const uniRatings = {
   1: 4.4,
   2: 0.0,
   3: 4.4,
-}
+};
 
 export const skillsList = {
   "ПРИСУЖДЕНА СТЕПЕНЬ БАКАЛАВРА\nТЕХНИКИ И ТЕХНОЛОГИЙ ПО ОБРАЗОВАТЕЛЬНОЙ ПРОГРАММЕ «6B07101 ХИМИЧЕСКАЯ ТЕХНОЛОГИЯ ОРГАНИЧЕСКИХ ВЕЩЕСТВ»": {

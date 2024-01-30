@@ -1,44 +1,88 @@
-import { Box, Chip, MenuItem, SelectChangeEvent } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Chip,
+  TextField
+}
+  from "@mui/material";
 import React from "react";
-import { Select } from "../Select/Select";
-import { MuiltiSelectProps } from "./MuiltiSelect.props";
+import {MuiltiSelectProps} from "./MuiltiSelect.props";
+import {ReactComponent as CloseRedIcon} from "@src/assets/icons/close_red.svg";
 
 export const MultiSelect: React.FC<MuiltiSelectProps> = (props) => {
-  const { innerLabel, handleChange, defaultValues, additionalDelete, ...otherProps } = props;
+    const {options, innerLabel, handleChange, defaultValues, additionalDelete, ...otherProps} = props;
+    const [state, setState] = React.useState<Array<any>>(defaultValues ?? []);
+    console.log(state);
+    const [innerOptions, setOptions] = React.useState<Array<any>>(options ?? []);
+    const onChange = (e: any): void => {
+      // Your existing logic here
+      const item = e.target.innerHTML;
+      e.target.innerHTML = '';
+      if (item.trim().length && !item.includes("path") && state.length < 15) {
+        const newVal = state.indexOf(item) === -1 ? [...state, item] : state;
+        setState(newVal);
+        handleChange({
+          target: {
+            value: newVal,
+            name: props.name
+          }
+        });
+      }
+    };
 
-  const [state, setState] = React.useState<Array<any>>(() => defaultValues || []);
+    const onKeyDown = (e: any): void => {
+      if (e.code == "Enter" && e.target.value.trim().length) {
+        setOptions([...innerOptions, e.target.value]);
+      }
+    };
 
-  const onChange = (e: SelectChangeEvent<any>): void => {
-    const item = e.target.value;
+    const handleDelete = (item: any): void => {
+      const newVal = state.filter((el) => el !== item);
+      setState(newVal);
+      handleChange({
+          target: {
+            value: newVal,
+            name: props.name
+          }
+        });
+      additionalDelete ? additionalDelete() : null;
+    };
 
-    const newVal = (state.indexOf(item) === -1) ? [...state, item] : state;
-    setState(newVal);
-    handleChange(newVal);
-
-  };
-  const handleDelete = (item: any): void => {
-    const newVal = state.filter(el => el !== item);
-    setState(newVal);
-    handleChange(newVal);
-    additionalDelete ? additionalDelete() : null;
-  };
-  const onBlur = (e: any) => {
-
-
-  };
-  return (
-    <React.Fragment>
-      <Select onChange={onChange} value={innerLabel} {...otherProps} >
-        <MenuItem disabled value={innerLabel}>{innerLabel}</MenuItem>
-        {props.children}
-      </Select>
-      <Box mt=".5rem" display="flex" gap=".5rem" flexWrap="wrap">
-        {state.length
-          ? state.map(item => (
-            <Chip label={item} key={item} onDelete={() => handleDelete(item)} />
-          ))
-          : null}
-      </Box>
-    </React.Fragment>
-  );
-};
+    return (
+      <React.Fragment>
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={innerOptions.filter((el) => !state.includes(el))}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          clearOnBlur
+          multiple
+          renderTags={() => null}
+          renderInput={(params) => <TextField {...params} label={innerLabel}/>}
+        />
+        <Box mt=".5rem" display="flex" gap=".5rem" flexWrap="wrap">
+          {state.length
+            ? state.map((item) => (
+              <Chip
+                label={item}
+                key={item}
+                onClick={() => handleDelete(item)}
+                onDelete={() => handleDelete(item)}
+                draggable={true}
+                deleteIcon={<CloseRedIcon
+                  style={{right: "1rem", width: "1.2rem", height: "1.2rem", position: "absolute"}}/>}
+                style={{
+                  width: "100%",
+                  padding: "1.5rem 0rem",
+                  backgroundColor: "#f1f1f1",
+                  whiteSpace: "break-spaces"
+                }}
+              />
+            ))
+            : null}
+        </Box>
+      </React.Fragment>
+    );
+  }
+;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Select as MuiSelect, styled, FormControl, Box, Chip} from '@mui/material';
+import {Select as MuiSelect, styled, FormControl, Box} from '@mui/material';
 
 import {SelectProps} from './Select.props';
 import {Label} from '../Label/Label';
