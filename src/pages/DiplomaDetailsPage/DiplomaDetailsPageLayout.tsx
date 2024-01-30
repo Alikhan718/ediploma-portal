@@ -518,7 +518,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                 }}
                                             >
                                                 <Box 
-                                                    display="flex" 
+                                                    display="none" 
                                                     alignItems="center"
 
                                                     sx={{
@@ -570,8 +570,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     </Box>
                                                 </Box>
                                                 <Box 
-                                                    display="none" 
-                                                    alignItems="center"
+                                                    display="flex"
+                                                    flexDirection="column" 
+                                                    justifyContent="start"
+                                                    width="100%"
                                                     sx={{
                                                         '@media (max-width: 778px)': {
                                                             display: 'block',
@@ -579,53 +581,59 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     }}
                                                 >
                                                     <Box display="flex">
-                                                        <Box width="50%">
+                                                        <Box marginRight='1rem'>
                                                             <Label label={localization[lang].StudentPage.MainInfo.nameUni}/>
                                                         </Box>
-                                                        <Box width="50%">
+                                                        <Box>
                                                             <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                                     sx={{fontSize: '0.875em'}}>
-                                                            {data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu : localization[lang].StudentPage.MainInfo.noData}
+                                                            {
+                                                                data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu : 
+                                                                    data && data.university_id && data.university_id == 2 ? localization[lang].StudentPage.MainInfo.agp :
+                                                                        localization[lang].StudentPage.MainInfo.noData
+                                                            }
                                                             </Typography>
                                                         </Box>
                                                     </Box>
                                                     <Box display="flex">
-                                                        <Box width="50%">
+                                                        <Box marginRight='0.6rem'>
                                                             <Label label={localization[lang].StudentPage.MainInfo.major}/>
                                                         </Box>
-                                                        <Box width="50%">
+                                                        <Box>
                                                             <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                                         sx={{fontSize: '0.875em'}}>
                                                                 {
-                                                                    data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
-                                                                        data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
-                                                                            data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
-                                                                                localization[lang].StudentPage.MainInfo.noData
+                                                                    data && data.university_id == 2 ? localization[lang].StudentPage.MainInfo.agpMajor :
+                                                                        data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
+                                                                            data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
+                                                                                data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
+                                                                                        localization[lang].StudentPage.MainInfo.noData
                                                                 }
                                                             </Typography>
                                                         </Box>
                                                     </Box>
                                                     <Box display="flex">
-                                                        <Box width="50%">
+                                                        <Box marginRight='4rem'>
                                                             <Label label={localization[lang].StudentPage.MainInfo.degree}/>
                                                         </Box>
-                                                        <Box width="50%">
+                                                        <Box>
                                                             <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                                                         sx={{fontSize: '0.875em'}}>
                                                                 {
-                                                                    data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
-                                                                        data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
-                                                                            data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
-                                                                                localization[lang].StudentPage.MainInfo.noData
+                                                                    data && data.university_id == 2 ? "" :
+                                                                        data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
+                                                                            data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
+                                                                                data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
+                                                                                    localization[lang].StudentPage.MainInfo.noData
                                                                 }
                                                             </Typography>
                                                         </Box>
                                                     </Box>
                                                     <Box display="flex">
-                                                        <Box width="50%">
+                                                        <Box marginRight='1rem'>
                                                             <Label label={localization[lang].StudentPage.MainInfo.graduationYear}/>
                                                         </Box>
-                                                        <Box width="50%">
+                                                        <Box>
                                                             <Typography className={styles.nameText} fontWeight='500' mb='3px'
                                                                         sx={{fontSize: '0.875em'}}>
                                                                 {data && data.year ? data.year : ""}
@@ -896,6 +904,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                     display: value !== 0 ? "none" : "flex",
                                                     flexDirection: 'column',
                                                     width: '100%',
+                                                    marginBottom: "1rem",
                                                 },
                                             }}
                                         >
