@@ -14,6 +14,8 @@ export function extractYearFromHumanReadable(time: string, delimeter: string): s
     return year.split(", ")[1];
 }
 
+const isMobile = window.innerWidth <= 768;
+
 let webSocket: any = null;
 export const enableWebSocket = (set: any = null) => {
     try {
@@ -34,7 +36,11 @@ export const enableWebSocket = (set: any = null) => {
                     if (set){
                         set(false);
                     }
-                    alert("NCALayer не найден");
+
+                    if (!isMobile){
+                        alert("NCALayer не найден");
+                    }
+                    
                 }
                 console.log('Code: ' + event.code + ' Reason: ' + event.reason);
             };
@@ -96,7 +102,9 @@ export const signXml = (university_id: number, callBackFunc: any) => {
         callback = callBackFunc;
         webSocket.send(JSON.stringify(signXml));
     } catch (e) {
-        alert("NcaLayer не найден");
+        if (!isMobile){
+            alert("NCALayer не найден");
+        }
     }
 };
 export const createCAdESFromFile = (university_id: number, callBackFunc: any): any => {
@@ -109,8 +117,9 @@ export const createCAdESFromFile = (university_id: number, callBackFunc: any): a
         callback = callBackFunc;
         return webSocket.send(JSON.stringify(createCAdESFromFile));
     } catch (e) {
-
-        alert("NcaLayer не найден");
+        if (!isMobile){
+            alert("NCALayer не найден");
+        }
     }
 };
 
@@ -124,6 +133,8 @@ export const getKeyInfo = (callBackFunc: any): any => {
         callback = callBackFunc;
         return webSocket.send(JSON.stringify(getKeyInfo));
     } catch (e) {
-        alert("NcaLayer не найден");
+        if (!isMobile){
+            alert("NCALayer не найден");
+        }
     }
 };
