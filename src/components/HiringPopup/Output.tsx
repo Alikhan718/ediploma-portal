@@ -25,7 +25,7 @@ export const Output: React.FC<OutputProps> = (props) => {
     const [isDoneGenerating, setIsDoneGenerating] = React.useState(false);
 
     const handleCopy = (): void => {
-        const textToCopy = response.split('\n').join('\n');
+        const textToCopy = response.replace(/<br\s*\/?>/g, '\n');
         navigator.clipboard.writeText(textToCopy).then(() => {
             setIsCopied(true);
         }).catch((err) => {

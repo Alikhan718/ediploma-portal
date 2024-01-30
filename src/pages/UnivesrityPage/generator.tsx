@@ -45,7 +45,7 @@ export const localization = {
 	"kz":{
 		Header:{
 			filter: "Фильтр",
-			searchBar: "Толық есімі, университеттің атауы",
+			searchBar: "Университеттің атауы",
 			searchButton: "Іздеу",
 			university: "Университеттер",
 		},
@@ -61,7 +61,7 @@ export const localization = {
 	"ru":{
 		Header:{
 			filter: "Фильтр",
-			searchBar: "Фамилия Имя, название вуза",
+			searchBar: "Название вуза",
 			searchButton: "Поиск",
 			university: "Университеты",
 		},
@@ -77,7 +77,7 @@ export const localization = {
 	"en":{
 		Header:{
 			filter: "Filter",
-			searchBar: "Full name, University name",
+			searchBar: "University name",
 			searchButton: "Search",
 			university: "Universities",
 		},

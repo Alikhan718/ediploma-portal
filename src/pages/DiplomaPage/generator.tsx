@@ -42,11 +42,13 @@ export const MenuUploadStatusesColors: { [key: string]: "error" | "success" | "w
 	ERROR: "error",
 };
 
+const isMobile = window.innerWidth <= 768;
+
 export const localization = {
 	"kz":{
 		Header:{
 			filter: "Фильтр",
-			searchBar: "Толық есімі, университеттің атауы",
+			searchBar: isMobile ? "Толық есімі" : "Толық есімі, университеттің атауы",
 			searchButton: "Іздеу",
 			aiHiring: "ЖИ Жалдау"
 		},
@@ -58,7 +60,7 @@ export const localization = {
 	"ru":{
 		Header:{
 			filter: "Фильтр",
-			searchBar: "Фамилия Имя, название вуза",
+			searchBar: isMobile ? "Фамилия Имя, ВУЗ" : "Фамилия Имя, название вуза",
 			searchButton: "Поиск",
 			aiHiring: "ИИ Найм"
 		},
@@ -70,7 +72,7 @@ export const localization = {
 	"en":{
 		Header:{
 			filter: "Filter",
-			searchBar: "Full name, University name",
+			searchBar: isMobile ? "Full name" : "Full name, University name",
 			searchButton: "Search",
 			aiHiring: "AI Hiring"
 		},

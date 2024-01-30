@@ -39,6 +39,13 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
         setAlertOpen(true);
     };
 
+    const linkedinUrl = {
+        1 : `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&issueMonth=7&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
+        2 : `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
+    };
+
+    const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`; 
+
     return (
         <Box
             sx={{
@@ -79,7 +86,7 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                 </Box>
                 <Box>
                         <a 
-                            href={`https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&issueMonth=7&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`}
+                            href={ data && data.university_id ? linkedinUrl[data.university_id as keyof typeof linkedinUrl] : defaultLink}
                             target="_blank" 
                             rel="noopener noreferrer"
                         >

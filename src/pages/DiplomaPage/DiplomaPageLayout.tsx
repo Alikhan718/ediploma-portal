@@ -117,7 +117,7 @@ export const DiplomaPageLayout: React.FC = () => {
                   sx={{
                       margin: "0 !important"
                   }}
-                  justifyContent="space-between"
+                  justifyContent="start"
                   className={styles.diplomasContainer} width="100%">
                 {diplomaList ? (
                     displayedDiplomas.map((e: any) => (
@@ -130,7 +130,8 @@ export const DiplomaPageLayout: React.FC = () => {
                                   padding: ".5rem .5rem 0 .5rem !important",
                                   backgroundColor: "white",
                                   borderRadius: "1.25rem",
-                                  marginBottom: "1.5rem"
+                                  marginBottom: "1.5rem",
+                                  marginRight: "0.5rem",
                               }}
                         >
                             <CardMedia
