@@ -138,7 +138,7 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
                     </button>
                     <button
                         type="button"
-                        onClick={():void => {setHaveDescription(true); setJobDescription('');}}
+                        onClick={():void => {setHaveDescription(true);}}
                         className={styles.continueButton}
                     >{localization[lang].JobDescription.Buttons.haveDesc}
                     </button>

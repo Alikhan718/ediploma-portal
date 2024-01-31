@@ -77,7 +77,7 @@ export const CandidateSearch: React.FC<CandidateSearchProps> = (props) => {
                     rows={1}
                     placeholder={localization[lang].CandidateSearch.description}
                     inputSize="m"
-                    defaultValue={jobDescription}
+                    value={jobDescription}
                     sx={{
                         height: 'auto',
                         paddingRight: 0,
