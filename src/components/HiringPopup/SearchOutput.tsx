@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { StudentCard } from './StudentCard';
-import { Box, CircularProgress } from '@mui/material';
+import { Alert, Box, CircularProgress, Snackbar } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/components/HiringPopup/Generator';
@@ -21,7 +21,12 @@ export const SearchOutput: React.FC<SearchOutputProps> = (props) => {
     const dispatch = useDispatch();
     const [matchedStudents, setMatchedStudents] = React.useState<any[]>([]);
     const addedStudentIds = new Set<number>();
+    const [alertOpen, setAlertOpen] = React.useState(false);
 
+    const handleAlertClose = () => {
+		setAlertOpen(false);
+	};
+    
     React.useEffect(() => {
         dispatch(fetchDiplomas());
     },[]);
@@ -58,7 +63,7 @@ export const SearchOutput: React.FC<SearchOutputProps> = (props) => {
                         { matchedStudents && matchedStudents.map((student: any) => (
                                 <div key={student.id}>
                                     <Box sx={{ marginTop: '20px', }}></Box>
-                                    <StudentCard student={student} />
+                                    <StudentCard student={student} setAlertOpen={setAlertOpen} />
                                     <Box sx={{ marginBottom: '20px', }}></Box>
                                 </div>
                             ))
@@ -73,6 +78,18 @@ export const SearchOutput: React.FC<SearchOutputProps> = (props) => {
                         </button>
                     </div>
                 </div>)}
+                <Snackbar 
+                    open={alertOpen} autoHideDuration={2000}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    onClose={handleAlertClose}>
+                    <Alert 
+                        onClose={handleAlertClose} 
+                        severity="error"
+                        sx={{ width: '100%' }}>
+                            Просмотр данного диплома вам не доступен!
+                    </Alert>
+			    </Snackbar>
         </div>
+        
     );
 };
