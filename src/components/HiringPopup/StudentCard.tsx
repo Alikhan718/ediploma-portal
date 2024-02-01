@@ -12,14 +12,17 @@ export const StudentCard: React.FC<StudentCardProps> = (props) => {
     const { student } = props;
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card 
+            sx={{ maxWidth: 345 }}
+            onClick={ () => {window.open(`/diploma/${student.id}`, '_blank');} }
+        >
         <CardActionArea>
             <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-                {student.name}
+                {student.name_ru}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-                {student.description}
+                {student.speciality_ru}
             </Typography>
             </CardContent>
         </CardActionArea>
