@@ -42,7 +42,7 @@ export const localization = {
         AddInfo:{
             sendInvite: "Отправить приглашение",
             about: "О выпускнике",
-            show: "Показать",
+            show: "Показать ",
             more: "больше",
             less: "меньше",
             certifications: "Дипломы и Сертификаты",

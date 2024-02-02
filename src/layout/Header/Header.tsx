@@ -180,7 +180,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         } else if (currentPath === routes.analysisPage) {
             return lang === 'ru' ? 'Аналитика' : lang === 'kz' ? 'Аналитика' : 'Analytics';
         } else if (currentPath === routes.resumeGenerator) {
-            return lang === 'ru' ? 'Генерация резюме' : lang === 'kz' ? 'Түйіндемені құру' : 'Resume generator';
+            return lang === 'ru' ? 'Моё резюме' : lang === 'kz' ? 'Түйіндемені құру' : 'My resume';
         }
         return 'Dashboard';
     };

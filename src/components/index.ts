@@ -6,6 +6,7 @@ export * from './Pagination/Pagination';
 export * from './Snackbar/Snackbar';
 export * from './HiringPopup/HiringPopUp';
 export * from './HiringPopup/StudentOrRecruiter';
+export * from './PdfConverter/PdfConverter';
 
 
 

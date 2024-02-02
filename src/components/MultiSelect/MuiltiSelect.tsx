@@ -19,7 +19,7 @@ export const MultiSelect: React.FC<MuiltiSelectProps> = (props) => {
       const item = e.target.innerHTML;
       e.target.innerHTML = '';
       if (item.trim().length && !item.includes("path") && state.length < 15) {
-        const newVal = state.indexOf(item) === -1 ? [...state, item] : state;
+        const newVal = state.indexOf(item) === -1 ? [item, ...state] : state;
         setState(newVal);
         handleChange({
           target: {
@@ -40,11 +40,11 @@ export const MultiSelect: React.FC<MuiltiSelectProps> = (props) => {
       const newVal = state.filter((el) => el !== item);
       setState(newVal);
       handleChange({
-          target: {
-            value: newVal,
-            name: props.name
-          }
-        });
+        target: {
+          value: newVal,
+          name: props.name
+        }
+      });
       additionalDelete ? additionalDelete() : null;
     };
 
@@ -54,12 +54,21 @@ export const MultiSelect: React.FC<MuiltiSelectProps> = (props) => {
           disablePortal
           id="combo-box-demo"
           options={innerOptions.filter((el) => !state.includes(el))}
+
+          // sx={{borderRadius: "2.5rem !important", backgroundColor: "red"}}
           onChange={onChange}
           onKeyDown={onKeyDown}
           clearOnBlur
           multiple
           renderTags={() => null}
-          renderInput={(params) => <TextField {...params} label={innerLabel}/>}
+          renderInput={(params) => <TextField
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: "1rem",
+              },
+            }}
+            {...params} label={innerLabel}
+          />}
         />
         <Box mt=".5rem" display="flex" gap=".5rem" flexWrap="wrap">
           {state.length

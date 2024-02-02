@@ -1,13 +1,12 @@
 import React, {useState, useRef} from 'react';
 import {
   Box,
-  Container,
   Typography,
   Grid,
   IconButton, MenuItem, Backdrop
 } from '@mui/material';
-import {Button, Input, Label} from '@src/components';
-import {ReactComponent as TrashIcon} from "@src/assets/icons/Trash.svg";
+import {Button, Input, Label, Modal} from '@src/components';
+import {ReactComponent as TrashIcon} from "@src/assets/icons/alternate_trash.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {selectImageLink, selectUserRole, selectUserState} from '@src/store/auth/selector';
 import {
@@ -19,84 +18,87 @@ import {selectLanguage} from "@src/store/generals/selectors";
 import {ReactComponent as ArrowIcon} from '@src/assets/icons/arrowIcon.svg';
 import {useNavigate} from "react-router";
 import styles from "./ResumeGeneratorPage.module.css";
-import {localization, content, skillsList} from "./generator";
+import {localization, content, desktopContent, skillsList} from "./generator";
 import {Select} from '@src/components/Select/Select';
 import {ReactComponent as AccountCircleIcon} from '@src/assets/icons/profileIcon.svg';
 import {ReactComponent as AddOutlineIcon} from '@src/assets/icons/add_outlined.svg';
 import {ReactComponent as UploadIconFile} from '@src/assets/icons/upload_file.svg';
+import {ReactComponent as PDFIcon} from '@src/assets/icons/PDF.svg';
+import {ReactComponent as HeaderSearchIcon} from '@src/assets/icons/search.svg';
 
 import {MultiSelect} from "@src/components/MultiSelect/MuiltiSelect";
+import Checkbox from "@mui/material/Checkbox";
+import PdfConverter from '@src/components/PdfConverter/PdfConverter';
+import {jsPDF} from "jspdf";
 
 export const ResumeGeneratorLayout: React.FC = () => {
-
     const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
     const lang = useSelector(selectLanguage);
-
-    type ContentKey = keyof typeof content;
-
-    const role: ContentKey = useSelector(selectUserRole).toLowerCase();
-    const [requiredForm, setRequiredForm] = React.useState<any>(content[0]);
-
     const userState = useSelector(selectUserState);
     const dispatch = useDispatch();
-    const [state, setState] = React.useState<Record<string, any>>({});
-
+    const navigate = useNavigate();
+    const isMobile = window.innerWidth <= 768;
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const galleryInputRef = useRef<HTMLInputElement | null>(null);
-    const [fileUpload, setFileUpload] = useState<boolean>(false);
-    const [galleryUpload, setGalleryUpload] = useState<boolean>(false);
+    const avatarInputRef = useRef<HTMLInputElement | null>(null);
     const imageLink = useSelector(selectImageLink);
-
-    const [galleryImages, setGalleryImages] = useState<string[]>(JSON.parse(state && state.certificates ? state.certificates : null ) ?? []);
-    const handleChooseFileClick = (type = "banner") => {
-      if (type === "banner") {
+    const contentForms = isMobile ? content : desktopContent;
+    console.log(contentForms.length);
+    const [requiredForm, setRequiredForm] = React.useState<any>(contentForms[0]);
+    const [state, setState] = React.useState<Record<string, any>>({});
+    const [avatarUpload, setAvatarUpload] = useState<boolean>(false);
+    const [fileUpload, setFileUpload] = useState<boolean>(false);
+    const [file, setFile] = useState<string | null>(state && state.certificates ? state.certificates : null);
+    const [step, setStep] = React.useState(1);
+    const [backropOpen, setBackropOpen] = React.useState(false);
+    const handleChooseFileClick = (type = "file") => {
+      if (type === "file") {
         if (fileInputRef.current) {
           fileInputRef.current.click();
         }
       } else {
-        if (galleryInputRef.current) {
-          galleryInputRef.current.click();
+        if (avatarInputRef.current) {
+          avatarInputRef.current.click();
         }
       }
 
     };
     const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setGalleryUpload(false);
-      const uploadedFile = event.target.files?.[0] || null;
-      setFileUpload(true);
-      dispatch(fetchUploadFile({file: uploadedFile}));
-
-    };
-    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (galleryImages.length > 1) {
-        return;
-      }
       setFileUpload(false);
       const uploadedFile = event.target.files?.[0] || null;
-      setGalleryUpload(true);
+      setAvatarUpload(true);
+      dispatch(fetchUploadFile({file: uploadedFile}));
+    };
+    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setAvatarUpload(false);
+      const uploadedFile = event.target.files?.[0] || null;
+      setFileUpload(true);
       dispatch(fetchUploadFile({file: uploadedFile}));
     };
     const handleChange = (e: any) => {
       let item = e.target.value;
-      if (Array.isArray(item)) {
+      if (e.target.name == 'experience_still_working') {
+        item = e.target.checked ?? e.target.value;
+      } else if (Array.isArray(item)) {
         item = JSON.stringify(item);
+      } else if (!item.trim().length) {
+        item = null;
       }
-      setState({...state, [e.target.name]: item});
-      console.log(state);
-    };
 
+      setState({...state, [e.target.name]: item});
+    };
     const handleSubmit = () => {
       const payload = {"attributes": state};
+      console.log(payload);
       dispatch(fetchUpdateUserProfile(payload));
     };
-    const navigate = useNavigate();
-    const getGridSize = (elType: string, index: number) => {
-      index = index + 1;
+    const getGridSize = (elType: string, maxRows: number) => {
       let n = 12;
       switch (elType) {
         case "lg":
+          n = 12 / maxRows;
+          break;
         case "md":
-          n = 12 / Math.min(Math.ceil((-1 + Math.sqrt(1 + 8 * index)) / 2), 3);
+          n = 12 / Math.min(Math.ceil((-1 + Math.sqrt(1 + 8 + 1)) / 2), 3);
           break;
         default:
           n = 12;
@@ -104,23 +106,65 @@ export const ResumeGeneratorLayout: React.FC = () => {
       return n;
       //xs={12} sm={12} md={6} lg={3,4,6}
     };
-    const uploadGalleryImage = (galleryImages: any) => {
+    const uploadCertificate = (file: any) => {
       const payload = {
         "attributes": {
-          "certificates": JSON.stringify(galleryImages)
+          "certificates": file
         }
       };
       dispatch(fetchUpdateUserProfile(payload));
     };
-    const handleImageClick = (val: string) => {
-      setGalleryImages(galleryImages.filter(v => v !== val));
-      uploadGalleryImage(galleryImages.filter(v => v !== val));
+    const handleFileDelete = () => {
+      setFile(null);
+      uploadCertificate(null);
     };
-    const [step, setStep] = React.useState(1);
-    const [backropOpen, setBackropOpen] = React.useState(false);
+    const previousStep = () => {
+      if (step - 1 > 0) {
+        setStep(step - 1);
+      }
+    };
+    const nextStep = () => {
+      if (step + 1 <= contentForms.length) {
+        setStep(step + 1);
+      }
+      handleSubmit();
+    };
+    const handleBackropClose = () => {
+      setBackropOpen(false);
+    };
+
+    const reportTemplateRef = useRef<HTMLInputElement | null>(null);
+
+    const handleGeneratePdf = () => {
+      const doc = new jsPDF({
+        format: 'a4',
+        unit: 'px',
+      });
+
+      // Adding the fonts.
+      doc.setFont('Montserrat', 'normal');
+
+      const element = reportTemplateRef.current;
+
+      // Ensure that the element exists before attempting to generate the PDF
+      if (element) {
+        doc.html(element, {
+          callback: (doc) => {
+            doc.save('document.pdf');
+          },
+          html2canvas: {
+            allowTaint: false,
+            useCORS: true,
+            logging: true
+          },
+        });
+      } else {
+        console.error('Cannot generate PDF. The HTML element is not found.');
+      }
+    };
 
     React.useEffect(() => {
-      setRequiredForm(content[step - 1]);
+      setRequiredForm(contentForms[step - 1]);
     }, [requiredForm, step]);
 
     React.useEffect(() => {
@@ -129,15 +173,10 @@ export const ResumeGeneratorLayout: React.FC = () => {
 
     React.useEffect(() => {
       setState(userState);
-      if (userState.gallery) {
-        let images = JSON.parse(userState.gallery);
-        setGalleryImages(images);
-      }
-
     }, [userState]);
 
     React.useEffect(() => {
-      if (imageLink && fileUpload) {
+      if (imageLink && avatarUpload) {
         const payload = {
           "attributes": {
             "avatar": imageLink
@@ -145,40 +184,28 @@ export const ResumeGeneratorLayout: React.FC = () => {
         };
         dispatch(fetchUpdateUserProfile(payload));
       }
-    }, [imageLink, fileUpload]);
+    }, [imageLink, avatarUpload]);
 
     React.useEffect(() => {
-      if (imageLink && galleryUpload) {
-        if (!galleryImages.includes(imageLink)) {
-          galleryImages.push(imageLink);
-        }
-        uploadGalleryImage(galleryImages);
+      if (imageLink && fileUpload) {
+        setFile(imageLink);
+        uploadCertificate(imageLink);
       }
-    }, [imageLink, galleryUpload]);
-
-    const previousStep = () => {
-      if (step - 1 > 0) {
-        setStep(step - 1);
-      }
-    };
-    const nextStep = () => {
-      if (step + 1 <= 7) {
-        setStep(step + 1);
-      }
-      handleSubmit();
-    };
-
-    const handleBackropClose = () => {
-      setBackropOpen(false);
-    };
+    }, [imageLink, fileUpload]);
 
     return (
       <Box
         display="flex"
         flexDirection="row"
         sx={{
+          paddingX: "2rem",
+          width: "100%",
           minHeight: "100vh",
           marginTop: "1rem",
+          '@media (max-width: 778px)': {
+            width: '100%',
+            paddingX: ".5rem",
+          },
         }}>
         <Backdrop
           sx={{
@@ -189,7 +216,6 @@ export const ResumeGeneratorLayout: React.FC = () => {
           open={backropOpen}
           onClick={() => {
             setBackropOpen(false);
-            console.log(backropOpen);
           }}
         >
           <label
@@ -201,12 +227,13 @@ export const ResumeGeneratorLayout: React.FC = () => {
               borderRadius: "15px",
               backgroundColor: "#ffffff",
               backgroundImage: "",
-              border: galleryImages.length >= 3 ? "2px dashed red" : "2px dashed #3B82F6",
+              border: "2px dashed #3B82F6",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
+
             }}
           >
             <UploadIconFile style={{width: "4rem", height: "4rem"}}/>
@@ -234,7 +261,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
             <input
               type="file"
               id={"file-input"}
-              ref={galleryInputRef}
+              ref={avatarInputRef}
               accept=".jpeg, .jpg, .png,.svg, .webp"
               onChange={handleAvatarUpload}
               style={{
@@ -242,376 +269,593 @@ export const ResumeGeneratorLayout: React.FC = () => {
               }}
             />
           </label>
-          {galleryImages.length > 0 && galleryImages.map((image, index3) => {
-            return (
-              <Box
-                key={index3}
-                onClick={() => handleImageClick(image)}
-                sx={{
-                  width: "10rem",
-                  height: "10rem",
-                  marginTop: "1rem",
-                  borderRadius: "15px",
-                  backgroundImage: `url(${baseURL}/${image})`,
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                  display: "flex"
-                }}>
-                <Box
-                  sx={{
-                    width: "10rem",
-                    height: "10rem",
-                    opacity: "0",
-                    display: "flex",
-                    borderRadius: "15px",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    transition: 'opacity 0.3s ease', // Add a smooth transition
-                    ":hover": {
-                      opacity: "1",
-                      cursor: "pointer",
-                      backgroundColor: "rgba(255,0,0,0.47)",
-                    }
-                  }}>
-                  <TrashIcon style={{
-                    filter: "brightness(6)",
-                    width: "5rem",
-                    height: "5rem",
-                  }}/>
-                </Box>
-              </Box>
-            );
-          })}
         </Backdrop>
-        <Box display="flex" flexDirection="column">
-          <Box width="100%" marginLeft=".5rem" mb="1rem">
-            <IconButton onClick={() => {
-              navigate(-1);
-            }} sx={{'&:hover': {backgroundColor: 'transparent'}}}>
+        <Box
+          sx={{
+            display: "flex",
+            width: "100%",
+            minHeight: "100vh",
+            flexDirection: "column",
+            '@media (max-width: 778px)': {},
+          }}>
+          <Box mb="1rem" display="flex" onClick={() => {
+            navigate(-1);
+          }}>
+            <IconButton style={{alignSelf: "center"}} sx={{'&:hover': {backgroundColor: 'transparent'}}}>
               <ArrowIcon/>
-              <Typography className={styles.textMd} marginLeft="1rem" fontWeight='600' color='#3B82F6'
-                          fontSize={"1rem"}>
-                {localization[lang].StudentPage.Menu.back}
-              </Typography>
             </IconButton>
+            <Typography className={styles.textMd} marginLeft=".5rem" align="center" fontWeight='600' color='#3B82F6'
+                        fontSize={"1rem"}>
+              {localization[lang].StudentPage.Menu.back}
+            </Typography>
           </Box>
-          <Box display="flex" width="100%" justifyContent="center" ml=".5rem">
-            {[1, 2, 3, 4, 5, 6, 7].map((value: number) =>
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "start",
+              '@media (max-width: 778px)': {},
+            }}
+          >
+            {isMobile && contentForms.map((value: any, formIndex) =>
               <Box
-                key={value}
-                style={{
+                key={formIndex}
+                sx={{
                   border: "solid 1rem #D8E6F",
-                  borderTopLeftRadius: value == 1 ? "2rem" : "0",
-                  borderTopRightRadius: value == 7 ? "2rem" : "0",
-                  width: "calc(97.5%/7)",
+                  borderTopLeftRadius: formIndex == 0 ? "2rem" : "0",
+                  borderTopRightRadius: formIndex == contentForms.length - 1 ? "2rem" : "0",
+                  width: `calc(100%/${contentForms.length})`,
                   height: "1rem",
-                  backgroundColor: step >= value ? "#3B82F6" : "#d8eaff"
-                }}></Box>)}
+                  transition: "background .2s ease-in-out",
+                  backgroundColor: step >= formIndex + 1 ? "#3B82F6" : "#d8eaff"
+                }}/>)}
           </Box>
-          {[requiredForm].map((item, index) => {
-            console.log(item);
-            if (item) {
-              return (
-                <Container
-                  key={index}
+          {requiredForm &&
+              <Box
                   sx={{
                     backgroundColor: 'white',
                     borderRadius: '30px',
-                    borderTopRightRadius: "0",
-                    borderTopLeftRadius: "0",
+                    borderTopRightRadius: isMobile ? "0" : "",
+                    borderTopLeftRadius: isMobile ? "0" : "",
+                    minHeight: "78vh",
                     paddingTop: '20px',
-                    paddingBottom: "1rem",
+                    padding: "1rem",
                     display: 'flex',
-                    marginLeft: '1.3rem',
-                    flexDirection: 'column',
+                    paddingX: "2rem",
                     justifyContent: 'flex-start',
-                    width: '97.5%', maxWidth: '100%',
+                    width: '100%',
+                    flexDirection: 'column',
                     '@media (max-width: 778px)': {
-                      width: '92vw', marginLeft: '1rem'
+                      marginX: "0",
+                      paddingX: "1rem",
                     },
                   }}
-                >
-                  <Typography variant="h6" fontWeight="600">
-                    {item.title ? item.title[lang] : ""}
-                  </Typography>
-                  <Box sx={{
-                    display: "flex",
-                    justifyItems: "space-between",
-                    justifyContent: "space-between"
-                  }}>
-                    <Typography sx={{
-                      fontSize: '16px',
-                      paddingBottom: '15px'
-                    }}>
-                      {(item.additionalText ? item.additionalText[lang] : "") + " " + (userState[item.name] ? userState[item.name] : "")}
-                    </Typography>
-
-                  </Box>
-                  <Grid
-                    container
-                    justifyContent="center"
-                    spacing={[2, 2]}
-                  >
-                    {item.forms.map((el: any, index2: number) => {
-                      if (el.type == "select") {
-                        return (
-                          <Grid item
-                                xs={el.multiline ? 12 : getGridSize("xs", index2)}
-                                sm={el.multiline ? 12 : getGridSize("sm", index2)}
-                                md={el.multiline ? 12 : getGridSize("md", index2)}
-                                lg={el.multiline ? 12 : getGridSize("lg", index2)}
-                                key={index2}>
-
-                            <Label label={el.label ? (el.label[lang] ?? el.label) : ""}/>
-                            <Select
-                              type={el.type}
-                              name={el.name}
-                              defaultValue={state[el.name]}
-                              value={state[el.name]}
-                              fullWidth={true}
-                              onChange={handleChange}
-                            >
-                              {el.values && el.values.map((val: any) => (
-                                <MenuItem
-
-                                  key={val.value}
-                                  value={val.value}
-                                  // onClick={() => {
-                                  //   handleChange(speciality.name, selectedSpecialities, setSelectedSpecialities, "speciality");
-                                  // }}
-                                >
-                                  {val.label[lang]}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </Grid>);
-                      }
-                      if (el.type == "multi-select") {
-                        return (
-                          <Grid item
-                                xs={el.multiline ? 12 : getGridSize("xs", index2)}
-                                sm={el.multiline ? 12 : getGridSize("sm", index2)}
-                                md={el.multiline ? 12 : getGridSize("md", index2)}
-                                lg={el.multiline ? 12 : getGridSize("lg", index2)}
-                                key={index2}>
-
-                            <MultiSelect
-                              type={el.type}
-                              name={el.name}
-                              fullWidth={true}
-                              defaultValues={JSON.parse(state[el.name]) ?? []}
-                              handleChange={handleChange}
-                              options={skillsList ? skillsList["ПРИСУЖДЕНА СТЕПЕНЬ БАКАЛАВРА\nТЕХНИКИ И ТЕХНОЛОГИЙ ПО ОБРАЗОВАТЕЛЬНОЙ ПРОГРАММЕ «6B07101 ХИМИЧЕСКАЯ ТЕХНОЛОГИЯ ОРГАНИЧЕСКИХ ВЕЩЕСТВ»"][lang] : []}
-                              innerLabel={"Выберите Навыки"}>
-
-                            </MultiSelect>
-                          </Grid>);
-                      }
-                      if (el.type == 'avatar') {
-                        return (
-                          <Grid item
-                                xs={el.multiline ? 12 : getGridSize("xs", index2)}
-                                sm={el.multiline ? 12 : getGridSize("sm", index2)}
-                                md={el.multiline ? 12 : getGridSize("md", index2)}
-                                lg={el.multiline ? 12 : getGridSize("lg", index2)}
-                                key={index2}>
-                            <Box key={index2} sx={{
+              >
+                {!isMobile &&
+                    <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          flexDirection: "column",
+                          width: '100%'
+                        }}
+                    >
+                        <Box
+                            sx={{
                               display: "flex",
-                              flexDirection: "row",
-                              flexWrap: "wrap",
-                              width: "100%",
-                              alignItems: "start",
-                              gap: ".5rem"
+                              alignItems: "center",
+                              justifyContent: "center",
+                              paddingY: '1.5rem',
+                              width: '90%'
                             }}
-                                 onClick={() => {
-                                   setBackropOpen(true);
-                                 }}
-                            >
-
-                              <Box
-                                style={{
-                                  cursor: 'pointer',
-                                }}
-                                onClick={(event) => {
-                                  // handleOpenMenu(event, "profile");
-                                }}
-                              >
-
-                                {userState && userState.avatar ?
-                                  <img style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    aspectRatio: "1",
-                                    objectFit: "cover",
-                                    borderRadius: "50%"
+                        >
+                          {contentForms.map((item, index) => (
+                            <React.Fragment key={index}>
+                              {index > 0 && (
+                                <Box
+                                  sx={{
+                                    width: `calc(100% / (${contentForms.length} * 1.2))`,
+                                    height: "2px",
+                                    alignSelf: "center",
+                                    marginBottom: "2rem",
+                                    transition: "background .2s ease-in-out",
+                                    backgroundColor:
+                                      index <= step - 1 ? "#3B82F6" : "#F8F8F8",
                                   }}
-                                       src={`${baseURL}/${userState.avatar}`} alt=""/> :
-                                  <AccountCircleIcon style={{alignSelf: "center", width: "2.5rem", height: "2.5rem"}}/>}
-                              </Box>
-                              <Typography fontSize="1rem"
-                                          style={{alignSelf: "center"}}>{el.label ? (el.label[lang] ?? el.label) : ""}</Typography>
-                              <AddOutlineIcon style={{alignSelf: "center"}}/>
-                            </Box>
-                          </Grid>
-                        );
-                      }
-                      if (el.type == 'file') {
-                        return (
-                          <Grid item
-                                xs={el.multiline ? 12 : getGridSize("xs", index2)}
-                                sm={el.multiline ? 12 : getGridSize("sm", index2)}
-                                md={el.multiline ? 12 : getGridSize("md", index2)}
-                                lg={el.multiline ? 12 : getGridSize("lg", index2)}
-                                key={index2}>
-                            <Label label={el.label ? (el.label[lang] ?? el.label) : ""}/>
-                            <Box key={index2} sx={{
-                              display: "flex",
-                              flexDirection: "row",
-                              width: "100%",
-                              alignItems: "start",
-                              gap: "1rem"
-                            }}>
-                              <label
-                                htmlFor={"file-input" + index2}
-                                style={{
-                                  width: "10rem",
-                                  height: "10rem",
-                                  marginTop: "1rem",
-                                  borderRadius: "15px",
-                                  backgroundColor: galleryImages.length >= 1 ? "#cacaca" : "",
-                                  border: galleryImages.length >= 1 ? "2px dashed red" : "2px dashed #3B82F6",
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  cursor: "pointer",
-                                }}
-                              >
-                              <span
-                                style={{
-                                  color: galleryImages.length >= 1 ? "#979797" : "",
-                                  textDecoration: "underline",
-                                  cursor: "pointer"
-                                }}
-                                onClick={() => handleChooseFileClick()}>
-                              Загрузить
-                              </span>
-                                <input
-                                  type="file"
-                                  id={"file-input" + index2}
-                                  accept=".jpeg, .jpg, .png,.svg, .webp"
-                                  onChange={handleImageUpload}
-                                  style={{
-                                    display: "none",
-                                  }}
-                                  ref={fileInputRef}
+
                                 />
-                              </label>
-                              {galleryImages.length > 0 && galleryImages.map((image, index3) => {
-                                return (
-                                  <Box
-                                    key={index3}
-                                    onClick={() => handleImageClick(image)}
-                                    sx={{
-                                      width: "10rem",
-                                      height: "10rem",
-                                      marginTop: "1rem",
-                                      borderRadius: "15px",
-                                      backgroundImage: `url(${baseURL}/${image})`,
-                                      backgroundSize: "cover",
-                                      backgroundRepeat: "no-repeat",
-                                      display: "flex"
-                                    }}>
-                                    <Box
-                                      sx={{
-                                        width: "10rem",
-                                        height: "10rem",
-                                        opacity: "0",
-                                        display: "flex",
-                                        borderRadius: "15px",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        transition: 'opacity 0.3s ease', // Add a smooth transition
-                                        ":hover": {
-                                          opacity: "1",
-                                          cursor: "pointer",
-                                          backgroundColor: "rgba(255,0,0,0.47)",
-                                        }
-                                      }}>
-                                      <TrashIcon style={{
-                                        filter: "brightness(6)",
-                                        width: "5rem",
-                                        height: "5rem",
-                                      }}/>
-                                    </Box>
-                                  </Box>
-                                );
-                              })}
-                            </Box>
-                          </Grid>);
-                      }
-                      return (
-                        <Grid item
-                              xs={el.multiline ? 12 : getGridSize("xs", index2)}
-                              sm={el.multiline ? 12 : getGridSize("sm", index2)}
-                              md={el.multiline ? 12 : getGridSize("md", index2)}
-                              lg={el.multiline ? 12 : getGridSize("lg", index2)}
-                              key={index2}>
+                              )}
+                              <Box
+                                sx={{
+                                  width: "3rem !important",
+                                  height: "3rem !important",
+                                  marginBottom: "2rem",
+                                  borderRadius: "2rem",
+                                  backgroundColor:
+                                    index <= step - 1 ? "#3B82F6" : "#F8F8F8",
+                                  color: index <= step - 1 ? "white" : "#A1A1A1",
+                                  display: "flex",
+                                  transition: "background .3s ease-in-out",
+                                  alignItems: "center",
+                                  position: "relative",
+                                  justifyContent: "center",
 
-                          <Label label={el.label ? (el.label[lang] ?? el.label) : ""}/>
-                          <Input
-                            type={el.type}
-                            name={el.name}
-                            disabled={el!.disabled ?? false}
-                            value={state[el.name] || ''}
-                            minRows={el.rows ?? 1}
-                            reducePadding={(el.multiline ?? false) && el.rows > 1}
-                            multiline={(el.multiline ?? false) && el.rows > 1}
-                            placeholder={el.placeholder ? (el.placeholder[lang] ?? el.placeholder) : ""}
-                            onChange={handleChange}
-                            // errorText={'Some error message'}
-                          />
-                        </Grid>
-                      );
-
-                    })}
-                  </Grid>
-                  {
-                    item.forms.length ? (
-                      <Box sx={{
+                                }}
+                              >
+                                <Typography
+                                  position="absolute"
+                                  textAlign="center"
+                                  sx={{
+                                    transition: "color .3s ease-in-out",
+                                  }}
+                                >
+                                  {index + 1}
+                                </Typography>
+                                <Typography
+                                  position="absolute"
+                                  fontSize="0.75rem"
+                                  whiteSpace="nowrap"
+                                  color="#2D2D2D"
+                                  top="3.3rem"
+                                  textAlign="center"
+                                  sx={{
+                                    transition: "color .3s ease-in-out",
+                                    color: step >= index + 1 ? "#1c60cc" : "#2D2D2D"
+                                  }}
+                                >
+                                  {item.title[lang]}
+                                </Typography>
+                              </Box>
+                            </React.Fragment>
+                          ))}
+                        </Box>
+                    </Box>
+                }
+                  <Box
+                      sx={{
                         display: 'flex',
-                        justifyContent: 'flex-end',
-                        flexDirection: "column",
-                        gap: ".5rem",
-                        marginTop: '36px'
-                      }}>
-                        <Button
-                          variant="contained"
-                          borderRadius="3rem"
-                          onClick={nextStep}>
-                          Продолжить
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          borderRadius="3rem"
-                          onClick={previousStep}>
-                          Назад
-                        </Button>
+                        justifyContent: 'flex-start',
+                        width: '100%',
+                        '@media (max-width: 778px)': {
+                          flexDirection: 'column',
+                          marginX: "0",
+                          paddingX: "1rem",
+                        },
+                      }}
+                  >
+                      <Box sx={{
+                        width: "70%",
+                        '@media (max-width: 778px)': {
+                          width: "100%",
+                        },
+                      }}
+                      >
+                          <Typography variant="h6" fontWeight="600">
+                            {requiredForm.title ? requiredForm.title[lang] : ""}
+                          </Typography>
+                          <Box sx={{
+                            display: "flex",
+                            justifyItems: "space-between",
+                            justifyContent: "space-between",
+                            '@media (max-width: 778px)': {},
+                          }}>
+                              <Typography sx={{
+                                fontSize: '16px',
+                                paddingBottom: '15px'
+                              }}>
+                                {(requiredForm.additionalText ? requiredForm.additionalText[lang] : "") + " " + (userState[requiredForm.name] ? userState[requiredForm.name] : "")}
+                              </Typography>
+
+                          </Box>
+                          <Grid
+
+                              container
+                              md={12}
+                              lg={11}
+                              justifyContent="start"
+                              spacing={[2, isMobile ? 2 : 2]}
+                            //todo may be change
+                          >
+                            {requiredForm.forms.map((el: any, index2: number) => {
+                              if (el.ifNotInput && state[el.ifNotInput]) {
+                                return null;
+                              }
+                              if (el.type == "select") {
+                                return (
+                                  <Grid item
+                                        xs={el.multiline ? 12 : getGridSize("xs", el.maxRows)}
+                                        sm={el.multiline ? 12 : getGridSize("sm", el.maxRows)}
+                                        md={el.multiline ? 12 : getGridSize("md", el.maxRows)}
+                                        lg={el.multiline ? 12 : getGridSize("lg", el.maxRows)}
+                                        key={index2}>
+
+                                    <Label label={el.label ? (el.label[lang] ?? el.label) : ""}/>
+                                    <Select
+                                      type={el.type}
+                                      name={el.name}
+                                      value={state[el.name] || ''}
+                                      fullWidth={true}
+                                      onChange={handleChange}
+                                    >
+
+                                      {el.values && el.values.map((val: any) => (
+                                        <MenuItem
+
+                                          key={val.value}
+                                          value={val.value}
+                                          // onClick={() => {
+                                          //   handleChange(speciality.name, selectedSpecialities, setSelectedSpecialities, "speciality");
+                                          // }}
+                                        >
+                                          {val.label[lang]}
+                                        </MenuItem>
+                                      ))}
+                                    </Select>
+                                  </Grid>);
+                              }
+                              if (el.type == "multi-select") {
+                                return (
+                                  <Grid item
+                                        xs={el.multiline ? 12 : getGridSize("xs", el.maxRows)}
+                                        sm={el.multiline ? 12 : getGridSize("sm", el.maxRows)}
+                                        md={el.multiline ? 12 : getGridSize("md", el.maxRows)}
+                                        lg={el.multiline ? 12 : getGridSize("lg", el.maxRows)}
+                                        key={index2}>
+
+                                    <MultiSelect
+                                      type={el.type}
+                                      name={el.name}
+                                      fullWidth={true}
+                                      IconComponent={HeaderSearchIcon}
+                                      defaultValues={JSON.parse(state[el.name]) ?? []}
+                                      handleChange={handleChange}
+                                      options={skillsList ? skillsList["ПРИСУЖДЕНА СТЕПЕНЬ БАКАЛАВРА\nТЕХНИКИ И ТЕХНОЛОГИЙ ПО ОБРАЗОВАТЕЛЬНОЙ ПРОГРАММЕ «6B07101 ХИМИЧЕСКАЯ ТЕХНОЛОГИЯ ОРГАНИЧЕСКИХ ВЕЩЕСТВ»"][lang] : []}
+                                      innerLabel={"Выберите Навыки"}
+                                    >
+
+                                    </MultiSelect>
+                                  </Grid>);
+                              }
+                              if (el.type == 'avatar') {
+                                return (
+                                  <Grid item
+                                        xs={el.multiline ? 12 : getGridSize("xs", el.maxRows)}
+                                        sm={el.multiline ? 12 : getGridSize("sm", el.maxRows)}
+                                        md={el.multiline ? 12 : getGridSize("md", el.maxRows)}
+                                        lg={el.multiline ? 12 : getGridSize("lg", el.maxRows)}
+                                        key={index2}>
+                                    <Box key={index2} sx={{
+                                      display: "flex",
+                                      flexDirection: "row",
+                                      flexWrap: "wrap",
+                                      width: "100%",
+                                      alignItems: "start",
+                                      gap: ".5rem"
+                                    }}
+                                         onClick={() => {
+                                           setBackropOpen(true);
+                                         }}
+                                    >
+
+                                      <Box
+                                        style={{
+                                          cursor: 'pointer',
+                                        }}
+                                      >
+
+                                        {userState && userState.avatar ?
+                                          <Box sx={{
+                                            width: "25vh",
+                                            height: "25vh",
+                                            position: "relative",
+                                            '@media (max-width: 778px)': {
+                                              width: "100%",
+                                              height: "100%",
+                                            },
+                                          }}>
+                                            <Box sx={{
+                                              width: "25.5vh",
+                                              height: "25.5vh",
+                                              opacity: '0',
+                                              position: "absolute",
+                                              transition: "opacity .2s ease-in-out",
+                                              left: "-1%",
+                                              top: "-1%",
+                                              '&:hover': {
+                                                opacity: "80%",
+                                                transition: "opacity .2s ease-in-out"
+                                              },
+                                            }}>
+                                              <AccountCircleIcon width="100%" height="100%"/>
+                                            </Box>
+                                            <img style={{
+                                              width: "100%",
+                                              height: "100%",
+                                              aspectRatio: "1",
+                                              objectFit: "cover",
+                                              borderRadius: "50%"
+                                            }}
+                                                 src={`${baseURL}/${state[el.name]}`} alt=""/>
+                                          </Box>
+                                          :
+                                          <AccountCircleIcon
+                                            style={{alignSelf: "center", width: "2.5rem", height: "2.5rem"}}/>}
+                                      </Box>
+                                      {state && !state[el.name] &&
+                                          <Box display={"flex"}>
+                                              <Typography fontSize="1rem" style={{alignSelf: "center"}}>
+                                                {el.label ? (el.label[lang] ?? el.label) : ""}
+                                              </Typography>
+                                              <AddOutlineIcon style={{alignSelf: "center"}}/>
+                                          </Box>
+
+                                      }
+                                    </Box>
+                                  </Grid>
+                                )
+                                  ;
+                              }
+                              if (el.type == 'file') {
+                                return (
+                                  <Grid item
+                                        xs={el.multiline ? 12 : getGridSize("xs", el.maxRows)}
+                                        sm={el.multiline ? 12 : getGridSize("sm", el.maxRows)}
+                                        md={el.multiline ? 12 : getGridSize("md", el.maxRows)}
+                                        lg={el.multiline ? 12 : getGridSize("lg", el.maxRows)}
+                                        key={index2}>
+                                    <Label label={el.label ? (el.label[lang] ?? el.label) : ""}/>
+                                    <Box key={index2} sx={{
+                                      display: "flex",
+                                      width: "100%",
+                                      alignItems: "start",
+                                      gap: "1rem",
+                                      flexDirection: "column",
+                                      '@media (max-width: 778px)': {
+                                        flexDirection: "row",
+                                      },
+                                    }}>
+                                      {state && !state.certificates &&
+                                          <label
+                                              htmlFor={"file-input" + index2}
+                                              style={{
+                                                width: "100%",
+                                                marginTop: "1rem",
+                                                padding: ".75rem 1rem",
+                                                borderRadius: "15px",
+                                                backgroundColor: "transparent",
+                                                border: "2px dashed #3B82F6",
+                                                display: "flex",
+                                                cursor: "pointer",
+                                              }}
+                                          >
+                                              <Box sx={{
+                                                width: "100%",
+                                                display: "flex",
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                                justifyContent: "space-between",
+                                                '@media (max-width: 778px)': {
+                                                  justifyContent: "center",
+                                                  flexDirection: "column",
+                                                },
+                                              }}>
+                                                  <Box sx={{
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    justifyContent: "center",
+                                                    '@media (max-width: 778px)': {
+                                                      flexDirection: "row",
+                                                      justifyContent: "start",
+                                                      alignSelf: "start",
+                                                    }
+                                                  }}>
+                                                      <Box display="flex" alignSelf="flex-start" justifyContent="start">
+                                                          <UploadIconFile
+                                                              style={{
+                                                                width: "3rem",
+                                                                height: "3rem",
+                                                                alignSelf: "center"
+                                                              }}/>
+                                                          <Box ml=".5rem" display="flex" flexDirection="column"
+                                                               justifyContent="center">
+                                                              <Typography fontSize="0.875rem" fontWeight="600">
+                                                                  Загрузите сертификат
+                                                              </Typography>
+                                                              <Typography fontSize="0.75rem" color="#818181"
+                                                                          fontWeight="400">
+                                                                {el.placeholder}
+                                                              </Typography>
+                                                          </Box>
+                                                      </Box>
+                                                  </Box>
+                                                {!isMobile &&
+                                                    <Typography fontSize="0.75rem" ml={"20%"} color="#818181"
+                                                                textAlign="center"
+                                                                fontWeight="600">
+                                                        не более 5 мб
+                                                    </Typography>}
+                                                  <Box
+                                                      sx={{
+                                                        margin: ".5rem 0",
+                                                        width: "25%",
+                                                        backgroundColor: "#3B82F6",
+                                                        borderRadius: "3rem",
+                                                        padding: "1rem",
+                                                        display: "flex",
+                                                        justifyContent: "center",
+                                                        height: "3rem",
+                                                        '@media (max-width: 778px)': {
+                                                          width: "100%",
+                                                        },
+                                                      }}
+                                                  >
+                                                      <Typography color="white" fontSize="1rem" textAlign="center"
+                                                                  alignSelf="center">
+                                                          Выбрать
+                                                      </Typography>
+                                                  </Box>
+                                                {isMobile &&
+                                                    <Typography fontSize="0.75rem" color="#818181" textAlign="center"
+                                                                fontWeight="400">
+                                                        не более 5 мб
+                                                    </Typography>}
+                                                  <input type="file" id={"file-input" + index2} accept=".pdf, .png,"
+                                                         onChange={handleImageUpload} style={{display: "none"}}
+                                                         ref={fileInputRef}/>
+                                              </Box>
+                                          </label>
+                                      }
+                                      {state && state.certificates &&
+                                          <Box sx={{
+                                            backgroundColor: "#F4F7FE",
+                                            width: "100%",
+                                            display: "flex",
+                                            padding: ".75rem 1rem",
+                                            borderRadius: "1rem",
+                                          }}>
+                                              <PDFIcon/>
+                                              <Box display="flex" flexDirection="column" ml="1rem"
+                                                   justifyContent="center">
+                                                  <Typography>
+                                                      Сертификат
+                                                  </Typography>
+                                              </Box>
+                                              <IconButton style={{
+                                                marginLeft: "auto",
+                                                cursor: "pointer",
+                                              }}
+                                                          onClick={() => {
+                                                            handleFileDelete();
+                                                          }}
+                                              >
+                                                  <TrashIcon style={{
+                                                    alignSelf: "center",
+                                                    width: "1.5rem",
+                                                    height: "1.5rem",
+                                                  }}/>
+                                              </IconButton>
+                                          </Box>
+                                      }
+                                    </Box>
+                                  </Grid>);
+                              }
+                              if (el.type == "checkbox") {
+                                return (
+                                  <Grid item
+                                        display={"flex"}
+                                        xs={el.multiline ? 12 : getGridSize("xs", el.maxRows)}
+                                        sm={el.multiline ? 12 : getGridSize("sm", el.maxRows)}
+                                        md={el.multiline ? 12 : getGridSize("md", el.maxRows)}
+                                        lg={el.multiline ? 12 : getGridSize("lg", el.maxRows)}
+                                        key={index2}>
+
+                                    <Checkbox
+                                      name={el.name}
+                                      disabled={el!.disabled ?? false}
+                                      defaultChecked={state[el.name]}
+                                      onChange={handleChange}
+                                      // placeholder={el.placeholder ? (el.placeholder[lang] ?? el.placeholder) : ""}
+                                      // errorText={'Some error message'}
+                                    />
+                                    <Typography fontSize="1rem"
+                                                alignSelf="center">{el.label ? (el.label[lang] ?? el.label) : ""}</Typography>
+
+                                  </Grid>
+                                );
+                              }
+                              return (
+                                <Grid item
+                                      xs={el.multiline ? 12 : getGridSize("xs", el.maxRows)}
+                                      sm={el.multiline ? 12 : getGridSize("sm", el.maxRows)}
+                                      md={el.multiline ? 12 : getGridSize("md", el.maxRows)}
+                                      lg={el.multiline ? 12 : getGridSize("lg", el.maxRows)}
+                                      key={index2}>
+
+                                  <Label label={el.label ? (el.label[lang] ?? el.label) : ""}/>
+                                  <Input
+                                    type={el.type}
+                                    name={el.name}
+                                    disabled={el!.disabled ?? false}
+                                    value={state[el.name] || null}
+                                    inputProps={{min: el.min, max: el.max}}
+                                    minRows={el.rows ?? 1}
+                                    reducePadding={(el.multiline ?? false) && el.rows > 1}
+                                    multiline={(el.multiline ?? false) && el.rows > 1}
+                                    placeholder={el.placeholder ? (el.placeholder[lang] ?? el.placeholder) : ""}
+                                    onChange={handleChange}
+                                    // errorText={'Some error message'}
+                                  />
+                                </Grid>
+                              );
+
+                            })}
+
+                          </Grid>
+
                       </Box>
-                    ) : null
-                  }
-                </Container>
-              )
-                ;
-            }
-            return null;
-          })}
+                    {
+                      requiredForm.forms.length ? (
+                        <Box sx={{
+                          display: 'flex',
+                          width: "30%",
+                          justifyContent: 'flex-end',
+                          flexDirection: "column",
+                          gap: ".5rem",
+                          marginLeft: "auto",
+                          marginBottom: 'auto',
+                          marginTop: ".5rem",
+                          '@media (max-width: 778px)': {
+                            width: "100%",
+                            marginTop: '36px',
+                            marginBottom: '',
+                          },
+                        }}
+                        >
+                          <Button
+                            variant="contained"
+                            borderRadius="3rem"
+                            onClick={nextStep}>
+                            Продолжить
+                          </Button>
+                          <Button
+                            variant="outlined"
+                            borderRadius="3rem"
+                            onClick={previousStep}>
+                            Назад
+                          </Button>
+                        </Box>
+                      ) : null
+                    }
+                  </Box>
+              </Box>
+          }
         </Box>
 
 
+        <Box sx={{
+          display: "none",
+          position: "absolute",
+          top: "2rem",
+          left: "2rem",
+        }}>
+          <button style={{
+            display: "none",
+            position: "absolute",
+            zIndex: 9999,
+            top: "2rem",
+            right: "2rem",
+          }} className="button" onClick={handleGeneratePdf}>
+            Generate PDF
+          </button>
+          <Box ref={reportTemplateRef}>
+            <PdfConverter/>
+          </Box>
+        </Box>
+
       </Box>
 
-    );
+    )
+      ;
 
   }
 ;

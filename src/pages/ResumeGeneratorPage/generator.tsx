@@ -75,6 +75,533 @@ const socialForms = [
     placeholder: "https://www.example.com"
   },
 ];
+const mainForms = [
+  {
+    type: "select",
+    name: "desired_schedule",
+    maxRows: 2,
+    label: {
+      "kz": "График работы",
+      "ru": "График работы",
+      "en": "График работы"
+    },
+    values: [
+      {
+        value: "full",
+        label: {
+          "en": "Полная занятость",
+          "ru": "Полная занятость",
+          "kz": "Полная занятость",
+        }
+      },
+      {
+        value: "partly",
+        label: {
+          "en": "Частичная занятость",
+          "ru": "Частичная занятость",
+          "kz": "Частичная занятость",
+        },
+      },
+      {
+        value: "project",
+        label: {
+          "en": "Project Word",
+          "ru": "Проектная работа",
+          "kz": "Проектная работа",
+        }
+      },
+      {
+        value: "intern",
+        label: {
+          "en": "Internship",
+          "ru": "Стажировка",
+          "kz": "Стажировка",
+        }
+      },
+    ],
+    placeholder: ""
+  },
+  {
+    type: "text",
+    name: "desired_position",
+    label: {
+      "kz": "Должность",
+      "ru": "Должность",
+      "en": "Должность"
+    },
+    maxRows: 2,
+    placeholder: "Например: программист"
+  },
+  {
+    type: "number",
+    name: "desired_salary_amount",
+    maxRows: 2,
+    min: 0,
+    label: {
+      "kz": "Зароботная плата",
+      "ru": "Зароботная плата",
+      "en": "Зароботная плата"
+    },
+    placeholder: "Введите ваши ожидания от зарплаты"
+  },
+];
+const personalForms = [
+  {
+    type: "text",
+    name: "last_name",
+    label: {
+      "kz": "Фамилия",
+      "ru": "Фамилия",
+      "en": "Фамилия"
+    },
+    placeholder: "Ваше Фамилия",
+    maxRows: 2,
+  },
+  {
+    type: "salary_amount",
+    name: "first_name",
+    maxRows: 2,
+    label: {
+      "kz": "Имя",
+      "ru": "Имя",
+      "en": "Имя"
+    },
+    placeholder: "Ваше Имя"
+  },
+  {
+    type: "text",
+    name: "middle_name",
+    maxRows: 2,
+    label: {
+      "kz": "Отчество",
+      "ru": "Отчество",
+      "en": "Отчество"
+    },
+    placeholder: "Ваше Отчество"
+  },
+  {
+    type: "select",
+    name: "gender",
+    maxRows: 2,
+    label: {
+      "kz": "Пол",
+      "ru": "Пол",
+      "en": "Пол"
+    },
+    values: [
+      {
+        value: "male",
+        label: {
+          "en": "Мужской",
+          "ru": "Мужской",
+          "kz": "Мужской",
+        }
+      },
+      {
+        value: "female",
+        label: {
+          "en": "Женский",
+          "ru": "Женский",
+          "kz": "Женский",
+        },
+      },
+    ],
+    placeholder: ""
+  },
+  {
+    type: "date",
+    name: "date_of_birth",
+    maxRows: 2,
+    label: {
+      "kz": "Дата рождения",
+      "ru": "Дата рождения",
+      "en": "Дата рождения"
+    },
+    placeholder: ""
+  },
+];
+const additionalForms = [
+  {
+    type: "avatar",
+    name: "avatar",
+    label: {
+      "kz": "Загрузить фотографию",
+      "ru": "Загрузить фотографию",
+      "en": "Загрузить фотографию"
+    },
+    maxRows: 1,
+    placeholder: ""
+  },
+  {
+    type: "phone",
+    name: "phone",
+    label: {
+      "kz": "Номер телефона",
+      "ru": "Номер телефона",
+      "en": "Номер телефона"
+    },
+    maxRows: 2,
+    placeholder: "+7"
+  },
+  {
+    type: "email",
+    name: "email",
+    label: {
+      "kz": "Почта",
+      "ru": "Почта",
+      "en": "Почта"
+    },
+    maxRows: 2,
+    placeholder: "example@mail.kz"
+  },
+  {
+    type: "text",
+    name: "telegram",
+    maxRows: 2,
+    label: {
+      "kz": "Телеграм",
+      "ru": "Телеграм",
+      "en": "Телеграм"
+    },
+    placeholder: "@username"
+  },
+  {
+    type: "select",
+    name: "address",
+    label: {
+      "kz": "Город",
+      "ru": "Город",
+      "en": "Город"
+    },
+    maxRows: 2,
+    values: [
+      {
+        value: "Almaty",
+        label: {
+          "en": "Almaty",
+          "ru": "Алматы",
+          "kz": "Алматы",
+        }
+      },
+      {
+        value: "Astana",
+        label: {
+          "en": "Astana",
+          "ru": "Астана",
+          "kz": "Астана",
+        },
+      },
+      {
+        value: "Shymkent",
+        label: {
+          "en": "Shymkent",
+          "ru": "Шымкент",
+          "kz": "Шымкент",
+        },
+      },
+      {
+        value: "Karaganda",
+        label: {
+          "en": "Karaganda",
+          "ru": "Караганда",
+          "kz": "Қарағанды",
+        },
+      },
+      {
+        value: "Aktobe",
+        label: {
+          "en": "Aktobe",
+          "ru": "Актобе",
+          "kz": "Ақтөбе",
+        },
+      },
+      {
+        value: "Taraz",
+        label: {
+          "en": "Taraz",
+          "ru": "Тараз",
+          "kz": "Тараз",
+        },
+      },
+      {
+        value: "Pavlodar",
+        label: {
+          "en": "Pavlodar",
+          "ru": "Павлодар",
+          "kz": "Павлодар",
+        },
+      },
+      {
+        value: "Oral",
+        label: {
+          "en": "Oral",
+          "ru": "Уральск",
+          "kz": "Орал",
+        },
+      },
+      {
+        value: "Semey",
+        label: {
+          "en": "Semey",
+          "ru": "Семей",
+          "kz": "Семей",
+        },
+      },
+      {
+        value: "Atyrau",
+        label: {
+          "en": "Atyrau",
+          "ru": "Атырау",
+          "kz": "Атырау",
+        },
+      },
+      {
+        value: "Ust-Kamenogorsk",
+        label: {
+          "en": "Ust-Kamenogorsk",
+          "ru": "Усть-Каменогорск",
+          "kz": "Өскемен",
+        },
+      },
+      {
+        value: "Kostanay",
+        label: {
+          "en": "Kostanay",
+          "ru": "Костанай",
+          "kz": "Қостанай",
+        },
+      },
+      {
+        value: "Kyzylorda",
+        label: {
+          "en": "Kyzylorda",
+          "ru": "Кызылорда",
+          "kz": "Қызылорда",
+        },
+      },
+      {
+        value: "Petropavlovsk",
+        label: {
+          "en": "Petropavlovsk",
+          "ru": "Петропавловск",
+          "kz": "Петропавловск",
+        },
+      },
+      {
+        value: "Taldykorgan",
+        label: {
+          "en": "Taldykorgan",
+          "ru": "Талдыкорган",
+          "kz": "Талдықорған",
+        },
+      },
+    ],
+    placeholder: ""
+  },
+  {
+    type: "text",
+    name: "description",
+    rows: 5,
+    multiline: true,
+    label: {
+      "kz": "О себе",
+      "ru": "О себе",
+      "en": "О себе"
+    },
+    placeholder: "Опишите кратко о себе"
+  },
+];
+const educationForms = [
+  {
+    type: "select",
+    name: "major",
+    label: {
+      "kz": "Вид",
+      "ru": "Вид",
+      "en": "Вид"
+    },
+    values: [
+      {
+        value: "bachelor",
+        label: {
+          "en": "Бакалавр",
+          "ru": "Бакалавр",
+          "kz": "Бакалавр",
+        }
+      },
+      {
+        value: "master",
+        label: {
+          "en": "Магистратура",
+          "ru": "Магистратура",
+          "kz": "Магистратура",
+        },
+      },
+    ],
+    maxRows: 2,
+    placeholder: ""
+  },
+  {
+    type: "text",
+    name: "university_name",
+    label: {
+      "kz": "Название учебного заведения",
+      "ru": "Название учебного заведения",
+      "en": "Название учебного заведения"
+    },
+    maxRows: 2,
+    placeholder: "Введите полное название"
+  },
+  {
+    type: "text",
+    name: "specialization",
+    label: {
+      "kz": "Специализация",
+      "ru": "Специализация",
+      "en": "Специализация"
+    },
+    maxRows: 2,
+    placeholder: "Введите вашу специальность"
+  },
+  {
+    type: "number",
+    name: "year",
+    maxRows: 2,
+    min: 1900, max: 2099,
+    label: {
+      "kz": "Год окончания",
+      "ru": "Год окончания",
+      "en": "Год окончания"
+    },
+    placeholder: "####"
+  },
+];
+const experienceForms = [
+  {
+    type: "text",
+    name: "company_name",
+    maxRows: 2,
+    label: {
+      "kz": "Компания",
+      "ru": "Компания",
+      "en": "Компания"
+    },
+    placeholder: "Название компании/организации"
+  },
+  {
+    type: "text",
+    name: "desired_job_position",
+    maxRows: 2,
+    label: {
+      "kz": "Должность",
+      "ru": "Должность",
+      "en": "Должность"
+    },
+    placeholder: "Пистолет"
+  },
+  {
+    type: "month",
+    name: "experience_start",
+    maxRows: 2,
+    label: {
+      "kz": "Начало работы",
+      "ru": "Начало работы",
+      "en": "Начало работы"
+    },
+    placeholder: "Год"
+  },
+  {
+    type: "month",
+    name: "experience_end",
+    ifNotInput: "experience_still_working",
+    maxRows: 2,
+    label: {
+      "kz": "Конец работы",
+      "ru": "Конец работы",
+      "en": "Конец работы"
+    },
+    placeholder: "Месяц"
+  },
+  {
+    type: "checkbox",
+    name: "experience_still_working",
+    label: {
+      "kz": "Я сейчас работаю",
+      "ru": "Я сейчас работаю",
+      "en": "Still working"
+    },
+    maxRows: 1,
+    placeholder: "Год"
+  },
+  {
+    type: "number",
+    name: "responsibility",
+    rows: 4,
+    multiline: true,
+    label: {
+      "kz": "Обязанности",
+      "ru": "Обязанности",
+      "en": "Обязанности"
+    },
+    placeholder: "Опишите какие задачи вы выполняли на данной должности"
+  },
+];
+const skillForms = [
+  {
+    type: "multi-select",
+    name: "skills",
+    label: {
+      "kz": "Навыки",
+      "ru": "Навыки",
+      "en": "Навыки"
+    },
+    maxRows: 1,
+    placeholder: ""
+  },
+];
+const certificateForms = [
+  {
+    type: "text",
+    name: "company_name",
+    label: {
+      "kz": "Название организация",
+      "ru": "Название организация",
+      "en": "Название организация"
+    },
+    maxRows: 2,
+    placeholder: "Например: SkillBox"
+  },
+  {
+    type: "text",
+    name: "program",
+    label: {
+      "kz": "Название программы",
+      "ru": "Название программы",
+      "en": "Название программы"
+    },
+    maxRows: 2,
+    placeholder: "Например: Python-Разработичик"
+  },
+  {
+    type: "number",
+    min: 1900, max: 2099,
+    name: "publish_year",
+    label: {
+      "kz": "Год выдачи",
+      "ru": "Год выдачи",
+      "en": "Год выдачи"
+    },
+    maxRows: 2,
+    placeholder: ""
+  },
+  {
+    type: "file",
+    name: "certificates",
+    maxRows: 1,
+    multiline: true,
+    placeholder: "Формат: pdf, png"
+  },
+];
 export const content = [
   {
     title: {
@@ -86,76 +613,7 @@ export const content = [
     name: "main",
     can_skip: true,
     reference: 0,
-    forms: [
-      {
-        type: "text",
-        name: "desired_position",
-        label: {
-          "kz": "Должность",
-          "ru": "Должность",
-          "en": "Должность"
-        },
-        placeholder: "Например: программист"
-      },
-      {
-        type: "number",
-        name: "desired_salary_amount",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Зароботная плата",
-          "ru": "Зароботная плата",
-          "en": "Зароботная плата"
-        },
-        placeholder: "Введите ваши ожидания от зарплаты"
-      },
-      {
-        type: "select",
-        name: "desired_schedule",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "График работы",
-          "ru": "График работы",
-          "en": "График работы"
-        },
-        values: [
-          {
-            value: "full",
-            label: {
-              "en": "Полная занятость",
-              "ru": "Полная занятость",
-              "kz": "Полная занятость",
-            }
-          },
-          {
-            value: "partly",
-            label: {
-              "en": "Частичная занятость",
-              "ru": "Частичная занятость",
-              "kz": "Частичная занятость",
-            },
-          },
-          {
-            value: "project",
-            label: {
-              "en": "Project Word",
-              "ru": "Проектная работа",
-              "kz": "Проектная работа",
-            }
-          },
-          {
-            value: "intern",
-            label: {
-              "en": "Internship",
-              "ru": "Стажировка",
-              "kz": "Стажировка",
-            }
-          },
-        ],
-        placeholder: ""
-      },
-    ]
+    forms: mainForms
   },
   {
     title: {
@@ -167,84 +625,7 @@ export const content = [
     name: "personal_information",
     can_skip: false,
     reference: 0,
-    forms: [
-      {
-        type: "text",
-        name: "last_name",
-        label: {
-          "kz": "Фамилия",
-          "ru": "Фамилия",
-          "en": "Фамилия"
-        },
-        placeholder: "Ваше Фамилия"
-      },
-      {
-        type: "salary_amount",
-        name: "first_name",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Имя",
-          "ru": "Имя",
-          "en": "Имя"
-        },
-        placeholder: "Ваше Имя"
-      },
-      {
-        type: "text",
-        name: "middle_name",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Отчество",
-          "ru": "Отчество",
-          "en": "Отчество"
-        },
-        placeholder: "Ваше Отчество"
-      },
-      {
-        type: "select",
-        name: "gender",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Пол",
-          "ru": "Пол",
-          "en": "Пол"
-        },
-        values: [
-          {
-            value: "male",
-            label: {
-              "en": "Мужской",
-              "ru": "Мужской",
-              "kz": "Мужской",
-            }
-          },
-          {
-            value: "female",
-            label: {
-              "en": "Женский",
-              "ru": "Женский",
-              "kz": "Женский",
-            },
-          },
-        ],
-        placeholder: ""
-      },
-      {
-        type: "date",
-        name: "date_of_birth",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Дата рождения",
-          "ru": "Дата рождения",
-          "en": "Дата рождения"
-        },
-        placeholder: ""
-      },
-    ]
+    forms: personalForms
   },
   {
     title: {
@@ -256,78 +637,7 @@ export const content = [
     name: "additional_information",
     can_skip: false,
     reference: 0,
-    forms: [
-      {
-        type: "avatar",
-        name: "avatar",
-        label: {
-          "kz": "Загрузить фотографию",
-          "ru": "Загрузить фотографию",
-          "en": "Загрузить фотографию"
-        },
-        placeholder: ""
-      },
-      {
-        type: "phone",
-        name: "phone",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Номер телефона",
-          "ru": "Номер телефона",
-          "en": "Номер телефона"
-        },
-        placeholder: "Ваше Имя"
-      },
-      {
-        type: "email",
-        name: "email",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Почта",
-          "ru": "Почта",
-          "en": "Почта"
-        },
-        placeholder: "example@mail.kz"
-      },
-      {
-        type: "text",
-        name: "telegram",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Телеграм",
-          "ru": "Телеграм",
-          "en": "Телеграм"
-        },
-        placeholder: "@username"
-      },
-      {
-        type: "text",
-        name: "address",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Адрес",
-          "ru": "Адрес",
-          "en": "Адрес"
-        },
-        placeholder: ""
-      },
-      {
-        type: "text",
-        name: "description",
-        rows: 5,
-        multiline: true,
-        label: {
-          "kz": "О себе",
-          "ru": "О себе",
-          "en": "О себе"
-        },
-        placeholder: "Опишите кратко о себе"
-      },
-    ]
+    forms: additionalForms
   },
   {
     title: {
@@ -339,72 +649,7 @@ export const content = [
     name: "education",
     can_skip: false,
     reference: 0,
-    forms: [
-      {
-        type: "select",
-        name: "major",
-        label: {
-          "kz": "Вид",
-          "ru": "Вид",
-          "en": "Вид"
-        },
-        values: [
-          {
-            value: "bachelor",
-            label: {
-              "en": "Бакалвар",
-              "ru": "Бакалвар",
-              "kz": "Бакалвар",
-            }
-          },
-          {
-            value: "master",
-            label: {
-              "en": "Магистратура",
-              "ru": "Магистратура",
-              "kz": "Магистратура",
-            },
-          },
-        ],
-        placeholder: ""
-      },
-      {
-        type: "text",
-        name: "university_name",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Название учебного заведения",
-          "ru": "Название учебного заведения",
-          "en": "Название учебного заведения"
-        },
-        placeholder: "Пистолет"
-      },
-      {
-        type: "text",
-        name: "specialization",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Специализация",
-          "ru": "Специализация",
-          "en": "Специализация"
-        },
-        placeholder: "Пистолет"
-      },
-      {
-        type: "number",
-        name: "year",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Год окончания",
-          "ru": "Год окончания",
-          "en": "Год окончания"
-        },
-        placeholder: "пистолет"
-      },
-    ]
+    forms: educationForms
   },
   {
     title: {
@@ -416,66 +661,7 @@ export const content = [
     name: "work_experience",
     can_skip: false,
     reference: 0,
-    forms: [
-      {
-        type: "text",
-        name: "company_name",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Компания",
-          "ru": "Компания",
-          "en": "Компания"
-        },
-        placeholder: "Название компании/организации"
-      },
-      {
-        type: "month",
-        name: "experience_start",
-        maxRows: 2,
-        label: {
-          "kz": "Начало работы",
-          "ru": "Начало работы",
-          "en": "Начало работы"
-        },
-        placeholder: "Год"
-      },
-      {
-        type: "month",
-        name: "experience_end",
-        maxRows: 2,
-        label: {
-          "kz": "Конец работы",
-          "ru": "Конец работы",
-          "en": "Конец работы"
-        },
-        placeholder: "Месяц"
-      },
-      {
-        type: "text",
-        name: "desired_job_position",
-        maxRows: 1,
-        multiline: true,
-        label: {
-          "kz": "Должность",
-          "ru": "Должность",
-          "en": "Должность"
-        },
-        placeholder: "Пистолет"
-      },
-      {
-        type: "number",
-        name: "responsibility",
-        rows: 4,
-        multiline: true,
-        label: {
-          "kz": "Обязанности",
-          "ru": "Обязанности",
-          "en": "Обязанности"
-        },
-        placeholder: "Опишите какие задачи вы выполняли на данной должности"
-      },
-    ]
+    forms: experienceForms
   },
   {
     title: {
@@ -487,18 +673,7 @@ export const content = [
     name: "skills_section",
     can_skip: false,
     reference: 0,
-    forms: [
-      {
-        type: "multi-select",
-        name: "skills",
-        label: {
-          "kz": "Навыки",
-          "ru": "Навыки",
-          "en": "Навыки"
-        },
-        placeholder: ""
-      },
-    ]
+    forms: skillForms
   },
   {
     title: {
@@ -510,48 +685,82 @@ export const content = [
     name: "cert",
     can_skip: false,
     reference: 0,
-    forms: [
-      {
-        type: "text",
-        name: "company_name",
-        label: {
-          "kz": "Название организация",
-          "ru": "Название организация",
-          "en": "Название организация"
-        },
-        placeholder: "Например: SkillBox"
-      },
-      {
-        type: "text",
-        name: "program",
-        label: {
-          "kz": "Программа",
-          "ru": "Программа",
-          "en": "Программа"
-        },
-        placeholder: "Например: Python-Разработичик"
-      },
-      {
-        type: "date",
-        name: "publish_year",
-        label: {
-          "kz": "Дата выдачи",
-          "ru": "Дата выдачи",
-          "en": "Дата выдачи"
-        },
-        placeholder: ""
-      },
-      {
-        type: "file",
-        name: "certificates",
-        label: {
-          "kz": "Загрузите сертификат",
-          "ru": "Загрузите сертификат",
-          "en": "Загрузите сертификат"
-        },
-        placeholder: "Формат: pdf png"
-      },
-    ]
+    forms: certificateForms
+  },
+];
+
+export const desktopContent = [
+  {
+    title: {
+      "en": "Личная информация",
+      "kz": "Личная информация",
+      "ru": "Личная информация"
+    },
+    additionalText: null,
+    name: "personal_information",
+    can_skip: false,
+    reference: 0,
+    forms: [...personalForms, ...mainForms]
+  },
+  {
+    title: {
+      "en": "Дополнительные сведения",
+      "kz": "Дополнительные сведения",
+      "ru": "Дополнительные сведения"
+    },
+    additionalText: null,
+    name: "additional_information",
+    can_skip: false,
+    reference: 0,
+    forms: additionalForms
+  },
+  {
+    title: {
+      "en": "Образование",
+      "kz": "Образование",
+      "ru": "Образование"
+    },
+    additionalText: null,
+    name: "education",
+    can_skip: false,
+    reference: 0,
+    forms: educationForms
+  },
+  {
+    title: {
+      "en": "Опыт работы",
+      "kz": "Опыт работы",
+      "ru": "Опыт работы"
+    },
+    additionalText: null,
+    name: "work_experience",
+    can_skip: false,
+    reference: 0,
+    forms: experienceForms
+  },
+  {
+    title: {
+      "en": "Навыки",
+      "kz": "Навыки",
+      "ru": "Навыки"
+    },
+    additionalText: null,
+    name: "skills_section",
+    can_skip: false,
+    reference: 0,
+    forms: skillForms
+  },
+  {
+    title: {
+      "en": "Сертификаты",
+      "kz": "Сертификаты",
+      "ru": "Сертификаты"
+    },
+    additionalText: null,
+    name: "cert",
+    can_skip: false,
+    reference: 0,
+    forms: certificateForms
   },
 ];
 export const localization = {
