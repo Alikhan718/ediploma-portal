@@ -294,7 +294,7 @@ export const dropdownItemsBottom: AppRoutesNavigation[] = [
 			"kz": 'Cауалнама өту',
 			"en": 'Take a quick survey',
 		},
-		to: routes.profile,
+		to: "",
 		role: ['student', 'employer', 'university'],
 		icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
 		verticalAlign: "",
