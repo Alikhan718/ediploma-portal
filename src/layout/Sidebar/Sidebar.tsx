@@ -310,7 +310,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                             cursor: "pointer",
                                         }}
                                              onClick={() => {
-                                                 navigate(routes.aboutUs);
+                                                window.open(`https://taplink.cc/jasaim`, '_blank');
                                              }}
 
                                         >

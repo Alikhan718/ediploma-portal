@@ -287,6 +287,21 @@ export const dropdownItemsBottom: AppRoutesNavigation[] = [
 
 		},
 	},
+    {
+		id: 109,
+		name: {
+			"ru": 'Пройти опрос',
+			"kz": 'Пройти опрос',
+			"en": 'Take a quick survey',
+		},
+		to: routes.profile,
+		role: ['student', 'employer', 'university'],
+		icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
+		verticalAlign: "",
+		function: () => {
+            window.open(`https://docs.google.com/forms/d/e/1FAIpQLSehE4IOww97d16Kn10VVv5s8Mq818ApGHIDcfLipAq-KYO8Yw/viewform?usp=pp_url`, '_blank');
+		},
+	},
 ];
 export const localization = {
 	account: {
