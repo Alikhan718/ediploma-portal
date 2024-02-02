@@ -33,6 +33,10 @@ export const Output: React.FC<OutputProps> = (props) => {
         });
     };
 
+    React.useEffect(() => {
+        setJobDescription(response.replace(/<br\s*\/?>/g, '\n'));
+    },[response]);
+
     React.useEffect(()=>{
         let endpoint:string = '';
 
@@ -124,7 +128,7 @@ export const Output: React.FC<OutputProps> = (props) => {
                 (<button
                     type="button"
                     disabled={!isDoneGenerating}
-                    onClick={(): void => {setHaveDescription(true); setJobDescription('');}}
+                    onClick={(): void => {setHaveDescription(true);}}
                     className={isDoneGenerating ? styles.continueButton : styles.disabledContinueButton}
                 >{localization[lang].Output.Buttons.search}
                 </button>):
