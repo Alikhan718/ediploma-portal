@@ -291,7 +291,7 @@ export const dropdownItemsBottom: AppRoutesNavigation[] = [
 		id: 109,
 		name: {
 			"ru": 'Пройти опрос',
-			"kz": 'Пройти опрос',
+			"kz": 'Cауалнама өту',
 			"en": 'Take a quick survey',
 		},
 		to: routes.profile,
