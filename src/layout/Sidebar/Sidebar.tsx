@@ -310,7 +310,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                             cursor: "pointer",
                                         }}
                                              onClick={() => {
-                                                window.open(`https://taplink.cc/jasaim`, '_blank');
+                                                window.open(`https://docs.google.com/forms/d/e/1FAIpQLSehE4IOww97d16Kn10VVv5s8Mq818ApGHIDcfLipAq-KYO8Yw/viewform?usp=pp_url`, '_blank');
                                              }}
 
                                         >

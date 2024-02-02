@@ -290,16 +290,16 @@ export const dropdownItemsBottom: AppRoutesNavigation[] = [
     {
 		id: 109,
 		name: {
-			"ru": 'Пройти опрос',
-			"kz": 'Cауалнама өту',
-			"en": 'Take a quick survey',
+			"ru": 'Связаться с нами',
+			"kz": 'Бізбен байланысу',
+			"en": 'Connect with us',
 		},
 		to: routes.profile,
 		role: ['student', 'employer', 'university'],
 		icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
 		verticalAlign: "",
 		function: () => {
-            window.open(`https://docs.google.com/forms/d/e/1FAIpQLSehE4IOww97d16Kn10VVv5s8Mq818ApGHIDcfLipAq-KYO8Yw/viewform?usp=pp_url`, '_blank');
+            window.open(`https://taplink.cc/jasaim`, '_blank');
 		},
 	},
 ];
@@ -310,9 +310,12 @@ export const localization = {
 		"en": "Account",
 	},
 	contactUs: {
-		"ru": "Появились вопросы?\nСвяжитесь с нами!",
-		"kz": "Сұрақтар пайда болды ма?\nБізге хабарласыңыз!",
-		"en": "Have a question?\nContact us!"
+		//"ru": "Появились вопросы?\nСвяжитесь с нами!",
+		//"kz": "Сұрақтар пайда болды ма?\nБізге хабарласыңыз!",
+		//"en": "Have a question?\nContact us!"
+        "ru": "Опрос для работодателей",
+		"kz": "Жұмысберушілер үшін сауалнама",
+		"en": "Survey for employers"
 	},
 	logout: {
 		"ru": "Вы действительно хотите выйти из профиля?",
