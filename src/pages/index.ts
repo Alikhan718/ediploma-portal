@@ -21,3 +21,4 @@ export { default as QLabPage } from './QLabPage/QLabPageContainer';
 export { default as MyDiplomasPage } from './MyDiplomasPage/MyDiplomasPageContainer';
 export { default as ResumeGeneratorPage } from './ResumeGeneratorPage/ResumeGeneratorContainer';
 export { default as SchoolPage } from './SchoolPage/SchoolPageContainer';
+export { default as SchoolDetailsPage } from './SchoolDetailsPage/SchoolDetailsPageContainer';
