@@ -20,6 +20,7 @@ export const permissions = {
     // vacancies: ['*'],
     // news: ['*'],
     // notifications: ['employer', 'student', 'university'],
+    school: ['*'],
 };
 
 export const hasPermission = (role: string, page: string | string[]): boolean => {
