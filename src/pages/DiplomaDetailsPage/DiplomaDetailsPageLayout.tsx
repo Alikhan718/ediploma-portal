@@ -60,6 +60,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     const [showFull, setShowFull] = React.useState(false);
     const navigate = useNavigate();
     const {id} = useParams();
+    const {token} = useParams<{ token: string }>();
     const dispatch = useDispatch();
     const role = useSelector(selectUserRole);
     const [isFavorite, setIsFavorite] = React.useState(false);
@@ -118,6 +119,27 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(fetchDiplomas());
+    }, []);
+
+    React.useEffect(() => {
+        if (isAuthenticated()) {
+            return;
+        }
+        if (token) {
+            try {
+                const decodedToken = atob(token);
+                const expirationTime = parseInt(decodedToken);
+
+                if (isNaN(expirationTime) || expirationTime < Date.now()) {
+                    navigate(routes.notFound);
+                    console.log("Token is expired");
+                }
+            } catch (e) {
+                navigate(routes.notFound);
+                console.log("Invalid token");
+            
+            }
+        }
     }, []);
 
 

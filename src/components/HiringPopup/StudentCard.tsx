@@ -27,7 +27,7 @@ export const StudentCard: React.FC<StudentCardProps> = (props) => {
             return;
         }
 
-        isAuthenticated() && window.open(`/diploma/${student.id}`, '_blank');
+        isAuthenticated() && window.open(`/diploma/${student.id}/1`, '_blank');
     };
 
     const initialFavDiplomas = useSelector(selectFavoriteDiplomas);

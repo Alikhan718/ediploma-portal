@@ -27,11 +27,23 @@ interface ShareButtonProps {
 
 export const ShareButton: React.FC<ShareButtonProps> = (props) => {
     const { currentUrl, lang, smartContractAddress, setAlertOpen, value, data } = props
+    const generateAccessToken = ():string => {
+        const validityDuration = 24 * 60 * 60 * 1000; // 24 hours validity
+        const expirationTime = Date.now() + validityDuration;
+        return btoa(expirationTime.toString());
+    };
 
     const copyCurrentURLToClipboard = () => {
-        const currentURL = window.location.href;
+        const accessToken = generateAccessToken();
+
+        const currentURL = new URL(window.location.href);
+        const pathnameSegments = currentURL.pathname.split('/')
+        pathnameSegments.pop();
+        pathnameSegments.push(accessToken);
+        const newURL = currentURL.origin + pathnameSegments.join('/');
+        // const currentURL = window.location.href;
         const textArea = document.createElement('textarea');
-        textArea.value = currentURL;
+        textArea.value = newURL;
         document.body.appendChild(textArea);
         textArea.select();
         document.execCommand('copy');

@@ -168,7 +168,7 @@ export const SchoolDetailsPageLayout: React.FC = () => {
             return;
         }
   
-        navigate(`/diploma/${counter}`)
+        navigate(`/diploma/${counter}/1`);
     };
   
     useEffect(() => {

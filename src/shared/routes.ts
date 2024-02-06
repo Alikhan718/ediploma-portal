@@ -6,7 +6,7 @@ export const routes: Record<string, string> = {
 	passwordReset: `/auth/password-reset`,
 	main: `${appRoot}`,
 	hrBank: `${appRoot}/hr-bank`,
-	diplomaDetails: `${appRoot}/diploma/:id`,
+	diplomaDetails: `${appRoot}/diploma/:id/:token`,
 	university: `${appRoot}/university`,
 	universityDetails: `${appRoot}/university/:id`,
  	universityProfileSecond: `${appRoot}/university/satpayev-university`,

@@ -193,7 +193,7 @@ export const UniversityDetailsPage: React.FC = () => {
         return;
     }
 
-    navigate(`/diploma/${counter}`)
+    navigate(`/diploma/${counter}/1`);
   };
 
   React.useEffect(() => {
