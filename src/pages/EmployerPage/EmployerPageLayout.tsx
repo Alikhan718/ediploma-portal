@@ -2,8 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Box, Card, CardMedia, Typography, Pagination} from '@mui/material';
 import {Button, Label, Input} from '@src/components';
 import styles from './EmployerPage.module.css';
+import {ReactComponent as SmartContractIcon} from '@src/assets/icons/smartContract_black.svg';
 import {ReactComponent as Web} from '@src/assets/icons/web_black.svg';
 import {ReactComponent as DiscordIcon} from '@src/assets/icons/discord_black.svg';
+import {ReactComponent as TwitterIcon} from '@src/assets/icons/twitter_black.svg';
+import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
 import {ReactComponent as Instagram} from '@src/assets/icons/instragram.svg';
 import {ReactComponent as Telegram} from '@src/assets/icons/telegram.svg';
 import {ReactComponent as Linkedin} from '@src/assets/icons/linkedin.svg';
@@ -20,7 +23,12 @@ import {CitiesGraph} from '@src/pages/UnivesrityDetailsPage/components/CitiesGra
 import {GenderGraph} from '@src/pages/UnivesrityDetailsPage/components/GenderGraph';
 import {CitiesGrantsGraph} from '@src/pages/UnivesrityDetailsPage/components/CitiesGrantsGraph';
 import {GrantsGraph} from '@src/pages/UnivesrityDetailsPage/components/GrantsGraph';
+import univ from './../../assets/icons/FilterUn.svg';
+import star from "./../../assets/icons/Star1.svg";
+import share from "./../../assets/icons/share.svg";
 import dots from "./../../assets/icons/Dots.svg";
+import employreImg from "@src/assets/dashboard/employerImg.png";
+import placeholdereImg from "@src/assets/dashboard/Image.jpg";
 import cn from "classnames";
 import icon from "@src/assets/icons/jasaim_icon.png";
 import {handleLink} from "@src/utils/link";
@@ -145,7 +153,7 @@ export const EmployerPageLayout: React.FC = () => {
   React.useEffect(() => {
 
     dispatch(fetchUserProfile());
-    console.log(userState);
+    console.log(userState)
   }, [!userState]);
 
   return (
@@ -162,6 +170,7 @@ export const EmployerPageLayout: React.FC = () => {
                 marginX: "1rem",
                 height: '13rem',
                 borderRadius: '20px',
+                marginBottom: '10px',
                 marginTop: '2rem',
                 display: 'flex',
                 flexDirection: 'column',
@@ -171,15 +180,15 @@ export const EmployerPageLayout: React.FC = () => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center center',
               }}>
-                {/*<Box sx={{*/}
-                {/*  marginTop: "45%",*/}
-                {/*  backgroundColor: "white",*/}
-                {/*  padding: "1.25rem",*/}
-                {/*  borderRadius: "50%",*/}
-                {/*  border: "1px solid rgb(18, 33, 74, .7)"*/}
-                {/*}}>*/}
-                {/*  <img src={icon} style={{width: "2rem"}}/>*/}
-                {/*</Box>*/}
+                <Box sx={{
+                  marginTop: "45%",
+                  backgroundColor: "white",
+                  padding: "1.25rem",
+                  borderRadius: "50%",
+                  border: "1px solid rgb(18, 33, 74, .7)"
+                }}>
+                  <img src={icon} style={{width: "2rem"}}/>
+                </Box>
               </Box>
             </Box>
             <Box display="flex" justifyContent="center" margin="2rem">
@@ -256,7 +265,6 @@ export const EmployerPageLayout: React.FC = () => {
                     <Label label={localization[lang].mainInfo.hired}/>
                   </Box>
                 </Box>
-
               </Box>
             </Box>
           </Box>
@@ -279,15 +287,15 @@ export const EmployerPageLayout: React.FC = () => {
                 }}> {userState ? userState.name : localization[lang].mainInfo.name} </Box>
                 <Box marginBottom="15px" sx={{'@media (max-width: 768px)': {display: 'none'}}}>
                   {/* <img src={star} style={{marginRight: '15px'}}/>  */}
-                  {/*<img src={share}*/}
-                  {/*     style={{*/}
-                  {/*         marginRight: '10px',*/}
-                  {/*         marginLeft: '10px',*/}
-                  {/*         width: '25px',*/}
-                  {/*         height: '25px', cursor: 'pointer'*/}
-                  {/*     }}*/}
-                  {/*     onClick={copyCurrentURLToClipboard}*/}
-                  {/*     alt="Share Icon"/>*/}
+                  <img src={share}
+                       style={{
+                         marginRight: '10px',
+                         marginLeft: '10px',
+                         width: '25px',
+                         height: '25px', cursor: 'pointer'
+                       }}
+                       onClick={copyCurrentURLToClipboard}
+                       alt="Share Icon"/>
                   {/* <img src={dots} style={{marginRight: '10px'}}/> */}
                 </Box>
                 <Box marginBottom="15px"

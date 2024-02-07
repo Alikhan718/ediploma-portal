@@ -45,7 +45,7 @@ export const DiplomaPageLayout: React.FC = () => {
             return;
         }
 
-        isAuthenticated() ? navigate(`/diploma/${counter}`) : setOpen(true);
+        isAuthenticated() ? navigate(`/diploma/${counter}/1`) : setOpen(true);
     };
 
     const diplomasPerPage: number = 8;

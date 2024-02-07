@@ -66,6 +66,18 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
         verticalAlign: "middle",
     },
     {
+        id: 110,
+        name: {
+            "ru": 'Школы',
+            "kz": 'Мектептер',
+            "en": 'Schools',
+        },
+        to: routes.school,
+        role: ['*'],
+        icon: <UniversityIcon style={{verticalAlign: "middle"}}/>,
+        verticalAlign: "middle",
+    },
+    {
         id: 104,
         name: {
             "ru": 'HR Bank',
@@ -139,6 +151,18 @@ export const headerNavigations: AppRoutesNavigation[] = [
 		icon: <UniversityIcon style={{ verticalAlign: "middle" }} />,
 		verticalAlign: '',
 	},
+    {
+        id: 110,
+        name: {
+            "ru": 'Школы',
+            "kz": 'Мектептер',
+            "en": 'Schools',
+        },
+        to: routes.school,
+        role: ['*'],
+        icon: <Avatar style={{ verticalAlign: "middle" }} />,
+        verticalAlign: '',
+    },
 	{
 		id: 106,
 		name: {
