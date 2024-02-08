@@ -12,4 +12,5 @@ export const selectSmartContractLink = (state: RootState) => state.auth.smartCon
 
 export const selectUserState = (state: RootState) => state.auth.userState;
 export const selectUniversitiesList = (state: RootState) => state.auth.universitiesList;
+export const selectEmployersList = (state: RootState) => state.auth.employersList;
 export const selectImageLink = (state: RootState) => state.auth.image_link;

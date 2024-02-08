@@ -110,6 +110,9 @@ export const authApi = {
     getUniversitiesList(){
         return instance.get(`/users/universities/get`);
     },
+    getEmployersList(){
+        return instance.get(`/users/employers/get`);
+    },
     putVisibility(body: { visibility: boolean }) {
         return instance.put(`/users/visibility`, body);
     }

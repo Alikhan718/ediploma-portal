@@ -163,6 +163,18 @@ export const headerNavigations: AppRoutesNavigation[] = [
         icon: <Avatar style={{ verticalAlign: "middle" }} />,
         verticalAlign: '',
     },
+    {
+        id: 111,
+        name: {
+            "ru": 'Работадатели',
+            "kz": 'Жұмысберушілер',
+            "en": 'Employers',
+        },
+        to: routes.employersList,
+        role: ['*'],
+        icon: <Avatar style={{ verticalAlign: "middle" }} />,
+        verticalAlign: '',
+    },
 	{
 		id: 106,
 		name: {
