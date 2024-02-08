@@ -33,8 +33,8 @@ export const EmployersListPageLayout: React.FC = () => {
             >
                 {employersList.map((employer: any) => (
                     <Grid
-                        key={employer.id} item xs={12} sm={5.9} md={5.9}
-                        lg={5.9}
+                        key={employer.id} item xs={12} sm={2.9} md={2.9}
+                        lg={2.9}
                         onClick={() => {
                             navigate(`/employer/${employer.id}`);
                         }}
