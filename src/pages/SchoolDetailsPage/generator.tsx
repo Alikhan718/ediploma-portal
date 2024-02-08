@@ -682,6 +682,7 @@ export const schools = {
         student_amount: '-',
         average_gpa: '-',
         highlighting_amount: '-',
+        university_id: 4,
     },
     2: {
         id: 2,
@@ -701,5 +702,6 @@ export const schools = {
         student_amount: '-',
         average_gpa: '-',
         highlighting_amount: '-',
+        university_id: 5,
     }
 }

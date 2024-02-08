@@ -172,6 +172,15 @@ export const SchoolDetailsPageLayout: React.FC = () => {
   
         navigate(`/diploma/${counter}/1`);
     };
+
+    useEffect(() => {
+      if (school && school.university_id){
+        dispatch(fetchDiplomas({university_id: school.university_id}));
+        return;
+      }    
+  
+      dispatch(fetchDiplomas({university_id: -1}));
+    }, [totalDiplomas, school]);
   
     useEffect(() => {
         const handleScroll = () => {
