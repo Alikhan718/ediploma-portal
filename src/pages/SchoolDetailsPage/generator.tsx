@@ -662,3 +662,44 @@ export const localization = {
         }
     },
 };
+
+export const schools = {
+    1: {
+        id: 1,
+        banner: "",
+        name: {
+            'kz': 'НЗМ IB',
+            'ru': 'НИШ IB',
+            'en': 'NIS IB'
+        },
+        description: {
+            'kz': 'Астана қаласандағы Назарбаев зияткерлік мектебі халықаралық бакалавриат бағдарламаларын қолдана отырып, дарынды студенттерге білім беру мүмкіндіктерін ұсынатын және зияткерлік қоғамдастықты, мәдениетаралық түсінушілікті және өмір бойы оқуды бағалай білуді дамыту міндеті болып табылатын халықаралық мектеп. Қоғамдастық ретінде біз оқу бағдарламалары мен қосымша білім беру курстары негізінде жоғары сапалы оқыту мен оқытуды; ұлттық және жеке құндылықтарды тәрбиелеу арқылы оқушылардың әл-ауқаты мен қауіпсіздігіне қамқорлық жасауды қамтамасыз етеміз.',
+            'ru': 'Назарбаев Интеллектуальная школа города Астана является международной школой, которая предоставляет образовательные возможности  одаренным учащимся, используя программы Международного бакалавриата, и чью миссию мы разделяем через развитие интеллектуального сообщества, межкультурного понимания и умения ценить обучение в течение всей жизни. Как сообщество мы обеспечиваем преподавание и обучение высокого качества на основе учебных программ и курсов дополнительного образования, заботу о благосостоянии  и безопасности  учащихся через воспитание национальных и личных ценностей.',
+            'en': 'Nazarbayev Intellectual School of Astana is an international school that provides educational opportunities for gifted students through International Baccalaureate programmes and whose mission is to develop intellectual community, intercultural understanding and the value of lifelong learning. As a community, we provide learning and teaching of high quality (HQTL) through curriculum and further education courses. We care for the welfare and safety of students through the cultivation of national and personal values.'
+        },
+        phone: '8 (7172) 55 80 33',
+        graduate_amount: '-',
+        student_amount: '-',
+        average_gpa: '-',
+        highlighting_amount: '-',
+    },
+    2: {
+        id: 2,
+        banner: "",
+        name: {
+            'kz': 'Мирас',
+            'ru': 'Мирас',
+            'en': 'Miras',
+        },
+        description: {
+            'kz': '«Мирас» мектебі 1999 жылы есігін айқара ашты және халықаралық бакалавриат бағдарламасының барлық деңгейлеріне рұқсат етілген және Халықаралық мектептер кеңесі (ТМД) аккредитациясынан өткен Қазақстан астанасындағы алғашқы ресми танылған халықаралық мектеп болды. Қазақстан Республикасы Үкіметінің 2012 жылғы 28 ақпандағы No267 қаулысына сәйкес мектепке елімізде алғаш рет халықаралық мектеп мәртебесі ресми түрде берілді. 1999-2014 жылдар аралығында мектеп Қазақстан Республикасы Білім және ғылым министрлігінің тәжірибелік алаңы болды. Эксперименттік жұмыстың нәтижелері Қазақстандағы мектеп білімін жаңарту бағдарламасының негізін құрады. Мектепте 2 мен 18 жас аралығындағы балаларға арналған бірегей интеграцияланған білім беру бағдарламалары әзірленіп, сәтті жүзеге асырылуда.',
+            'ru': 'Школа “Мираc ” открыла свои двери в 1999 году и стала первой официально признанной международной школой в столице Казахстана, авторизованной по всем ступеням программы Международного Бакалавриата (International Baccalaureate) и аккредитованной Советом международных школ (CIS). В соответствии с Постановлением Правительства Республики Казахстан № 267 от 28 февраля 2012 года за школой впервые в стране был официально закреплён статус международной школы. В период с 1999 по 2014 годы школа являлась экспериментальной площадкой Министерства образования и науки Республики Казахстан.   Результаты экспериментальной работы были положены в основу программы обновления школьного образования в Казахстане. Школой разработаны и успешно реализуются уникальные интегрированные образовательные программы  для детей в возрасте от 2 до 18 лет',
+            'en': 'The Miras School opened its doors in 1999 and became the first officially recognized international school in the capital of Kazakhstan, authorized for all levels of the International Baccalaureate program and accredited by the Council of International Schools (CIS). In accordance with Decree of the Government of the Republic of Kazakhstan No. 267 dated February 28, 2012, the school was officially assigned the status of an international school for the first time in the country. In the period from 1999 to 2014, the school was an experimental site of the Ministry of Education and Science of the Republic of Kazakhstan. The results of the experimental work formed the basis of a program for updating school education in Kazakhstan. The school has developed and successfully implemented unique integrated educational programs for children aged 2 to 18 years'
+        },
+        phone: '8 (717)2 36 98 67',
+        graduate_amount: '-',
+        student_amount: '-',
+        average_gpa: '-',
+        highlighting_amount: '-',
+    }
+}
