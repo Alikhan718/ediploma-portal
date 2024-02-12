@@ -89,7 +89,7 @@ interface DropdownItem {
 
 export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
     const lang = useSelector(selectLanguage);
-    const role = useSelector(selectUserRole);
+    const role = useSelector(selectUserRole).toLowerCase()
 
     const location = useLocation();
     const {open, toggleDrawer} = props;
@@ -205,7 +205,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                         )}
 
                                     </Box>
-                                    <Box display="flex" height="100%" justifyContent="space-between"
+                                    <Box display="flex" height="100%" justifyContent="start"
                                          flexDirection="column"
                                          sx={{marginY: "auto", padding: '10px', paddingBottom: "0"}}>
                                         <Typography sx={{
@@ -300,7 +300,7 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
                                             width: '100%',
                                             borderRadius: '20px',
                                             marginTop: 'auto',
-                                            display: 'flex',
+                                            display: role === 'employer' ? 'flex' : 'none',
                                             flexDirection: 'column',
                                             justifyContent: 'flex-end',
                                             alignItems: 'center',
