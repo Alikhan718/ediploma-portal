@@ -25,10 +25,10 @@ const NotFoundPageLayout: React.FC = () => {
 			</Box>
 			<Box sx={{ marginTop: '1rem' }}>
 				<Button variant="outlined" onClick={() => {
-					navigate(routes.main);
+					navigate('/');
 				}} sx={{ marginRight: '6rem', borderRadius: '2rem' }}>Вернуться назад</Button>
 				<Button variant="contained" onClick={() => {
-					navigate(routes.main);
+					navigate('/');
 				}} sx={{ borderRadius: '2rem', width: '18%' }}>На главную</Button>
 			</Box>
 		</Container >

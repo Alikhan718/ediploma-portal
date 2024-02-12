@@ -22,3 +22,4 @@ export { default as MyDiplomasPage } from './MyDiplomasPage/MyDiplomasPageContai
 export { default as ResumeGeneratorPage } from './ResumeGeneratorPage/ResumeGeneratorContainer';
 export { default as SchoolPage } from './SchoolPage/SchoolPageContainer';
 export { default as SchoolDetailsPage } from './SchoolDetailsPage/SchoolDetailsPageContainer';
+export { default as EmployersListPage } from './EmployersListPage/EmployersListPageContainer';

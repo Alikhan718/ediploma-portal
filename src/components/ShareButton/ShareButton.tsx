@@ -51,6 +51,17 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
         setAlertOpen(true);
     };
 
+    const getURL = () => {
+        const accessToken = generateAccessToken();
+
+        const currentURL = new URL(window.location.href);
+        const pathnameSegments = currentURL.pathname.split('/')
+        pathnameSegments.pop();
+        pathnameSegments.push(accessToken);
+        const newURL = currentURL.origin + pathnameSegments.join('/');
+        return newURL;
+    };
+
     const linkedinUrl = {
         1 : `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&issueMonth=7&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
         2 : `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
@@ -107,7 +118,7 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                 </Box>
                 <Box>
                     <TelegramShareButton 
-                        url={currentUrl}
+                        url={getURL()}
                         title={localization[lang].tgTitle}
                     >
                         <TelegramIcon size={32} round />
@@ -115,7 +126,7 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                 </Box>
                 <Box>
                     <WhatsappShareButton 
-                        url={currentUrl}
+                        url={getURL()}
                         title={localization[lang].wpTitle}
                     >
                         <WhatsappIcon size={32} round />
