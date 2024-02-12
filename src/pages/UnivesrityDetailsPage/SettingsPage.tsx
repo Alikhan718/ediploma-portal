@@ -390,7 +390,7 @@ const SettingsPage: React.FC = () => {
                   paddingTop: '20px',
                   marginTop: '20px',
                   paddingBottom: "1rem",
-                  display: 'flex',
+                  display: item.name === 'privacy' && role !== 'student' ? "none" : "flex",
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
                   width: '55vw', maxWidth: '100%',

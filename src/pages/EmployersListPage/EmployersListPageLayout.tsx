@@ -28,8 +28,10 @@ export const EmployersListPageLayout: React.FC = () => {
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer}
             pt='2rem'>
             <EmployerListPageHeader/>
-            <Grid container display="flex" rowSpacing={1} columnSpacing={1} flexWrap="wrap" 
-                justifyContent="space-between" className={styles.schoolContainer} width='100%'
+            <Grid container display="flex" rowSpacing={2} columnSpacing={1} flexWrap="wrap" 
+                sx={{margin: "0 !important"}}
+                justifyContent="start" className={styles.schoolContainer} width='100%'
+                
             >
                 {employersList.map((employer: any) => (
                     <Grid
@@ -47,7 +49,7 @@ export const EmployersListPageLayout: React.FC = () => {
                             marginBottom: "1.5rem", backgroundColor: 'white',
                             paddingTop: ".5rem !important",
                             paddingX: ".5rem !important",
-
+                            marginRight: "0.5rem",
                         }}
                     >
                         <CardMedia
