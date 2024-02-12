@@ -13,6 +13,7 @@ import {
     GET_PROFILE_DATA, POST_UPDATE_PROFILE_DATA, POST_UPLOAD_FILE,
     GET_UNIVERSITY_LIST,
     PUT_VISIBILITY,
+    GET_EMPLOYERS_LIST
 } from "./types/actionTypes";
 
 const initialState = {
@@ -29,6 +30,7 @@ const initialState = {
     image_link: null,
     universitiesList: [],
     visibility: null,
+    employersList: [],
 };
 export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
@@ -245,6 +247,15 @@ export const authReducer = (state = initialState, action: any) => {
                 ...state,
                 universitiesList: action.payload
             };
+        case GET_EMPLOYERS_LIST.saga:
+                return {
+                    ...state,
+                };
+        case GET_EMPLOYERS_LIST.success:
+                return {
+                    ...state,
+                    employersList: action.payload
+                };
         case PUT_VISIBILITY.saga:
             return {
                 ...state,

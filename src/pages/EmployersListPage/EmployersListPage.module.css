@@ -1,0 +1,15 @@
+.mainContainer {
+	padding: 0 9%;
+	display: flex;
+	flex-direction: column;
+}
+
+.schoolContainer {
+	border-radius: 2rem;
+}
+
+@media only screen and (max-width: 768px) {
+	.schoolImg {
+		width: 100% !important;
+	}
+}

@@ -28,7 +28,7 @@ import {fetchUniversitiesList} from '@src/store/auth/actionCreators';
 import cn from "classnames";
 import {selectUniversitiesList, selectUserRole} from '@src/store/auth/selector';
 import {selectLanguage} from "@src/store/generals/selectors";
-import {localization} from "@src/pages/SchoolDetailsPage/generator";
+import {localization, schools} from "@src/pages/SchoolDetailsPage/generator";
 import {FilterSection} from "@src/layout/Filter/FilterSection";
 import {FilterAttributes} from "@src/layout/Header/Header";
 import ReactGA from 'react-ga';
@@ -99,7 +99,7 @@ export const SchoolDetailsPageLayout: React.FC = () => {
     const endIndex = startIndex + diplomasPerPage;
     const currentDiplomaPage = diplomaList.slice(startIndex, endIndex);
     
-    const school = {
+    const schoolSample = {
         id: 1,
         banner: "",
         name: "NIS",
@@ -110,6 +110,8 @@ export const SchoolDetailsPageLayout: React.FC = () => {
         average_gpa: 3.5,
         description: "Nazarbayev Intellectual School of Physics and Mathematics in Almaty is a school that provides a high level of education. The school is located in Almaty, Kazakhstan. Nazarbayev Intellectual School of Physics and Mathematics in Almaty is a school that provides a high level of education. The school is located in Almaty, Kazakhstan",
     };
+
+    const school = schools[Number(id) as keyof typeof schools] || schoolSample;
   
     const handleText = (text: string): string => {
       const matchesSm = useMediaQuery('(max-width:768px)');
@@ -170,6 +172,15 @@ export const SchoolDetailsPageLayout: React.FC = () => {
   
         navigate(`/diploma/${counter}/1`);
     };
+
+    useEffect(() => {
+      if (school && school.university_id){
+        dispatch(fetchDiplomas({university_id: school.university_id}));
+        return;
+      }    
+  
+      dispatch(fetchDiplomas({university_id: -1}));
+    }, [totalDiplomas, school]);
   
     useEffect(() => {
         const handleScroll = () => {
@@ -193,7 +204,7 @@ export const SchoolDetailsPageLayout: React.FC = () => {
               <Box display='flex' flexDirection='row'>
     
                 <Box display='flex' flexDirection='column' sx={{borderRadius: '15px',}}>
-                  <SchoolDetailsHeader banner={school ? school.banner : ""}/>
+                  <SchoolDetailsHeader school={school ? school : null}/>
                   <Box>
                     <Box
                       display="flex"
@@ -224,7 +235,7 @@ export const SchoolDetailsPageLayout: React.FC = () => {
                         }}
                       >
                         {/* {localization[lang].MainCard.uniNames} */}
-                        {school ? school.name : ""}
+                        {school ? school.name[lang] : ""}
                       </Typography>
                       <Box marginBottom="25px" sx={{
                         flexDirection: 'row',
@@ -312,7 +323,7 @@ export const SchoolDetailsPageLayout: React.FC = () => {
                           paddingBottom: '10px'
                         }}> {localization[lang].MainCard.mainInfo} </Box>
                         <Typography className={styles.textSm} color="#818181">
-                          {handleText(school ? school.description : "")}
+                          {handleText(school ? school.description[lang as keyof typeof school.description] : "")}
                         </Typography>
                         <Typography style={{cursor: "pointer"}} className={styles.textSm} fontWeight='600' color='#629BF8'
                                     sx={{paddingBottom: '20px'}}

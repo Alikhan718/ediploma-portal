@@ -14,6 +14,7 @@ import {
     POST_UPLOAD_FILE,
     GET_UNIVERSITY_LIST,
     PUT_VISIBILITY,
+    GET_EMPLOYERS_LIST
 } from "./types/actionTypes";
 
 export const fetchLoginRequest = (payload: any) => ({
@@ -87,4 +88,8 @@ export const fetchUniversitiesList = () => ({
 export const fetchVisibility = (payload: any) => ({
     type: PUT_VISIBILITY.saga,
     payload
+});
+
+export const fetchEmployersList = () => ({
+    type: GET_EMPLOYERS_LIST.saga
 });

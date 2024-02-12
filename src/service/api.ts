@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {data} from "browserslist";
 
-const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
-// const baseURL = 'http://localhost:8080';
+// const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+const baseURL = 'http://localhost:8080';
 const generatorURL = process.env.REACT_APP_GENERATOR_API_BASE_URL;
 
 const instance = axios.create({
@@ -109,6 +109,9 @@ export const authApi = {
     },
     getUniversitiesList(){
         return instance.get(`/users/universities/get`);
+    },
+    getEmployersList(){
+        return instance.get(`/users/employers/get`);
     },
     putVisibility(body: { visibility: boolean }) {
         return instance.put(`/users/visibility`, body);

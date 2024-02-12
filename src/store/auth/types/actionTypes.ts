@@ -16,3 +16,4 @@ export const POST_GENERATE_SMART_CONTRACT = new ActionType("POST_GENERATE_SMART_
 export const POST_UPLOAD_FILE = new ActionType("POST_UPLOAD_FILE");
 export const GET_UNIVERSITY_LIST = new ActionType("GET_UNIVERSITY_LIST");
 export const PUT_VISIBILITY = new ActionType("PUT_VISIBILITY");
+export const GET_EMPLOYERS_LIST = new ActionType("GET_EMPLOYERS_LIST");

@@ -16,6 +16,7 @@ import {
     POST_UPLOAD_FILE,
     GET_UNIVERSITY_LIST,
     PUT_VISIBILITY,
+    GET_EMPLOYERS_LIST
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
@@ -185,6 +186,16 @@ export function* fetchUniversitiesList() {
     }
 }
 
+export function* fetchEmployersList(){
+    try {
+        const {data} = yield call(authApi.getEmployersList);
+        yield put({type: GET_EMPLOYERS_LIST.success, payload: data});
+    } catch (e) {
+        yield put({type: GET_EMPLOYERS_LIST.error});
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+    }
+}
+
 export function* fetchVisibility(action: any) {
     try {
         const {data} = yield call(authApi.putVisibility, action.payload);
@@ -210,5 +221,6 @@ export function* authSagas() {
     yield takeLatest(POST_GENERATE_SMART_CONTRACT.saga, fetchGenerateSmartContract);
     yield takeLatest(POST_UPLOAD_FILE.saga, uploadFileRequest);
     yield takeLatest(GET_UNIVERSITY_LIST.saga, fetchUniversitiesList);
+    yield takeLatest(GET_EMPLOYERS_LIST.saga, fetchEmployersList);
     yield takeLatest(PUT_VISIBILITY.saga, fetchVisibility);
 }
