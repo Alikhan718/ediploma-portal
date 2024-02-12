@@ -1,7 +1,7 @@
 import React, {useState, useRef, RefObject} from 'react';
 import {
   Box, Container, Typography, FormControlLabel, Switch,
-  Grid, SwitchProps, styled, SelectChangeEvent
+  Grid, SwitchProps, styled, SelectChangeEvent, FormControl, MenuItem, Select
 } from '@mui/material';
 import {Button, Input, Label} from '@src/components';
 import icon from "@src/assets/icons/Logo (2).svg";
