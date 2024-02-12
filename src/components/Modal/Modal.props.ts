@@ -5,6 +5,7 @@ export interface ModalProps {
 	handleClose: () => void;
 	children?: React.ReactNode;
 	maxWidth?: string,
+	maxHeight?: string,
 	width?: string
 	marginLeft?: string,
 	marginRight?: string,
