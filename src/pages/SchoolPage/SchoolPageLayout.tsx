@@ -4,6 +4,7 @@ import { SchoolPageHeader } from "@src/pages/SchoolPage/components/SchoolPageHea
 import styles from "./SchoolPage.module.css";
 import { useNavigate } from 'react-router-dom';
 import exampleImage from "@src/assets/example/schoolExample.jpeg";
+import mirasImage from "@src/assets/example/miras.jpg";
 
 export const SchoolPageLayout: React.FC = () => {
     const navigate = useNavigate();
@@ -54,7 +55,7 @@ export const SchoolPageLayout: React.FC = () => {
                                 width: "100%",
                                 borderRadius: "10px",
                             }}
-                            image={school.banner ? `${baseURL}/${school.banner}` : exampleImage}
+                            image={school.id == 1 ? exampleImage : mirasImage }
                             alt={school.name ? `${school.name}` : "School image"}
                         />
                         <Box sx={{display: 'flex', flexDirection: 'column', width: "100%"}}>

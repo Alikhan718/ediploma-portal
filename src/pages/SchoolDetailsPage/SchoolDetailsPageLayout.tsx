@@ -204,7 +204,7 @@ export const SchoolDetailsPageLayout: React.FC = () => {
               <Box display='flex' flexDirection='row'>
     
                 <Box display='flex' flexDirection='column' sx={{borderRadius: '15px',}}>
-                  <SchoolDetailsHeader banner={school ? school.banner : ""}/>
+                  <SchoolDetailsHeader school={school ? school : null}/>
                   <Box>
                     <Box
                       display="flex"

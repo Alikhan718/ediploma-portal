@@ -214,6 +214,21 @@ export const content = {
         },
         {
             title: {
+                "en": "Field of activity",
+                "kz": "Қызмет аясы",
+                "ru": "Сфера деятельности"
+            },
+            additionalText: {
+                "en": "Choose your field of activity",
+                "kz": "Қызмет саласынызды таңдаңыз",
+                "ru": "Выберите свою сферу деятельности"
+            },
+            name: "field",
+            reference: 3,
+            forms: [],
+        },
+        {
+            title: {
                 "en": "Social networks",
                 "kz": "Әлеуметтік желілер",
                 "ru": "Социальные сети"
@@ -662,3 +677,81 @@ export const localization = {
         }
     },
 };
+
+export const fields = {
+    "en":[
+        { "id": 1, "name": "Automotive industry" },
+        { "id": 2, "name": "Hospitality and catering" },
+        { "id": 3, "name": "Public sector" },
+        { "id": 4, "name": "Natural resources and energy" },
+        { "id": 5, "name": "Utilities" },
+        { "id": 6, "name": "Technology and IT" },
+        { "id": 7, "name": "Culture and art" },
+        { "id": 8, "name": "Forestry and wood processing industry" },
+        { "id": 9, "name": "Healthcare and pharmaceuticals" },
+        { "id": 10, "name": "Metallurgy and metalworking" },
+        { "id": 11, "name": "Education" },
+        { "id": 12, "name": "Logistics and transport" },
+        { "id": 13, "name": "Food industry" },
+        { "id": 14, "name": "Industrial equipment and mechanical engineering" },
+        { "id": 15, "name": "Retail trade and services" },
+        { "id": 16, "name": "Agriculture" },
+        { "id": 17, "name": "Marketing, media and advertising" },
+        { "id": 18, "name": "Construction and real estate" },
+        { "id": 19, "name": "Telecommunications and communications" },
+        { "id": 20, "name": "Consumer goods" },
+        { "id": 21, "name": "Asset management and business services" },
+        { "id": 22, "name": "Financial sector" },
+        { "id": 23, "name": "Chemical industry" }
+    ],
+    "kz":[
+        { "id": 1, "name": "Автомобиль өнеркәсібі" },
+        { "id": 2, "name": "Қонақжайлылық және қоғамдық тамақтандыру" },
+        { "id": 3, "name": "Мемлекеттік сектор" },
+        { "id": 4, "name": "Табиғи ресурстар және энергия" },
+        { "id": 5, "name": "Утилиталар" },
+        { "id": 6, "name": "Технология және АТ" },
+        { "id": 7, "name": "Мәдениет және өнер" },
+        { "id": 8, "name": "Орман және ағаш өңдеу өнеркәсібі" },
+        { "id": 9, "name": "Денсаулық сақтау және фармацевтика" },
+        { "id": 10, "name": "Металлургия және металл өңдеу" },
+        { "id": 11, "name": "Білім" },
+        { "id": 12, "name": "Логистика және көлік" },
+        { "id": 13, "name": "Тамақ өнеркәсібі" },
+        { "id": 14, "name": "Өнеркәсіптік жабдық және машина жасау" },
+        { "id": 15, "name": "Бөлшек сауда және қызмет көрсету" },
+        { "id": 16, "name": "Ауыл шаруашылығы" },
+        { "id": 17, "name": "Маркетинг, БАҚ және жарнама" },
+        { "id": 18, "name": "Құрылыс және жылжымайтын мүлік" },
+        { "id": 19, "name": "Телекоммуникация және байланыс" },
+        { "id": 20, "name": "Тұтыну тауарлары" },
+        { "id": 21, "name": "Активтерді басқару және бизнес қызметтері" },
+        { "id": 22, "name": "Қаржы секторы" },
+        { "id": 23, "name": "Химия өнеркәсібі" }
+    ],
+    "ru":[
+        { "id": 1, "name": "Автомобильная индустрия" },
+        { "id": 2, "name": "Гостеприимство и общественное питание" },
+        { "id": 3, "name": "Государственный сектор" },
+        { "id": 4, "name": "Природные ресурсы и энергетика" },
+        { "id": 5, "name": "Коммунальные услуги" },
+        { "id": 6, "name": "Технологии и IT" },
+        { "id": 7, "name": "Культура и искусство" },
+        { "id": 8, "name": "Лесная и деревообрабатывающая промышленность" },
+        { "id": 9, "name": "Здравоохранение и фармацевтика" },
+        { "id": 10, "name": "Металлургия и металлообработка" },
+        { "id": 11, "name": "Образование" },
+        { "id": 12, "name": "Логистика и транспорт" },
+        { "id": 13, "name": "Пищевая промышленность" },
+        { "id": 14, "name": "Промышленное оборудование и машиностроение" },
+        { "id": 15, "name": "Розничная торговля и услуги" },
+        { "id": 16, "name": "Сельское хозяйство" },
+        { "id": 17, "name": "Маркетинг, СМИ и реклама" },
+        { "id": 18, "name": "Строительство и недвижимость" },
+        { "id": 19, "name": "Телекоммуникации и связь" },
+        { "id": 20, "name": "Товары народного потребления" },
+        { "id": 21, "name": "Управление активами и бизнес-услуги" },
+        { "id": 22, "name": "Финансовый сектор" },
+        { "id": 23, "name": "Химическая промышленность" }
+    ],
+}
