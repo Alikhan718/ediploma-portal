@@ -1,7 +1,7 @@
 import React, {useState, useRef, RefObject} from 'react';
 import {
   Box, Container, Typography, FormControlLabel, FormControl, Switch, Select, MenuItem, InputLabel,
-  FormHelperText, Grid, SwitchProps, styled
+  FormHelperText, Grid, SwitchProps, styled, SelectChangeEvent
 } from '@mui/material';
 import {Button, Input, Label} from '@src/components';
 import web from "@src/assets/icons/Website.svg";
@@ -21,7 +21,7 @@ import {
   fetchUserProfile,
   fetchVisibility,
 } from "@src/store/auth/actionCreators";
-import {content, navigation} from "@src/pages/UnivesrityDetailsPage/generator";
+import {content, navigation, fields} from "@src/pages/UnivesrityDetailsPage/generator";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {uploadDataParse} from "@src/store/generator/actionCreators";
 
@@ -53,6 +53,10 @@ const SettingsPage: React.FC = () => {
   const imageLink = useSelector(selectImageLink);
 
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [selectedField, setSelectedField] = useState<string>('');
+	const [field, setField] = React.useState('');
+  const translatedFields = fields[lang];
+
   const handleChooseFileClick = (type = "banner") => {
     if (type === "banner") {
       if (fileInputRef.current) {
@@ -157,6 +161,19 @@ const SettingsPage: React.FC = () => {
     uploadGalleryImage(galleryImages.filter(v => v !== val));
   };
 
+  const handleDropdownChange = (e: any, arr: any, setE: any, type: string) => {
+		setE(arr.includes(e) ? arr.filter((i: any) => i != e) : [e]);
+		if (!arr.includes(e)){
+			// filter(type, [e]);
+		}
+		else{
+			// filter(type, []);
+		}
+	};
+
+  const handleFieldChange = (event: SelectChangeEvent) => {
+		setField(event.target.value as string);
+	};
 
   React.useEffect(() => {
     setRequiredForm(content[role]);
@@ -416,6 +433,32 @@ const SettingsPage: React.FC = () => {
                       label=""
                     />
                   </Box>
+                </Box>
+                <Box marginBottom='1rem'>
+                  <FormControl fullWidth >
+                      <Select
+                        sx={{borderRadius: "2rem"}}
+                        value={field}
+                        onChange={handleFieldChange}
+                        displayEmpty
+                        inputProps={{ 'aria-label': 'Without label' }}
+                      >
+                        <MenuItem value="" onClick={() => {handleDropdownChange('', selectedField, setSelectedField, "field");}}>
+                          <em>None</em>
+                        </MenuItem>
+                        {translatedFields.slice(0,5).map((field) => (
+                          <MenuItem 
+                            key={field.id} 
+                            value={field.name}
+                            onClick={() => {
+                              handleDropdownChange(field.name, selectedField, setSelectedField, "field");
+                            }}
+                          >
+                            {field.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+									</FormControl>
                 </Box>
                 <Grid
                   container
