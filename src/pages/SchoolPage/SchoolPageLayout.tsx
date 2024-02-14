@@ -54,6 +54,7 @@ export const SchoolPageLayout: React.FC = () => {
                             sx={{
                                 width: "100%",
                                 borderRadius: "10px",
+                                height: "20rem"
                             }}
                             image={school.id == 1 ? exampleImage : mirasImage }
                             alt={school.name ? `${school.name}` : "School image"}

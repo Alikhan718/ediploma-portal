@@ -166,7 +166,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
     {
         id: 111,
         name: {
-            "ru": 'Работадатели',
+            "ru": 'Работодатели',
             "kz": 'Жұмысберушілер',
             "en": 'Employers',
         },

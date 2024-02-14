@@ -125,6 +125,7 @@ const SettingsPage: React.FC = () => {
 
   const handleSubmit = () => {
     const payload = {"attributes": state};
+    console.log(payload);
     dispatch(fetchUpdateUserProfile(payload));
   };
   const getGridSize = (elType: string, index: number) => {
@@ -166,6 +167,10 @@ const SettingsPage: React.FC = () => {
 
   const handleFieldChange = (event: SelectChangeEvent) => {
 		setField(event.target.value as string);
+
+    setState({...state, ['field']: event.target.value});
+    const payload = {"attributes": {...state, ['field']: event.target.value}};
+    dispatch(fetchUpdateUserProfile(payload));
 	};
 
   React.useEffect(() => {
@@ -400,7 +405,7 @@ const SettingsPage: React.FC = () => {
                   paddingTop: '20px',
                   marginTop: '20px',
                   paddingBottom: "1rem",
-                  display: item.name === 'privacy' && role !== 'student' ? "none" : "flex",
+                  display: item.name === 'field' && role !== 'employer' ? "none" : item.name === 'privacy' && role !== 'student' ? "none" : "flex",
                   flexDirection: 'column',
                   justifyContent: 'flex-start',
                   width: '55vw', maxWidth: '100%',
@@ -418,7 +423,7 @@ const SettingsPage: React.FC = () => {
                     fontSize: '16px',
                     paddingBottom: '15px'
                   }}>
-                    {(item.additionalText ? item.additionalText[lang] : "") + " " + (userState[item.name] ? userState[item.name] : "")}
+                    {(item.additionalText ? item.additionalText[lang] : "") + " " + (userState[item.name] && item.name !== 'field' ? userState[item.name] : "")}
                   </Typography>
                   <Box display={role === 'student' && item.name === 'privacy' ? "block" : "none"}>
                     <FormControlLabel
@@ -427,7 +432,7 @@ const SettingsPage: React.FC = () => {
                     />
                   </Box>
                 </Box>
-                <Box marginBottom='1rem'>
+                <Box marginBottom='1rem' display={role === 'employer' && item.name === 'field' ? "block" : "none"}>
                   <FormControl fullWidth >
                       <Select
                         sx={{borderRadius: "2rem"}}
@@ -436,8 +441,8 @@ const SettingsPage: React.FC = () => {
                         displayEmpty
                         inputProps={{ 'aria-label': 'Without label' }}
                       >
-                        <MenuItem value="" onClick={() => {handleDropdownChange('', selectedField, setSelectedField, "field");}}>
-                          <em>None</em>
+                        <MenuItem value="" onClick={() => {handleChange}}>
+                          {userState[item.name]}
                         </MenuItem>
                         {translatedFields.slice(0,5).map((field) => (
                           <MenuItem

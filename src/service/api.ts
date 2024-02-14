@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {data} from "browserslist";
 
+// const baseURL = 'http://localhost:8080';
 const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 const generatorURL = process.env.REACT_APP_GENERATOR_API_BASE_URL;
 

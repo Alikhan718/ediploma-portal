@@ -57,6 +57,7 @@ export const EmployersListPageLayout: React.FC = () => {
                             className={styles.schoolImg}
                             sx={{
                                 width: "100%",
+                                height: "10rem",
                                 borderRadius: "10px",
                             }}
                             image={employer.avatar ? `${baseURL}/${employer.avatar}` : exampleImage}
@@ -73,6 +74,9 @@ export const EmployersListPageLayout: React.FC = () => {
                                     },
                                 }}>
                                     {employer.name}
+                                </Typography>
+                                <Typography fontSize="1rem" mt="0" color="#818181" className={styles.mobTextSm}>
+                                    {employer.field ? employer.field : ""}
                                 </Typography>
                             </CardContent>
                         </Box>
