@@ -16,7 +16,8 @@ import {
     POST_UPLOAD_FILE,
     GET_UNIVERSITY_LIST,
     PUT_VISIBILITY,
-    GET_EMPLOYERS_LIST
+    GET_EMPLOYERS_LIST,
+    GET_EMPLOYERS_SEARCH,
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
@@ -205,6 +206,34 @@ export function* fetchVisibility(action: any) {
     }
 }
 
+export function* fetchEmployersSearchRequest(action: any) {
+    try {
+        if (!action.payload
+            && !action.payload.text
+            && !action.payload.field) {
+            return;
+        }
+
+        const {data} = yield call(authApi.getEmployersSearch, action.payload);
+
+        yield put({type: GET_EMPLOYERS_LIST.saga});
+        let names = <any>[];
+        data.forEach((person: any) => {
+            names.push(person.name);
+        });
+
+        yield put({type: GET_EMPLOYERS_SEARCH.success, names});
+        if (names.length === 0) {
+            yield put(setSnackbar({visible: true, message: "Ничего не найдено", status: "info"}));
+        } else {
+            yield put(setSnackbar({visible: true, message: "Поиск выполнен!", status: "success"}));
+        }
+    } catch (error) {
+        yield put(setSnackbar({visible: true, message: getRequestError(error), status: "error"}));
+        yield put({type: GET_EMPLOYERS_SEARCH.error});
+    }
+}
+
 export function* authSagas() {
     yield takeLatest(POST_AUTH_LOGIN.saga, fetchAuthLogin);
     yield takeLatest(POST_AUTH_REGISTER.saga, fetchAuthRegister);
@@ -223,4 +252,5 @@ export function* authSagas() {
     yield takeLatest(GET_UNIVERSITY_LIST.saga, fetchUniversitiesList);
     yield takeLatest(GET_EMPLOYERS_LIST.saga, fetchEmployersList);
     yield takeLatest(PUT_VISIBILITY.saga, fetchVisibility);
+    yield takeLatest(GET_EMPLOYERS_SEARCH.saga, fetchEmployersSearchRequest);
 }

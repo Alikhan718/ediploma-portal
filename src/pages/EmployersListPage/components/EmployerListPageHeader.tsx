@@ -1,43 +1,37 @@
 import React from 'react';
 import { Box, Typography } from "@mui/material";
 import styles from "../EmployersListPage.module.css";
+import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
 import cn from "classnames";
 import { ReactComponent as SearchIcon } from '@src/assets/icons/search-icon.svg';
 import { useNavigate } from "react-router-dom";
 import { Button, Input, Modal } from '@src/components';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSearch } from "@src/store/diplomas/actionCreators";
 import { routes } from "@src/shared/routes";
 import ReactGA from 'react-ga';
+import {EmployerFilterAttributes} from "@src/layout/Header/Header";
 import { selectSearchText } from "@src/store/diplomas/selectors";
-import { FilterAttributes } from "@src/layout/Header/Header";
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/pages/EmployersListPage/generator';
+import { EmployerFilter } from '@src/layout/EmployerFilter/EmployerFilter';
+import { fetchEmployersSearch } from '@src/store/auth/actionCreators';
 
 export const EmployerListPageHeader: React.FC = (props) => {
 
 	const lang = useSelector(selectLanguage);
 	const searchText = useSelector(selectSearchText);
 	const navigate = useNavigate();
-
-	const [filterAttributes, setFilterAttributes] = React.useState<FilterAttributes>({
-		text: searchText,
-		specialities: '',
-		region: '',
-		degree: '',
-		year: 0,
-		gpaL: 0,
-		gpaR: 0,
-	});
-
 	const dispatch = useDispatch();
 
-	const triggerSearchFilters = () => {
-		dispatch(fetchSearch(filterAttributes));
-		navigate(routes.hrBank);
+	const [showFilter, setShowFilter] = React.useState(false);
+	const [searchQuery, setSearchQuery] = React.useState('');
+	const [filterAttributes, setFilterAttributes] = React.useState<EmployerFilterAttributes>({field: '', text: ''});
+
+	const triggerSearchFilters = (filterAttributesNew: any) => {
+		dispatch(fetchEmployersSearch(filterAttributesNew));
+		navigate(routes.employersList);
 	};
 
-	const [searchQuery, setSearchQuery] = React.useState('');
 	return (
 		<React.Fragment>
 			<Box width='100%' mb='1rem' className={cn(styles.mobMb1, styles.universitiesContainer)} mt="2rem">
@@ -55,7 +49,18 @@ export const EmployerListPageHeader: React.FC = (props) => {
 							width: '100%',
 						}}>
 							<Box display="flex" width="100%" flexWrap="wrap" flexDirection="row" gap="1rem"
-								alignItems="center">
+								alignItems="center"
+							>
+								<Button
+									onClick={() => {
+										setShowFilter(true);
+									}}
+									variant="outlined"
+									sx={{borderRadius: '48px', paddingX: "3rem", color: '#3B82F6',}}
+									startIcon={<Filter/>}
+                            	>
+                                	{localization[lang].Header.filter}
+                            	</Button>
 								<Box display="flex" gap="1rem" ml="auto" alignContent="flex-end">
 								</Box>
 								<Box display="flex">
@@ -69,7 +74,7 @@ export const EmployerListPageHeader: React.FC = (props) => {
 										endAdornment={
 											<Button
 												onClick={() => {
-													triggerSearchFilters();
+													triggerSearchFilters(filterAttributes);
 													ReactGA.event({
 														category: 'User',
 														action: 'Search',
@@ -105,6 +110,13 @@ export const EmployerListPageHeader: React.FC = (props) => {
 					</Box>
 				</Box>
 			</Box>
+			<EmployerFilter
+                triggerSearchFilters={triggerSearchFilters}
+                filterAttributes={filterAttributes}
+                setFilterAttributes={setFilterAttributes}
+                open={showFilter}
+                setOpen={setShowFilter}
+            />
 		</React.Fragment>
 	);
 };

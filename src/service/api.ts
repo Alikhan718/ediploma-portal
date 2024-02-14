@@ -115,6 +115,13 @@ export const authApi = {
     },
     putVisibility(body: { visibility: boolean }) {
         return instance.put(`/users/visibility`, body);
+    },
+    getEmployersSearch(body: { field: string, text: string }) {
+        let query = `/users/employers/search?`;
+        if (body.field != "") {
+            query += `field=${body.field}&`;
+        }
+        return instance.get(query);
     }
 };
 

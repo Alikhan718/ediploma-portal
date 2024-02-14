@@ -95,6 +95,11 @@ export interface FilterAttributes {
     ratingR?: number;
 }
 
+export interface EmployerFilterAttributes {
+    field?: string,
+    text?: string,
+}
+
 const AppHeader: React.FC<HeaderProps> = (props) => {
     // const [showFilter, setShowFilter] = React.useState(false);
     const lang = useSelector(selectLanguage);

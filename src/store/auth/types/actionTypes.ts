@@ -17,3 +17,5 @@ export const POST_UPLOAD_FILE = new ActionType("POST_UPLOAD_FILE");
 export const GET_UNIVERSITY_LIST = new ActionType("GET_UNIVERSITY_LIST");
 export const PUT_VISIBILITY = new ActionType("PUT_VISIBILITY");
 export const GET_EMPLOYERS_LIST = new ActionType("GET_EMPLOYERS_LIST");
+export const GET_EMPLOYERS_SEARCH = new ActionType("GET_EMPLOYERS_SEARCH");
+export const CANCEL_EMPLOYERS_FILTER = new ActionType("CANCEL_EMPLOYERS_FILTER");

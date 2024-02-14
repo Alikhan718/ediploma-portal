@@ -13,10 +13,32 @@ import {
     GET_PROFILE_DATA, POST_UPDATE_PROFILE_DATA, POST_UPLOAD_FILE,
     GET_UNIVERSITY_LIST,
     PUT_VISIBILITY,
-    GET_EMPLOYERS_LIST
+    GET_EMPLOYERS_LIST,
+    GET_EMPLOYERS_SEARCH,
+    CANCEL_EMPLOYERS_FILTER,
 } from "./types/actionTypes";
 
-const initialState = {
+interface AuthInterface {
+    userRole: string,
+    otpSent: boolean,
+    isLoading: boolean,
+    signed: boolean,
+    ipfsLink: string,
+    smartContractLink: string,
+    redirectToLogin: boolean,
+    forgotStep: number,
+    registrationStep: number,
+    userState: any,
+    image_link: string | null,
+    universitiesList: any[],
+    visibility: any,
+    employersList: any[],
+    field: string,
+    filtered_names: string[],
+    text: string,
+};
+
+const initialState: AuthInterface = {
     userRole: localStorage.getItem("userRole") ?? "Guest",
     otpSent: false,
     isLoading: false,
@@ -31,7 +53,11 @@ const initialState = {
     universitiesList: [],
     visibility: null,
     employersList: [],
+    field: "",
+    filtered_names: [],
+    text: "",
 };
+
 export const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case POST_UPLOAD_FILE.saga:
@@ -248,14 +274,21 @@ export const authReducer = (state = initialState, action: any) => {
                 universitiesList: action.payload
             };
         case GET_EMPLOYERS_LIST.saga:
-                return {
-                    ...state,
-                };
+            return {
+                ...state,
+            };
         case GET_EMPLOYERS_LIST.success:
-                return {
-                    ...state,
-                    employersList: action.payload
-                };
+            let temp_employers = [];
+            if (state.filtered_names.length) {
+                temp_employers = action.payload.filter((employer: any) => state.filtered_names.includes(employer.name));
+            } else {
+                temp_employers = action.payload;
+            }
+            return {
+                ...state,
+                employersList: temp_employers,
+                filtered_names: state.filtered_names,
+            };
         case PUT_VISIBILITY.saga:
             return {
                 ...state,
@@ -265,6 +298,22 @@ export const authReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 visibility: action.payload.visibility,
+            };
+        case GET_EMPLOYERS_SEARCH.saga:
+            return {
+                ...state,
+                text: action.payload ? action.payload.text : '',
+                field: action.payload ? action.payload.field: '',
+            };
+        case GET_EMPLOYERS_SEARCH.success:
+            return {
+                ...state,
+                filtered_names: action.names,
+            };
+        case CANCEL_EMPLOYERS_FILTER.saga:
+            return {
+                ...state,
+                filtered_names: []
             };
         default:
             return state;

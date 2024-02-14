@@ -14,7 +14,9 @@ import {
     POST_UPLOAD_FILE,
     GET_UNIVERSITY_LIST,
     PUT_VISIBILITY,
-    GET_EMPLOYERS_LIST
+    GET_EMPLOYERS_LIST,
+    GET_EMPLOYERS_SEARCH,
+    CANCEL_EMPLOYERS_FILTER,
 } from "./types/actionTypes";
 
 export const fetchLoginRequest = (payload: any) => ({
@@ -90,6 +92,13 @@ export const fetchVisibility = (payload: any) => ({
     payload
 });
 
-export const fetchEmployersList = () => ({
-    type: GET_EMPLOYERS_LIST.saga
+export const fetchEmployersList = (payload:any = null) => ({
+    type: GET_EMPLOYERS_LIST.saga,
+    payload
+});
+
+export const fetchEmployersSearch = (payload: any) => ({type: GET_EMPLOYERS_SEARCH.saga, payload});
+
+export const cancelEmployerFilters = () => ({
+    type: CANCEL_EMPLOYERS_FILTER.saga
 });
