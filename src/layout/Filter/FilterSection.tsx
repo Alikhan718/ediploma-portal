@@ -166,6 +166,16 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 		setUniversity(event.target.value as string);
 	};
 
+	const ITEM_HEIGHT = 48;
+	const ITEM_PADDING_TOP = 8;
+	const MenuProps = {
+		PaperProps: {
+			style: {
+				maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+			},
+		},
+	};
+
 	return (
 		<>
 			<Box id='centeredBox'
@@ -245,6 +255,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 										sx={{borderRadius: "2rem"}}
 										displayEmpty
 										inputProps={{ 'aria-label': 'Without label' }}
+										MenuProps={MenuProps}
 									>
 										<MenuItem 
 											value="" 
@@ -254,7 +265,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 										>
 											<em>None</em>
 										</MenuItem>
-										{translatedSpecialities.slice(0,5).map((speciality) => (
+										{translatedSpecialities.map((speciality) => (
 											<MenuItem 
 												key={speciality.id} 
 												value={speciality.name}
@@ -320,11 +331,12 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 											onChange={handleRegionChange}
 											displayEmpty
 											inputProps={{ 'aria-label': 'Without label' }}
+											MenuProps={MenuProps}
 										>
 											<MenuItem value="" onClick={() => {handleChange('', selectedRegions, setSelectedRegions, "region");}}>
 												<em>None</em>
 											</MenuItem>
-											{translatedRegions.slice(0,5).map((region) => (
+											{translatedRegions.map((region) => (
 												<MenuItem 
 													key={region.id} 
 													value={region.name}

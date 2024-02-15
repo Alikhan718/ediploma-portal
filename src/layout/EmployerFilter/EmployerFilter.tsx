@@ -15,7 +15,16 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
     const dispatch = useDispatch()
     const lang = useSelector(selectLanguage);
     const translatedFields = fields[lang];
-
+	const ITEM_HEIGHT = 48;
+	const ITEM_PADDING_TOP = 8;
+	const MenuProps = {
+		PaperProps: {
+			style: {
+				maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+			},
+		},
+	};
+	
     const [field, setField] = React.useState("");
     const [selectedField, setSelectedField] = React.useState([]);
 
@@ -111,6 +120,7 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 										sx={{borderRadius: "2rem"}}
 										displayEmpty
 										inputProps={{ 'aria-label': 'Without label' }}
+										MenuProps={MenuProps}
 									>
 										<MenuItem 
 											value="" 
@@ -120,7 +130,7 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 										>
 											<em>None</em>
 										</MenuItem>
-										{translatedFields.slice(0,5).map((field) => (
+										{translatedFields.map((field) => (
 											<MenuItem 
 												key={field.id} 
 												value={field.name}
