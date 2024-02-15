@@ -152,6 +152,7 @@ export const diplomasApi = {
         gpaR: number,
         ratingL: number,
         ratingR: number,
+        university_id: number,
     }) {
         let query = `graduates/search?`;
         if (body.text != "") {
@@ -168,6 +169,9 @@ export const diplomasApi = {
         }
         if (body.year != 0) {
             query += `year=${body.year}&`;
+        }
+        if (body.university_id != 0) {
+            query += `university_id=${body.university_id}&`;
         }
         if (body.gpaL != 1 || body.gpaR != 4) {
             if (body.gpaL != 0) {
