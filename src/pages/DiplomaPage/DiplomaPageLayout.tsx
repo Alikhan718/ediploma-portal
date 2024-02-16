@@ -148,32 +148,36 @@ export const DiplomaPageLayout: React.FC = () => {
                                       animation="wave"/>
 
 
-                            <Box sx={{display: 'flex', flexDirection: 'row', width: "100%"}}>
+                            <Box sx={{display: 'flex', flexDirection: 'row', width: "100%", height: "100%"}}>
                                 <CardContent
                                     key={e.id + "content"}
-                                    sx={{flex: '1', display: "flex", flexDirection: "column", width: "100%"}}>
-                                    <Box display='flex' justifyContent='space-between' alignItems='center'>
+                                    sx={{flex: '1', display: "flex", flexDirection: "column", width: "100%", justifyContent:"space-between"}}>
+                                    <Box>
+                                        <Box display='flex' justifyContent='space-between' alignItems='center'>
 
-                                        <Typography sx={{fontWeight: '600', fontSize: '16px'}}>{unis[lang][e.university_id]}</Typography>
-                                        <Typography fontSize="1rem" color="#818181">
-                                            {e.year}
+                                            <Typography sx={{fontWeight: '600', fontSize: '16px'}}>{unis[lang][e.university_id]}</Typography>
+                                            <Typography fontSize="1rem" color="#818181">
+                                                {e.year}
+                                            </Typography>
+                                        </Box>
+                                        <Typography mb='.5rem' mt='0.5rem' fontSize="1.25rem" className={styles.mobText}
+                                                    fontWeight="600">
+                                            {e.name_ru}
                                         </Typography>
                                     </Box>
-                                    <Typography mb='.5rem' mt='0.5rem' fontSize="1.25rem" className={styles.mobText}
-                                                fontWeight="600">
-                                        {e.name_ru}
-                                    </Typography>
-                                    <Typography fontSize=".8rem" mt="0" color="#818181" className={styles.mobTextSm}>
-                                        {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
-                                    </Typography>
-                                    {
-                                        e && e.rating != 0.0 ? (
-                                            <Box display="flex" marginTop="0.5rem" alignItems="center">
-                                                { e && <RatingDisplay academicRating={Number(e.rating)} /> }
-                                                <Box marginLeft='0.5rem'>{ e && e.rating }</Box>
-                                            </Box>
-                                        ): (<></>) 
-                                    }
+                                    <Box>
+                                        <Typography fontSize=".8rem" mt="0" color="#818181" className={styles.mobTextSm}>
+                                            {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
+                                        </Typography>
+                                        {
+                                            e && e.rating != 0.0 ? (
+                                                <Box display="flex" marginTop="0.5rem" alignItems="center">
+                                                    { e && <RatingDisplay academicRating={Number(e.rating)} /> }
+                                                    <Box marginLeft='0.5rem'>{ e && e.rating }</Box>
+                                                </Box>
+                                            ): (<></>) 
+                                        }
+                                    </Box>
                                     {/* <Box display='flex' mt='auto' width='100%'> */}
                                     {/* <Typography fontSize="0.875rem" mr='auto'>
 										</Typography> */}
