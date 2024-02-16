@@ -5,6 +5,7 @@ import { Output } from './Output';
 import { useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/components/HiringPopup/Generator';
+import { selectUserRole } from '@src/store/auth/selector';
 
 interface JobDescriptionGeneratorProps {
     setHaveDescription:any;
@@ -16,6 +17,8 @@ interface JobDescriptionGeneratorProps {
 
 export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (props) => {
     const lang = useSelector(selectLanguage);
+    const role = useSelector(selectUserRole).toLowerCase();
+
     const {setHaveDescription, setIsClicked, setJobDescription, setIsDataAlert, showAlert} = props;
     const [selectedRadio, setSelectedRadio] = React.useState('');
     const [response, setResponse] = React.useState('');
@@ -124,7 +127,8 @@ export const JobDescriptionGenerator: React.FC<JobDescriptionGeneratorProps> = (
                     }}
                 />
                 <div className={styles.buttonContainer}>
-                    <button 
+                    <button
+                        hidden={role==='employer'}
                         type="button" 
                         onClick={(): void => {setIsClicked(true); setIsDataAlert(false);}} 
                         className={styles.continueButton}

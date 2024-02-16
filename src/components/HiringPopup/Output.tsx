@@ -4,6 +4,7 @@ import { CircularProgress } from '@mui/material';
 import { useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/components/HiringPopup/Generator';
+import { set } from 'react-ga';
 
 interface OutputProps{
     response:string;
@@ -34,7 +35,8 @@ export const Output: React.FC<OutputProps> = (props) => {
     };
 
     React.useEffect(() => {
-        setJobDescription(response.replace(/<br\s*\/?>/g, '\n'));
+        if (setJobDescription)
+            setJobDescription(response.replace(/<br\s*\/?>/g, '\n'));
     },[response]);
 
     React.useEffect(()=>{

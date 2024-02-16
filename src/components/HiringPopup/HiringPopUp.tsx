@@ -7,6 +7,7 @@ import Alert from '@mui/material/Alert';
 import { useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/components/HiringPopup/Generator';
+import { selectUserRole } from '@src/store/auth/selector';
 
 interface HiringPopUpProps {
 	setShowPopup:any;
@@ -14,8 +15,10 @@ interface HiringPopUpProps {
 
 export const HiringPopUp: React.FC<HiringPopUpProps>= (props) => {
     const lang = useSelector(selectLanguage);
+    const role = useSelector(selectUserRole).toLowerCase();
+    
     const {setShowPopup} = props;
-    const [isStudent, setIsStudent] = React.useState(true);
+    const [isStudent, setIsStudent] = React.useState(role === 'student');
     const [isClicked, setIsClicked] = React.useState(true);
     const [isDataAlert, setIsDataAlert] = React.useState(false);
     const [alertText, setAlertText] = React.useState(localization[lang].Alert.addData);
@@ -36,7 +39,7 @@ export const HiringPopUp: React.FC<HiringPopUpProps>= (props) => {
                     </svg>
                     <span className={styles.srOnly}>Close modal</span>
                 </button>
-                {isClicked? 
+                {role === 'university' && isClicked? 
                     (<StudentOrRecruiter setIsStudent={setIsStudent} setIsClicked={setIsClicked}/>):
                     (
                         <div>

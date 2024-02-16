@@ -6,6 +6,7 @@ import { Output } from './Output';
 import { useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/components/HiringPopup/Generator';
+import { selectUserRole } from '@src/store/auth/selector';
 
 interface CareerPlanGeneratorProps{
     setIsClicked: any;
@@ -15,6 +16,8 @@ interface CareerPlanGeneratorProps{
 
 export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) => {
     const lang = useSelector(selectLanguage);
+    const role = useSelector(selectUserRole).toLowerCase();
+
     const {setIsClicked, setIsDataAlert, showAlert} = props;
     const [formData, setFormData] = React.useState({
         major: '',
@@ -218,7 +221,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
                     </label>
                 </div>
                 <div className={styles.buttonContainer}>
-                    <button type="button" onClick={(): void =>{setIsClicked(true); setIsDataAlert(false);}} className={styles.continueButton}>{localization[lang].CareerPlan.Buttons.back}</button>
+                    <button hidden={role==="student"} type="button" onClick={(): void =>{setIsClicked(true); setIsDataAlert(false);}} className={styles.continueButton}>{localization[lang].CareerPlan.Buttons.back}</button>
                     <button type="button" onClick={handleSubmit} className={styles.continueButton}>{localization[lang].CareerPlan.Buttons.continue}</button>
                 </div>
             </div>
