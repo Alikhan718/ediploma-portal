@@ -32,6 +32,33 @@ export const navigation = [
     reference: 2,
     icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
   },
+  {
+    title: {
+      "en": "Privacy",
+      "ru": 'Конфиденциальность',
+      "kz": 'Құпиялылық'
+    },
+    reference: 3,
+    icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+  },
+  {
+    title: {
+      "en": "Field of activity",
+      "ru": 'Сфера деятельности',
+      "kz": 'Қызмет аясы'
+    },
+    reference: 4,
+    icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+  },
+  {
+    title: {
+      "en": "Social networks",
+      "ru": 'Социальные сети',
+      "kz": 'Әлеуметтік желілер'
+    },
+    reference: 5,
+    icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+  },
 ];
 
 const validateEmail = (email: string) => {
@@ -223,7 +250,7 @@ export const content = {
         "ru": "Выберите свою сферу деятельности"
       },
       name: "field",
-      reference: 3,
+      reference: 4,
       forms: [],
     },
     {
@@ -234,7 +261,7 @@ export const content = {
       },
       additionalText: null,
       name: "socials",
-      reference: 2,
+      reference: 5,
       forms: socialForms
     }
   ],

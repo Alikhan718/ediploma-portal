@@ -26,8 +26,9 @@ const SettingsPage: React.FC = () => {
   const mainInfoContainerRef = useRef<HTMLDivElement | null>(null);
   const emailBoxRef: RefObject<HTMLDivElement> = useRef(null);
   const passwordBoxRef: RefObject<HTMLDivElement> = useRef(null);
-  const deleteAccountBoxRef: RefObject<HTMLDivElement> = useRef(null);
-  const notificationBoxRef: RefObject<HTMLDivElement> = useRef(null);
+  const privacyBoxRef: RefObject<HTMLDivElement> = useRef(null);
+  const fieldBoxRef: RefObject<HTMLDivElement> = useRef(null);
+  const socialBoxRef: RefObject<HTMLDivElement> = useRef(null);
 
   type ContentKey = keyof typeof content;
 
@@ -110,9 +111,11 @@ const SettingsPage: React.FC = () => {
       case 2:
         return passwordBoxRef;
       case 3:
-        return deleteAccountBoxRef;
+        return privacyBoxRef;
       case 4:
-        return notificationBoxRef;
+        return fieldBoxRef;
+      case 5:
+        return socialBoxRef;
       default:
         return mainInfoContainerRef;
     }
@@ -280,6 +283,25 @@ const SettingsPage: React.FC = () => {
     dispatch(fetchVisibility({visibility: event.target.checked}));
   }
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      if (scrollTop > 90) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <Box
       display="flex"
@@ -290,6 +312,8 @@ const SettingsPage: React.FC = () => {
       }}>
 
       <Container sx={{
+        top: isScrolled ? '1rem' : '7rem',
+        position: isScrolled ? 'fixed' :'absolute',
         paddingLeft: '60px',
         margin: 'unset',
         width: 'unset',
@@ -303,7 +327,7 @@ const SettingsPage: React.FC = () => {
               width={265}
               bgcolor="white"
               borderRadius={5}
-              boxShadow={2}
+              // boxShadow={2}
               sx={{
                 display: 'flex',
                 paddingX: '1rem',
@@ -316,7 +340,9 @@ const SettingsPage: React.FC = () => {
                 <Box
                   key={index}
                   sx={{
-                    display: 'flex',
+                    display: item.title.ru === "Конфиденциальность" && role !== 'student' || 
+                              item.title.ru === "Сфера деятельности" && role !== 'employer' ? 
+                              "none" : "flex",
                     alignItems: 'center',
                     marginBottom: '0.5rem',
                     cursor: 'pointer',
@@ -339,7 +365,7 @@ const SettingsPage: React.FC = () => {
           </Grid>
         </Grid>
       </Container>
-      <Box display="flex" flexDirection="column">
+      <Box display="flex" flexDirection="column" marginLeft="19rem">
         <Container sx={{
           borderRadius: '30px',
           maxWidth: '100vw',
