@@ -23,3 +23,4 @@ export { default as ResumeGeneratorPage } from './ResumeGeneratorPage/ResumeGene
 export { default as SchoolPage } from './SchoolPage/SchoolPageContainer';
 export { default as SchoolDetailsPage } from './SchoolDetailsPage/SchoolDetailsPageContainer';
 export { default as EmployersListPage } from './EmployersListPage/EmployersListPageContainer';
+export { default as EmployerDetailsPage } from './EmployerDetailsPage/EmployerDetailsPageContainer';

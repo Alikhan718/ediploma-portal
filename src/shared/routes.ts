@@ -38,4 +38,5 @@ export const routes: Record<string, string> = {
 	school: `${appRoot}/school`,
 	schoolDetails: `${appRoot}/school/:id`,
 	employersList: `${appRoot}/employer`,
+	employerDetails: `${appRoot}/employer/:id`,
 };
