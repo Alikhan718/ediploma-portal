@@ -74,15 +74,31 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                 <img src={exampleImage} alt="employer" 
                     style={{ width: '100%', height: '25rem', objectFit: 'cover'}}/>
             </Box>
-            <Box width='100%' display='flex' 
-                flexDirection='column' padding='1rem' 
-                sx={{backgroundColor: 'white'}} 
-            >
-                <Box paddingY='0.5rem' paddingX='1rem'>
-                    <img src={icon} alt="icon" style={{position:"absolute", top:"27rem"}}/>
+            <Box width='100%' display='flex' flexDirection='column' padding='1rem' 
+                sx={{backgroundColor: 'white',
+                    '@media (max-width: 778px)': {
+                        padding: '0rem'
+                    },
+            }}>
+                <Box paddingY='0.5rem' paddingX='1rem' sx={{ position:"absolute", top:"26rem",
+                        '@media (max-width: 778px)': {
+                            top:"21rem",
+                        },}}
+                >
+                    <img src={icon} alt="icon" style={{}}/>
                 </Box>
-                <Box display='flex' padding='1rem' justifyContent='space-between' alignItems="flex-start">
-                    <Box>
+                <Box display='flex' padding='1rem' justifyContent='space-between' alignItems="flex-start"
+                    sx={{
+                        '@media (max-width: 778px)': {
+                            flexDirection: 'column',
+                            justifyContent: 'space-around',
+                        },}}
+                >
+                    <Box sx={{
+                        '@media (max-width: 778px)': {
+                            marginBottom: '1.5rem'
+                        },
+                    }}>
                         <Box display="flex" alignItems='center'>
                             <Typography
                                 fontWeight='600'
@@ -105,15 +121,23 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                             justifyItems='center' padding='0.1rem' 
                             sx={{backgroundColor:"#EBF2FE", borderRadius:'1rem'}}
                         >
-                            <Typography sx={{fontSize: '14px', color: '#3B82F6'}}>
+                            <Typography sx={{fontSize: '14px', color: '#3B82F6',
+                                    '@media (max-width: 778px)': {
+                                        fontSize: '12px',
+                                    },
+                            }}>
                                 {"Сфера деятельности"}
                             </Typography>
                         </Box>
                     </Box>
-                    <Box display="flex" alignItems="center">
+                    <Box display="flex" alignItems="center" sx={{}}>
                         <Box display='flex' justifyContent="center" 
                             alignItems='center' padding='0.5rem' marginX='0.5rem'
-                            sx={{backgroundColor: '#F4F7FE', borderRadius: '50%'}}
+                            sx={{backgroundColor: '#F4F7FE', borderRadius: '50%',
+                                '@media (max-width: 778px)': {
+                                    marginX:'0rem',
+                                    mr: '0.5rem'
+                                }}}
                         >
                             <Mail/>
                         </Box>
@@ -157,8 +181,20 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                     >
                         {"Данные организации"}
                     </Typography>
-                    <Box display="flex" justifyContent="space-between" alignItems="flex-end">
-                        <Box>
+                    <Box display="flex" justifyContent="space-between" alignItems="flex-end"
+                        sx={{
+                            '@media (max-width: 778px)': {
+                                flexDirection: 'column',
+                                justifyContent: 'space-around',
+                                alignItems: 'flex-start',
+                            },
+                        }}
+                    >
+                        <Box sx={{
+                            '@media (max-width: 778px)': {
+                                marginBottom: '1rem'
+                            },
+                        }}>
                             {Object.keys(employerData).map((key: any, index) => {
                                 if (data[key as keyof typeof data]){
                                     return (
@@ -185,6 +221,11 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                                         <Box key={index} 
                                             display='flex' flexDirection='column'
                                             justifyContent='center' marginX='0.5rem'
+                                            sx={{
+                                                '@media (max-width: 778px)': {
+                                                    marginX:'0rem',
+                                                    mr: '0.5rem'
+                                            },}}
                                         >
                                             <Typography>
                                                 <span style={{ fontWeight: '600', fontSize: "16px"}}>
@@ -203,7 +244,11 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                         </Box>
                     </Box>
                 </Box>
-                <Box padding='1rem' width="50%">
+                <Box padding='1rem' width="50%" sx={{
+                    '@media (max-width: 778px)': {
+                        width: '100%'
+                    },
+                }}>
                     <Typography
                         fontWeight='600'
                         sx={{paddingBottom: '14px', fontSize: '24px',
