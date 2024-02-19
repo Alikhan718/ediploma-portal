@@ -820,10 +820,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                         display: "block",
                                       }}
                                     >
-                                      {ibfields[key] && <span style={{
+                                      {/* {ibfields[key] && <span style={{
                                         color: "#818181",
                                         fontSize: "16px"
-                                      }}>{ibfields[key][lang] ?? fieldLocalizations[key][lang]}:</span>}{" "}
+                                      }}>{ibfields[key][lang] ?? fieldLocalizations[key][lang]}:</span>}{" "} */}
+                                      {<span style={{
+                                        color: "#818181",
+                                        fontSize: "16px"
+                                      }}>{fieldLocalizations[key][lang]}:</span>}{" "}
                                       <span style={{
                                         fontWeight: '600',
                                         fontSize: "16px"
@@ -852,10 +856,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           : null}
                         <Box display='flex'>
                           <Typography>
-                                                        <span style={{
-                                                          color: "#818181",
-                                                          fontSize: "16px"
-                                                        }}>{localization[lang].StudentPage.MainInfo.rating}</span>
+                            <span style={{
+                              color: "#818181",
+                              fontSize: "16px"
+                            }}>{localization[lang].StudentPage.MainInfo.rating}</span>
                           </Typography>
                           <Box display="flex" marginLeft="0.5rem" marginTop="0.25rem">
                             {graduateAttributes.rating &&
