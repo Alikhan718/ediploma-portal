@@ -2,6 +2,9 @@ import React from "react";
 
 import {ReactComponent as PasswordIcon} from "@src/assets/icons/Password.svg";
 import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
+import {ReactComponent as SocialIcon} from "@src/assets/icons/socialmedia.svg";
+import {ReactComponent as FieldIcon} from "@src/assets/icons/field.svg";
+import {ReactComponent as PrivacyIcon} from "@src/assets/icons/privacy.svg";
 
 export const navigation = [
 
@@ -39,7 +42,7 @@ export const navigation = [
       "kz": 'Құпиялылық'
     },
     reference: 3,
-    icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    icon: <PrivacyIcon color="primary" style={{marginRight: '0.5rem'}}/>
   },
   {
     title: {
@@ -48,7 +51,7 @@ export const navigation = [
       "kz": 'Қызмет аясы'
     },
     reference: 4,
-    icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    icon: <FieldIcon color="primary" style={{marginRight: '0.5rem'}}/>
   },
   {
     title: {
@@ -57,7 +60,7 @@ export const navigation = [
       "kz": 'Әлеуметтік желілер'
     },
     reference: 5,
-    icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    icon: <SocialIcon color="primary" style={{marginRight: '0.5rem'}}/>
   },
 ];
 
