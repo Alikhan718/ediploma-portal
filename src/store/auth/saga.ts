@@ -18,6 +18,7 @@ import {
     PUT_VISIBILITY,
     GET_EMPLOYERS_LIST,
     GET_EMPLOYERS_SEARCH,
+    GET_EMPLOYER_DETAILS,
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
@@ -234,6 +235,15 @@ export function* fetchEmployersSearchRequest(action: any) {
     }
 }
 
+export function* fetchGraduateDetailsRequest(action: any) {
+    yield call(handleResponseBase, {
+        type: GET_EMPLOYER_DETAILS,
+        apiCall: authApi.getEmployerDetails,
+        action:action,
+        ignoreError: true
+    });
+};
+
 export function* authSagas() {
     yield takeLatest(POST_AUTH_LOGIN.saga, fetchAuthLogin);
     yield takeLatest(POST_AUTH_REGISTER.saga, fetchAuthRegister);
@@ -253,4 +263,5 @@ export function* authSagas() {
     yield takeLatest(GET_EMPLOYERS_LIST.saga, fetchEmployersList);
     yield takeLatest(PUT_VISIBILITY.saga, fetchVisibility);
     yield takeLatest(GET_EMPLOYERS_SEARCH.saga, fetchEmployersSearchRequest);
+    yield takeLatest(GET_EMPLOYER_DETAILS.saga, fetchGraduateDetailsRequest);
 }

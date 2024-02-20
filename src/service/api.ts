@@ -122,6 +122,9 @@ export const authApi = {
             query += `field=${body.field}&`;
         }
         return instance.get(query);
+    },
+    getEmployerDetails(id:any) {
+        return instance.get(`/users/employers/${id.id}`);
     }
 };
 

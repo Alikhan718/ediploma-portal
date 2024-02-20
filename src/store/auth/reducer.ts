@@ -16,6 +16,7 @@ import {
     GET_EMPLOYERS_LIST,
     GET_EMPLOYERS_SEARCH,
     CANCEL_EMPLOYERS_FILTER,
+    GET_EMPLOYER_DETAILS,
 } from "./types/actionTypes";
 
 interface AuthInterface {
@@ -36,6 +37,7 @@ interface AuthInterface {
     field: string,
     filtered_names: string[],
     text: string,
+    employerDetails: any,
 };
 
 const initialState: AuthInterface = {
@@ -56,6 +58,7 @@ const initialState: AuthInterface = {
     field: "",
     filtered_names: [],
     text: "",
+    employerDetails: {},
 };
 
 export const authReducer = (state = initialState, action: any) => {
@@ -314,6 +317,16 @@ export const authReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 filtered_names: []
+            };
+        case GET_EMPLOYER_DETAILS.saga:
+            return {
+                ...state,
+                name: action.payload.name,
+            };
+        case GET_EMPLOYER_DETAILS.success:
+            return {
+                ...state,
+                employerDetails: action.data,
             };
         default:
             return state;

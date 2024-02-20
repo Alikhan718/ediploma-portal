@@ -17,6 +17,7 @@ import {
     GET_EMPLOYERS_LIST,
     GET_EMPLOYERS_SEARCH,
     CANCEL_EMPLOYERS_FILTER,
+    GET_EMPLOYER_DETAILS
 } from "./types/actionTypes";
 
 export const fetchLoginRequest = (payload: any) => ({
@@ -101,4 +102,9 @@ export const fetchEmployersSearch = (payload: any) => ({type: GET_EMPLOYERS_SEAR
 
 export const cancelEmployerFilters = () => ({
     type: CANCEL_EMPLOYERS_FILTER.saga
+});
+
+export const fetchEmployerDetails = (payload: any) => ({
+    type: GET_EMPLOYER_DETAILS.saga,
+    payload
 });

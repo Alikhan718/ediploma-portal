@@ -4,61 +4,30 @@ import {
 } from '@mui/material';
 import exampleImage from '@src/assets/example/employerDetails.jpeg';
 import {ReactComponent as SingleCheck} from "@src/assets/icons/single check.svg";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchEmployerDetails } from '@src/store/auth/actionCreators';
+import { selectEmployerDetails } from '@src/store/auth/selector';
 import { selectLanguage } from '@src/store/generals/selectors';
 import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
 import icon from "@src/assets/icons/Logo (2).svg";
 import {ReactComponent as Telegram} from "@src/assets/icons/tgEmployer.svg";
 import {ReactComponent as Whatsapp} from "@src/assets/icons/wpEmployer.svg";
 import {ReactComponent as Linkedin} from "@src/assets/icons/inEmployer.svg";
-import {ReactComponent as Dots} from "@src/assets/icons/dotsEmployer.svg";
-import {ReactComponent as Mail} from "@src/assets/icons/mailEmployer.svg";
+import {ReactComponent as Instagram} from "@src/assets/icons/igEmployer.svg";
+import {ReactComponent as Facebook} from "@src/assets/icons/fbEmployer.svg";
+import { useParams } from 'react-router';
+import { employerData, employerNumData, titles } from './generator';
 
 export const EmployerDetailsPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
-    const employerData = {
-        "phone":{
-            'ru': 'Номер телефона',
-            'kz': 'Телефон номері',
-            'en': 'Phone'
-        },
-        "email": {
-            'ru': 'Почта',
-            'kz': 'Пошта',
-            'en': 'Email'
-        },
-        "address": {
-            'ru': 'Распололжение',
-            'kz': 'Мекен жайы',
-            'en': 'Location'
-        },
-    };
-    const employerNumData = {
-        "branches_amount": {
-            'ru': 'Кол-во филиалов',
-            'kz': 'Филиалдар саны',
-            'en': 'Branches'
-        },
-        "vacancy_amount": {
-            'ru': 'Открытых вакансий',
-            'kz': 'Ашық вакансиялар',
-            'en': 'Open positions'
-        },
-        "hired_amount": {
-            "ru": "Нанято сотрудников",
-            "kz": "Тағайындалған жұмысшылар",
-            "en": "Hired employees"
-        },
-    };
-    const data = {
-        "phone": "+7 777 777 77 77",
-        "email": "jasaim@gmail.com",
-        "address": "Almaty, Kazakhstan",
-        "branches_amount": 5,
-        "vacancy_amount": 10,
-        "hired_amount": 5,
-        "description": "Компания JASAIM, основанная в Астане (Казахстан) в 2022 году, является разработчиком финансовых, образовательных технологических решений, которые помогают интегрировать Web3, Blockchain и искусственный интеллект для потребителей, продавцов, разработчиков и учреждений по всему миру"
-    };
+    const dispatch = useDispatch();
+    const {id} = useParams<{id: string}>();
+    const employerDetails = useSelector(selectEmployerDetails);
+    const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+
+    React.useEffect(() => {
+        dispatch(fetchEmployerDetails({id: id}));
+    }, []);
 
     const [showFull, setShowFull] = React.useState(false);
 
@@ -67,11 +36,35 @@ export const EmployerDetailsPageLayout: React.FC = () => {
         const trimLimit = matchesSm ? 85 : 115;
         return showFull ? text : text.substring(0, trimLimit) + "...";
     };
+    const handleLink = (socialmedia: string):void => {
+        switch(socialmedia){
+            case "instagram":
+                if (employerDetails && employerDetails.instagram_link)
+                    window.open(employerDetails.instagram_link, "_blank");
+                break;
+            case "telegram":
+                if (employerDetails && employerDetails.telegram_link)
+                    window.open(employerDetails.telegram_link, "_blank");
+                break;
+            case "whatsapp":
+                if (employerDetails && employerDetails.whatsapp_link)
+                    window.open(employerDetails.whatsapp_link, "_blank");
+                break;
+            case "linkedin":
+                if (employerDetails && employerDetails.linkedin_link)
+                    window.open(employerDetails.linkedin_link, "_blank");
+                break;
+            case "facebook":
+                if (employerDetails && employerDetails.facebook_link)
+                    window.open(employerDetails.facebook_link, "_blank");
+                break;
+        }
+    };
 
     return (
         <Box display='flex' flexDirection='column' justifyContent='center' justifyItems='center'>
             <Box>
-                <img src={exampleImage} alt="employer" 
+                <img src={employerDetails && employerDetails.avatar ? `${baseURL}/${employerDetails.avatar}` : exampleImage} alt="employer" 
                     style={{ width: '100%', height: '25rem', objectFit: 'cover'}}/>
             </Box>
             <Box width='100%' display='flex' flexDirection='column' padding='1rem' 
@@ -95,6 +88,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                         },}}
                 >
                     <Box sx={{
+                        width: '25%',
                         '@media (max-width: 778px)': {
                             marginBottom: '1.5rem'
                         },
@@ -111,7 +105,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                                     },
                                 }}
                             >
-                                {"Ф.И Работодателя"}
+                                {employerDetails && employerDetails.name ? employerDetails.name : "Ф.И Работодателя"}
                             </Typography>
                             <Box marginLeft='0.5rem' marginBottom='0.5rem'>
                                 <SingleCheck fill="#3B82F6"/>    
@@ -126,7 +120,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                                         fontSize: '12px',
                                     },
                             }}>
-                                {"Сфера деятельности"}
+                                {employerDetails && employerDetails.field ? employerDetails.field : "Сфера деятельности"}
                             </Typography>
                         </Box>
                     </Box>
@@ -137,33 +131,73 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                                 '@media (max-width: 778px)': {
                                     marginX:'0rem',
                                     mr: '0.5rem'
-                                }}}
+                                },
+                                ...(employerDetails && employerDetails.instagram_link && {
+                                    '&:hover': {
+                                      backgroundColor: '#E2E8F0',
+                                      cursor: 'pointer',
+                                    },
+                                })
+                            }}
+                            onClick={():void => {handleLink("instagram");}}
                         >
-                            <Mail/>
+                            <Instagram/>
                         </Box>
                         <Box display='flex' justifyContent="center" 
                             alignItems='center' padding='0.5rem' marginX='0.5rem'
-                            sx={{backgroundColor: '#F4F7FE', borderRadius: '50%'}}
+                            sx={{backgroundColor: '#F4F7FE', borderRadius: '50%',
+                                ...(employerDetails && employerDetails.telegram_link && {
+                                    '&:hover': {
+                                    backgroundColor: '#E2E8F0',
+                                    cursor: 'pointer',
+                                    },
+                                })
+                            }}
+                            onClick={():void => {handleLink("telegram");}}
                         >
                             <Telegram/>
                         </Box>
                         <Box display='flex' justifyContent="center" 
                             alignItems='center' padding='0.5rem' marginX='0.5rem'
-                            sx={{backgroundColor: '#F4F7FE', borderRadius: '50%'}}
+                            sx={{backgroundColor: '#F4F7FE', borderRadius: '50%',
+                            ...(employerDetails && employerDetails.whatsapp_link && {
+                                '&:hover': {
+                                  backgroundColor: '#E2E8F0',
+                                  cursor: 'pointer',
+                                },
+                            })
+                        }}
+                            onClick={():void => {handleLink("whatsapp");}}
                         >
                             <Whatsapp/>
                         </Box>
                         <Box display='flex' justifyContent="center" 
                             alignItems='center' padding='0.7rem' marginX='0.5rem'
-                            sx={{backgroundColor: '#F4F7FE', borderRadius: '50%'}}
+                            sx={{backgroundColor: '#F4F7FE', borderRadius: '50%',
+                            ...(employerDetails && employerDetails.linkedin_link && {
+                                '&:hover': {
+                                  backgroundColor: '#E2E8F0',
+                                  cursor: 'pointer',
+                                },
+                            })
+                        }}
+                            onClick={():void => {handleLink("linkedin");}}
                         >
                             <Linkedin/>
                         </Box>
                         <Box display='flex' justifyContent="center" 
                             alignItems='center' padding='0.5rem' marginX='0.5rem'
-                            sx={{backgroundColor: '#F4F7FE', borderRadius: '50%'}}
+                            sx={{backgroundColor: '#F4F7FE', borderRadius: '50%',
+                            ...(employerDetails && employerDetails.facebook_link && {
+                                '&:hover': {
+                                  backgroundColor: '#E2E8F0',
+                                  cursor: 'pointer', 
+                                },
+                            })
+                        }}
+                            onClick={():void => {handleLink("facebook");}}
                         >
-                            <Dots/>
+                            <Facebook/>
                         </Box>
                     </Box>
                 </Box>
@@ -179,7 +213,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                             },
                         }}
                     >
-                        {"Данные организации"}
+                        {titles[lang].data}
                     </Typography>
                     <Box display="flex" justifyContent="space-between" alignItems="flex-end"
                         sx={{
@@ -196,7 +230,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                             },
                         }}>
                             {Object.keys(employerData).map((key: any, index) => {
-                                if (data[key as keyof typeof data]){
+                                if (employerDetails[key as keyof typeof employerDetails]){
                                     return (
                                         <Box key={index} display='flex' flexDirection='column' 
                                             justifyContent='center' justifyItems='center' marginY='0.5rem'
@@ -206,7 +240,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                                                     {employerData[key as keyof typeof employerData][lang]}:
                                                 </span>{" "}
                                                 <span style={{ fontWeight: '600', fontSize: "16px"}}>
-                                                    {data[key as keyof typeof data]}
+                                                    {employerDetails[key as keyof typeof employerDetails]}
                                                 </span>{" "}
                                             </Typography>
                                         </Box>
@@ -216,30 +250,28 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                         </Box>
                         <Box display='flex'>
                             {Object.keys(employerNumData).map((key: any, index) => {
-                                if (data[key as keyof typeof data]){
-                                    return (
-                                        <Box key={index} 
-                                            display='flex' flexDirection='column'
-                                            justifyContent='center' marginX='0.5rem'
-                                            sx={{
-                                                '@media (max-width: 778px)': {
-                                                    marginX:'0rem',
-                                                    mr: '0.5rem'
-                                            },}}
-                                        >
-                                            <Typography>
-                                                <span style={{ fontWeight: '600', fontSize: "16px"}}>
-                                                    {data[key as keyof typeof data]}
-                                                </span>
-                                            </Typography>
-                                            <Typography>
-                                                <span style={{color: "#818181", fontSize: "16px"}}>
-                                                    {employerNumData[key as keyof typeof employerNumData][lang]}
-                                                </span>
-                                            </Typography>
-                                        </Box>
-                                    );
-                                }
+                                return (
+                                    <Box key={index} 
+                                        display='flex' flexDirection='column'
+                                        justifyContent='center' marginX='0.5rem'
+                                        sx={{
+                                            '@media (max-width: 778px)': {
+                                                marginX:'0rem',
+                                                mr: '0.5rem'
+                                        },}}
+                                    >
+                                        <Typography>
+                                            <span style={{ fontWeight: '600', fontSize: "16px"}}>
+                                                {employerDetails && employerDetails[key as keyof typeof employerDetails] ? employerDetails[key as keyof typeof employerDetails] : '-'}
+                                            </span>
+                                        </Typography>
+                                        <Typography>
+                                            <span style={{color: "#818181", fontSize: "16px"}}>
+                                                {employerNumData[key as keyof typeof employerNumData][lang]}
+                                            </span>
+                                        </Typography>
+                                    </Box>
+                                );                            
                             })}
                         </Box>
                     </Box>
@@ -257,10 +289,10 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                             },
                         }}
                     >
-                        {"О компании"}
+                        {titles[lang].about}
                     </Typography>
                     <Typography color="#818181">
-                      {handleText(data ? data.description : "")}
+                      {handleText(employerDetails && employerDetails.description ? employerDetails.description : "")}
                     </Typography>
                     <Typography style={{cursor: "pointer"}} fontWeight='600' color='#629BF8'
                                 sx={{paddingBottom: '20px'}}
@@ -270,7 +302,6 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                       <ExpandMore style={{marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : ""}}/>
                     </Typography>
                 </Box>
-                
             </Box>
         </Box>
     );
