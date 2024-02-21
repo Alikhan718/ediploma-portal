@@ -9,7 +9,7 @@ import {selectEmployersList} from '@src/store/auth/selector';
 import {fetchEmployersList} from '@src/store/auth/actionCreators';
 import {useSelector, useDispatch} from "react-redux";
 import {localization} from '@src/pages/EmployersListPage/generator';
-
+import exEmployer from "@src/assets/example/exEmployer.png";
 
 export const EmployersListPageLayout: React.FC = () => {
     const navigate = useNavigate();
@@ -60,7 +60,7 @@ export const EmployersListPageLayout: React.FC = () => {
                                 height: "10rem",
                                 borderRadius: "10px",
                             }}
-                            image={employer.avatar ? `${baseURL}/${employer.avatar}` : exampleImage}
+                            image={employer.avatar ? `${baseURL}/${employer.avatar}` : exEmployer}
                             alt={employer.name ? `${employer.name}` : "employer image"}
                         />
                         <Box sx={{display: 'flex', flexDirection: 'column', width: "100%"}}>
