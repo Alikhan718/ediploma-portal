@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Grid, CardContent, CardMedia, Typography} from '@mui/material';
+import {Box, Grid, CardContent, CardMedia, Typography, Pagination, useMediaQuery} from '@mui/material';
 import exampleImage from "@src/assets/example/universityKBTU.jpg";
 import { EmployerListPageHeader } from './components/EmployerListPageHeader';
 import {useNavigate} from "react-router-dom";
@@ -17,7 +17,15 @@ export const EmployersListPageLayout: React.FC = () => {
 
     const lang = useSelector(selectLanguage);
     const employersList = useSelector(selectEmployersList);
+    const isMobile = useMediaQuery('(max-width:998px)');
+    
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const employersPerPage: number = 8;
+    const totalPages = Math.ceil(employersList.length / employersPerPage);
+    const startEmployerIndex = (currentPage - 1) * employersPerPage;
+    const endEmployerIndex = currentPage * employersPerPage;
 
+    const displayedEmployersList = employersList.slice(startEmployerIndex, endEmployerIndex);
     const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
     React.useEffect(() => {
@@ -33,7 +41,7 @@ export const EmployersListPageLayout: React.FC = () => {
                 justifyContent="start" className={styles.schoolContainer} width='100%'
                 
             >
-                {employersList.map((employer: any) => (
+                {employersList ? (displayedEmployersList.map((employer: any) => (
                     <Grid
                         key={employer.id} item xs={12} sm={2.9} md={2.9}
                         lg={2.9}
@@ -80,9 +88,28 @@ export const EmployersListPageLayout: React.FC = () => {
                                 </Typography>
                             </CardContent>
                         </Box>
-                    </Grid>
-                ))}
+                    </Grid> 
+                ))): null}
             </Grid>
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'center',
+                width: '100%',
+                marginBottom: "2rem"
+            }}>
+                <Box style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <Pagination
+                        count={totalPages}
+                        page={currentPage}
+                        onChange={(event, page) => setCurrentPage(page)}
+                        shape="rounded"
+                        color="primary"
+                        size={isMobile ? "medium" : "large"}
+                    />
+                </Box>
+            </Box>
         </Box>
     );
 }
