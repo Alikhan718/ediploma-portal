@@ -276,6 +276,16 @@ const SettingsPage: React.FC = () => {
       },
   }));
 
+  const ITEM_HEIGHT = 48;
+	const ITEM_PADDING_TOP = 8;
+	const MenuProps = {
+		PaperProps: {
+			style: {
+				maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+			},
+		},
+	};
+
   const [privacyVisible, setPrivacyVisible] = useState<boolean>(false);
 
   const handlePrivacyVisibleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -466,11 +476,12 @@ const SettingsPage: React.FC = () => {
                         onChange={handleFieldChange}
                         displayEmpty
                         inputProps={{ 'aria-label': 'Without label' }}
+                        MenuProps={MenuProps}
                       >
                         <MenuItem value="" onClick={() => {handleChange}}>
                           {userState[item.name]}
                         </MenuItem>
-                        {translatedFields.slice(0,5).map((field) => (
+                        {translatedFields.map((field) => (
                           <MenuItem
                             key={field.id}
                             value={field.name}
