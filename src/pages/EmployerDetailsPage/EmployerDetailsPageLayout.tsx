@@ -11,10 +11,10 @@ import { selectLanguage } from '@src/store/generals/selectors';
 import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
 import icon from "@src/assets/icons/Logo (2).svg";
 import {ReactComponent as Telegram} from "@src/assets/icons/tgEmployer.svg";
-import {ReactComponent as Whatsapp} from "@src/assets/icons/wpEmployer.svg";
 import {ReactComponent as Linkedin} from "@src/assets/icons/inEmployer.svg";
 import {ReactComponent as Instagram} from "@src/assets/icons/igEmployer.svg";
 import {ReactComponent as Facebook} from "@src/assets/icons/fbEmployer.svg";
+import {ReactComponent as Youtube} from "@src/assets/icons/ytEmployer.svg";
 import { useParams } from 'react-router';
 import { employerData, employerNumData, titles } from './generator';
 
@@ -46,9 +46,9 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                 if (employerDetails && employerDetails.telegram_link)
                     window.open(employerDetails.telegram_link, "_blank");
                 break;
-            case "whatsapp":
-                if (employerDetails && employerDetails.whatsapp_link)
-                    window.open(employerDetails.whatsapp_link, "_blank");
+            case "youtube":
+                if (employerDetails && employerDetails.youtube_link)
+                    window.open(employerDetails.youtube_link, "_blank");
                 break;
             case "linkedin":
                 if (employerDetails && employerDetails.linkedin_link)
@@ -69,18 +69,19 @@ export const EmployerDetailsPageLayout: React.FC = () => {
             </Box>
             <Box width='100%' display='flex' flexDirection='column' padding='1rem' 
                 sx={{backgroundColor: 'white',
+                    padding: '3.75rem',
                     '@media (max-width: 778px)': {
                         padding: '0rem'
                     },
             }}>
-                <Box paddingY='0.5rem' paddingX='1rem' sx={{ position:"absolute", top:"26rem",
+                <Box paddingY='0.5rem' sx={{ position:"absolute", top:"26rem",
                         '@media (max-width: 778px)': {
                             top:"21rem",
                         },}}
                 >
                     <img src={icon} alt="icon" style={{}}/>
                 </Box>
-                <Box display='flex' padding='1rem' justifyContent='space-between' alignItems="flex-start"
+                <Box display='flex' justifyContent='space-between' alignItems="flex-start"
                     sx={{
                         '@media (max-width: 778px)': {
                             flexDirection: 'column',
@@ -88,7 +89,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                         },}}
                 >
                     <Box sx={{
-                        width: '25%',
+                        width: '30%',
                         '@media (max-width: 778px)': {
                             marginBottom: '1.5rem'
                         },
@@ -98,7 +99,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                                 fontWeight='600'
                                 sx={{
                                     paddingBottom: '14px',
-                                    fontSize: '24px',
+                                    fontSize: '2rem',
                                     '@media (max-width: 778px)': {
                                         fontSize: '20px',
                                         width: '100%',
@@ -107,17 +108,17 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                             >
                                 {employerDetails && employerDetails.name ? employerDetails.name : "Ф.И Работодателя"}
                             </Typography>
-                            <Box marginLeft='0.5rem' marginBottom='0.5rem'>
+                            <Box marginLeft='1rem' marginBottom='0.5rem'>
                                 <SingleCheck fill="#3B82F6"/>    
                             </Box>
                         </Box>
                         <Box display='flex' width='65%' justifyContent='center' 
-                            justifyItems='center' padding='0.1rem' 
-                            sx={{backgroundColor:"#EBF2FE", borderRadius:'1rem'}}
+                            justifyItems='center' 
+                            sx={{backgroundColor:"#EBF2FE", borderRadius:'1.25rem'}}
                         >
-                            <Typography sx={{fontSize: '14px', color: '#3B82F6',
+                            <Typography sx={{fontSize: '0.85rem', color: '#3B82F6', paddingX:'0.75rem', paddingY:'0.5rem',
                                     '@media (max-width: 778px)': {
-                                        fontSize: '12px',
+                                        fontSize: '0.75px',
                                     },
                             }}>
                                 {employerDetails && employerDetails.field ? employerDetails.field : "Сфера деятельности"}
@@ -167,9 +168,9 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                                 },
                             })
                         }}
-                            onClick={():void => {handleLink("whatsapp");}}
+                            onClick={():void => {handleLink("youtube");}}
                         >
-                            <Whatsapp/>
+                            <Youtube/>
                         </Box>
                         <Box display='flex' justifyContent="center" 
                             alignItems='center' padding='0.7rem' marginX='0.5rem'
@@ -201,7 +202,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                         </Box>
                     </Box>
                 </Box>
-                <Box padding='1rem'>
+                <Box paddingY="1.88rem">
                     <Typography
                         fontWeight='600'
                         sx={{
@@ -276,7 +277,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                         </Box>
                     </Box>
                 </Box>
-                <Box padding='1rem' width="50%" sx={{
+                <Box width="50%" sx={{
                     '@media (max-width: 778px)': {
                         width: '100%'
                     },
