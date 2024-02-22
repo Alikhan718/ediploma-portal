@@ -1,46 +1,52 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box, Button, Rating, Typography, useMediaQuery, Pagination,
   InputAdornment, Grid, Container, Alert, Snackbar
 } from '@mui/material';
-import {Button as ButtonAlt} from '@src/components';
-import {ReactComponent as HeaderSearchIcon} from '@src/assets/icons/search.svg';
-import {ReactComponent as SmartContractIcon} from '@src/assets/icons/smartContract_black.svg';
-import {ReactComponent as DiscordIcon} from '@src/assets/icons/discord_black.svg';
-import {ReactComponent as Web} from '@src/assets/icons/web_black.svg';
-import {ReactComponent as Instagram} from '@src/assets/icons/instragram.svg';
-import {ReactComponent as Telegram} from '@src/assets/icons/telegram.svg';
-import {ReactComponent as Linkedin} from '@src/assets/icons/linkedin.svg';
-import {ReactComponent as Facebook} from '@src/assets/icons/facebook.svg';
-import {ReactComponent as Youtube} from '@src/assets/icons/youtube.svg';
-import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
-import {SwitchDetailsUniversity} from '../UniversityProfile/components/SwitchDetailsunivesiyt';
+import { Button as ButtonAlt } from '@src/components';
+import { ReactComponent as HeaderSearchIcon } from '@src/assets/icons/search.svg';
+import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
+import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
+import { ReactComponent as Web } from '@src/assets/icons/web_black.svg';
+import { ReactComponent as Instagram } from '@src/assets/icons/igEmployer.svg';
+import { ReactComponent as Telegram } from '@src/assets/icons/tgEmployer.svg';
+import { ReactComponent as Linkedin } from '@src/assets/icons/inEmployer.svg';
+import { ReactComponent as Facebook } from '@src/assets/icons/fbEmployer.svg';
+import { ReactComponent as Youtube } from '@src/assets/icons/ytEmployer.svg';
+import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
+import { SwitchDetailsUniversity } from '../UniversityProfile/components/SwitchDetailsunivesiyt';
 import univ from './../../assets/icons/FilterUn.svg';
-import {Input} from './../../components';
-import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
+import { Input } from './../../components';
+import { ReactComponent as ExpandMore } from '@src/assets/icons/expand_more.svg';
 import styles from "./UniversityDeatailPage.module.css";
-import {UniversityDetailsHeader} from "@src/pages/UniversityDeatailPage/components/UniversityDetailsHeader";
+import { UniversityDetailsHeader } from "@src/pages/UniversityDeatailPage/components/UniversityDetailsHeader";
 import star from "./../../assets/icons/Star1.svg";
 import share from "./../../assets/icons/share.svg";
 import dots from "./../../assets/icons/Dots.svg";
-import {useNavigate, useParams} from "react-router-dom";
-import {handleLink} from "@src/utils/link";
+import { useNavigate, useParams } from "react-router-dom";
+import { handleLink } from "@src/utils/link";
 import imageU from "@src/assets/example/universityKBTU.jpg"
-import {selectDiplomaList, selectSearchText} from "@src/store/diplomas/selectors";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchDiplomas, fetchSearch} from "@src/store/diplomas/actionCreators";
-import {fetchUniversitiesList} from '@src/store/auth/actionCreators';
+import { selectDiplomaList, selectSearchText } from "@src/store/diplomas/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchDiplomas, fetchSearch } from "@src/store/diplomas/actionCreators";
+import { fetchUniversitiesList } from '@src/store/auth/actionCreators';
 import cn from "classnames";
-import {selectUniversitiesList, selectUserRole} from '@src/store/auth/selector';
+import { selectUniversitiesList, selectUserRole } from '@src/store/auth/selector';
 import StarIcon from '@mui/icons-material/Star';
-import {selectLanguage} from "@src/store/generals/selectors";
-import {localization} from '@src/pages/UnivesrityDetailsPage/generator';
-import {FilterSection} from "@src/layout/Filter/FilterSection";
-import {FilterAttributes} from "@src/layout/Header/Header";
+import { ReactComponent as GoldStar } from '@src/assets/icons/goldStar.svg';
+import { selectLanguage } from "@src/store/generals/selectors";
+import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { FilterSection } from "@src/layout/Filter/FilterSection";
+import { FilterAttributes } from "@src/layout/Header/Header";
 import exampleImage from "@src/assets/example/UnivSTU.jpg";
 import ReactGA from 'react-ga';
 import diplomaTemplate from "@src/assets/example/diploma_template.svg";
-import {isAuthenticated} from "@src/utils/userAuth";
+import { isAuthenticated } from "@src/utils/userAuth";
+import {ReactComponent as Cap} from '@src/assets/icons/academicCap.svg';
+import {ReactComponent as PieChart} from '@src/assets/icons/pieChart.svg';
+import {ReactComponent as PlusMinus} from '@src/assets/icons/plusMinus.svg';
+import {ReactComponent as Graph} from '@src/assets/icons/graph.svg';
+import proudStudentEx from '@src/assets/example/proudStudentEx.png';
 
 const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
@@ -51,7 +57,7 @@ interface TabPanelProps {
 }
 
 function TabPanel(props: TabPanelProps) {
-  const {children, value, index, ...other} = props;
+  const { children, value, index, ...other } = props;
 
   return (
     <div
@@ -63,7 +69,7 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box pr={3} pt={2} sx={{paddingRight: 'unset'}}>
+        <Box pr={3} pt={2} sx={{ paddingRight: 'unset' }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -86,7 +92,7 @@ export const UniversityDetailsPage: React.FC = () => {
   const lang = useSelector(selectLanguage);
   const diplomaList = useSelector(selectDiplomaList);
   const searchText = useSelector(selectSearchText);
-  const {id} = useParams();
+  const { id } = useParams();
   const universityList = useSelector(selectUniversitiesList);
   const defaultS = 3.5;
 
@@ -134,7 +140,7 @@ export const UniversityDetailsPage: React.FC = () => {
     return showFull ? text : text.substring(0, trimLimit) + "...";
   };
 
-  const triggerSearchFilters = ( filterAttributesNew:any ) => {
+  const triggerSearchFilters = (filterAttributesNew: any) => {
     dispatch(fetchSearch(filterAttributesNew));
     navigate(`/university/${id}`);
   };
@@ -148,8 +154,8 @@ export const UniversityDetailsPage: React.FC = () => {
   };
 
   const handleAlertClose = () => {
-		setAlertOpen(false);
-	};
+    setAlertOpen(false);
+  };
 
   const copyCurrentURLToClipboard = () => {
     const currentURL = window.location.href;
@@ -167,30 +173,30 @@ export const UniversityDetailsPage: React.FC = () => {
       handleLink(link);
     };
     if (name.includes('linkedin')) {
-      return <Linkedin cursor="pointer" className={styles.social} onClick={onClick}/>;
+      return <Linkedin cursor="pointer" className={styles.social} onClick={onClick} />;
     }
     if (name.includes('facebook')) {
-      return <Facebook cursor="pointer" className={styles.social} onClick={onClick}/>;
+      return <Facebook cursor="pointer" className={styles.social} onClick={onClick} />;
     }
     if (name.includes('instagram')) {
-      return <Instagram cursor="pointer" className={styles.social} onClick={onClick}/>;
+      return <Instagram cursor="pointer" className={styles.social} onClick={onClick} />;
     }
     if (name.includes('telegram')) {
-      return <Telegram cursor="pointer" className={styles.social} onClick={onClick}/>;
+      return <Telegram cursor="pointer" className={styles.social} onClick={onClick} />;
     }
     if (name.includes('youtube')) {
-      return <Youtube cursor="pointer"className={styles.social} onClick={onClick}/>;
+      return <Youtube cursor="pointer" className={styles.social} onClick={onClick} />;
     }
     if (name.includes('discord')) {
-      return <DiscordIcon cursor="pointer" className={styles.social} onClick={onClick}/>;
+      return <DiscordIcon cursor="pointer" className={styles.social} onClick={onClick} />;
     }
-    return <Web cursor="pointer" className={styles.social} onClick={onClick}/>;
+    return <Web cursor="pointer" className={styles.social} onClick={onClick} />;
   };
 
   const handleCardClick = (counter: number) => {
     if (userRole === 'Student' && counter != data.id) {
-        setAlertOpen(true);
-        return;
+      setAlertOpen(true);
+      return;
     }
 
     navigate(`/diploma/${counter}/1`);
@@ -202,7 +208,7 @@ export const UniversityDetailsPage: React.FC = () => {
 
       let value = data[key];
       if (key.includes('link') && value) {
-        temp.push({name: key, value: value});
+        temp.push({ name: key, value: value });
       }
     }
     setLinks(temp);
@@ -222,12 +228,12 @@ export const UniversityDetailsPage: React.FC = () => {
   }, [universityList]);
 
   useEffect(() => {
-    if (data && data.university_id){
-      dispatch(fetchDiplomas({university_id: data.university_id}));
+    if (data && data.university_id) {
+      dispatch(fetchDiplomas({ university_id: data.university_id }));
       return;
-    }    
+    }
 
-    dispatch(fetchDiplomas({university_id: -1}));
+    dispatch(fetchDiplomas({ university_id: -1 }));
   }, [totalDiplomas, data]);
 
   useEffect(() => {
@@ -244,15 +250,27 @@ export const UniversityDetailsPage: React.FC = () => {
     };
   }, [isDataAlert]);
 
+  const stars = [1, 2, 3, 4, 5];
+  const mission = 'eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов.'
   return (
-    <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'>
+    <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'
+      sx={{ backgroundColor: 'white' }}
+    >
       <Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
 
         <Box className={styles.upperContainer}>
-          <Box display='flex' flexDirection='row'>
+          <Box display='flex' flexDirection='column'>
 
-            <Box display='flex' flexDirection='column' sx={{borderRadius: '15px',}}>
-              <UniversityDetailsHeader banner={data ? data.banner : ""}/>
+            <Box display='flex' flexDirection='column' sx={{ borderRadius: '15px', }}>
+              <Box display='flex' flexDirection='row'>
+                <UniversityDetailsHeader banner={data ? data.banner : ""} />
+                <Box display='flex' flexDirection='column' sx={{ marginLeft: '20px', '@media (max-width: 978px)': { display: 'none', }, }}>
+                  {galleryImages.length != 0 ? galleryImages.map(image => (
+                    <img key={image} src={`${baseURL}/${image}`} style={{ marginBottom: '10px', borderRadius: '1rem', width: "20vw" }} />
+                  )) : <img src={diplomaTemplate} style={{ marginBottom: '10px', borderRadius: '1rem', width: "20vw" }} />
+                  }
+                </Box>
+              </Box>
               <Box>
                 <Box
                   display="flex"
@@ -262,7 +280,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     justifyContent: 'space-between',
                     width: '100%',
                     alignItems: 'center',
-                    '@media (max-width: 768px)': {position: 'relative',}
+                    '@media (max-width: 768px)': { position: 'relative', }
                   }}
                 >
                   <Typography
@@ -285,133 +303,94 @@ export const UniversityDetailsPage: React.FC = () => {
                     {/* {localization[lang].MainCard.uniNames} */}
                     {data ? data.name : ""}
                   </Typography>
-                  <Box marginBottom="25px" sx={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    '@media (max-width: 768px)': {display: 'none'}
-                  }}>
-
-                    {/* <img src={star} style={{
-                      marginRight: '10px',
-                      marginLeft: '10px',
-                      width: '25px',
-                      height: '25px',
-                    }}/> */}
-                    <img src={share} style={{
-                      marginRight: '10px',
-                      marginLeft: '10px',
-                      width: '25px',
-                      height: '25px',
-                      cursor: 'pointer',
-                    }} onClick={copyCurrentURLToClipboard}/>
-                    {/* <img src={dots} style={{
-                      marginRight: '10px',
-                      marginLeft: '10px',
-                      width: '25px',
-                      height: '25px',
-                    }}/> */}
-                  </Box>
-                  <Box sx={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    display: 'none',
-                    justifyContent: 'space-between',
-                    '@media (max-width: 768px)': {display: 'flex'}
-                  }}>
-                    <img src={dots} style={{
-                      width: '15px',
-                      height: '15px',
-                      transform: 'rotate(90deg)'
-                    }}/>
-                  </Box>
-                </Box>
-
-                {/* <Box sx={{ display: 'none', marginBottom: '1rem', flexDirection: 'column', '@media (max-width: 768px)': { display: 'flex ' } }}>
-									<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
-										4.5 <Rating
-											name="text-feedback"
-											value={defaultS}
-											readOnly
-											emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-										/>
-									</Typography>
-									<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
-								</Box> */}
-
-
-                {/* <Box display="flex"
-									alignItems="center"
-									sx={{
-										flexDirection: 'row',
-										justifyContent: 'space-between',
-										width: '100%',
-										alignItems: 'center',
-									}}>
-									<Typography className={styles.textSm} sx={{ paddingBottom: '16px', marginRight: '16px' }}>
-										{localization[lang].MainCard.mail}: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@satbayev.university</span>
-									</Typography>
-
-									<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', '@media (max-width: 768px)': { display: 'none' } }}>
-										4.5 <Rating
-											name="text-feedback"
-											value={defaultS}
-											readOnly
-											emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-										/>
-									</Typography>
-								</Box> */}
-
-                <Box display='flex' flexDirection='column'>
-                  <Typography className={styles.textSm}>
-                    {localization[lang].MainCard.phone}: <span
-                    style={{fontWeight: 'bold', fontSize: '18px'}}>{data ? data.phone : ""}</span>
-                  </Typography>
-                  <Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
-                </Box>
-                <Box className={styles.contentContainer}>
-                  <Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{paddingBottom: '20px'}}>
-                    <Box flex='1' sx={{marginRight: '50px', '@media (max-width: 768px)': {marginRight: '5px'}}}>
-                      <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
-                                  sx={{'@media (max-width: 768px)': {fontSize: '20px'}}}>{data ? data.student_amount : ""}</Typography>
-                      <Typography sx={{'@media (max-width: 768px)': {fontSize: '15px'}}}>
-                        {localization[lang].MainCard.numStudents}
-                      </Typography>
-                    </Box>
-                    <Box flex='1' sx={{marginRight: '50px', '@media (max-width: 768px)': {marginRight: '10px'}}}>
-                      <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
-                                  sx={{'@media (max-width: 768px)': {fontSize: '20px'}}}>{data ? data.graduate_amount : ""}</Typography>
-                      <Typography sx={{'@media (max-width: 768px)': {fontSize: '15px'}}}>
-                        {localization[lang].MainCard.numAlumnies}
-                      </Typography>
-                    </Box>
-                    <Box flex='1' sx={{marginRight: '50px', '@media (max-width: 768px)': {marginRight: '5px'}}}>
-                      <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
-                                  sx={{'@media (max-width: 768px)': {fontSize: '20px'}}}>{data ? data.highlighting_amount : ""}</Typography>
-                      <Typography sx={{'@media (max-width: 768px)': {fontSize: '15px'}}}>
-                        {localization[lang].MainCard.numExtra}                      </Typography>
-                    </Box>
-                    <Box flex='5' sx={{
-                      '@media (max-width: 768px)': {
-                        display: 'none',
-                      }
-                    }}>
-
-                      <Typography fontWeight='1000' color='#353840' ml='.1rem'
-                                  fontSize={'30px'}>{data ? data.average_gpa : ""}</Typography>
-                      <Typography className={styles.textSm}>
-                        {localization[lang].MainCard.gpa}
-                      </Typography>
-                    </Box>
-                  </Box>
                   <Box display="flex" alignItems="center">
                     {links.map((link: any, index: number) => (
-                      <Box key={link["name"] + "Box"} marginRight="1rem">
+                      <Box key={link["name"] + "Box"} display='flex' justifyContent="center"
+                        alignItems='center' padding={link["name"].includes('linkedin') ? '0.7rem' : '0.5rem'} marginX='0.5rem'
+                        sx={{
+                          backgroundColor: '#F4F7FE', borderRadius: '50%',
+                          '&:hover': { backgroundColor: '#E2E8F0', cursor: 'pointer', },
+                        }}
+                        onClick={(): void => { handleLink("facebook"); }}
+                      >
                         {getIconForLink(link["name"], link["value"])}
                       </Box>
                     ))}
                   </Box>
-                  <Box>
+                </Box>
+
+                <Box display='flex' flexDirection='row' alignItems='center'>
+                  <Box display='flex' marginRight='0.5rem' paddingX='0.75rem' paddingY='0.25rem'
+                    alignItems='center' justifyContent='center'
+                    sx={{ backgroundColor: '#FEFCE8', borderRadius: '1.25rem', }}
+                  >
+                    {stars.map((star, index) => {
+                      return (
+                        <Box key={index} marginX="0.25rem">
+                          <GoldStar />
+                        </Box>
+                      )
+                    })}
+                    <Typography sx={{ fontSize: '1rem', fontWeight: '500', color: '#DE9703' }} marginX='0.25rem'>4,5</Typography>
+                  </Box>
+                  <Typography className={styles.textSm} marginX='0.5rem'>
+                    <span style={{ fontWeight: 'bold', fontSize: '18px' }}>{data ? data.phone : ""}</span>
+                  </Typography>
+                  <Typography className={styles.textSm} marginX='0.5rem'>
+                    <span style={{ fontWeight: 'bold', fontSize: '18px' }}>{data ? data.email : ""}</span>
+                  </Typography>
+                </Box>
+
+                <Box className={styles.contentContainer}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                    <Box width='55%' marginRight='3rem'>
+                      <Box sx={{
+                        fontSize: '24px',
+                        fontWeight: '600',
+                        color: '#4D4D4D',
+                        paddingBottom: '10px'
+                      }}>
+                        {"Миссия университета"}
+                      </Box>
+                      <Typography className={styles.textSm} color="#818181">
+                        {mission}
+                      </Typography>
+                    </Box>
+                    <Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
+                      <Box flex='1' sx={{ marginRight: '1.25rem', '@media (max-width: 768px)': { marginRight: '1.25rem' } }}>
+                        <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
+                          sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.student_amount : ""}</Typography>
+                        <Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
+                          {localization[lang].MainCard.numStudents}
+                        </Typography>
+                      </Box>
+                      <Box flex='1' sx={{ marginRight: '1.25rem', '@media (max-width: 768px)': { marginRight: '1.25rem' } }}>
+                        <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
+                          sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.graduate_amount : ""}</Typography>
+                        <Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
+                          {localization[lang].MainCard.numAlumnies}
+                        </Typography>
+                      </Box>
+                      <Box flex='1' sx={{ marginRight: '1.25rem', '@media (max-width: 768px)': { marginRight: '1.25rem' } }}>
+                        <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
+                          sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.highlighting_amount : ""}</Typography>
+                        <Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
+                          {localization[lang].MainCard.numExtra}                      </Typography>
+                      </Box>
+                      <Box flex='5' sx={{
+                        '@media (max-width: 768px)': {
+                          display: 'none',
+                        }
+                      }}>
+                        <Typography fontWeight='1000' color='#353840' ml='.1rem'
+                          fontSize={'30px'}>{data ? data.average_gpa : ""}</Typography>
+                        <Typography className={styles.textSm}>
+                          {localization[lang].MainCard.gpa}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                  {/* <Box>
                     <Box sx={{
                       fontSize: '24px',
                       fontWeight: '600',
@@ -421,35 +400,98 @@ export const UniversityDetailsPage: React.FC = () => {
                     <Typography className={styles.textSm} color="#818181">
                       {handleText(data ? data.description : "")}
                     </Typography>
-                    <Typography style={{cursor: "pointer"}} className={styles.textSm} fontWeight='600' color='#629BF8'
-                                sx={{paddingBottom: '20px'}}
-                                onClick={() => {
-                                  setShowFull(!showFull);
-                                }}>
+                    <Typography style={{ cursor: "pointer" }} className={styles.textSm} fontWeight='600' color='#629BF8'
+                      sx={{ paddingBottom: '20px' }}
+                      onClick={() => {
+                        setShowFull(!showFull);
+                      }}>
                       {localization[lang].MainCard.show} {!showFull ? localization[lang].MainCard.more : localization[lang].MainCard.less}
-                      <ExpandMore style={{marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : ""}}/>
+                      <ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
                     </Typography>
+                  </Box> */}
+                  <Box sx={{display: 'flex', marginTop: '1.25rem'}}>
+                    <Box sx={{display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE', 
+                          borderRadius:'1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
+                        }}
+                    >
+                      <Box sx={{display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem'}}>
+                        <Cap/>
+                      </Box>
+                      <Typography sx={{fontSize: '0.875rem', fontWeight: '400', color: '#58607C'}}>
+                        {'Программы двойных дипломов в сотрудничестве с LSE,Geneva Business School , University of Northampton, IFP Energies Nouvelles'}
+                      </Typography>
+                    </Box>
+                    <Box sx={{display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE', 
+                          borderRadius:'1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
+                        }}
+                    >
+                      <Box sx={{display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem'}}>
+                        <PlusMinus/>
+                      </Box>
+                      <Typography sx={{fontSize: '0.875rem', fontWeight: '400', color: '#58607C'}}>
+                        {'На протяжение 9 лет держал звание лучшего технического вуза Казахстана по Генеральному рейтингу НКАОКО'}
+                      </Typography>
+                    </Box>
+                    <Box sx={{display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE', 
+                          borderRadius:'1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
+                        }}
+                    >
+                      <Box sx={{display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem'}}>
+                        <Graph/>
+                      </Box>
+                      <Typography sx={{fontSize: '0.875rem', fontWeight: '400', color: '#58607C'}}>
+                        {'Лучшие в Казахстане программы Нефтегазовое дело, Химическая инженерия, Информационные технологии'}
+                      </Typography>
+                    </Box>
+                    <Box sx={{display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE', 
+                          borderRadius:'1rem', width: '19.25rem', padding: '1.25rem',
+                        }}
+                    >
+                      <Box sx={{display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem'}}>
+                        <PieChart/>
+                      </Box>
+                      <Typography sx={{fontSize: '0.875rem', fontWeight: '400', color: '#58607C'}}>
+                        {'КазМунайГаз, Казатомпром, Казахстан Темир Жолы, Air Astana, Казахтелеком, Самрук-Энерго, Казкоммерцбанк и Халык Банк являются основными работодателями для выпускников КБТУ.'}
+                      </Typography>
+                    </Box>
                   </Box>
+                  <Box>
+                    {/* История */}
+                  </Box>
+                  <Box sx={{display:'flex', flexDirection: 'column', backgroundColor: '#FAFBFF', 
+                    padding: '1.75rem', borderRadius: '1.5rem', marginTop: '1.25rem'
+                  }}
+                  >
+                    <Typography
+                      className={styles.nameText} fontWeight='600' sx={{
+                        width: '70%', marginBottom:'1.5rem', fontSize: '2rem',
+                        '@media (max-width: 998px)': {
+                          fontSize: '24px',
+                        },
+                        '@media (max-width: 768px)': {
+                          fontSize: '24px',
+                          width: '100%',
+                        },
+                      }}
+                    >
+                      {'Лучшие студенты'}
+                    </Typography>
+                    <Box sx={{display: 'flex'}}>
+                      <img src={proudStudentEx} style={{marginRight: '1rem'}} />
+                      <img src={proudStudentEx} style={{marginRight: '1rem'}} />
+                      <img src={proudStudentEx} style={{marginRight: '1rem'}} />
+                      <img src={proudStudentEx} style={{}} />
+                    </Box>
+                  </Box>
+
                 </Box>
               </Box>
             </Box>
-            <Box display='flex' flexDirection='column' sx={{
-              marginLeft: '20px',
-              '@media (max-width: 978px)': {
-                display: 'none',
-              },
-            }}>
-              { galleryImages.length != 0 ? 
-                galleryImages.map(image => (
-                <img key={image} src={`${baseURL}/${image}`} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
-              )) : <img src={diplomaTemplate} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
-            }
-            </Box>
           </Box>
         </Box>
-        <SwitchDetailsUniversity/>
+        <SwitchDetailsUniversity />
         <Box className={styles.contentContainer}>
-          <Box sx={{width: '100%'}}>
+          <Box sx={{ width: '100%' }}>
             <Box
               display="flex"
               flexDirection="column"
@@ -458,7 +500,7 @@ export const UniversityDetailsPage: React.FC = () => {
                 backgroundColor: '#FAFBFF', borderRadius: '15px',
                 width: '100%', paddingX: ".5rem",
               }}
-            >
+            > 
               <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
@@ -479,7 +521,7 @@ export const UniversityDetailsPage: React.FC = () => {
                       setShowFilter(true);
                     }}
                   >
-                    <Filter style={{marginRight: '10px',}}/>
+                    <Filter style={{ marginRight: '10px', }} />
                     {localization[lang].Students.filter}
                   </Button>
                   <Box display="flex" alignItems="center">
@@ -498,14 +540,14 @@ export const UniversityDetailsPage: React.FC = () => {
                             cursor="pointer"
                             onClick={() => {
                               triggerSearchFilters(filterAttributes);
-                              ReactGA.event({category: 'User', action: 'Search', label: searchQuery,});
+                              ReactGA.event({ category: 'User', action: 'Search', label: searchQuery, });
                             }}
                           />
                         </InputAdornment>
                       }
                       onChange={(e) => {
                         const query = e.target.value;
-                        setFilterAttributes({...filterAttributes, text: query});
+                        setFilterAttributes({ ...filterAttributes, text: query });
                         setSearchQuery(query);
                       }}
                     />
@@ -521,28 +563,28 @@ export const UniversityDetailsPage: React.FC = () => {
             </Box>
             <TabPanel value={value} index={0}>
               <Box display="flex"
-                   flexDirection="row"
-                   alignItems="start"
-                   sx={{
-                     width: '100%',
-                     padding: '10px',
-                     display: 'grid',
-                     backgroundColor: '#F4F7FE',
-                     gridTemplateColumns: '4fr 4fr 1fr 1fr',
-                     gap: '36px',
-                     paddingLeft: '20px',
-                     marginTop: '-2rem',
-                     '@media (max-width: 768px)': {
-                       width: '100%',
-                       gridTemplateColumns: '4fr 0fr 0fr 4fr',
+                flexDirection="row"
+                alignItems="start"
+                sx={{
+                  width: '100%',
+                  padding: '10px',
+                  display: 'grid',
+                  backgroundColor: '#F4F7FE',
+                  gridTemplateColumns: '4fr 4fr 1fr 1fr',
+                  gap: '36px',
+                  paddingLeft: '20px',
+                  marginTop: '-2rem',
+                  '@media (max-width: 768px)': {
+                    width: '100%',
+                    gridTemplateColumns: '4fr 0fr 0fr 4fr',
 
-                     },
-                   }}
+                  },
+                }}
               >
-                <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                   <Typography
                     fontSize="14px"
-                    mb='.5rem' sx={{color: '#818181'}}
+                    mb='.5rem' sx={{ color: '#818181' }}
                     className={styles.mobText}
                   >{localization[lang].Students.fullname}
                   </Typography>
@@ -550,11 +592,11 @@ export const UniversityDetailsPage: React.FC = () => {
                 <Box sx={{
                   display: 'flex',
                   flexDirection: 'row',
-                  '@media (max-width: 768px)': {display: 'none',}
+                  '@media (max-width: 768px)': { display: 'none', }
                 }}>
                   <Typography
                     fontSize="14px"
-                    mb='.5rem' sx={{color: '#818181'}}
+                    mb='.5rem' sx={{ color: '#818181' }}
                     className={styles.mobText}
                   >{localization[lang].Students.major}
                   </Typography>
@@ -562,11 +604,11 @@ export const UniversityDetailsPage: React.FC = () => {
                 <Box sx={{
                   display: 'flex',
                   flexDirection: 'row',
-                  '@media (max-width: 768px)': {display: 'none',}
+                  '@media (max-width: 768px)': { display: 'none', }
                 }}>
                   <Typography
                     fontSize="14px"
-                    mb='.5rem' sx={{color: '#818181'}}
+                    mb='.5rem' sx={{ color: '#818181' }}
                     className={styles.mobText}
                   >{localization[lang].Students.graduationYear}
                   </Typography>
@@ -580,7 +622,7 @@ export const UniversityDetailsPage: React.FC = () => {
                 }}>
                   <Typography
                     fontSize="14px"
-                    mb='.5rem' sx={{color: '#818181'}}
+                    mb='.5rem' sx={{ color: '#818181' }}
                     className={styles.mobText}
                   >GPA
                   </Typography>
@@ -596,7 +638,7 @@ export const UniversityDetailsPage: React.FC = () => {
                 sx={{
 
                   backgroundColor: '#FAFBFF', borderRadius: '15px', padding: '10px',
-                  '@media (max-width: 768px)': {width: '100%',},
+                  '@media (max-width: 768px)': { width: '100%', },
                 }}
               >
 
@@ -625,31 +667,31 @@ export const UniversityDetailsPage: React.FC = () => {
                         gap: '36px',
                         marginTop: '20px',
                         paddingLeft: '20px',
-                        '@media (max-width: 768px)': {gridTemplateColumns: '12fr 1fr 0fr'}
+                        '@media (max-width: 768px)': { gridTemplateColumns: '12fr 1fr 0fr' }
                       }}
                     >
                       <Box sx={{
                         display: 'flex',
                         flexDirection: 'row',
-                        '@media (max-width: 768px)': {flexDirection: 'column'}
+                        '@media (max-width: 768px)': { flexDirection: 'column' }
                       }}>
                         <Typography
                           fontSize="20px"
                           fontWeight="600"
                           mb='.5rem'
                           className={styles.mobText}
-                          sx={{width: '50%', '@media (max-width: 768px)': {width: '100%'}}}
+                          sx={{ width: '50%', '@media (max-width: 768px)': { width: '100%' } }}
                         >
                           {e.name_ru}
                         </Typography>
                         <Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm}
-                                    sx={{
-                                      width: '70%',
-                                      '@media (max-width: 768px)': {
-                                        marginX: '0',
-                                        width: '100%'
-                                      }
-                                    }}>
+                          sx={{
+                            width: '70%',
+                            '@media (max-width: 768px)': {
+                              marginX: '0',
+                              width: '100%'
+                            }
+                          }}>
                           {e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
                         </Typography>
                       </Box>
@@ -657,7 +699,7 @@ export const UniversityDetailsPage: React.FC = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         marginX: '1rem',
-                        '@media (max-width: 768px)': {display: 'none',}
+                        '@media (max-width: 768px)': { display: 'none', }
                       }}>
                         {e.year ? e.year : ""}
                       </Box>
@@ -712,31 +754,33 @@ export const UniversityDetailsPage: React.FC = () => {
 
         </Box>
       </Box>
-      {isDataAlert ?
-        (<Alert
-          sx={{
-            borderRadius: '10rem',
-            position: 'fixed',
-            bottom: '2rem',
-            left: '2rem',
-          }}
-          severity="success"
-        >
-          {localization[lang].Alerts.copied}
-        </Alert>) :
-        (<></>)}
-        <Snackbar 
-          open={alertOpen} autoHideDuration={2000}
-				  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-				  onClose={handleAlertClose}
-        >
-          <Alert 
-                      onClose={handleAlertClose} 
-                      severity="error"
-            sx={{ width: '100%' }}>
-              Просмотр данного диплома вам не доступен!
-          </Alert>
-			  </Snackbar>
+      {
+        isDataAlert ?
+          (<Alert
+            sx={{
+              borderRadius: '10rem',
+              position: 'fixed',
+              bottom: '2rem',
+              left: '2rem',
+            }}
+            severity="success"
+          >
+            {localization[lang].Alerts.copied}
+          </Alert>) :
+          (<></>)
+      }
+      <Snackbar
+        open={alertOpen} autoHideDuration={2000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        onClose={handleAlertClose}
+      >
+        <Alert
+          onClose={handleAlertClose}
+          severity="error"
+          sx={{ width: '100%' }}>
+          Просмотр данного диплома вам не доступен!
+        </Alert>
+      </Snackbar>
       <FilterSection
         triggerSearchFilters={triggerSearchFilters}
         filterAttributes={filterAttributes}
@@ -744,6 +788,6 @@ export const UniversityDetailsPage: React.FC = () => {
         open={showFilter}
         setOpen={setShowFilter}
       />
-    </Box>
+    </Box >
   );
 };
