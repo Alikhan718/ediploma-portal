@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import {
   Box, Button, Rating, Typography, useMediaQuery, Pagination,
   InputAdornment, Grid, Container, Alert, Snackbar
@@ -39,14 +39,19 @@ import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
 import { FilterSection } from "@src/layout/Filter/FilterSection";
 import { FilterAttributes } from "@src/layout/Header/Header";
 import exampleImage from "@src/assets/example/UnivSTU.jpg";
-import ReactGA from 'react-ga';
+import ReactGA, { set } from 'react-ga';
 import diplomaTemplate from "@src/assets/example/diploma_template.svg";
 import { isAuthenticated } from "@src/utils/userAuth";
-import {ReactComponent as Cap} from '@src/assets/icons/academicCap.svg';
-import {ReactComponent as PieChart} from '@src/assets/icons/pieChart.svg';
-import {ReactComponent as PlusMinus} from '@src/assets/icons/plusMinus.svg';
-import {ReactComponent as Graph} from '@src/assets/icons/graph.svg';
+import { ReactComponent as Cap } from '@src/assets/icons/academicCap.svg';
+import { ReactComponent as PieChart } from '@src/assets/icons/pieChart.svg';
+import { ReactComponent as PlusMinus } from '@src/assets/icons/plusMinus.svg';
+import { ReactComponent as Graph } from '@src/assets/icons/graph.svg';
 import proudStudentEx from '@src/assets/example/proudStudentEx.png';
+import proudStuEx from '@src/assets/example/proudStuEx.png';
+import { ReactComponent as ArrowLeft } from '@src/assets/icons/arrowLeft.svg';
+import { ReactComponent as ArrowRight } from '@src/assets/icons/arrowRight.svg';
+import historyEx from '@src/assets/example/historyEx.png';
+import { ReactComponent as Dot } from '@src/assets/icons/dot.svg';
 
 const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
@@ -250,6 +255,86 @@ export const UniversityDetailsPage: React.FC = () => {
     };
   }, [isDataAlert]);
 
+  const historyFirstRef: RefObject<HTMLDivElement> = React.useRef(null);
+  const historySecondRef: RefObject<HTMLDivElement> = React.useRef(null);
+  const historyThirdRef: RefObject<HTMLDivElement> = React.useRef(null);
+  const historyFourthRef: RefObject<HTMLDivElement> = React.useRef(null);
+  const historyFifthRef: RefObject<HTMLDivElement> = React.useRef(null);
+
+  const [currentHistory, setCurrentHistory] = React.useState(0);
+
+  const getRefById = (id: number): RefObject<HTMLDivElement> => {
+    switch (id) {
+      case 0:
+        return historyFirstRef;
+      case 1:
+        return historySecondRef;
+      case 2:
+        return historyThirdRef;
+      case 3:
+        return historyFourthRef;
+      case 4:
+        return historyFifthRef;
+      default:
+        return historyFirstRef;
+    }
+  };
+
+  const scrollToRef = (direction: string) => {
+    const ref = getRefById(direction === 'next' ? currentHistory + 1 : currentHistory - 1);
+    if (direction === 'next' && currentHistory < 4) {
+      setCurrentHistory(currentHistory + 1);
+    }
+    else if (direction === 'prev' && currentHistory > 0) {
+      setCurrentHistory(currentHistory - 1);
+    } else {
+      return;
+    }
+
+    if (ref && ref.current) {
+      const container = ref.current.parentElement;
+      if (container) {
+        const targetOffsetLeft = ref.current.offsetLeft;
+        const scrollLeft = Math.max(0, targetOffsetLeft - 90);
+        container.scrollLeft = scrollLeft;
+      }
+    }
+  };
+
+  useEffect(() => {
+    const refs = [
+      historyFirstRef,
+      historySecondRef,
+      historyThirdRef,
+      historyFourthRef,
+      historyFifthRef,
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const targetRef = refs.find(ref => ref.current === entry.target);
+            if (targetRef) {
+              setCurrentHistory(refs.indexOf(targetRef));
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (historyFirstRef.current) observer.observe(historyFirstRef.current);
+    if (historySecondRef.current) observer.observe(historySecondRef.current);
+    if (historyThirdRef.current) observer.observe(historyThirdRef.current);
+    if (historyFourthRef.current) observer.observe(historyFourthRef.current);
+    if (historyFifthRef.current) observer.observe(historyFifthRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const stars = [1, 2, 3, 4, 5];
   const mission = 'eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов.'
   return (
@@ -409,62 +494,227 @@ export const UniversityDetailsPage: React.FC = () => {
                       <ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
                     </Typography>
                   </Box> */}
-                  <Box sx={{display: 'flex', marginTop: '1.25rem'}}>
-                    <Box sx={{display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE', 
-                          borderRadius:'1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
-                        }}
+                  <Box sx={{ display: 'flex', marginTop: '1.25rem' }}>
+                    <Box sx={{
+                      display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
+                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
+                    }}
                     >
-                      <Box sx={{display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem'}}>
-                        <Cap/>
+                      <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
+                        <Cap />
                       </Box>
-                      <Typography sx={{fontSize: '0.875rem', fontWeight: '400', color: '#58607C'}}>
+                      <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
                         {'Программы двойных дипломов в сотрудничестве с LSE,Geneva Business School , University of Northampton, IFP Energies Nouvelles'}
                       </Typography>
                     </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE', 
-                          borderRadius:'1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
-                        }}
+                    <Box sx={{
+                      display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
+                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
+                    }}
                     >
-                      <Box sx={{display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem'}}>
-                        <PlusMinus/>
+                      <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
+                        <PlusMinus />
                       </Box>
-                      <Typography sx={{fontSize: '0.875rem', fontWeight: '400', color: '#58607C'}}>
+                      <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
                         {'На протяжение 9 лет держал звание лучшего технического вуза Казахстана по Генеральному рейтингу НКАОКО'}
                       </Typography>
                     </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE', 
-                          borderRadius:'1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
-                        }}
+                    <Box sx={{
+                      display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
+                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
+                    }}
                     >
-                      <Box sx={{display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem'}}>
-                        <Graph/>
+                      <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
+                        <Graph />
                       </Box>
-                      <Typography sx={{fontSize: '0.875rem', fontWeight: '400', color: '#58607C'}}>
+                      <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
                         {'Лучшие в Казахстане программы Нефтегазовое дело, Химическая инженерия, Информационные технологии'}
                       </Typography>
                     </Box>
-                    <Box sx={{display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE', 
-                          borderRadius:'1rem', width: '19.25rem', padding: '1.25rem',
-                        }}
+                    <Box sx={{
+                      display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
+                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem',
+                    }}
                     >
-                      <Box sx={{display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem'}}>
-                        <PieChart/>
+                      <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
+                        <PieChart />
                       </Box>
-                      <Typography sx={{fontSize: '0.875rem', fontWeight: '400', color: '#58607C'}}>
+                      <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
                         {'КазМунайГаз, Казатомпром, Казахстан Темир Жолы, Air Astana, Казахтелеком, Самрук-Энерго, Казкоммерцбанк и Халык Банк являются основными работодателями для выпускников КБТУ.'}
                       </Typography>
                     </Box>
                   </Box>
-                  <Box>
-                    {/* История */}
+                  <Box sx={{ display: 'flex', flexDirection: 'column', borderRadius: '1.5rem', marginTop: '1.25rem' }}>
+                    <Box sx={{
+                      fontSize: '1.5rem',
+                      fontWeight: '600',
+                      color: '#4D4D4D',
+                      paddingBottom: '10px'
+                    }}>
+                      {"История университета"}
+                    </Box>
+
+                    <Box sx={{
+                      display: 'flex', overflow: 'auto', maxWidth: '92vw',
+                      '-ms-overflow-style': 'none', 'scrollbar-width': 'none', '&::-webkit-scrollbar': { display: 'none' },
+                      scrollBehavior: 'smooth'
+                    }}
+                    >
+                      <Box sx={{ position: 'absolute', width: '61.4375rem', height: '23.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Box sx={{
+                          cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
+                          borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
+                          display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '1.75rem'
+                        }} onClick={() => scrollToRef('prev')}
+                        >
+                          <ArrowLeft />
+                        </Box>
+                        <Box sx={{
+                          cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
+                          borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
+                          display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '1.75rem'
+                        }} onClick={() => scrollToRef('next')}
+                        >
+                          <ArrowRight />
+                        </Box>
+                      </Box>
+                      <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyFirstRef}>
+                        <Box sx={{ width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem' }}>
+                          <img src={historyEx} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                        </Box>
+                        <Box sx={{
+                          fontSize: '1.5rem',
+                          fontWeight: '600',
+                          color: '#4D4D4D',
+                          paddingBottom: '10px',
+                          marginTop: '1rem'
+                        }}>
+                          {"2000 - Начало международного сотрудничества в образовании и науке"}
+                        </Box>
+                        <Typography className={styles.textSm} color="#818181">
+                          {"В ходе официального визита Президента в Великобританию в ноябре 2000 года достигнуты соглашения в области образования и науки."}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historySecondRef}>
+                        <Box sx={{ width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem' }}>
+                          <img src={historyEx} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                        </Box>
+                        <Box sx={{
+                          fontSize: '1.5rem',
+                          fontWeight: '600',
+                          color: '#4D4D4D',
+                          paddingBottom: '10px',
+                          marginTop: '1rem'
+                        }}>
+                          {"2001 - Основание Казахстанско-Британского технического университета"}
+                        </Box>
+                        <Typography className={styles.textSm} color="#818181">
+                          {"Основан в 2001 году после соглашений, достигнутых между Казахстаном и Великобританией в области образования и науки."}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyThirdRef}>
+                        <Box sx={{ width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem' }}>
+                          <img src={historyEx} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                        </Box>
+                        <Box sx={{
+                          fontSize: '1.5rem',
+                          fontWeight: '600',
+                          color: '#4D4D4D',
+                          paddingBottom: '10px',
+                          marginTop: '1rem'
+                        }}>
+                          {"2003 - Развитие образовательной инфраструктуры"}
+                        </Box>
+                        <Typography className={styles.textSm} color="#818181">
+                          {"Создание образовательного центра ТОО «Институт инжиниринга и информационных технологий КБТУ» для переподготовки и повышения квалификации кадров."}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyFourthRef}>
+                        <Box sx={{ width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem' }}>
+                          <img src={historyEx} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                        </Box>
+                        <Box sx={{
+                          fontSize: '1.5rem',
+                          fontWeight: '600',
+                          color: '#4D4D4D',
+                          paddingBottom: '10px',
+                          marginTop: '1rem'
+                        }}>
+                          {"2005 - Программа двойного диплома, Новый уровень академического обмена"}
+                        </Box>
+                        <Typography className={styles.textSm} color="#818181">
+                          {"Запуск образовательной программы двойного диплома с Лондонской школой экономики и политических наук."}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: 'flex', flexDirection: 'column' }} ref={historyFifthRef}>
+                        <Box sx={{ width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem' }}>
+                          <img src={historyEx} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                        </Box>
+                        <Box sx={{
+                          fontSize: '1.5rem',
+                          fontWeight: '600',
+                          color: '#4D4D4D',
+                          paddingBottom: '10px',
+                          marginTop: '1rem'
+                        }}>
+                          {"2011 - КБТУ присоединяется к AACSB"}
+                        </Box>
+                        <Typography className={styles.textSm} color="#818181">
+                          {"Стремясь к дальнейшей интеграции в мировое образовательное пространство, КБТУ вступил в члены Американской ассоциации AACSB (Associationto Advance Collegiate Schools of Business)"}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <Box sx={{ width: '61.4375rem', height: '23.75rem' }}>
+                        </Box>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', }}>
+                      <Dot />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
+                        <path d="M270 1.00002L0 1" stroke={currentHistory > 0 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
+                      </svg>
+                      <Dot />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
+                        <path d="M270 1.00002L0 1" stroke={currentHistory > 1 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
+                      </svg>
+                      <Dot />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
+                        <path d="M270 1.00002L0 1" stroke={currentHistory > 2 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
+                      </svg>
+                      <Dot />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
+                        <path d="M270 1.00002L0 1" stroke={currentHistory > 3 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
+                      </svg>
+                      <Dot />
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '0.75rem' }}>
+                      <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{'2000'}</Typography>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
+                        <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
+                      </svg>
+                      <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{'2001'}</Typography>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
+                        <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
+                      </svg>
+                      <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{'2003'}</Typography>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
+                        <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
+                      </svg>
+                      <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{'2005'}</Typography>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
+                        <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
+                      </svg>
+                      <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{'2011'}</Typography>
+                    </Box>
                   </Box>
-                  <Box sx={{display:'flex', flexDirection: 'column', backgroundColor: '#FAFBFF', 
+                  <Box sx={{
+                    display: 'flex', flexDirection: 'column', backgroundColor: '#FAFBFF',
                     padding: '1.75rem', borderRadius: '1.5rem', marginTop: '1.25rem'
                   }}
                   >
                     <Typography
                       className={styles.nameText} fontWeight='600' sx={{
-                        width: '70%', marginBottom:'1.5rem', fontSize: '2rem',
+                        width: '70%', marginBottom: '1.5rem', fontSize: '2rem',
                         '@media (max-width: 998px)': {
                           fontSize: '24px',
                         },
@@ -474,13 +724,96 @@ export const UniversityDetailsPage: React.FC = () => {
                         },
                       }}
                     >
-                      {'Лучшие студенты'}
+                      {'Лучшие выпускники'}
                     </Typography>
-                    <Box sx={{display: 'flex'}}>
-                      <img src={proudStudentEx} style={{marginRight: '1rem'}} />
-                      <img src={proudStudentEx} style={{marginRight: '1rem'}} />
-                      <img src={proudStudentEx} style={{marginRight: '1rem'}} />
-                      <img src={proudStudentEx} style={{}} />
+                    <Box sx={{ display: 'flex' }}>
+                      <Box sx={{
+                        width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
+                        backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
+                        bacground: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                      }}>
+                        <Box sx={{
+                          position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
+                          justifyContent: 'space-between',
+                        }}>
+                          <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
+                            <Box sx={{
+                              display: 'flex', justifyContent: 'center', alignItems: 'center',
+                              width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
+                              border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
+                            }}>
+                              <Linkedin />
+                            </Box>
+                          </Box>
+                          <Box sx={{ margin: '1rem' }}>
+                            <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                              {'Имя фамилия Отчество выпускника/ученика'}
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                              {'Специализация выпускника/ученика'}
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <img src={proudStuEx} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} />
+                      </Box>
+                      <Box sx={{
+                        width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
+                        backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
+                        bacground: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                      }}>
+                        <Box sx={{
+                          position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
+                          justifyContent: 'space-between',
+                        }}>
+                          <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
+                            <Box sx={{
+                              display: 'flex', justifyContent: 'center', alignItems: 'center',
+                              width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
+                              border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
+                            }}>
+                              <Linkedin />
+                            </Box>
+                          </Box>
+                          <Box sx={{ margin: '1rem' }}>
+                            <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                              {'Имя фамилия Отчество выпускника/ученика'}
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                              {'Специализация выпускника/ученика'}
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <img src={proudStuEx} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} />
+                      </Box>
+                      <Box sx={{
+                        width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
+                        backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
+                        bacground: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                      }}>
+                        <Box sx={{
+                          position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
+                          justifyContent: 'space-between',
+                        }}>
+                          <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
+                            <Box sx={{
+                              display: 'flex', justifyContent: 'center', alignItems: 'center',
+                              width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
+                              border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
+                            }}>
+                              <Linkedin />
+                            </Box>
+                          </Box>
+                          <Box sx={{ margin: '1rem' }}>
+                            <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                              {'Имя фамилия Отчество выпускника/ученика'}
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                              {'Специализация выпускника/ученика'}
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <img src={proudStuEx} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} />
+                      </Box>
                     </Box>
                   </Box>
 
@@ -489,7 +822,7 @@ export const UniversityDetailsPage: React.FC = () => {
             </Box>
           </Box>
         </Box>
-        <SwitchDetailsUniversity />
+        {/* <SwitchDetailsUniversity /> */}
         <Box className={styles.contentContainer}>
           <Box sx={{ width: '100%' }}>
             <Box
@@ -500,7 +833,16 @@ export const UniversityDetailsPage: React.FC = () => {
                 backgroundColor: '#FAFBFF', borderRadius: '15px',
                 width: '100%', paddingX: ".5rem",
               }}
-            > 
+            >
+              <Box sx={{
+                fontSize: '1.5rem',
+                fontWeight: '600',
+                color: '#4D4D4D',
+                paddingTop: '1.75rem',
+                paddingLeft: '1.75rem',
+              }}>
+                {"Резерв кадров"}
+              </Box>
               <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
