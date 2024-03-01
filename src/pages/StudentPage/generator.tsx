@@ -14,6 +14,7 @@ export const localization = {
             noData: "Ақпарат жеткіліксіз",
         },
         AddInfo:{
+            downloadResume: "Түйіндемені жүктеу",
             sendInvite: "Шақыру жіберу",
             about: "Түлек туралы",
             show: "Көрсету",
@@ -40,6 +41,7 @@ export const localization = {
             noData: "Недостаточно данных",
         },
         AddInfo:{
+            downloadResume: "Скачать резюме",
             sendInvite: "Отправить приглашение",
             about: "О выпускнике",
             show: "Показать ",
@@ -66,6 +68,7 @@ export const localization = {
             noData: "No data",
         },
         AddInfo:{
+            downloadResume: "Download resume",
             sendInvite: "Send invitation",
             about: "About graduate",
             show: "Show",
