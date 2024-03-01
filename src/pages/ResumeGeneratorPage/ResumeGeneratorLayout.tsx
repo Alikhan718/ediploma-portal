@@ -3,13 +3,14 @@ import {
   Box,
   Typography,
   Grid,
-  IconButton, MenuItem, Backdrop
+  IconButton, MenuItem, Backdrop, CircularProgress
 } from '@mui/material';
 import {Button, Input, Label, Modal} from '@src/components';
 import {ReactComponent as TrashIcon} from "@src/assets/icons/alternate_trash.svg";
 import {useDispatch, useSelector} from "react-redux";
-import {selectImageLink, selectUserRole, selectUserState} from '@src/store/auth/selector';
+import {selectImageLink, selectResumeLoading, selectUserRole, selectUserState} from '@src/store/auth/selector';
 import {
+  fetchGenerateResume,
   fetchUpdateUserProfile,
   fetchUploadFile,
   fetchUserProfile
@@ -23,13 +24,13 @@ import {Select} from '@src/components/Select/Select';
 import {ReactComponent as AccountCircleIcon} from '@src/assets/icons/profileIcon.svg';
 import {ReactComponent as AddOutlineIcon} from '@src/assets/icons/add_outlined.svg';
 import {ReactComponent as UploadIconFile} from '@src/assets/icons/upload_file.svg';
+import {ReactComponent as DownloadIcon} from '@src/assets/icons/Upload.svg';
 import {ReactComponent as PDFIcon} from '@src/assets/icons/PDF.svg';
 import {ReactComponent as HeaderSearchIcon} from '@src/assets/icons/search.svg';
 
 import {MultiSelect} from "@src/components/MultiSelect/MuiltiSelect";
 import Checkbox from "@mui/material/Checkbox";
-import PdfConverter from '@src/components/PdfConverter/PdfConverter';
-import {jsPDF} from "jspdf";
+import {handleLink} from '@src/utils/link';
 
 export const ResumeGeneratorLayout: React.FC = () => {
     const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
@@ -42,7 +43,6 @@ export const ResumeGeneratorLayout: React.FC = () => {
     const avatarInputRef = useRef<HTMLInputElement | null>(null);
     const imageLink = useSelector(selectImageLink);
     const contentForms = isMobile ? content : desktopContent;
-    console.log(contentForms.length);
     const [requiredForm, setRequiredForm] = React.useState<any>(contentForms[0]);
     const [state, setState] = React.useState<Record<string, any>>({});
     const [avatarUpload, setAvatarUpload] = useState<boolean>(false);
@@ -50,6 +50,8 @@ export const ResumeGeneratorLayout: React.FC = () => {
     const [file, setFile] = useState<string | null>(state && state.certificates ? state.certificates : null);
     const [step, setStep] = React.useState(1);
     const [backropOpen, setBackropOpen] = React.useState(false);
+
+    const isResumeLoading = useSelector(selectResumeLoading);
     const handleChooseFileClick = (type = "file") => {
       if (type === "file") {
         if (fileInputRef.current) {
@@ -88,7 +90,6 @@ export const ResumeGeneratorLayout: React.FC = () => {
     };
     const handleSubmit = () => {
       const payload = {"attributes": state};
-      console.log(payload);
       dispatch(fetchUpdateUserProfile(payload));
     };
     const getGridSize = (elType: string, maxRows: number) => {
@@ -127,40 +128,11 @@ export const ResumeGeneratorLayout: React.FC = () => {
       if (step + 1 <= contentForms.length) {
         setStep(step + 1);
       }
-      handleSubmit();
-    };
-    const handleBackropClose = () => {
-      setBackropOpen(false);
-    };
-
-    const reportTemplateRef = useRef<HTMLInputElement | null>(null);
-
-    const handleGeneratePdf = () => {
-      const doc = new jsPDF({
-        format: 'a4',
-        unit: 'px',
-      });
-
-      // Adding the fonts.
-      doc.setFont('Montserrat', 'normal');
-
-      const element = reportTemplateRef.current;
-
-      // Ensure that the element exists before attempting to generate the PDF
-      if (element) {
-        doc.html(element, {
-          callback: (doc) => {
-            doc.save('document.pdf');
-          },
-          html2canvas: {
-            allowTaint: false,
-            useCORS: true,
-            logging: true
-          },
-        });
-      } else {
-        console.error('Cannot generate PDF. The HTML element is not found.');
+      if (step == contentForms.length - 1) {
+        console.log(123);
+        dispatch(fetchGenerateResume());
       }
+      handleSubmit();
     };
 
     React.useEffect(() => {
@@ -192,7 +164,6 @@ export const ResumeGeneratorLayout: React.FC = () => {
         uploadCertificate(imageLink);
       }
     }, [imageLink, fileUpload]);
-
     return (
       <Box
         display="flex"
@@ -284,7 +255,8 @@ export const ResumeGeneratorLayout: React.FC = () => {
             <IconButton style={{alignSelf: "center"}} sx={{'&:hover': {backgroundColor: 'transparent'}}}>
               <ArrowIcon/>
             </IconButton>
-            <Typography className={styles.textMd} marginLeft=".5rem" align="center" fontWeight='600' color='#3B82F6'
+            <Typography className={styles.textMd} marginLeft=".5rem" align="center" fontWeight='600'
+                        color='#3B82F6'
                         fontSize={"1rem"}>
               {localization[lang].StudentPage.Menu.back}
             </Typography>
@@ -443,7 +415,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                 fontSize: '16px',
                                 paddingBottom: '15px'
                               }}>
-                                {(requiredForm.additionalText ? requiredForm.additionalText[lang] : "") + " " + (userState[requiredForm.name] ? userState[requiredForm.name] : "")}
+                                {(requiredForm.additionalText ? requiredForm.additionalText[lang] : "")}
                               </Typography>
 
                           </Box>
@@ -483,9 +455,6 @@ export const ResumeGeneratorLayout: React.FC = () => {
 
                                           key={val.value}
                                           value={val.value}
-                                          // onClick={() => {
-                                          //   handleChange(speciality.name, selectedSpecialities, setSelectedSpecialities, "speciality");
-                                          // }}
                                         >
                                           {val.label[lang]}
                                         </MenuItem>
@@ -509,10 +478,9 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                       IconComponent={HeaderSearchIcon}
                                       defaultValues={JSON.parse(state[el.name]) ?? []}
                                       handleChange={handleChange}
-                                      options={skillsList ? skillsList["ПРИСУЖДЕНА СТЕПЕНЬ БАКАЛАВРА\nТЕХНИКИ И ТЕХНОЛОГИЙ ПО ОБРАЗОВАТЕЛЬНОЙ ПРОГРАММЕ «6B07101 ХИМИЧЕСКАЯ ТЕХНОЛОГИЯ ОРГАНИЧЕСКИХ ВЕЩЕСТВ»"][lang] : []}
+                                      options={skillsList[state.speciality_ru as keyof typeof skillsList] ? skillsList[state.speciality_ru as keyof typeof skillsList][lang] : []}
                                       innerLabel={"Выберите Навыки"}
                                     >
-
                                     </MultiSelect>
                                   </Grid>);
                               }
@@ -579,11 +547,16 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                           </Box>
                                           :
                                           <AccountCircleIcon
-                                            style={{alignSelf: "center", width: "2.5rem", height: "2.5rem"}}/>}
+                                            style={{
+                                              alignSelf: "center",
+                                              width: "2.5rem",
+                                              height: "2.5rem"
+                                            }}/>}
                                       </Box>
                                       {state && !state[el.name] &&
                                           <Box display={"flex"}>
-                                              <Typography fontSize="1rem" style={{alignSelf: "center"}}>
+                                              <Typography fontSize="1rem"
+                                                          style={{alignSelf: "center"}}>
                                                 {el.label ? (el.label[lang] ?? el.label) : ""}
                                               </Typography>
                                               <AddOutlineIcon style={{alignSelf: "center"}}/>
@@ -649,19 +622,23 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                                       alignSelf: "start",
                                                     }
                                                   }}>
-                                                      <Box display="flex" alignSelf="flex-start" justifyContent="start">
+                                                      <Box display="flex" alignSelf="flex-start"
+                                                           justifyContent="start">
                                                           <UploadIconFile
                                                               style={{
                                                                 width: "3rem",
                                                                 height: "3rem",
                                                                 alignSelf: "center"
                                                               }}/>
-                                                          <Box ml=".5rem" display="flex" flexDirection="column"
+                                                          <Box ml=".5rem" display="flex"
+                                                               flexDirection="column"
                                                                justifyContent="center">
-                                                              <Typography fontSize="0.875rem" fontWeight="600">
+                                                              <Typography fontSize="0.875rem"
+                                                                          fontWeight="600">
                                                                   Загрузите сертификат
                                                               </Typography>
-                                                              <Typography fontSize="0.75rem" color="#818181"
+                                                              <Typography fontSize="0.75rem"
+                                                                          color="#818181"
                                                                           fontWeight="400">
                                                                 {el.placeholder}
                                                               </Typography>
@@ -669,7 +646,8 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                                       </Box>
                                                   </Box>
                                                 {!isMobile &&
-                                                    <Typography fontSize="0.75rem" ml={"20%"} color="#818181"
+                                                    <Typography fontSize="0.75rem" ml={"20%"}
+                                                                color="#818181"
                                                                 textAlign="center"
                                                                 fontWeight="600">
                                                         не более 5 мб
@@ -689,18 +667,22 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                                         },
                                                       }}
                                                   >
-                                                      <Typography color="white" fontSize="1rem" textAlign="center"
+                                                      <Typography color="white" fontSize="1rem"
+                                                                  textAlign="center"
                                                                   alignSelf="center">
                                                           Выбрать
                                                       </Typography>
                                                   </Box>
                                                 {isMobile &&
-                                                    <Typography fontSize="0.75rem" color="#818181" textAlign="center"
+                                                    <Typography fontSize="0.75rem" color="#818181"
+                                                                textAlign="center"
                                                                 fontWeight="400">
                                                         не более 5 мб
                                                     </Typography>}
-                                                  <input type="file" id={"file-input" + index2} accept=".pdf, .png,"
-                                                         onChange={handleImageUpload} style={{display: "none"}}
+                                                  <input type="file" id={"file-input" + index2}
+                                                         accept=".pdf, .png,"
+                                                         onChange={handleImageUpload}
+                                                         style={{display: "none"}}
                                                          ref={fileInputRef}/>
                                               </Box>
                                           </label>
@@ -763,6 +745,98 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                   </Grid>
                                 );
                               }
+                              if (el.type == 'pdf') {
+                                return (
+                                  <Grid item
+                                        xs={12}
+                                        sm={12}
+                                        md={12}
+                                        lg={12}
+                                        key={index2}>
+                                    <Label label={el.label ? (el.label[lang] ?? el.label) : ""}/>
+                                    <Box key={index2} sx={{
+                                      display: "flex",
+                                      width: "100%",
+                                      alignItems: "start",
+                                      gap: "1rem",
+                                      flexDirection: "column",
+                                      '@media (max-width: 778px)': {
+                                        flexDirection: "row",
+                                      },
+                                    }}>
+                                      {isResumeLoading &&
+                                          <label
+                                              htmlFor={"file-input" + index2}
+                                              style={{
+                                                width: "100%",
+                                                marginTop: "1rem",
+                                                padding: ".75rem 1rem",
+                                                borderRadius: "15px",
+                                                backgroundColor: "transparent",
+                                                border: "2px dashed #3B82F6",
+                                                display: "flex",
+                                                cursor: "pointer",
+                                              }}
+                                          >
+                                              <Box sx={{
+                                                width: "100%",
+                                                display: "flex",
+                                                paddingY: "2rem",
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                '@media (max-width: 778px)': {
+                                                  justifyContent: "center",
+                                                  flexDirection: "column",
+                                                },
+                                              }}>
+                                                  <CircularProgress color="success"/>
+                                              </Box>
+                                          </label>
+                                      }
+                                      {!isResumeLoading &&
+                                          <Box sx={{
+                                            backgroundColor: "#F4F7FE",
+                                            width: "100%",
+                                            display: "flex",
+                                            padding: ".75rem 1rem",
+                                            borderRadius: "1rem",
+                                          }}>
+                                              <IconButton style={{
+                                                cursor: "pointer",
+                                              }}
+                                              >
+                                                  <PDFIcon style={{
+                                                    alignSelf: "center",
+                                                    width: "2rem",
+                                                    height: "2rem",
+                                                  }}/>
+                                              </IconButton>
+                                              <Box display="flex" flexDirection="column" ml="1rem"
+                                                   justifyContent="center">
+                                                  <Typography sx={{}}>
+                                                    {state ? state.resume_link ? state.resume_link.split("uploads/")[1].split("_").join(" ") : "" : ""}
+                                                  </Typography>
+                                              </Box>
+                                              <IconButton style={{
+                                                marginLeft: "auto",
+                                                cursor: "pointer",
+                                              }}
+                                                          onClick={() => {
+                                                            handleLink(state ? state.resume_link : "");
+                                                          }}
+                                              >
+                                                  <DownloadIcon style={{
+                                                    alignSelf: "center",
+                                                    width: "1.5rem",
+                                                    height: "1.5rem",
+                                                  }}/>
+                                              </IconButton>
+                                          </Box>
+                                      }
+                                    </Box>
+                                  </Grid>);
+                              }
                               return (
                                 <Grid item
                                       xs={el.multiline ? 12 : getGridSize("xs", el.maxRows)}
@@ -812,6 +886,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
                         }}
                         >
                           <Button
+                            style={{display: step == contentForms.length ? "none" : 'block'}}
                             variant="contained"
                             borderRadius="3rem"
                             onClick={nextStep}>
@@ -829,27 +904,6 @@ export const ResumeGeneratorLayout: React.FC = () => {
                   </Box>
               </Box>
           }
-        </Box>
-
-
-        <Box sx={{
-          display: "none",
-          position: "absolute",
-          top: "2rem",
-          left: "2rem",
-        }}>
-          <button style={{
-            display: "none",
-            position: "absolute",
-            zIndex: 9999,
-            top: "2rem",
-            right: "2rem",
-          }} className="button" onClick={handleGeneratePdf}>
-            Generate PDF
-          </button>
-          <Box ref={reportTemplateRef}>
-            <PdfConverter/>
-          </Box>
         </Box>
 
       </Box>

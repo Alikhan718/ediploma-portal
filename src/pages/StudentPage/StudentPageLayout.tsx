@@ -30,7 +30,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchDiplomas, fetchGraduateDetails} from "@src/store/diplomas/actionCreators";
 import {selectDiplomaList} from "@src/store/diplomas/selectors";
 import {isAuthenticated} from "@src/utils/userAuth";
-import {handleDownload} from "@src/utils/link";
+import {handleDownload, handleLink} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
 import {selectLanguage} from "@src/store/generals/selectors";
@@ -75,7 +75,7 @@ export const StudentPageLayout: React.FC = () => {
   React.useEffect(() => {
     if (isAuthenticated() && data && id != undefined) {
       dispatch(fetchGraduateDetails({name: data.name_en}));
-    } else if (data && data.name){
+    } else if (data && data.name) {
       dispatch(fetchGraduateDetails({name: data.name}));
       console.log(data);
     }
@@ -220,7 +220,7 @@ export const StudentPageLayout: React.FC = () => {
                     alignItems="center"
                     sx={{
                       flexDirection: 'row',
-                      ustifyContent: 'space-between',
+                      justifyContent: 'space-between',
                       width: '100%',
                       alignItems: 'center',
                     }}
@@ -260,18 +260,36 @@ export const StudentPageLayout: React.FC = () => {
                       </Box>
                     </Box>
                   </Box>
+                  <Box display="flex" gap="1rem">
+                    <Button
+                      buttonSize="s"
+                      variant="contained"
+                      type="button"
+                      sx={{
+                        borderRadius: '25px',
+                        marginTop: '1rem',
+                      }}
+                      disabled>
+                      {localization[lang].AddInfo.sendInvite}
+                    </Button>
+                    {userState && userState.resume_link &&
+                      <Button
+                      buttonSize="s"
+                      color={"success"}
+                      variant="contained"
+                      type="button"
+                      sx={{
+                        borderRadius: '25px',
+                        marginTop: '1rem',
+                      }}
+                      onClick={() => handleLink(userState.resume_link)}
+                      >
+                      {localization[lang].AddInfo.downloadResume}
+                    </Button>
+                    }
 
-                  <Button
-                    buttonSize="s"
-                    variant="contained"
-                    type="button"
-                    sx={{
-                      borderRadius: '25px',
-                      marginTop: '1rem',
-                    }}
-                    disabled>
-                    {localization[lang].AddInfo.sendInvite}
-                  </Button>
+                  </Box>
+
                 </Box>
               </Box>
               {data && data.description &&

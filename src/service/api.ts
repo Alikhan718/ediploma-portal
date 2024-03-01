@@ -122,6 +122,9 @@ export const authApi = {
             query += `field=${body.field}&`;
         }
         return instance.get(query);
+    },
+    getResumeGenerate() {
+        return instance.get(`/users/resume-generate`);
     }
 };
 

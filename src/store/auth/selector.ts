@@ -14,3 +14,4 @@ export const selectUserState = (state: RootState) => state.auth.userState;
 export const selectUniversitiesList = (state: RootState) => state.auth.universitiesList;
 export const selectEmployersList = (state: RootState) => state.auth.employersList;
 export const selectImageLink = (state: RootState) => state.auth.image_link;
+export const selectResumeLoading = (state: RootState) => state.auth.resume_loading;
