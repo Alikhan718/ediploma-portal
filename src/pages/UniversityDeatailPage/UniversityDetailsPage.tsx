@@ -25,7 +25,7 @@ import share from "./../../assets/icons/share.svg";
 import dots from "./../../assets/icons/Dots.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleLink } from "@src/utils/link";
-import imageU from "@src/assets/example/universityKBTU.jpg"
+import imageU from "@src/assets/example/universityKBTU.jpg";
 import { selectDiplomaList, selectSearchText } from "@src/store/diplomas/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDiplomas, fetchSearch } from "@src/store/diplomas/actionCreators";
@@ -61,7 +61,7 @@ interface TabPanelProps {
   value: number;
 }
 
-function TabPanel(props: TabPanelProps) {
+function TabPanel(props: TabPanelProps): any {
   const { children, value, index, ...other } = props;
 
   return (
@@ -82,7 +82,7 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-function a11yProps(index: number) {
+function a11yProps(index: number): any {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
@@ -99,7 +99,6 @@ export const UniversityDetailsPage: React.FC = () => {
   const searchText = useSelector(selectSearchText);
   const { id } = useParams();
   const universityList = useSelector(selectUniversitiesList);
-  const defaultS = 3.5;
 
   const [isDataAlert, setIsDataAlert] = React.useState(false);
   const [showFull, setShowFull] = React.useState(false);
@@ -129,13 +128,13 @@ export const UniversityDetailsPage: React.FC = () => {
   const endIndex = startIndex + diplomasPerPage;
   const currentDiplomaPage = diplomaList.slice(startIndex, endIndex);
 
-  const prevPage = () => {
+  const prevPage = (): void => {
     if (currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
     }
   };
 
-  const handlePrevPage = () => {
+  const handlePrevPage = (): void => {
     setPage((prevPage) => prevPage - 1);
   };
 
@@ -145,24 +144,24 @@ export const UniversityDetailsPage: React.FC = () => {
     return showFull ? text : text.substring(0, trimLimit) + "...";
   };
 
-  const triggerSearchFilters = (filterAttributesNew: any) => {
+  const triggerSearchFilters = (filterAttributesNew: any): void => {
     dispatch(fetchSearch(filterAttributesNew));
     navigate(`/university/${id}`);
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: number): void => {
     setValue(newValue);
   };
 
-  const nextPage = () => {
+  const nextPage = (): void => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
-  const handleAlertClose = () => {
+  const handleAlertClose = ():void => {
     setAlertOpen(false);
   };
 
-  const copyCurrentURLToClipboard = () => {
+  const copyCurrentURLToClipboard = (): void => {
     const currentURL = window.location.href;
     const textArea = document.createElement('textarea');
     textArea.value = currentURL;
@@ -174,7 +173,7 @@ export const UniversityDetailsPage: React.FC = () => {
   };
 
   const getIconForLink = (name: any, link: any): React.ReactNode => {
-    const onClick = () => {
+    const onClick = ():void => {
       handleLink(link);
     };
     if (name.includes('linkedin')) {
@@ -198,7 +197,7 @@ export const UniversityDetailsPage: React.FC = () => {
     return <Web cursor="pointer" className={styles.social} onClick={onClick} />;
   };
 
-  const handleCardClick = (counter: number) => {
+  const handleCardClick = (counter: number):void => {
     if (userRole === 'Student' && counter != data.id) {
       setAlertOpen(true);
       return;
@@ -242,7 +241,7 @@ export const UniversityDetailsPage: React.FC = () => {
   }, [totalDiplomas, data]);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = ():void => {
       setIsDataAlert(false);
     };
 
@@ -280,7 +279,7 @@ export const UniversityDetailsPage: React.FC = () => {
     }
   };
 
-  const scrollToRef = (direction: string) => {
+  const scrollToRef = (direction: string):void => {
     const ref = getRefById(direction === 'next' ? currentHistory + 1 : currentHistory - 1);
     if (direction === 'next' && currentHistory < 4) {
       setCurrentHistory(currentHistory + 1);
@@ -336,7 +335,7 @@ export const UniversityDetailsPage: React.FC = () => {
   }, []);
 
   const stars = [1, 2, 3, 4, 5];
-  const mission = 'eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов.'
+  const mission = 'eDiploma - это онлайн-платформа, разрабатываемая командой JASAIM, которая предоставляет оцифровку бумажных дипломов выпускников в формате NFT (невзаимозаменяемые токены), что позволяет исключить возможность подделки документов.';
   return (
     <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer} pt='2rem'
       sx={{ backgroundColor: 'white' }}
@@ -393,7 +392,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     {data ? data.name : ""}
                   </Typography>
                   <Box display="flex" alignItems="center" sx={{ '@media (max-width: 768px)': {marginBottom:'1rem'}}}>
-                    {links.map((link: any, index: number) => (
+                    {links.map((link: any) => (
                       <Box key={link["name"] + "Box"} display='flex' justifyContent="center"
                         alignItems='center' padding={link["name"].includes('linkedin') ? '0.7rem' : '0.5rem'} marginX='0.5rem'
                         sx={{
@@ -418,7 +417,7 @@ export const UniversityDetailsPage: React.FC = () => {
                         <Box key={index} marginX="0.25rem">
                           <GoldStar />
                         </Box>
-                      )
+                      );
                     })}
                     <Typography sx={{ fontSize: '1rem', fontWeight: '500', color: '#DE9703' }} marginX='0.25rem'>4,5</Typography>
                   </Box>
@@ -597,7 +596,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
                           borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
                           display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '1.75rem',
-                        }} onClick={() => scrollToRef('prev')}
+                        }} onClick={():void => scrollToRef('prev')}
                         >
                           <ArrowLeft />
                         </Box>
@@ -605,7 +604,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
                           borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
                           display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '1.75rem'
-                        }} onClick={() => scrollToRef('next')}
+                        }} onClick={():void => scrollToRef('next')}
                         >
                           <ArrowRight />
                         </Box>
@@ -915,7 +914,7 @@ export const UniversityDetailsPage: React.FC = () => {
                       borderRadius: '20px', padding: '5px', width: '150px',
                       color: '#3B82F6', marginLeft: '20px', marginRight: '15px'
                     }}
-                    onClick={() => {
+                    onClick={():void => {
                       setShowFilter(true);
                     }}
                   >
@@ -936,14 +935,14 @@ export const UniversityDetailsPage: React.FC = () => {
                         <InputAdornment position="end">
                           <HeaderSearchIcon
                             cursor="pointer"
-                            onClick={() => {
+                            onClick={():void => {
                               triggerSearchFilters(filterAttributes);
                               ReactGA.event({ category: 'User', action: 'Search', label: searchQuery, });
                             }}
                           />
                         </InputAdornment>
                       }
-                      onChange={(e) => {
+                      onChange={(e):void => {
                         const query = e.target.value;
                         setFilterAttributes({ ...filterAttributes, text: query });
                         setSearchQuery(query);
@@ -1044,8 +1043,8 @@ export const UniversityDetailsPage: React.FC = () => {
 
                   <Box
                     key={e.id}
-                    onClick={() => {
-                      handleCardClick(e.id!)
+                    onClick={():void => {
+                      handleCardClick(e.id!);
                     }}
                     className={styles.diplomaItem}
                     sx={{
@@ -1135,7 +1134,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     <Pagination
                       count={totalPages}
                       page={currentPage}
-                      onChange={(event, page) => setCurrentPage(page)}
+                      onChange={(event, page):void => setCurrentPage(page)}
                       shape="rounded"
                       color="primary"
                       size="large"
