@@ -85,9 +85,9 @@
 		width: 95% !important;
 	}
 
-	.social:nth-of-type(-n + 5) {
+	/* .social:nth-of-type(-n + 5) {
 		display: none !important;
-	}
+	} */
 
 	.textMd {
 		font-size: 1.2rem !important;

@@ -347,13 +347,15 @@ export const UniversityDetailsPage: React.FC = () => {
           <Box display='flex' flexDirection='column'>
 
             <Box display='flex' flexDirection='column' sx={{ borderRadius: '15px', }}>
-              <Box display='flex' flexDirection='row'>
+              <Box display='flex' flexDirection='row' sx={{ '@medi (max-width: 768px)': { maxWidth: '96vw' } }}>
                 <UniversityDetailsHeader banner={data ? data.banner : ""} />
                 <Box display='flex' flexDirection='column' sx={{ marginLeft: '20px', '@media (max-width: 978px)': { display: 'none', }, }}>
-                  {galleryImages.length != 0 ? galleryImages.map(image => (
+                  {/* {galleryImages.length != 0 ? galleryImages.map(image => (
                     <img key={image} src={`${baseURL}/${image}`} style={{ marginBottom: '10px', borderRadius: '1rem', width: "20vw" }} />
                   )) : <img src={diplomaTemplate} style={{ marginBottom: '10px', borderRadius: '1rem', width: "20vw" }} />
-                  }
+                  } */}
+
+                  <img src={`${baseURL}/${galleryImages[1]}`} style={{ marginBottom: '10px', borderRadius: '1rem', width: "20vw" }} />
                 </Box>
               </Box>
               <Box>
@@ -365,7 +367,10 @@ export const UniversityDetailsPage: React.FC = () => {
                     justifyContent: 'space-between',
                     width: '100%',
                     alignItems: 'center',
-                    '@media (max-width: 768px)': { position: 'relative', }
+                    '@media (max-width: 768px)': {
+                      position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start',
+                      maxWidth: '96vw'
+                    }
                   }}
                 >
                   <Typography
@@ -377,7 +382,6 @@ export const UniversityDetailsPage: React.FC = () => {
                       fontSize: '28px',
                       '@media (max-width: 998px)': {
                         fontSize: '24px',
-
                       },
                       '@media (max-width: 768px)': {
                         fontSize: '24px',
@@ -388,7 +392,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     {/* {localization[lang].MainCard.uniNames} */}
                     {data ? data.name : ""}
                   </Typography>
-                  <Box display="flex" alignItems="center">
+                  <Box display="flex" alignItems="center" sx={{ '@media (max-width: 768px)': {marginBottom:'1rem'}}}>
                     {links.map((link: any, index: number) => (
                       <Box key={link["name"] + "Box"} display='flex' justifyContent="center"
                         alignItems='center' padding={link["name"].includes('linkedin') ? '0.7rem' : '0.5rem'} marginX='0.5rem'
@@ -418,17 +422,23 @@ export const UniversityDetailsPage: React.FC = () => {
                     })}
                     <Typography sx={{ fontSize: '1rem', fontWeight: '500', color: '#DE9703' }} marginX='0.25rem'>4,5</Typography>
                   </Box>
-                  <Typography className={styles.textSm} marginX='0.5rem'>
+                  <Typography className={styles.textSm} marginX='0.5rem' sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                     <span style={{ fontWeight: 'bold', fontSize: '18px' }}>{data ? data.phone : ""}</span>
                   </Typography>
-                  <Typography className={styles.textSm} marginX='0.5rem'>
+                  <Typography className={styles.textSm} marginX='0.5rem' sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                     <span style={{ fontWeight: 'bold', fontSize: '18px' }}>{data ? data.email : ""}</span>
                   </Typography>
                 </Box>
 
                 <Box className={styles.contentContainer}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                    <Box width='55%' marginRight='3rem'>
+                  <Box sx={{
+                    display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center',
+                    '@media (max-width: 768px)': { flexDirection: 'column', justifyContent: 'flext-start', alignItems: 'flex-start', maxWidth: '96vw' }
+                  }}
+                  >
+                    <Box marginRight='3rem' sx={{
+                      width: '55%', '@media (max-width: 768px)': { width: '100%', marginRight: '0' }
+                    }}>
                       <Box sx={{
                         fontSize: '24px',
                         fontWeight: '600',
@@ -494,10 +504,20 @@ export const UniversityDetailsPage: React.FC = () => {
                       <ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
                     </Typography>
                   </Box> */}
-                  <Box sx={{ display: 'flex', marginTop: '1.25rem' }}>
+                  <Box sx={{
+                    display: 'flex', marginTop: '1.25rem',
+                    '@media (max-width: 768px)': {
+                      overflow: 'auto', scrollBehavior: 'smooth', flexWrap: 'nowrap',
+                      '&::-webkit-scrollbar': { display: 'none' }, maxWidth: '96vw'
+                    }
+                  }}
+                  >
                     <Box sx={{
                       display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
-                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
+                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem',
+                      '@media (max-width: 768px)': {
+                        width: '19.4375rem', padding: '0.75rem', marginRight: '1rem', flexShrink: 0,
+                      }
                     }}
                     >
                       <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
@@ -509,7 +529,10 @@ export const UniversityDetailsPage: React.FC = () => {
                     </Box>
                     <Box sx={{
                       display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
-                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
+                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem',
+                      '@media (max-width: 768px)': {
+                        width: '19.4375rem', padding: '0.75rem', marginRight: '1rem', flexShrink: 0,
+                      }
                     }}
                     >
                       <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
@@ -521,7 +544,10 @@ export const UniversityDetailsPage: React.FC = () => {
                     </Box>
                     <Box sx={{
                       display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
-                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem'
+                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem',
+                      '@media (max-width: 768px)': {
+                        width: '19.4375rem', padding: '0.75rem', marginRight: '1rem', flexShrink: 0,
+                      }
                     }}
                     >
                       <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
@@ -534,6 +560,9 @@ export const UniversityDetailsPage: React.FC = () => {
                     <Box sx={{
                       display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
                       borderRadius: '1rem', width: '19.25rem', padding: '1.25rem',
+                      '@media (max-width: 768px)': {
+                        width: '19.4375rem', padding: '0.75rem', flexShrink: 0,
+                      }
                     }}
                     >
                       <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
@@ -544,7 +573,7 @@ export const UniversityDetailsPage: React.FC = () => {
                       </Typography>
                     </Box>
                   </Box>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', borderRadius: '1.5rem', marginTop: '1.25rem' }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', borderRadius: '1.5rem', marginTop: '1.25rem', position: 'relative' }}>
                     <Box sx={{
                       fontSize: '1.5rem',
                       fontWeight: '600',
@@ -557,14 +586,17 @@ export const UniversityDetailsPage: React.FC = () => {
                     <Box sx={{
                       display: 'flex', overflow: 'auto', maxWidth: '92vw',
                       '-ms-overflow-style': 'none', 'scrollbar-width': 'none', '&::-webkit-scrollbar': { display: 'none' },
-                      scrollBehavior: 'smooth'
+                      scrollBehavior: 'smooth', '@media (max-width: 768px)': { maxWidth: '96vw' }
                     }}
                     >
-                      <Box sx={{ position: 'absolute', width: '61.4375rem', height: '23.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Box sx={{
+                        position: 'absolute', width: '61.4375rem', height: '23.75rem', display: 'flex',
+                        justifyContent: 'space-between', alignItems: 'center', '@media (max-width: 768px)': { display: 'none' },
+                      }}>
                         <Box sx={{
                           cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
                           borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
-                          display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '1.75rem'
+                          display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '1.75rem',
                         }} onClick={() => scrollToRef('prev')}
                         >
                           <ArrowLeft />
@@ -579,7 +611,10 @@ export const UniversityDetailsPage: React.FC = () => {
                         </Box>
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyFirstRef}>
-                        <Box sx={{ width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem' }}>
+                        <Box sx={{
+                          width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
+                          '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
+                        }}>
                           <img src={historyEx} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
                         </Box>
                         <Box sx={{
@@ -591,12 +626,15 @@ export const UniversityDetailsPage: React.FC = () => {
                         }}>
                           {"2000 - Начало международного сотрудничества в образовании и науке"}
                         </Box>
-                        <Typography className={styles.textSm} color="#818181">
+                        <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                           {"В ходе официального визита Президента в Великобританию в ноябре 2000 года достигнуты соглашения в области образования и науки."}
                         </Typography>
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historySecondRef}>
-                        <Box sx={{ width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem' }}>
+                        <Box sx={{
+                          width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
+                          '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
+                        }}>
                           <img src={historyEx} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
                         </Box>
                         <Box sx={{
@@ -608,12 +646,15 @@ export const UniversityDetailsPage: React.FC = () => {
                         }}>
                           {"2001 - Основание Казахстанско-Британского технического университета"}
                         </Box>
-                        <Typography className={styles.textSm} color="#818181">
+                        <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                           {"Основан в 2001 году после соглашений, достигнутых между Казахстаном и Великобританией в области образования и науки."}
                         </Typography>
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyThirdRef}>
-                        <Box sx={{ width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem' }}>
+                        <Box sx={{
+                          width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
+                          '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
+                        }}>
                           <img src={historyEx} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
                         </Box>
                         <Box sx={{
@@ -625,12 +666,15 @@ export const UniversityDetailsPage: React.FC = () => {
                         }}>
                           {"2003 - Развитие образовательной инфраструктуры"}
                         </Box>
-                        <Typography className={styles.textSm} color="#818181">
+                        <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                           {"Создание образовательного центра ТОО «Институт инжиниринга и информационных технологий КБТУ» для переподготовки и повышения квалификации кадров."}
                         </Typography>
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyFourthRef}>
-                        <Box sx={{ width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem' }}>
+                        <Box sx={{
+                          width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
+                          '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
+                        }}>
                           <img src={historyEx} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
                         </Box>
                         <Box sx={{
@@ -642,12 +686,15 @@ export const UniversityDetailsPage: React.FC = () => {
                         }}>
                           {"2005 - Программа двойного диплома, Новый уровень академического обмена"}
                         </Box>
-                        <Typography className={styles.textSm} color="#818181">
+                        <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                           {"Запуск образовательной программы двойного диплома с Лондонской школой экономики и политических наук."}
                         </Typography>
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }} ref={historyFifthRef}>
-                        <Box sx={{ width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem' }}>
+                        <Box sx={{
+                          width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
+                          '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
+                        }}>
                           <img src={historyEx} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
                         </Box>
                         <Box sx={{
@@ -659,12 +706,12 @@ export const UniversityDetailsPage: React.FC = () => {
                         }}>
                           {"2011 - КБТУ присоединяется к AACSB"}
                         </Box>
-                        <Typography className={styles.textSm} color="#818181">
+                        <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                           {"Стремясь к дальнейшей интеграции в мировое образовательное пространство, КБТУ вступил в члены Американской ассоциации AACSB (Associationto Advance Collegiate Schools of Business)"}
                         </Typography>
                       </Box>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Box sx={{ width: '61.4375rem', height: '23.75rem' }}>
+                        <Box sx={{ width: '61.4375rem', height: '23.75rem', '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' } }}>
                         </Box>
                       </Box>
                     </Box>
@@ -709,7 +756,7 @@ export const UniversityDetailsPage: React.FC = () => {
                   </Box>
                   <Box sx={{
                     display: 'flex', flexDirection: 'column', backgroundColor: '#FAFBFF',
-                    padding: '1.75rem', borderRadius: '1.5rem', marginTop: '1.25rem'
+                    padding: '1.75rem', borderRadius: '1.5rem', marginTop: '1.25rem', '@media (max-width: 768px)': { maxWidth: '96vw' },
                   }}
                   >
                     <Typography
@@ -726,11 +773,14 @@ export const UniversityDetailsPage: React.FC = () => {
                     >
                       {'Лучшие выпускники'}
                     </Typography>
-                    <Box sx={{ display: 'flex' }}>
+                    <Box sx={{ display: 'flex', '@media (max-width: 998px)': { flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '1rem'} }}>
                       <Box sx={{
                         width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
                         backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
-                        bacground: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                        background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                        '@media (max-width: 768px)': {
+                          marginRight: '0rem', marginBottom: '1rem',
+                        },
                       }}>
                         <Box sx={{
                           position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
@@ -759,7 +809,10 @@ export const UniversityDetailsPage: React.FC = () => {
                       <Box sx={{
                         width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
                         backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
-                        bacground: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                        background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                        '@media (max-width: 768px)': {
+                          marginRight: '0rem', marginBottom: '1rem',
+                        },
                       }}>
                         <Box sx={{
                           position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
@@ -788,7 +841,10 @@ export const UniversityDetailsPage: React.FC = () => {
                       <Box sx={{
                         width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
                         backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
-                        bacground: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                        background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                        '@media (max-width: 768px)': {
+                          marginRight: '0rem', marginBottom: '1rem',
+                        },
                       }}>
                         <Box sx={{
                           position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
@@ -824,7 +880,7 @@ export const UniversityDetailsPage: React.FC = () => {
         </Box>
         {/* <SwitchDetailsUniversity /> */}
         <Box className={styles.contentContainer}>
-          <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: '100%', '@media (max-width: 768px)': { maxWidth: '96vw' } }}>
             <Box
               display="flex"
               flexDirection="column"
