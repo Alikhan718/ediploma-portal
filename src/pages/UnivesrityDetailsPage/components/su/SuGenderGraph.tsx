@@ -18,10 +18,6 @@ const combinedData = [...dats];
 const COLORS = [
   'rgba(54, 162, 235, 0.5)',
   'rgba(255, 99, 132, 0.5)',
-  // 'RGB(0, 128, 55)',
-  // 'RGB(126, 217, 87)',
-  // 'RGB(201, 226, 101)',
-  // // Add more colors if needed to cover all data points
 ];
 
 interface CustomTooltipProps {
@@ -64,7 +60,7 @@ export const SuGenderGraph: React.FC = memo(() => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Межгендерная аналитика по факультетам
+					Межгендерная аналитика
 				</Typography>
 			</Box>
 			<Box sx={{ width: "100%", margin: "0 auto" }}>
