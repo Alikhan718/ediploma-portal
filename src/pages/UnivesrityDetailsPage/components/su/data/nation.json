@@ -1,0 +1,109 @@
+{
+    "data": [
+        {
+            "Nation": "Азербайджанец",
+            "Number": 5,
+            "Avg_GPA": 2.58
+        },
+        {
+            "Nation": "Белорус",
+            "Number": 1,
+            "Avg_GPA": 2.83
+        },
+        {
+            "Nation": "Другие",
+            "Number": 7,
+            "Avg_GPA": 3.42
+        },
+        {
+            "Nation": "Дунганин",
+            "Number": 6,
+            "Avg_GPA": 3.18
+        },
+        {
+            "Nation": "Еврей",
+            "Number": 1,
+            "Avg_GPA": 2.33
+        },
+        {
+            "Nation": "Ингуш",
+            "Number": 2,
+            "Avg_GPA": 3.06
+        },
+        {
+            "Nation": "Казах",
+            "Number": 1840,
+            "Avg_GPA": 3.09
+        },
+        {
+            "Nation": "Каракалпак",
+            "Number": 1,
+            "Avg_GPA": 3.03
+        },
+        {
+            "Nation": "Киргиз",
+            "Number": 5,
+            "Avg_GPA": 3.09
+        },
+        {
+            "Nation": "Кореец",
+            "Number": 16,
+            "Avg_GPA": 3.36
+        },
+        {
+            "Nation": "Курд",
+            "Number": 1,
+            "Avg_GPA": 3.31
+        },
+        {
+            "Nation": "Не указано",
+            "Number": 1,
+            "Avg_GPA": 3.72
+        },
+        {
+            "Nation": "Немец",
+            "Number": 1,
+            "Avg_GPA": 3.88
+        },
+        {
+            "Nation": "Русский",
+            "Number": 77,
+            "Avg_GPA": 3.33
+        },
+        {
+            "Nation": "Таджик",
+            "Number": 2,
+            "Avg_GPA": 3.48
+        },
+        {
+            "Nation": "Татарин",
+            "Number": 15,
+            "Avg_GPA": 3.25
+        },
+        {
+            "Nation": "Турок",
+            "Number": 1,
+            "Avg_GPA": 3.11
+        },
+        {
+            "Nation": "Узбек",
+            "Number": 73,
+            "Avg_GPA": 3.09
+        },
+        {
+            "Nation": "Уйгур",
+            "Number": 24,
+            "Avg_GPA": 3.31
+        },
+        {
+            "Nation": "Украинец",
+            "Number": 2,
+            "Avg_GPA": 3.04
+        },
+        {
+            "Nation": "Чеченец",
+            "Number": 4,
+            "Avg_GPA": 3.47
+        }
+    ]
+}

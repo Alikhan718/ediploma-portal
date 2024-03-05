@@ -18,8 +18,12 @@ import * as XLSX from 'xlsx';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGraduatesAmount } from '@src/store/analytics/actionCreators';
 import { selectGraduatesAmount } from '@src/store/analytics/selector';
-import { set } from 'react-ga';
-
+import { SuFacultyGraph } from './components/su/SuFacultyGraph';
+import { SuAnalyticsGraph } from './components/su/SuAnalyticsGraph';
+import { SuGenderGraph } from './components/su/SuGenderGraph';
+import { SuGrantsGraph } from './components/su/SuGrantsGraph';
+import { SuBirthGraph } from './components/su/SuBirthGraph';
+import { SuNationsGraph } from './components/su/SuNationsGraph';
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -63,7 +67,7 @@ interface AllGraphData {
 export const AnalysisPage: React.FC = () => {
 	const graduatesAmount = useSelector(selectGraduatesAmount);
 	const dispatch = useDispatch();
-
+	const university_id: number = graduatesAmount.graduatesAmount == 705 ? 0 : 1 ;
 	const [value, setValue] = React.useState(0);
 	const [graphVisibility, setGraphVisibility] = React.useState(initialGraphVisibility);
 	const toggleGraphVisibility = (graphName: string) => {
@@ -230,9 +234,9 @@ export const AnalysisPage: React.FC = () => {
 							gap: "32px",
 							flexDirection: "column"
 						}}>
-							{graphVisibility["FacultyGraph"] && <FacultyGraph />}
-							{graphVisibility["AnalyticsGraph"] && <AnalyticsGraph />}
-							{graphVisibility["GenderGraph"] && <GenderGraph />}
+							{graphVisibility["FacultyGraph"] && (university_id == 0 ? <FacultyGraph /> : <SuFacultyGraph />)}
+							{graphVisibility["AnalyticsGraph"] && (university_id == 0 ? <AnalyticsGraph /> : <SuAnalyticsGraph />)}
+							{graphVisibility["GenderGraph"] && (university_id == 0 ? <GenderGraph /> : <SuGenderGraph />)}
 						</Box>
 						<Box sx={{
 							flex: 1,
@@ -250,9 +254,9 @@ export const AnalysisPage: React.FC = () => {
 								}
 							}
 						}}>
-							{graphVisibility["CitiesGraph"] && <CitiesGraph />}
-							{graphVisibility["CitiesGrantsGraph"] && <CitiesGrantsGraph />}
-							{graphVisibility["GrantsGraph"] && <GrantsGraph />}
+							{graphVisibility["CitiesGraph"] && (university_id == 0 ? <CitiesGraph /> : <SuBirthGraph/>)}
+							{graphVisibility["CitiesGrantsGraph"] && (university_id == 0 ? <CitiesGrantsGraph /> : <SuNationsGraph/>)}
+							{graphVisibility["GrantsGraph"] && (university_id == 0 ? <GrantsGraph /> : <SuGrantsGraph />)}
 						</Box>
 					</Box>
 

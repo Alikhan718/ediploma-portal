@@ -1,0 +1,169 @@
+{
+    "data": [
+        {
+            "Birth_Day": 1966,
+            "Number": 1,
+            "Avg_GPA": 3.67
+        },
+        {
+            "Birth_Day": 1968,
+            "Number": 1,
+            "Avg_GPA": 3.22
+        },
+        {
+            "Birth_Day": 1972,
+            "Number": 1,
+            "Avg_GPA": 3.56
+        },
+        {
+            "Birth_Day": 1977,
+            "Number": 1,
+            "Avg_GPA": 3.49
+        },
+        {
+            "Birth_Day": 1978,
+            "Number": 4,
+            "Avg_GPA": 3.32
+        },
+        {
+            "Birth_Day": 1979,
+            "Number": 2,
+            "Avg_GPA": 3.44
+        },
+        {
+            "Birth_Day": 1980,
+            "Number": 1,
+            "Avg_GPA": 3.34
+        },
+        {
+            "Birth_Day": 1981,
+            "Number": 2,
+            "Avg_GPA": 1.92
+        },
+        {
+            "Birth_Day": 1982,
+            "Number": 1,
+            "Avg_GPA": 3.15
+        },
+        {
+            "Birth_Day": 1983,
+            "Number": 4,
+            "Avg_GPA": 2.93
+        },
+        {
+            "Birth_Day": 1984,
+            "Number": 4,
+            "Avg_GPA": 3.07
+        },
+        {
+            "Birth_Day": 1985,
+            "Number": 4,
+            "Avg_GPA": 2.17
+        },
+        {
+            "Birth_Day": 1986,
+            "Number": 8,
+            "Avg_GPA": 3.52
+        },
+        {
+            "Birth_Day": 1987,
+            "Number": 3,
+            "Avg_GPA": 2.26
+        },
+        {
+            "Birth_Day": 1988,
+            "Number": 7,
+            "Avg_GPA": 3.13
+        },
+        {
+            "Birth_Day": 1989,
+            "Number": 10,
+            "Avg_GPA": 3.12
+        },
+        {
+            "Birth_Day": 1990,
+            "Number": 5,
+            "Avg_GPA": 3.27
+        },
+        {
+            "Birth_Day": 1991,
+            "Number": 12,
+            "Avg_GPA": 2.87
+        },
+        {
+            "Birth_Day": 1992,
+            "Number": 7,
+            "Avg_GPA": 3.13
+        },
+        {
+            "Birth_Day": 1993,
+            "Number": 7,
+            "Avg_GPA": 3.38
+        },
+        {
+            "Birth_Day": 1994,
+            "Number": 12,
+            "Avg_GPA": 3.34
+        },
+        {
+            "Birth_Day": 1995,
+            "Number": 13,
+            "Avg_GPA": 3.08
+        },
+        {
+            "Birth_Day": 1996,
+            "Number": 15,
+            "Avg_GPA": 3.04
+        },
+        {
+            "Birth_Day": 1997,
+            "Number": 19,
+            "Avg_GPA": 3.36
+        },
+        {
+            "Birth_Day": 1998,
+            "Number": 43,
+            "Avg_GPA": 3.17
+        },
+        {
+            "Birth_Day": 1999,
+            "Number": 120,
+            "Avg_GPA": 3.26
+        },
+        {
+            "Birth_Day": 2000,
+            "Number": 181,
+            "Avg_GPA": 3.17
+        },
+        {
+            "Birth_Day": 2001,
+            "Number": 630,
+            "Avg_GPA": 3.06
+        },
+        {
+            "Birth_Day": 2002,
+            "Number": 946,
+            "Avg_GPA": 3.1
+        },
+        {
+            "Birth_Day": 2003,
+            "Number": 18,
+            "Avg_GPA": 3.29
+        },
+        {
+            "Birth_Day": 2018,
+            "Number": 1,
+            "Avg_GPA": 2.3
+        },
+        {
+            "Birth_Day": 2019,
+            "Number": 1,
+            "Avg_GPA": 2.73
+        },
+        {
+            "Birth_Day": 2022,
+            "Number": 1,
+            "Avg_GPA": 3.39
+        }
+    ]
+}

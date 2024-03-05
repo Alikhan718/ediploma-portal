@@ -1,0 +1,14 @@
+{
+    "data": [
+        {
+            "Faculty": "F",
+            "Avg_gpa": 3.33,
+            "Students_number": 798
+        },
+        {
+            "Faculty": "M",
+            "Avg_gpa": 2.97,
+            "Students_number": 1287
+        }
+    ]
+}

@@ -1,0 +1,499 @@
+{
+    "data": [
+        {
+            "Faculty": "Computer Science",
+            "Avg_gpa": 3.176411764705882,
+            "Students_number": 170,
+            "Male": 105,
+            "Female": 65,
+            "Male_GPA": 3.18,
+            "Female_GPA": 3.18
+        },
+        {
+            "Faculty": "Electronic and Electrical Engineering",
+            "Avg_gpa": 3.139523809523809,
+            "Students_number": 21,
+            "Male": 15,
+            "Female": 6,
+            "Male_GPA": 2.98,
+            "Female_GPA": 3.54
+        },
+        {
+            "Faculty": "Executive MBA",
+            "Avg_gpa": 3.032,
+            "Students_number": 5,
+            "Male": 5,
+            "Female": 0,
+            "Male_GPA": 3.03,
+            "Female_GPA": 0
+        },
+        {
+            "Faculty": "Machine Learning & Data Science",
+            "Avg_gpa": 2.996666666666667,
+            "Students_number": 3,
+            "Male": 2,
+            "Female": 1,
+            "Male_GPA": 3.33,
+            "Female_GPA": 2.33
+        },
+        {
+            "Faculty": "Management of information systems",
+            "Avg_gpa": 3.725714285714286,
+            "Students_number": 7,
+            "Male": 4,
+            "Female": 3,
+            "Male_GPA": 3.67,
+            "Female_GPA": 3.8
+        },
+        {
+            "Faculty": "Petroleum engineering",
+            "Avg_gpa": 3.122169312169313,
+            "Students_number": 189,
+            "Male": 142,
+            "Female": 47,
+            "Male_GPA": 3.02,
+            "Female_GPA": 3.42
+        },
+        {
+            "Faculty": "Software Engineering",
+            "Avg_gpa": 3.384444444444445,
+            "Students_number": 9,
+            "Male": 7,
+            "Female": 2,
+            "Male_GPA": 3.4,
+            "Female_GPA": 3.32
+        },
+        {
+            "Faculty": "Автоматизация и роботизация",
+            "Avg_gpa": 2.835545454545454,
+            "Students_number": 110,
+            "Male": 73,
+            "Female": 37,
+            "Male_GPA": 2.66,
+            "Female_GPA": 3.18
+        },
+        {
+            "Faculty": "Аддитивное производство",
+            "Avg_gpa": 3.78,
+            "Students_number": 1,
+            "Male": 0,
+            "Female": 1,
+            "Male_GPA": 0,
+            "Female_GPA": 3.78
+        },
+        {
+            "Faculty": "Архитектура",
+            "Avg_gpa": 3.389069767441861,
+            "Students_number": 43,
+            "Male": 19,
+            "Female": 24,
+            "Male_GPA": 3.26,
+            "Female_GPA": 3.49
+        },
+        {
+            "Faculty": "Архитектура и градостроительство",
+            "Avg_gpa": 3.413684210526316,
+            "Students_number": 19,
+            "Male": 9,
+            "Female": 10,
+            "Male_GPA": 3.36,
+            "Female_GPA": 3.46
+        },
+        {
+            "Faculty": "Архитектура и дизайн",
+            "Avg_gpa": 3.266521739130435,
+            "Students_number": 23,
+            "Male": 7,
+            "Female": 16,
+            "Male_GPA": 2.97,
+            "Female_GPA": 3.39
+        },
+        {
+            "Faculty": "Биомедицинская инженерия",
+            "Avg_gpa": 3.81,
+            "Students_number": 2,
+            "Male": 0,
+            "Female": 2,
+            "Male_GPA": 0,
+            "Female_GPA": 3.81
+        },
+        {
+            "Faculty": "Водные ресурсы и водопользование",
+            "Avg_gpa": 3.306666666666667,
+            "Students_number": 3,
+            "Male": 0,
+            "Female": 3,
+            "Male_GPA": 0,
+            "Female_GPA": 3.31
+        },
+        {
+            "Faculty": "Геодезия и картография",
+            "Avg_gpa": 4.0,
+            "Students_number": 1,
+            "Male": 1,
+            "Female": 0,
+            "Male_GPA": 4.0,
+            "Female_GPA": 0
+        },
+        {
+            "Faculty": "Геология и разведка месторождений полезных ископаемых",
+            "Avg_gpa": 3.185779816513762,
+            "Students_number": 109,
+            "Male": 72,
+            "Female": 37,
+            "Male_GPA": 3.05,
+            "Female_GPA": 3.46
+        },
+        {
+            "Faculty": "Геология и разведка месторождений твердых полезных ископаемых",
+            "Avg_gpa": 3.611666666666667,
+            "Students_number": 6,
+            "Male": 4,
+            "Female": 2,
+            "Male_GPA": 3.59,
+            "Female_GPA": 3.66
+        },
+        {
+            "Faculty": "Геология нефти и газа",
+            "Avg_gpa": 3.613333333333333,
+            "Students_number": 3,
+            "Male": 0,
+            "Female": 3,
+            "Male_GPA": 0,
+            "Female_GPA": 3.61
+        },
+        {
+            "Faculty": "Геопространственная цифровая инженерия",
+            "Avg_gpa": 3.362967032967033,
+            "Students_number": 91,
+            "Male": 40,
+            "Female": 51,
+            "Male_GPA": 3.1,
+            "Female_GPA": 3.57
+        },
+        {
+            "Faculty": "Гигиена и охрана труда на производстве",
+            "Avg_gpa": 3.846666666666666,
+            "Students_number": 3,
+            "Male": 0,
+            "Female": 3,
+            "Male_GPA": 0,
+            "Female_GPA": 3.85
+        },
+        {
+            "Faculty": "Горная инженерия",
+            "Avg_gpa": 3.158602150537634,
+            "Students_number": 93,
+            "Male": 70,
+            "Female": 23,
+            "Male_GPA": 3.09,
+            "Female_GPA": 3.36
+        },
+        {
+            "Faculty": "Дизайн",
+            "Avg_gpa": 3.4,
+            "Students_number": 6,
+            "Male": 2,
+            "Female": 4,
+            "Male_GPA": 3.12,
+            "Female_GPA": 3.54
+        },
+        {
+            "Faculty": "Индустриальная инженерия",
+            "Avg_gpa": 3.084651162790697,
+            "Students_number": 43,
+            "Male": 25,
+            "Female": 18,
+            "Male_GPA": 2.78,
+            "Female_GPA": 3.51
+        },
+        {
+            "Faculty": "Инженерная механика",
+            "Avg_gpa": 3.094285714285714,
+            "Students_number": 14,
+            "Male": 13,
+            "Female": 1,
+            "Male_GPA": 3.09,
+            "Female_GPA": 3.13
+        },
+        {
+            "Faculty": "Инженерная физика и материаловедение",
+            "Avg_gpa": 2.950789473684211,
+            "Students_number": 38,
+            "Male": 15,
+            "Female": 23,
+            "Male_GPA": 2.58,
+            "Female_GPA": 3.19
+        },
+        {
+            "Faculty": "Инженерная экология",
+            "Avg_gpa": 3.345,
+            "Students_number": 2,
+            "Male": 0,
+            "Female": 2,
+            "Male_GPA": 0,
+            "Female_GPA": 3.34
+        },
+        {
+            "Faculty": "Инженерные системы и сети",
+            "Avg_gpa": 3.113,
+            "Students_number": 10,
+            "Male": 4,
+            "Female": 6,
+            "Male_GPA": 3.01,
+            "Female_GPA": 3.18
+        },
+        {
+            "Faculty": "Информационная безопасность",
+            "Avg_gpa": 3.160606060606061,
+            "Students_number": 99,
+            "Male": 64,
+            "Female": 35,
+            "Male_GPA": 3.05,
+            "Female_GPA": 3.37
+        },
+        {
+            "Faculty": "Кибернетика и искусственный интеллект",
+            "Avg_gpa": 3.79,
+            "Students_number": 1,
+            "Male": 1,
+            "Female": 0,
+            "Male_GPA": 3.79,
+            "Female_GPA": 0
+        },
+        {
+            "Faculty": "Комплексное обеспечение информационной безопасности",
+            "Avg_gpa": 3.686666666666667,
+            "Students_number": 6,
+            "Male": 6,
+            "Female": 0,
+            "Male_GPA": 3.69,
+            "Female_GPA": 0
+        },
+        {
+            "Faculty": "Логистика",
+            "Avg_gpa": 3.456666666666667,
+            "Students_number": 3,
+            "Male": 3,
+            "Female": 0,
+            "Male_GPA": 3.46,
+            "Female_GPA": 0
+        },
+        {
+            "Faculty": "Математическая экономика и анализ данных",
+            "Avg_gpa": 3.107407407407407,
+            "Students_number": 27,
+            "Male": 10,
+            "Female": 17,
+            "Male_GPA": 2.85,
+            "Female_GPA": 3.26
+        },
+        {
+            "Faculty": "Математическое и компьютерное моделирование",
+            "Avg_gpa": 2.880909090909092,
+            "Students_number": 22,
+            "Male": 4,
+            "Female": 18,
+            "Male_GPA": 2.99,
+            "Female_GPA": 2.86
+        },
+        {
+            "Faculty": "Металлургия и обогащение полезных ископаемых",
+            "Avg_gpa": 3.155,
+            "Students_number": 78,
+            "Male": 53,
+            "Female": 25,
+            "Male_GPA": 3.07,
+            "Female_GPA": 3.33
+        },
+        {
+            "Faculty": "Нефтегазовая и рудная геофизика",
+            "Avg_gpa": 3.097058823529411,
+            "Students_number": 51,
+            "Male": 31,
+            "Female": 20,
+            "Male_GPA": 2.95,
+            "Female_GPA": 3.32
+        },
+        {
+            "Faculty": "Нефтяная инженерия",
+            "Avg_gpa": 3.58095238095238,
+            "Students_number": 21,
+            "Male": 16,
+            "Female": 5,
+            "Male_GPA": 3.51,
+            "Female_GPA": 3.8
+        },
+        {
+            "Faculty": "Прикладная и инженерная физика",
+            "Avg_gpa": 3.49,
+            "Students_number": 2,
+            "Male": 0,
+            "Female": 2,
+            "Male_GPA": 0,
+            "Female_GPA": 3.49
+        },
+        {
+            "Faculty": "Проектный менеджмент",
+            "Avg_gpa": 3.55,
+            "Students_number": 4,
+            "Male": 3,
+            "Female": 1,
+            "Male_GPA": 3.57,
+            "Female_GPA": 3.5
+        },
+        {
+            "Faculty": "Робототехника и мехатроника",
+            "Avg_gpa": 3.259692307692308,
+            "Students_number": 65,
+            "Male": 37,
+            "Female": 28,
+            "Male_GPA": 3.15,
+            "Female_GPA": 3.4
+        },
+        {
+            "Faculty": "Строительная инженерия",
+            "Avg_gpa": 2.936255319148936,
+            "Students_number": 235,
+            "Male": 145,
+            "Female": 90,
+            "Male_GPA": 2.75,
+            "Female_GPA": 3.24
+        },
+        {
+            "Faculty": "Строительство",
+            "Avg_gpa": 1.556666666666667,
+            "Students_number": 9,
+            "Male": 9,
+            "Female": 0,
+            "Male_GPA": 1.56,
+            "Female_GPA": 0
+        },
+        {
+            "Faculty": "Строительство и производство строительных материалов и конструкций",
+            "Avg_gpa": 3.045,
+            "Students_number": 16,
+            "Male": 14,
+            "Female": 2,
+            "Male_GPA": 2.99,
+            "Female_GPA": 3.46
+        },
+        {
+            "Faculty": "Телекоммуникация",
+            "Avg_gpa": 3.283478260869565,
+            "Students_number": 46,
+            "Male": 24,
+            "Female": 22,
+            "Male_GPA": 3.14,
+            "Female_GPA": 3.44
+        },
+        {
+            "Faculty": "Технологические машины и оборудование (по отраслям)",
+            "Avg_gpa": 2.985,
+            "Students_number": 2,
+            "Male": 2,
+            "Female": 0,
+            "Male_GPA": 2.98,
+            "Female_GPA": 0
+        },
+        {
+            "Faculty": "Транспорт, транспортная техника и технологии",
+            "Avg_gpa": 3.578333333333333,
+            "Students_number": 6,
+            "Male": 4,
+            "Female": 2,
+            "Male_GPA": 3.56,
+            "Female_GPA": 3.62
+        },
+        {
+            "Faculty": "Транспортная инженерия",
+            "Avg_gpa": 3.170909090909091,
+            "Students_number": 33,
+            "Male": 22,
+            "Female": 11,
+            "Male_GPA": 3.07,
+            "Female_GPA": 3.37
+        },
+        {
+            "Faculty": "Транспортное строительство",
+            "Avg_gpa": 3.13672131147541,
+            "Students_number": 61,
+            "Male": 40,
+            "Female": 21,
+            "Male_GPA": 3.04,
+            "Female_GPA": 3.32
+        },
+        {
+            "Faculty": "Транспортные услуги",
+            "Avg_gpa": 2.930454545454545,
+            "Students_number": 22,
+            "Male": 11,
+            "Female": 11,
+            "Male_GPA": 2.62,
+            "Female_GPA": 3.25
+        },
+        {
+            "Faculty": "Химическая и биохимическая инженерия",
+            "Avg_gpa": 3.249886363636364,
+            "Students_number": 88,
+            "Male": 28,
+            "Female": 60,
+            "Male_GPA": 3.09,
+            "Female_GPA": 3.32
+        },
+        {
+            "Faculty": "Химическая инженерия углеводородных соединений",
+            "Avg_gpa": 3.674,
+            "Students_number": 5,
+            "Male": 3,
+            "Female": 2,
+            "Male_GPA": 3.76,
+            "Female_GPA": 3.55
+        },
+        {
+            "Faculty": "Цифровая инженерия машин и оборудования",
+            "Avg_gpa": 3.36,
+            "Students_number": 7,
+            "Male": 6,
+            "Female": 1,
+            "Male_GPA": 3.31,
+            "Female_GPA": 3.66
+        },
+        {
+            "Faculty": "Цифровизация машиностроительного производства",
+            "Avg_gpa": 3.565,
+            "Students_number": 6,
+            "Male": 4,
+            "Female": 2,
+            "Male_GPA": 3.51,
+            "Female_GPA": 3.68
+        },
+        {
+            "Faculty": "Эксплуатационно-сервисная инженерия",
+            "Avg_gpa": 2.7742,
+            "Students_number": 50,
+            "Male": 41,
+            "Female": 9,
+            "Male_GPA": 2.7,
+            "Female_GPA": 3.13
+        },
+        {
+            "Faculty": "Электротехника и энергетика",
+            "Avg_gpa": 3.142,
+            "Students_number": 5,
+            "Male": 5,
+            "Female": 0,
+            "Male_GPA": 3.14,
+            "Female_GPA": 0
+        },
+        {
+            "Faculty": "Энергетика",
+            "Avg_gpa": 2.620659340659341,
+            "Students_number": 91,
+            "Male": 67,
+            "Female": 24,
+            "Male_GPA": 2.48,
+            "Female_GPA": 3.0
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "data": [
+        {
+            "Diploma_grade": "50-60",
+            "Avg_GPA": 1.74,
+            "Students_number": 23
+        },
+        {
+            "Diploma_grade": "60-70",
+            "Avg_GPA": 2.04,
+            "Students_number": 91
+        },
+        {
+            "Diploma_grade": "70-80",
+            "Avg_GPA": 2.45,
+            "Students_number": 357
+        },
+        {
+            "Diploma_grade": "80-90",
+            "Avg_GPA": 2.79,
+            "Students_number": 1047
+        },
+        {
+            "Diploma_grade": "90-100",
+            "Avg_GPA": 3.43,
+            "Students_number": 1038
+        }
+    ]
+}
