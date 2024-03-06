@@ -14,6 +14,12 @@ import regionData from './components/data/city.json';
 import genderData from './components/data/gender.json';
 import grtantsData from './components/data/grants.json';
 import analysisData from './components/data/analytic.json'
+import faculty from './components/su/data/faculty.json';
+import birth from './components/su/data/birth.json';
+import diploma from './components/su/data/diploma.json';
+import gender from './components/su/data/gender.json';
+import nation from './components/su/data/nation.json';
+import study from './components/su/data/study.json';
 import * as XLSX from 'xlsx';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGraduatesAmount } from '@src/store/analytics/actionCreators';
@@ -64,6 +70,7 @@ interface GraphData {
 interface AllGraphData {
 	[key: string]: GraphData[];
 }
+
 export const AnalysisPage: React.FC = () => {
 	const graduatesAmount = useSelector(selectGraduatesAmount);
 	const dispatch = useDispatch();
@@ -79,7 +86,7 @@ export const AnalysisPage: React.FC = () => {
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
 		setValue(newValue);
 	};
-	const handleDownloadData = () => {
+	const handleDownloadData = ():void => {
 		const allJsonData: AllGraphData = {
 			facultyGraph: facultyData,
 			genderGraph: genderData,
@@ -89,9 +96,18 @@ export const AnalysisPage: React.FC = () => {
 			analyticsGraph: analysisData,
 		};
 
+		const allSuJsonData: any = {
+      faculty: faculty.data,
+      gender: gender.data,
+      birth: birth.data,
+      nation: nation.data,
+      diploma: diploma.data,
+      study: study.data,
+		};
+
 		const wb = XLSX.utils.book_new();
-		Object.keys(allJsonData).forEach(graphName => {
-			const jsonData = allJsonData[graphName];
+		Object.keys(allSuJsonData).forEach(graphName => {
+			const jsonData = allSuJsonData[graphName];
 			const ws = XLSX.utils.json_to_sheet(jsonData);
 			XLSX.utils.book_append_sheet(wb, ws, graphName);
 		});
