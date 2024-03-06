@@ -106,8 +106,8 @@ export const AnalysisPage: React.FC = () => {
 		};
 
 		const wb = XLSX.utils.book_new();
-		Object.keys(allSuJsonData).forEach(graphName => {
-			const jsonData = allSuJsonData[graphName];
+		Object.keys(university_id == 0 ? allJsonData : allSuJsonData).forEach(graphName => {
+			const jsonData = university_id == 0 ? allJsonData[graphName] : allSuJsonData[graphName];
 			const ws = XLSX.utils.json_to_sheet(jsonData);
 			XLSX.utils.book_append_sheet(wb, ws, graphName);
 		});
