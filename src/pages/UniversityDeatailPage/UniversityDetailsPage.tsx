@@ -1,11 +1,9 @@
 import React, { RefObject, useEffect, useState } from 'react';
 import {
-  Box, Button, Rating, Typography, useMediaQuery, Pagination,
-  InputAdornment, Grid, Container, Alert, Snackbar
+  Box, Button, Typography, useMediaQuery, Pagination,
+  InputAdornment, Alert, Snackbar
 } from '@mui/material';
-import { Button as ButtonAlt } from '@src/components';
 import { ReactComponent as HeaderSearchIcon } from '@src/assets/icons/search.svg';
-import { ReactComponent as SmartContractIcon } from '@src/assets/icons/smartContract_black.svg';
 import { ReactComponent as DiscordIcon } from '@src/assets/icons/discord_black.svg';
 import { ReactComponent as Web } from '@src/assets/icons/web_black.svg';
 import { ReactComponent as Instagram } from '@src/assets/icons/igEmployer.svg';
@@ -14,39 +12,27 @@ import { ReactComponent as Linkedin } from '@src/assets/icons/inEmployer.svg';
 import { ReactComponent as Facebook } from '@src/assets/icons/fbEmployer.svg';
 import { ReactComponent as Youtube } from '@src/assets/icons/ytEmployer.svg';
 import { ReactComponent as Filter } from '@src/assets/icons/Tuning 2.svg';
-import { SwitchDetailsUniversity } from '../UniversityProfile/components/SwitchDetailsunivesiyt';
-import univ from './../../assets/icons/FilterUn.svg';
 import { Input } from './../../components';
-import { ReactComponent as ExpandMore } from '@src/assets/icons/expand_more.svg';
 import styles from "./UniversityDeatailPage.module.css";
 import { UniversityDetailsHeader } from "@src/pages/UniversityDeatailPage/components/UniversityDetailsHeader";
-import star from "./../../assets/icons/Star1.svg";
-import share from "./../../assets/icons/share.svg";
-import dots from "./../../assets/icons/Dots.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleLink } from "@src/utils/link";
-import imageU from "@src/assets/example/universityKBTU.jpg";
 import { selectDiplomaList, selectSearchText } from "@src/store/diplomas/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDiplomas, fetchSearch } from "@src/store/diplomas/actionCreators";
 import { fetchUniversitiesList } from '@src/store/auth/actionCreators';
 import cn from "classnames";
 import { selectUniversitiesList, selectUserRole } from '@src/store/auth/selector';
-import StarIcon from '@mui/icons-material/Star';
 import { ReactComponent as GoldStar } from '@src/assets/icons/goldStar.svg';
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
 import { FilterSection } from "@src/layout/Filter/FilterSection";
 import { FilterAttributes } from "@src/layout/Header/Header";
-import exampleImage from "@src/assets/example/UnivSTU.jpg";
 import ReactGA, { set } from 'react-ga';
-import diplomaTemplate from "@src/assets/example/diploma_template.svg";
-import { isAuthenticated } from "@src/utils/userAuth";
 import { ReactComponent as Cap } from '@src/assets/icons/academicCap.svg';
 import { ReactComponent as PieChart } from '@src/assets/icons/pieChart.svg';
 import { ReactComponent as PlusMinus } from '@src/assets/icons/plusMinus.svg';
 import { ReactComponent as Graph } from '@src/assets/icons/graph.svg';
-import proudStudentEx from '@src/assets/example/proudStudentEx.png';
 import proudStuEx from '@src/assets/example/proudStuEx.png';
 import { ReactComponent as ArrowLeft } from '@src/assets/icons/arrowLeft.svg';
 import { ReactComponent as ArrowRight } from '@src/assets/icons/arrowRight.svg';
@@ -348,7 +334,7 @@ export const UniversityDetailsPage: React.FC = () => {
             <Box display='flex' flexDirection='column' sx={{ borderRadius: '15px', }}>
               <Box display='flex' flexDirection='row' sx={{ '@medi (max-width: 768px)': { maxWidth: '96vw' } }}>
                 <UniversityDetailsHeader banner={data ? data.banner : ""} />
-                <Box display='flex' flexDirection='column' sx={{ marginLeft: '20px', '@media (max-width: 978px)': { display: 'none', }, }}>
+                <Box display='flex' justifyContent='center' alignItems='center' flexDirection='column' sx={{ marginLeft: '20px', '@media (max-width: 978px)': { display: 'none', }, }}>
                   {/* {galleryImages.length != 0 ? galleryImages.map(image => (
                     <img key={image} src={`${baseURL}/${image}`} style={{ marginBottom: '10px', borderRadius: '1rem', width: "20vw" }} />
                   )) : <img src={diplomaTemplate} style={{ marginBottom: '10px', borderRadius: '1rem', width: "20vw" }} />
