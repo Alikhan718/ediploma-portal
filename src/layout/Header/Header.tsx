@@ -115,7 +115,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         year: 0,
         gpaL: 0,
         gpaR: 0,
-        
+
     });
     const [open, setOpen] = React.useState(false);
     const [minimized, setMinimized] = React.useState(true);
@@ -634,6 +634,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                             padding: '15px',
                                             borderRadius: '19px', marginRight: '10px'
                                         }}
+                                        onClick={():void => {setMinimized(true);}}
                                     >
                                         <Box mr='18px' ml='8px'>
                                             <Box
