@@ -54,6 +54,7 @@ import LoadingIcon from '@src/assets/icons/loading.gif';
 import SignedDsIcon from '@src/assets/icons/file_checked.svg';
 import UploadedIcon from '@src/assets/icons/checklist.svg';
 import OwnerVerifiedIcon from '@src/assets/icons/verified_check.svg';
+import { ReactComponent as ChartIcon } from '@src/assets/icons/Chart.svg';
 
 export const DiplomaDetailsPageLayout: React.FC = () => {
   const lang = useSelector(selectLanguage);
@@ -73,6 +74,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   const [uploadedIcon, setUploadedIcon] = React.useState(false);
   const [ownerIcon, setOwnerIcon] = React.useState(false);
   const img = new Image();
+  const [showResumeGenerator, setShowResumeGenerator] = React.useState(true);
 
   let diplomaList = useSelector(selectDiplomaList);
 
@@ -1150,6 +1152,43 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   Успешно скопировано!
                 </Alert>
               </Snackbar>
+              <Box sx={{
+                display: showResumeGenerator ? 'flex' : 'none', flexDirection: 'column', width: '33.3125rem', padding: '1.75rem',
+                alginItems: 'flex-start',position: 'fixed', bottom: 0,left: 0, borderRadius: '1.5rem', backgroundColor: 'white',
+                margin: '2rem',boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
+              }}>
+                <IconButton
+                  sx={{position: 'absolute', width: '2.5rem', height: '2.5rem', top:'1rem', right: '1rem'}}
+                  onClick={():void => {setShowResumeGenerator(false);}}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M3.72212 3.72505C3.9662 3.48097 4.36193 3.48097 4.606 3.72505L9.99742 9.11647L15.3888 3.7251C15.6329 3.48102 16.0286 3.48102 16.2727 3.7251C16.5168 3.96918 16.5168 4.3649 16.2727 4.60898L10.8813 10.0004L16.2726 15.3917C16.5167 15.6357 16.5167 16.0315 16.2726 16.2756C16.0285 16.5196 15.6328 16.5196 15.3887 16.2756L9.99742 10.8842L4.60605 16.2756C4.36198 16.5197 3.96625 16.5197 3.72217 16.2756C3.47809 16.0315 3.47809 15.6358 3.72217 15.3917L9.11354 10.0004L3.72212 4.60893C3.47804 4.36486 3.47804 3.96913 3.72212 3.72505Z" fill="#CFD2D8"/>
+                  </svg>
+                </IconButton>
+                <Box sx={{display: 'flex', alignItems: 'flex-start', marginBottom:'1.5rem'}}>
+                  <Box marginRight='1.5rem'>
+                    <ChartIcon/>
+                  </Box>
+                  <Box>
+                    <Typography sx={{ fontSize: '1.5rem', fontWeight: 600, lineHeight: '125%', marginBottom: '0.75rem' }}>
+                      {'Генератор резюме'}
+                    </Typography>
+                    <Typography sx={{ fontSize: '1rem', fontWeight: 400, lineHeight: '125%' }}>
+                      {'Чтобы находить работу, проекты и задачи создайте резюме на портале и работадатели'}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box sx={{display: 'flex', justifyContent:'center', alignItems: 'center'}}>
+                  <Button
+                    buttonSize="s"
+                    variant="contained"
+                    type="button"
+                    sx={{borderRadius: '25px'}}
+                  >
+                    Начать
+                  </Button>
+                </Box>
+              </Box>
               <Box margin="2rem"></Box>
             </Box>
           </Box>
