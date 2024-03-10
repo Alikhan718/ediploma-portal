@@ -17,7 +17,8 @@ import {
     GET_EMPLOYERS_LIST,
     GET_EMPLOYERS_SEARCH,
     CANCEL_EMPLOYERS_FILTER,
-    GET_EMPLOYER_DETAILS
+    GET_EMPLOYER_DETAILS,
+    GET_GENERATE_RESUME
 } from "./types/actionTypes";
 
 export const fetchLoginRequest = (payload: any) => ({
