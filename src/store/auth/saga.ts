@@ -12,13 +12,14 @@ import {
     GET_DIPLOMA_METADATA_CID,
     POST_GENERATE_SMART_CONTRACT,
     GET_PROFILE_DATA,
-    POST_UPDATE_PROFILE_DATA, 
+    POST_UPDATE_PROFILE_DATA,
     POST_UPLOAD_FILE,
     GET_UNIVERSITY_LIST,
     PUT_VISIBILITY,
     GET_EMPLOYERS_LIST,
     GET_EMPLOYERS_SEARCH,
     GET_EMPLOYER_DETAILS,
+    GET_GENERATE_RESUME,
 } from "./types/actionTypes";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {authApi} from "@src/service/api";
@@ -188,7 +189,7 @@ export function* fetchUniversitiesList() {
     }
 }
 
-export function* fetchEmployersList(){
+export function* fetchEmployersList() {
     try {
         const {data} = yield call(authApi.getEmployersList);
         yield put({type: GET_EMPLOYERS_LIST.success, payload: data});
@@ -239,10 +240,36 @@ export function* fetchGraduateDetailsRequest(action: any) {
     yield call(handleResponseBase, {
         type: GET_EMPLOYER_DETAILS,
         apiCall: authApi.getEmployerDetails,
-        action:action,
+        action: action,
         ignoreError: true
     });
 };
+
+export function* fetchGenerateResumeRequest() {
+    try {
+        let {data} = yield call(authApi.getResumeGenerate);
+        console.log(data && data.includes("uploads"));
+        if (data && data.includes("uploads")) {
+            yield put({type: GET_GENERATE_RESUME.success});
+            yield put(setSnackbar({visible: true, message: "Успешно", status: "success"}));
+            //
+            const {data2} = yield call(authApi.updateProfile, {
+                "attributes": {
+                    "resume_link": data
+                }
+            });
+
+            yield put({type: POST_UPDATE_PROFILE_DATA.success, payload: data2});
+            yield put(setSnackbar({visible: true, message: "Данные обновлены!", status: "success"}));
+        }
+
+
+    } catch (error) {
+        yield put(setSnackbar({visible: true, message: getRequestError(error), status: "error"}));
+        yield put({type: GET_GENERATE_RESUME.error});
+    }
+}
+
 
 export function* authSagas() {
     yield takeLatest(POST_AUTH_LOGIN.saga, fetchAuthLogin);
@@ -263,5 +290,6 @@ export function* authSagas() {
     yield takeLatest(GET_EMPLOYERS_LIST.saga, fetchEmployersList);
     yield takeLatest(PUT_VISIBILITY.saga, fetchVisibility);
     yield takeLatest(GET_EMPLOYERS_SEARCH.saga, fetchEmployersSearchRequest);
+    yield takeLatest(GET_GENERATE_RESUME.saga, fetchGenerateResumeRequest);
     yield takeLatest(GET_EMPLOYER_DETAILS.saga, fetchGraduateDetailsRequest);
 }

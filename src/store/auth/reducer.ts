@@ -17,12 +17,14 @@ import {
     GET_EMPLOYERS_SEARCH,
     CANCEL_EMPLOYERS_FILTER,
     GET_EMPLOYER_DETAILS,
+    GET_GENERATE_RESUME,
 } from "./types/actionTypes";
 
 interface AuthInterface {
     userRole: string,
     otpSent: boolean,
     isLoading: boolean,
+    resume_loading: boolean,
     signed: boolean,
     ipfsLink: string,
     smartContractLink: string,
@@ -44,6 +46,7 @@ const initialState: AuthInterface = {
     userRole: localStorage.getItem("userRole") ?? "Guest",
     otpSent: false,
     isLoading: false,
+    resume_loading: true,
     signed: false,
     ipfsLink: "",
     smartContractLink: "",
@@ -317,6 +320,16 @@ export const authReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 filtered_names: []
+            };
+        case GET_GENERATE_RESUME.saga:
+            return {
+                ...state,
+                resume_loading: true,
+            };
+        case GET_GENERATE_RESUME.success:
+            return {
+                ...state,
+                resume_loading: false,
             };
         case GET_EMPLOYER_DETAILS.saga:
             return {

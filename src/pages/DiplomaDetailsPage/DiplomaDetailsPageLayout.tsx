@@ -48,7 +48,13 @@ import {handleDownload, handleLink} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
 import {selectLanguage} from "@src/store/generals/selectors";
-import {ibfields, fieldLocalizations, localization, skillsList, uniRatings} from '@src/pages/DiplomaDetailsPage/generator';
+import {
+  ibfields,
+  fieldLocalizations,
+  localization,
+  skillsList,
+  uniRatings
+} from '@src/pages/DiplomaDetailsPage/generator';
 import {ShareButton} from '@src/components/ShareButton/ShareButton';
 import LoadingIcon from '@src/assets/icons/loading.gif';
 import SignedDsIcon from '@src/assets/icons/file_checked.svg';
@@ -85,7 +91,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
       console.log("no graduate attributes");
       return;
     }
-
+    console.log(graduateAttributes.created_at);
     const gpa: number = parseFloat(graduateAttributes.diploma_gpa);
     const uniRating = uniRatings[graduateAttributes.university_id as keyof typeof uniRatings];
 
@@ -1014,7 +1020,6 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 width="100vh"
                 maxWidth="100vh"
               >
-
                 <Box display="flex" position="absolute"
                      p="1rem"
                      style={{right: "1rem", top: "1rem", cursor: "pointer"}}
@@ -1059,7 +1064,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                       fontWeight="400"
                                       fontSize="1rem"
                                   >
-                                    {graduateAttributes && graduateAttributes.created_at ? graduateAttributes.created_at : null}
+                                    {graduateAttributes && graduateAttributes.created_at}
                                   </Typography>
 
                               </Box>
@@ -1088,7 +1093,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         style={{cursor: "pointer", userSelect: "none"}}
                         onClick={() => {
                           if (uploadedIcon) {
-                            handleLink(graduateAttributes && graduateAttributes.smart_contract_link)
+                            handleLink(graduateAttributes && graduateAttributes.smart_contract_link);
                           }
                         }}
                       >
@@ -1108,7 +1113,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           fontWeight="400"
                           fontSize="1rem"
                         >
-                          {graduateAttributes && graduateAttributes.signed_at ? graduateAttributes.signed_at : null}
+                          {graduateAttributes ? graduateAttributes.signed_at ?? graduateAttributes.created_at : null}
                         </Typography>
 
                       </Box>

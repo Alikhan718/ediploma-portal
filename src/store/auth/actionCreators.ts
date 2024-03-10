@@ -10,7 +10,7 @@ import {
     GET_DIPLOMA_METADATA_CID,
     AUTH_LOGOUT,
     GET_PROFILE_DATA,
-    POST_UPDATE_PROFILE_DATA, 
+    POST_UPDATE_PROFILE_DATA,
     POST_UPLOAD_FILE,
     GET_UNIVERSITY_LIST,
     PUT_VISIBILITY,
@@ -67,6 +67,10 @@ export const fetchGetDiplomaCid = (payload: any) => ({
 
 export const fetchUserProfile = () => ({
     type: GET_PROFILE_DATA.saga
+});
+
+export const fetchGenerateResume = () => ({
+    type: GET_GENERATE_RESUME.saga
 });
 
 export const fetchUpdateUserProfile = (payload: any) => ({

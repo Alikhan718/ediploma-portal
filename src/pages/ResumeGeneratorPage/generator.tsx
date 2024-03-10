@@ -1,3 +1,5 @@
+import React from "react";
+
 const validateEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
@@ -276,7 +278,7 @@ const additionalForms = [
     maxRows: 2,
     values: [
       {
-        value: "Almaty",
+        value: "Алматы",
         label: {
           "en": "Almaty",
           "ru": "Алматы",
@@ -284,7 +286,7 @@ const additionalForms = [
         }
       },
       {
-        value: "Astana",
+        value: "Астана",
         label: {
           "en": "Astana",
           "ru": "Астана",
@@ -292,7 +294,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Shymkent",
+        value: "Шымкент",
         label: {
           "en": "Shymkent",
           "ru": "Шымкент",
@@ -300,7 +302,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Karaganda",
+        value: "Караганда",
         label: {
           "en": "Karaganda",
           "ru": "Караганда",
@@ -308,7 +310,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Aktobe",
+        value: "Актобе",
         label: {
           "en": "Aktobe",
           "ru": "Актобе",
@@ -316,7 +318,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Taraz",
+        value: "Тараз",
         label: {
           "en": "Taraz",
           "ru": "Тараз",
@@ -324,7 +326,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Pavlodar",
+        value: "Павлодар",
         label: {
           "en": "Pavlodar",
           "ru": "Павлодар",
@@ -332,7 +334,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Oral",
+        value: "Уральск",
         label: {
           "en": "Oral",
           "ru": "Уральск",
@@ -340,7 +342,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Semey",
+        value: "Семей",
         label: {
           "en": "Semey",
           "ru": "Семей",
@@ -348,7 +350,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Atyrau",
+        value: "Атырау",
         label: {
           "en": "Atyrau",
           "ru": "Атырау",
@@ -356,7 +358,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Ust-Kamenogorsk",
+        value: "Усть-Каменогорск",
         label: {
           "en": "Ust-Kamenogorsk",
           "ru": "Усть-Каменогорск",
@@ -364,7 +366,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Kostanay",
+        value: "Костанай",
         label: {
           "en": "Kostanay",
           "ru": "Костанай",
@@ -372,7 +374,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Kyzylorda",
+        value: "Кызылорда",
         label: {
           "en": "Kyzylorda",
           "ru": "Кызылорда",
@@ -380,7 +382,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Petropavlovsk",
+        value: "Петропавловск",
         label: {
           "en": "Petropavlovsk",
           "ru": "Петропавловск",
@@ -388,7 +390,7 @@ const additionalForms = [
         },
       },
       {
-        value: "Taldykorgan",
+        value: "Талдыкорган",
         label: {
           "en": "Taldykorgan",
           "ru": "Талдыкорган",
@@ -450,18 +452,8 @@ const educationForms = [
       "en": "Название учебного заведения"
     },
     maxRows: 2,
+    disabled: true,
     placeholder: "Введите полное название"
-  },
-  {
-    type: "text",
-    name: "specialization",
-    label: {
-      "kz": "Специализация",
-      "ru": "Специализация",
-      "en": "Специализация"
-    },
-    maxRows: 2,
-    placeholder: "Введите вашу специальность"
   },
   {
     type: "number",
@@ -473,7 +465,22 @@ const educationForms = [
       "ru": "Год окончания",
       "en": "Год окончания"
     },
-    placeholder: "####"
+    placeholder: "####",
+    disabled: true
+  },
+  {
+    type: "text",
+    name: "speciality_ru",
+    label: {
+      "kz": "Специализация",
+      "ru": "Специализация",
+      "en": "Специализация"
+    },
+    rows: 5,
+    multiline: true,
+    disabled: true,
+    maxRows: 2,
+    placeholder: "Введите вашу специальность"
   },
 ];
 const experienceForms = [
@@ -562,7 +569,7 @@ const skillForms = [
 const certificateForms = [
   {
     type: "text",
-    name: "company_name",
+    name: "certificate_name",
     label: {
       "kz": "Название организация",
       "ru": "Название организация",
@@ -600,6 +607,18 @@ const certificateForms = [
     maxRows: 1,
     multiline: true,
     placeholder: "Формат: pdf, png"
+  },
+];
+const resumeForms = [
+  {
+    type: "pdf",
+    name: "resume_link2",
+    label: {
+      "kz": "",
+      "ru": "",
+      "en": ""
+    },
+    placeholder: ""
   },
 ];
 export const content = [
@@ -687,6 +706,17 @@ export const content = [
     reference: 0,
     forms: certificateForms
   },
+  {
+    title: {
+      "en": "Резюме готово к скачиванию",
+      "kz": "Резюме готово к скачиванию",
+      "ru": "Резюме готово к скачиванию"
+    },
+    name: "resume_link3",
+    can_skip: false,
+    reference: 0,
+    forms: resumeForms
+  },
 ];
 
 export const desktopContent = [
@@ -762,6 +792,17 @@ export const desktopContent = [
     reference: 0,
     forms: certificateForms
   },
+  {
+    title: {
+      "en": "Резюме готово к скачиванию",
+      "kz": "Резюме готово к скачиванию",
+      "ru": "Резюме готово к скачиванию"
+    },
+    name: "resume_link1",
+    can_skip: false,
+    reference: 0,
+    forms: resumeForms
+  },
 ];
 export const localization = {
   "kz": {
@@ -797,6 +838,7 @@ export const localization = {
         rating: "Академиялық рейтинг: ",
       },
       AddInfo: {
+        downloadResume: "Түйіндемені жүктеу",
         sendInvite: "Шақыру жіберу",
         about: "Түлек туралы",
         show: "Көрсету",
@@ -851,6 +893,7 @@ export const localization = {
         rating: "Академический рейтинг: ",
       },
       AddInfo: {
+        downloadResume: "Скачать резюме",
         sendInvite: "Отправить приглашение",
         about: "О выпускнике",
         show: "Показать",
@@ -905,6 +948,7 @@ export const localization = {
         rating: "Academic rating: ",
       },
       AddInfo: {
+        downloadResume: "Download resume",
         sendInvite: "Send invitation",
         about: "About graduate",
         show: "Show",
@@ -935,6 +979,16 @@ type TranslationEntry = {
 
 type Translations = {
   [key: string]: TranslationEntry;
+};
+
+type SkillsEntry = {
+  en: any;
+  kz: any;
+  ru: any;
+};
+
+type Skills = {
+  [key: string]: SkillsEntry;
 };
 export const fieldLocalizations: Translations = {
 
@@ -1066,6 +1120,11 @@ export const uniRatings = {
 };
 
 export const skillsList = {
+  "default": {
+    "ru": [],
+    "kz": [],
+    "en": [],
+  },
   "ПРИСУЖДЕНА СТЕПЕНЬ БАКАЛАВРА\nТЕХНИКИ И ТЕХНОЛОГИЙ ПО ОБРАЗОВАТЕЛЬНОЙ ПРОГРАММЕ «6B07101 ХИМИЧЕСКАЯ ТЕХНОЛОГИЯ ОРГАНИЧЕСКИХ ВЕЩЕСТВ»": {
     "ru": [
       "Технология переработки",

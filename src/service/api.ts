@@ -125,6 +125,9 @@ export const authApi = {
     },
     getEmployerDetails(id:any) {
         return instance.get(`/users/employers/${id.id}`);
+    },
+    getResumeGenerate() {
+        return instance.get(`/users/resume-generate`);
     }
 };
 

@@ -1,387 +1,400 @@
-import React, { ReactNode } from 'react';
-import { routes } from "@src/shared/routes";
-import { ReactComponent as DiplomaIcon } from "@src/assets/icons/Widget.svg";
-import { ReactComponent as MainPageIcon } from "@src/assets/icons/pie.svg";
-import { ReactComponent as FolderIcon } from "@src/assets/icons/Folder.svg";
-import { ReactComponent as HrBankIcon } from "@src/assets/icons/academic_cap.svg";
-import { ReactComponent as UniversityIcon } from "@src/assets/icons/buildings.svg";
-import { ReactComponent as AboutUsIcon } from "@src/assets/icons/jiggle_user.svg";
-import { ReactComponent as LangIcon } from "@src/assets/icons/global.svg";
-import { ReactComponent as ModeIcon } from "@src/assets/icons/moon.svg";
-import { ReactComponent as Avatar } from "@src/assets/icons/avatar_outlined.svg";
-import { ReactComponent as Analytics } from "@src/assets/icons/analytics_outlined.svg";
-import { ReactComponent as Folder } from "@src/assets/icons/folder_outilne.svg";
-import { ReactComponent as Settings } from "@src/assets/icons/Settings.svg";
-import { ReactComponent as Out } from "@src/assets/icons/logout_outline.svg";
+import React, {ReactNode} from 'react';
+import {routes} from "@src/shared/routes";
+import {ReactComponent as DiplomaIcon} from "@src/assets/icons/Widget.svg";
+import {ReactComponent as MainPageIcon} from "@src/assets/icons/pie.svg";
+import {ReactComponent as FolderIcon} from "@src/assets/icons/Folder.svg";
+import {ReactComponent as HrBankIcon} from "@src/assets/icons/academic_cap.svg";
+import {ReactComponent as UniversityIcon} from "@src/assets/icons/buildings.svg";
+import {ReactComponent as AboutUsIcon} from "@src/assets/icons/jiggle_user.svg";
+import {ReactComponent as LangIcon} from "@src/assets/icons/global.svg";
+import {ReactComponent as ModeIcon} from "@src/assets/icons/moon.svg";
+import {ReactComponent as Avatar} from "@src/assets/icons/avatar_outlined.svg";
+import {ReactComponent as Analytics} from "@src/assets/icons/analytics_outlined.svg";
+import {ReactComponent as Folder} from "@src/assets/icons/folder_outilne.svg";
+import {ReactComponent as Settings} from "@src/assets/icons/Settings.svg";
+import {ReactComponent as Out} from "@src/assets/icons/logout_outline.svg";
 
 export interface AppRoutesNavigation {
-	id: number;
-	name: {
-		ru: string;
-		kz: string;
-		en: string;
-	};
-	to: typeof routes[keyof typeof routes];
-	icon: ReactNode;
-	role: string[];
-	verticalAlign: string,
-	function?: () => void,
+  id: number;
+  name: {
+    ru: string;
+    kz: string;
+    en: string;
+  };
+  to: typeof routes[keyof typeof routes];
+  icon: ReactNode;
+  role: string[];
+  verticalAlign: string,
+  function?: () => void,
 }
 
 export const sidebarNavigations: AppRoutesNavigation[] = [
-    {
-        id: 101,
-        name: {
-            "ru": 'Профиль',
-            "kz": 'Профиль',
-            "en": 'Dashboard',
-        },
-        to: routes.universityProfile,
-        role: ["student", "employer", "university"],
-        icon: <DiplomaIcon style={{verticalAlign: "middle"}}/>,
-        verticalAlign: "bottom",
+  {
+    id: 101,
+    name: {
+      "ru": 'Профиль',
+      "kz": 'Профиль',
+      "en": 'Dashboard',
     },
-    {
-        id: 102,
-        name: {
-            "ru": 'Аналитика',
-            "kz": 'Аналитика',
-            "en": 'Analytics',
-        },
-        to: routes.analysisPage,
-        role: ["university"],
-        icon: <MainPageIcon style={{verticalAlign: "middle"}}/>,
-        verticalAlign: "middle",
+    to: routes.universityProfile,
+    role: ["student", "employer", "university"],
+    icon: <DiplomaIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: "bottom",
+  },
+  {
+    id: 102,
+    name: {
+      "ru": 'Аналитика',
+      "kz": 'Аналитика',
+      "en": 'Analytics',
     },
-    {
-        id: 103,
-        name: {
-            "ru": 'Университеты',
-            "kz": 'Универститеттер',
-            "en": 'Universities',
-        },
-        to: routes.university,
-        role: ["university", "employer", "student"],
-        icon: <UniversityIcon style={{verticalAlign: "middle"}}/>,
-        verticalAlign: "middle",
+    to: routes.analysisPage,
+    role: ["university"],
+    icon: <MainPageIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: "middle",
+  },
+  {
+    id: 103,
+    name: {
+      "ru": 'Университеты',
+      "kz": 'Универститеттер',
+      "en": 'Universities',
     },
-    {
-        id: 110,
-        name: {
-            "ru": 'Школы',
-            "kz": 'Мектептер',
-            "en": 'Schools',
-        },
-        to: routes.school,
-        role: ['*'],
-        icon: <UniversityIcon style={{verticalAlign: "middle"}}/>,
-        verticalAlign: "middle",
+    to: routes.university,
+    role: ["university", "employer", "student"],
+    icon: <UniversityIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: "middle",
+  },
+  {
+    id: 110,
+    name: {
+      "ru": 'Школы',
+      "kz": 'Мектептер',
+      "en": 'Schools',
     },
-    {
-        id: 104,
-        name: {
-            "ru": 'HR Bank',
-            "kz": 'HR Bank',
-            "en": 'HR Bank',
-        },
-        to: routes.hrBank,
-        role: ["university", "employer", "student"],
-        icon:  <HrBankIcon style={{verticalAlign: "middle"}}/>,
-        verticalAlign: "middle",
+    to: routes.school,
+    role: ['*'],
+    icon: <UniversityIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: "middle",
+  },
+  {
+    id: 104,
+    name: {
+      "ru": 'HR Bank',
+      "kz": 'HR Bank',
+      "en": 'HR Bank',
     },
-    {
-        id: 105,
-        name: {
-            "ru": 'Выпустить дипломы',
-            "kz": 'Диплом шығару',
-            "en": 'Issue diplomas',
-        },
-        to: routes.addingGraduates,
-        role: ['university'],
-        icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
-        verticalAlign: '',
+    to: routes.hrBank,
+    role: ["university", "employer", "student"],
+    icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: "middle",
+  },
+  {
+    id: 105,
+    name: {
+      "ru": 'Выпустить дипломы',
+      "kz": 'Диплом шығару',
+      "en": 'Issue diplomas',
     },
-    {
-        id: 107,
-        name: {
-            "ru": 'ИИ Найм',
-            "kz": 'ЖИ Жалдау',
-            "en": 'AI Hiring',
-        },
-        to: routes.aiChat,
-        role: ["employer", "student"],
-        icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
-        verticalAlign: "middle",
+    to: routes.addingGraduates,
+    role: ['university'],
+    icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: '',
+  },
+  {
+    id: 107,
+    name: {
+      "ru": 'ИИ Найм',
+      "kz": 'ЖИ Жалдау',
+      "en": 'AI Hiring',
     },
-    {
-        id: 108,
-        name: {
-            "ru": 'Мои дипломы',
-            "kz": 'Менің дипломдарым',
-            "en": 'My diplomas',
-        },
-        to: routes.myDiplomas,
-        role: ["student"],
-        icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
-        verticalAlign: "middle",
-    }
+    to: routes.aiChat,
+    role: ["employer", "student"],
+    icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: "middle",
+  },
+  {
+    id: 108,
+    name: {
+      "ru": 'Мои дипломы',
+      "kz": 'Менің дипломдарым',
+      "en": 'My diplomas',
+    },
+    to: routes.myDiplomas,
+    role: ["student"],
+    icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: "middle",
+  }
 ];
 export const headerNavigations: AppRoutesNavigation[] = [
-	{
-		id: 104,
-		name: {
-			"ru": 'HR Bank',
-			"kz": 'HR Bank',
-			"en": 'HR Bank',
-		},
-		to: routes.hrBank,
-		role: ['*'],
-		icon: <HrBankIcon style={{ verticalAlign: "middle" }} />,
-		verticalAlign: '',
-	},
-	{
-		id: 103,
-		name: {
-			"ru": 'Университеты',
-			"kz": 'Университеттер',
-			"en": 'Universities',
-		},
-		to: routes.university,
-		role: ['*'],
-		icon: <UniversityIcon style={{ verticalAlign: "middle" }} />,
-		verticalAlign: '',
-	},
-    {
-        id: 110,
-        name: {
-            "ru": 'Школы',
-            "kz": 'Мектептер',
-            "en": 'Schools',
-        },
-        to: routes.school,
-        role: ['*'],
-        icon: <Avatar style={{ verticalAlign: "middle" }} />,
-        verticalAlign: '',
+  {
+    id: 104,
+    name: {
+      "ru": 'HR Bank',
+      "kz": 'HR Bank',
+      "en": 'HR Bank',
     },
-    {
-        id: 111,
-        name: {
-            "ru": 'Работодатели',
-            "kz": 'Жұмысберушілер',
-            "en": 'Employers',
-        },
-        to: routes.employersList,
-        role: ['*'],
-        icon: <Avatar style={{ verticalAlign: "middle" }} />,
-        verticalAlign: '',
+    to: routes.hrBank,
+    role: ['*'],
+    icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: '',
+  },
+  {
+    id: 103,
+    name: {
+      "ru": 'Университеты',
+      "kz": 'Университеттер',
+      "en": 'Universities',
     },
-	{
-		id: 106,
-		name: {
-			"ru": 'О нас',
-			"kz": 'Біз туралы',
-			"en": 'About us',
-		},
-		to: routes.aboutUs,
-		role: ['*'],
-		icon: <AboutUsIcon style={{ verticalAlign: "middle" }} />,
-		verticalAlign: '',
-	},
+    to: routes.university,
+    role: ['*'],
+    icon: <UniversityIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: '',
+  },
+  {
+    id: 110,
+    name: {
+      "ru": 'Школы',
+      "kz": 'Мектептер',
+      "en": 'Schools',
+    },
+    to: routes.school,
+    role: ['*'],
+    icon: <Avatar style={{verticalAlign: "middle"}}/>,
+    verticalAlign: '',
+  },
+  {
+    id: 111,
+    name: {
+      "ru": 'Работодатели',
+      "kz": 'Жұмысберушілер',
+      "en": 'Employers',
+    },
+    to: routes.employersList,
+    role: ['*'],
+    icon: <Avatar style={{verticalAlign: "middle"}}/>,
+    verticalAlign: '',
+  },
+  {
+    id: 106,
+    name: {
+      "ru": 'О нас',
+      "kz": 'Біз туралы',
+      "en": 'About us',
+    },
+    to: routes.aboutUs,
+    role: ['*'],
+    icon: <AboutUsIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: '',
+  },
 
 ];
 export const interFaceOptions: AppRoutesNavigation[] = [
-	{
-		id: 201,
-		name: {
-			"ru": 'Режим',
-			"kz": 'Режим',
-			"en": 'Mode',
-		},
-		to: '#',
-		role: ['*'],
-		icon: <ModeIcon style={{ verticalAlign: "middle" }} />,
-		verticalAlign: '',
-	},
-	{
-		id: 202,
-		name: {
-			"ru": 'Язык',
-			"kz": 'Тіл',
-			"en": 'Language',
-		},
-		to: '#',
-		role: ['*'],
-		icon: <LangIcon style={{ verticalAlign: "middle" }} />,
-		verticalAlign: '',
-	},
+  {
+    id: 201,
+    name: {
+      "ru": 'Режим',
+      "kz": 'Режим',
+      "en": 'Mode',
+    },
+    to: '#',
+    role: ['*'],
+    icon: <ModeIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: '',
+  },
+  {
+    id: 202,
+    name: {
+      "ru": 'Язык',
+      "kz": 'Тіл',
+      "en": 'Language',
+    },
+    to: '#',
+    role: ['*'],
+    icon: <LangIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: '',
+  },
 
 
 ];
 export const dropdownItems: AppRoutesNavigation[] = [
-    {
-        id: 101,
-        name: {
-            "ru": 'Профиль',
-            "kz": 'Профиль',
-            "en": 'Profile',
-        },
-        to: routes.profile,
-        role: ['student', 'employer', 'university'],
-        icon: <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>,
-        verticalAlign: '',
+  {
+    id: 101,
+    name: {
+      "ru": 'Профиль',
+      "kz": 'Профиль',
+      "en": 'Profile',
     },
-    {
-        id: 102,
-        name: {
-            "ru": 'Аналитика',
-            "kz": 'Аналитика',
-            "en": 'Analytics',
-        },
-        to: routes.analysisPage,
-        role: ["university"],
-        icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
-        verticalAlign: "middle",
+    to: routes.profile,
+    role: ['student', 'employer', 'university'],
+    icon: <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: '',
+  },
+  {
+    id: 102,
+    name: {
+      "ru": 'Аналитика',
+      "kz": 'Аналитика',
+      "en": 'Analytics',
     },
-    {
-        id: 103,
-        name: {
-            "ru": 'Университеты',
-            "kz": 'Универститеттер',
-            "en": 'Universities',
-        },
-        to: routes.university,
-        role: ["university", "employer", "student"],
-        icon: <UniversityIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
-        verticalAlign: "middle",
+    to: routes.analysisPage,
+    role: ["university"],
+    icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: "middle",
+  },
+  {
+    id: 103,
+    name: {
+      "ru": 'Университеты',
+      "kz": 'Универститеттер',
+      "en": 'Universities',
     },
-    {
-        id: 104,
-        name: {
-            "ru": 'HR Bank',
-            "kz": 'HR Bank',
-            "en": 'HR Bank',
-        },
-        to: routes.hrBank,
-        role: ["university", "employer", "student"],
-        icon:  <HrBankIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
-        verticalAlign: "middle",
+    to: routes.university,
+    role: ["university", "employer", "student"],
+    icon: <UniversityIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: "middle",
+  },
+  {
+    id: 104,
+    name: {
+      "ru": 'HR Bank',
+      "kz": 'HR Bank',
+      "en": 'HR Bank',
     },
-    {
-        id: 105,
-        name: {
-            "ru": 'Выпустить дипломы',
-            "kz": 'Диплом шығару',
-            "en": 'Issue diplomas',
-        },
-        to: routes.addingGraduates,
-        role: ["university"],
-        icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
-        verticalAlign: "middle",
+    to: routes.hrBank,
+    role: ["university", "employer", "student"],
+    icon: <HrBankIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: "middle",
+  },
+  {
+    id: 105,
+    name: {
+      "ru": 'Выпустить дипломы',
+      "kz": 'Диплом шығару',
+      "en": 'Issue diplomas',
     },
-    {
-        id: 107,
-        name: {
-            "ru": 'ИИ Найм',
-            "kz": 'ЖИ Жалдау',
-            "en": 'AI Hiring',
-        },
-        to: routes.aiChat,
-        role: ["employer", "student"],
-        icon: <HrBankIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
-        verticalAlign: "middle",
+    to: routes.addingGraduates,
+    role: ["university"],
+    icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: "middle",
+  },
+  {
+    id: 107,
+    name: {
+      "ru": 'ИИ Найм',
+      "kz": 'ЖИ Жалдау',
+      "en": 'AI Hiring',
     },
+    to: routes.aiChat,
+    role: ["employer", "student"],
+    icon: <HrBankIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: "middle",
+  },
 
 ];
 
 export const dropdownItemsBottom: AppRoutesNavigation[] = [
-	{
-		id: 106,
-		name: {
-			"ru": 'Настройки',
-			"kz": 'Параметрлер',
-			"en": 'Settings',
-		},
-		to: routes.settings,
-		role: ['student', 'employer', 'university'],
-		icon: <Settings style={{ marginRight: '10px', verticalAlign: "center" }} />,
-		verticalAlign: '',
-		function: () => {
-		},
-	},
-	{
-		id: 401,
-		name: {
-			"ru": 'Выйти',
-			"kz": 'Шығу',
-			"en": 'Logout',
-		},
-		to: routes.login,
-		role: ['student', 'employer', 'university'],
-		icon: <Out style={{ marginRight: '10px', verticalAlign: "center" }} />,
-		verticalAlign: "red",
-		function: () => {
-
-		},
-	},
-    {
-		id: 109,
-		name: {
-			"ru": 'Связаться с нами',
-			"kz": 'Бізбен байланысу',
-			"en": 'Connect with us',
-		},
-		to: "",
-		role: ['student', 'employer', 'university'],
-		icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
-		verticalAlign: "",
-		function: () => {
-            window.open(`https://taplink.cc/jasaim`, '_blank');
+  {
+    id: 106,
+    name: {
+      "ru": 'Настройки',
+      "kz": 'Параметрлер',
+      "en": 'Settings',
+    },
+    to: routes.settings,
+    role: ['student', 'employer', 'university'],
+    icon: <Settings style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: '',
+    function: () => {
+    },
+  },
+  {
+    id: 401,
+    name: {
+      "ru": 'Выйти',
+      "kz": 'Шығу',
+      "en": 'Logout',
+    },
+    to: routes.login,
+    role: ['student', 'employer', 'university'],
+    icon: <Out style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: "red",
+    function: () => {
+    },
+  },
+  {
+    id: 409,
+    name: {
+      "ru": 'Генератор резюме',
+      "kz": 'Түйіндеме шығару',
+      "en": 'Generate resume',
+    },
+    to: routes.resumeGenerator,
+    role: ['student', 'employer', 'university'],
+    icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: "",
+    function: () => {
+    },
+  },
+  {
+    id: 109,
+    name: {
+      "ru": 'Связаться с нами',
+      "kz": 'Бізбен байланысу',
+      "en": 'Connect with us',
+    },
+    to: "",
+    role: ['student', 'employer', 'university'],
+    icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: "",
+    function: () => {
+      window.open(`https://taplink.cc/jasaim`, '_blank');
     },
   },
 ];
 export const localization = {
-	account: {
-		"ru": "Аккаунт",
-		"kz": "Аккаунт",
-		"en": "Account",
-	},
-	contactUs: {
-		//"ru": "Появились вопросы?\nСвяжитесь с нами!",
-		//"kz": "Сұрақтар пайда болды ма?\nБізге хабарласыңыз!",
-		//"en": "Have a question?\nContact us!"
-        "ru": "Опрос для работодателей",
-		"kz": "Жұмысберушілер үшін сауалнама",
-		"en": "Survey for employers"
-	},
-	logout: {
-		"ru": "Вы действительно хотите выйти из профиля?",
-		"kz": "Сіз профильден шығуды растайсыз ба?",
-		"en": "Do you want to logout of the profile?"
-	},
-	log: {
-		"ru": 'Выйти',
-		"kz": 'Шығу',
-		"en": 'Logout',
+  account: {
+    "ru": "Аккаунт",
+    "kz": "Аккаунт",
+    "en": "Account",
+  },
+  contactUs: {
+    //"ru": "Появились вопросы?\nСвяжитесь с нами!",
+    //"kz": "Сұрақтар пайда болды ма?\nБізге хабарласыңыз!",
+    //"en": "Have a question?\nContact us!"
+    "ru": "Опрос для работодателей",
+    "kz": "Жұмысберушілер үшін сауалнама",
+    "en": "Survey for employers"
+  },
+  logout: {
+    "ru": "Вы действительно хотите выйти из профиля?",
+    "kz": "Сіз профильден шығуды растайсыз ба?",
+    "en": "Do you want to logout of the profile?"
+  },
+  log: {
+    "ru": 'Выйти',
+    "kz": 'Шығу',
+    "en": 'Logout',
 
-	},
-	cancel: {
-		"ru": 'Отменить',
-		"kz": 'Бас тарту',
-		"en": 'Cancel',
-	},
-	lang1: {
-		"ru": 'Русский',
-		"kz": 'Орысша',
-		"en": 'Russian',
-	},
-	lang2: {
-		"ru": 'Казахский',
-		"kz": 'Қазақша',
-		"en": 'Kazakh',
-	},
-	lang3: {
-		"ru": 'Английский',
-		"kz": 'Ағылшынша',
-		"en": 'English',
-	}
+  },
+  cancel: {
+    "ru": 'Отменить',
+    "kz": 'Бас тарту',
+    "en": 'Cancel',
+  },
+  lang1: {
+    "ru": 'Русский',
+    "kz": 'Орысша',
+    "en": 'Russian',
+  },
+  lang2: {
+    "ru": 'Казахский',
+    "kz": 'Қазақша',
+    "en": 'Kazakh',
+  },
+  lang3: {
+    "ru": 'Английский',
+    "kz": 'Ағылшынша',
+    "en": 'English',
+  }
 }
