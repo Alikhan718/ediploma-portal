@@ -230,21 +230,21 @@
         width: 100%;
         height: 100%;
     }
-    
+
     .radioButtons {
         display: flex;
         padding-left: 0px;
         overflow: hidden;
         flex-wrap: wrap;
     }
-    
-    
+
+
     .radioButtonContainer {
         float: left;
         clear: none;
         position: relative;
     }
-    
+
     .radioButtonContainer label {
         margin: 0px;
         float: left;
@@ -560,10 +560,11 @@ input[type="radio"]:checked + label span.innerCircle2 {
 
 .searchOutputContainer {
     max-height: 500px;
+    max-width: 45rem;
     text-align: center;
     padding: 20px;
-    margin-left: 90px;
-    align-items: center;
+    /* margin-left: 90px; */
+    align-items: flex-start;
     overflow: auto;
 }
 
