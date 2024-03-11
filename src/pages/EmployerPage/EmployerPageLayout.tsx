@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Card, CardMedia, Typography, Pagination} from '@mui/material';
+import {Box, Card, CardMedia, Typography, Pagination, useMediaQuery} from '@mui/material';
 import {Button, Label, Input} from '@src/components';
 import styles from './EmployerPage.module.css';
 import {ReactComponent as SmartContractIcon} from '@src/assets/icons/smartContract_black.svg';
@@ -7,11 +7,11 @@ import {ReactComponent as Web} from '@src/assets/icons/web_black.svg';
 import {ReactComponent as DiscordIcon} from '@src/assets/icons/discord_black.svg';
 import {ReactComponent as TwitterIcon} from '@src/assets/icons/twitter_black.svg';
 import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
-import {ReactComponent as Instagram} from '@src/assets/icons/instragram.svg';
-import {ReactComponent as Telegram} from '@src/assets/icons/telegram.svg';
-import {ReactComponent as Linkedin} from '@src/assets/icons/linkedin.svg';
-import {ReactComponent as Facebook} from '@src/assets/icons/facebook.svg';
-import {ReactComponent as Youtube} from '@src/assets/icons/youtube.svg';
+import { ReactComponent as Telegram } from "@src/assets/icons/tgEmployer.svg";
+import { ReactComponent as Linkedin } from "@src/assets/icons/inEmployer.svg";
+import { ReactComponent as Instagram } from "@src/assets/icons/igEmployer.svg";
+import { ReactComponent as Facebook } from "@src/assets/icons/fbEmployer.svg";
+import { ReactComponent as Youtube } from "@src/assets/icons/ytEmployer.svg";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchFavoriteDiplomas} from "@src/store/diplomas/actionCreators";
@@ -30,12 +30,15 @@ import dots from "./../../assets/icons/Dots.svg";
 import employreImg from "@src/assets/dashboard/employerImg.png";
 import placeholdereImg from "@src/assets/dashboard/Image.jpg";
 import cn from "classnames";
-import icon from "@src/assets/icons/jasaim_icon.png";
+import icon from "@src/assets/icons/Logo (2).svg";
 import {handleLink} from "@src/utils/link";
 import {selectLanguage} from "@src/store/generals/selectors";
-import {localization} from '@src/pages/EmployerPage/generator';
+import {localization, employerData, employerNumData, titles} from '@src/pages/EmployerPage/generator';
 import {selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from "@src/store/auth/actionCreators";
+import { ReactComponent as SingleCheck } from "@src/assets/icons/single check.svg";
+import { ReactComponent as ExpandMore } from '@src/assets/icons/expand_more.svg';
+import exampleImage from '@src/assets/example/employerDetails.jpeg';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -156,200 +159,294 @@ export const EmployerPageLayout: React.FC = () => {
     console.log(userState)
   }, [!userState]);
 
+  const [showFull, setShowFull] = React.useState(false);
+
+  const handleText = (text: string): string => {
+      const matchesSm = useMediaQuery('(max-width:768px)');
+      const trimLimit = matchesSm ? 85 : 115;
+      return showFull ? text : text.substring(0, trimLimit) + "...";
+  };
+
   return (
     <Box sx={{display: 'flex', flexDirection: 'row'}}>
       <Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
 
-        <Box className={styles.upperContainer}>
+        <Box sx={{display:'flex', flexDirection: 'column', justifyContent:"space-between", width:"100%"}}>
 
-          <Box display='flex' flexDirection='column' sx={{backgroundColor: 'white', borderRadius: '15px',}}>
-            <Box display='flex' justifyContent='center'>
-              <Box sx={{
-                backgroundColor: '#3B82F6',
-                width: '100%',
-                marginX: "1rem",
-                height: '13rem',
-                borderRadius: '20px',
-                marginBottom: '10px',
-                marginTop: '2rem',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-                backgroundImage: userState && userState.avatar ? `url(${baseURL}/${userState.avatar})` : `url(https://www.coinspot.com.au/public/img/learn/blockchain-applications-supply-chains.png)`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center center',
-              }}>
-                <Box sx={{
-                  marginTop: "45%",
-                  backgroundColor: "white",
-                  padding: "1.25rem",
-                  borderRadius: "50%",
-                  border: "1px solid rgb(18, 33, 74, .7)"
-                }}>
-                  <img src={icon} style={{width: "2rem"}}/>
-                </Box>
-              </Box>
-            </Box>
-            <Box display="flex" justifyContent="center" margin="2rem">
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                }}>
-                <Typography
-                  className={styles.nameText}
-                  fontWeight='600'
-                  sx={{
-                    fontSize: '20px',
-                    padding: '1rem',
-                  }}>
-                  {userState ? userState.name : localization[lang].mainInfo.name}
-                </Typography>
-                <Label label={userState ? userState.position : localization[lang].mainInfo.position}/>
-                <Box display="flex" justifyContent="center" margin="1rem">
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      marginX: '0.5rem'
-                    }}>
-                    <Typography
-                      className={styles.nameText}
-                      fontWeight='600'
-                      sx={{
-                        fontSize: '20px'
-                      }}>
-                      {userState ? userState.branches_amount : 1}
-                    </Typography>
-                    <Label label={localization[lang].mainInfo.places}/>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      marginX: '0.5rem'
-                    }}>
-                    <Typography
-                      className={styles.nameText}
-                      fontWeight='600'
-                      sx={{
-                        fontSize: '20px'
-                      }}>
-                      {userState ? userState.vacancy_amount : 12}
-                    </Typography>
-                    <Label label={localization[lang].mainInfo.vacancies}/>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      marginX: '0.5rem'
-                    }}>
-                    <Typography
-                      className={styles.nameText}
-                      fontWeight='600'
-                      sx={{
-                        fontSize: '20px'
-                      }}>
-                      {userState ? userState.hired_amount : 8}
-                    </Typography>
-                    <Label label={localization[lang].mainInfo.hired}/>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
+          <Box display='none' sx={{
+              width: '100%', height: '25rem', display: 'flex', justifyContent: 'center',
+              alignItems: 'center', position: 'relative', marginBottom: '1.88rem',
+              '@media (max-width: 778px)': {
+                  top: '2rem',
+                  height: '15rem'
+              },
+          }}>
+              <img src={userState && userState.avatar ? `${baseURL}/${userState.avatar}` : exampleImage} alt="employer"
+                  style={{
+                      objectFit: 'cover', width: '100%', height: '100%', borderRadius: '1.5rem'
+                  }}
+              />
           </Box>
 
-          <Box display='flex' flexDirection='column'
+          <Box display='flex' flexDirection='column' padding='1.88rem'
                sx={{
-                 backgroundColor: 'white',
-                 borderRadius: '15px',
-                 marginLeft: '1rem',
+                 backgroundColor: 'white', borderRadius: '15px',
                  '@media (max-width: 768px)': {marginLeft: '0rem', marginTop: '1rem'}
-               }}>
-            <Box className={styles.mobP2}>
-              <Box display="flex" justifyContent="space-between">
-                <Box sx={{
-                  fontSize: '24px',
-                  fontWeight: '600',
-                  color: '#4D4D4D',
-                  paddingBottom: '10px',
-                  '@media (max-width: 768px)': {margin: '0.5rem', fontSize: '20px'}
-                }}> {userState ? userState.name : localization[lang].mainInfo.name} </Box>
-                <Box marginBottom="15px" sx={{'@media (max-width: 768px)': {display: 'none'}}}>
-                  {/* <img src={star} style={{marginRight: '15px'}}/>  */}
-                  <img src={share}
-                       style={{
-                         marginRight: '10px',
-                         marginLeft: '10px',
-                         width: '25px',
-                         height: '25px', cursor: 'pointer'
-                       }}
-                       onClick={copyCurrentURLToClipboard}
-                       alt="Share Icon"/>
-                  {/* <img src={dots} style={{marginRight: '10px'}}/> */}
-                </Box>
-                <Box marginBottom="15px"
-                     sx={{display: 'none', '@media (max-width: 768px)': {display: 'flex'}}}>
-                  <img src={dots} style={{
-                    marginRight: '1rem',
-                    marginTop: '0.5rem',
-                    transform: 'rotate(90deg)'
-                  }}/>
-                </Box>
-              </Box>
-              <Box marginTop="0.5rem" marginBottom="0.5rem" display="flex" alignItems="center">
-                {links.map((link: any, index: number) => (
-                  <Box key={link["name"] + "Box"} marginRight="1rem">
-                    {getIconForLink(link["name"], link["value"])}
-                  </Box>
-                ))}
-              </Box>
-              <Box display='flex' flexDirection='column' my="1rem">
-                <Typography display="flex" className={styles.textXs} fontSize=".9rem">
-                  {localization[lang].phone}: <span style={{
-                  fontWeight: 'bold',
-                  fontSize: '.9rem',
-                  marginLeft: ".5rem"
-                }}>{userState && userState.phone}</span>
-                </Typography>
-                <Typography display="flex" className={styles.textXs} fontSize=".9rem">
-                  {localization[lang].email}: <span style={{
-                  fontWeight: 'bold',
-                  fontSize: '.9rem',
-                  marginLeft: ".5rem"
-                }}>{userState && userState.email}</span>
-                </Typography>
-              </Box>
-              <Typography
-                className={styles.textSm}
-                color="#818181"
-                sx={{fontSize: '14px', '@media (max-width: 768px)': {marginLeft: '0.5rem'}}}>
-                {userState ? userState.description : localization[lang].additionalInfo.description}
-              </Typography>
+               }}
+          >
+            <Box paddingY='0.5rem' sx={{
+                position: "absolute", top: "26rem",
+                '@media (max-width: 778px)': {
+                    top: "15rem",
+                    paddingLeft: "0.60rem"
+                },
+            }}
+            >
+                <img src={icon} alt="icon" style={{
+                    width: '4rem',
+                    height: 'auto',
+                }} />
             </Box>
-            <Box display="flex" className={styles.mobP15} style={{overflowX: "scroll", marginTop: "auto"}}
-                 overflow="hidden">
-              {userState && userState.gallery && JSON.parse(userState.gallery).map((el: any, index: number) =>
-                <CardMedia
-                  key={index}
-                  component="img"
-                  image={`${baseURL}/${el}`}
-                  className={cn(styles.img)}
-                  sx={{width: '25%', margin: "0.5rem"}}
-                />
-              )}
 
+            <Box display='flex' justifyContent='space-between' alignItems="flex-start"
+                sx={{
+                    '@media (max-width: 778px)': {
+                        flexDirection: 'column',
+                        justifyContent: 'space-around',
+                    },
+                }}
+            >
+                <Box sx={{
+                    width: '30%',
+                    '@media (max-width: 778px)': {
+                        marginBottom: '1.5rem',
+                        width: '45%',
+                    },
+                }}>
+                    <Box display="flex" alignItems='center'>
+                        <Typography
+                            fontWeight='600'
+                            sx={{
+                                paddingBottom: '14px',
+                                fontSize: '2rem',
+                                '@media (max-width: 778px)': {
+                                    fontSize: '20px',
+                                    width: '100%',
+                                },
+                            }}
+                        >
+                            {userState && userState.name ? userState.name : "Ф.И Работодателя"}
+                        </Typography>
+                        <Box marginLeft='1rem' marginBottom='0.5rem'>
+                            <SingleCheck fill="#3B82F6" />
+                        </Box>
+                    </Box>
+                    <Box display='flex' width='65%' justifyContent='center'
+                        justifyItems='center'
+                        sx={{
+                            backgroundColor: "#EBF2FE", borderRadius: '1.25rem',
+                            '@media (max-width: 778px)': {
+                                width: '100%',
+                            },
+                        }}
+                    >
+                        <Typography sx={{
+                            fontSize: '0.85rem', color: '#3B82F6', paddingX: '0.75rem', paddingY: '0.5rem',
+                            '@media (max-width: 778px)': {
+                                fontSize: '0.85rem',
+                            },
+                        }}>
+                            {userState && userState.field ? userState.field : "Сфера деятельности"}
+                        </Typography>
+                    </Box>
+                </Box>
+                <Box display="flex" alignItems="center" sx={{}}>
+                    <Box display='flex' justifyContent="center"
+                        alignItems='center' padding='0.5rem' marginX='0.5rem'
+                        sx={{
+                            backgroundColor: '#F4F7FE', borderRadius: '50%',
+                            '@media (max-width: 778px)': {
+                                marginX: '0rem',
+                                mr: '0.5rem'
+                            },
+                            ...(userState && userState.instagram_link && {
+                                '&:hover': {
+                                    backgroundColor: '#E2E8F0',
+                                    cursor: 'pointer',
+                                },
+                            })
+                        }}
+                        onClick={(): void => { handleLink("instagram"); }}
+                    >
+                        <Instagram />
+                    </Box>
+                    <Box display='flex' justifyContent="center"
+                        alignItems='center' padding='0.5rem' marginX='0.5rem'
+                        sx={{
+                            backgroundColor: '#F4F7FE', borderRadius: '50%',
+                            ...(userState && userState.telegram_link && {
+                                '&:hover': {
+                                    backgroundColor: '#E2E8F0',
+                                    cursor: 'pointer',
+                                },
+                            })
+                        }}
+                        onClick={(): void => { handleLink("telegram"); }}
+                    >
+                        <Telegram />
+                    </Box>
+                    <Box display='flex' justifyContent="center"
+                        alignItems='center' padding='0.5rem' marginX='0.5rem'
+                        sx={{
+                            backgroundColor: '#F4F7FE', borderRadius: '50%',
+                            ...(userState && userState.whatsapp_link && {
+                                '&:hover': {
+                                    backgroundColor: '#E2E8F0',
+                                    cursor: 'pointer',
+                                },
+                            })
+                        }}
+                        onClick={(): void => { handleLink("youtube"); }}
+                    >
+                        <Youtube />
+                    </Box>
+                    <Box display='flex' justifyContent="center"
+                        alignItems='center' padding='0.7rem' marginX='0.5rem'
+                        sx={{
+                            backgroundColor: '#F4F7FE', borderRadius: '50%',
+                            ...(userState && userState.linkedin_link && {
+                                '&:hover': {
+                                    backgroundColor: '#E2E8F0',
+                                    cursor: 'pointer',
+                                },
+                            })
+                        }}
+                        onClick={(): void => { handleLink("linkedin"); }}
+                    >
+                        <Linkedin />
+                    </Box>
+                    <Box display='flex' justifyContent="center"
+                        alignItems='center' padding='0.5rem' marginX='0.5rem'
+                        sx={{
+                            backgroundColor: '#F4F7FE', borderRadius: '50%',
+                            ...(userState && userState.facebook_link && {
+                                '&:hover': {
+                                    backgroundColor: '#E2E8F0',
+                                    cursor: 'pointer',
+                                },
+                            })
+                        }}
+                        onClick={(): void => { handleLink("facebook"); }}
+                    >
+                        <Facebook />
+                    </Box>
+                </Box>
             </Box>
+
+            <Box paddingY="1.88rem">
+                <Typography
+                    fontWeight='600'
+                    sx={{
+                        paddingBottom: '14px',
+                        fontSize: '24px',
+                        '@media (max-width: 778px)': {
+                            fontSize: '20px',
+                            width: '100%',
+                        },
+                    }}
+                >
+                    {titles[lang].data}
+                </Typography>
+                <Box display="flex" justifyContent="space-between" alignItems="flex-end"
+                    sx={{
+                        '@media (max-width: 778px)': {
+                            flexDirection: 'column',
+                            justifyContent: 'space-around',
+                            alignItems: 'flex-start',
+                        },
+                    }}
+                >
+                    <Box sx={{
+                        '@media (max-width: 778px)': {
+                            marginBottom: '1rem'
+                        },
+                    }}>
+                        {Object.keys(employerData).map((key: any, index) => {
+                            if (userState[key as keyof typeof userState]) {
+                                return (
+                                    <Box key={index} display='flex' flexDirection='column'
+                                        justifyContent='center' justifyItems='center' marginY='0.5rem'
+                                    >
+                                        <Typography>
+                                            <span style={{ color: "#818181", fontSize: "16px" }}>
+                                                {employerData[key as keyof typeof employerData][lang]}:
+                                            </span>{" "}
+                                            <span style={{ fontWeight: '600', fontSize: "16px" }}>
+                                                {userState[key as keyof typeof userState]}
+                                            </span>{" "}
+                                        </Typography>
+                                    </Box>
+                                );
+                            }
+                        })}
+                    </Box>
+                    <Box display='flex'>
+                        {Object.keys(employerNumData).map((key: any, index) => {
+                            return (
+                                <Box key={index}
+                                    display='flex' flexDirection='column'
+                                    justifyContent='center' marginX='0.5rem'
+                                    sx={{
+                                        '@media (max-width: 778px)': {
+                                            marginX: '0rem',
+                                            mr: '0.5rem'
+                                        },
+                                    }}
+                                >
+                                    <Typography>
+                                        <span style={{ fontWeight: '600', fontSize: "16px" }}>
+                                            {userState && userState[key as keyof typeof userState] ? userState[key as keyof typeof userState] : '-'}
+                                        </span>
+                                    </Typography>
+                                    <Typography>
+                                        <span style={{ color: "#818181", fontSize: "16px" }}>
+                                            {employerNumData[key as keyof typeof employerNumData][lang]}
+                                        </span>
+                                    </Typography>
+                                </Box>
+                            );
+                        })}
+                    </Box>
+                </Box>
+            </Box>
+            <Box width="50%" sx={{
+                '@media (max-width: 778px)': {
+                    width: '100%'
+                },
+            }}>
+                <Typography
+                    fontWeight='600'
+                    sx={{
+                        paddingBottom: '14px', fontSize: '24px',
+                        '@media (max-width: 778px)': {
+                            fontSize: '20px', width: '100%',
+                        },
+                    }}
+                >
+                    {titles[lang].about}
+                </Typography>
+                <Typography color="#818181">
+                    {handleText(userState && userState.description ? userState.description : "")}
+                </Typography>
+                <Typography style={{ cursor: "pointer" }} fontWeight='600' color='#629BF8'
+                    sx={{ paddingBottom: '20px' }}
+                    onClick={(): void => { setShowFull(!showFull); }}
+                >
+                    {"Показать"} {!showFull ? "больше" : "меньше"}
+                    <ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
+                </Typography>
+            </Box>
+
           </Box>
         </Box>
 
