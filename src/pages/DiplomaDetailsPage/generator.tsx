@@ -381,6 +381,11 @@ export const uniRatings = {
 }
 
 export const skillsList = {
+  "Информатика": {
+    "en": ["Computer Science"],
+    "kz": ["Computer Science"],
+    "ru": ["Computer Science"],
+  },
   "ПРИСУЖДЕНА СТЕПЕНЬ БАКАЛАВРА\nТЕХНИКИ И ТЕХНОЛОГИЙ ПО ОБРАЗОВАТЕЛЬНОЙ ПРОГРАММЕ «6B07101 ХИМИЧЕСКАЯ ТЕХНОЛОГИЯ ОРГАНИЧЕСКИХ ВЕЩЕСТВ»": {
     "ru": [
       "Технология переработки",
