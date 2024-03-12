@@ -55,6 +55,9 @@ import SignedDsIcon from '@src/assets/icons/file_checked.svg';
 import UploadedIcon from '@src/assets/icons/checklist.svg';
 import OwnerVerifiedIcon from '@src/assets/icons/verified_check.svg';
 import { ReactComponent as ChartIcon } from '@src/assets/icons/Chart.svg';
+import suDiplomaExample from '@src/assets/example/suDiplomaExample.png';
+import suDiplomaExample2 from '@src/assets/example/suDiplomaExample2.png';
+
 
 export const DiplomaDetailsPageLayout: React.FC = () => {
   const lang = useSelector(selectLanguage);
@@ -224,6 +227,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   };
   // const isMobile = useMediaQuery('(max-width:998px)');
   const [isPreviewOpen, setPreviewOpen] = useState(false);
+  const [isPreview2Open, setPreview2Open] = useState(false);
 
   const handlePreviewOpen = () => {
     setPreviewOpen(true);
@@ -231,6 +235,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
   const handlePreviewClose = () => {
     setPreviewOpen(false);
+  };
+
+  const handlePreview2Open = () => {
+    setPreview2Open(true);
+  };
+
+  const handlePreview2Close = () => {
+    setPreview2Open(false);
   };
 
   const handleCModalClose = () => {
@@ -357,7 +369,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   }
                 }}
               >
-                {data && data.image &&
+                {data && data.image ?
                     <Box width="60vh" sx={{
                       backgroundColor: "rgba(7,117,255,0.11)",
                       borderRadius: "1rem",
@@ -474,6 +486,242 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                     alt="University Image"/>
                             </Box>
                         </Modal>
+                    </Box> :
+                    <Box display='flex' gap='1rem'>
+                      <Box width="60vh" sx={{
+                        backgroundColor: "rgba(7,117,255,0.11)",
+                        borderRadius: "1rem",
+                        padding: ".7rem",
+                        marginTop: "1rem",
+                        '@media (max-width: 778px)': {
+                          width: '95%'
+                        },
+                      }}>
+                          <Card
+                              elevation={0}
+                              sx={{
+                                display: 'flex',
+                                width: "100%", flexDirection: 'column', alignItems: 'center',
+                                cursor: "pointer",
+                                borderRadius: "10px",
+
+                              }}
+                          >
+                              <CardMedia
+                                  component="img"
+                                  className={styles.diplomaImg}
+                                  sx={{
+                                    width: "100%",
+                                    height: altImg ? "16rem" : "",
+                                    objectPosition: "top",
+                                    position: "relative",
+                                    display: imageLoaded ? "block" : "none"
+
+                                  }}
+                                  image={suDiplomaExample}
+                                  alt="University Image"
+                                  onLoad={handleImageLoad}
+                                  onClick={handlePreview2Open}
+                              />
+                              <Skeleton variant="rectangular" width={300} height={200}
+                                        sx={{display: imageLoaded ? "none" : "block"}}
+                                        animation="wave"/>
+                              <Box sx={{
+                                display: 'flex',
+                                flexDirection: 'row-reverse',
+                                width: "100%",
+                                marginTop: "-3rem",
+                                justifyContent: "space-between",
+                                padding: "0 .5rem .5rem .5rem",
+                                zIndex: "10"
+                              }}>
+                                  <Box
+                                      sx={{
+                                        display: 'flex',
+                                        "@media (max-width: 778px)": {
+                                          display: 'none'
+                                        }
+                                      }}
+                                  >
+                                      <IconButton
+                                          color="primary"
+                                          sx={{
+                                            backgroundColor: "rgba(59,130,246,0.78)",
+                                            '&:hover': {
+                                              backgroundColor: "rgb(59,130,246)",
+                                              color: "white"
+                                            }
+                                          }}
+                                          onClick={() => {
+                                            navigator.clipboard.writeText(currentUrl);
+                                            setAlertOpen(true);
+                                          }}
+                                      >
+                                          <ShareIcon style={{width: "20", filter: "brightness(10)"}}/>
+                                      </IconButton>
+                                  </Box>
+                                  <Box
+                                      sx={{
+                                        display: 'none',
+                                        "@media (max-width: 778px)": {
+                                          display: 'flex'
+                                        }
+                                      }}
+                                  >
+                                      <IconButton
+                                          color="primary"
+                                          sx={{
+                                            width: "2.5rem",
+                                            height: "2.5rem",
+                                            backgroundColor: "#D8E6FD",
+                                          }}
+                                          onClick={handleToogleFavoriteDiplomas}>
+                                        {/* {isFavorite ? <StarPressed/> : <Star/>} */}
+                                          <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"}/>
+                                      </IconButton>
+                                  </Box>
+                              </Box>
+                          </Card>
+                          <Modal
+                              open={isPreview2Open}
+                              handleClose={handlePreview2Close}
+                              width={altImg ? "50%" : "auto"}
+                              maxWidth={altImg ? "50%" : "auto"}
+                              maxHeight="100%"
+
+                          >
+                              <Box display="flex" justifyContent="center">
+                                  <CardMedia
+                                      component="img"
+                                      sx={{
+                                        width: altImg ? "30vw" : "100%",
+                                        height: altImg ? "90%" : "100%",
+                                        position: "relative",
+                                        objectPosition: "top",
+                                        objectFit: "cover",
+                                      }}
+                                      image={suDiplomaExample}
+                                      alt="University Image"/>
+                              </Box>
+                          </Modal>
+                      </Box>
+                      <Box width="30vh" sx={{
+                        backgroundColor: "rgba(7,117,255,0.11)",
+                        borderRadius: "1rem",
+                        padding: ".7rem",
+                        marginTop: "1rem",
+                        '@media (max-width: 778px)': {
+                          width: '95%'
+                        },
+                      }}>
+                          <Card
+                              elevation={0}
+                              sx={{
+                                display: 'flex',
+                                width: "100%", flexDirection: 'column', alignItems: 'center',
+                                cursor: "pointer",
+                                borderRadius: "10px",
+
+                              }}
+                          >
+                              <CardMedia
+                                  component="img"
+                                  className={styles.diplomaImg}
+                                  sx={{
+                                    width: "100%",
+                                    height: altImg ? "16rem" : "",
+                                    objectPosition: "top",
+                                    position: "relative",
+                                    display: imageLoaded ? "block" : "none"
+
+                                  }}
+                                  image={suDiplomaExample2}
+                                  alt="University Image"
+                                  onLoad={handleImageLoad}
+                                  onClick={handlePreviewOpen}
+                              />
+                              <Skeleton variant="rectangular" width={300} height={200}
+                                        sx={{display: imageLoaded ? "none" : "block"}}
+                                        animation="wave"/>
+                              <Box sx={{
+                                display: 'flex',
+                                flexDirection: 'row-reverse',
+                                width: "100%",
+                                marginTop: "-3rem",
+                                justifyContent: "space-between",
+                                padding: "0 .5rem .5rem .5rem",
+                                zIndex: "10"
+                              }}>
+                                  <Box
+                                      sx={{
+                                        display: 'flex',
+                                        "@media (max-width: 778px)": {
+                                          display: 'none'
+                                        }
+                                      }}
+                                  >
+                                      <IconButton
+                                          color="primary"
+                                          sx={{
+                                            backgroundColor: "rgba(59,130,246,0.78)",
+                                            '&:hover': {
+                                              backgroundColor: "rgb(59,130,246)",
+                                              color: "white"
+                                            }
+                                          }}
+                                          onClick={() => {
+                                            navigator.clipboard.writeText(currentUrl);
+                                            setAlertOpen(true);
+                                          }}
+                                      >
+                                          <ShareIcon style={{width: "20", filter: "brightness(10)"}}/>
+                                      </IconButton>
+                                  </Box>
+                                  <Box
+                                      sx={{
+                                        display: 'none',
+                                        "@media (max-width: 778px)": {
+                                          display: 'flex'
+                                        }
+                                      }}
+                                  >
+                                      <IconButton
+                                          color="primary"
+                                          sx={{
+                                            width: "2.5rem",
+                                            height: "2.5rem",
+                                            backgroundColor: "#D8E6FD",
+                                          }}
+                                          onClick={handleToogleFavoriteDiplomas}>
+                                        {/* {isFavorite ? <StarPressed/> : <Star/>} */}
+                                          <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"}/>
+                                      </IconButton>
+                                  </Box>
+                              </Box>
+                          </Card>
+                          <Modal
+                              open={isPreviewOpen}
+                              handleClose={handlePreviewClose}
+                              width={altImg ? "50%" : "auto"}
+                              maxWidth={altImg ? "50%" : "auto"}
+                              maxHeight="100%"
+
+                          >
+                              <Box display="flex" justifyContent="center">
+                                  <CardMedia
+                                      component="img"
+                                      sx={{
+                                        width: altImg ? "30vw" : "50%",
+                                        height: altImg ? "90%" : "50%",
+                                        position: "relative",
+                                        objectPosition: "top",
+                                        objectFit: "cover",
+                                      }}
+                                      image={suDiplomaExample2}
+                                      alt="University Image"/>
+                              </Box>
+                          </Modal>
+                      </Box>
                     </Box>
                 }
               </Box>
@@ -765,7 +1013,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           alignContent: 'flex-start',
                           flexWrap: 'wrap'
                         }}>
-                          {graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
+                          { graduateAttributes && graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
                             return (
                               <Box key={index} sx={{
                                 display: 'flex',
