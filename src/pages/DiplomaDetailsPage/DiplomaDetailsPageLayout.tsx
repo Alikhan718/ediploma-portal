@@ -934,7 +934,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                       </Box>
 
                       <Box display='flex' flexDirection="column" mt='1rem'>
-                        <Link href={graduateAttributes && graduateAttributes.smart_contract_link}
+                        <Link href={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}
                               sx={{textDecoration: "none"}} target={'_blank'}>
                           <Box display='flex'>
                             <Typography className={styles.textMd} fontWeight='600' mb="1rem" color='#3B82F6'
@@ -943,7 +943,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             </Typography>
                           </Box>
                         </Link>
-                        <Link href={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}
+                        <Link display='none' href={graduateAttributes && graduateAttributes.smart_contract_link }
                               sx={{textDecoration: "none"}} target={'_blank'} mt='0.2rem'>
                           <Box display='flex'>
                             <Typography className={styles.textMd} fontWeight='600' color='#3B82F6' fontSize={"1rem"}>
@@ -1088,7 +1088,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         style={{cursor: "pointer", userSelect: "none"}}
                         onClick={() => {
                           if (uploadedIcon) {
-                            handleLink(graduateAttributes && graduateAttributes.smart_contract_link)
+                            // handleLink(graduateAttributes && graduateAttributes.smart_contract_link)
+                            handleLink('https://etherscan.io/address/0xbac7239d8c4313a00ae1bcde567c1d78bfac84d7')
                           }
                         }}
                       >
