@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "src/pages/DiplomaPage/DiplomaPage.module.css";
 import { StudentCard } from './StudentCard';
-import { Alert, Box, CircularProgress, Snackbar } from '@mui/material';
+import { Alert, Box, CircularProgress, Snackbar, Grid } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/components/HiringPopup/Generator';
@@ -26,14 +26,14 @@ export const SearchOutput: React.FC<SearchOutputProps> = (props) => {
     const handleAlertClose = () => {
 		setAlertOpen(false);
 	};
-    
+
     React.useEffect(() => {
         dispatch(fetchDiplomas());
     },[]);
 
     React.useEffect(() => {
         if (!response){return;}
-        
+
         const newMatchedStudents: any[] = [];
 
         response.forEach((student: { name: any; }) => {
@@ -50,7 +50,7 @@ export const SearchOutput: React.FC<SearchOutputProps> = (props) => {
 
     return(
         <div>
-            {loading ? 
+            {loading ?
                 (<div>
                     <h1 className={styles.popupHeading}>{localization[lang].Output.seconds}</h1>
                     <div className={styles.loadingContainer}>
@@ -60,36 +60,38 @@ export const SearchOutput: React.FC<SearchOutputProps> = (props) => {
                 (<div>
                     <h1 className={styles.popupHeading}>{localization[lang].Output.suitableCandidates}</h1>
                     <div className={styles.searchOutputContainer}>
-                        { matchedStudents && matchedStudents.map((student: any) => (
-                                <div key={student.id}>
-                                    <Box sx={{ marginTop: '20px', }}></Box>
-                                    <StudentCard student={student} setAlertOpen={setAlertOpen} />
-                                    <Box sx={{ marginBottom: '20px', }}></Box>
-                                </div>
-                            ))
-                        }
+                    <Grid container display="flex" spacing={1}>
+                          { matchedStudents && matchedStudents.map((student: any) => (
+                                  <Grid item xs={12} sm={6} key={student.id}>
+                                      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%'}}>
+                                        <StudentCard student={student} setAlertOpen={setAlertOpen} />
+                                      </Box>
+                                  </Grid>
+                              ))
+                          }
+                      </Grid>
                     </div>
                     <div className={styles.buttonContainer}>
-                        <button 
-                            type="button" 
-                            onClick={(): void => {setGotResponse(false);}} 
+                        <button
+                            type="button"
+                            onClick={(): void => {setGotResponse(false);}}
                             className={styles.continueButton}
                         >{localization[lang].Output.Buttons.back}
                         </button>
                     </div>
                 </div>)}
-                <Snackbar 
+                <Snackbar
                     open={alertOpen} autoHideDuration={2000}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     onClose={handleAlertClose}>
-                    <Alert 
-                        onClose={handleAlertClose} 
+                    <Alert
+                        onClose={handleAlertClose}
                         severity="error"
                         sx={{ width: '100%' }}>
                             Просмотр данного диплома вам не доступен!
                     </Alert>
 			    </Snackbar>
         </div>
-        
+
     );
 };
