@@ -227,6 +227,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   };
   // const isMobile = useMediaQuery('(max-width:998px)');
   const [isPreviewOpen, setPreviewOpen] = useState(false);
+  const [isPreview2Open, setPreview2Open] = useState(false);
 
   const handlePreviewOpen = () => {
     setPreviewOpen(true);
