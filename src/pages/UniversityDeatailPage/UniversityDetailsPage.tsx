@@ -152,7 +152,7 @@ export const UniversityDetailsPage: React.FC = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
-  const handleAlertClose = ():void => {
+  const handleAlertClose = (): void => {
     setAlertOpen(false);
   };
 
@@ -168,7 +168,7 @@ export const UniversityDetailsPage: React.FC = () => {
   };
 
   const getIconForLink = (name: any, link: any): React.ReactNode => {
-    const onClick = ():void => {
+    const onClick = (): void => {
       handleLink(link);
     };
     if (name.includes('linkedin')) {
@@ -192,7 +192,7 @@ export const UniversityDetailsPage: React.FC = () => {
     return <Web cursor="pointer" className={styles.social} onClick={onClick} />;
   };
 
-  const handleCardClick = (counter: number):void => {
+  const handleCardClick = (counter: number): void => {
     if (userRole === 'Student' && counter != data.id) {
       setAlertOpen(true);
       return;
@@ -236,7 +236,7 @@ export const UniversityDetailsPage: React.FC = () => {
   }, [totalDiplomas, data]);
 
   useEffect(() => {
-    const handleScroll = ():void => {
+    const handleScroll = (): void => {
       setIsDataAlert(false);
     };
 
@@ -274,7 +274,7 @@ export const UniversityDetailsPage: React.FC = () => {
     }
   };
 
-  const scrollToRef = (direction: string):void => {
+  const scrollToRef = (direction: string): void => {
     const ref = getRefById(direction === 'next' ? currentHistory + 1 : currentHistory - 1);
     if (direction === 'next' && currentHistory < 4) {
       setCurrentHistory(currentHistory + 1);
@@ -349,7 +349,7 @@ export const UniversityDetailsPage: React.FC = () => {
                   )) : <img src={diplomaTemplate} style={{ marginBottom: '10px', borderRadius: '1rem', width: "20vw" }} />
                   } */}
 
-                  <img src={`${baseURL}/${galleryImages[1]}`} style={{ marginBottom: '10px', borderRadius: '1rem', width: "20vw" }} />
+                  <img src={`${baseURL}/${galleryImages[0]}`} style={{ marginBottom: '10px', borderRadius: '1rem', width: "20vw" }} />
                 </Box>
               </Box>
               <Box>
@@ -386,7 +386,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     {/* {localization[lang].MainCard.uniNames} */}
                     {data ? data.name : ""}
                   </Typography>
-                  <Box display="flex" alignItems="center" sx={{ '@media (max-width: 768px)': {marginBottom:'1rem'}}}>
+                  <Box display="flex" alignItems="center" sx={{ '@media (max-width: 768px)': { marginBottom: '1rem' } }}>
                     {links.map((link: any) => (
                       <Box key={link["name"] + "Box"} display='flex' justifyContent="center"
                         alignItems='center' padding={link["name"].includes('linkedin') ? '0.7rem' : '0.5rem'} marginX='0.5rem'
@@ -442,7 +442,7 @@ export const UniversityDetailsPage: React.FC = () => {
                         {"Миссия университета"}
                       </Box>
                       <Typography className={styles.textSm} color="#818181">
-                        { data && data.university_id == 1 ?
+                        {data && data.university_id == 1 ?
                           mission :
                           'Satbayev University – крупнейший в Казахстане научно-методический центр, разрабатывающий специальные программы подготовки специалистов для нужд промышленности, сложных проектов и создания команд профессионалов мирового уровня.'
                         }
@@ -521,7 +521,7 @@ export const UniversityDetailsPage: React.FC = () => {
                         <Cap />
                       </Box>
                       <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        { data && data.university_id == 1 ?
+                        {data && data.university_id == 1 ?
                           'Программы двойных дипломов в сотрудничестве с LSE,Geneva Business School , University of Northampton, IFP Energies Nouvelles' :
                           '1-ое место среди технических вузов Казахстана согласно рейтингу Независимого агентства по обеспечению качества в образовании'
                         }
@@ -539,7 +539,7 @@ export const UniversityDetailsPage: React.FC = () => {
                         <PlusMinus />
                       </Box>
                       <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        { data && data.university_id == 1 ?
+                        {data && data.university_id == 1 ?
                           'На протяжение 9 лет держал звание лучшего технического вуза Казахстана по Генеральному рейтингу НКАОКО' :
                           '501-510 место в международном рейтинге QS World University Ranking'
                         }
@@ -557,7 +557,7 @@ export const UniversityDetailsPage: React.FC = () => {
                         <Graph />
                       </Box>
                       <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        { data && data.university_id == 1 ?
+                        {data && data.university_id == 1 ?
                           'Лучшие в Казахстане программы Нефтегазовое дело, Химическая инженерия, Информационные технологии' :
                           'Лучшие в Казахстане программы Нефтегазовое дело, Химическая инженерия, Информационные технологии'
                         }
@@ -575,7 +575,7 @@ export const UniversityDetailsPage: React.FC = () => {
                         <PieChart />
                       </Box>
                       <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        { data && data.university_id == 1 ?
+                        {data && data.university_id == 1 ?
                           'КазМунайГаз, Казатомпром, Казахстан Темир Жолы, Air Astana, Казахтелеком, Самрук-Энерго, Казкоммерцбанк и Халык Банк являются основными работодателями для выпускников КБТУ.' :
                           'Золотая медаль имени В.И. Блинникова «За вклад в изобретательское и патентное дело» Евразийской патентной организации'
                         }
@@ -606,7 +606,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
                           borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
                           display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '1.75rem',
-                        }} onClick={():void => scrollToRef('prev')}
+                        }} onClick={(): void => scrollToRef('prev')}
                         >
                           <ArrowLeft />
                         </Box>
@@ -614,7 +614,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
                           borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
                           display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '1.75rem'
-                        }} onClick={():void => scrollToRef('next')}
+                        }} onClick={(): void => scrollToRef('next')}
                         >
                           <ArrowRight />
                         </Box>
@@ -634,13 +634,13 @@ export const UniversityDetailsPage: React.FC = () => {
                           marginTop: '1rem'
                         }}>
                           {data && data.university_id == 1 ?
-                            "2000 - Начало международного сотрудничества в образовании и науке":
+                            "2000 - Начало международного сотрудничества в образовании и науке" :
                             "1933 - Организация первого высшего технического учебного заведения"
                           }
                         </Box>
                         <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                           {data && data.university_id == 1 ?
-                            "В ходе официального визита Президента в Великобританию в ноябре 2000 года достигнуты соглашения в области образования и науки.":
+                            "В ходе официального визита Президента в Великобританию в ноябре 2000 года достигнуты соглашения в области образования и науки." :
                             "В Алма-Ате был основан Казахский горно-металлургический институт с целью развития высшего технического образования в Казахстане. Это стало началом освоения технических наук в стране."
                           }
                         </Typography>
@@ -660,13 +660,13 @@ export const UniversityDetailsPage: React.FC = () => {
                           marginTop: '1rem'
                         }}>
                           {data && data.university_id == 1 ?
-                            "2001 - Основание Казахстанско-Британского технического университета":
+                            "2001 - Основание Казахстанско-Британского технического университета" :
                             "1938 - Первый выпуск инженеров и вклад академика Сатпаева"
                           }
                         </Box>
                         <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                           {data && data.university_id == 1 ?
-                            "Основан в 2001 году после соглашений, достигнутых между Казахстаном и Великобританией в области образования и науки.":
+                            "Основан в 2001 году после соглашений, достигнутых между Казахстаном и Великобританией в области образования и науки." :
                             "КазГМИ выпускает первых горных инженеров-геологов, под председательством Каныша Сатпаева, что стало важным вкладом в развитие науки и промышленности."
                           }
                         </Typography>
@@ -686,13 +686,13 @@ export const UniversityDetailsPage: React.FC = () => {
                           marginTop: '1rem'
                         }}>
                           {data && data.university_id == 1 ?
-                            "2003 - Развитие образовательной инфраструктуры":
+                            "2003 - Развитие образовательной инфраструктуры" :
                             "1970 - От КазГМИ к Казахский политехнический институт имени Ленина"
                           }
                         </Box>
                         <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                           {data && data.university_id == 1 ?
-                            "Создание образовательного центра ТОО «Институт инжиниринга и информационных технологий КБТУ» для переподготовки и повышения квалификации кадров.":
+                            "Создание образовательного центра ТОО «Институт инжиниринга и информационных технологий КБТУ» для переподготовки и повышения квалификации кадров." :
                             "Институт претерпевает серию переименований, расширяя свои образовательные и научные направления."
                           }
                         </Typography>
@@ -712,13 +712,13 @@ export const UniversityDetailsPage: React.FC = () => {
                           marginTop: '1rem'
                         }}>
                           {data && data.university_id == 1 ?
-                            "2005 - Программа двойного диплома, Новый уровень академического обмена":
+                            "2005 - Программа двойного диплома, Новый уровень академического обмена" :
                             "1999 - Присвоение имени К.И. Сатпаева"
                           }
                         </Box>
                         <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                           {data && data.university_id == 1 ?
-                            "Запуск образовательной программы двойного диплома с Лондонской школой экономики и политических наук.":
+                            "Запуск образовательной программы двойного диплома с Лондонской школой экономики и политических наук." :
                             "В 1999 году, в ознаменование 100-летия со дня рождения Каныша Сатпаева, университету было присвоено его имя. В 2001 году, по указу президента университет получил особый статус, подтверждая его важную роль в подготовке кадров"
                           }
                         </Typography>
@@ -738,13 +738,13 @@ export const UniversityDetailsPage: React.FC = () => {
                           marginTop: '1rem'
                         }}>
                           {data && data.university_id == 1 ?
-                            "2011 - КБТУ присоединяется к AACSB":
+                            "2011 - КБТУ присоединяется к AACSB" :
                             "2017 - Преобразования и работа под брендом Satbayev University"
                           }
                         </Box>
                         <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
                           {data && data.university_id == 1 ?
-                            "Стремясь к дальнейшей интеграции в мировое образовательное пространство, КБТУ вступил в члены Американской ассоциации AACSB (Associationto Advance Collegiate Schools of Business)":
+                            "Стремясь к дальнейшей интеграции в мировое образовательное пространство, КБТУ вступил в члены Американской ассоциации AACSB (Associationto Advance Collegiate Schools of Business)" :
                             "После преобразования в акционерное общество и объединения с КБТУ, университет начинает работать под брендом Satbayev University, подчеркивая новую эру в его развитии."
                           }
                         </Typography>
@@ -812,7 +812,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     >
                       {'Лучшие выпускники'}
                     </Typography>
-                    <Box sx={{ display: 'flex', '@media (max-width: 998px)': { flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '1rem'} }}>
+                    <Box sx={{ display: 'flex', '@media (max-width: 998px)': { flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '1rem' } }}>
                       <Box sx={{
                         width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
                         backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
@@ -986,7 +986,7 @@ export const UniversityDetailsPage: React.FC = () => {
                       borderRadius: '20px', padding: '5px', width: '150px',
                       color: '#3B82F6', marginLeft: '20px', marginRight: '15px'
                     }}
-                    onClick={():void => {
+                    onClick={(): void => {
                       setShowFilter(true);
                     }}
                   >
@@ -1007,14 +1007,14 @@ export const UniversityDetailsPage: React.FC = () => {
                         <InputAdornment position="end">
                           <HeaderSearchIcon
                             cursor="pointer"
-                            onClick={():void => {
+                            onClick={(): void => {
                               triggerSearchFilters(filterAttributes);
                               ReactGA.event({ category: 'User', action: 'Search', label: searchQuery, });
                             }}
                           />
                         </InputAdornment>
                       }
-                      onChange={(e):void => {
+                      onChange={(e): void => {
                         const query = e.target.value;
                         setFilterAttributes({ ...filterAttributes, text: query });
                         setSearchQuery(query);
@@ -1115,7 +1115,7 @@ export const UniversityDetailsPage: React.FC = () => {
 
                   <Box
                     key={e.id}
-                    onClick={():void => {
+                    onClick={(): void => {
                       handleCardClick(e.id!);
                     }}
                     className={styles.diplomaItem}
@@ -1206,7 +1206,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     <Pagination
                       count={totalPages}
                       page={currentPage}
-                      onChange={(event, page):void => setCurrentPage(page)}
+                      onChange={(event, page): void => setCurrentPage(page)}
                       shape="rounded"
                       color="primary"
                       size="large"
