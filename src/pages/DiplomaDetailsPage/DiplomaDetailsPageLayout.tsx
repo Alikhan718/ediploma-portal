@@ -62,9 +62,11 @@ import { ReactComponent as ChartIcon } from '@src/assets/icons/Chart.svg';
 import suDiplomaExample from '@src/assets/example/suDiplomaExample.png';
 import suDiplomaExample2 from '@src/assets/example/suDiplomaExample2.png';
 
+const isMobileGlobal = window.innerWidth <= 768;
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: 'var(--color-light-dark-100, #F4F7FE)',
+    backgroundColor: isMobileGlobal ? '#FAFBFF' : 'var(--color-light-dark-100, #F4F7FE)',
     color: 'var(--color-light-dark-600, #58607C)',
     border: 0,
   },
@@ -335,6 +337,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     if (graduateAttributes) {
       if (graduateAttributes.diploma_email) {
         console.log(graduateAttributes.diploma_email, graduateAttributes.diploma_email.length);
+        console.log(graduateAttributes);
       }
     }
 
@@ -385,9 +388,17 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
               {localization[lang].StudentPage.Menu.back}
             </Typography>
           </IconButton>
-          <Box display='flex' flexDirection='column' sx={{ backgroundColor: 'white', borderRadius: '15px' }}>
+          <Box display='flex' flexDirection='column'
+            sx={{
+              backgroundColor: isMobile ? '#F4F7FE' : 'white',
+              borderRadius: '15px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
             <Box width="50%" display="flex" flex="row" p=".275rem " sx={{
-              backgroundColor: "#F8F8F8", borderRadius: "3rem",
+              backgroundColor: "white", borderRadius: "3rem",
               marginTop: "0.5rem",
               display: 'none',
               '@media (max-width: 778px)': {
@@ -402,11 +413,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
               </Button>
               <Button fullWidth={true} color={value === 1 ? "primary" : "secondary"}
                 variant="contained" borderRadius="3rem" onClick={(e) => handleChange(e, 1)}>
-                Рекзвезиты
+                Транскрипт
               </Button>
               <Button fullWidth={true} color={value === 2 ? "primary" : "secondary"}
                 variant="contained" borderRadius="3rem" onClick={(e) => handleChange(e, 2)}>
-                Профиль
+                Резюме
               </Button>
             </Box>
 
@@ -425,6 +436,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 justifyContent='center'
                 alignItems='center'
                 sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  justifyItems: 'center',
+                  width: '100%',
                   "@media (max-width: 778px)": {
                     display: value !== 0 ? "none" : "flex"
                   }
@@ -558,6 +574,12 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         width: '95%',
                         flexShrink: 0,
                         flexGrow: 0,
+                        padding: 0,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginLeft: '0.5rem',
+                        backgroundColor: "#F4F7FE",
                       },
                     }}>
                       <Card
@@ -677,7 +699,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         width: '50%',
                         flexShrink: 0,
                         flexGrow: 0,
-                        marginX: '0.5rem'
+                        marginX: '0.5rem',
+                        padding: 0,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       },
                     }}>
                       <Card
@@ -797,7 +823,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 alignItems="center"
                 alignContent="center"
                 margin="1rem"
-                className={styles.contentLeftContainer}
+              // className={styles.contentLeftContainer}
               >
                 <Box
                   sx={{
@@ -825,7 +851,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   >
                     <Box sx={{
                       '@media (max-width: 778px)': {
-                        display: value !== 1 ? "none" : "flex",
+                        // display: value !== 2 ? "none" : "flex",
+                        display: 'none',
                         flexDirection: 'column',
                         width: '100%',
                       },
@@ -1056,11 +1083,15 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                       "@media (max-width: 778px)": {
                         display: 'flex',
                         flexDirection: 'column-reverse',
+                        width: '100%',
                       }
                     }}>
                       <Box sx={{
                         '@media (max-width: 778px)': {
-                          display: value !== 2 ? "none" : "block"
+                          display: value !== 2 ? "none" : "block",
+                          backgroundColor: 'white',
+                          borderRadius: '1rem',
+                          padding: '0.75rem',
                         },
                         marginTop: '1rem',
                         width: '100%'
@@ -1087,7 +1118,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 backgroundColor: '#F8F8F8',
                                 borderRadius: '1rem',
                                 margin: '0.5rem',
-                                padding: '0.5rem'
+                                padding: '0.5rem',
+                                '@media (max-width: 778px)': { backgroundColor: '#F4F7FE' }
                               }}>
                                 <Typography
                                   color="black"
@@ -1112,7 +1144,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
                       <Box mt="1rem" mb="1rem" sx={{
                         '@media (max-width: 778px)': {
-                          display: value !== 2 ? "none" : "block"
+                          // display: 'value !== 2 ? "none" : "block"'
+                          display: 'none'
                         },
                       }}>
                         <Box sx={{
@@ -1184,16 +1217,146 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           </Box>
                         </Box>
                       </Box>
-                    </Box>
 
+                      <Box sx={{
+                        display: 'none',
+                        '@media (max-width: 778px)': {
+                          display: value !== 2 ? "none" : "block",
+                          backgroundColor: 'white',
+                          borderRadius: '1rem',
+                          padding: '0.75rem',
+                        },
+                        marginTop: '1rem',
+                        minWidth: '21rem'
+                      }}>
+                        <Box sx={{
+                          fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
+                          '@media (max-width: 778px)': {
+                            fontSize: '20px'
+                          },
+                        }}>
+                          {localization[lang].switchDetails.data}
+                        </Box>
+
+                        <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
+                          <Box sx={{ width: '50%' }}>
+                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB', }}>
+                              Номер телефона
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem' }}>
+                              {graduateAttributes && graduateAttributes.diploma_phone ? graduateAttributes.diploma_phone : "-"}
+                            </Typography>
+                          </Box>
+                          <Box sx={{ width: '50%' }}>
+                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB', }}>
+                              Почта
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem' }}>
+                              {graduateAttributes && graduateAttributes.diploma_email ? graduateAttributes.diploma_email : "-"}
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
+                          <Box sx={{ width: '50%' }}>
+                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                              Город
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem' }}>
+                              Алмата
+                            </Typography>
+                          </Box>
+                          <Box sx={{ width: '50%' }}>
+                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                              Регион
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem' }}>
+                              {graduateAttributes && graduateAttributes.diploma_region ? graduateAttributes.diploma_region : "-"}
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
+                          <Box sx={{ width: '50%' }}>
+                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                              Название вуза
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem' }}>
+                              {
+                                data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu :
+                                  data && data.university_id && data.university_id == 2 ? localization[lang].StudentPage.MainInfo.agp :
+                                    data && data.university_id && data.university_id == 3 ? 'Сатпаев Университет' :
+                                      localization[lang].StudentPage.MainInfo.noData
+                              }
+                            </Typography>
+                          </Box>
+                          <Box sx={{ width: '50%' }}>
+                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                              Специальность
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem' }}>
+                              {
+                                data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
+                                  data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
+                                    data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
+                                      localization[lang].StudentPage.MainInfo.noData
+                              }
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
+                          <Box sx={{ width: '50%' }}>
+                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                              GPA
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem' }}>
+                              {
+                                graduateAttributes && graduateAttributes.diploma_gpa ? graduateAttributes.diploma_gpa : "-"
+                              }
+                            </Typography>
+                          </Box>
+                          <Box sx={{ width: '50%' }}>
+                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                              Степень
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem' }}>
+                              {
+                                data && data.university_id == 2 ? "" :
+                                  data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
+                                    data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
+                                      data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
+                                        localization[lang].StudentPage.MainInfo.noData
+                              }
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
+                          <Box sx={{ width: '50%' }}>
+                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                              Академический рейтинг
+                            </Typography>
+                            <Box display="flex" marginTop="0.25rem">
+                              {graduateAttributes.rating &&
+                                <RatingDisplay academicRating={Number(graduateAttributes.rating)} />}
+                              <Box marginLeft="0.5rem"> {graduateAttributes.rating && graduateAttributes.rating} </Box>
+                            </Box>
+                          </Box>
+                          <Box sx={{ width: '50%' }}>
+                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                              Дата окончания
+                            </Typography>
+                            <Typography sx={{ fontSize: '0.875rem' }}>
+                              {data && data.year ? data.year : ""}
+                            </Typography>
+                          </Box>
+                        </Box>
+
+                      </Box>
+                    </Box>
                   </Box>
 
                   <Box sx={{
-                    marginRight: "2.5rem",
                     width: '30%',
                     "@media (max-width: 778px)": {
                       marginRight: "0rem",
-                      marginLeft: "1.75rem",
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
@@ -1271,7 +1434,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
                     <Box
                       sx={{
-                        backgroundColor: '#F8F8F8',
+                        backgroundColor: isMobile ? 'white' : '#F8F8F8',
                         borderRadius: '1rem',
                         marginTop: "1rem",
                         '@media (max-width: 778px)': {
@@ -1327,7 +1490,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 sx={{
                   zIndex: 0,
                   '@media (max-width: 778px)': {
-                    display: data && data.university_id != 3 || value !== 0 ? "none" : "flex",
+                    display: data && data.university_id != 3 || value !== 1 ? "none" : "flex",
                     width: '95%',
                   }
                 }}
@@ -1358,7 +1521,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                     <TableHead >
                       <TableRow>
                         <StyledTableCell size='small' sx={{ borderRadius: '1.25rem 0 0 0' }}>№</StyledTableCell>
-                        <StyledTableCell 
+                        <StyledTableCell
                           size='small'
                           sx={{
                             '@media (max-width: 778px)': {
@@ -1366,9 +1529,9 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             }
                           }}
                         >
-                          { isMobile ? 'Наименование' : 'Название дисциплины'}
+                          {isMobile ? 'Наименование' : 'Название дисциплины'}
                         </StyledTableCell>
-                        <StyledTableCell 
+                        <StyledTableCell
                           size='small' align="right"
                           sx={{
                             '@media (max-width: 778px)': {
@@ -1417,39 +1580,39 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               <Box>
                                 <Typography>{row.course}</Typography>
                                 <Typography>
-                                  <span style={{color: "#9499AB"}}>Оценка:</span>{" "}
-                                  <span style={{color: '#58607C'}}>{row.grade}</span>{" "}
+                                  <span style={{ color: "#9499AB" }}>Оценка:</span>{" "}
+                                  <span style={{ color: '#58607C' }}>{row.grade}</span>{" "}
                                 </Typography>
                                 <Typography>
-                                  <span style={{color: "#9499AB"}}>Кредиты:</span>{" "}
-                                  <span style={{color: '#58607C'}}>{row.credits}</span>{" "}
+                                  <span style={{ color: "#9499AB" }}>Кредиты:</span>{" "}
+                                  <span style={{ color: '#58607C' }}>{row.credits}</span>{" "}
                                 </Typography>
                               </Box>
                             )}
                           </StyledTableCell>
-                          <StyledTableCell 
-                            sx={{ 
-                              color: 'var(--color-light-dark-600, #58607C)', 
-                              '@media (max-width: 778px)': { display: 'none' } 
-                            }} 
+                          <StyledTableCell
+                            sx={{
+                              color: 'var(--color-light-dark-600, #58607C)',
+                              '@media (max-width: 778px)': { display: 'none' }
+                            }}
                             align="right"
                           >
                             {row.grade}
                           </StyledTableCell>
-                          <StyledTableCell 
-                            sx={{ 
-                              color: 'var(--color-light-dark-600, #58607C)', 
-                              '@media (max-width: 778px)': { display: 'none' } 
-                            }} 
+                          <StyledTableCell
+                            sx={{
+                              color: 'var(--color-light-dark-600, #58607C)',
+                              '@media (max-width: 778px)': { display: 'none' }
+                            }}
                             align="right"
                           >
                             {row.credits}
                           </StyledTableCell>
-                          <StyledTableCell 
-                            sx={{ 
-                              color: 'var(--color-light-dark-600, #58607C)', 
-                              '@media (max-width: 778px)': { display: 'none' } 
-                            }} 
+                          <StyledTableCell
+                            sx={{
+                              color: 'var(--color-light-dark-600, #58607C)',
+                              '@media (max-width: 778px)': { display: 'none' }
+                            }}
                             align="right"
                           >
                             {row.courseCode}

@@ -78,6 +78,7 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                     display: value !== 0 ? "none" : "flex",
                     flexDirection: 'column',
                     width: '100%',
+                    backgroundColor: 'white',
                 },
             }}
         >
