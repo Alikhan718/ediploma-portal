@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    Box, IconButton
+    Box, IconButton, Button as MuiButton
 } from '@mui/material';
 import { Button } from '@src/components';
 import {
@@ -12,9 +12,14 @@ import {
     WhatsappShareButton,
     WhatsappIcon,
 } from "react-share"
+import { ReactComponent as Telegram } from '@src/assets/icons/tgEmployer.svg';
+import { ReactComponent as Linkedin } from '@src/assets/icons/inEmployer.svg';
 import { localization } from './generator'
-import {ReactComponent as DownloadIcon} from '@src/assets/icons/download.svg';
-import {handleDownload} from "@src/utils/link";
+import { ReactComponent as DownloadIcon } from '@src/assets/icons/downloadDiploma.svg';
+import { ReactComponent as WhatsApp } from '@src/assets/icons/wpDiploma.svg';
+import { ReactComponent as Email } from '@src/assets/icons/emailDiploma.svg';
+import { ReactComponent as Qr } from '@src/assets/icons/qrDiploma.svg';
+import { handleDownload } from "@src/utils/link";
 
 interface ShareButtonProps {
     currentUrl: string;
@@ -27,7 +32,7 @@ interface ShareButtonProps {
 
 export const ShareButton: React.FC<ShareButtonProps> = (props) => {
     const { currentUrl, lang, smartContractAddress, setAlertOpen, value, data } = props
-    const generateAccessToken = ():string => {
+    const generateAccessToken = (): string => {
         const validityDuration = 24 * 60 * 60 * 1000; // 24 hours validity
         const expirationTime = Date.now() + validityDuration;
         return btoa(expirationTime.toString());
@@ -63,39 +68,41 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
     };
 
     const linkedinUrl = {
-        1 : `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&issueMonth=7&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
-        2 : `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
+        1: `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&issueMonth=7&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
+        2: `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
     };
 
-    const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`; 
+    const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`;
 
     return (
         <Box
             sx={{
                 backgroundColor: '#F8F8F8',
-                borderRadius: '1rem',
+                borderRadius: '1.25rem',
+                padding: '1rem',
+                marginBottom: '1rem',
                 '@media (max-width: 778px)': {
                     display: value !== 0 ? "none" : "flex",
                     flexDirection: 'column',
                     width: '100%',
                     backgroundColor: 'white',
+                    marginBottom: 0,
                 },
             }}
         >
             <Box sx={{
-                fontSize: '20px', fontWeight: '600', paddingTop: '10px',
+                fontSize: '20px', fontWeight: '600',
+                marginBottom: '1rem',
                 '@media (max-width: 778px)': {
                     fontSize: '20px'
                 },
-                margin: "1rem"
-            }}> 
+            }}>
                 {localization[lang].share}
             </Box>
-            <Box sx={{ 
-                display: 'flex', 
-                justifyContent: "space-around", 
-                flexWrap: 'wrap', 
-                paddingBottom: '1rem',
+            <Box sx={{
+                display: 'flex',
+                justifyContent: "space-around",
+                flexWrap: 'wrap', marginBottom: '1rem',
                 '@media (max-width: 778px)': {
                     flexWrap: 'nowrap',
                 },
@@ -104,42 +111,84 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                     <EmailShareButton
                         url={currentUrl}
                         subject={localization[lang].emailSubject}
+                        style={{
+                            backgroundColor: "#FAFBFF",
+                            width: '2.5rem',
+                            height: '2.5rem',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
                     >
-                        <EmailIcon size={32} round />
+                        <Email style={{ width: '1.5rem', height: '1.5rem' }} />
                     </EmailShareButton>
                 </Box>
-                <Box>
-                        <a 
-                            href={ data && data.university_id ? linkedinUrl[data.university_id as keyof typeof linkedinUrl] : defaultLink}
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                        >
-                            <LinkedinIcon size={32} round />
-                        </a>
+                <Box sx={{
+                    backgroundColor: "#FAFBFF",
+                    width: '2.5rem',
+                    height: '2.5rem',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    '&:hover': {
+                        backgroundColor: "#FAFBFF",
+                        color: "white"
+                    }
+                }}
+                >
+                    <a
+                        href={data && data.university_id ? linkedinUrl[data.university_id as keyof typeof linkedinUrl] : defaultLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <Linkedin />
+                    </a>
                 </Box>
                 <Box>
-                    <TelegramShareButton 
+                    <TelegramShareButton
                         url={getURL()}
                         title={localization[lang].tgTitle}
+                        style={{
+                            backgroundColor: "#FAFBFF",
+                            width: '2.5rem',
+                            height: '2.5rem',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
                     >
-                        <TelegramIcon size={32} round />
+                        <Telegram style={{ width: '1.5rem', height: '1.5rem' }} />
                     </TelegramShareButton>
                 </Box>
                 <Box>
-                    <WhatsappShareButton 
+                    <WhatsappShareButton
                         url={getURL()}
                         title={localization[lang].wpTitle}
+                        style={{
+                            backgroundColor: "#FAFBFF",
+                            width: '2.5rem',
+                            height: '2.5rem',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
                     >
-                        <WhatsappIcon size={32} round />
+                        <WhatsApp style={{ width: '1.5rem', height: '1.5rem' }} />
                     </WhatsappShareButton>
                 </Box>
                 <Box>
                     <IconButton
                         color="primary"
                         sx={{
-                            backgroundColor: "rgba(59,130,246,0.78)",
+                            backgroundColor: "#FAFBFF",
+                            width: '2.5rem',
+                            height: '2.5rem',
                             '&:hover': {
-                                backgroundColor: "rgb(59,130,246)",
+                                backgroundColor: "#FAFBFF",
                                 color: "white"
                             }
                         }}
@@ -148,23 +197,41 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                             handleDownload(link, data && data.name_en ? data.name_en : "diploma");
                         }}
                     >
-                        <DownloadIcon style={{ width: 16, height: 16 }}/>
+                        <Qr style={{ width: '1.5rem', height: '1.5rem' }} />
+                    </IconButton>
+                </Box>
+                <Box>
+                    <IconButton
+                        color="primary"
+                        sx={{
+                            backgroundColor: "#FAFBFF",
+                            width: '2.5rem',
+                            height: '2.5rem',
+                            '&:hover': {
+                                backgroundColor: "#FAFBFF",
+                                color: "white"
+                            }
+                        }}
+                        onClick={() => {
+                            let link = data && data.image ? data.image : "";
+                            handleDownload(link, data && data.name_en ? data.name_en : "diploma");
+                        }}
+                    >
+                        <DownloadIcon style={{ width: '1.5rem', height: '1.5rem' }} />
                     </IconButton>
                 </Box>
             </Box>
-            <Box display='flex' alignItems="center" justifyContent='center'>
-                <Button
-                    buttonSize="s"
-                    variant="outlined"
-                    type="button"
+            <Box display='flex' alignItems="center" justifyContent='center' width='100%'>
+                <MuiButton
+                    fullWidth
                     sx={{
                         borderRadius: '25px',
-                        marginBottom: '1rem',
+                        backgroundColor: '#EBF2FE',
                     }}
                     onClick={copyCurrentURLToClipboard}
                 >
                     {localization[lang].copy}
-                </Button>
+                </MuiButton>
             </Box>
         </Box>
     )

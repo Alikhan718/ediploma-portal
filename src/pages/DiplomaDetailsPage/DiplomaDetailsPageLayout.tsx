@@ -10,7 +10,7 @@ import {
   MenuItem,
   Link,
   Chip,
-  IconButton, Alert, Snackbar, Skeleton, Table, TableBody, TableContainer, Paper, makeStyles
+  IconButton, Alert, Snackbar, Skeleton, Table, TableBody, TableFooter, TableContainer, Button as MuiButton, Paper
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import TableRow from '@mui/material/TableRow';
@@ -141,6 +141,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   const [ownerIcon, setOwnerIcon] = React.useState(false);
   const img = new Image();
   const [showResumeGenerator, setShowResumeGenerator] = React.useState(true);
+  const [longTable, setLongTable] = React.useState(false);
 
   let diplomaList = useSelector(selectDiplomaList);
 
@@ -402,23 +403,44 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
               marginTop: "0.5rem",
               display: 'none',
               '@media (max-width: 778px)': {
-                width: '100%',
+                width: '95%',
                 display: 'flex',
               },
             }}>
-              <Button fullWidth={true} variant="contained"
-                color={value === 0 ? "primary" : "secondary"} borderRadius="3rem"
+              <MuiButton fullWidth
+                sx={{
+                  borderRadius: "3rem", backgroundColor: value === 0 ? "#3B82F6" : "white",
+                  color: value === 0 ? "white" : "#293357",
+                  '&:hover': {
+                    backgroundColor: value === 0 ? "#1565C0" : "#f0f0f0",
+                  }
+                }}
                 onClick={(e) => handleChange(e, 0)}>
                 Диплом
-              </Button>
-              <Button fullWidth={true} color={value === 1 ? "primary" : "secondary"}
-                variant="contained" borderRadius="3rem" onClick={(e) => handleChange(e, 1)}>
+              </MuiButton>
+              <MuiButton fullWidth
+                sx={{
+                  borderRadius: "3rem", backgroundColor: value === 1 ? "#3B82F6" : "white",
+                  color: value === 1 ? "white" : "#293357",
+                  '&:hover': {
+                    backgroundColor: value === 1 ? "#1565C0" : "#f0f0f0",
+                  }
+                }}
+                onClick={(e) => handleChange(e, 1)}>
                 Транскрипт
-              </Button>
-              <Button fullWidth={true} color={value === 2 ? "primary" : "secondary"}
-                variant="contained" borderRadius="3rem" onClick={(e) => handleChange(e, 2)}>
+              </MuiButton>
+              <MuiButton fullWidth
+                sx={{
+                  borderRadius: "3rem", backgroundColor: value === 2 ? "#3B82F6" : "white",
+                  color: value === 2 ? "white" : "#293357",
+                  '&:hover': {
+                    backgroundColor: value === 2 ? "#1565C0" : "#f0f0f0",
+                  }
+                }}
+                onClick={(e) => handleChange(e, 2)}>
                 Резюме
-              </Button>
+              </MuiButton>
+
             </Box>
 
             <Box px="1rem" sx={{
@@ -428,7 +450,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
               justifyItems: 'center',
               width: '100%',
               '@media (max-width: 778px)': {
-                padding: '0'
+                padding: '0',
               },
             }}>
               <Box
@@ -1091,34 +1113,39 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           display: value !== 2 ? "none" : "block",
                           backgroundColor: 'white',
                           borderRadius: '1rem',
-                          padding: '0.75rem',
+                          padding: '1rem',
                         },
                         marginTop: '1rem',
                         width: '100%'
                       }}>
                         <Box sx={{
                           fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
+                          marginBottom: '1rem',
                           '@media (max-width: 778px)': {
-                            fontSize: '20px'
+                            fontSize: '20px',
+                            marginBottom: '0.75rem',
                           },
                         }}>
                           {localization[lang].StudentPage.AddInfo.skills}
                         </Box>
                         <Box sx={{
                           display: 'flex',
-                          justifyContent: 'flex-start',
                           alignContent: 'flex-start',
-                          flexWrap: 'wrap'
+                          alignItems: 'flex-start',
+                          flexWrap: 'wrap',
+                          gap: '0.75rem',
+                          alignSelf: 'stretch',
                         }}>
                           {graduateAttributes && graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
                             return (
                               <Box key={index} sx={{
                                 display: 'flex',
                                 justifyContent: 'center',
+                                alignItems: 'center',
                                 backgroundColor: '#F8F8F8',
-                                borderRadius: '1rem',
-                                margin: '0.5rem',
+                                borderRadius: '1.5rem',
                                 padding: '0.5rem',
+                                height: '1.5rem',
                                 '@media (max-width: 778px)': { backgroundColor: '#F4F7FE' }
                               }}>
                                 <Typography
@@ -1224,7 +1251,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           display: value !== 2 ? "none" : "block",
                           backgroundColor: 'white',
                           borderRadius: '1rem',
-                          padding: '0.75rem',
+                          padding: '1rem',
                         },
                         marginTop: '1rem',
                         minWidth: '21rem'
@@ -1235,7 +1262,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             fontSize: '20px'
                           },
                         }}>
-                          {localization[lang].switchDetails.data}
+                          {data && lang === "kz" ? data.name_kz : data && lang === "ru" ? data.name_ru : data && lang === "en" ? data.name_en : ""}
                         </Box>
 
                         <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
@@ -1251,7 +1278,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             <Typography sx={{ fontSize: '0.875rem', color: '#9499AB', }}>
                               Почта
                             </Typography>
-                            <Typography sx={{ fontSize: '0.875rem' }}>
+                            <Typography sx={{ fontSize: '0.875rem', overflowWrap: 'break-word', wordBreak: 'break-all' }}>
                               {graduateAttributes && graduateAttributes.diploma_email ? graduateAttributes.diploma_email : "-"}
                             </Typography>
                           </Box>
@@ -1435,8 +1462,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                     <Box
                       sx={{
                         backgroundColor: isMobile ? 'white' : '#F8F8F8',
-                        borderRadius: '1rem',
-                        marginTop: "1rem",
+                        borderRadius: '1.25rem',
+                        padding: '1.25rem',
                         '@media (max-width: 778px)': {
                           display: value !== 0 ? "none" : "flex",
                           flexDirection: 'column',
@@ -1445,40 +1472,31 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         },
                       }}
                     >
-                      <Box display="flex" alignItems="center" padding="1rem">
+                      <Box display="flex" alignItems="flex-start" justifyContent='space-between' marginBottom='1rem'>
                         <Box sx={{
-                          fontSize: '20px', fontWeight: '600',
+                          fontSize: '20px', fontWeight: '600', width: '50%',
                           '@media (max-width: 778px)': {
                             fontSize: '20px'
                           },
-                          marginRight: "0.5rem"
                         }}>
                           {localization[lang].switchDetails.diplomaConfirmation}
                         </Box>
                         <SingleCheck fill="#3B82F6" />
                       </Box>
 
-                      <Box paddingLeft="1rem" paddingRight="1rem" paddingBottom="1rem">
-                        <Typography fontSize="16px" color="#818181">
-                          {localization[lang].switchDetails.acreditation}
-                        </Typography>
-                      </Box>
-
                       <Box display='flex' alignItems="center" justifyContent='center'>
-                        <Button
-                          buttonSize="s"
-                          variant="outlined"
-                          type="button"
+                        <MuiButton
+                          fullWidth
                           sx={{
                             borderRadius: '25px',
-                            marginBottom: '1rem',
+                            backgroundColor: '#EBF2FE',
                           }}
                           onClick={() => {
                             setCModalOpen(true)
                           }}
                         >
                           {localization[lang].switchDetails.confirm}
-                        </Button>
+                        </MuiButton>
                       </Box>
                     </Box>
                   </Box>
@@ -1491,137 +1509,169 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   zIndex: 0,
                   '@media (max-width: 778px)': {
                     display: data && data.university_id != 3 || value !== 1 ? "none" : "flex",
-                    width: '95%',
+                    width: '100%',
                   }
                 }}
               >
-                <TableContainer
+                <Paper
                   sx={{
-                    maxHeight: 440,
                     borderRadius: '1.25rem',
+                    width: '100%',
                     '@media (max-width: 778px)': {
-                      width: '90%',
-                      maxWidth: '90%',
+                      width: '95%',
+                      maxWidth: '95%',
                       minWidth: 0,
                       overflowX: 'none',
                     }
                   }}
                 >
-                  <Table
+                  <TableContainer
                     sx={{
-                      minWidth: 700,
+                      maxHeight: longTable ? '100%' : 440,
+                      borderRadius: '1.25rem',
                       '@media (max-width: 778px)': {
+                        width: '100%',
                         maxWidth: '100%',
                         minWidth: 0,
+                        overflowX: 'none',
                       }
                     }}
-                    stickyHeader
-                    aria-label="sticky table"
                   >
-                    <TableHead >
-                      <TableRow>
-                        <StyledTableCell size='small' sx={{ borderRadius: '1.25rem 0 0 0' }}>№</StyledTableCell>
-                        <StyledTableCell
-                          size='small'
-                          sx={{
-                            '@media (max-width: 778px)': {
-                              borderRadius: '0 1.25rem 0 0'
-                            }
-                          }}
-                        >
-                          {isMobile ? 'Наименование' : 'Название дисциплины'}
-                        </StyledTableCell>
-                        <StyledTableCell
-                          size='small' align="right"
-                          sx={{
-                            '@media (max-width: 778px)': {
-                              display: 'none'
-                            }
-                          }}
-                        >
-                          Оценка
-                        </StyledTableCell>
-                        <StyledTableCell
-                          size='small' align="right"
-                          sx={{
-                            '@media (max-width: 778px)': {
-                              display: 'none'
-                            }
-                          }}
-                        >
-                          Кредиты
-                        </StyledTableCell>
-                        <StyledTableCell
-                          size='small' align="right"
-                          sx={{
-                            borderRadius: '0 1.25rem 0 0',
-                            '@media (max-width: 778px)': {
-                              display: 'none'
-                            }
-                          }}
-                        >
-                          Код дисциплины
-                        </StyledTableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map((row) => (
-                        <StyledTableRow key={row.id}>
-                          <StyledTableCell sx={{ color: 'var(--color-light-dark-600, #58607C)' }} component="th" scope="row">
-                            {row.id}
+                    <Table
+                      sx={{
+                        minWidth: 700,
+                        '@media (max-width: 778px)': {
+                          maxWidth: '100%',
+                          minWidth: 0,
+                        }
+                      }}
+                      stickyHeader
+                      aria-label="sticky table"
+                    >
+                      <TableHead >
+                        <TableRow>
+                          <StyledTableCell size='small' sx={{ borderRadius: '1.25rem 0 0 0' }}>№</StyledTableCell>
+                          <StyledTableCell
+                            size='small'
+                            sx={{
+                              '@media (max-width: 778px)': {
+                                borderRadius: '0 1.25rem 0 0'
+                              }
+                            }}
+                          >
+                            {isMobile ? 'Наименование' : 'Название дисциплины'}
                           </StyledTableCell>
                           <StyledTableCell
+                            size='small' align="right"
                             sx={{
-                              fontSize: '1rem', fontStyle: 'normal', fontWeight: 500, lineHeight: '125%'
+                              '@media (max-width: 778px)': {
+                                display: 'none'
+                              }
                             }}
-                            scope="row"
                           >
-                            {!isMobile ? row.course : (
-                              <Box>
-                                <Typography>{row.course}</Typography>
-                                <Typography>
-                                  <span style={{ color: "#9499AB" }}>Оценка:</span>{" "}
-                                  <span style={{ color: '#58607C' }}>{row.grade}</span>{" "}
-                                </Typography>
-                                <Typography>
-                                  <span style={{ color: "#9499AB" }}>Кредиты:</span>{" "}
-                                  <span style={{ color: '#58607C' }}>{row.credits}</span>{" "}
-                                </Typography>
-                              </Box>
-                            )}
+                            Оценка
                           </StyledTableCell>
                           <StyledTableCell
+                            size='small' align="right"
                             sx={{
-                              color: 'var(--color-light-dark-600, #58607C)',
-                              '@media (max-width: 778px)': { display: 'none' }
+                              '@media (max-width: 778px)': {
+                                display: 'none'
+                              }
                             }}
-                            align="right"
                           >
-                            {row.grade}
+                            Кредиты
                           </StyledTableCell>
                           <StyledTableCell
+                            size='small' align="right"
                             sx={{
-                              color: 'var(--color-light-dark-600, #58607C)',
-                              '@media (max-width: 778px)': { display: 'none' }
+                              borderRadius: '0 1.25rem 0 0',
+                              '@media (max-width: 778px)': {
+                                display: 'none'
+                              }
                             }}
-                            align="right"
                           >
-                            {row.credits}
+                            Код дисциплины
                           </StyledTableCell>
-                          <StyledTableCell
-                            sx={{
-                              color: 'var(--color-light-dark-600, #58607C)',
-                              '@media (max-width: 778px)': { display: 'none' }
-                            }}
-                            align="right"
-                          >
-                            {row.courseCode}
-                          </StyledTableCell>
-                        </StyledTableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {rows.map((row) => (
+                          <StyledTableRow key={row.id}>
+                            <StyledTableCell sx={{ color: 'var(--color-light-dark-600, #58607C)' }} component="th" scope="row">
+                              {row.id}
+                            </StyledTableCell>
+                            <StyledTableCell
+                              sx={{
+                                fontSize: '1rem', fontStyle: 'normal', fontWeight: 500, lineHeight: '125%'
+                              }}
+                              scope="row"
+                            >
+                              {!isMobile ? row.course : (
+                                <Box>
+                                  <Typography>{row.course}</Typography>
+                                  <Typography>
+                                    <span style={{ color: "#9499AB" }}>Оценка:</span>{" "}
+                                    <span style={{ color: '#58607C' }}>{row.grade}</span>{" "}
+                                  </Typography>
+                                  <Typography>
+                                    <span style={{ color: "#9499AB" }}>Кредиты:</span>{" "}
+                                    <span style={{ color: '#58607C' }}>{row.credits}</span>{" "}
+                                  </Typography>
+                                </Box>
+                              )}
+                            </StyledTableCell>
+                            <StyledTableCell
+                              sx={{
+                                color: 'var(--color-light-dark-600, #58607C)',
+                                '@media (max-width: 778px)': { display: 'none' }
+                              }}
+                              align="right"
+                            >
+                              {row.grade}
+                            </StyledTableCell>
+                            <StyledTableCell
+                              sx={{
+                                color: 'var(--color-light-dark-600, #58607C)',
+                                '@media (max-width: 778px)': { display: 'none' }
+                              }}
+                              align="right"
+                            >
+                              {row.credits}
+                            </StyledTableCell>
+                            <StyledTableCell
+                              sx={{
+                                color: 'var(--color-light-dark-600, #58607C)',
+                                '@media (max-width: 778px)': { display: 'none' }
+                              }}
+                              align="right"
+                            >
+                              {row.courseCode}
+                            </StyledTableCell>
+                          </StyledTableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <Box sx={{
+                    '@media (max-width: 778px)': {
+                      padding: '1rem'
+                    }
+
+                  }}>
+                    <MuiButton
+                      fullWidth
+                      sx={{
+                        borderRadius: '25px',
+                        backgroundColor: '#EBF2FE',
+                      }}
+                      onClick={() => {
+                        setLongTable(!longTable);
+                      }}
+                    >
+                      {'Показать '}{!longTable ? 'больше' : 'меньше'}
+                    </MuiButton>
+                  </Box>
+                </Paper>
               </Box>
               <Modal
                 open={cModalOpen}
