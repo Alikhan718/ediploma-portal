@@ -8,7 +8,7 @@ import {
   Divider,
   Menu,
   MenuItem,
-  IconButton, Alert, Snackbar, Skeleton
+  IconButton, Alert, Snackbar, Skeleton, Button as MuiButton
 } from '@mui/material';
 import { Button, Label } from '@src/components';
 import { ReactComponent as ExpandMore } from '@src/assets/icons/expand_more.svg';
@@ -52,6 +52,11 @@ import { ReactComponent as Link } from '@src/assets/icons/Link.svg';
 import { ReactComponent as WhatsApp } from '@src/assets/icons/wpDiploma.svg';
 import { ReactComponent as Email } from '@src/assets/icons/emailDiploma.svg';
 import { ReactComponent as Qr } from '@src/assets/icons/qrDiploma.svg';
+import { ReactComponent as PdfIcon } from '@src/assets/icons/pdfIcon.svg';
+import { ReactComponent as DownloadResume } from '@src/assets/icons/downloadResume.svg';
+import { ReactComponent as ChartResume } from '@src/assets/icons/chartResume.svg';
+import { ReactComponent as AddDipoma } from '@src/assets/icons/addDiploma.svg';
+import { ReactComponent as EditProfile } from '@src/assets/icons/editProfile.svg';
 
 export const StudentPageLayout: React.FC = () => {
   const lang = useSelector(selectLanguage);
@@ -139,14 +144,14 @@ export const StudentPageLayout: React.FC = () => {
     pathnameSegments.push(accessToken);
     const newURL = currentURL.origin + pathnameSegments.join('/');
     return newURL;
-};
+  };
 
-const linkedinUrl = {
+  const linkedinUrl = {
     1: `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&issueMonth=7&certUrl=${currentUrl}&certId=${"1234"}`,
     2: `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&certUrl=${currentUrl}&certId=${"1234"}`,
-};
+  };
 
-const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&certUrl=${currentUrl}&certId=${"1234"}`;
+  const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&certUrl=${currentUrl}&certId=${"1234"}`;
 
 
   return (
@@ -202,10 +207,23 @@ const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATIO
                     padding: '0.75rem',
                     margin: '0rem',
                     flexDirection: 'column',
+                    position: 'relative',
                   },
                 }}
               // className={styles.contentLeftContainer}
               >
+                <Box sx={{
+                  display: 'none',
+                  '@media (max-width: 778px)': {
+                    display: 'flex',
+                    cursor: 'pointer',
+                    position: 'absolute',
+                    right: '0.75rem',
+                    top: '0.75rem',
+                  }
+                }}>
+                  <EditProfile />
+                </Box>
                 <CardMedia
                   component="img"
                   image={userImg}
@@ -250,7 +268,7 @@ const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATIO
                           flexDirection: 'column',
                           justifyContent: 'center',
                           alignItems: 'center',
-                          
+
                         }
                       }}
                     >
@@ -404,6 +422,92 @@ const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATIO
                           </IconButton>
                         </Box>
                       </Box>
+                      {
+                        userState && userState.resume_link ?
+                          (<Box
+                            sx={{
+                              display: 'none',
+                              '@media (max-width: 778px)': {
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '1rem',
+                                borderRadius: '0.75rem',
+                                backgroundColor: "#F4F7FE",
+                                width: '100%',
+                              },
+                            }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'flex-start', alignItems: 'center', gap: '0.5rem' }}>
+                              <Box sx={{ width: '2.25rem', height: '2.25rem', flexShrink: 0 }}>
+                                <PdfIcon />
+                              </Box>
+                              <Box sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'flex-start',
+                                gap: '0.25rem',
+                                flex: '1 0 0',
+                              }}>
+                                <Typography sx={{ fontSize: '0.75rem', color: '#9499AB' }}>
+                                  Выше резюме
+                                </Typography>
+                                <Typography sx={{ fontSize: '0.75rem', color: '#111C44' }}>
+                                  {data && data.name_kz ? data.name_kz : userState.name ? userState.name : ""}
+                                </Typography>
+                              </Box>
+                            </Box>
+                            <Box sx={{ cursor: "pointer", }} onClick={() => handleLink(userState.resume_link)}>
+                              <DownloadResume />
+                            </Box>
+                          </Box>) :
+                          <Box
+                            sx={{
+                              display: 'none',
+                              '@media (max-width: 778px)': {
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                padding: '1rem',
+                                borderRadius: '0.75rem',
+                                backgroundColor: "#F4F7FE",
+                                width: '100%',
+                              },
+                            }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'flex-start', alignItems: 'center', gap: '1rem', marginBottom: '0.75rem', width: '100%' }}>
+                              <Box sx={{ width: '4.125rem', height: '4.125rem' }}>
+                                <ChartResume />
+                              </Box>
+                              <Box sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'flex-start',
+                                gap: '0.25rem',
+                                flex: '1 0 0',
+                              }}>
+                                <Typography sx={{ fontSize: '1.25rem', color: '#293357', fontWeight: 600 }}>
+                                  Мое резюме
+                                </Typography>
+                                <Typography sx={{ fontSize: '0.75rem', color: '#58607C' }}>
+                                  Создайте 2 строк
+                                </Typography>
+                              </Box>
+                            </Box>
+                            <MuiButton fullWidth
+                              sx={{
+                                borderRadius: "3rem", backgroundColor: "#3B82F6",
+                                color: "white",
+                                '&:hover': {
+                                  backgroundColor: "#1565C0",
+                                }
+                              }}
+                              onClick={() => { console.log(123); }}>
+                              Продолжить
+                            </MuiButton>
+                          </Box>
+                      }
                     </Box>
                     {id != undefined &&
                       <Box marginBottom="15px"
@@ -712,12 +816,18 @@ const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATIO
                   margin: '0rem',
                 },
               }}>
-                <Box sx={{
-                  fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
-                  '@media (max-width: 778px)': {
-                    fontSize: '20px'
-                  },
-                }}> {localization[lang].AddInfo.certifications} </Box>
+                <Box sx={{ '@media (max-width: 778px)': { width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'start' } }}>
+                  <Box sx={{
+                    fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
+                    '@media (max-width: 778px)': {
+                      fontSize: '20px',
+                      paddingBottom: '0rem',
+                    },
+                  }}> {localization[lang].AddInfo.certifications} </Box>
+                  <Box sx={{ display: 'none', '@media (max-width: 778px)': { display: 'flex', cursor: 'pointer' } }}>
+                    <AddDipoma />
+                  </Box>
+                </Box>
 
                 {data && data.image &&
                   <Box width="25%" sx={{
@@ -816,15 +926,17 @@ const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATIO
                 marginTop: '1rem',
                 width: '100%'
               }}>
-                <Box sx={{
-                  fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
-                  marginBottom: '1rem',
-                  '@media (max-width: 778px)': {
-                    fontSize: '20px',
-                    marginBottom: '0.75rem',
-                  },
-                }}>
-                  Навыки
+                <Box sx={{ '@media (max-width: 778px)': { width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'start' } }}>
+                  <Box sx={{
+                    fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
+                    '@media (max-width: 778px)': {
+                      fontSize: '20px',
+                      marginBottom: '0.75rem',
+                    },
+                  }}> Навыки </Box>
+                  <Box sx={{ display: 'none', '@media (max-width: 778px)': { display: 'flex', cursor: 'pointer' } }}>
+                    <EditProfile />
+                  </Box>
                 </Box>
                 <Box sx={{
                   display: 'flex',
