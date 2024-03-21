@@ -1818,7 +1818,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 </Alert>
               </Snackbar>
               <Box sx={{
-                display: showResumeGenerator ? 'flex' : 'none', flexDirection: 'column', width: '33.3125rem', padding: '1.75rem',
+                display: data && !data.resume_link && showResumeGenerator ? 'flex' : 'none', flexDirection: 'column', width: '33.3125rem', padding: '1.75rem',
                 alginItems: 'flex-start', position: 'fixed', bottom: 0, left: 0, borderRadius: '1.5rem', backgroundColor: 'white',
                 margin: '2rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)', zIndex: 1000,
                 '@media (max-width: 778px)': {
