@@ -8,7 +8,7 @@ import {
     GET_GRADUATE_DETAILS,
     GET_SEARCH,
     POST_TOOGLE_FAVORITE_DIPLOMAS,
-    GET_FAVORITE_DIPLOMAS,
+    GET_FAVORITE_DIPLOMAS, GET_DIPLOMA_TRANSCRIPT,
 } from "./types/types";
 import {handleResponseBase} from "@src/store/sagas";
 
@@ -112,6 +112,19 @@ export function* fetchFavoriteDiplomasRequest(action: any) {
     }
 };
 
+export function* fetchTranscriptRequest(action: any) {
+    try {
+        const {data} = yield call(diplomasApi.getTranscriptDetails, action.payload);
+        // console.log(data.result?.items);
+        if (data.result?.items) {
+            yield put({type: GET_DIPLOMA_TRANSCRIPT.success, payload: data.result.items});
+        }
+    } catch (e) {
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+        yield put({type: GET_DIPLOMA_TRANSCRIPT.error});
+    }
+};
+
 
 export function* diplomaSaga() {
     yield all([
@@ -121,5 +134,6 @@ export function* diplomaSaga() {
         takeLatest(GET_GRADUATE_DETAILS.saga, fetchGraduateDetailsRequest),
         takeLatest(POST_TOOGLE_FAVORITE_DIPLOMAS.saga, fetchToogleFavoriteDiplomasRequest),
         takeLatest(GET_FAVORITE_DIPLOMAS.saga, fetchFavoriteDiplomasRequest),
+        takeLatest(GET_DIPLOMA_TRANSCRIPT.saga, fetchTranscriptRequest),
     ]);
 }

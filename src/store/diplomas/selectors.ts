@@ -6,4 +6,5 @@ export const selectGraduateAttributes = (state: RootState) => state.diploma.grad
 export const selectSearchText = (state: RootState) => state.diploma.text;
 export const selectToogleFavoriteDiplomas = (state: RootState) => state.diploma.favoriteDiplomas;
 export const selectFavoriteDiplomas = (state: RootState) => state.diploma.favoriteDiplomas;
+export const selectTranscriptItems = (state: RootState) => state.diploma.transcript_items;
 

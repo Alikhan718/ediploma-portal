@@ -4,6 +4,7 @@ export const permissions = {
     passwordReset: ['employer', 'student', 'university'],
     main: ['*'],
     diplomaDetails: ['*'],
+    diplomaDetailsByHash: ['*'],
     hr_bank: ['*'],
     university: ['*'],
     universityDetails: ['*'],	

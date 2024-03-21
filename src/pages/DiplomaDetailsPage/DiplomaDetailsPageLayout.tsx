@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Box,
   Card,
@@ -12,59 +12,65 @@ import {
   Chip,
   IconButton, Alert, Snackbar, Skeleton, Table, TableBody, TableFooter, TableContainer, Button as MuiButton, Paper
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { Button, Label, Modal } from '@src/components';
-import { ReactComponent as SingleCheck } from "@src/assets/icons/single check.svg";
-import { ReactComponent as ExpandMore } from '@src/assets/icons/expand_more.svg';
-import { ReactComponent as DownloadIcon } from '@src/assets/icons/download.svg';
-import { ReactComponent as ShareIcon } from '@src/assets/icons/share.svg';
-import { ReactComponent as GoldStar } from '@src/assets/icons/goldStar.svg';
-import { ReactComponent as Star } from "@src/assets/icons/star.svg";
-import { ReactComponent as StarPressed } from "@src/assets/icons/StarPressed.svg";
-import { ReactComponent as ArrowIcon } from '@src/assets/icons/arrowIcon.svg';
-import { RatingDisplay } from '@src/components/RatingDisplay/RatingDisplay';
-import { ReactComponent as FavoriteDiploma } from '@src/assets/icons/favoriteDiploma.svg';
-import { ReactComponent as CopyIcon } from '@src/assets/icons/copyIcon.svg';
-import { useNavigate, useParams } from "react-router-dom";
-import { ReactComponent as CloseIcon } from "@src/assets/icons/close.svg";
+import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+import {Button, Label, Modal} from '@src/components';
+import {ReactComponent as SingleCheck} from "@src/assets/icons/single check.svg";
+import {ReactComponent as ExpandMore} from '@src/assets/icons/expand_more.svg';
+import {ReactComponent as DownloadIcon} from '@src/assets/icons/download.svg';
+import {ReactComponent as ShareIcon} from '@src/assets/icons/share.svg';
+import {ReactComponent as GoldStar} from '@src/assets/icons/goldStar.svg';
+import {ReactComponent as Star} from "@src/assets/icons/star.svg";
+import {ReactComponent as StarPressed} from "@src/assets/icons/StarPressed.svg";
+import {ReactComponent as ArrowIcon} from '@src/assets/icons/arrowIcon.svg';
+import {RatingDisplay} from '@src/components/RatingDisplay/RatingDisplay';
+import {ReactComponent as FavoriteDiploma} from '@src/assets/icons/favoriteDiploma.svg';
+import {ReactComponent as CopyIcon} from '@src/assets/icons/copyIcon.svg';
+import {useNavigate, useParams} from "react-router-dom";
+import {ReactComponent as CloseIcon} from "@src/assets/icons/close.svg";
 import styles from '@src/pages/StudentPage/StudentPage.module.css';
 import userImg from "@src/assets/dashboard/Image.jpg";
 import cn from "classnames";
-import { routes } from "@src/shared/routes";
-import { useDispatch, useSelector } from "react-redux";
+import {routes} from "@src/shared/routes";
+import {useDispatch, useSelector} from "react-redux";
 import {
   fetchDiplomas,
   fetchGraduateDetails,
   fetchToogleFavoriteDiplomas,
-  fetchFavoriteDiplomas
+  fetchFavoriteDiplomas, fetchDiplomaTranscript
 } from "@src/store/diplomas/actionCreators";
 import {
   selectDiplomaList,
   selectToogleFavoriteDiplomas,
   selectFavoriteDiplomas,
-  selectGraduateAttributes
+  selectGraduateAttributes, selectTranscriptItems
 } from "@src/store/diplomas/selectors";
-import { isAuthenticated } from "@src/utils/userAuth";
-import { handleDownload, handleLink } from "@src/utils/link";
-import { selectUserRole, selectUserState } from "@src/store/auth/selector";
-import { fetchUserProfile } from '@src/store/auth/actionCreators';
-import { selectLanguage } from "@src/store/generals/selectors";
-import { ibfields, fieldLocalizations, localization, skillsList, uniRatings } from '@src/pages/DiplomaDetailsPage/generator';
-import { ShareButton } from '@src/components/ShareButton/ShareButton';
+import {isAuthenticated} from "@src/utils/userAuth";
+import {handleDownload, handleLink} from "@src/utils/link";
+import {selectUserRole, selectUserState} from "@src/store/auth/selector";
+import {fetchUserProfile} from '@src/store/auth/actionCreators';
+import {selectLanguage} from "@src/store/generals/selectors";
+import {
+  ibfields,
+  fieldLocalizations,
+  localization,
+  skillsList,
+  uniRatings
+} from '@src/pages/DiplomaDetailsPage/generator';
+import {ShareButton} from '@src/components/ShareButton/ShareButton';
 import LoadingIcon from '@src/assets/icons/loading.gif';
 import SignedDsIcon from '@src/assets/icons/file_checked.svg';
 import UploadedIcon from '@src/assets/icons/checklist.svg';
 import OwnerVerifiedIcon from '@src/assets/icons/verified_check.svg';
-import { ReactComponent as ChartIcon } from '@src/assets/icons/Chart.svg';
+import {ReactComponent as ChartIcon} from '@src/assets/icons/Chart.svg';
 import suDiplomaExample from '@src/assets/example/suDiplomaExample.png';
 import suDiplomaExample2 from '@src/assets/example/suDiplomaExample2.png';
 
 const isMobileGlobal = window.innerWidth <= 768;
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+const StyledTableCell = styled(TableCell)(({theme}) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: isMobileGlobal ? '#FAFBFF' : 'var(--color-light-dark-100, #F4F7FE)',
     color: 'var(--color-light-dark-600, #58607C)',
@@ -75,7 +81,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
+const StyledTableRow = styled(TableRow)(({theme}) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: 'var(--color-light-dark-50, #FAFBFF)',
   },
@@ -99,35 +105,13 @@ interface TranscriptData {
   id: number;
 }
 
-const rows = [
-  createTranscriptData(1, 'BIM технологии в инженерных системах', 80.01, 5, 'HYD4361'),
-  createTranscriptData(2, 'Алгебра и введение в мат.анализ', 22.0, 6, 'MAT00110'),
-  createTranscriptData(3, 'Алгебра и введение в мат.анализ', 70.0, 6, 'MAT00110'),
-  createTranscriptData(4, 'Альтернативные источники теплоты', 77.0, 5, 'HYD4123'),
-  createTranscriptData(5, 'Английский язык', 75.2, 6, 'LNG1052'),
-  createTranscriptData(6, 'Английский язык Beginner (A1)', 77.7, 6, 'LNG1051'),
-  createTranscriptData(7, 'Английский язык General 1 (A2)', 77.88, 6, 'LNG1053'),
-  createTranscriptData(8, 'Архитектура и строительные конструкции', 85.0, 6, 'CIV4861'),
-  createTranscriptData(9, 'Вентиляция и кондиционирование воздуха', 73.1, 5, 'HYD4181'),
-  createTranscriptData(10, 'Вентиляция промышленных зданий и сооружений', 77.0, 5, 'HYD4321'),
-];
-
-function createTranscriptData(
-  id: number,
-  course: string,
-  grade: number,
-  credits: number,
-  courseCode: string
-): TranscriptData {
-  return { id, course, grade, credits, courseCode };
-};
-
 export const DiplomaDetailsPageLayout: React.FC = () => {
   const lang = useSelector(selectLanguage);
   const [showFull, setShowFull] = React.useState(false);
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { token } = useParams<{ token: string }>();
+  const {id} = useParams();
+  const {token} = useParams<{ token: string }>();
+  const {university_id} = useParams();
   const dispatch = useDispatch();
   const role = useSelector(selectUserRole);
   const [isFavorite, setIsFavorite] = React.useState(false);
@@ -142,9 +126,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   const img = new Image();
   const [showResumeGenerator, setShowResumeGenerator] = React.useState(true);
   const [longTable, setLongTable] = React.useState(false);
-
+  const transcriptItems = useSelector(selectTranscriptItems);
   let diplomaList = useSelector(selectDiplomaList);
-
   const graduateAttributes = useSelector(selectGraduateAttributes);
 
   React.useEffect(() => {
@@ -160,16 +143,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     setAcademicRating(Math.round(rating * 5));
   }, [graduateAttributes]);
 
-  const starsArray = Array.from({ length: academicRating }, (_, index) => index);
+  const starsArray = Array.from({length: academicRating}, (_, index) => index);
 
   React.useEffect(() => {
     if (!graduateAttributes) {
       console.log("no graduate attributes");
       return;
     }
-
     const gpa: number = parseFloat(graduateAttributes.diploma_gpa);
-
     switch (true) {
       case gpa >= 3.5 && gpa <= 4:
         setNumSkills(10);
@@ -187,14 +168,30 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   }, [graduateAttributes]);
 
   React.useEffect(() => {
-    dispatch(fetchDiplomas());
+    if (data?.diploma_student_id) {
+      dispatch(fetchDiplomaTranscript(graduateAttributes?.diploma_student_id));
+    }
+    if (data && data.image && data.image instanceof Array) {
+      setImage(data && data.image && data.image instanceof Array ? data.image[0] : null);
+      setImage2(data && data.image && data.image instanceof Array ? data.image[1] : null);
+      console.log(image, image2);
+    }
+
+  }, [data]);
+
+  React.useEffect(() => {
+    if (!token && !university_id) {
+      dispatch(fetchDiplomas());
+    }
   }, []);
 
   React.useEffect(() => {
+    if (university_id && token) {
+      dispatch(fetchGraduateDetails(`${university_id}/${token}`));
+    }
     if (isAuthenticated()) {
       return;
-    }
-    if (token) {
+    } else if (token && !university_id) {
       try {
         const decodedToken = atob(token);
         const expirationTime = parseInt(decodedToken);
@@ -232,17 +229,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
     setTimeout(() => {
       signedDsIconChange();
-      console.log('signedDsIconChange');
     }, getRandomDelay(minDelay, minDelay));
 
     setTimeout(() => {
       uploadedIconChange();
-      console.log('uploadedIconChange');
     }, getRandomDelay(minDelay + 1000, maxDelay));
 
     setTimeout(() => {
       ownerIconChange();
-      console.log('ownerIconChange');
     }, getRandomDelay(minDelay, minDelay));
   };
 
@@ -251,23 +245,23 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   }, [cModalOpen]);
 
   React.useEffect(() => {
-    setData(diplomaList.filter((diploma: any) => diploma.id == id)[0]);
-  }, [isAuthenticated(), diplomaList]);
-
+    setData({...diplomaList.filter((diploma: any) => diploma.id == id)[0], ...graduateAttributes});
+  }, [isAuthenticated(), diplomaList, graduateAttributes]);
   const isMobile = window.innerWidth <= 768;
   const [altImg, setAltImg] = React.useState(false);
   React.useEffect(() => {
-    if (data) {
+    if (isAuthenticated() && !university_id) {
+      dispatch(fetchGraduateDetails(id));
+    }
+    if (data && !university_id) {
       img.src = data.image;
       if (img.height / img.width > 1 && !isMobile) {
         setAltImg(true);
-        console.log(altImg);
+        // console.log(altImg);
       }
-
-      dispatch(fetchGraduateDetails(data.id));
     }
-  }, [data]);
 
+  }, [!graduateAttributes]);
   const currentUrl = window.location.href;
   const [alertOpen, setAlertOpen] = useState(false);
   const handleAlertClose = () => {
@@ -314,14 +308,48 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   };
 
   const initialFavDiplomas = useSelector(selectFavoriteDiplomas);
+  const [image, setImage] = React.useState<string>("");
+  const [image2, setImage2] = React.useState<string>("");
+
   React.useEffect(() => {
-    dispatch(fetchFavoriteDiplomas());
+    if (isAuthenticated()) {
+      dispatch(fetchFavoriteDiplomas());
+    }
 
     if (initialFavDiplomas) {
       setIsFavorite(initialFavDiplomas.some((item: { id: number }) => item.id === Number(id)));
     }
-  }, [])
+  }, []);
 
+  const [rows, setRows] = React.useState([]);
+
+  function createTranscriptData(
+    id: number,
+    course: string,
+    grade: number,
+    credits: number,
+    courseCode: string
+  ): TranscriptData {
+    return {id, course, grade, credits, courseCode};
+  }
+
+  React.useEffect(() => {
+    if (transcriptItems.length) {
+      let items = transcriptItems.map((item: any, index: number) =>
+        createTranscriptData(
+          index + 1,
+          lang == 'ru' ? item.DisciplineName.NameRu :
+            lang == 'kz' ? item.DisciplineName.NameKz :
+              lang == 'en' ? item.DisciplineName.NameEn : "-",
+          item.Grade,
+          item.Credits,
+          item.Code
+        )
+      );
+      setRows(items);
+      console.log("Transcript:", transcriptItems);
+    }
+  }, [transcriptItems, lang]);
 
   const favoriteDiplomas = useSelector(selectToogleFavoriteDiplomas);
   React.useEffect(() => {
@@ -331,14 +359,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   }, [favoriteDiplomas]);
 
   const handleToogleFavoriteDiplomas = async () => {
-    dispatch(fetchToogleFavoriteDiplomas({ diploma_id: id }));
+    dispatch(fetchToogleFavoriteDiplomas({diploma_id: id}));
   };
 
   const hasValidEmail = (): boolean => {
     if (graduateAttributes) {
       if (graduateAttributes.diploma_email) {
-        console.log(graduateAttributes.diploma_email, graduateAttributes.diploma_email.length);
-        console.log(graduateAttributes);
+        // console.log(graduateAttributes.diploma_email, graduateAttributes.diploma_email.length);
+        // console.log(graduateAttributes);
       }
     }
 
@@ -366,8 +394,80 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     }
   };
 
+  const getUniversityName = () => {
+    return data?.university_name ? data?.university_name :
+      (data?.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu :
+        data?.university_id == 2 ? localization[lang].StudentPage.MainInfo.agp :
+          data?.university_id == 3 ? 'Сатпаев Университет' :
+            localization[lang].StudentPage.MainInfo.noData);
+  };
+
+  const extractSpeciality = (value: string) => {
+    return value?.substring(value.search("«"), value.search("»") + 1);
+  };
+
+  const getSpecialityName = () => {
+    let noData = "";
+    if (lang === 'ru') {
+      noData = "Недостаточно данных";
+      return data?.diploma_degree ? data.speciality_ru : extractSpeciality(data?.speciality_ru);
+    }
+    if (lang === 'kz') {
+      noData = "Ақпарат жеткіліксіз";
+      return data?.diploma_degree ? data.speciality_kz : extractSpeciality(data?.speciality_kz);
+    }
+    if (lang === 'en') {
+      noData = "No data";
+      return data?.diploma_degree ? data.speciality_en : extractSpeciality(data?.speciality_en);
+    }
+    return noData;
+  };
+
+  interface MajorLocales {
+    Bachelor: {
+      ru: string;
+      kz: string;
+      en: string;
+    };
+    Master: {
+      ru: string;
+      kz: string;
+      en: string;
+    };
+  }
+
+  const majorLocales: MajorLocales = {
+    "Bachelor": {
+      'ru': "Бакалавр",
+      'kz': "Бакалавр",
+      'en': "Bachelor"
+    },
+    "Master": {
+      'ru': "Магистр",
+      'kz': "Маигстр",
+      'en': "Master"
+    }
+  };
+  const getMajorName = () => {
+    let noData = "";
+
+    if (lang === 'ru') {
+      noData = "Недостаточно данных";
+      return data?.diploma_degree ? majorLocales[data.diploma_degree as keyof typeof majorLocales][lang] : data?.speciality_ru?.split("\n")[0];
+    }
+    if (lang === 'kz') {
+      noData = "Ақпарат жеткіліксіз";
+      return data?.diploma_degree ? majorLocales[data.diploma_degree as keyof typeof majorLocales][lang] : data?.speciality_kz?.split("\n")[0];
+    }
+    if (lang === 'en') {
+      noData = "No data";
+      return data?.diploma_degree ? majorLocales[data.diploma_degree as keyof typeof majorLocales][lang] : data?.speciality_en?.split("\n")[0];
+    }
+    return noData;
+  };
+
   return (
-    <Box width="100%" sx={{ display: 'flex', flexDirection: 'row', justifyContent: "center" }}>
+    <Box width="100%" sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
       <Box display='flex' flexWrap='wrap' width="100%">
 
         <Box sx={{
@@ -382,21 +482,21 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         }}>
           <IconButton onClick={() => {
             navigate(-1);
-          }} sx={{ '&:hover': { backgroundColor: 'transparent' } }}>
-            <ArrowIcon />
+          }} sx={{'&:hover': {backgroundColor: 'transparent'}}}>
+            <ArrowIcon/>
             <Typography className={styles.textMd} marginLeft="1rem" fontWeight='600' color='#3B82F6'
-              fontSize={"1rem"}>
+                        fontSize={"1rem"}>
               {localization[lang].StudentPage.Menu.back}
             </Typography>
           </IconButton>
           <Box display='flex' flexDirection='column'
-            sx={{
-              backgroundColor: isMobile ? '#F4F7FE' : 'white',
-              borderRadius: '15px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
-            }}
+               sx={{
+                 backgroundColor: isMobile ? '#F4F7FE' : 'white',
+                 borderRadius: '15px',
+                 justifyContent: 'center',
+                 alignItems: 'center',
+                 width: '100%',
+               }}
           >
             <Box width="50%" display="flex" flex="row" p=".275rem " sx={{
               backgroundColor: "white", borderRadius: "3rem",
@@ -408,36 +508,36 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
               },
             }}>
               <MuiButton fullWidth
-                sx={{
-                  borderRadius: "3rem", backgroundColor: value === 0 ? "#3B82F6" : "white",
-                  color: value === 0 ? "white" : "#293357",
-                  '&:hover': {
-                    backgroundColor: value === 0 ? "#1565C0" : "#f0f0f0",
-                  }
-                }}
-                onClick={(e) => handleChange(e, 0)}>
+                         sx={{
+                           borderRadius: "3rem", backgroundColor: value === 0 ? "#3B82F6" : "white",
+                           color: value === 0 ? "white" : "#293357",
+                           '&:hover': {
+                             backgroundColor: value === 0 ? "#1565C0" : "#f0f0f0",
+                           }
+                         }}
+                         onClick={(e) => handleChange(e, 0)}>
                 Диплом
               </MuiButton>
               <MuiButton fullWidth
-                sx={{
-                  borderRadius: "3rem", backgroundColor: value === 1 ? "#3B82F6" : "white",
-                  color: value === 1 ? "white" : "#293357",
-                  '&:hover': {
-                    backgroundColor: value === 1 ? "#1565C0" : "#f0f0f0",
-                  }
-                }}
-                onClick={(e) => handleChange(e, 1)}>
+                         sx={{
+                           borderRadius: "3rem", backgroundColor: value === 1 ? "#3B82F6" : "white",
+                           color: value === 1 ? "white" : "#293357",
+                           '&:hover': {
+                             backgroundColor: value === 1 ? "#1565C0" : "#f0f0f0",
+                           }
+                         }}
+                         onClick={(e) => handleChange(e, 1)}>
                 Транскрипт
               </MuiButton>
               <MuiButton fullWidth
-                sx={{
-                  borderRadius: "3rem", backgroundColor: value === 2 ? "#3B82F6" : "white",
-                  color: value === 2 ? "white" : "#293357",
-                  '&:hover': {
-                    backgroundColor: value === 2 ? "#1565C0" : "#f0f0f0",
-                  }
-                }}
-                onClick={(e) => handleChange(e, 2)}>
+                         sx={{
+                           borderRadius: "3rem", backgroundColor: value === 2 ? "#3B82F6" : "white",
+                           color: value === 2 ? "white" : "#293357",
+                           '&:hover': {
+                             backgroundColor: value === 2 ? "#1565C0" : "#f0f0f0",
+                           }
+                         }}
+                         onClick={(e) => handleChange(e, 2)}>
                 Резюме
               </MuiButton>
 
@@ -468,7 +568,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   }
                 }}
               >
-                {data && data.image ?
+                {data && data.image && !(data.image instanceof Array) ?
                   <Box width="60vh" sx={{
                     backgroundColor: "rgba(7,117,255,0.11)",
                     borderRadius: "1rem",
@@ -505,8 +605,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         onClick={handlePreviewOpen}
                       />
                       <Skeleton variant="rectangular" width={300} height={200}
-                        sx={{ display: imageLoaded ? "none" : "block" }}
-                        animation="wave" />
+                                sx={{display: imageLoaded ? "none" : "block"}}
+                                animation="wave"/>
                       <Box sx={{
                         display: 'flex',
                         flexDirection: 'row-reverse',
@@ -538,7 +638,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               setAlertOpen(true);
                             }}
                           >
-                            <ShareIcon style={{ width: "20", filter: "brightness(10)" }} />
+                            <ShareIcon style={{width: "20", filter: "brightness(10)"}}/>
                           </IconButton>
                         </Box>
                         <Box
@@ -558,7 +658,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             }}
                             onClick={handleToogleFavoriteDiplomas}>
                             {/* {isFavorite ? <StarPressed/> : <Star/>} */}
-                            <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"} />
+                            <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"}/>
                           </IconButton>
                         </Box>
                       </Box>
@@ -581,8 +681,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             objectPosition: "top",
                             objectFit: "cover",
                           }}
-                          image={data.image}
-                          alt="University Image" />
+                          image={data && data.image && (
+                            data.image instanceof Array ? data.image[1] :
+                              data.image ?? suDiplomaExample2
+                          )}
+                          alt="University Image"/>
                       </Box>
                     </Modal>
                   </Box> :
@@ -625,14 +728,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             display: imageLoaded ? "block" : "none"
 
                           }}
-                          image={suDiplomaExample}
+                          image={image}
                           alt="University Image"
                           onLoad={handleImageLoad}
                           onClick={handlePreview2Open}
                         />
-                        <Skeleton variant="rectangular" width={300} height={200}
-                          sx={{ display: imageLoaded ? "none" : "block" }}
-                          animation="wave" />
+                        <Skeleton variant="rectangular" width={450} height={300}
+                                  sx={{display: imageLoaded ? "none" : "block"}}
+                                  animation="wave"/>
                         <Box sx={{
                           display: 'flex',
                           flexDirection: 'row-reverse',
@@ -664,7 +767,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 setAlertOpen(true);
                               }}
                             >
-                              <ShareIcon style={{ width: "20", filter: "brightness(10)" }} />
+                              <ShareIcon style={{width: "20", filter: "brightness(10)"}}/>
                             </IconButton>
                           </Box>
                           <Box
@@ -684,7 +787,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               }}
                               onClick={handleToogleFavoriteDiplomas}>
                               {/* {isFavorite ? <StarPressed/> : <Star/>} */}
-                              <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"} />
+                              <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"}/>
                             </IconButton>
                           </Box>
                         </Box>
@@ -707,12 +810,12 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               objectPosition: "top",
                               objectFit: "cover",
                             }}
-                            image={suDiplomaExample}
-                            alt="University Image" />
+                            image={data && data.image && data.image instanceof Array ? data.image[0] : suDiplomaExample}
+                            alt="University Image"/>
                         </Box>
                       </Modal>
                     </Box>
-                    <Box width="30vh" sx={{
+                    <Box width="31.5vh" sx={{
                       backgroundColor: "rgba(7,117,255,0.11)",
                       borderRadius: "1rem",
                       padding: ".7rem",
@@ -749,14 +852,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             display: imageLoaded ? "block" : "none"
 
                           }}
-                          image={suDiplomaExample2}
+                          image={image2}
                           alt="University Image"
                           onLoad={handleImageLoad}
                           onClick={handlePreviewOpen}
                         />
-                        <Skeleton variant="rectangular" width={300} height={200}
-                          sx={{ display: imageLoaded ? "none" : "block" }}
-                          animation="wave" />
+                        <Skeleton variant="rectangular" width={300} height={300}
+                                  sx={{display: imageLoaded ? "none" : "block"}}
+                                  animation="wave"/>
                         <Box sx={{
                           display: 'flex',
                           flexDirection: 'row-reverse',
@@ -788,7 +891,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 setAlertOpen(true);
                               }}
                             >
-                              <ShareIcon style={{ width: "20", filter: "brightness(10)" }} />
+                              <ShareIcon style={{width: "20", filter: "brightness(10)"}}/>
                             </IconButton>
                           </Box>
                           <Box
@@ -808,7 +911,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               }}
                               onClick={handleToogleFavoriteDiplomas}>
                               {/* {isFavorite ? <StarPressed/> : <Star/>} */}
-                              <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"} />
+                              <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"}/>
                             </IconButton>
                           </Box>
                         </Box>
@@ -831,8 +934,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               objectPosition: "top",
                               objectFit: "cover",
                             }}
-                            image={suDiplomaExample2}
-                            alt="University Image" />
+                            image={data && data.image && data.image instanceof Array ? data.image[1] : suDiplomaExample2}
+                            alt="University Image"/>
                         </Box>
                       </Modal>
                     </Box>
@@ -845,7 +948,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 alignItems="center"
                 alignContent="center"
                 margin="1rem"
-              // className={styles.contentLeftContainer}
+                // className={styles.contentLeftContainer}
               >
                 <Box
                   sx={{
@@ -895,21 +998,21 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           {data && lang === "kz" ? data.name_kz : data && lang === "ru" ? data.name_ru : data && lang === "en" ? data.name_en : ""}
                         </Typography>
                         {id != undefined &&
-                          <Box marginBottom="15px">
-                            <IconButton
-                              sx={{
-                                width: "2.5rem",
-                                height: "2.5rem",
-                                backgroundColor: "#D8E6FD",
-                                "@media (max-width: 778px)": {
-                                  display: 'none'
-                                }
-                              }}
-                              onClick={handleToogleFavoriteDiplomas}>
-                              {/* {isFavorite ? <StarPressed/> : <Star/>} */}
-                              <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"} />
-                            </IconButton>
-                          </Box>
+                            <Box marginBottom="15px">
+                                <IconButton
+                                    sx={{
+                                      width: "2.5rem",
+                                      height: "2.5rem",
+                                      backgroundColor: "#D8E6FD",
+                                      "@media (max-width: 778px)": {
+                                        display: 'none'
+                                      }
+                                    }}
+                                    onClick={handleToogleFavoriteDiplomas}>
+                                  {/* {isFavorite ? <StarPressed/> : <Star/>} */}
+                                    <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"}/>
+                                </IconButton>
+                            </Box>
                         }
                       </Box>
                       <Box
@@ -938,29 +1041,34 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 marginBottom: "18px",
                               },
                             }}>
-                              <Label label={localization[lang].StudentPage.MainInfo.nameUni} />
+                              <Label
+                                label={localization[lang].StudentPage.MainInfo.nameUni}/>
                             </Box>
-                            <Label label={localization[lang].StudentPage.MainInfo.major} />
-                            <Label label={localization[lang].StudentPage.MainInfo.degree} />
-                            <Label label={localization[lang].StudentPage.MainInfo.graduationYear} />
+                            <Label label={localization[lang].StudentPage.MainInfo.major}/>
+                            <Label label={localization[lang].StudentPage.MainInfo.degree}/>
+                            <Label
+                              label={localization[lang].StudentPage.MainInfo.graduationYear}/>
                           </Box>
                           <Box marginLeft="0.2rem">
-                            {/* hi */}
                             <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                              sx={{ fontSize: '0.875em' }}>
-                              {data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu : localization[lang].StudentPage.MainInfo.noData}
-                            </Typography>
-                            <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                              sx={{ fontSize: '0.875em' }}>
+                                        sx={{fontSize: '0.875em'}}>
+
                               {
-                                data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
-                                  data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
-                                    data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
-                                      localization[lang].StudentPage.MainInfo.noData
+                                data ? ( // Check if data is defined
+                                  data.university_name
+                                    ? data.university_name :
+                                    (data.university_id && data.university_id === 1
+                                      ? localization[lang].StudentPage.MainInfo.kbtu
+                                      : localization[lang].StudentPage.MainInfo.noData)
+                                ) : localization[lang].StudentPage.MainInfo.noData // Handle case where data is undefined
                               }
                             </Typography>
                             <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                              sx={{ fontSize: '0.875em' }}>
+                                        sx={{fontSize: '0.875em'}}>
+                              {getSpecialityName()}
+                            </Typography>
+                            <Typography className={styles.textSm} fontWeight='500' mb='3px'
+                                        sx={{fontSize: '0.875em'}}>
                               {
                                 data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
                                   data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
@@ -968,8 +1076,9 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                       localization[lang].StudentPage.MainInfo.noData
                               }
                             </Typography>
-                            <Typography className={styles.nameText} fontWeight='500' mb='3px'
-                              sx={{ fontSize: '0.875em' }}>
+                            <Typography className={styles.nameText} fontWeight='500'
+                                        mb='3px'
+                                        sx={{fontSize: '0.875em'}}>
                               {data && data.year ? data.year : ""}
                             </Typography>
                           </Box>
@@ -987,60 +1096,53 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         >
                           <Box display="flex">
                             <Box marginRight='1rem'>
-                              <Label label={localization[lang].StudentPage.MainInfo.nameUni} />
+                              <Label
+                                label={localization[lang].StudentPage.MainInfo.nameUni}/>
                             </Box>
                             <Box>
-                              <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                                sx={{ fontSize: '0.875em' }}>
-                                {
-                                  data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu :
-                                    data && data.university_id && data.university_id == 2 ? localization[lang].StudentPage.MainInfo.agp :
-                                      localization[lang].StudentPage.MainInfo.noData
-                                }
+                              <Typography className={styles.textSm} fontWeight='500'
+                                          mb='3px'
+                                          sx={{fontSize: '0.875em'}}>
+                                {getUniversityName()}
                               </Typography>
                             </Box>
                           </Box>
                           <Box display="flex">
                             <Box marginRight='0.6rem'>
-                              <Label label={localization[lang].StudentPage.MainInfo.major} />
+                              <Label
+                                label={localization[lang].StudentPage.MainInfo.major}/>
                             </Box>
                             <Box>
-                              <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                                sx={{ fontSize: '0.875em' }}>
-                                {
-                                  data && data.university_id == 2 ? localization[lang].StudentPage.MainInfo.agpMajor :
-                                    data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
-                                      data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
-                                        data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
-                                          localization[lang].StudentPage.MainInfo.noData
-                                }
+                              <Typography className={styles.textSm} fontWeight='500'
+                                          mb='3px'
+                                          sx={{fontSize: '0.875em'}}>
+                                {getSpecialityName()}
                               </Typography>
                             </Box>
                           </Box>
                           <Box display="flex">
                             <Box marginRight='4rem'>
-                              <Label label={localization[lang].StudentPage.MainInfo.degree} />
+                              <Label
+                                label={localization[lang].StudentPage.MainInfo.degree}/>
                             </Box>
                             <Box>
-                              <Typography className={styles.textSm} fontWeight='500' mb='3px'
-                                sx={{ fontSize: '0.875em' }}>
-                                {
-                                  data && data.university_id == 2 ? "" :
-                                    data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
-                                      data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
-                                        data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
-                                          localization[lang].StudentPage.MainInfo.noData
-                                }
+                              <Typography className={styles.textSm} fontWeight='500'
+                                          mb='3px'
+                                          sx={{fontSize: '0.875em'}}>
+                                {getMajorName()}
+
                               </Typography>
                             </Box>
                           </Box>
                           <Box display="flex">
                             <Box marginRight='1rem'>
-                              <Label label={localization[lang].StudentPage.MainInfo.graduationYear} />
+                              <Label
+                                label={localization[lang].StudentPage.MainInfo.graduationYear}/>
                             </Box>
                             <Box>
-                              <Typography className={styles.nameText} fontWeight='500' mb='3px'
-                                sx={{ fontSize: '0.875em' }}>
+                              <Typography className={styles.nameText} fontWeight='500'
+                                          mb='3px'
+                                          sx={{fontSize: '0.875em'}}>
                                 {data && data.year ? data.year : ""}
                               </Typography>
                             </Box>
@@ -1069,36 +1171,36 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                       </Button>
 
                       {data && data.description &&
-                        <Box margin="1rem" sx={{
-                          marginTop: '1.5rem',
-                          '@media (max-width: 778px)': {
-                            margin: '0.9rem',
-                          },
-                        }}
-                        >
-                          <Box sx={{
-                            fontSize: '24px',
-                            fontWeight: '600',
-                            color: '#4D4D4D',
-                            paddingBottom: '10px'
-                          }}> {localization[lang].StudentPage.AddInfo.about} </Box>
-                          <Typography className={styles.textMd} color="#818181">
-                            {handleText(data && data.description ? data.description : "")}
-                          </Typography>
-                          <Typography style={{ cursor: "pointer" }} className={styles.textMd}
-                            fontWeight='600'
-                            color='#629BF8' sx={{ paddingBottom: '20px' }}
-                            onClick={() => {
-                              setShowFull(!showFull);
-                            }}>
-                            {localization[lang].StudentPage.AddInfo.show} {!showFull ? localization[lang].StudentPage.AddInfo.more : localization[lang].StudentPage.AddInfo.less}
-                            <ExpandMore
-                              style={{
-                                marginLeft: ".2rem",
-                                transform: showFull ? "rotate(180deg)" : ""
-                              }} />
-                          </Typography>
-                        </Box>
+                          <Box margin="1rem" sx={{
+                            marginTop: '1.5rem',
+                            '@media (max-width: 778px)': {
+                              margin: '0.9rem',
+                            },
+                          }}
+                          >
+                              <Box sx={{
+                                fontSize: '24px',
+                                fontWeight: '600',
+                                color: '#4D4D4D',
+                                paddingBottom: '10px'
+                              }}> {localization[lang].StudentPage.AddInfo.about} </Box>
+                              <Typography className={styles.textMd} color="#818181">
+                                {handleText(data && data.description ? data.description : "")}
+                              </Typography>
+                              <Typography style={{cursor: "pointer"}} className={styles.textMd}
+                                          fontWeight='600'
+                                          color='#629BF8' sx={{paddingBottom: '20px'}}
+                                          onClick={() => {
+                                            setShowFull(!showFull);
+                                          }}>
+                                {localization[lang].StudentPage.AddInfo.show} {!showFull ? localization[lang].StudentPage.AddInfo.more : localization[lang].StudentPage.AddInfo.less}
+                                  <ExpandMore
+                                      style={{
+                                        marginLeft: ".2rem",
+                                        transform: showFull ? "rotate(180deg)" : ""
+                                      }}/>
+                              </Typography>
+                          </Box>
                       }
                     </Box>
                     <Box sx={{
@@ -1136,7 +1238,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           gap: '0.75rem',
                           alignSelf: 'stretch',
                         }}>
-                          {graduateAttributes && graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
+                          {graduateAttributes && graduateAttributes.speciality_ru && skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList] ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
                             return (
                               <Box key={index} sx={{
                                 display: 'flex',
@@ -1146,7 +1248,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 borderRadius: '1.5rem',
                                 padding: '0.5rem',
                                 height: '1.5rem',
-                                '@media (max-width: 778px)': { backgroundColor: '#F4F7FE' }
+                                '@media (max-width: 778px)': {backgroundColor: '#F4F7FE'}
                               }}>
                                 <Typography
                                   color="black"
@@ -1186,48 +1288,49 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         {graduateAttributes
                           ?
                           Object.keys(graduateAttributes).map((key: any) => {
-                            if (fieldLocalizations[key] !== undefined && graduateAttributes[key] != undefined && graduateAttributes[key] != '') {
-                              return (
-                                <Box key={key} display='flex' justifyContent="space-between">
-                                  <Typography
-                                    key={key}
-                                    sx={{
-                                      marginBottom: "1rem",
-                                      display: "block",
-                                    }}
-                                  >
-                                    {/* {ibfields[key] && <span style={{
+                              if (fieldLocalizations[key] !== undefined && graduateAttributes[key] != undefined && graduateAttributes[key] != '') {
+                                return (
+                                  <Box key={key} display='flex'
+                                       justifyContent="space-between">
+                                    <Typography
+                                      key={key}
+                                      sx={{
+                                        marginBottom: "1rem",
+                                        display: "block",
+                                      }}
+                                    >
+                                      {/* {ibfields[key] && <span style={{
                                         color: "#818181",
                                         fontSize: "16px"
                                       }}>{ibfields[key][lang] ?? fieldLocalizations[key][lang]}:</span>}{" "} */}
-                                    {<span style={{
-                                      color: "#818181",
-                                      fontSize: "16px"
-                                    }}>{fieldLocalizations[key][lang]}:</span>}{" "}
-                                    <span style={{
-                                      fontWeight: '600',
-                                      fontSize: "16px"
-                                    }}>{graduateAttributes[key]}</span>{" "}
-                                  </Typography>
-                                  <IconButton
-                                    sx={{
-                                      display: 'none',
-                                      width: "2.5rem",
-                                      height: "2.5rem",
-                                      "@media (max-width: 778px)": {
-                                        display: key == 'diploma_email' || key == 'diploma_phone' ? 'flex' : 'none',
-                                      }
-                                    }}
-                                    onClick={() => {
-                                      navigator.clipboard.writeText(graduateAttributes[key]);
-                                      setAlertOpen(true);
-                                    }}>
-                                    <CopyIcon />
-                                  </IconButton>
-                                </Box>
-                              );
+                                      {<span style={{
+                                        color: "#818181",
+                                        fontSize: "16px"
+                                      }}>{fieldLocalizations[key][lang]}:</span>}{" "}
+                                      <span style={{
+                                        fontWeight: '600',
+                                        fontSize: "16px"
+                                      }}>{graduateAttributes[key]}</span>{" "}
+                                    </Typography>
+                                    <IconButton
+                                      sx={{
+                                        display: 'none',
+                                        width: "2.5rem",
+                                        height: "2.5rem",
+                                        "@media (max-width: 778px)": {
+                                          display: key == 'diploma_email' || key == 'diploma_phone' ? 'flex' : 'none',
+                                        }
+                                      }}
+                                      onClick={() => {
+                                        navigator.clipboard.writeText(graduateAttributes[key]);
+                                        setAlertOpen(true);
+                                      }}>
+                                      <CopyIcon/>
+                                    </IconButton>
+                                  </Box>
+                                );
+                              }
                             }
-                          }
                           )
                           : null}
                         <Box display='flex'>
@@ -1239,8 +1342,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           </Typography>
                           <Box display="flex" marginLeft="0.5rem" marginTop="0.25rem">
                             {graduateAttributes.rating &&
-                              <RatingDisplay academicRating={Number(graduateAttributes.rating)} />}
-                            <Box marginLeft="0.5rem"> {graduateAttributes.rating && graduateAttributes.rating} </Box>
+                                <RatingDisplay
+                                    academicRating={Number(graduateAttributes.rating)}/>}
+                            <Box
+                              marginLeft="0.5rem"> {graduateAttributes.rating && graduateAttributes.rating} </Box>
                           </Box>
                         </Box>
                       </Box>
@@ -1265,86 +1370,80 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           {data && lang === "kz" ? data.name_kz : data && lang === "ru" ? data.name_ru : data && lang === "en" ? data.name_en : ""}
                         </Box>
 
-                        <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
-                          <Box sx={{ width: '50%' }}>
-                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB', }}>
+                        <Box sx={{display: 'flex', marginBottom: '0.5rem'}}>
+                          <Box sx={{width: '50%'}}>
+                            <Typography sx={{fontSize: '0.875rem', color: '#9499AB',}}>
                               Номер телефона
                             </Typography>
-                            <Typography sx={{ fontSize: '0.875rem' }}>
+                            <Typography sx={{fontSize: '0.875rem'}}>
                               {graduateAttributes && graduateAttributes.diploma_phone ? graduateAttributes.diploma_phone : "-"}
                             </Typography>
                           </Box>
-                          <Box sx={{ width: '50%' }}>
-                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB', }}>
+                          <Box sx={{width: '50%'}}>
+                            <Typography sx={{fontSize: '0.875rem', color: '#9499AB',}}>
                               Почта
                             </Typography>
-                            <Typography sx={{ fontSize: '0.875rem', overflowWrap: 'break-word', wordBreak: 'break-all' }}>
+                            <Typography sx={{
+                              fontSize: '0.875rem',
+                              overflowWrap: 'break-word',
+                              wordBreak: 'break-all'
+                            }}>
                               {graduateAttributes && graduateAttributes.diploma_email ? graduateAttributes.diploma_email : "-"}
                             </Typography>
                           </Box>
                         </Box>
-                        <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
-                          <Box sx={{ width: '50%' }}>
-                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                        <Box sx={{display: 'flex', marginBottom: '0.5rem'}}>
+                          <Box sx={{width: '50%'}}>
+                            <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
                               Город
                             </Typography>
-                            <Typography sx={{ fontSize: '0.875rem' }}>
+                            <Typography sx={{fontSize: '0.875rem'}}>
                               Алмата
                             </Typography>
                           </Box>
-                          <Box sx={{ width: '50%' }}>
-                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                          <Box sx={{width: '50%'}}>
+                            <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
                               Регион
                             </Typography>
-                            <Typography sx={{ fontSize: '0.875rem' }}>
+                            <Typography sx={{fontSize: '0.875rem'}}>
                               {graduateAttributes && graduateAttributes.diploma_region ? graduateAttributes.diploma_region : "-"}
                             </Typography>
                           </Box>
                         </Box>
-                        <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
-                          <Box sx={{ width: '50%' }}>
-                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                        <Box sx={{display: 'flex', marginBottom: '0.5rem'}}>
+                          <Box sx={{width: '50%'}}>
+                            <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
                               Название вуза
                             </Typography>
-                            <Typography sx={{ fontSize: '0.875rem' }}>
-                              {
-                                data && data.university_id && data.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu :
-                                  data && data.university_id && data.university_id == 2 ? localization[lang].StudentPage.MainInfo.agp :
-                                    data && data.university_id && data.university_id == 3 ? 'Сатпаев Университет' :
-                                      localization[lang].StudentPage.MainInfo.noData
-                              }
+                            <Typography sx={{fontSize: '0.875rem'}}>
+                              {getUniversityName()}
                             </Typography>
                           </Box>
-                          <Box sx={{ width: '50%' }}>
-                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                          <Box sx={{width: '50%'}}>
+                            <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
                               Специальность
                             </Typography>
-                            <Typography sx={{ fontSize: '0.875rem' }}>
-                              {
-                                data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
-                                  data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
-                                    data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
-                                      localization[lang].StudentPage.MainInfo.noData
-                              }
+                            <Typography sx={{fontSize: '0.875rem'}}>
+                              {getSpecialityName()}
                             </Typography>
                           </Box>
                         </Box>
-                        <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
-                          <Box sx={{ width: '50%' }}>
-                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                        <Box sx={{display: 'flex', marginBottom: '0.5rem'}}>
+                          <Box sx={{width: '50%'}}>
+                            <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
                               GPA
                             </Typography>
-                            <Typography sx={{ fontSize: '0.875rem' }}>
+                            <Typography sx={{fontSize: '0.875rem'}}>
                               {
-                                graduateAttributes && graduateAttributes.diploma_gpa ? graduateAttributes.diploma_gpa : "-"
+                                data?.gpa ? data.gpa : graduateAttributes?.diploma_gpa ? graduateAttributes.diploma_gpa : "-"
                               }
                             </Typography>
                           </Box>
-                          <Box sx={{ width: '50%' }}>
-                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                          <Box sx={{width: '50%'}}>
+                            <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
                               Степень
                             </Typography>
-                            <Typography sx={{ fontSize: '0.875rem' }}>
+                            <Typography sx={{fontSize: '0.875rem'}}>
                               {
                                 data && data.university_id == 2 ? "" :
                                   data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
@@ -1355,22 +1454,24 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             </Typography>
                           </Box>
                         </Box>
-                        <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
-                          <Box sx={{ width: '50%' }}>
-                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                        <Box sx={{display: 'flex', marginBottom: '0.5rem'}}>
+                          <Box sx={{width: '50%'}}>
+                            <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
                               Академический рейтинг
                             </Typography>
                             <Box display="flex" marginTop="0.25rem">
                               {graduateAttributes.rating &&
-                                <RatingDisplay academicRating={Number(graduateAttributes.rating)} />}
-                              <Box marginLeft="0.5rem"> {graduateAttributes.rating && graduateAttributes.rating} </Box>
+                                  <RatingDisplay
+                                      academicRating={Number(graduateAttributes.rating)}/>}
+                              <Box
+                                marginLeft="0.5rem"> {graduateAttributes.rating && graduateAttributes.rating} </Box>
                             </Box>
                           </Box>
-                          <Box sx={{ width: '50%' }}>
-                            <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
+                          <Box sx={{width: '50%'}}>
+                            <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
                               Дата окончания
                             </Typography>
-                            <Typography sx={{ fontSize: '0.875rem' }}>
+                            <Typography sx={{fontSize: '0.875rem'}}>
                               {data && data.year ? data.year : ""}
                             </Typography>
                           </Box>
@@ -1418,40 +1519,50 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         </Typography>
                         <Chip
                           sx={{
-                            width: '50%', backgroundColor: '#E9F9EF', border: 'none', borderRadius: '20px',
+                            width: '50%',
+                            backgroundColor: '#E9F9EF',
+                            border: 'none',
+                            borderRadius: '20px',
                             '@media (max-width: 778px)': {
                               width: '70%'
                             },
                           }}
                           className={cn(styles.MobMt0, styles.mt02)}
                           label={
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div style={{display: 'flex', alignItems: 'center'}}>
                               <Typography fontSize="1rem" sx={{
                                 marginRight: '.5rem',
-                                color: '#22C55E', fontWeight: '600', paddingTop: '0.9rem', paddingBottom: '0.9rem'
+                                color: '#22C55E',
+                                fontWeight: '600',
+                                paddingTop: '0.9rem',
+                                paddingBottom: '0.9rem'
                               }}>
                                 {localization[lang].switchDetails.confirmed}
                               </Typography>
-                              <SingleCheck fill="#22C55E" />
+                              <SingleCheck fill="#22C55E"/>
                             </div>
                           }
                         />
                       </Box>
 
                       <Box display='flex' flexDirection="column" mt='1rem'>
-                        <Link href={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}
-                          sx={{ textDecoration: "none" }} target={'_blank'}>
+                        <Link
+                          href={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}
+                          sx={{textDecoration: "none"}} target={'_blank'}>
                           <Box display='flex'>
-                            <Typography className={styles.textMd} fontWeight='600' mb="1rem" color='#3B82F6'
-                              fontSize={"1rem"}>
+                            <Typography className={styles.textMd} fontWeight='600' mb="1rem"
+                                        color='#3B82F6'
+                                        fontSize={"1rem"}>
                               {localization[lang].switchDetails.seeEtherscan}
                             </Typography>
                           </Box>
                         </Link>
-                        <Link display='none' href={graduateAttributes && graduateAttributes.smart_contract_link}
-                          sx={{ textDecoration: "none" }} target={'_blank'} mt='0.2rem'>
+                        <Link display='none'
+                              href={graduateAttributes && graduateAttributes.smart_contract_link}
+                              sx={{textDecoration: "none"}} target={'_blank'} mt='0.2rem'>
                           <Box display='flex'>
-                            <Typography className={styles.textMd} fontWeight='600' color='#3B82F6' fontSize={"1rem"}>
+                            <Typography className={styles.textMd} fontWeight='600'
+                                        color='#3B82F6' fontSize={"1rem"}>
                               {localization[lang].switchDetails.seeSmartContract}
                             </Typography>
                           </Box>
@@ -1472,7 +1583,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         },
                       }}
                     >
-                      <Box display="flex" alignItems="flex-start" justifyContent='space-between' marginBottom='1rem'>
+                      <Box display="flex" alignItems="flex-start" justifyContent='space-between'
+                           marginBottom='1rem'>
                         <Box sx={{
                           fontSize: '20px', fontWeight: '600', width: '50%',
                           '@media (max-width: 778px)': {
@@ -1481,7 +1593,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         }}>
                           {localization[lang].switchDetails.diplomaConfirmation}
                         </Box>
-                        <SingleCheck fill="#3B82F6" />
+                        <SingleCheck fill="#3B82F6"/>
                       </Box>
 
                       <Box display='flex' alignItems="center" justifyContent='center'>
@@ -1503,7 +1615,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 </Box>
               </Box>
               <Box
-                width='95.5%' display={data && data.university_id == 3 ? 'flex' : 'none'} flexDirection='column'
+                width='95.5%' display={data && data.university_id == 3 ? 'flex' : 'none'}
+                flexDirection='column'
                 justifyContent='center' alignItems='center' margin='auto'
                 sx={{
                   zIndex: 0,
@@ -1513,165 +1626,176 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   }
                 }}
               >
-                <Paper
-                  sx={{
-                    borderRadius: '1.25rem',
-                    width: '100%',
-                    '@media (max-width: 778px)': {
-                      width: '95%',
-                      maxWidth: '95%',
-                      minWidth: 0,
-                      overflowX: 'none',
-                    }
-                  }}
-                >
-                  <TableContainer
+                {rows && rows.length > 0 && <Paper
                     sx={{
-                      maxHeight: longTable ? '100%' : 440,
                       borderRadius: '1.25rem',
+                      width: '100%',
                       '@media (max-width: 778px)': {
-                        width: '100%',
-                        maxWidth: '100%',
+                        width: '95%',
+                        maxWidth: '95%',
                         minWidth: 0,
                         overflowX: 'none',
                       }
                     }}
-                  >
-                    <Table
-                      sx={{
-                        minWidth: 700,
-                        '@media (max-width: 778px)': {
-                          maxWidth: '100%',
-                          minWidth: 0,
-                        }
-                      }}
-                      stickyHeader
-                      aria-label="sticky table"
+                >
+                    <TableContainer
+                        sx={{
+                          maxHeight: longTable ? '100%' : 440,
+                          borderRadius: '1.25rem',
+                          '@media (max-width: 778px)': {
+                            width: '100%',
+                            maxWidth: '100%',
+                            minWidth: 0,
+                            overflowX: 'none',
+                          }
+                        }}
                     >
-                      <TableHead >
-                        <TableRow>
-                          <StyledTableCell size='small' sx={{ borderRadius: '1.25rem 0 0 0' }}>№</StyledTableCell>
-                          <StyledTableCell
-                            size='small'
+                        <Table
                             sx={{
+                              minWidth: 700,
                               '@media (max-width: 778px)': {
-                                borderRadius: '0 1.25rem 0 0'
+                                maxWidth: '100%',
+                                minWidth: 0,
                               }
                             }}
-                          >
-                            {isMobile ? 'Наименование' : 'Название дисциплины'}
-                          </StyledTableCell>
-                          <StyledTableCell
-                            size='small' align="right"
-                            sx={{
-                              '@media (max-width: 778px)': {
-                                display: 'none'
-                              }
-                            }}
-                          >
-                            Оценка
-                          </StyledTableCell>
-                          <StyledTableCell
-                            size='small' align="right"
-                            sx={{
-                              '@media (max-width: 778px)': {
-                                display: 'none'
-                              }
-                            }}
-                          >
-                            Кредиты
-                          </StyledTableCell>
-                          <StyledTableCell
-                            size='small' align="right"
-                            sx={{
-                              borderRadius: '0 1.25rem 0 0',
-                              '@media (max-width: 778px)': {
-                                display: 'none'
-                              }
-                            }}
-                          >
-                            Код дисциплины
-                          </StyledTableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {rows.map((row) => (
-                          <StyledTableRow key={row.id}>
-                            <StyledTableCell sx={{ color: 'var(--color-light-dark-600, #58607C)' }} component="th" scope="row">
-                              {row.id}
-                            </StyledTableCell>
-                            <StyledTableCell
-                              sx={{
-                                fontSize: '1rem', fontStyle: 'normal', fontWeight: 500, lineHeight: '125%'
-                              }}
-                              scope="row"
-                            >
-                              {!isMobile ? row.course : (
-                                <Box>
-                                  <Typography>{row.course}</Typography>
-                                  <Typography>
-                                    <span style={{ color: "#9499AB" }}>Оценка:</span>{" "}
-                                    <span style={{ color: '#58607C' }}>{row.grade}</span>{" "}
-                                  </Typography>
-                                  <Typography>
-                                    <span style={{ color: "#9499AB" }}>Кредиты:</span>{" "}
-                                    <span style={{ color: '#58607C' }}>{row.credits}</span>{" "}
-                                  </Typography>
-                                </Box>
-                              )}
-                            </StyledTableCell>
-                            <StyledTableCell
-                              sx={{
-                                color: 'var(--color-light-dark-600, #58607C)',
-                                '@media (max-width: 778px)': { display: 'none' }
-                              }}
-                              align="right"
-                            >
-                              {row.grade}
-                            </StyledTableCell>
-                            <StyledTableCell
-                              sx={{
-                                color: 'var(--color-light-dark-600, #58607C)',
-                                '@media (max-width: 778px)': { display: 'none' }
-                              }}
-                              align="right"
-                            >
-                              {row.credits}
-                            </StyledTableCell>
-                            <StyledTableCell
-                              sx={{
-                                color: 'var(--color-light-dark-600, #58607C)',
-                                '@media (max-width: 778px)': { display: 'none' }
-                              }}
-                              align="right"
-                            >
-                              {row.courseCode}
-                            </StyledTableCell>
-                          </StyledTableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                  <Box sx={{
-                    '@media (max-width: 778px)': {
-                      padding: '1rem'
-                    }
+                            stickyHeader
+                            aria-label="sticky table"
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell size='small'
+                                                     sx={{borderRadius: '1.25rem 0 0 0'}}>№</StyledTableCell>
+                                    <StyledTableCell
+                                        size='small'
+                                        sx={{
+                                          '@media (max-width: 778px)': {
+                                            borderRadius: '0 1.25rem 0 0'
+                                          }
+                                        }}
+                                    >
+                                      {isMobile ? 'Наименование' : 'Название дисциплины'}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        size='small' align="right"
+                                        sx={{
+                                          '@media (max-width: 778px)': {
+                                            display: 'none'
+                                          }
+                                        }}
+                                    >
+                                        Оценка
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        size='small' align="right"
+                                        sx={{
+                                          '@media (max-width: 778px)': {
+                                            display: 'none'
+                                          }
+                                        }}
+                                    >
+                                        Кредиты
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        size='small' align="right"
+                                        sx={{
+                                          borderRadius: '0 1.25rem 0 0',
+                                          '@media (max-width: 778px)': {
+                                            display: 'none'
+                                          }
+                                        }}
+                                    >
+                                        Код дисциплины
+                                    </StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {rows.map((row: any) => (
+                                <StyledTableRow key={row.id}>
+                                  <StyledTableCell
+                                    sx={{color: 'var(--color-light-dark-600, #58607C)'}}
+                                    component="th" scope="row">
+                                    {row.id}
+                                  </StyledTableCell>
+                                  <StyledTableCell
+                                    sx={{
+                                      fontSize: '1rem',
+                                      fontStyle: 'normal',
+                                      fontWeight: 500,
+                                      lineHeight: '125%'
+                                    }}
+                                    scope="row"
+                                  >
+                                    {!isMobile ? row.course : (
+                                      <Box>
+                                        <Typography>{row.course}</Typography>
+                                        <Typography>
+                                                                        <span
+                                                                          style={{color: "#9499AB"}}>Оценка:</span>{" "}
+                                          <span
+                                            style={{color: '#58607C'}}>{row.grade}</span>{" "}
+                                        </Typography>
+                                        <Typography>
+                                                                        <span
+                                                                          style={{color: "#9499AB"}}>Кредиты:</span>{" "}
+                                          <span
+                                            style={{color: '#58607C'}}>{row.credits}</span>{" "}
+                                        </Typography>
+                                      </Box>
+                                    )}
+                                  </StyledTableCell>
+                                  <StyledTableCell
+                                    sx={{
+                                      color: 'var(--color-light-dark-600, #58607C)',
+                                      '@media (max-width: 778px)': {display: 'none'}
+                                    }}
+                                    align="right"
+                                  >
+                                    {row.grade}
+                                  </StyledTableCell>
+                                  <StyledTableCell
+                                    sx={{
+                                      color: 'var(--color-light-dark-600, #58607C)',
+                                      '@media (max-width: 778px)': {display: 'none'}
+                                    }}
+                                    align="right"
+                                  >
+                                    {row.credits}
+                                  </StyledTableCell>
+                                  <StyledTableCell
+                                    sx={{
+                                      color: 'var(--color-light-dark-600, #58607C)',
+                                      '@media (max-width: 778px)': {display: 'none'}
+                                    }}
+                                    align="right"
+                                  >
+                                    {row.courseCode}
+                                  </StyledTableCell>
+                                </StyledTableRow>
+                              ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <Box sx={{
+                      '@media (max-width: 778px)': {
+                        padding: '1rem'
+                      }
 
-                  }}>
-                    <MuiButton
-                      fullWidth
-                      sx={{
-                        borderRadius: '25px',
-                        backgroundColor: '#EBF2FE',
-                      }}
-                      onClick={() => {
-                        setLongTable(!longTable);
-                      }}
-                    >
-                      {'Показать '}{!longTable ? 'больше' : 'меньше'}
-                    </MuiButton>
-                  </Box>
-                </Paper>
+                    }}>
+                        <MuiButton
+                            fullWidth
+                            sx={{
+                              borderRadius: '25px',
+                              backgroundColor: '#EBF2FE',
+                            }}
+                            onClick={() => {
+                              setLongTable(!longTable);
+                            }}
+                        >
+                          {'Показать '}{!longTable ? 'больше' : 'меньше'}
+                        </MuiButton>
+                    </Box>
+                </Paper>}
+
               </Box>
               <Modal
                 open={cModalOpen}
@@ -1681,61 +1805,61 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
               >
 
                 <Box display="flex" position="absolute"
-                  p="1rem"
-                  style={{ right: "1rem", top: "1rem", cursor: "pointer" }}
-                  onClick={() => handleCModalClose()}
+                     p="1rem"
+                     style={{right: "1rem", top: "1rem", cursor: "pointer"}}
+                     onClick={() => handleCModalClose()}
                 >
-                  <CloseIcon width="1rem" height="1rem" />
+                  <CloseIcon width="1rem" height="1rem"/>
                 </Box>
                 <Box display="flex" gap="1rem" flexDirection="column">
                   {graduateAttributes && graduateAttributes.signed_by &&
-                    <Box display="flex" flexDirection="row">
-                      <Box display="flex" justifyContent="center" alignItems="center"
-                        pr="2rem">
-                        <img width={25} src={dsIcon ? SignedDsIcon : LoadingIcon} />
-                      </Box>
-                      <Box display="flex" flexDirection="column"
-                        justifyContent="space-around">
+                      <Box display="flex" flexDirection="row">
+                          <Box display="flex" justifyContent="center" alignItems="center"
+                               pr="2rem">
+                              <img width={25} src={dsIcon ? SignedDsIcon : LoadingIcon}/>
+                          </Box>
+                          <Box display="flex" flexDirection="column"
+                               justifyContent="space-around">
 
-                        <Typography
-                          fontWeight="600"
-                          fontSize="1.2rem"
-                        >
-                          {localization[lang].StudentPage.Confirmation.signedWithDS}
-                        </Typography>
+                              <Typography
+                                  fontWeight="600"
+                                  fontSize="1.2rem"
+                              >
+                                {localization[lang].StudentPage.Confirmation.signedWithDS}
+                              </Typography>
 
-                        <Typography
-                          fontWeight="400"
-                          color="#818181"
-                          fontSize="1rem"
-                        >
-                          {graduateAttributes && graduateAttributes.signed_by ? graduateAttributes.signed_by : null}
-                        </Typography>
-                        <Box display="flex">
-                          <Typography
-                            fontWeight="400"
-                            color="#818181"
-                            fontSize="1rem"
-                            pr=".5rem"
-                          >
-                            {localization[lang].StudentPage.Confirmation.date}
-                          </Typography>
-                          <Typography
-                            fontWeight="400"
-                            fontSize="1rem"
-                          >
-                            {graduateAttributes && graduateAttributes.created_at}
-                          </Typography>
+                              <Typography
+                                  fontWeight="400"
+                                  color="#818181"
+                                  fontSize="1rem"
+                              >
+                                {graduateAttributes && graduateAttributes.signed_by ? graduateAttributes.signed_by : null}
+                              </Typography>
+                              <Box display="flex">
+                                  <Typography
+                                      fontWeight="400"
+                                      color="#818181"
+                                      fontSize="1rem"
+                                      pr=".5rem"
+                                  >
+                                    {localization[lang].StudentPage.Confirmation.date}
+                                  </Typography>
+                                  <Typography
+                                      fontWeight="400"
+                                      fontSize="1rem"
+                                  >
+                                    {graduateAttributes && graduateAttributes.created_at}
+                                  </Typography>
 
-                        </Box>
-                      </Box>
-                    </Box>}
+                              </Box>
+                          </Box>
+                      </Box>}
                   {graduateAttributes && graduateAttributes.signed_by &&
-                    <Divider />
+                      <Divider/>
                   }
                   <Box display="flex" flexDirection="row">
                     <Box display="flex" justifyContent="center" alignItems="center" pr="2rem">
-                      <img width={25} src={uploadedIcon ? UploadedIcon : LoadingIcon} />
+                      <img width={25} src={uploadedIcon ? UploadedIcon : LoadingIcon}/>
                     </Box>
                     <Box display="flex" flexDirection="column" justifyContent="space-around">
 
@@ -1750,7 +1874,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         fontWeight="600"
                         color="#818181"
                         fontSize="1rem"
-                        style={{ cursor: "pointer", userSelect: "none" }}
+                        style={{cursor: "pointer", userSelect: "none"}}
                         onClick={() => {
                           if (uploadedIcon) {
                             handleLink(graduateAttributes && graduateAttributes.smart_contract_link)
@@ -1779,10 +1903,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                       </Box>
                     </Box>
                   </Box>
-                  <Divider />
+                  <Divider/>
                   <Box display="flex" flexDirection="row">
                     <Box display="flex" justifyContent="center" alignItems="center" pr="2rem">
-                      <img width={25} src={ownerIcon ? OwnerVerifiedIcon : LoadingIcon} />
+                      <img width={25} src={ownerIcon ? OwnerVerifiedIcon : LoadingIcon}/>
                     </Box>
                     <Box display="flex" flexDirection="column" justifyContent="space-around">
 
@@ -1810,48 +1934,74 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
               </Modal>
               <Snackbar open={alertOpen} autoHideDuration={2000}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                onClose={handleAlertClose}>
+                        anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                        onClose={handleAlertClose}>
                 <Alert onClose={handleAlertClose} severity="success"
-                  sx={{ width: '100%' }}>
+                       sx={{width: '100%'}}>
                   Успешно скопировано!
                 </Alert>
               </Snackbar>
               <Box sx={{
-                display: showResumeGenerator ? 'flex' : 'none', flexDirection: 'column', width: '33.3125rem', padding: '1.75rem',
-                alginItems: 'flex-start', position: 'fixed', bottom: 0, left: 0, borderRadius: '1.5rem', backgroundColor: 'white',
-                margin: '2rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)', zIndex: 1000,
+                display: showResumeGenerator ? 'flex' : 'none',
+                flexDirection: 'column',
+                width: '33.3125rem',
+                padding: '1.75rem',
+                alginItems: 'flex-start',
+                position: 'fixed',
+                bottom: 0,
+                left: 0,
+                borderRadius: '1.5rem',
+                backgroundColor: 'white',
+                margin: '2rem',
+                boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
+                zIndex: 1000,
                 '@media (max-width: 778px)': {
                   width: '100%', margin: 0, padding: '1rem'
                 }
               }}>
                 <IconButton
-                  sx={{ position: 'absolute', width: '2.5rem', height: '2.5rem', top: '1rem', right: '1rem' }}
-                  onClick={(): void => { setShowResumeGenerator(false); }}
+                  sx={{
+                    position: 'absolute',
+                    width: '2.5rem',
+                    height: '2.5rem',
+                    top: '1rem',
+                    right: '1rem'
+                  }}
+                  onClick={(): void => {
+                    setShowResumeGenerator(false);
+                  }}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path fillRule="evenodd" clipRule="evenodd" d="M3.72212 3.72505C3.9662 3.48097 4.36193 3.48097 4.606 3.72505L9.99742 9.11647L15.3888 3.7251C15.6329 3.48102 16.0286 3.48102 16.2727 3.7251C16.5168 3.96918 16.5168 4.3649 16.2727 4.60898L10.8813 10.0004L16.2726 15.3917C16.5167 15.6357 16.5167 16.0315 16.2726 16.2756C16.0285 16.5196 15.6328 16.5196 15.3887 16.2756L9.99742 10.8842L4.60605 16.2756C4.36198 16.5197 3.96625 16.5197 3.72217 16.2756C3.47809 16.0315 3.47809 15.6358 3.72217 15.3917L9.11354 10.0004L3.72212 4.60893C3.47804 4.36486 3.47804 3.96913 3.72212 3.72505Z" fill="#CFD2D8" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                       fill="none">
+                    <path fillRule="evenodd" clipRule="evenodd"
+                          d="M3.72212 3.72505C3.9662 3.48097 4.36193 3.48097 4.606 3.72505L9.99742 9.11647L15.3888 3.7251C15.6329 3.48102 16.0286 3.48102 16.2727 3.7251C16.5168 3.96918 16.5168 4.3649 16.2727 4.60898L10.8813 10.0004L16.2726 15.3917C16.5167 15.6357 16.5167 16.0315 16.2726 16.2756C16.0285 16.5196 15.6328 16.5196 15.3887 16.2756L9.99742 10.8842L4.60605 16.2756C4.36198 16.5197 3.96625 16.5197 3.72217 16.2756C3.47809 16.0315 3.47809 15.6358 3.72217 15.3917L9.11354 10.0004L3.72212 4.60893C3.47804 4.36486 3.47804 3.96913 3.72212 3.72505Z"
+                          fill="#CFD2D8"/>
                   </svg>
                 </IconButton>
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                <Box sx={{display: 'flex', alignItems: 'flex-start', marginBottom: '1.5rem'}}>
                   <Box marginRight='1.5rem'>
-                    <ChartIcon />
+                    <ChartIcon/>
                   </Box>
                   <Box>
-                    <Typography sx={{ fontSize: '1.5rem', fontWeight: 600, lineHeight: '125%', marginBottom: '0.75rem' }}>
+                    <Typography sx={{
+                      fontSize: '1.5rem',
+                      fontWeight: 600,
+                      lineHeight: '125%',
+                      marginBottom: '0.75rem'
+                    }}>
                       {'Генератор резюме'}
                     </Typography>
-                    <Typography sx={{ fontSize: '1rem', fontWeight: 400, lineHeight: '125%' }}>
+                    <Typography sx={{fontSize: '1rem', fontWeight: 400, lineHeight: '125%'}}>
                       {'Чтобы находить работу, проекты и задачи создайте резюме на портале и работадатели'}
                     </Typography>
                   </Box>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                   <Button
                     buttonSize="s"
                     variant="contained"
                     type="button"
-                    sx={{ borderRadius: '25px' }}
+                    sx={{borderRadius: '25px'}}
                   >
                     Начать
                   </Button>
