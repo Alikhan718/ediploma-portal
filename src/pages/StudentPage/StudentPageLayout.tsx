@@ -159,6 +159,7 @@ export const StudentPageLayout: React.FC = () => {
       <Box
         display='flex'
         flexWrap='wrap'
+        width='100%'
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -193,7 +194,7 @@ export const StudentPageLayout: React.FC = () => {
                 <Box sx={{
                   display: 'none',
                   '@media (max-width: 778px)': { display: 'flex', cursor: 'pointer', position: 'absolute', right: '0.75rem', top: '0.75rem' }
-                }} onClick={()=>{navigate(routes.settings)}}
+                }} onClick={() => { navigate(routes.settings) }}
                 >
                   <EditProfile />
                 </Box>
@@ -261,7 +262,7 @@ export const StudentPageLayout: React.FC = () => {
                         </Typography>
                         <Box sx={{
                           '@media (max-width: 778px)': { display: 'none' }, cursor: 'pointer',
-                        }} onClick={() => {navigate(routes.settings)}}
+                        }} onClick={() => { navigate(routes.settings) }}
                         >
                           <EditProfile />
                         </Box>
@@ -891,7 +892,7 @@ export const StudentPageLayout: React.FC = () => {
                       paddingBottom: '0rem',
                     },
                   }}> {localization[lang].AddInfo.certifications} </Box>
-                  <Box sx={{ display: 'flex', cursor: 'pointer' }} onClick={()=>{navigate(routes.settings)}}>
+                  <Box sx={{ display: 'flex', cursor: 'pointer' }} onClick={() => { navigate(routes.settings) }}>
                     <AddDipoma />
                   </Box>
                 </Box>
@@ -1003,7 +1004,7 @@ export const StudentPageLayout: React.FC = () => {
                     },
                   }}> Навыки </Box>
                   <Box sx={{ display: 'none', '@media (max-width: 778px)': { display: 'flex', cursor: 'pointer' } }}
-                    onClick={()=>{navigate(routes.settings)}}
+                    onClick={() => { navigate(routes.settings) }}
                   >
                     <EditProfile />
                   </Box>
