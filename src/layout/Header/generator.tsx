@@ -42,6 +42,20 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     verticalAlign: "bottom",
   },
   {
+    id: 409,
+    name: {
+      "ru": 'Мое резюме',
+      "kz": 'Менің түйіндемем',
+      "en": 'My resume',
+    },
+    to: routes.resumeGenerator,
+    role: ['student'],
+    icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
+    verticalAlign: "",
+    function: () => {
+    },
+  },
+  {
     id: 102,
     name: {
       "ru": 'Аналитика',
