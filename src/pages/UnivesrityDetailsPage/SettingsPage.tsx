@@ -324,7 +324,6 @@ const SettingsPage: React.FC = () => {
       <Container sx={{
         top: isScrolled ? '1rem' : '7rem',
         position: isScrolled ? 'fixed' :'absolute',
-        paddingLeft: '60px',
         margin: 'unset',
         width: 'unset',
         '@media (max-width: 778px)': {
@@ -350,8 +349,8 @@ const SettingsPage: React.FC = () => {
                 <Box
                   key={index}
                   sx={{
-                    display: item.title.ru === "Конфиденциальность" && role !== 'student' || 
-                              item.title.ru === "Сфера деятельности" && role !== 'employer' ? 
+                    display: item.title.ru === "Конфиденциальность" && role !== 'student' ||
+                              item.title.ru === "Сфера деятельности" && role !== 'employer' ?
                               "none" : "flex",
                     alignItems: 'center',
                     marginBottom: '0.5rem',
@@ -375,11 +374,18 @@ const SettingsPage: React.FC = () => {
           </Grid>
         </Grid>
       </Container>
-      <Box display="flex" flexDirection="column" marginLeft="19rem">
+      <Box display="flex"
+           flexDirection="column"
+           marginLeft="19rem"
+           sx={{
+             paddingY: '.5rem',
+             '@media (max-width: 778px)': {
+               margin: '0 auto',
+             },
+           }}>
         <Container sx={{
           borderRadius: '30px',
-          maxWidth: '100vw',
-          paddingTop: '20px',
+          width: '55vw', maxWidth: '100%',
           backgroundColor: '#E8EBF1',
           backgroundImage: userState && userState.avatar ? `url(${baseURL}/${userState.avatar})`: "",
           backgroundSize: "cover",
@@ -392,7 +398,7 @@ const SettingsPage: React.FC = () => {
           justifyContent: 'flex-start',
           '@media (max-width: 778px)': {
             width: '92vw',
-            marginLeft: '1rem'
+            margin: '0 auto',
           },
         }}>
 
@@ -446,7 +452,7 @@ const SettingsPage: React.FC = () => {
                   justifyContent: 'flex-start',
                   width: '55vw', maxWidth: '100%',
                   '@media (max-width: 778px)': {
-                    width: '92vw', marginLeft: '1rem'
+                    width: '92vw', margin: '16px auto 0',
                   },
                 }}
                 ref={getRefById(item.reference)}
