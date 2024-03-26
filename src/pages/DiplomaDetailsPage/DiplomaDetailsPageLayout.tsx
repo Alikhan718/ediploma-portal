@@ -1129,14 +1129,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           {localization[lang].StudentPage.AddInfo.skills}
                         </Box>
                         <Box sx={{
-                          display: 'flex',
+                          display: 'none',
                           alignContent: 'flex-start',
                           alignItems: 'flex-start',
                           flexWrap: 'wrap',
                           gap: '0.75rem',
                           alignSelf: 'stretch',
                         }}>
-                          {graduateAttributes && graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
+                          {graduateAttributes && graduateAttributes.speciality_ru && skillsList.hasOwnProperty(data.speciality_ru) ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
                             return (
                               <Box key={index} sx={{
                                 display: 'flex',
@@ -1673,20 +1673,29 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   </Box>
                 </Paper>
               </Box>
-              <Modal
+              {/* <Modal
                 open={cModalOpen}
                 handleClose={handleCModalClose}
                 width="100vh"
                 maxWidth="100vh"
-              >
+              > */}
+              <Box sx={{
+                display: 'none', flexDirection: 'column', alginItems: 'center', position: 'fixed', bottom: 0, left: 0,
+                backgroundColor: 'white', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)', zIndex: 1000,
+                justifyContent: 'center',
+                '@media (max-width: 778px)': {
+                  display: cModalOpen ? 'flex' : 'none',
+                  width: '100%', margin: 0,
+                  borderRadius: '1.25rem 1.25rem 0rem 0rem',
+                  padding: '1rem 2.25rem 1rem',
+                  height: '60%',
+                  gap: '1.25rem',
+                }
+              }}>
 
-                <Box display="flex" position="absolute"
-                  p="1rem"
-                  style={{ right: "1rem", top: "1rem", cursor: "pointer" }}
-                  onClick={() => handleCModalClose()}
-                >
-                  <CloseIcon width="1rem" height="1rem" />
-                </Box>
+                <Typography sx={{ fontSize: '1.2rem', fontWeight: 600, lineHeight: '125%', textAlign: 'center' }}>
+                  Подтверждение диплома
+                </Typography>
                 <Box display="flex" gap="1rem" flexDirection="column">
                   {graduateAttributes && graduateAttributes.signed_by &&
                     <Box display="flex" flexDirection="row">
@@ -1806,9 +1815,18 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   </Box>
 
                 </Box>
+                <Box>
+                  <MuiButton fullWidth onClick={handleCModalClose}
+                    sx={{
+                      borderRadius: "3rem", backgroundColor: "#EBF2FE",
+                    }}
+                  >
+                    Закрыть
+                  </MuiButton>
+                </Box>
 
-
-              </Modal>
+              </Box>
+              {/* </Modal> */}
               <Snackbar open={alertOpen} autoHideDuration={2000}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 onClose={handleAlertClose}>

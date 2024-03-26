@@ -57,6 +57,8 @@ import { ReactComponent as DownloadResume } from '@src/assets/icons/downloadResu
 import { ReactComponent as ChartResume } from '@src/assets/icons/chartResume.svg';
 import { ReactComponent as AddDipoma } from '@src/assets/icons/addDiploma.svg';
 import { ReactComponent as EditProfile } from '@src/assets/icons/editProfile.svg';
+import { ReactComponent as ChartIcon } from '@src/assets/icons/Chart.svg';
+import QRCode from "react-qr-code";
 
 export const StudentPageLayout: React.FC = () => {
   const lang = useSelector(selectLanguage);
@@ -66,13 +68,24 @@ export const StudentPageLayout: React.FC = () => {
   const dispatch = useDispatch();
   const role = useSelector(selectUserRole);
   const userState = useSelector(selectUserState);
+  const [images, setImages] = React.useState<string[]>([]);
+  const [showResumeGenerator, setShowResumeGenerator] = React.useState(true);
+  const [showQR, setShowQR] = React.useState(false);
+  const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
   const [data, setData] = React.useState<any>();
 
   let diplomaList = useSelector(selectDiplomaList);
 
   React.useEffect(() => {
-    if (id != undefined) {
+    if (data && data.image) {
+      let linksArray: string[] = data.image.split(',').map((link: string) => link.trim());
+      setImages(linksArray);
+    }
+  }, [data]);
+
+  React.useEffect(() => {
+    if (id == undefined) {
       dispatch(fetchDiplomas());
     }
     console.log(5);
@@ -80,28 +93,21 @@ export const StudentPageLayout: React.FC = () => {
   }, [!diplomaList]);
 
   React.useEffect(() => {
-    if (id != undefined) {
-      setData(diplomaList.filter((diploma: any) => diploma.id == id)[0]);
-    } else {
-      dispatch(fetchUserProfile());
-    }
-    console.log(4);
-
-  }, [isAuthenticated(), diplomaList]);
+    dispatch(fetchUserProfile());
+  }, []);
 
   React.useEffect(() => {
     setData(userState);
-    console.log(3);
-  }, [userState && !data]);
+  }, [userState]);
 
-  React.useEffect(() => {
-    if (isAuthenticated() && data && id != undefined) {
-      dispatch(fetchGraduateDetails({ name: data.name_en }));
-    } else if (data && data.name) {
-      dispatch(fetchGraduateDetails({ name: data.name }));
-      console.log(data);
-    }
-  }, [data]);
+  // React.useEffect(() => {
+  //   if (isAuthenticated() && data && id != undefined) {
+  //     dispatch(fetchGraduateDetails({ name: data.name_en }));
+  //   } else if (data && data.name) {
+  //     dispatch(fetchGraduateDetails({ name: data.name }));
+  //     console.log(data);
+  //   }
+  // }, [data]);
 
   const currentUrl = window.location.href;
   const [alertOpen, setAlertOpen] = useState(false);
@@ -152,6 +158,14 @@ export const StudentPageLayout: React.FC = () => {
   };
 
   const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&certUrl=${currentUrl}&certId=${"1234"}`;
+
+  function generateHash(text: string, key: string) {
+    let nHash = "";
+    for (let i = 0; i < text.length; i++) {
+      nHash += String.fromCharCode((((text.charCodeAt(i) - 48) + (key.charCodeAt(i % key.length) - 97)) % 26) + 97);
+    }
+    return nHash;
+  }
 
 
   return (
@@ -253,6 +267,7 @@ export const StudentPageLayout: React.FC = () => {
                           sx={{
                             fontSize: '24px',
                             '@media (max-width: 778px)': {
+                              textAlign: 'center',
                               fontSize: '22px',
                               paddingBottom: '0',
                             },
@@ -375,10 +390,7 @@ export const StudentPageLayout: React.FC = () => {
                                 color: "white"
                               }
                             }}
-                            onClick={() => {
-                              let link = data && data.image ? data.image : "";
-                              handleDownload(link, data && data.name_en ? data.name_en : "diploma");
-                            }}
+                            onClick={() => { setShowQR(true) }}
                           >
                             <Qr style={{ width: '1.5rem', height: '1.5rem' }} />
                           </IconButton>
@@ -697,7 +709,7 @@ export const StudentPageLayout: React.FC = () => {
                       Дата рождения
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      {data && data.date_of_birth ? data.date_of_birth : "-"}
+                      {data && data.diploma_date_of_birth ? data.diploma_date_of_birth : "-"}
                     </Typography>
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { display: 'none', } }}>
@@ -715,7 +727,7 @@ export const StudentPageLayout: React.FC = () => {
                       Дата рождения
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      {data && data.date_of_birth ? data.date_of_birth : "-"}
+                      {data && data.diploma_date_of_birth ? data.diploma_date_of_birth : "-"}
                     </Typography>
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '50%', } }}>
@@ -733,7 +745,7 @@ export const StudentPageLayout: React.FC = () => {
                       Город
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Алмата
+                      {data && data.diploma_city ? data.diploma_city : "Алмата"}
                     </Typography>
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '50%', } }}>
@@ -741,7 +753,7 @@ export const StudentPageLayout: React.FC = () => {
                       Регион
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      {"-"}
+                      {data && data.diploma_region ? data.diploma_region : "-"}
                     </Typography>
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { display: 'none', } }}>
@@ -763,11 +775,9 @@ export const StudentPageLayout: React.FC = () => {
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {
-                        data && data.university_id == 2 ? "" :
-                          data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
-                            data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
-                              data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
-                                '-'
+                        data && data.diploma_degree ?
+                          data.diploma_degree == 'Bachelor' ? lang == 'ru' ? 'Бакалавр' : lang == 'kz' ? 'Бакалавр' : 'Bachelor'
+                            : data.diploma_degree : "-"
                       }
                     </Typography>
                   </Box>
@@ -792,11 +802,7 @@ export const StudentPageLayout: React.FC = () => {
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {
-                        data && data.university_id == 2 ? "" :
-                          data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
-                            data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
-                              data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
-                                '-'
+                        data && data.diploma_degree ? data.diploma_degree : "-"
                       }
                     </Typography>
                   </Box>
@@ -808,9 +814,9 @@ export const StudentPageLayout: React.FC = () => {
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {
-                        data && lang === 'ru' && data.speciality_ru ? data.speciality_ru?.substring(data.speciality_ru.search("«"), data.speciality_ru.search("»") + 1) :
-                          data && lang === 'kz' && data.speciality_kz ? data.speciality_kz?.substring(data.speciality_kz.search("«"), data.speciality_kz.search("»") + 1) :
-                            data && lang === 'en' && data.speciality_en ? data.speciality_en?.substring(data.speciality_en.search("«"), data.speciality_en.search("»") + 1) :
+                        data && lang === 'ru' && data.speciality_ru ? data.speciality_ru :
+                          data && lang === 'kz' && data.speciality_kz ? data.speciality_kz :
+                            data && lang === 'en' && data.speciality_en ? data.speciality_en :
                               '-'
                       }
                     </Typography>
@@ -821,7 +827,7 @@ export const StudentPageLayout: React.FC = () => {
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {
-                        data && data.diploma_gpa ? data.diploma_gpa : "-"
+                        data && data.gpa ? data.gpa : "-"
                       }
                     </Typography>
                   </Box>
@@ -896,91 +902,96 @@ export const StudentPageLayout: React.FC = () => {
                     <AddDipoma />
                   </Box>
                 </Box>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                  {data && data.image &&
+                    images.map((image, index) => {
+                      return (
 
-                {data && data.image &&
-                  <Box width="25%" sx={{
-                    backgroundColor: "#F4F7FE",
-                    borderRadius: "1rem",
-                    padding: ".7rem",
-                    marginTop: "1rem",
-                    '@media (max-width: 778px)': {
-                      width: '100%'
-                    },
-                  }}>
+                        <Box width='25%' height='100%' key={index} sx={{
+                          backgroundColor: "#F4F7FE",
+                          borderRadius: "1rem",
+                          padding: ".7rem",
+                          marginTop: "1rem",
+                          '@media (max-width: 778px)': {
+                            width: '100%'
+                          },
+                        }}>
 
-                    <Card
-                      elevation={0}
-                      sx={{
-                        display: 'flex',
-                        width: "100%", flexDirection: 'column', alignItems: 'center',
-                        cursor: "pointer",
-                        borderRadius: "10px",
+                          <Card
+                            elevation={0}
+                            sx={{
+                              display: 'flex',
+                              width: "100%", flexDirection: 'column', alignItems: 'center',
+                              cursor: "pointer",
+                              borderRadius: "10px",
 
-                      }}
-                    >
-                      <CardMedia
-                        component="img"
-                        className={styles.diplomaImg}
-                        sx={{
-                          width: "100%",
-                          position: "relative",
-                          display: imageLoaded ? "block" : "none"
-                        }}
-                        image={data.image}
-                        alt="University Image"
-                        onLoad={handleImageLoad}
-                      />
-                      <Skeleton variant="rectangular" width={300} height={200}
-                        sx={{ display: imageLoaded ? "none" : "block" }}
-                        animation="wave" />
+                            }}
+                          >
+                            <CardMedia
+                              component="img"
+                              className={styles.diplomaImg}
+                              sx={{
+                                width: "100%",
+                                position: "relative",
+                                display: imageLoaded ? "block" : "none"
+                              }}
+                              image={image}
+                              alt="University Image"
+                              onLoad={handleImageLoad}
+                            />
+                            <Skeleton variant="rectangular" width={300} height={200}
+                              sx={{ display: imageLoaded ? "none" : "block" }}
+                              animation="wave" />
 
-                      <Box sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        width: "100%",
-                        marginTop: "-3rem",
-                        justifyContent: "space-between",
-                        padding: "0 .5rem .5rem .5rem",
-                        zIndex: "10"
-                      }}>
-                        <IconButton
-                          color="primary"
-                          sx={{
-                            backgroundColor: "rgba(59,130,246,0.78)",
-                            '&:hover': {
-                              backgroundColor: "rgb(59,130,246)",
-                              color: "white"
-                            }
-                          }}
-                          onClick={() => {
-                            navigator.clipboard.writeText(currentUrl);
-                            setAlertOpen(true);
-                          }}
-                        >
-                          <ShareIcon style={{ width: "20", filter: "brightness(10)" }} />
-                        </IconButton>
-                        <IconButton
-                          color="primary"
-                          sx={{
-                            backgroundColor: "rgba(59,130,246,0.78)",
-                            '&:hover': {
-                              backgroundColor: "rgb(59,130,246)",
-                              color: "white"
-                            }
-                          }}
-                          onClick={() => {
-                            let link = data && data.image ? data.image : "";
-                            handleDownload(link, data && data.name_en ? data.name_en : "diploma");
-                          }}
-                        >
+                            <Box sx={{
+                              display: 'flex',
+                              flexDirection: 'row',
+                              width: "100%",
+                              marginTop: "-3rem",
+                              justifyContent: "space-between",
+                              padding: "0 .5rem .5rem .5rem",
+                              zIndex: "10"
+                            }}>
+                              <IconButton
+                                color="primary"
+                                sx={{
+                                  backgroundColor: "rgba(59,130,246,0.78)",
+                                  '&:hover': {
+                                    backgroundColor: "rgb(59,130,246)",
+                                    color: "white"
+                                  }
+                                }}
+                                onClick={() => {
+                                  navigator.clipboard.writeText(currentUrl);
+                                  setAlertOpen(true);
+                                }}
+                              >
+                                <ShareIcon style={{ width: "20", filter: "brightness(10)" }} />
+                              </IconButton>
+                              <IconButton
+                                color="primary"
+                                sx={{
+                                  backgroundColor: "rgba(59,130,246,0.78)",
+                                  '&:hover': {
+                                    backgroundColor: "rgb(59,130,246)",
+                                    color: "white"
+                                  }
+                                }}
+                                onClick={() => {
+                                  let link = data && data.image ? image : "";
+                                  handleDownload(link, data && data.name_en ? data.name_en : "diploma");
+                                }}
+                              >
 
-                          <DownloadIcon style={{ width: "20", filter: "brightness(10)" }} />
-                        </IconButton>
-                      </Box>
-                    </Card>
-                  </Box>
-
-                }
+                                <DownloadIcon style={{ width: "20", filter: "brightness(10)" }} />
+                              </IconButton>
+                            </Box>
+                          </Card>
+                        </Box>
+                      )
+                    })
+                  }
+                </Box>
 
               </Box>
               <Box sx={{
@@ -1017,7 +1028,7 @@ export const StudentPageLayout: React.FC = () => {
                   gap: '1rem',
                   alignSelf: 'stretch', '@media (max-width: 778px)': { gap: '0.75rem' }
                 }}>
-                  {data && data.speciality_ru ? (skillsList[data.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
+                  {data && data.speciality_ru && skillsList.hasOwnProperty(data.speciality_ru) ? (skillsList[data.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
                     return (
                       <Box key={index} sx={{
                         display: 'flex',
@@ -1064,6 +1075,76 @@ export const StudentPageLayout: React.FC = () => {
                   {localization[lang].Alert.copied}
                 </Alert>
               </Snackbar>
+              <Box sx={{
+                display: data && !data.resume_link && showResumeGenerator ? 'flex' : 'none', flexDirection: 'column', width: '33.3125rem', padding: '1.75rem',
+                alginItems: 'flex-start', position: 'fixed', bottom: 0, left: 0, borderRadius: '1.5rem', backgroundColor: 'white',
+                margin: '2rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)', zIndex: 1000,
+                '@media (max-width: 778px)': {
+                  width: '100%', margin: 0, padding: '1rem'
+                }
+              }}>
+                <IconButton
+                  sx={{ position: 'absolute', width: '2.5rem', height: '2.5rem', top: '1rem', right: '1rem' }}
+                  onClick={(): void => { setShowResumeGenerator(false); }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M3.72212 3.72505C3.9662 3.48097 4.36193 3.48097 4.606 3.72505L9.99742 9.11647L15.3888 3.7251C15.6329 3.48102 16.0286 3.48102 16.2727 3.7251C16.5168 3.96918 16.5168 4.3649 16.2727 4.60898L10.8813 10.0004L16.2726 15.3917C16.5167 15.6357 16.5167 16.0315 16.2726 16.2756C16.0285 16.5196 15.6328 16.5196 15.3887 16.2756L9.99742 10.8842L4.60605 16.2756C4.36198 16.5197 3.96625 16.5197 3.72217 16.2756C3.47809 16.0315 3.47809 15.6358 3.72217 15.3917L9.11354 10.0004L3.72212 4.60893C3.47804 4.36486 3.47804 3.96913 3.72212 3.72505Z" fill="#CFD2D8" />
+                  </svg>
+                </IconButton>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                  <Box marginRight='1.5rem'>
+                    <ChartIcon />
+                  </Box>
+                  <Box>
+                    <Typography sx={{ fontSize: '1.5rem', fontWeight: 600, lineHeight: '125%', marginBottom: '0.75rem' }}>
+                      {'Генератор резюме'}
+                    </Typography>
+                    <Typography sx={{ fontSize: '1rem', fontWeight: 400, lineHeight: '125%' }}>
+                      {'Чтобы находить работу, проекты и задачи создайте резюме на портале и работадатели'}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Button
+                    buttonSize="s"
+                    variant="contained"
+                    type="button"
+                    sx={{ borderRadius: '25px' }}
+                  >
+                    Начать
+                  </Button>
+                </Box>
+              </Box>
+              <Box sx={{
+                display: 'none', flexDirection: 'column', alginItems: 'center', position: 'fixed', bottom: 0, left: 0,
+                backgroundColor: 'white', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)', zIndex: 1000,
+                justifyContent: 'center',
+                '@media (max-width: 778px)': {
+                  display: showQR ? 'flex' : 'none',
+                  width: '100%', margin: 0,
+                  borderRadius: '1.25rem 1.25rem 0rem 0rem',
+                  padding: '1rem 2.25rem 1rem', height: '60%',
+                  gap: '1.25rem',
+                }
+              }}>
+                <Typography sx={{ fontSize: '1.125rem', fontWeight: 600, lineHeight: '125%', textAlign: 'center' }}>
+                  Поделиться с дипломом с помощью QR
+                </Typography>
+                <QRCode
+                  size={256}
+                  style={{ height: "auto", maxWidth: "100%", width: "100%", padding: '1rem' }}
+                  value={data && data.iin && data.university_id ? `https://app.ediploma.kz/${data.university_id}/${generateHash(data.iin, 'hashotnursa')}` : 'https://app.ediploma.kz/hr-bank'}
+                />
+                <Box>
+                  <MuiButton fullWidth onClick={() => { setShowQR(false) }}
+                    sx={{
+                      borderRadius: "3rem", backgroundColor: "#EBF2FE",
+                    }}
+                  >
+                    Закрыть
+                  </MuiButton>
+                </Box>
+              </Box>
               <Box margin="2rem"></Box>
             </Box>
           </Box>
