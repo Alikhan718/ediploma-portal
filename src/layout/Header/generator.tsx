@@ -13,6 +13,7 @@ import {ReactComponent as Analytics} from "@src/assets/icons/analytics_outlined.
 import {ReactComponent as Folder} from "@src/assets/icons/folder_outilne.svg";
 import {ReactComponent as Settings} from "@src/assets/icons/Settings.svg";
 import {ReactComponent as Out} from "@src/assets/icons/logout_outline.svg";
+import { ReactComponent as Resume } from '@src/assets/icons/resumeIcon.svg';
 
 export interface AppRoutesNavigation {
   id: number;
@@ -50,7 +51,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     },
     to: routes.resumeGenerator,
     role: ['student'],
-    icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
+    icon: <Resume fill='#9499AB' style={{verticalAlign: "middle"}}/>,
     verticalAlign: "",
     function: () => {
     },
@@ -333,20 +334,6 @@ export const dropdownItemsBottom: AppRoutesNavigation[] = [
     role: ['student', 'employer', 'university'],
     icon: <Out style={{marginRight: '10px', verticalAlign: "center"}}/>,
     verticalAlign: "red",
-    function: () => {
-    },
-  },
-  {
-    id: 409,
-    name: {
-      "ru": 'Генератор резюме',
-      "kz": 'Түйіндеме шығару',
-      "en": 'Generate resume',
-    },
-    to: routes.resumeGenerator,
-    role: ['student', 'employer', 'university'],
-    icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
-    verticalAlign: "",
     function: () => {
     },
   },
