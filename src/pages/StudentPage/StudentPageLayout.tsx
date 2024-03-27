@@ -89,6 +89,7 @@ export const StudentPageLayout: React.FC = () => {
       dispatch(fetchDiplomas());
     }
     console.log(5);
+    console.log(data);
 
   }, [!diplomaList]);
 
@@ -100,16 +101,16 @@ export const StudentPageLayout: React.FC = () => {
     setData(userState);
   }, [userState]);
 
-  // React.useEffect(() => {
-  //   if (isAuthenticated() && data && id != undefined) {
-  //     dispatch(fetchGraduateDetails({ name: data.name_en }));
-  //   } else if (data && data.name) {
-  //     dispatch(fetchGraduateDetails({ name: data.name }));
-  //     console.log(data);
-  //   }
-  // }, [data]);
+  React.useEffect(() => {
+    if (isAuthenticated() && data && id != undefined) {
+      dispatch(fetchGraduateDetails({ name: data.name_en }));
+    } else if (data && data.name) {
+      dispatch(fetchGraduateDetails({ name: data.name }));
+      console.log(data);
+    }
+  }, [data]);
 
-  const currentUrl = window.location.href;
+  const currentUrl = data && data.university_id ? `https://app.ediploma.kz/${data.university_id}/${generateHash(data.iin, 'hashotnursa')}` : `https://app.ediploma.kz/hr-bank`;
   const [alertOpen, setAlertOpen] = useState(false);
   const handleAlertClose = () => {
     setAlertOpen(false);
@@ -160,6 +161,10 @@ export const StudentPageLayout: React.FC = () => {
   const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&certUrl=${currentUrl}&certId=${"1234"}`;
 
   function generateHash(text: string, key: string) {
+    if (!text || !key) {
+      return "";
+    }
+
     let nHash = "";
     for (let i = 0; i < text.length; i++) {
       nHash += String.fromCharCode((((text.charCodeAt(i) - 48) + (key.charCodeAt(i % key.length) - 97)) % 26) + 97);
@@ -346,7 +351,7 @@ export const StudentPageLayout: React.FC = () => {
                         </Box>
                         <Box>
                           <TelegramShareButton
-                            url={getURL()}
+                            url={currentUrl}
                             title={"Jasaim | Мой NFT диплом доступен к просмотру по данной ссылке: "}
                             style={{
                               backgroundColor: "#FAFBFF",
@@ -363,7 +368,7 @@ export const StudentPageLayout: React.FC = () => {
                         </Box>
                         <Box>
                           <WhatsappShareButton
-                            url={getURL()}
+                            url={currentUrl}
                             title={"Jasaim | Мой NFT диплом доступен к просмотру по данной ссылке: "}
                             style={{
                               backgroundColor: "#FAFBFF",
