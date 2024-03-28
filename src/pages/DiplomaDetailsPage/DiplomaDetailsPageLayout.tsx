@@ -61,6 +61,7 @@ import OwnerVerifiedIcon from '@src/assets/icons/verified_check.svg';
 import { ReactComponent as ChartIcon } from '@src/assets/icons/Chart.svg';
 import suDiplomaExample from '@src/assets/example/suDiplomaExample.png';
 import suDiplomaExample2 from '@src/assets/example/suDiplomaExample2.png';
+import QRCode from "react-qr-code";
 
 const isMobileGlobal = window.innerWidth <= 768;
 
@@ -365,6 +366,15 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
       setValue(newValue);
     }
   };
+
+  const [showQR, setShowQR] = React.useState(false);
+  function generateHash(text: string, key: string) {
+    let nHash = "";
+    for (let i = 0; i < text.length; i++) {
+      nHash += String.fromCharCode((((text.charCodeAt(i) - 48) + (key.charCodeAt(i % key.length) - 97)) % 26) + 97);
+    }
+    return nHash;
+  }
 
   return (
     <Box width="100%" sx={{ display: 'flex', flexDirection: 'row', justifyContent: "center" }}>
@@ -1129,14 +1139,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           {localization[lang].StudentPage.AddInfo.skills}
                         </Box>
                         <Box sx={{
-                          display: 'flex',
+                          display: 'none',
                           alignContent: 'flex-start',
                           alignItems: 'flex-start',
                           flexWrap: 'wrap',
                           gap: '0.75rem',
                           alignSelf: 'stretch',
                         }}>
-                          {graduateAttributes && graduateAttributes.speciality_ru ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
+                          {graduateAttributes && graduateAttributes.speciality_ru && skillsList.hasOwnProperty(data.speciality_ru) ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
                             return (
                               <Box key={index} sx={{
                                 display: 'flex',
@@ -1398,6 +1408,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                       setAlertOpen={setAlertOpen}
                       value={value}
                       data={data}
+                      setShowQR={setShowQR}
                     />
                     <Box
                       sx={{
@@ -1673,20 +1684,29 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   </Box>
                 </Paper>
               </Box>
-              <Modal
+              {/* <Modal
                 open={cModalOpen}
                 handleClose={handleCModalClose}
                 width="100vh"
                 maxWidth="100vh"
-              >
+              > */}
+              <Box sx={{
+                display: 'none', flexDirection: 'column', alginItems: 'center', position: 'fixed', bottom: 0, left: 0,
+                backgroundColor: 'white', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)', zIndex: 1000,
+                justifyContent: 'center',
+                '@media (max-width: 778px)': {
+                  display: cModalOpen ? 'flex' : 'none',
+                  width: '100%', margin: 0,
+                  borderRadius: '1.25rem 1.25rem 0rem 0rem',
+                  padding: '1rem 2.25rem 1rem',
+                  height: '60%',
+                  gap: '1.25rem',
+                }
+              }}>
 
-                <Box display="flex" position="absolute"
-                  p="1rem"
-                  style={{ right: "1rem", top: "1rem", cursor: "pointer" }}
-                  onClick={() => handleCModalClose()}
-                >
-                  <CloseIcon width="1rem" height="1rem" />
-                </Box>
+                <Typography sx={{ fontSize: '1.2rem', fontWeight: 600, lineHeight: '125%', textAlign: 'center' }}>
+                  Подтверждение диплома
+                </Typography>
                 <Box display="flex" gap="1rem" flexDirection="column">
                   {graduateAttributes && graduateAttributes.signed_by &&
                     <Box display="flex" flexDirection="row">
@@ -1806,9 +1826,18 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   </Box>
 
                 </Box>
+                <Box>
+                  <MuiButton fullWidth onClick={handleCModalClose}
+                    sx={{
+                      borderRadius: "3rem", backgroundColor: "#EBF2FE",
+                    }}
+                  >
+                    Закрыть
+                  </MuiButton>
+                </Box>
 
-
-              </Modal>
+              </Box>
+              {/* </Modal> */}
               <Snackbar open={alertOpen} autoHideDuration={2000}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 onClose={handleAlertClose}>
@@ -1855,6 +1884,36 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   >
                     Начать
                   </Button>
+                </Box>
+              </Box>
+              <Box sx={{
+                display: 'none', flexDirection: 'column', alginItems: 'center', position: 'fixed', bottom: 0, left: 0,
+                backgroundColor: 'white', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)', zIndex: 1000,
+                justifyContent: 'center',
+                '@media (max-width: 778px)': {
+                  display: showQR ? 'flex' : 'none',
+                  width: '100%', margin: 0,
+                  borderRadius: '1.25rem 1.25rem 0rem 0rem',
+                  padding: '1rem 2.25rem 1rem', height: '60%',
+                  gap: '1.25rem',
+                }
+              }}>
+                <Typography sx={{ fontSize: '1.125rem', fontWeight: 600, lineHeight: '125%', textAlign: 'center' }}>
+                  Поделиться с дипломом с помощью QR
+                </Typography>
+                <QRCode
+                  size={256}
+                  style={{ height: "auto", maxWidth: "100%", width: "100%", padding: '1rem' }}
+                  value={data && data.iin && data.university_id ? `https://app.ediploma.kz/${data.university_id}/${generateHash(data.iin, 'hashotnursa')}` : 'https://app.ediploma.kz/hr-bank'}
+                />
+                <Box>
+                  <MuiButton fullWidth onClick={() => { setShowQR(false) }}
+                    sx={{
+                      borderRadius: "3rem", backgroundColor: "#EBF2FE",
+                    }}
+                  >
+                    Закрыть
+                  </MuiButton>
                 </Box>
               </Box>
               <Box margin="2rem"></Box>

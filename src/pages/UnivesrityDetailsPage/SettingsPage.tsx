@@ -374,15 +374,7 @@ const SettingsPage: React.FC = () => {
           </Grid>
         </Grid>
       </Container>
-      <Box display="flex"
-           flexDirection="column"
-           marginLeft="19rem"
-           sx={{
-             paddingY: '.5rem',
-             '@media (max-width: 778px)': {
-               margin: '0 auto',
-             },
-           }}>
+      <Box display="flex" flexDirection="column" sx={{marginLeft: '19rem', '@media (max-width: 778px)':{marginLeft: 0}}}>
         <Container sx={{
           borderRadius: '30px',
           width: '55vw', maxWidth: '100%',
