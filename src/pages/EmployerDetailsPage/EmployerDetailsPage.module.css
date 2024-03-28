@@ -1,0 +1,10 @@
+.mainContainer {
+    padding: 0 9%;
+    display: flex;
+    flex-direction: column;
+}
+@media only screen and (max-width: 768px) {
+    .diplomasContainer {
+        padding: 0 !important;
+    }
+}

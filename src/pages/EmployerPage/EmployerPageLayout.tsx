@@ -478,14 +478,14 @@ export const EmployerPageLayout: React.FC = () => {
               }}>
                 <Box display="flex" alignItems="center">
                   <Box display="flex" alignItems="center">
-                    <Input
-                      type="text"
-                      name="email"
-                      placeholder={localization[lang].studentsPanel.search}
-                      className={styles.input}
-                    />
+                      <Input
+                          type="text"
+                          name="email"
+                          placeholder={localization[lang].studentsPanel.search}
+                          className={styles.input}
+                      />
                   </Box>
-                </Box>
+              </Box>
               </Box>
 
             </Box>
