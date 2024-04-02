@@ -29,6 +29,7 @@ const SettingsPage: React.FC = () => {
   const privacyBoxRef: RefObject<HTMLDivElement> = useRef(null);
   const fieldBoxRef: RefObject<HTMLDivElement> = useRef(null);
   const socialBoxRef: RefObject<HTMLDivElement> = useRef(null);
+  const [activeMenuItem, setActiveMenuItem] = useState<string | null>(null);//активный пункт меню
 
   type ContentKey = keyof typeof content;
 
@@ -125,7 +126,6 @@ const SettingsPage: React.FC = () => {
       ref.current.scrollIntoView({behavior: 'smooth'});
     }
   };
-
   const handleSubmit = () => {
     const payload = {"attributes": state};
     console.log(payload);
@@ -298,6 +298,17 @@ const SettingsPage: React.FC = () => {
   React.useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
+      const activeSectionId = navigation.findIndex((item) => {
+        const ref = getRefById(item.reference);
+        if (ref && ref.current) {
+          const { top, height } = ref.current.getBoundingClientRect();
+          return top <= 90 && top + height >= 90;
+        }
+        return false;
+      });
+
+      setActiveMenuItem(activeSectionId !== -1 ? navigation[activeSectionId].title[lang] : null);
+
       if (scrollTop > 90) {
         setIsScrolled(true);
       } else {
@@ -319,6 +330,7 @@ const SettingsPage: React.FC = () => {
       sx={{
         minHeight: "100vh",
         marginTop: "1rem",
+        paddingTop: isScrolled ? "1rem" : 0,
       }}>
 
       <Container sx={{
@@ -333,48 +345,86 @@ const SettingsPage: React.FC = () => {
         <Grid container>
           <Grid item xs={0}>
             <Box
-              width={265}
-              bgcolor="white"
-              borderRadius={5}
-              // boxShadow={2}
-              sx={{
-                display: 'flex',
-                paddingX: '1rem',
-                paddingY: '1rem',
-                flexDirection: 'column',
-                justifyContent: 'flex-start',
-              }}
+                width={265}
+                bgcolor="white"
+                borderRadius={5}
+                // boxShadow={2}
+                sx={{
+                  display: 'flex',
+                  paddingX: '1rem',
+                  paddingY: '1rem',
+                  gap: '1rem',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-start',
+                }}
             >
               {navigation.map((item, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    display: item.title.ru === "Конфиденциальность" && role !== 'student' ||
-                              item.title.ru === "Сфера деятельности" && role !== 'employer' ?
-                              "none" : "flex",
-                    alignItems: 'center',
-                    marginBottom: '0.5rem',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => {
-                    if (!item.reference) {
-                      scrollToMainInfo();
-                    } else {
-                      scrollToRef(getRefById(item.reference));
-                    }
-                  }}
-                >
-                  {item.icon}
-                  <Box sx={{flex: 1, color: 'gray', fontSize: '1rem'}}>
-                    {item.title[lang] ?? ""}
+                  <Box
+                      key={index}
+                      sx={{
+                        display:
+                            (item.title.ru === "Конфиденциальность" && role !== 'student') ||
+                            (item.title.ru === "Сфера деятельности" && role !== 'employer')
+                                ? "none"
+                                : "flex",
+                        minWidth: '24px',
+                        minHeight: '24px',
+                        alignItems: 'center',
+                        cursor: 'pointer',
+                        position: 'relative',
+                      }}
+                      onClick={() => {
+                        setActiveMenuItem(item.title[lang]);
+                        if (!item.reference) {
+                          scrollToMainInfo();
+                        } else {
+                          scrollToRef(getRefById(item.reference));
+                        }
+                      }}
+                  >
+                    {React.cloneElement(item.icon, {
+                      fill: activeMenuItem === item.title[lang] ? 'var(--primary)' : '#9499AB',
+                    })}
+                    {activeMenuItem === item.title[lang] && (
+                        <Box
+                            sx={{
+                              position: 'absolute',
+                              borderRadius: '2px',
+                              top: 0,
+                              left: '-15px',
+                              content: '""',
+                              width: '3px',
+                              height: '100%',
+                              background: 'var(--primary)',
+                              transform: 'translateY(0)',
+                              transition: 'transform 5s cubic-bezier(0.19, 1, 0.22, 1)',
+                            }}
+                        />
+                    )}
+                    <Box
+                        sx={{
+                          flex: 1,
+                          color: activeMenuItem === item.title[lang] ? 'var(--primary)' : '#9499AB',
+                          fontSize: '1rem',
+                        }}
+                    >
+                      {item.title[lang] ?? ""}
+                    </Box>
                   </Box>
-                </Box>
               ))}
             </Box>
           </Grid>
         </Grid>
       </Container>
-      <Box display="flex" flexDirection="column" sx={{marginLeft: '19rem', '@media (max-width: 778px)':{marginLeft: 0}}}>
+      <Box display="flex"
+           flexDirection="column"
+           marginLeft="19rem"
+           sx={{
+             paddingY: '.5rem',
+             '@media (max-width: 778px)': {
+               margin: '0 auto',
+             },
+           }}>
         <Container sx={{
           borderRadius: '30px',
           width: '55vw', maxWidth: '100%',

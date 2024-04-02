@@ -1,5 +1,6 @@
 import React from "react";
 
+import {ReactComponent as UserIcon} from "@src/assets/icons/UserInfo.svg";
 import {ReactComponent as PasswordIcon} from "@src/assets/icons/Password.svg";
 import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
 import {ReactComponent as SocialIcon} from "@src/assets/icons/socialmedia.svg";
@@ -15,7 +16,8 @@ export const navigation = [
       "kz": 'Жеке ақпарат'
     },
     reference: 0,
-    icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    icon: <UserIcon color="primary"  style={{marginRight: '0.5rem',}}/>
+
   },
   {
     title: {
