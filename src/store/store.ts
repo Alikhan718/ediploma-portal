@@ -7,6 +7,7 @@ import {authReducer} from './auth/reducer';
 import { analyticsReducer } from './analytics/reducer';
 import diplomaReducer from './diplomas/reducer';
 import generatorReducer from "@src/store/generator/reducer";
+import vacancyReducer from './vacancy/reducer';
 
 const sagaMiddleWare = createSagaMiddleWare();
 
@@ -16,6 +17,7 @@ const reducers = combineReducers({
     diploma: diplomaReducer,
     generator: generatorReducer,
     analytics: analyticsReducer,
+    vacancy: vacancyReducer,
 });
 
 

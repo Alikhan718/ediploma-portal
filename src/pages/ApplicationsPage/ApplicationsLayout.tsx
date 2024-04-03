@@ -1,7 +1,17 @@
 import React from 'react';
 import { Box, Typography, Button as MuiButton } from '@mui/material';
+import { fetchApplications } from '@src/store/vacancy/actionCreators';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectApplications } from '@src/store/vacancy/selector';
 
 export const ApplicationsLayout: React.FC = () => {
+    const dispatch = useDispatch();
+    const applications: any = useSelector(selectApplications);
+
+    React.useEffect(() => {
+        dispatch(fetchApplications());
+    }, []);
+
     const myApplications = [
         {
             id: 1,
@@ -66,7 +76,7 @@ export const ApplicationsLayout: React.FC = () => {
                             flexDirection: 'column', alignItems: 'flex-start', gap: '1.25rem', alignSelf: 'stretch',
                         }}>
                             {
-                                myApplications && myApplications.map((application) => (
+                                applications && applications.map((application: any) => (
                                     <Box key={application.id} sx={{
                                         display: 'flex', padding: '1.5rem',
                                         alignItems: 'flex-start', gap: '1.25rem', alignSelf: 'stretch',
@@ -80,7 +90,7 @@ export const ApplicationsLayout: React.FC = () => {
                                                 flex: '1 0 0', color: 'var(--color-light-dark-700, #293357)',
                                                 fontSize: '1.25rem', fontStyle: 'normal', fontWeight: 600, lineHeight: '120%',
                                             }}>
-                                                {application && application.name ? application.name : 'Название компании'}
+                                                {application && application.employer_name ? application.employer_name : 'Название компании'}
                                             </Typography>
                                             <Typography sx={{
                                                 flex: '1 0 0', color: 'var(--color-light-dark-600, #58607C)',
@@ -94,9 +104,9 @@ export const ApplicationsLayout: React.FC = () => {
                                             }}>
                                                 {application && application.field ? application.field : 'Область'}
                                             </Typography>
-                                            <MuiButton
+                                            <Box
                                                 sx={{
-                                                    borderRadius: '1.25rem', paddingX: '0.75rem', paddingY: '0.2rem',
+                                                    borderRadius: '1.25rem', paddingX: '0.75rem', paddingY: '0.3rem',
                                                     fontSize: '0.75rem',
                                                     background: application && application.status &&
                                                         application.status === 'processing' ? '#EBF2FE' :
@@ -108,7 +118,7 @@ export const ApplicationsLayout: React.FC = () => {
                                                             application.status === 'invited' ? '#22C55E' : '#3B82F6',
                                                 }}>
                                                 {application && application.status ? statuses[application.status as keyof typeof statuses] : 'Статус'}
-                                            </MuiButton>
+                                            </Box>
                                         </Box>
                                     </Box>
                                 ))

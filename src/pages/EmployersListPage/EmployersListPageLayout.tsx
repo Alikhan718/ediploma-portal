@@ -10,6 +10,7 @@ import { fetchEmployersList } from '@src/store/auth/actionCreators';
 import { useSelector, useDispatch } from "react-redux";
 import { localization } from '@src/pages/EmployersListPage/generator';
 import exEmployer from "@src/assets/example/exEmployer.png";
+import { fetchApply } from '@src/store/vacancy/actionCreators';
 
 export const EmployersListPageLayout: React.FC = () => {
     const navigate = useNavigate();
@@ -31,6 +32,11 @@ export const EmployersListPageLayout: React.FC = () => {
     React.useEffect(() => {
         dispatch(fetchEmployersList());
     }, []);
+
+    const handleApply = async (employer: any) => {
+        dispatch(fetchApply({ employer: employer }));
+        console.log('applied');
+    };
 
     return (
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer}
@@ -143,7 +149,7 @@ export const EmployersListPageLayout: React.FC = () => {
                                             borderRadius: '0.5rem',
                                         },
                                     }}
-                                    onClick={() => { console.log('clicked') }}>
+                                    onClick={() => { employer && employer.id ? handleApply(employer.id) : console.log('123') }}>
                                     Откликнуться
                                 </MuiButton>
                             </CardContent>

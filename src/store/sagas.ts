@@ -6,6 +6,7 @@ import {analyticsSaga} from "@src/store/analytics/saga";
 import {TypeInterface} from "./ActionType";
 import {setSnackbar} from "@src/store/generals/actionCreators";
 import {getRequestError} from "@src/utils/getRequestError";
+import { vacancySaga } from "./vacancy/saga";
 
 // Define an interface for the handleResponseBase function
 
@@ -72,5 +73,6 @@ export default function* rootSaga() {
         diplomaSaga(),
         generatorSaga(),
         analyticsSaga(),
+        vacancySaga(),
     ]);
 };
