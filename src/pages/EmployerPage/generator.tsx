@@ -18,6 +18,7 @@ export const localization = {
       Student: {
         name: "Толық аты-жөні",
         major: "Мамандық",
+        university: "Университет",
         graduationYear: "Аяқталған жылы"
       },
       noFavorites: "Таңдаулылар әлі қосылмаған",
@@ -44,6 +45,7 @@ export const localization = {
       Student: {
         name: "Ф.И.О.",
         major: "Специальность",
+        university: "Университет",
         graduationYear: "Год выпуска",
       },
       noFavorites: "Избранные пока не добавлены",
@@ -70,6 +72,7 @@ export const localization = {
       Student: {
         name: "Full Name",
         major: "Major",
+        university: "University",
         graduationYear: "Graduation Year"
       },
       noFavorites: "No favorites yet",

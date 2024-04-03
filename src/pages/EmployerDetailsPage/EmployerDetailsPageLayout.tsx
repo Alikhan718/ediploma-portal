@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Pagination, Typography, useMediaQuery } from '@mui/material';
+import { Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Pagination, useMediaQuery } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchEmployerDetails } from '@src/store/auth/actionCreators';
@@ -26,6 +26,8 @@ import { ReactComponent as Instagram } from "@src/assets/icons/igEmployer.svg";
 import { ReactComponent as Facebook } from "@src/assets/icons/fbEmployer.svg";
 import { ReactComponent as Youtube } from "@src/assets/icons/ytEmployer.svg";
 import {ReactComponent as SearchIcon} from "@src/assets/icons/search.svg";
+import {ReactComponent as BookMarkIcon} from "@src/assets/icons/Bookmark.svg";
+import {ReactComponent as FilterIcon} from "@src/assets/icons/Tuning 2.svg";
 import icon from "@src/assets/icons/Logo (2).svg";
 
 // Importing generator data
@@ -145,7 +147,6 @@ export const EmployerDetailsPageLayout: React.FC = () => {
         dispatch(fetchEmployerDetails({ id: id }));
     }, []);
 
-    console.log(favoriteDiplomas)
     return (
         <Box display='flex' flexDirection='column' justifyContent='center' justifyItems='center'>
             <Box display='flex' flexWrap='wrap' justifyContent="center" className={styles.mainContainer}>
@@ -153,7 +154,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                      sx={{
                          marginTop: '2.5rem',
                          backgroundColor: 'white',
-                         borderRadius: '15px',
+                         borderRadius: '24px',
                          padding: '1.88rem',
                          '@media (max-width: 778px)': {
                              padding: '1rem',
@@ -240,7 +241,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                         </Box>
                     </Box>
 
-                    {/*Данные организации */}
+                    {/*Данные организации starts*/}
                     <Box>
                         <Typography
                             fontWeight='600'
@@ -282,8 +283,9 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                             })}
                         </Box>
                     </Box>
+                    {/*Данные организации end*/}
 
-                    {/* О компании */}
+                    {/* О компании start*/}
                     <Box display='flex'  justifyContent='space-between'  width="100%" gap='30px' sx={{
                         '@media (max-width: 778px)': {
                             width: '100%'
@@ -301,11 +303,9 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                             >
                                 {titles[lang].about}
                             </Typography>
-
                             <Typography color="#818181">
                                 {employerDetails && employerDetails.description ? employerDetails.description : ""}
                             </Typography>
-
                         </Box>
 
                         <Box display='flex' >
@@ -337,24 +337,22 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                         </Box>
                     </Box>
                 </Box>
+                {/* О компании end*/}
 
-
-                {/*Избранные*/}
-
-                <Box sx={{width: '100%'}}>
+                {/* Избранные  start*/}
+                <Box sx={{width: '100%',}}>
                     <Box
                         display="flex"
                         flexDirection="column"
                         alignItems="start"
                         marginTop='24px'
-                        sx={{backgroundColor: 'white', borderRadius: '15px 15px 0 0', width: '100%',}}
+                        sx={{ backgroundColor: 'white', borderRadius: '20px', width: '100%', }}
                         className={styles.diplomasContainer}
                     >
-                        <Typography
-                            sx={{
-                                fontWeight: '800',
-                                fontSize: '25px',
-                                padding: '20px'
+                        <Typography sx={{
+                                fontWeight: '600',
+                                fontSize: '24px',
+                                padding: '28px 28px 0',
                             }}>{localization[lang].studentsPanel.favorite}
                         </Typography>
                         <Box sx={{
@@ -363,314 +361,144 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                             justifyContent: 'space-between',
                             width: '100%',
                             alignItems: 'center',
-                            marginBottom: '20px',
-                            marginLeft: '20px',
+                            padding:'24px 0',
                         }}>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
-                                        marginBottom: '20px',
-                                        marginLeft: '20px',
-                                    }}
-                                >
-                                    <Button
-                                        sx={{
-                                            width: '140px',
-                                            borderRadius: '32px',
-                                            border: '1px solid #3B82F6',
-                                            display: 'flex',
-                                            padding: '9px',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            gap: '8px',
-                                        }}
-                                    >
-                                        <Box>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 viewBox="0 0 16 16" fill="none">
-                                                <path fillRule="evenodd" clipRule="evenodd"
-                                                      d="M12.1666 4.66602C12.1666 6.04673 11.0473 7.16602 9.66658 7.16602C8.28587 7.16602 7.16658 6.04673 7.16658 4.66602C7.16658 3.2853 8.28587 2.16602 9.66658 2.16602C11.0473 2.16602 12.1666 3.2853 12.1666 4.66602ZM9.66658 6.16602C10.495 6.16602 11.1666 5.49444 11.1666 4.66602C11.1666 3.83759 10.495 3.16602 9.66658 3.16602C8.83816 3.16602 8.16658 3.83759 8.16658 4.66602C8.16658 5.49444 8.83816 6.16602 9.66658 6.16602Z"
-                                                      fill="#3B82F6"/>
-                                                <path fillRule="evenodd" clipRule="evenodd"
-                                                      d="M3.83325 11.3327C3.83325 12.7134 4.95254 13.8327 6.33325 13.8327C7.71396 13.8327 8.83325 12.7134 8.83325 11.3327C8.83325 9.95197 7.71396 8.83268 6.33325 8.83268C4.95254 8.83268 3.83325 9.95197 3.83325 11.3327ZM6.33325 12.8327C5.50483 12.8327 4.83325 12.1611 4.83325 11.3327C4.83325 10.5043 5.50482 9.83268 6.33325 9.83268C7.16168 9.83268 7.83325 10.5043 7.83325 11.3327C7.83325 12.1611 7.16168 12.8327 6.33325 12.8327Z"
-                                                      fill="#3B82F6"/>
-                                                <path
-                                                    d="M9.49992 11.305C9.49992 11.0289 9.72378 10.805 9.99992 10.805H14.6666C14.9427 10.805 15.1666 11.0289 15.1666 11.305C15.1666 11.5812 14.9427 11.805 14.6666 11.805H9.99992C9.72378 11.805 9.49992 11.5812 9.49992 11.305Z"
-                                                    fill="#3B82F6"/>
-                                                <path
-                                                    d="M5.99992 4.13836C6.27606 4.13836 6.49992 4.36222 6.49992 4.63836C6.49992 4.9145 6.27606 5.13836 5.99992 5.13836L1.33325 5.13836C1.05711 5.13836 0.833252 4.9145 0.833252 4.63836C0.833252 4.36222 1.05711 4.13836 1.33325 4.13836L5.99992 4.13836Z"
-                                                    fill="#3B82F6"/>
-                                                <path
-                                                    d="M0.833252 11.305C0.833252 11.0289 1.05711 10.805 1.33325 10.805H2.66659C2.94273 10.805 3.16659 11.0289 3.16659 11.305C3.16659 11.5812 2.94273 11.805 2.66659 11.805H1.33325C1.05711 11.805 0.833252 11.5812 0.833252 11.305Z"
-                                                    fill="#3B82F6"/>
-                                                <path
-                                                    d="M14.6666 4.13836C14.9427 4.13836 15.1666 4.36222 15.1666 4.63836C15.1666 4.9145 14.9427 5.13836 14.6666 5.13836H13.3333C13.0571 5.13836 12.8333 4.9145 12.8333 4.63836C12.8333 4.36222 13.0571 4.13836 13.3333 4.13836H14.6666Z"
-                                                    fill="#3B82F6"/>
-                                            </svg>
-                                        </Box>
-                                        <Typography
-                                            sx={{justifyContent: 'center', alignItems: 'center', gap: '0.5rem'}}
-                                        >
-                                            {localization[lang].studentsPanel.filter}
-                                        </Typography>
-                                    </Button>
-
-                                    <Box position='relative' style={{width: '554px'}}>
-                                        <Input
-                                            inputSize={"l"}
-                                            type="text"
-                                            name="email"
-                                            placeholder={localization[lang].studentsPanel.search}
-                                            style={{
-                                                marginLeft: '1rem',
-                                                width: '100%',
-                                                padding: '3px',
-                                                textAlign: 'center', // выравниваем текст по центру
-                                                paddingLeft: '12px' // смещаем плейсхолдер вправо на 2px
-                                            }}
-                                        />
-
-                                        <SearchIcon style={{
-                                            position: 'absolute',
-                                            top: '50%',
-                                            transform: 'translateY(-50%)',
-                                            right: '10px',
-                                            cursor: "pointer"
-                                        }}/>
-                                    </Box>
-
-                                </Box>
-
-                        </Box>
-
-                    </Box>
-                    <TabPanel value={value} index={0}>
-                        {totalDiplomas != 0 ?
-                            (<Box display="flex"
-                                  flexDirection="row"
-                                  alignItems="start"
-                                  sx={{
-                                      width: '100%',
-                                      borderRadius: '15px',
-                                      padding: '10px',
-                                      display: 'grid',
-                                      gridTemplateColumns: '4fr 2fr 1fr 2fr',
-                                      gap: '36px',
-                                      paddingLeft: '20px',
-                                      '@media (max-width: 768px)': {
-                                          width: '100%',
-                                          gridTemplateColumns: '4fr 0fr 0fr 4fr',
-
-                                      },
-                                  }}
-                            >
-                                <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >{localization[lang].studentsPanel.Student.name}
-                                    </Typography>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    '@media (max-width: 768px)': {display: 'none',}
-                                }}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >{localization[lang].studentsPanel.Student.major}
-                                    </Typography>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    '@media (max-width: 768px)': {display: 'none',}
-                                }}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >{localization[lang].studentsPanel.Student.graduationYear}
-                                    </Typography>
-                                </Box>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    '@media (max-width: 768px)': {
-                                        marginLeft: "11rem"
-                                    }
-                                }}>
-                                    <Typography
-                                        fontSize="14px"
-                                        mb='.5rem' sx={{color: '#818181'}}
-                                        className={styles.mobText}
-                                    >GPA
-                                    </Typography>
-                                </Box>
-                            </Box>) : (<></>)}
-
-                        <Box
-                            display="flex"
-                            flexDirection="column"
-                            width="100%"
-                            alignItems="start"
-                            sx={{
-                                backgroundColor: 'white', borderRadius: '0 0 15px 15px', padding: '10px',
-                                '@media (max-width: 768px)': {width: '100%',},
-                            }}
-                        >
-
-                            {currentFavoriteDiplomaPage.map((e: any) => (
-                                <Box
-                                    key={e.id}
-                                    onClick={() => {
-                                        navigate(`/diploma/${e.id!}`);
-                                    }}
-                                    className={styles.diplomaItem}
-                                    sx={{
-                                        width: '100%',
-                                        cursor: 'pointer',
-                                        borderRadius: '10px',
-                                        marginBottom: '1.5rem', display: 'flex',
-                                        flexDirection: 'row', // Default layout for larger screens
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            backgroundColor: 'white',
-                                            width: "100%",
-                                            display: 'grid',
-                                            gridTemplateColumns: '7fr 1fr 1fr 1fr',
-                                            gap: '36px',
-                                            marginTop: '20px',
-                                            paddingLeft: '20px',
-                                            '@media (max-width: 768px)': {gridTemplateColumns: '12fr 1fr 0fr'}
-                                        }}
-                                    >
-                                        <Box sx={{
-                                            display: 'flex',
-                                            flexDirection: 'row',
-                                            '@media (max-width: 768px)': {flexDirection: 'column'}
-                                        }}>
-                                            <Typography
-                                                fontSize="20px"
-                                                fontWeight="600"
-                                                mb='.5rem'
-                                                className={styles.mobText}
-                                                sx={{width: '50%', '@media (max-width: 768px)': {width: '100%'}}}
-                                            >
-                                                {lang === 'en' ? e.name_en : e.name_ru}
-                                            </Typography>
-                                            <Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm}
-                                                        sx={{
-                                                            width: '70%',
-                                                            '@media (max-width: 768px)': {
-                                                                marginX: '0',
-                                                                width: '100%'
-                                                            }
-                                                        }}>
-                                                {e.qualification_kz ? e.qualification_kz.substring(0, e.qualification_kz.search("»") + 1) : ""}
-                                            </Typography>
-                                        </Box>
-
-                                        {/* Specialty
-
-                                        <Box sx={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            marginX: '1rem',
-                                            '@media (max-width: 768px)': {display: 'none',}
-                                        }}>
-                                            {lang === 'en' ? e.speciality_en : e.speciality_ru}
-                                        </Box>*/}
-
-
-
-                                        <Box sx={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            marginX: '1rem',
-                                            '@media (max-width: 768px)': {display: 'none',}
-                                        }}>
-                                            {e.year ? e.year : ""}
-                                        </Box>
-
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                marginX: '1rem',
-                                                flexDirection: 'column'
-                                            }} // Adjust spacing as needed
-                                        >
-                                            <Typography fontSize="0.875rem">
-                                                {e.gpa ? e.gpa : ""}
-                                            </Typography>
-                                        </Box>
-                                        {/*<Box sx={{marginLeft: 'auto', marginRight: "3rem"}}>*/}
-                                        {/*    <TwitterIcon/>*/}
-                                        {/*</Box>*/}
-                                        <Box alignItems='center' sx={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            marginLeft: '1rem',
-                                        }}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                 viewBox="0 0 20 20" fill="none">
-                                                <path fillRule="evenodd" clipRule="evenodd"
-                                                      d="M17.5 9.24728V13.4084C17.5 15.9889 17.5 17.2792 16.8882 17.8429C16.5965 18.1118 16.2282 18.2807 15.8359 18.3256C15.0133 18.4198 14.0527 17.5701 12.1315 15.8709C11.2823 15.1198 10.8577 14.7442 10.3664 14.6452C10.1245 14.5965 9.87548 14.5965 9.63356 14.6452C9.14229 14.7442 8.71768 15.1198 7.86847 15.8709C5.94728 17.5701 4.98668 18.4198 4.1641 18.3256C3.77179 18.2807 3.40351 18.1118 3.11176 17.8429C2.5 17.2792 2.5 15.9889 2.5 13.4084V9.24728C2.5 5.67344 2.5 3.88652 3.59835 2.77627C4.6967 1.66602 6.46447 1.66602 10 1.66602C13.5355 1.66602 15.3033 1.66602 16.4016 2.77627C17.5 3.88652 17.5 5.67344 17.5 9.24728ZM6.875 4.99935C6.875 4.65417 7.15482 4.37435 7.5 4.37435H12.5C12.8452 4.37435 13.125 4.65417 13.125 4.99935C13.125 5.34453 12.8452 5.62435 12.5 5.62435H7.5C7.15482 5.62435 6.875 5.34453 6.875 4.99935Z"
-                                                      fill="#3B82F6"/>
-                                            </svg>
-                                        </Box>
-                                    </Box>
-                                </Box>
-                            ))
-                            }
-
                             <Box sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                width: '100%',
-                                marginBottom: "2rem"
-                            }}>
-                                {totalDiplomas != 0 ?
-                                    (<Box style={{
-                                        flex: 1,
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    marginBottom: '20px',
+                                    marginLeft: '20px',
+                                }}
+                            >
+                                <Button sx={{
+                                        width: '140px',
+                                        borderRadius: '32px',
+                                        border: '1px solid #3B82F6',
                                         display: 'flex',
+                                        padding: '9px',
                                         justifyContent: 'center',
-                                        alignItems: 'center'
-                                    }}>
-                                        <Pagination
-                                            count={totalPages}
-                                            page={currentPage}
-                                            onChange={(event, page) => setCurrentPage(page)}
-                                            shape="rounded"
-                                            color="primary"
-                                            size="large"
-                                        />
-                                    </Box>) :
-                                    (<Typography
-                                        sx={{
-                                            fontWeight: '800',
-                                            fontSize: '25px',
-                                            padding: '20px'
-                                        }}>{localization[lang].studentsPanel.noFavorites}
-                                    </Typography>)
-                                }
+                                        alignItems: 'center',
+                                        gap: '8px',
+                                    }}
+                                >
+                                    <FilterIcon />
+                                    <Typography sx={{justifyContent: 'center', alignItems: 'center', gap: '0.5rem'}}>
+                                        {localization[lang].studentsPanel.filter}
+                                    </Typography>
+                                </Button>
+
+                                <Box position='relative' style={{width: '554px'}}>
+                                    <Input
+                                        inputSize={"l"}
+                                        type="text"
+                                        name="email"
+                                        placeholder={localization[lang].studentsPanel.search}
+                                        style={{
+                                            marginLeft: '1rem',
+                                            width: '100%',
+                                            padding: '3px',
+                                            textAlign: 'center',
+                                            paddingLeft: '12px',
+                                        }}
+                                    />
+
+                                    <SearchIcon style={{
+                                        position: 'absolute',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        right: '10px',
+                                        cursor: "pointer"
+                                    }}/>
+                                </Box>
                             </Box>
                         </Box>
-                    </TabPanel>
+                        {totalDiplomas !== 0 &&
+                            <TableContainer sx={{}}>
+                                <Table>
+                                    <TableHead sx={{ backgroundColor: '#F3F6F9' }}>
+                                        <TableRow>
+                                            <TableCell sx={{ borderBottom: 'none' }}></TableCell>
+                                            <TableCell sx={{ borderBottom: 'none', fontSize: '14px', color: '#111C44' }}>№</TableCell>
+                                            <TableCell sx={{ width: '35%', borderBottom: 'none', fontSize: '14px', fontWeight: '400', color: '#111C44' }}>{localization[lang].studentsPanel.Student.name}</TableCell>
+                                            <TableCell sx={{ borderBottom: 'none', fontSize: '14px' }}>{localization[lang].studentsPanel.Student.major}</TableCell>
+                                            <TableCell sx={{ borderBottom: 'none', fontSize: '14px' }}>{localization[lang].studentsPanel.Student.university}</TableCell>
+                                            <TableCell sx={{ width: '10%', borderBottom: 'none', fontSize: '14px' }}>{localization[lang].studentsPanel.Student.graduationYear}</TableCell>
+                                            <TableCell sx={{ width: '15%', borderBottom: 'none', fontSize: '14px' }}>GPA</TableCell>
+                                            <TableCell align="right" sx={{ borderBottom: 'none' }}></TableCell> {/* For Bookmark Icon */}
+                                            <TableCell sx={{ borderBottom: 'none' }}></TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody sx={{ backgroundColor: 'white' }}>
+                                        {currentFavoriteDiplomaPage.map((e: any, index: number) => (
+                                            <TableRow key={e.id} onClick={() => navigate(`/diploma/${e.id}`)}>
+                                                <TableCell sx={{ borderBottom: 'none' }}></TableCell>
+                                                <TableCell sx={{ fontSize: '16px', fontWeight: '400', color: '#111C44' }}>{index + 1}</TableCell>
+                                                <TableCell sx={{ fontSize: '16px', fontWeight: '800', color: '#111C44' }}>{lang === 'en' ? e.name_en : e.name_ru}</TableCell>
+                                                <TableCell sx={{ fontSize: '14px' }}>
+                                                    {(() => {
+                                                        const regex = lang === 'en' ? /“([^”]*)”/g : lang === 'kz' ? /«([^»]*)»/g : /«([^»]*)»/g;
+                                                        const match = regex.exec(
+                                                            lang === 'en' ? e.speciality_en : lang === 'kz' ? e.speciality_kz : e.speciality_ru
+                                                        );
+                                                        return match ? match[1] : '';
+                                                    })()}
+                                                </TableCell>
+                                                <TableCell sx={{ fontSize: '16px' }}>{e.university_id}</TableCell>
+                                                <TableCell sx={{ fontSize: '16px' }}>{e.year ? e.year : ""}</TableCell>
+                                                <TableCell sx={{ fontSize: '16px' }}>{e.gpa ? e.gpa : ""}</TableCell>
+                                                <TableCell align="right">
+                                                    <BookMarkIcon />
+                                                </TableCell>
+                                                <TableCell sx={{ borderBottom: 'none' }}></TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        }
 
+                        <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            width: '100%',
+                            marginBottom: "2rem",
+                            backgroundColor: 'white',
+                            paddingTop: '28px',
+
+                        }}>
+                            {totalDiplomas != 0 ?
+                                (<Box style={{
+                                    flex: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}>
+                                    <Pagination
+                                        count={totalPages}
+                                        page={currentPage}
+                                        onChange={(event, page) => setCurrentPage(page)}
+                                        shape="rounded"
+                                        color="primary"
+                                        size="large"
+                                    />
+                                </Box>) :
+                                (<Typography
+                                    sx={{
+                                        fontWeight: '800',
+                                        fontSize: '25px',
+                                        padding: '20px'
+                                    }}>{localization[lang].studentsPanel.noFavorites}
+                                </Typography>)
+                            }
+                        </Box>
+                    </Box>
                 </Box>
             </Box>
         </Box>
     );
+
 };
