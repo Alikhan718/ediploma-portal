@@ -42,6 +42,7 @@ export const EmployersListPageLayout: React.FC = () => {
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer}
             pt='2rem'>
             <EmployerListPageHeader />
+            <MuiButton onClick={() => {handleApply(177)}}>Откликнуться</MuiButton>
             <Grid container display="flex" rowSpacing={2} columnSpacing={1} flexWrap="wrap"
                 sx={{ margin: "0 !important" }}
                 justifyContent="start" className={styles.schoolContainer} width='100%'

@@ -236,5 +236,8 @@ export const vacancyApi = {
     },
     getApplications() {
         return instance.get(`/vacancy/applications`);
+    },
+    putStatus(body: { application_id: number, status: string }) {
+        return instance.put(`/vacancy/status`, body);
     }
 };

@@ -3,7 +3,7 @@ import {getRequestError} from "@src/utils/getRequestError";
 import {all, call, put, take, takeLatest} from "redux-saga/effects";
 import {setSnackbar} from "../generals/actionCreators";
 import {
-    POST_APPLY, GET_APPLICATIONS
+    POST_APPLY, GET_APPLICATIONS, PUT_STATUS
 } from "./types/actionTypes";
 import {handleResponseBase} from "@src/store/sagas";
 
@@ -28,9 +28,21 @@ export function* fetchApplicationsRequest(action: any) {
     }
 };
 
+export function* fetchStatusRequest(action: any) {
+    try {
+        const {data} = yield call(vacancyApi.putStatus, action.payload);
+        yield put({type: PUT_STATUS.success, payload: data});
+    } catch (e) {
+        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+        yield put({type: PUT_STATUS.error});
+    }
+};
+
 export function* vacancySaga() {
     yield all([
         takeLatest(POST_APPLY.saga, fetchApplyRequest),
         takeLatest(GET_APPLICATIONS.saga, fetchApplicationsRequest),
+        takeLatest(PUT_STATUS.saga, fetchStatusRequest),
     ]);
 };
+
