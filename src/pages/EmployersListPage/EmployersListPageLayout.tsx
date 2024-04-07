@@ -42,7 +42,31 @@ export const EmployersListPageLayout: React.FC = () => {
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer}
             pt='2rem'>
             <EmployerListPageHeader />
-            <MuiButton onClick={() => {handleApply(177)}}>Откликнуться</MuiButton>
+            <Box sx={{
+                display: 'none',
+                '@media (max-width: 778px)': {
+                    display: 'flex', width: '100%', padding: '0.25rem',
+                    justifyContent: 'center', alignItems: 'center',
+                    borderRadius: '3rem', background: '#FFF'
+                },
+            }}>
+                <MuiButton fullWidth sx={{
+                    backgroundColor: "#3B82F6", color: "white", borderRadius: '3rem',
+                    '&:hover': { backgroundColor: "#1565C0", },
+                }}>
+                    Работадатели
+                </MuiButton>
+                <MuiButton
+                    fullWidth
+                    sx={{
+                        backgroundColor: "#white", color: "#293357", borderRadius: '3rem',
+                        '&:hover': { backgroundColor: "#f0f0f0", },
+                    }}
+                    onClick={() => navigate('/applications')}
+                >
+                    Мои отклики
+                </MuiButton>
+            </Box>
             <Grid container display="flex" rowSpacing={2} columnSpacing={1} flexWrap="wrap"
                 sx={{ margin: "0 !important" }}
                 justifyContent="start" className={styles.schoolContainer} width='100%'
@@ -90,7 +114,7 @@ export const EmployersListPageLayout: React.FC = () => {
                             alt={employer.name ? `${employer.name}` : "employer image"}
                         />
                         <Box sx={{ display: 'flex', flexDirection: 'column', width: "100%" }}>
-                            <CardContent sx={{ "@media (max-width: 778px)": { paddingX: '1rem', paddingY: 0} }}>
+                            <CardContent sx={{ "@media (max-width: 778px)": { paddingX: '1rem', paddingY: 0 } }}>
                                 <Typography mb='.5rem' fontSize="1.3rem" fontWeight="600" sx={{
                                     "@media (max-width: 778px)": {
                                         fontSize: '0.75rem',
