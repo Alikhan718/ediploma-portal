@@ -254,7 +254,7 @@ export const authReducer = (state = initialState, action: any) => {
         case GET_DIPLOMA_METADATA_CID.success:
             return {
                 ...state,
-                ipfsLink: action.payload,
+                ipfsLink: action.payload.cid,
             };
         case POST_GENERATE_SMART_CONTRACT.saga:
 

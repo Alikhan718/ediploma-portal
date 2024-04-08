@@ -504,7 +504,7 @@ const experienceForms = [
       "ru": "Должность",
       "en": "Должность"
     },
-    placeholder: "Пистолет"
+    placeholder: "Главный Разработчик"
   },
   {
     type: "month",

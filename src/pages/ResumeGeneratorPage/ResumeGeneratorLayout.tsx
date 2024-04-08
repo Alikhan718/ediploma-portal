@@ -742,126 +742,129 @@ export const ResumeGeneratorLayout: React.FC = () => {
                           <Typography fontSize="1rem"
                             alignSelf="center">{el.label ? (el.label[lang] ?? el.label) : ""}</Typography>
 
-                        </Grid>
-                      );
-                    }
-                    if (el.type == 'pdf') {
-                      return (
-                        <Grid item
-                          xs={12}
-                          sm={12}
-                          md={12}
-                          lg={12}
-                          key={index2}>
-                          <Label label={el.label ? (el.label[lang] ?? el.label) : ""} />
-                          <Box key={index2} sx={{
-                            display: "flex",
-                            width: "100%",
-                            alignItems: "start",
-                            gap: "1rem",
-                            flexDirection: "column",
-                            '@media (max-width: 778px)': {
-                              flexDirection: "row",
-                            },
-                          }}>
-                            {isResumeLoading &&
-                              <label
-                                htmlFor={"file-input" + index2}
-                                style={{
-                                  width: "100%",
-                                  marginTop: "1rem",
-                                  padding: ".75rem 1rem",
-                                  borderRadius: "15px",
-                                  backgroundColor: "transparent",
-                                  border: "2px dashed #3B82F6",
-                                  display: "flex",
-                                  cursor: "pointer",
-                                }}
-                              >
-                                <Box sx={{
-                                  width: "100%",
-                                  display: "flex",
-                                  paddingY: "2rem",
-                                  flexDirection: "row",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  '@media (max-width: 778px)': {
-                                    justifyContent: "center",
-                                    flexDirection: "column",
-                                  },
-                                }}>
-                                  <CircularProgress color="success" />
-                                </Box>
-                              </label>
-                            }
-                            {!isResumeLoading &&
-                              <Box sx={{
-                                backgroundColor: "#F4F7FE",
-                                width: "100%",
-                                display: "flex",
-                                padding: ".75rem 1rem",
-                                borderRadius: "1rem",
-                              }}>
-                                <IconButton style={{
-                                  cursor: "pointer",
-                                }}
-                                >
-                                  <PDFIcon style={{
-                                    alignSelf: "center",
-                                    width: "2rem",
-                                    height: "2rem",
-                                  }} />
-                                </IconButton>
-                                <Box display="flex" flexDirection="column" ml="1rem"
-                                  justifyContent="center">
-                                  <Typography sx={{}}>
-                                    {state ? state.resume_link ? state.resume_link.split("uploads/")[1].split("_").join(" ") : "" : ""}
-                                  </Typography>
-                                </Box>
-                                <IconButton style={{
-                                  marginLeft: "auto",
-                                  cursor: "pointer",
-                                }}
-                                  onClick={() => {
-                                    handleLink(state ? state.resume_link : "");
-                                  }}
-                                >
-                                  <DownloadIcon style={{
-                                    alignSelf: "center",
-                                    width: "1.5rem",
-                                    height: "1.5rem",
-                                  }} />
-                                </IconButton>
-                              </Box>
-                            }
-                          </Box>
-                        </Grid>);
-                    }
-                    return (
-                      <Grid item
-                        xs={el.multiline ? 12 : getGridSize("xs", el.maxRows)}
-                        sm={el.multiline ? 12 : getGridSize("sm", el.maxRows)}
-                        md={el.multiline ? 12 : getGridSize("md", el.maxRows)}
-                        lg={el.multiline ? 12 : getGridSize("lg", el.maxRows)}
-                        key={index2}>
+                                  </Grid>
+                                );
+                              }
+                              if (el.type == 'pdf') {
+                                return (
+                                  <Grid item
+                                        xs={12}
+                                        sm={12}
+                                        md={12}
+                                        lg={12}
+                                        key={index2}>
+                                    <Label label={el.label ? (el.label[lang] ?? el.label) : ""}/>
+                                    <Box key={index2} sx={{
+                                      display: "flex",
+                                      width: "100%",
+                                      alignItems: "start",
+                                      gap: "1rem",
+                                      flexDirection: "column",
+                                      '@media (max-width: 778px)': {
+                                        flexDirection: "row",
+                                      },
+                                    }}>
+                                      {isResumeLoading &&
+                                          <label
+                                              htmlFor={"file-input" + index2}
+                                              style={{
+                                                width: "100%",
+                                                marginTop: "1rem",
+                                                padding: ".75rem 1rem",
+                                                borderRadius: "15px",
+                                                backgroundColor: "transparent",
+                                                border: "2px dashed #3B82F6",
+                                                display: "flex",
+                                                cursor: "pointer",
+                                              }}
+                                          >
+                                              <Box sx={{
+                                                width: "100%",
+                                                display: "flex",
+                                                paddingY: "2rem",
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                '@media (max-width: 778px)': {
+                                                  justifyContent: "center",
+                                                  flexDirection: "column",
+                                                },
+                                              }}>
+                                                  <CircularProgress color="success"/>
+                                              </Box>
+                                          </label>
+                                      }
+                                      {!isResumeLoading &&
+                                          <Box sx={{
+                                            backgroundColor: "#F4F7FE",
+                                            width: "100%",
+                                            display: "flex",
+                                            padding: ".75rem 1rem",
+                                            borderRadius: "1rem",
+                                          }}>
+                                              <IconButton style={{
+                                                cursor: "pointer",
+                                              }}
+                                              >
+                                                  <PDFIcon style={{
+                                                    alignSelf: "center",
+                                                    width: "2rem",
+                                                    height: "2rem",
+                                                  }}/>
+                                              </IconButton>
+                                              <Box display="flex" flexDirection="column" ml="1rem"
+                                                   justifyContent="center">
+                                                  <Typography sx={{}}>
+                                                    {state ? state.resume_link ? state.resume_link.split("uploads/")[1].split("_").join(" ") : "" : ""}
+                                                  </Typography>
+                                              </Box>
+                                              <IconButton style={{
+                                                marginLeft: "auto",
+                                                cursor: "pointer",
+                                              }}
+                                                          onClick={() => {
+                                                            handleLink(state ? state.resume_link : "");
+                                                          }}
+                                              >
+                                                  <DownloadIcon style={{
+                                                    alignSelf: "center",
+                                                    width: "1.5rem",
+                                                    height: "1.5rem",
+                                                  }}/>
+                                              </IconButton>
+                                          </Box>
+                                      }
+                                    </Box>
+                                  </Grid>);
+                              }
+                              if (el.name == 'desired_job_position') {
+                                console.log(state);
+                                console.log('LOG:', state[el.name]);
+                              }
+                              return (
+                                <Grid item
+                                      xs={el.multiline ? 12 : getGridSize("xs", el.maxRows)}
+                                      sm={el.multiline ? 12 : getGridSize("sm", el.maxRows)}
+                                      md={el.multiline ? 12 : getGridSize("md", el.maxRows)}
+                                      lg={el.multiline ? 12 : getGridSize("lg", el.maxRows)}
+                                      key={index2}>
 
-                        <Label label={el.label ? (el.label[lang] ?? el.label) : ""} />
-                        <Input
-                          type={el.type}
-                          name={el.name}
-                          disabled={el!.disabled ?? false}
-                          value={state[el.name] || null}
-                          inputProps={{ min: el.min, max: el.max }}
-                          minRows={el.rows ?? 1}
-                          reducePadding={(el.multiline ?? false) && el.rows > 1}
-                          multiline={(el.multiline ?? false) && el.rows > 1}
-                          placeholder={el.placeholder ? (el.placeholder[lang] ?? el.placeholder) : ""}
-                          onChange={handleChange}
-                        // errorText={'Some error message'}
-                        />
-                      </Grid>
-                    );
-
+                                  <Label label={el.label ? (el.label[lang] ?? el.label) : ""}/>
+                                  <Input
+                                    type={el.type}
+                                    name={el.name}
+                                    disabled={el!.disabled ?? false}
+                                    value={state[el.name] || ""}
+                                    inputProps={{min: el.min, max: el.max}}
+                                    minRows={el.rows ?? 1}
+                                    reducePadding={(el.multiline ?? false) && el.rows > 1}
+                                    multiline={(el.multiline ?? false) && el.rows > 1}
+                                    placeholder={el.placeholder ? (el.placeholder[lang] ?? el.placeholder) : ""}
+                                    onChange={handleChange}
+                                    // errorText={'Some error message'}
+                                  />
+                                </Grid>
+                              );
                   })}
 
                 </Grid>
