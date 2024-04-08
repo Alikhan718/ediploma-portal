@@ -137,7 +137,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     };
     const checkSecondHeaderRoute = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates',];
+        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates', 'applications'];
         for (const item of secondHeaderEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return true;

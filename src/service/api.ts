@@ -242,3 +242,15 @@ export const analyticsApi = {
         return instance.get(`/analytics/graduates-amount`);
     },
 }
+
+export const vacancyApi = {
+    postApply(body: { vacancy_id: number }) {
+        return instance.post(`/vacancy/apply`, body);
+    },
+    getApplications() {
+        return instance.get(`/vacancy/applications`);
+    },
+    putStatus(body: { application_id: number, status: string }) {
+        return instance.put(`/vacancy/status`, body);
+    }
+};
