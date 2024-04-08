@@ -17,6 +17,7 @@ import {routes} from "@src/shared/routes";
 import {useNavigate} from "react-router-dom";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {fieldLocalizations, localization} from '@src/pages/DiplomaDetailsPage/generator';
+import {selectUserState} from "@src/store/auth/selector";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -56,6 +57,11 @@ export const SwitchDetails: React.FC = () => {
         }
     };
     const graduateAttributes = useSelector(selectGraduateAttributes);
+    const userState = useSelector(selectUserState);
+    const [data, setData] = React.useState();
+    React.useEffect(() => {
+        setData({...graduateAttributes, ...userState});
+    }, [graduateAttributes, userState]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     return (
@@ -136,7 +142,7 @@ export const SwitchDetails: React.FC = () => {
 
                 </Box>
                 <Box display='flex' flexDirection="column" mt='1rem'>
-                    <Link href={graduateAttributes && graduateAttributes.smart_contract_link}
+                    <Link href={data && data['smart_contract_link']}
                           sx={{textDecoration: "none"}} target={'_blank'}>
                         <Box display='flex'>
                             <Typography className={styles.textMd} fontWeight='600' mb="1rem" color='black'
@@ -145,7 +151,7 @@ export const SwitchDetails: React.FC = () => {
                             </Typography>
                         </Box>
                     </Link>
-                    <Link href={graduateAttributes && graduateAttributes.smart_contract_link + "#code"}
+                    <Link href={data && data['smart_contract_link'] + "#code"}
                           sx={{textDecoration: "none"}} target={'_blank'} mt='0.2rem'>
                         <Box display='flex'>
                             <Typography className={styles.textMd} fontWeight='600' color='black' fontSize={"1rem"}>
@@ -158,10 +164,10 @@ export const SwitchDetails: React.FC = () => {
             <TabPanel value={value} index={1}>
 
                 <Box mt="1rem">
-                    {graduateAttributes
+                    {data
                         ?
-                        Object.keys(graduateAttributes).map((key: any) => {
-                                if (fieldLocalizations[key] !== undefined && graduateAttributes[key] != undefined && graduateAttributes[key] != '') {
+                        Object.keys(data).map((key: any) => {
+                                if (fieldLocalizations[key] !== undefined && data[key] != undefined && data[key] != '') {
                                     return (
                                         <Typography
                                             key={key}
@@ -177,7 +183,7 @@ export const SwitchDetails: React.FC = () => {
                                             <span style={{
                                                 fontWeight: '600',
                                                 fontSize: "16px"
-                                            }}>{graduateAttributes[key]}</span>{" "}
+                                            }}>{data[key]}</span>{" "}
                                         </Typography>
                                     );
                                 }

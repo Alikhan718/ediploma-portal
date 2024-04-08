@@ -93,16 +93,19 @@ export const unis: Unis = {
 	kz:{
 		1: "КБТУ",
 		2: "АГП",
+		3: "Сатпев университеті",
 	},
 	ru:{
 		1: "КБТУ",
 		2: "АГП",
+		3: "Сатпев университет",
 	},
 	en:{
 		1: "KBTU",
 		2: "AGP",
+		3: "Satpaev university",
 	},
-}
+};
 
 export const uniRatings = {
     1: 4.4,

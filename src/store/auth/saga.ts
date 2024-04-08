@@ -129,7 +129,7 @@ export function* fetchMetadataCid(action: any) {
         yield put({type: GET_DIPLOMA_METADATA_CID.success, payload: data});
         yield put(setSnackbar({visible: true, message: "Все файлы загружены!", status: "success"}));
         yield call(fetchGenerateSmartContract,
-            {payload: {CID: data, symbol: "KB23", name: "Test KBTU", university_id: 1}}
+            {payload: {CID: data.cid, symbol: data.symbol, name: data.name, university_id: data.university_id}}
         );
 
     } catch (e) {

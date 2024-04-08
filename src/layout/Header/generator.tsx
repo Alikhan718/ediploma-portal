@@ -112,7 +112,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     role: ["employer", "student"],
     icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
     verticalAlign: "middle",
-  },
+  }/*,
   {
     id: 108,
     name: {
@@ -124,7 +124,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     role: ["student"],
     icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
     verticalAlign: "middle",
-  }
+  }*/
 ];
 export const headerNavigations: AppRoutesNavigation[] = [
   {

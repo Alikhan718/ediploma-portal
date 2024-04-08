@@ -837,6 +837,10 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                     </Box>
                                   </Grid>);
                               }
+                              if (el.name == 'desired_job_position') {
+                                console.log(state);
+                                console.log('LOG:', state[el.name]);
+                              }
                               return (
                                 <Grid item
                                       xs={el.multiline ? 12 : getGridSize("xs", el.maxRows)}
@@ -850,7 +854,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                     type={el.type}
                                     name={el.name}
                                     disabled={el!.disabled ?? false}
-                                    value={state[el.name] || null}
+                                    value={state[el.name] || ""}
                                     inputProps={{min: el.min, max: el.max}}
                                     minRows={el.rows ?? 1}
                                     reducePadding={(el.multiline ?? false) && el.rows > 1}
