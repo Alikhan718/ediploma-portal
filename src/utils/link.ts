@@ -6,7 +6,7 @@ export const handleLink = (href: string): void => {
 };
 export const handleDownload = (href: string, fileName: string): void => {
     const xhr = new XMLHttpRequest();
-
+    
     xhr.responseType = 'blob';
 
     xhr.onload = () => {

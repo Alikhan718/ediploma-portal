@@ -57,7 +57,10 @@ import {
   fieldLocalizations,
   localization,
   skillsList,
-  uniRatings
+  uniRatings,
+  gender,
+  nationalities,
+  grantsSources,
 } from '@src/pages/DiplomaDetailsPage/generator';
 import {ShareButton} from '@src/components/ShareButton/ShareButton';
 import LoadingIcon from '@src/assets/icons/loading.gif';
@@ -395,7 +398,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     return data?.university_name ? data?.university_name :
       (data?.university_id == 1 ? localization[lang].StudentPage.MainInfo.kbtu :
         data?.university_id == 2 ? localization[lang].StudentPage.MainInfo.agp :
-          data?.university_id == 3 ? 'Сатпаев Университет' :
+          data?.university_id == 3 ? localization[lang].StudentPage.MainInfo.su :
             localization[lang].StudentPage.MainInfo.noData);
   };
 
@@ -1311,7 +1314,17 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                       <span style={{
                                         fontWeight: '600',
                                         fontSize: "16px"
-                                      }}>{graduateAttributes[key]}</span>{" "}
+                                      }}>
+                                        {
+                                          key == 'diploma_gender' && gender[graduateAttributes[key]] ? 
+                                            gender[graduateAttributes[key]][lang] :
+                                            key == 'diploma_nationality' && nationalities[graduateAttributes[key]] ?
+                                            nationalities[graduateAttributes[key]][lang] :
+                                            key == 'diploma_grant' && grantsSources[graduateAttributes[key]] ?
+                                            grantsSources[graduateAttributes[key]][lang] :
+                                            graduateAttributes[key]
+                                        }
+                                      </span>{" "}
                                     </Typography>
                                     <IconButton
                                       sx={{
@@ -2025,15 +2038,17 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 </Box>
               </Box>
               <Box sx={{
-                display: 'none', flexDirection: 'column', alginItems: 'center', position: 'fixed', bottom: 0, left: 0,
+                display: showQR ? 'flex' : 'none', flexDirection: 'column', alginItems: 'center', position: 'fixed', 
                 backgroundColor: 'white', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)', zIndex: 1000,
-                justifyContent: 'center',
+                justifyContent: 'center', borderRadius: '1.25rem', padding: '1rem 2.25rem 1rem', left: '50%', top: '50%',
+                transform: 'translate(-50%, -50%)',
                 '@media (max-width: 778px)': {
                   display: showQR ? 'flex' : 'none',
                   width: '100%', margin: 0,
                   borderRadius: '1.25rem 1.25rem 0rem 0rem',
                   padding: '1rem 2.25rem 1rem', height: '60%',
-                  gap: '1.25rem',
+                  gap: '1.25rem', bottom: 0, left: 0,
+                  transform: 'none', top: 'auto',
                 }
               }}>
                 <Typography sx={{ fontSize: '1.125rem', fontWeight: 600, lineHeight: '125%', textAlign: 'center' }}>

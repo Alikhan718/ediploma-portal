@@ -215,7 +215,13 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                         }}
                         onClick={() => {
                             let link = data && data.image ? data.image : "";
-                            handleDownload(link, data && data.name_en ? data.name_en : "diploma");
+                            if (Array.isArray(link)){
+                                for (let i = 0; i < link.length; i++) {
+                                    handleDownload(link[i], data && data.name_en ? data.name_en : "diploma");
+                                }
+                            } else {
+                                handleDownload(link, data && data.name_en ? data.name_en : "diploma");
+                            };
                         }}
                     >
                         <DownloadIcon style={{ width: '1.5rem', height: '1.5rem' }} />

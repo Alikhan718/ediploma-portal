@@ -25,8 +25,8 @@ export const ApplicationsLayout: React.FC = () => {
     React.useEffect(() => {
         if (applications) {
             if (value === 0) {
-                // setApplicationsList(applications.filter((application: any) => application.status === 'processing'));
-                setApplicationsList(applications);
+                setApplicationsList(applications.filter((application: any) => application.status === 'processing'));
+                // setApplicationsList(applications);
             } else if (value === 1) {
                 setApplicationsList(applications.filter((application: any) => application.status === 'invited'));
             } else if (value === 2) {
