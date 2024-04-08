@@ -176,9 +176,9 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
       setImage2(data && data.image && data.image instanceof Array ? data.image[1] : null);
       console.log(image, image2);
     }
+    console.log(data);
 
   }, [data]);
-
   React.useEffect(() => {
     if (!token && !university_id) {
       dispatch(fetchDiplomas());
@@ -387,11 +387,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    if (newValue == 1 && !isAuthenticated()) {
-      // setOpenModal(true);
-    } else {
       setValue(newValue);
-    }
   };
 
   const getUniversityName = () => {
@@ -1069,12 +1065,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             </Typography>
                             <Typography className={styles.textSm} fontWeight='500' mb='3px'
                                         sx={{fontSize: '0.875em'}}>
-                              {
-                                data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
-                                  data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
-                                    data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
-                                      localization[lang].StudentPage.MainInfo.noData
-                              }
+                              {getMajorName()}
                             </Typography>
                             <Typography className={styles.nameText} fontWeight='500'
                                         mb='3px'
@@ -1444,13 +1435,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               Степень
                             </Typography>
                             <Typography sx={{fontSize: '0.875rem'}}>
-                              {
-                                data && data.university_id == 2 ? "" :
-                                  data && lang === 'ru' && data.speciality_ru ? data.speciality_ru.split("\n")[0] :
-                                    data && lang === 'en' && data.speciality_en ? data.speciality_en.split("\n")[0] :
-                                      data && lang === 'kz' && data.speciality_kz ? data.speciality_kz.split("\n")[0] :
-                                        localization[lang].StudentPage.MainInfo.noData
-                              }
+                              {getSpecialityName()}
                             </Typography>
                           </Box>
                         </Box>
@@ -1732,7 +1717,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                                                         <span
                                                                           style={{color: "#9499AB"}}>Оценка:</span>{" "}
                                           <span
-                                            style={{color: '#58607C'}}>{row.grade}</span>{" "}
+                                            style={{color: '#58607C'}}>{parseFloat(row.grade).toPrecision(4)} </span>{" "}
                                         </Typography>
                                         <Typography>
                                                                         <span
@@ -1750,7 +1735,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                     }}
                                     align="right"
                                   >
-                                    {row.grade}
+                                    {parseFloat(row.grade).toPrecision(4)}
                                   </StyledTableCell>
                                   <StyledTableCell
                                     sx={{

@@ -24,7 +24,7 @@ export function* fetchDiplomasRequest(action: any = null) {
             page = action.payload.page;
         }
 
-        let per_page = 800;
+        let per_page = 4000;
         if (action && action.payload && action.payload.per_page) {
             per_page = action.payload.per_page;
         }
