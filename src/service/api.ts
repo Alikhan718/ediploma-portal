@@ -159,7 +159,8 @@ export const diplomasApi = {
         ratingL: number,
         ratingR: number,
         university_id: number,
-    }) {
+    })
+    {
         let query = `graduates/search?`;
         if (body.text != "") {
             query += `name=${body.text}&`;
@@ -197,7 +198,7 @@ export const diplomasApi = {
         }
         return instance.get(query);
     },
-    getGraduateDetails(id: number) {
+    getGraduateDetails(id: string) {
         return instance.get(`/diploma/${id}`);
     },
     toogleFavoriteDiplomas(body: { diploma_id: number }) {
@@ -205,6 +206,18 @@ export const diplomasApi = {
     },
     getFavoriteDiplomas() {
         return instance.get(`/users/favorite-diplomas/get`);
+    },
+    getTranscriptDetails(student_id: string) {
+        const body = {
+            "StudentId": student_id
+        };
+        const headers = {
+            // Add your headers here
+            "Authorization": "Basic ZGlwbG9tYV9uZnQ6RGQxMjM0NTY=",
+            // Add more headers if needed
+        };
+
+        return customInstance.post(`https://extapi.satbayev.university/diploma/1.0.1/getDetail`, body, { headers });
     }
 };
 

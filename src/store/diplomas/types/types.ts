@@ -7,3 +7,4 @@ export const CANCEL_FILTER = new ActionType("CANCEL_FILTER");
 export const GET_GRADUATE_DETAILS = new ActionType("GRADUATE_DETAILS");
 export const POST_TOOGLE_FAVORITE_DIPLOMAS = new ActionType("POST_TOOGLE_FAVORITE_DIPLOMAS");
 export const GET_FAVORITE_DIPLOMAS = new ActionType("GET_FAVORITE_DIPLOMAS");
+export const GET_DIPLOMA_TRANSCRIPT = new ActionType("GET_DIPLOMA_TRANSCRIPT");

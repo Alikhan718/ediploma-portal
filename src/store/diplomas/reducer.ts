@@ -1,6 +1,6 @@
 import {
     CANCEL_FILTER,
-    GET_CHECK_IIN,
+    GET_CHECK_IIN, GET_DIPLOMA_TRANSCRIPT,
     GET_DIPLOMAS,
     GET_FAVORITE_DIPLOMAS,
     GET_GRADUATE_DETAILS,
@@ -24,6 +24,7 @@ interface DiplomaInterface {
     filtered_names: string[],
     graduate_attributes: {},
     favoriteDiplomas: any[],
+    transcript_items: any[],
 }
 
 const initialState: DiplomaInterface = {
@@ -42,6 +43,7 @@ const initialState: DiplomaInterface = {
     filtered_names: [],
     graduate_attributes: [],
     favoriteDiplomas: [],
+    transcript_items: [],
 };
 
 const diplomaReducer = (state = initialState, action: any) => {
@@ -104,11 +106,7 @@ const diplomaReducer = (state = initialState, action: any) => {
                 ratingR: action.payload.ratingR,
                 university_id: action.payload.university_id,
             };
-        case GET_GRADUATE_DETAILS.saga:
-            return {
-                ...state,
-                name: action.payload.name,
-            };
+
         case GET_GRADUATE_DETAILS.success:
             return {
                 ...state,
@@ -156,6 +154,23 @@ const diplomaReducer = (state = initialState, action: any) => {
                 isFetching: false,
             };
         case GET_FAVORITE_DIPLOMAS.error:
+            return {
+                ...state,
+                isFetching: false,
+            };
+
+        case GET_DIPLOMA_TRANSCRIPT.saga:
+                return {
+                    ...state,
+                    isFetching: true,
+                };
+        case GET_DIPLOMA_TRANSCRIPT.success:
+            return {
+                ...state,
+                transcript_items: action.payload,
+                isFetching: false,
+            };
+        case GET_DIPLOMA_TRANSCRIPT.error:
             return {
                 ...state,
                 isFetching: false,
