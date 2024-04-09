@@ -54,15 +54,18 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
 		dispatch(setLanguage(language));
 		handleCloseMenu();
 	};
+
+	const handleLogoClick = () => {
+		navigate(`/`);
+	};
+
 	return (
 		<Box className={styles.container}
 			sx={{
 				backgroundColor: "white",
 			}}>
 			<Box className={styles.navbar}>
-				<img src={BrandIcon} className={cn(styles.brand, styles.navItemLg)} onClick={() => {
-					navigate(routes.main);
-				}} />
+				<img src={BrandIcon} className={cn(styles.brand, styles.navItemLg)} onClick={handleLogoClick} />
 				<img src={ModeIcon} style={{ cursor: "pointer" }} className={styles.navItemLg} onClick={() => {
 				}} />
 				<IconButton
@@ -79,9 +82,7 @@ export const AuthBasePageLayout: React.FC<IAuthPageBase> = (props) => {
 					{lang == 'en' && <img src={EnFlag} alt="English" />}
 					{lang == 'kz' && <img src={KzFlag} alt="Kazakh" />}
 				</IconButton>
-				<img src={BrandIconWhite} className={cn(styles.brand, styles.navItemSm)} onClick={() => {
-					navigate(routes.main);
-				}} />
+				<img src={BrandIconWhite} className={cn(styles.brand, styles.navItemSm)} onClick={handleLogoClick} />
 				<Menu
 					anchorEl={anchorEl}
 					open={showDropdown.lang}

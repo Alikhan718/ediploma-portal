@@ -5,6 +5,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {Header} from './Header/Header';
 import {LayoutProps} from './Layout.props';
 import {Sidebar} from './Sidebar/Sidebar';
+import { BottomNav } from './BottomNavigation/BottomNavigation';
 import {selectGlobalIsLoading, selectLanguage} from '@src/store/generals/selectors';
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
@@ -49,7 +50,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
         handleWindowResize();
     }, []);
     const lang = useSelector(selectLanguage);
-
+    
     return (
         <Box display='flex' height='100%' sx={{backgroundColor: "#F3F6F9"}} justifyContent="center">
             <Sidebar open={isSidebarVisible} setOpen={setIsSidebarVisible} toggleDrawer={toggleDrawer}/>
@@ -89,6 +90,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 
                 </Box>
             </Box>
+            {isAuthenticated() && <BottomNav/>}
         </Box>
     );
 };

@@ -24,3 +24,5 @@ export { default as SchoolPage } from './SchoolPage/SchoolPageContainer';
 export { default as SchoolDetailsPage } from './SchoolDetailsPage/SchoolDetailsPageContainer';
 export { default as EmployersListPage } from './EmployersListPage/EmployersListPageContainer';
 export { default as EmployerDetailsPage } from './EmployerDetailsPage/EmployerDetailsPageContainer';
+export { default as TestQrPage } from './TestQrPage/TestQrPageContainer';
+export { default as ApplicationsPage } from './ApplicationsPage/ApplicationsPageContainer';

@@ -13,6 +13,165 @@ export const tableBody = [
   {name: 'Farsh Menu Wolt', menuType: 'Wolt меню', lastDateUpdate: '13/03/2022'},
 ];
 
+export type AttrTranslations = {
+  ru: string;
+  kz: string;
+  en: string;
+};
+
+export type AttrMap = {
+  [key: string]: AttrTranslations;
+};
+
+export const gender: AttrMap = {
+  мужской: {
+    ru: 'мужской',
+    kz: 'ер',
+    en: 'male',
+  },
+  жeнский: {
+    ru: 'женский',
+    kz: 'әйел',
+    en: 'female',
+  },
+};
+
+export const nationalities: AttrMap = {
+  Курд: {
+    ru: 'Курд',
+    kz: 'Күрд',
+    en: 'Kurd',
+  },
+  Дунганин: {
+    ru: 'Дунганин',
+    kz: 'Дүнгенін',
+    en: 'Dungan',
+  },
+  Татарин: {
+    ru: 'Татарин',
+    kz: 'Татар',
+    en: 'Tatar',
+  },
+  Каракалпак: {
+    ru: 'Каракалпак',
+    kz: 'Қарақалпақ',
+    en: 'Karakalpak',
+  },
+  Другие: {
+    ru: 'Другие',
+    kz: 'Басқа',
+    en: 'Other',
+  },
+  Азербайджанец: {
+    ru: 'Азербайджанец',
+    kz: 'Әзірбайжан',
+    en: 'Azerbaijani',
+  },
+  Таджик: {
+    ru: 'Таджик',
+    kz: 'Тәжік',
+    en: 'Tajik',
+  },
+  Немец: {
+    ru: 'Немец',
+    kz: 'Неміс',
+    en: 'German',
+  },
+  Киргиз: {
+    ru: 'Киргиз',
+    kz: 'Қырғыз',
+    en: 'Kyrgyz',
+  },
+  'Казах(шка)': {
+    ru: 'Казах(шка)',
+    kz: 'Қазақ',
+    en: 'Kazakh',
+  },
+  Русский: {
+    ru: 'Русский',
+    kz: 'Орыс',
+    en: 'Russian',
+  },
+  Узбек: {
+    ru: 'Узбек',
+    kz: 'Өзбек',
+    en: 'Uzbek',
+  },
+  Чеченец: {
+    ru: 'Чеченец',
+    kz: 'Чеченец',
+    en: 'Chechen',
+  },
+  Карачаевец: {
+    ru: 'Карачаевец',
+    kz: 'Карачаевец',
+    en: 'Karachay',
+  },
+  Кореец: {
+    ru: 'Кореец',
+    kz: 'Кореец',
+    en: 'Korean',
+  },
+  Белорус: {
+    ru: 'Белорус',
+    kz: 'Беларус',
+    en: 'Belarusian',
+  },
+  Украинец: {
+    ru: 'Украинец',
+    kz: 'Украинец',
+    en: 'Ukrainian',
+  },
+  Казах: {
+    ru: 'Казах',
+    kz: 'Қазақ',
+    en: 'Kazakh',
+  },
+  Ингуш: {
+    ru: 'Ингуш',
+    kz: 'Ингуш',
+    en: 'Ingush',
+  },
+  Уйгур: {
+    ru: 'Уйгур',
+    kz: 'Ұйғыр',
+    en: 'Uyghur',
+  },
+  Турок: {
+    ru: 'Турок',
+    kz: 'Түрік',
+    en: 'Turk',
+  },
+  Еврей: {
+    ru: 'Еврей',
+    kz: 'Еврей',
+    en: 'Jewish',
+  }
+};
+
+export const grantsSources: AttrMap = {
+  'Из собственных средств': {
+    ru: 'Из собственных средств',
+    kz: 'Жеке қаражаттардан',
+    en: 'From own funds',
+  },
+  "Государственный грант": {
+    ru: 'Государственный грант',
+    kz: 'Ұлттық грант',
+    en: 'Government grant',
+  },
+  "Трехсторонняя форма обучения": {
+    ru: 'Трехсторонняя форма обучения',
+    kz: 'Үштарафты оқу өсімдігі',
+    en: 'Tripartite form of education',
+  },
+  "За счет средств местного бюджета": {
+    ru: 'За счет средств местного бюджета',
+    kz: 'Ортақ бюджеттің қаражаттарымен',
+    en: 'At the expense of local budget funds',
+  },
+};
+
 
 export const MenuUploadStatusesEnum: { [key: string]: string } = {
   SUCCESS: "Загружен в агрегатор",
@@ -58,6 +217,7 @@ export const localization = {
         graduationYear: "Аяқтау жылы: ",
         kbtu: "Қазақстан-Британ Техникалық Университет",
         agp: "Алматыгенплан Q-Lab",
+        su: 'Сатпаев Университет',
         agpMajor: "Әлеуметтік дизайн мектебі",
         noData: "Ақпарат жеткіліксіз",
         rating: "Академиялық рейтинг: ",
@@ -115,6 +275,7 @@ export const localization = {
         kbtu: "Казахстанско-Британский технический университет",
         agpMajor: "Школа социального проектирования",
         agp: "Алматыгенплан Q-Lab",
+        su: 'Сатпаев Университет',
         noData: "Недостаточно данных",
         rating: "Академический рейтинг: ",
         faculty: "entered by · presente(e) parl'etablissment scolaire denomme · presentado(a) por el colegio deonminado",
@@ -176,6 +337,7 @@ export const localization = {
         graduationYear: "Graduation year: ",
         kbtu: "Kazakh-British Technical University",
         agp: "Almatygenplan Q-Lab",
+        su: 'Satpayev University',
         agpMajor: "School of Social Design",
         noData: "No data",
         rating: "Academic rating: ",

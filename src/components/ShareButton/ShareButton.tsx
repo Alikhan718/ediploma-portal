@@ -20,6 +20,7 @@ import { ReactComponent as WhatsApp } from '@src/assets/icons/wpDiploma.svg';
 import { ReactComponent as Email } from '@src/assets/icons/emailDiploma.svg';
 import { ReactComponent as Qr } from '@src/assets/icons/qrDiploma.svg';
 import { handleDownload } from "@src/utils/link";
+import { set } from 'react-ga';
 
 interface ShareButtonProps {
     currentUrl: string;
@@ -28,10 +29,11 @@ interface ShareButtonProps {
     setAlertOpen: (value: boolean) => void;
     value: number;
     data: any;
+    setShowQR: any;
 }
 
 export const ShareButton: React.FC<ShareButtonProps> = (props) => {
-    const { currentUrl, lang, smartContractAddress, setAlertOpen, value, data } = props
+    const { currentUrl, lang, smartContractAddress, setAlertOpen, value, data, setShowQR } = props
     const generateAccessToken = (): string => {
         const validityDuration = 24 * 60 * 60 * 1000; // 24 hours validity
         const expirationTime = Date.now() + validityDuration;
@@ -193,8 +195,7 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                             }
                         }}
                         onClick={() => {
-                            let link = data && data.image ? data.image : "";
-                            handleDownload(link, data && data.name_en ? data.name_en : "diploma");
+                            setShowQR(true);
                         }}
                     >
                         <Qr style={{ width: '1.5rem', height: '1.5rem' }} />
@@ -214,7 +215,13 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
                         }}
                         onClick={() => {
                             let link = data && data.image ? data.image : "";
-                            handleDownload(link, data && data.name_en ? data.name_en : "diploma");
+                            if (Array.isArray(link)){
+                                for (let i = 0; i < link.length; i++) {
+                                    handleDownload(link[i], data && data.name_en ? data.name_en : "diploma");
+                                }
+                            } else {
+                                handleDownload(link, data && data.name_en ? data.name_en : "diploma");
+                            };
                         }}
                     >
                         <DownloadIcon style={{ width: '1.5rem', height: '1.5rem' }} />
