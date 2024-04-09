@@ -1,6 +1,6 @@
 import React, {ReactNode} from 'react';
 import {routes} from "@src/shared/routes";
-import {ReactComponent as DiplomaIcon} from "@src/assets/icons/Widget.svg";
+import {ReactComponent as DiplomaIcon} from "@src/assets/icons/widget.svg";
 import {ReactComponent as MainPageIcon} from "@src/assets/icons/pie.svg";
 import {ReactComponent as FolderIcon} from "@src/assets/icons/Folder.svg";
 import {ReactComponent as HrBankIcon} from "@src/assets/icons/academic_cap.svg";

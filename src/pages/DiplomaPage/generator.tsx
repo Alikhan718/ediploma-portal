@@ -61,7 +61,7 @@ export const localization = {
 		Header:{
 			filter: "Фильтр",
 			searchBar: isMobile ? "Фамилия Имя, ВУЗ" : "Фамилия Имя, название вуза",
-			searchButton: "Поиск",
+			searchButton: "Найти",
 			aiHiring: "ИИ Найм"
 		},
 		Modal:{
@@ -81,13 +81,13 @@ export const localization = {
 			authButton: "Authorize"
 		},
 	},
-}
-
-type Unis = {
-	kz:{[key: number]: string;},
-	ru:{[key: number]: string;},
-	en:{[key: number]: string;},
 };
+
+export interface Unis {
+	kz: { [key: number]: string };
+	ru: { [key: number]: string };
+	en: { [key: number]: string };
+}
 
 export const unis: Unis = {
 	kz:{
@@ -102,7 +102,8 @@ export const unis: Unis = {
 		1: "KBTU",
 		2: "AGP",
 	},
-}
+};
+
 
 export const uniRatings = {
     1: 4.4,

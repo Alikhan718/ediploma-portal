@@ -31,9 +31,10 @@
 
 
 .diplomasContainer {
-    border-radius: 2rem;
+    border-radius: 1rem;
     border: 1px #4D4D4D;
 }
+
 
 
 @media only screen and (max-width: 1080px) {

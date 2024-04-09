@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Box, CardContent, CardMedia, Grid, Typography,
-    Skeleton, Pagination, useMediaQuery, Alert, Snackbar
+    Box, Accordion, AccordionSummary, AccordionDetails,Autocomplete, TextField,IconButton, MenuItem, Slider, InputLabel, FormControl, Select, SelectChangeEvent, Grid, Typography, Pagination, useMediaQuery,useTheme, Alert, Snackbar
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {DiplomaPageHeader} from "@src/pages/DiplomaPage/components/DiplomaPageHeader";
 import {useNavigate} from "react-router-dom";
 import {fetchDiplomas} from "@src/store/diplomas/actionCreators";
@@ -11,13 +11,19 @@ import {selectDiplomaList} from "@src/store/diplomas/selectors";
 import { selectUserRole, selectUserState } from "@src/store/auth/selector";
 import styles from "./DiplomaPage.module.css";
 import diplomaTemplate from "@src/assets/example/diploma_template.svg";
-import {Button, Modal} from "@src/components";
+import {Button, Modal,Input} from "@src/components";
 import {isAuthenticated} from "@src/utils/userAuth";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 import {localization, unis, uniRatings} from "src/pages/DiplomaPage/generator";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {routes} from "@src/shared/routes";
 import { RatingDisplay } from '@src/components/RatingDisplay/RatingDisplay';
+import {FilterSection} from "@src/layout/Filter/FilterSection";
+import DiplomaCard from "@src/pages/DiplomaPage/components/DiplomaCard";
+import {ReactComponent as SearchIcon} from '@src/assets/icons/search.svg';
+import {ReactComponent as ListIcon} from '@src/assets/icons/list.svg';
+import {ReactComponent as WidgetIcon} from '@src/assets/icons/widget.svg';
+
 
 export const DiplomaPageLayout: React.FC = () => {
     const navigate = useNavigate();
@@ -33,6 +39,8 @@ export const DiplomaPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
 
     const isMobile = useMediaQuery('(max-width:998px)');
+    const isSmallScreen = useMediaQuery('(max-width:1280px)');
+    const isMediumScreen = useMediaQuery('(min-width: 768px) and (max-width: 1280px)');
 
     const [alertOpen, setAlertOpen] = useState(false);
     const handleAlertClose = () => {
@@ -48,7 +56,7 @@ export const DiplomaPageLayout: React.FC = () => {
         isAuthenticated() ? navigate(`/diploma/${counter}/1`) : setOpen(true);
     };
 
-    const diplomasPerPage: number = 8;
+    const diplomasPerPage: number = 15;
 
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(diplomaList.length / diplomasPerPage);
@@ -83,9 +91,13 @@ export const DiplomaPageLayout: React.FC = () => {
         dispatch(fetchDiplomas());
     }, [currentPage]);
 
+
+
+
     return (
-        <Box display="flex" flexWrap="wrap" justifyContent="center" className={styles.mainContainer} pt="2rem">
+        <Box display="flex" justifyContent="center" className={styles.mainContainer} pt="2.5rem">
             <DiplomaPageHeader/>
+
             <Modal
                 open={open}
                 handleClose={() => setOpen(false)}
@@ -93,7 +105,6 @@ export const DiplomaPageLayout: React.FC = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
-
                     <img src={NeedAuthorizationPic} alt=""/>
                     <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
                                 fontWeight='600'
@@ -113,88 +124,106 @@ export const DiplomaPageLayout: React.FC = () => {
                     }}>{localization[lang].Modal.authButton}</Button>
                 </Box>
             </Modal>
-            <Grid container display="flex" rowSpacing={2} columnSpacing={1} flexWrap="wrap"
-                  sx={{
-                      margin: "0 !important"
-                  }}
-                  justifyContent="start"
-                  className={styles.diplomasContainer} width="100%">
-                {diplomaList ? (
-                    displayedDiplomas.map((e: any) => (
-                        <Grid key={e.id} item xs={12} sm={5.9} md={3.9} lg={2.9}
-                            onClick={() => handleCardClick(e.id!)}
-                              sx={{
-                                  display: 'flex',
-                                  flexDirection: 'column', alignItems: 'center',
-                                  cursor: "pointer",
-                                  padding: ".5rem .5rem 0 .5rem !important",
-                                  backgroundColor: "white",
-                                  borderRadius: "1.25rem",
-                                  marginBottom: "1.5rem",
-                                  marginRight: "0.5rem",
-                              }}
-                        >
-                            <CardMedia
-                                key={e.id + "img"}
-                                component="img"
-                                className={styles.diplomaImg}
-                                sx={{width: "100%", display: imageLoaded ? "block" : "none"}}
-                                image={diplomaTemplate}
-                                alt="University Image"
-                                onLoad={handleImageLoad}
-                            />
-                            <Skeleton variant="rectangular" width={300} height={128}
-                                      sx={{display: imageLoaded ? "none" : "block"}}
-                                      animation="wave"/>
 
-
-                            <Box sx={{display: 'flex', flexDirection: 'row', width: "100%", height: "100%"}}>
-                                <CardContent
-                                    key={e.id + "content"}
-                                    sx={{flex: '1', display: "flex", flexDirection: "column", width: "100%", justifyContent:"space-between"}}>
-                                    <Box>
-                                        <Box display='flex' justifyContent='space-between' alignItems='center'>
-
-                                            <Typography sx={{fontWeight: '600', fontSize: '16px'}}>{unis[lang][e.university_id]}</Typography>
-                                            <Typography fontSize="1rem" color="#818181">
-                                                {e.year}
-                                            </Typography>
-                                        </Box>
-                                        <Typography mb='.5rem' mt='0.5rem' fontSize="1.25rem" className={styles.mobText}
-                                                    fontWeight="600">
-                                            {e.name_ru}
-                                        </Typography>
-                                    </Box>
-                                    <Box>
-                                        <Typography fontSize=".8rem" mt="0" color="#818181" className={styles.mobTextSm}>
-                                            {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
-                                        </Typography>
-                                        {
-                                            e && e.rating != 0.0 ? (
-                                                <Box display="flex" marginTop="0.5rem" alignItems="center">
-                                                    { e && <RatingDisplay academicRating={Number(e.rating)} /> }
-                                                    <Box marginLeft='0.5rem'>{ e && e.rating }</Box>
-                                                </Box>
-                                            ): (<></>) 
-                                        }
-                                    </Box>
-                                    {/* <Box display='flex' mt='auto' width='100%'> */}
-                                    {/* <Typography fontSize="0.875rem" mr='auto'>
-										</Typography> */}
-                                    {/* <Typography fontSize="0.875rem" ml='auto' mr='1rem'>
-												  {humanReadableToLocalTime(e.protocol_en, "/")}
-                                        </Typography> */}
-                                    {/* </Box> */}
-                                </CardContent>
-                            </Box>
-
-                        </Grid>
-
-                    ))
-                ) : (
-                    <div>Loading...</div>
+            <Grid container sx={{ height: '100%', alignItems: isSmallScreen ? 'stretch' : 'flex-start' }}>
+                {/* Фильтр */}
+                {!isSmallScreen && (
+                    <Grid item xs={12} md={3} sx={{ backgroundColor:'white', padding:'.75rem 1rem', }} className={styles.diplomasContainer}>
+                        <FilterSection
+                        open={false}
+                        setOpen={() => {}}
+                        filterAttributes={{}}
+                        setFilterAttributes={() => {}}
+                        triggerSearchFilters={() => {}}
+                        />
+                    </Grid>
                 )}
+
+                {/* Контент с карточками */}
+                <Grid item xs={12} md={isSmallScreen ? 12 : 9} >
+                    <Box display='flex' justifyContent='space-between' >
+                        <Box
+                            sx={{
+                                position: 'relative',
+                                paddingBottom: '2rem',
+                                marginLeft: isSmallScreen ? '0px' : '30px',
+                                ...(isSmallScreen ? {} : { marginLeft: '40px' }),
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexGrow: '1',
+
+                            }}
+                        >
+                            <Input
+                                placeholder="Название организации"
+                                inputSize="s"
+                                sx={{  backgroundColor: 'white', flex: '1', padding: "4px 4px 4px 16px", }}
+                            />
+                            <Button
+                                variant='contained'
+                                sx={{
+                                    position: 'absolute',
+                                    right: '5px',
+                                    top: '3px',
+                                    padding: '.5rem 1rem ',
+                                    fontSize: '1rem',
+                                    fontWeight: '500',
+                                    borderRadius: '2.5rem',
+                                }}
+                                endIcon={<SearchIcon />}
+                            >
+                                {localization[lang].Header.searchButton}
+                            </Button>
+                        </Box>
+
+                        <Box>
+                            <IconButton  sx={{padding: '14px', backgroundColor:"white", borderRadius:'24px',margin: "0px 20px 0px 40px",
+                            }}>
+                                <ListIcon />
+                            </IconButton>
+                            <IconButton  sx={{padding: '14px', backgroundColor:"#3B82F6", borderRadius:'24px',}}>
+                                <WidgetIcon />
+                            </IconButton>
+                        </Box>
+                    </Box>
+
+
+
+                    <Box sx={{ ...(isSmallScreen ? {} : { marginLeft: '40px' }) }}>
+                        <Box
+                            display="flex"
+                            flexWrap="wrap"
+                            justifyContent="space-between"
+                            className={styles.diplomasContainer}
+                        >
+                            {diplomaList ? (
+                                displayedDiplomas.map((e: any) => (
+                                    <Box
+                                        key={e.id}
+                                        sx={{
+                                            width: isSmallScreen ? '100%' : isMediumScreen ? 'calc(50% - 15px)' : 'calc(33.33% - 15px)',
+                                            marginBottom: '25px',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            cursor: 'pointer',
+                                            padding: '.5rem',
+                                            backgroundColor: 'white',
+                                            borderRadius: '1rem',
+                                        }}
+                                        onClick={() => handleCardClick(e.id)}
+                                    >
+                                        <DiplomaCard diploma={e} lang={lang} handleCardClick={handleCardClick} />
+                                    </Box>
+                                ))
+                            ) : (
+                                <div>Loading...</div>
+                            )}
+                        </Box>
+                    </Box>
+                </Grid>
             </Grid>
+
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -214,18 +243,23 @@ export const DiplomaPageLayout: React.FC = () => {
                     />
                 </Box>
             </Box>
-            <Snackbar 
+            <Snackbar
                 open={alertOpen} autoHideDuration={2000}
-				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-				onClose={handleAlertClose}>
-				<Alert 
-                    onClose={handleAlertClose} 
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                onClose={handleAlertClose}>
+                <Alert
+                    onClose={handleAlertClose}
                     severity="error"
-					sx={{ width: '100%' }}>
-						Просмотр данного диплома вам не доступен!
-				</Alert>
-			</Snackbar>
+                    sx={{ width: '100%' }}>
+                    Просмотр данного диплома вам не доступен!
+                </Alert>
+            </Snackbar>
         </Box>
+
+
+
+
+
     );
 };
 

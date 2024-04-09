@@ -1,5 +1,17 @@
 import React from 'react';
-import { Box, Card, MenuItem, Slider, Typography, InputLabel, FormControl, Select, SelectChangeEvent } from "@mui/material";
+import {
+	Box,
+	Card,
+	MenuItem,
+	Slider,
+	Input,
+	Typography,
+	InputLabel,
+	FormControl,
+	Select,
+	SelectChangeEvent,
+	Accordion, AccordionSummary, AccordionDetails, Autocomplete, TextField, Grid
+} from "@mui/material";
 import { IFilter } from "@src/layout/Filter/FilterSection.props";
 import { ReactComponent as CloseIcon } from "@src/assets/icons/cross.svg";
 import { universities, regions, specialities, years, localization } from "@src/layout/Filter/generator";
@@ -12,6 +24,9 @@ import { cancelFilters, fetchDiplomas } from "@src/store/diplomas/actionCreators
 import { selectLanguage } from "@src/store/generals/selectors";
 import e from 'express';
 import { set } from 'react-ga';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {ReactComponent as FilterIcon} from '@src/assets/icons/Tuning 2.svg';
+
 
 
 export const FilterSection: React.FC<IFilter> = (props) => {
@@ -175,293 +190,257 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			},
 		},
 	};
+	const options = ['Option 1', 'Option 2'];
+
+	const [value, setValue] = React.useState(1);
+
+	const handleSliderChange = (event: Event, newValue: number | number[]) => {
+		setValue(newValue as number);
+	};
+
+	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setValue(event.target.value === '' ? 0 : Number(event.target.value));
+	};
+
+
+
+	const [value2, setValue2] = React.useState(1);
+
+	const handleSliderChange2 = (event: Event, newValue: number | number[]) => {
+		setValue2(newValue as number);
+	};
+
+	const handleInputChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setValue2(event.target.value === '' ? 0 : Number(event.target.value));
+	};
+
+
 
 	return (
 		<>
-			<Box id='centeredBox'
-				justifyContent='center'
-				style={{
-					display: open ? 'flex' : 'none',
-					position: 'fixed',
-					width: '70%',
-					left: '50%',
-					top: '50%',
-					transform: 'translate(-50%, -50%)',
-				}}
-				sx={{
-					zIndex: "10",
-					'@media (max-width: 1000px)': {
-						transform: "translate(5vw, 10vh)",
-						width: "90%"
-					}
-				}}>
-				< Card elevation={6} sx={{
-					width: "100%",
-					borderRadius: "1rem",
-					padding: "1.5rem 1.5rem",
-					gap: "1rem",
-					display: "flex",
-					flexDirection: "column", backgroundColor: "white",
-				}}
-					className={styles.mobP15}>
-					<Box display='flex' justifyContent='space-between'>
-						<Typography
-							fontSize='1.5rem'
-							fontWeight='600'
-							className={styles.mobTextMd}
+			<Box sx={{ '& > :not(:first-child)': { marginTop: '.5rem' } }}>
+				<Box display='flex' alignItems="center" sx={{  gap:'.5rem', paddingY:'.5rem' }}>
+					<FilterIcon style={{width:'24px', height:'24px',}}/>
+					<Typography sx={{ borderRadius: '48px', fontWeight: '700', fontSize:'1rem' }}>Фильтр</Typography>
+				</Box>
+
+				<Box display='flex' alignItems="center" justifyContent='space-between'>
+					<Accordion sx={{ boxShadow: 'none', }} >
+						<AccordionSummary
+							expandIcon={<ExpandMoreIcon />}
+							aria-controls="panel2-content"
+							id="panel2-header"
+							sx={{  display:'flex', alignItems:"center", justifyContent:'space-between', padding:'0',}}
 						>
-							{localization[lang].MainCard.filter}
-						</Typography>
-						<CloseIcon style={{ cursor: "pointer" }} onClick={() => {
-							setOpen(false);
-						}} />
-					</Box>
-					<Box display='flex' flexWrap='wrap' width='100%' height="25%" justifyContent='space-between'
-						gap='2.5rem 0rem'>
-						<Box width='48%' className={styles.mobW100}>
-							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
-								{localization[lang].MainCard.speciality}
-							</Typography>
-							<Box display='flex' gap='.5rem' flexWrap='wrap' p=".5rem" mt='.5rem' height="100%"
-								overflow="hidden scroll" sx={{
-
-								}}>
-								{/* {translatedSpecialities.slice(0, 5).map((speciality) => (
-									<Button
-										variant='outlined'
-										onClick={() => {
-											handleChange(speciality.name, selectedSpecialities, setSelectedSpecialities, "speciality");
-										}}
-										className={cn(
-											((selectedSpecialities.includes(speciality.name) ? 'active' : 'unactive') + 'Chip' + " customChip"),
-											styles.mobPBtn,
-											styles.mobTextSm
-										)}
-										key={speciality.id}
-									>
-										<Typography whiteSpace="normal" fontSize="16px" lineHeight="normal" sx={{
-											'@media (max-width: 1000px)': {
-												fontSize: '0.9rem'
-											}
-										}}>
-											{speciality.name}
-										</Typography>
-									</Button>
-								))} */}
-								<FormControl fullWidth>
-									<Select
-										value={specialty}
-										onChange={handleSpecialityChange}
-										sx={{borderRadius: "2rem"}}
-										displayEmpty
-										inputProps={{ 'aria-label': 'Without label' }}
-										MenuProps={MenuProps}
-									>
-										<MenuItem 
-											value="" 
-											onClick={() => {
-												handleChange('', selectedSpecialities, setSelectedSpecialities, "speciality");
-											}}
-										>
-											<em>None</em>
-										</MenuItem>
-										{translatedSpecialities.map((speciality) => (
-											<MenuItem 
-												key={speciality.id} 
-												value={speciality.name}
-												onClick={() => {
-													handleChange(speciality.name, selectedSpecialities, setSelectedSpecialities, "speciality");
-												}}
-											>
-												{speciality.name}
-											</MenuItem>
-										))}
-									</Select>
-								</FormControl>
-							</Box>
-						</Box>
-
-						{/* <Box width='48%' className={styles.mobW100}
+							<Typography  sx={{ fontSize: '1rem', fontWeight: 700 }}>Специальности</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<Autocomplete
+								id="controllable-states-demo"
+								options={options}
+								renderInput={(params) => <TextField {...params} label="Controllable" />}
+							/>
+						</AccordionDetails>
+					</Accordion>
+				</Box>
+				<Box display='flex' alignItems="center" justifyContent='space-between'>
+					<Accordion sx={{ boxShadow: 'none', }} >
+						<AccordionSummary
+							expandIcon={<ExpandMoreIcon />}
+							aria-controls="panel2-content"
+							id="panel2-header"
+							sx={{  display:'flex', alignItems:"center", justifyContent:'space-between',padding:'0',}}
 						>
-							<Typography fontSize='1.25rem' className={styles.mobTextMd}>
-								Уровень образования
-							</Typography>
-							<MultiSelect innerLabel="Список уровней" handleChange={setSelectedDegree} fullWidth>
-								{degree.filter((el) => !filterAttributes.degree.includes(el.name)).map((degree) =>
-									<MenuItem key={degree.id} value={degree.name}>{degree.name}</MenuItem>
-								)}
-							</MultiSelect>
-						</Box> */}
-						<Box width='50%' className={styles.mobW100}>
-							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
-								{localization[lang].MainCard.region}
-							</Typography>
-
-							{/* <MultiSelect innerLabel="Список регионов" handleChange={setSelectedRegions} fullWidth>
-								{regions.filter((el) => !filterAttributes.region.includes(el.name)).map((region) =>
-									<MenuItem key={region.id} value={region.name}>{region.name}</MenuItem>
-								)}
-							</MultiSelect> */}
-							<Box display='flex' gap='.5rem' flexWrap='wrap' p=".5rem" mt='.5rem' height="100%"
-								overflow="hidden scroll" sx={{
-									'@media (max-width: 1000px)': {
-										gap: '.2rem'
-									}
-								}}>
-								{/* {translatedRegions.slice(0, 7).map((region) =>
-									<Button variant='outlined'
-										onClick={() => {
-											handleChange(region.name, selectedRegions, setSelectedRegions, "region");
-										}}
-										className={cn(((selectedRegions.includes(region.name) ? 'active' : 'unactive') + 'Chip' + " customChip"), styles.mobPBtn, styles.mobTextSm)}
-										key={region.id}>
-										<Typography whiteSpace="normal" fontSize="16px" lineHeight="normal"
-											sx={{
-												color: "inherit !important", '@media (max-width: 1000px)': {
-													fontSize: '0.9rem'
-												}
-											}}>
-											{region.name}
-										</Typography>
-									</Button>)} */}
-									<FormControl fullWidth >
-										<Select
-											sx={{borderRadius: "2rem"}}
-											value={region}
-											onChange={handleRegionChange}
-											displayEmpty
-											inputProps={{ 'aria-label': 'Without label' }}
-											MenuProps={MenuProps}
-										>
-											<MenuItem value="" onClick={() => {handleChange('', selectedRegions, setSelectedRegions, "region");}}>
-												<em>None</em>
-											</MenuItem>
-											{translatedRegions.map((region) => (
-												<MenuItem 
-													key={region.id} 
-													value={region.name}
-													onClick={() => {
-														handleChange(region.name, selectedRegions, setSelectedRegions, "region");
-													}}
-												>
-													{region.name}
-												</MenuItem>
-											))}
-										</Select>
-									</FormControl>
-							</Box>
-						</Box>
-						<Box width='44%' className={styles.mobW100}>
-							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
-								GPA
-							</Typography>
-							<Slider
-								max={4.0}
-								min={1.0}
-								step={0.1}
-								getAriaLabel={() => 'GPA'}
-								value={selectedGPA}
-								onChange={handleGPA}
-								valueLabelDisplay="auto"
-								sx={{marginLeft: "1rem"}}
+							<Typography  sx={{ fontSize: '1rem', fontWeight: 700 }}>Регион</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<Autocomplete
+								id="controllable-states-demo"
+								options={options}
+								renderInput={(params) => <TextField {...params} label="Controllable" />}
 							/>
-							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600" marginTop="1rem">
-								Rating
-							</Typography>
-							<Slider
-								max={5.0}
-								min={0.0}
-								step={0.1}
-								getAriaLabel={() => 'Rating'}
-								value={selectedRating}
-								onChange={handleRating}
-								valueLabelDisplay="auto"
-								sx={{marginLeft: "1rem"}}
+						</AccordionDetails>
+					</Accordion>
+				</Box>
+				<Box display='flex' alignItems="center" justifyContent='space-between'>
+					<Accordion sx={{ boxShadow: 'none', }} >
+						<AccordionSummary
+							expandIcon={<ExpandMoreIcon />}
+							aria-controls="panel2-content"
+							id="panel2-header"
+							sx={{  display:'flex', alignItems:"center", justifyContent:'space-between',boxSizing: 'none',padding:'0',}}
+						>
+							<Typography  sx={{ fontSize: '1rem', fontWeight: 700 }}>Университет</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<Autocomplete
+								id="controllable-states-demo"
+								options={options}
+								renderInput={(params) => <TextField {...params} label="Controllable" />}
 							/>
-						</Box>
-						
-						{/* <Box width='48%' className={styles.mobW100} sx={{ marginTop: '10px', marginBottom: '-50px' }}>
-							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
-								{localization[lang].MainCard.year}
-							</Typography>
-							<Box display='flex' gap='.5rem' flexWrap='wrap' my='1rem' >
-								{years.map((year) =>
-									<Button variant='outlined'
-										onClick={() => {
-											handleChange(year.year, selectedYear, setSelectedYear, "year");
-										}}
-										className={cn(((selectedYear.includes(year.year) ? 'active' : 'unactive') + 'Chip' + " customChip"), styles.mobPBtn, styles.mobTextSm)}
-										key={year.id}>
-										{year.year}
-									</Button>)}
-							</Box>
+						</AccordionDetails>
+					</Accordion>
+				</Box>
 
-						</Box> */}
-						<Box width='50%' className={styles.mobW100}>
-							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
-								{localization[lang].MainCard.university}
-							</Typography>
-							<Box display='flex' gap='.5rem' flexWrap='wrap' p=".5rem" mt='.5rem' height="100%"
-								overflow="hidden scroll" sx={{
-									'@media (max-width: 1000px)': {
-										gap: '.2rem'
-									}
-								}}
-							>
-								<FormControl fullWidth >
-									<Select
-										sx={{borderRadius: "2rem"}}
-										value={university}
-										onChange={handleUniversityChange}
-										displayEmpty
-										inputProps={{ 'aria-label': 'Without label' }}
-									>
-										<MenuItem value="" onClick={() => {handleChange(0, selectedUniversityIDs, setSelectedUniversityIDs, "university_id");}}>
-											<em>None</em>
-										</MenuItem>
-										{translatedUniversities.slice(0,5).map((university) => (
-											<MenuItem 
-												key={university.id} 
-												value={university.name}
-												onClick={() => {
-													handleChange(university.university_id, selectedUniversityIDs, setSelectedUniversityIDs, "university_id");
-												}}
-											>
-												{university.name}
-											</MenuItem>
-										))}
-									</Select>
-								</FormControl>
-							</Box>
+				<Box>
+					<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>Средний GPA</Typography>
+					<Slider
+						value={typeof value === 'number' ? value : 0}
+						onChange={handleSliderChange}
+						aria-labelledby="gpa-slider"
+						min={1}
+						max={4}
+						step={0.1}
+						sx={{
+							'& .MuiSlider-thumb': {
+								width: '10px',
+								height: '22px',
+								borderRadius: '64px',
+								border: '1px solid #D8E6FD',
+								background: 'white',
+							},
+							'& .MuiSlider-rail': {
+								borderRadius: '32px',
+								height: '8px',
+								background: '#F8F8F8',
+							},
+							'& .MuiSlider-track': {
+								borderRadius: '32px',
+								height: '8px',
+								background: 'linear-gradient(to right, #3B82F6, #3B82F6)',
+							},
+						}}
+					/>
 
-						</Box>
+					<Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+						<Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>1.0</Typography>
+						<Input
+							value={value}
+							size="small"
+							onChange={handleInputChange}
+							inputProps={{
+								step: 0.1,
+								min: 1,
+								max: 4,
+								type: 'number',
+								'aria-labelledby': 'gpa-slider',
+							}}
+							sx={{
+								display:'flex',
+								justifyContent: 'center',
+								alignItems:'center',
 
-						<Box width='100%' display="flex" justifyContent="flex-end" className={styles.mobW100}>
-							<Button variant='contained'
-								className={styles.mobW100}
-								sx={{ borderRadius: '40px' }}
-								onClick={() => {
-									if (filterAttributes.text.length ||
-										filterAttributes.specialities.length ||
-										filterAttributes.gpaL !== 1 ||
-										filterAttributes.gpaR !== 4 ||
-										filterAttributes.year.length ||
-										filterAttributes.degree.length ||
-										filterAttributes.region.length) {
-										setOpen(false);
-										triggerSearchFilters(filterAttributes);
-									}
-									// handleChange(year.year, selectedYear, setSelectedYear);
-								}}>
 
-								{localization[lang].MainCard.apply}
-							</Button>
+								'.MuiInputBase-input': {
+									border: 'none',
+									borderRadius: '13px',
+									fontSize:'1rem',
+									padding: '0px',
+								},
+								'& .MuiInputBase-input::after': {
+									border: 'none',
+								},
 
-						</Box>
+								'input[type=number]': {
+									'-moz-appearance': 'textfield',
+									'&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+										'-webkit-appearance': 'none',
+										margin: 0,
+									},
+									'&::after': {
+										borderBottom: 'none',
+									},
+								},
 
+
+							}}
+						/>
+						<Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>4.0</Typography>
 					</Box>
-				</Card>
+				</Box>
+
+
+				<Box>
+					<Typography  sx={{ fontSize: '1rem', fontWeight: 700 }}>Рейтинг</Typography>
+					<Slider
+						value={typeof value2 === 'number' ? value2 : 0}
+						onChange={handleSliderChange2}
+						aria-labelledby="rating-slider"
+						min={1}
+						max={5}
+						step={0.1}
+						sx={{
+							'& .MuiSlider-thumb': {
+								width: '9.976px',
+								height: '21.948px',
+								borderRadius: '64px',
+								border: '1px solid #D8E6FD',
+								background: 'white',
+							},
+							'& .MuiSlider-rail': {
+								borderRadius: '32px',
+								height: '8px',
+								background: '#F8F8F8',
+							},
+							'& .MuiSlider-track': {
+								borderRadius: '32px',
+								height: '8px',
+								background: 'linear-gradient(to right, #3B82F6, #3B82F6)',
+							},
+						}}
+					/>
+
+					<Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+						<Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>1.0</Typography>
+						<Input
+							value={value2}
+							size="small"
+							onChange={handleInputChange2}
+							inputProps={{
+								step: 0.1,
+								min: 1,
+								max: 5,
+								type: 'number',
+								'aria-labelledby': 'rating-slider',
+							}}
+
+							sx={{
+								display:'flex',
+								justifyContent: 'center',
+								alignItems:'center',
+
+
+								'.MuiInputBase-input': {
+									border: 'none',
+									borderRadius: '13px',
+									fontSize:'1rem',
+									padding: '0px',
+								},
+								'& .MuiInputBase-input::after': {
+									border: 'none',
+								},
+
+								'input[type=number]': {
+									'-moz-appearance': 'textfield',
+									'&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+										'-webkit-appearance': 'none',
+										margin: 0,
+									},
+									'&::after': {
+										borderBottom: 'none',
+									},
+								},
+
+
+							}}
+						/>
+						<Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>5.0</Typography>
+					</Box>
+				</Box>
+
 			</Box>
+
+
 
 
 		</>
