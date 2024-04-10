@@ -954,6 +954,7 @@ export const StudentPageLayout: React.FC = () => {
                     </Typography>
                     <Box display="flex" marginTop="0.25rem">
                       {data && data.rating ? <RatingDisplay academicRating={Number(data.rating)}/> : "-"}
+                      <Box marginLeft='0.5rem'>{ data && data.rating }</Box>
                       <Box marginLeft="0.5rem"> {} </Box>
                     </Box>
                   </Box>

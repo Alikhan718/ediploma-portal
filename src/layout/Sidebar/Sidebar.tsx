@@ -58,7 +58,7 @@ const CustomDrawer = styled(Drawer, {shouldForwardProp: (prop) => prop !== 'open
         justifyContent: 'flex-start',
         width: DRAWER_WIDTH,
         flexShrink: 0,
-        whiteSpace: 'nowrap',
+        // whiteSpace: 'nowrap',
         boxSizing: 'border-box',
         zIndex: '10',
         boxShadow: 'unset',
