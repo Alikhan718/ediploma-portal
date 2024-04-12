@@ -1244,17 +1244,17 @@ export const universities = {
 	"kz": [
 		{ id: 1, name: "КБТУ", university_id: 1 },
 		{ id: 2, name: "АГП", university_id: 2 },
-		{ id: 3, name: "СУ", university_id: 3 },
+		{ id: 3, name: "Сатпаев Университет", university_id: 3 },
 	],
 	"ru": [
 		{ id: 1, name: "КБТУ", university_id: 1 },
 		{ id: 2, name: "АГП", university_id: 2 },
-		{ id: 3, name: "СУ", university_id: 3 },
+		{ id: 3, name: "Сатпаев Университет", university_id: 3 },
 	],
 	"en": [
 		{ id: 1, name: "KBTU", university_id: 1 },
 		{ id: 2, name: "AGP", university_id: 2 },
-		{ id: 3, name: "SU", university_id: 3 },
+		{ id: 3, name: "Satbayev University", university_id: 3 },
 	],
 }
 

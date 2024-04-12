@@ -370,7 +370,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 							</Typography>
 							<Slider
 								max={5.0}
-								min={0.0}
+								min={0.1}
 								step={0.1}
 								getAriaLabel={() => 'Rating'}
 								value={selectedRating}

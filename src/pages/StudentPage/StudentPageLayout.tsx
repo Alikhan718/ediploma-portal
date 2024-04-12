@@ -953,8 +953,8 @@ export const StudentPageLayout: React.FC = () => {
                       Академический рейтинг
                     </Typography>
                     <Box display="flex" marginTop="0.25rem">
-                      {data && data.rating ? <RatingDisplay academicRating={Number(data.rating)}/> : "-"}
-                      <Box marginLeft='0.5rem'>{ data && data.rating }</Box>
+                      {data && data.rating && data.gpa !== '0.0' ? <RatingDisplay academicRating={Number(data.rating)}/> : "-"}
+                      {data && data.rating && data.gpa !== '0.0' ? <Box marginLeft='0.5rem'>{ data && data.rating }</Box> : null}
                       <Box marginLeft="0.5rem"> {} </Box>
                     </Box>
                   </Box>

@@ -62,6 +62,7 @@ export function* fetchSearchRequest(action: any) {
             && !action.payload.university_id) {
             return;
         }
+        console.log(action.payload);
         const {data} = yield call(diplomasApi.search, action.payload);
         yield put({type: GET_DIPLOMAS.saga});
         let names = <any>[];
