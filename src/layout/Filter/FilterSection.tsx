@@ -5,13 +5,9 @@ import { ReactComponent as CloseIcon } from "@src/assets/icons/cross.svg";
 import { universities, regions, specialities, years, localization } from "@src/layout/Filter/generator";
 import { Button } from "@src/components";
 import styles from "@src/pages/DiplomaPage/DiplomaPage.module.css";
-import cn from "classnames";
-import { MultiSelect } from "@src/components/MultiSelect/MuiltiSelect";
 import { useDispatch, useSelector } from 'react-redux';
 import { cancelFilters, fetchDiplomas } from "@src/store/diplomas/actionCreators";
 import { selectLanguage } from "@src/store/generals/selectors";
-import e from 'express';
-import { set } from 'react-ga';
 
 
 export const FilterSection: React.FC<IFilter> = (props) => {
@@ -24,35 +20,6 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	const [selectedRegions, setSelectedRegions] = React.useState<string[]>([]);
 	const [selectedUniversityIDs, setSelectedUniversityIDs] = React.useState<number[]>([]);
 	const dispatch = useDispatch();
-	// React.useEffect(() => {
-	// 	const filterValues = {
-	// 		text: filterAttributes.text,
-	// 		specialities: selectedSpecialities.join(",") ?? filterAttributes.specialities,
-	// 		region: selectedRegions.join(",") ?? filterAttributes.region,
-	// 		degree: selectedDegree.join(",") ?? filterAttributes.degree,
-	// 		year: selectedYear.join(",") ?? filterAttributes.year,
-	// 		gpaL: selectedGPA[0] ?? filterAttributes.gpaL,
-	// 		gpaR: selectedGPA[1] ?? filterAttributes.gpaR,
-	// 	};
-
-	// 	// Update the filterAttributes state
-	// 	setFilterAttributes(filterValues);
-	// 	setFilterAttributes(filterValues);
-	// 	if (filterValues.text.length ||
-	// 		filterValues.specialities.length ||
-	// 		filterValues.gpaL !== 1 ||
-	// 		filterValues.gpaR !== 4 ||
-	// 		filterValues.year.length ||
-	// 		filterValues.degree.length ||
-	// 		filterValues.region.length) {
-	// 		triggerSearchFilters(filterValues);
-	// 	} else {
-	// 		dispatch(cancelFilters());
-	// 		dispatch(fetchDiplomas());
-	// 	}
-
-
-	// }, [selectedYear, selectedRegions, selectedSpecialities, selectedDegree, selectedGPA]);
 
 	const filter = (type:string, arr: any) => {
 

@@ -102,7 +102,7 @@ export const UniversityProfileLayout: React.FC = () => {
 
   const [showFilter, setShowFilter] = React.useState(false);
 
-  const triggerSearchFilters = ( filterAttributesNew: any ) => {
+  const triggerSearchFilters = (filterAttributesNew: any) => {
     dispatch(fetchSearch(filterAttributesNew));
     ReactGA.event({
       category: 'User',
@@ -126,8 +126,10 @@ export const UniversityProfileLayout: React.FC = () => {
   //fetch user Profile
 
   useEffect(() => {
-    dispatch(fetchDiplomas());
-  }, [!totalDiplomas]);
+    if (userState?.university_id) {
+      dispatch(fetchDiplomas({university_id: userState?.university_id}));
+    }
+  }, [!totalDiplomas && userState]);
   const handlePrevPage = () => {
     setPage((prevPage) => prevPage - 1);
   };
@@ -400,7 +402,8 @@ export const UniversityProfileLayout: React.FC = () => {
               },
             }}>
               {galleryImages.map(image => (
-                <img key={image} src={`${baseURL}/${image}`} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
+                <img key={image} src={`${baseURL}/${image}`}
+                     style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
               ))}
             </Box>
           </Box>
@@ -503,7 +506,7 @@ export const UniversityProfileLayout: React.FC = () => {
                 {/* <Box>	<img src={univ} style={{ marginRight: '15px' }} />
 									<img src={univ} style={{ marginRight: '5px' }} /></Box> */}
               </Box>
-            
+
             </Box>
             <TabPanel value={value} index={0}>
               <Box display="flex"

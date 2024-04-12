@@ -45,7 +45,7 @@ const AddingGraduates: React.FC = () => {
 
     const uploadedFile = event.target.files?.[0] || null;
     setFile(uploadedFile);
-    dispatch(uploadDataParse({file: uploadedFile}));
+    dispatch(uploadDataParse({file: uploadedFile, university_id: `${userState?.university_id}`}));
 
   };
 
@@ -205,55 +205,55 @@ const AddingGraduates: React.FC = () => {
           }}
         >
           {progress > 0 &&
-              <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center", backgroundColor: '#FAFBFF', paddingBottom: '2rem', width: '90%'
-                  }}
-              >
-                {steps.map((step, index) => (
-                  <React.Fragment key={index}>
-                    {index > 0 && (
-                      <Box
-                        sx={{
-                          width: "300px",
-                          height: "2px",
-                          backgroundColor:
-                            index < progress ? "#3B82F6" : "#F8F8F8",
-                          '@media (max-width: 998px)': {
-                            width: '15vw',
-                          },
-                        }}
-
-                      />
-                    )}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center", backgroundColor: '#FAFBFF', paddingBottom: '2rem', width: '90%'
+              }}
+            >
+              {steps.map((step, index) => (
+                <React.Fragment key={index}>
+                  {index > 0 && (
                     <Box
                       sx={{
-                        width: "3.1rem !important",
-                        height: "3rem !important",
-                        borderRadius: "50%",
+                        width: "300px",
+                        height: "2px",
                         backgroundColor:
                           index < progress ? "#3B82F6" : "#F8F8F8",
-                        color: index < progress ? "white" : "#A1A1A1",
-                        display: "flex",
-                        alignItems: "center",
-                        position: "relative",
-                        justifyContent: "center",
-
+                        '@media (max-width: 998px)': {
+                          width: '15vw',
+                        },
                       }}
-                    >
-                      <Typography position="absolute" textAlign="center">
-                        {index + 1}
-                      </Typography>
-                      <Typography position="absolute" fontSize="0.75rem" whiteSpace="nowrap"
-                                  color="#2D2D2D" top="3.3rem" textAlign="center">
-                        {shortSteps[index]}
-                      </Typography>
-                    </Box>
-                  </React.Fragment>
-                ))}
-              </Box>
+
+                    />
+                  )}
+                  <Box
+                    sx={{
+                      width: "3.1rem !important",
+                      height: "3rem !important",
+                      borderRadius: "50%",
+                      backgroundColor:
+                        index < progress ? "#3B82F6" : "#F8F8F8",
+                      color: index < progress ? "white" : "#A1A1A1",
+                      display: "flex",
+                      alignItems: "center",
+                      position: "relative",
+                      justifyContent: "center",
+
+                    }}
+                  >
+                    <Typography position="absolute" textAlign="center">
+                      {index + 1}
+                    </Typography>
+                    <Typography position="absolute" fontSize="0.75rem" whiteSpace="nowrap"
+                                color="#2D2D2D" top="3.3rem" textAlign="center">
+                      {shortSteps[index]}
+                    </Typography>
+                  </Box>
+                </React.Fragment>
+              ))}
+            </Box>
           }
 
 
