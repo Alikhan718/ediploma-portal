@@ -47,7 +47,7 @@ export const EmployersListPageLayout: React.FC = () => {
                 '@media (max-width: 778px)': {
                     display: 'flex', width: '100%', padding: '0.25rem',
                     justifyContent: 'center', alignItems: 'center',
-                    borderRadius: '3rem', background: '#FFF'
+                    borderRadius: '3rem', background: '#FFF', marginBottom: '1rem'
                 },
             }}>
                 <MuiButton fullWidth sx={{

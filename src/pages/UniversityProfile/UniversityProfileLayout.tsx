@@ -26,7 +26,7 @@ import { handleLink } from "@src/utils/link";
 import imageU from "@src/assets/example/universityKBTU.jpg";
 import { selectDiplomaList, selectSearchText } from "@src/store/diplomas/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiplomas, fetchSearch } from "@src/store/diplomas/actionCreators";
+import { fetchDiplomas, fetchSearch, cancelFilters } from "@src/store/diplomas/actionCreators";
 import cn from "classnames";
 import { selectUserRole, selectUserState } from '@src/store/auth/selector';
 import { selectLanguage } from "@src/store/generals/selectors";
@@ -201,6 +201,10 @@ export const UniversityProfileLayout: React.FC = () => {
     }
     return <Web className={styles.social} onClick={onClick} />;
   };
+
+  useEffect(() => {
+    dispatch(cancelFilters());
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {

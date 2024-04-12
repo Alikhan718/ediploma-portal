@@ -341,7 +341,7 @@ export const UniversityDetailsPage: React.FC = () => {
           <Box display='flex' flexDirection='column'>
 
             <Box display='flex' flexDirection='column' sx={{ borderRadius: '15px', }}>
-              <Box display='flex' flexDirection='row' sx={{ '@medi (max-width: 768px)': { maxWidth: '96vw' } }}>
+              <Box display='flex' flexDirection='row' sx={{ '@medi (max-width: 768px)': { maxWidth: '96vw'} }}>
                 <UniversityDetailsHeader banner={data ? data.banner : ""} />
                 <Box display='flex' justifyContent='center' alignItems='center' flexDirection='column' sx={{ marginLeft: '20px', '@media (max-width: 978px)': { display: 'none', }, }}>
                   {/* {galleryImages.length != 0 ? galleryImages.map(image => (
@@ -363,7 +363,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     alignItems: 'center',
                     '@media (max-width: 768px)': {
                       position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start',
-                      maxWidth: '96vw'
+                      maxWidth: '96vw', padding: '0 0.5rem'
                     }
                   }}
                 >
@@ -427,7 +427,7 @@ export const UniversityDetailsPage: React.FC = () => {
                 <Box className={styles.contentContainer}>
                   <Box sx={{
                     display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center',
-                    '@media (max-width: 768px)': { flexDirection: 'column', justifyContent: 'flext-start', alignItems: 'flex-start', maxWidth: '96vw' }
+                    '@media (max-width: 768px)': { flexDirection: 'column', justifyContent: 'flext-start', alignItems: 'flex-start', maxWidth: '96vw', padding: '0 0.5rem' }
                   }}
                   >
                     <Box marginRight='3rem' sx={{
@@ -505,7 +505,8 @@ export const UniversityDetailsPage: React.FC = () => {
                     display: 'flex', marginTop: '1.25rem',
                     '@media (max-width: 768px)': {
                       overflow: 'auto', scrollBehavior: 'smooth', flexWrap: 'nowrap',
-                      '&::-webkit-scrollbar': { display: 'none' }, maxWidth: '96vw'
+                      '&::-webkit-scrollbar': { display: 'none' }, maxWidth: '96vw',
+                      paddingLeft: '0.5rem',
                     }
                   }}
                   >
@@ -582,7 +583,9 @@ export const UniversityDetailsPage: React.FC = () => {
                       </Typography>
                     </Box>
                   </Box>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', borderRadius: '1.5rem', marginTop: '1.25rem', position: 'relative' }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', borderRadius: '1.5rem', marginTop: '1.25rem', position: 'relative',
+                    '@media (max-width: 768px)': { paddingLeft: '0.5rem' }
+                   }}>
                     <Box sx={{
                       fontSize: '1.5rem',
                       fontWeight: '600',

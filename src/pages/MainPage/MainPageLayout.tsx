@@ -27,6 +27,8 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import {useTheme} from '@mui/material/styles';
 import emailjs from '@emailjs/browser';
+import {FilterAttributes} from "@src/layout/Header/Header";
+import {selectSearchText} from "@src/store/diplomas/selectors";
 
 export const MainPageLayout: React.FC = () => {
 	const lang = useSelector(selectLanguage);
@@ -45,29 +47,34 @@ export const MainPageLayout: React.FC = () => {
 	}, []);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const [filterAttributes, setFilterAttributes] = React.useState({
-		text: '',
-		specialities: '',
-		region: '',
-		year: 0,
-		gpaL: 0,
-		gpaR: 0,
-	});
+	const searchText = useSelector(selectSearchText);
+	const [filterAttributes, setFilterAttributes] = React.useState<FilterAttributes>({
+        text: searchText,
+        specialities: '',
+        region: '',
+        degree: '',
+        year: 0,
+        gpaL: 0,
+        gpaR: 0,
+        university_id: 0,
+        ratingL: 0,
+        ratingR: 0,
+    });
 	const [searchQuery, setSearchQuery] = React.useState('');
 
 	const triggerSearchFilters = () => {
 		dispatch(fetchSearch(filterAttributes));
 		navigate(routes.hrBank);
 	};
-	React.useEffect(() => {
-		const delayDebounceFn = setTimeout(() => {
-			if (filterAttributes.text.trim().length > 1) {
-				triggerSearchFilters();
-			}
-		}, 2000);
+	// React.useEffect(() => {
+	// 	const delayDebounceFn = setTimeout(() => {
+	// 		if (filterAttributes.text.trim().length > 1) {
+	// 			triggerSearchFilters();
+	// 		}
+	// 	}, 2000);
 
-		return () => clearTimeout(delayDebounceFn);
-	}, [filterAttributes]);
+	// 	return () => clearTimeout(delayDebounceFn);
+	// }, [filterAttributes]);
 
 	React.useEffect(() => {
 		ReactGA.initialize('G-H12GFWB4FY');

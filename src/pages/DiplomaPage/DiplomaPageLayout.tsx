@@ -81,6 +81,7 @@ export const DiplomaPageLayout: React.FC = () => {
     const displayedDiplomas = diplomaList.slice(startDiplomaIndex, endDiplomaIndex);
     useEffect(() => {
         dispatch(fetchDiplomas());
+        console.log(displayedDiplomas);
     }, [currentPage]);
 
     return (
@@ -170,7 +171,7 @@ export const DiplomaPageLayout: React.FC = () => {
                                             {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
                                         </Typography>
                                         {
-                                            e && e.rating != 0.0 ? (
+                                            e && e.gpa !== '0.0' && e.rating != 0.0 ? (
                                                 <Box display="flex" marginTop="0.5rem" alignItems="center">
                                                     { e && <RatingDisplay academicRating={Number(e.rating)} /> }
                                                     <Box marginLeft='0.5rem'>{ e && e.rating }</Box>

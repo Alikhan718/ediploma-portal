@@ -67,7 +67,7 @@ import LoadingIcon from '@src/assets/icons/loading.gif';
 import SignedDsIcon from '@src/assets/icons/file_checked.svg';
 import UploadedIcon from '@src/assets/icons/checklist.svg';
 import OwnerVerifiedIcon from '@src/assets/icons/verified_check.svg';
-import {ReactComponent as ChartIcon} from '@src/assets/icons/Chart.svg';
+import {ReactComponent as ChartIcon} from '@src/assets/icons/chartResume.svg';
 import suDiplomaExample from '@src/assets/example/suDiplomaExample.png';
 import suDiplomaExample2 from '@src/assets/example/suDiplomaExample2.png';
 import QRCode from "react-qr-code";
@@ -1347,7 +1347,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             }
                           )
                           : null}
-                        <Box display='flex'>
+                        { graduateAttributes.gpa !== '0.0' && graduateAttributes.rating ?
+                          (<Box display='flex'>
                           <Typography>
                             <span style={{
                               color: "#818181",
@@ -1361,7 +1362,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                             <Box
                               marginLeft="0.5rem"> {graduateAttributes.rating && graduateAttributes.rating} </Box>
                           </Box>
-                        </Box>
+                        </Box>) : null
+                        }
                       </Box>
 
                       <Box sx={{
@@ -1468,11 +1470,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               Академический рейтинг
                             </Typography>
                             <Box display="flex" marginTop="0.25rem">
-                              {graduateAttributes.rating &&
+                              {graduateAttributes.gpa !== '0.0' && graduateAttributes.rating ?
                                   <RatingDisplay
-                                      academicRating={Number(graduateAttributes.rating)}/>}
+                                      academicRating={Number(graduateAttributes.rating)}/> : null}
                               <Box
-                                marginLeft="0.5rem"> {graduateAttributes.rating && graduateAttributes.rating} </Box>
+                                marginLeft="0.5rem"> {graduateAttributes.gpa !== '0.0' && graduateAttributes.rating && graduateAttributes.rating} </Box>
                             </Box>
                           </Box>
                           <Box sx={{width: '50%'}}>

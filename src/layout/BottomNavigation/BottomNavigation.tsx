@@ -77,12 +77,43 @@ export const AppBottomNav: React.FC<BottomNavigationProps> = (props): JSX.Elemen
                             console.log(newValue);
                             handleNavigate(newValue);
                         }}
+                        showLabels
                     >
-                        <BottomNavigationAction label={localization[lang].job} icon={<Job fill={value === 0 ? '#3B82F6' : '#9499AB'} />} />
-                        <BottomNavigationAction label={localization[lang].diplomas} icon={<Diploma fill={value === 1 ? '#3B82F6' : '#9499AB'} />} />
-                        <BottomNavigationAction label={localization[lang].resume} icon={<Resume fill={value === 2 ? '#3B82F6' : '#9499AB'} />} />
-                        <BottomNavigationAction label={localization[lang].universities} icon={<University fill={value === 3 ? '#3B82F6' : '#9499AB'} />} />
-                        <BottomNavigationAction label={localization[lang].settings} icon={<Settings fill={value === 4 ? '#3B82F6' : '#9499AB'} />} />
+                        <BottomNavigationAction 
+                            sx={{
+                                '& .MuiBottomNavigationAction-label': {fontSize: '0.7rem'}
+                            }} 
+                            label={localization[lang].job} 
+                            icon={<Job height={'1.4rem'} fill={value === 0 ? '#3B82F6' : '#9499AB'} />} 
+                        />
+                        <BottomNavigationAction
+                            sx={{
+                                '& .MuiBottomNavigationAction-label': {fontSize: '0.7rem'}
+                            }}
+                            label={localization[lang].diplomas} 
+                            icon={<Diploma height={'1.4rem'} fill={value === 1 ? '#3B82F6' : '#9499AB'} />} 
+                        />
+                        <BottomNavigationAction 
+                            sx={{
+                                '& .MuiBottomNavigationAction-label': {fontSize: '0.7rem'}
+                            }}
+                            label={localization[lang].resume} 
+                            icon={<Resume height={'1.4rem'} fill={value === 2 ? '#3B82F6' : '#9499AB'} />} 
+                        />
+                        <BottomNavigationAction
+                            sx={{
+                                '& .MuiBottomNavigationAction-label': {fontSize: '0.7rem'},
+                            }}
+                            label={localization[lang].universities} 
+                            icon={<University height={'1.4rem'} fill={value === 3 ? '#3B82F6' : '#9499AB'} />} 
+                        />
+                        <BottomNavigationAction 
+                            sx={{
+                                '& .MuiBottomNavigationAction-label': {fontSize: '0.7rem'},
+                            }}
+                            label={localization[lang].settings} 
+                            icon={<Settings height={'1.4rem'}  fill={value === 4 ? '#3B82F6' : '#9499AB'} />} 
+                        />
                     </BottomNavigation>
                 </Paper>
             )}
