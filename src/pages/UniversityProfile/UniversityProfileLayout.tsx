@@ -4,7 +4,6 @@ import {
 } from '@mui/material';
 import ReactGA from "react-ga";
 import {ReactComponent as HeaderSearchIcon} from '@src/assets/icons/search.svg';
-import {ReactComponent as SmartContractIcon} from '@src/assets/icons/smartContract_black.svg';
 import {ReactComponent as DiscordIcon} from '@src/assets/icons/discord_black.svg';
 import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
 import {SwitchDetailsUniversity} from './components/SwitchDetailsunivesiyt';
@@ -18,24 +17,19 @@ import {ReactComponent as Facebook} from '@src/assets/icons/facebook.svg';
 import {ReactComponent as Youtube} from '@src/assets/icons/youtube.svg';
 import styles from "./UniversityProfile.module.css";
 import {UniversityProfileHeader} from "@src/pages/UniversityProfile/components/UniversityProfileHeader";
-import star from "./../../assets/icons/Star1.svg";
 import share from "./../../assets/icons/share.svg";
 import dots from "./../../assets/icons/Dots.svg";
 import {useNavigate} from "react-router-dom";
 import {handleLink} from "@src/utils/link";
-import imageU from "@src/assets/example/universityKBTU.jpg";
 import {selectDiplomaList, selectSearchText} from "@src/store/diplomas/selectors";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchDiplomas, fetchSearch} from "@src/store/diplomas/actionCreators";
 import cn from "classnames";
-import {selectUserRole, selectUserState} from '@src/store/auth/selector';
+import {selectUserState} from '@src/store/auth/selector';
 import {selectLanguage} from "@src/store/generals/selectors";
 import {localization} from '@src/pages/UnivesrityDetailsPage/generator';
 import {fetchUserProfile} from "@src/store/auth/actionCreators";
-import {Simulate} from "react-dom/test-utils";
-import keyUp = Simulate.keyUp;
 import {FilterSection} from "@src/layout/Filter/FilterSection";
-import {FilterAttributes} from "@src/layout/Header/Header";
 
 
 interface TabPanelProps {
@@ -64,7 +58,6 @@ function TabPanel(props: TabPanelProps) {
     </div>
   );
 }
-
 
 export const UniversityProfileLayout: React.FC = () => {
 
@@ -274,7 +267,9 @@ export const UniversityProfileLayout: React.FC = () => {
                       width: '25px',
                       height: '25px', cursor: 'pointer'
                     }}
-                         onClick={copyCurrentURLToClipboard}
+                         onClick={() => {
+                           copyCurrentURLToClipboard();
+                         }}
                          alt="Share Icon"/>
                     {/* <img src={dots} style={{
                       marginRight: '10px',
@@ -282,7 +277,6 @@ export const UniversityProfileLayout: React.FC = () => {
                       width: '25px',
                       height: '25px',
                     }} onClick={handleClick}/> */}
-
                   </Box>
                   <Box sx={{
                     position: 'absolute',
@@ -469,42 +463,11 @@ export const UniversityProfileLayout: React.FC = () => {
                         setSearchQuery(query);
                       }}
                     />
-
-                    {/* <Input
-											type="text"
-											name="email"
-											placeholder={localization[lang].Students.searchBar}
-											sx={{
-												marginRight: '1rem', flex: '1',
-
-											}}
-											endAdornment={
-												<Button
-													onClick={() => {
-														triggerSearchFilters();
-														ReactGA.event({
-															category: 'User',
-															action: 'Search',
-															label: searchQuery,
-														});
-													}}
-
-													sx={{
-														borderRadius: '48px',
-														margin: '5px'
-													}}
-												>
-													<HeaderSearchIcon className={styles.btnIcon} />
-												</Button>
-											}
-										/> */}
                   </Box>
                   <Box>
                   </Box>
 
                 </Box>
-                {/* <Box>	<img src={univ} style={{ marginRight: '15px' }} />
-									<img src={univ} style={{ marginRight: '5px' }} /></Box> */}
               </Box>
 
             </Box>
@@ -722,68 +685,3 @@ export const UniversityProfileLayout: React.FC = () => {
     </Box>
   );
 };
-{/* <TabPanel value={value} index={1}>
-<Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
-	<Box sx={{
-		display: 'flex',
-		flexWrap: 'wrap',
-		gap: "24px",
-		marginBottom: '35px',
-		'@media (max-width: 1335px)': {
-			'& > div': {
-				width: '48%'
-			},
-			justifyContent: 'space-between',
-			marginRight: '2%'
-		},
-		'@media (max-width: 700px)': {
-			'& > div': {
-				width: '98%'
-			},
-			marginRight: 0
-		},
-	}}>
-
-	</Box>
-	<Box sx={{
-		width: "100%",
-		display: "flex",
-		flexDirection: "row",
-		justifyContent: "start",
-		marginBottom: "32px",
-		'@media (max-width: 1335px)': {
-			flexDirection: "column",
-			gap: "32px"
-		}
-	}}>
-		<Box sx={{
-			flex: 3,
-			display: "flex",
-			gap: "32px",
-			flexDirection: "column"
-		}}>
-
-		</Box>
-		<Box sx={{
-			flex: 1,
-			display: "flex",
-			gap: "32px",
-			flexDirection: "column",
-			'@media (max-width: 1335px)': {
-				flexDirection: "row"
-			},
-			'@media (max-width: 700px)': {
-				flexDirection: "column",
-				width: "100%",
-				'& > div': {
-					maxWidth: "100%"
-				}
-			}
-		}}>
-
-		</Box>
-	</Box>
-
-</Box>
-</TabPanel> */
-}
