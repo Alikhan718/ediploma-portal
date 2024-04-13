@@ -88,11 +88,9 @@ export interface FilterAttributes {
     degree?: string;
     region?: string;
     year?: number;
-    gpaL?: number;
-    gpaR?: number;
+    gpa?: number;
     university_id?: number;
-    ratingL?: number;
-    ratingR?: number;
+    rating?: number;
 }
 
 export interface EmployerFilterAttributes {
@@ -113,8 +111,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         region: "",
         degree: "",
         year: 0,
-        gpaL: 0,
-        gpaR: 0,
+        gpa: 0,
+        rating: 0,
 
     });
     const [open, setOpen] = React.useState(false);

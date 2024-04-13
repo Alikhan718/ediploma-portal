@@ -16,10 +16,8 @@ interface DiplomaInterface {
     specialities: string,
     region: string,
     year: number,
-    gpaL: number,
-    gpaR: number,
-    ratingL: number,
-    ratingR: number,
+    gpa: number,
+    rating: number,
     university_id: number,
     filtered_names: string[],
     graduate_attributes: {},
@@ -34,10 +32,8 @@ const initialState: DiplomaInterface = {
     specialities: "",
     region: "",
     year: 0,
-    gpaL: 0,
-    gpaR: 0,
-    ratingL: 0,
-    ratingR: 0,
+    gpa: 0,
+    rating: 0,
     university_id: 0,
     filtered_names: [],
     graduate_attributes: [],
@@ -98,10 +94,8 @@ const diplomaReducer = (state = initialState, action: any) => {
                 region: action.payload.region,
                 degree: action.payload.degree,
                 year: action.payload.year,
-                gpaL: action.payload.gpaL,
-                gpaR: action.payload.gpaR,
-                ratingL: action.payload.ratingL,
-                ratingR: action.payload.ratingR,
+                gpa: action.payload.gpa,
+                rating: action.payload.rating,
                 university_id: action.payload.university_id,
             };
         case GET_GRADUATE_DETAILS.saga:
@@ -161,7 +155,7 @@ const diplomaReducer = (state = initialState, action: any) => {
                 isFetching: false,
             };
         default:
-            return state; // Add this line to return the current state for unhandled actions
+            return state;
     }
 };
 

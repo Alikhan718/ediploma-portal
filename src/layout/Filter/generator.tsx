@@ -191,7 +191,7 @@ export const localization = {
 			year: "Year of Graduation",
 			filter: "Filter",
 			apply: "Apply",
-			university: "Университет",
+			university: "University",
 		}
 	},
 }

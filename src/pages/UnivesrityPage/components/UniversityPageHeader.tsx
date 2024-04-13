@@ -29,8 +29,8 @@ export const UniversityPageHeader: React.FC = (props) => {
 		region: '',
 		degree: '',
 		year: 0,
-		gpaL: 0,
-		gpaR: 0,
+		gpa: 0,
+		rating: 0,
 	});
 	const dispatch = useDispatch();
 

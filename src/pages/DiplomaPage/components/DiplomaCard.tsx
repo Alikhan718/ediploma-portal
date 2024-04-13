@@ -24,7 +24,7 @@ const DiplomaCard: React.FC<DiplomaCardProps> = ({ diploma, lang, handleCardClic
         <Box
             sx={{
                 display: 'flex',
-
+                padding: '0.5rem',
             }}
         >
             <CardContent
@@ -34,53 +34,54 @@ const DiplomaCard: React.FC<DiplomaCardProps> = ({ diploma, lang, handleCardClic
                     display: "flex",
                     flexDirection: "column",
                     width: "100%",
-                    justifyContent: "space-between",
-
-
+                    justifyContent: "space-between"
                 }}
                 onClick={() => handleCardClick(diploma.id)}
                 className={styles.cardConwtent}
             >
-                <Box >
-                    <Box display='flex' justifyContent='space-between' alignItems='center'>
-                        <Typography color="#818181" sx={{ fontWeight: '500', fontSize: '1rem' }}>
-                            {unis[lang][diploma.university_id]}
-                        </Typography>
-                        <Typography fontSize="1rem" color="#818181">
-                            {diploma.year}
+                <Box sx={{ flex: '1' }}>
+                    <Box>
+                        <Box display='flex' justifyContent='space-between' alignItems='center'>
+                            <Typography color="#818181" sx={{ fontWeight: '500', fontSize: '1rem' }}>
+                                {unis[lang][diploma.university_id]}
+                            </Typography>
+                            <Typography fontSize="1rem" color="#818181">
+                                {diploma.year}
+                            </Typography>
+                        </Box>
+                        <Typography
+                            mb='1rem'
+                            mt='0.5rem'
+                            fontSize="1.25rem"
+                            className={styles.mobText}
+                            fontWeight="600"
+                        >
+                            {diploma.name_ru}
                         </Typography>
                     </Box>
-                    <Typography
-                        mb='1rem'
-                        mt='0.75rem'
-                        fontSize="1.25rem"
-                        className={styles.mobText}
-                        fontWeight="600"
-                    >
-                        {diploma.name_ru}
-                    </Typography>
-                </Box>
-                <Box>
-                    <Typography
-                        fontSize=".8rem"
-                        mt="1rem"
-                        color="#818181"
-                        className={styles.mobTextSm}
-                    >
-                        {diploma.speciality_ru?.substring(
-                            diploma.speciality_ru.search("«"),
-                            diploma.speciality_ru.search("»") + 1
+                    <Box sx={{ marginTop: 'auto' }}>
+                        <Typography
+                            fontSize=".8rem"
+                            color="#818181"
+                            className={styles.mobTextSm}
+                        >
+                            {diploma.speciality_ru?.substring(
+                                diploma.speciality_ru.search("«"),
+                                diploma.speciality_ru.search("»") + 1
+                            )}
+                        </Typography>
+                        {diploma.rating !== 0.0 && (
+                            <Box display="flex" marginTop="0.5rem" alignItems="center">
+                                <RatingDisplay academicRating={Number(diploma.rating)} />
+                                <Box marginLeft='0.5rem'>{diploma.rating}</Box>
+                            </Box>
                         )}
-                    </Typography>
-                    {diploma.rating !== 0.0 && (
-                        <Box display="flex" marginTop="0.5rem" alignItems="center">
-                            <RatingDisplay academicRating={Number(diploma.rating)} />
-                            <Box marginLeft='0.5rem'>{diploma.rating}</Box>
-                        </Box>
-                    )}
+                    </Box>
                 </Box>
             </CardContent>
         </Box>
+
+
     );
 };
 

@@ -154,10 +154,8 @@ export const diplomasApi = {
         region: string,
         degree: string,
         year: number,
-        gpaL: number,
-        gpaR: number,
-        ratingL: number,
-        ratingR: number,
+        gpa: number,
+        rating: number,
         university_id: number,
     }) {
         let query = `graduates/search?`;
@@ -179,21 +177,11 @@ export const diplomasApi = {
         if (body.university_id != 0) {
             query += `university_id=${body.university_id}&`;
         }
-        if (body.gpaL != 1 || body.gpaR != 4) {
-            if (body.gpaL != 0) {
-                query += `gpaL=${body.gpaL}&`;
-            }
-            if (body.gpaR != 0) {
-                query += `gpaR=${body.gpaR}&`;
-            }
+        if (body.gpa !== 0 && body.gpa <= 4) {
+            query += `gpa=${body.gpa}&`;
         }
-        if (body.ratingL != 0 || body.ratingR != 5) {
-            if (body.ratingL != 0) {
-                query += `ratingL=${body.ratingL}&`;
-            }
-            if (body.ratingR != 0) {
-                query += `ratingR=${body.ratingR}&`;
-            }
+        if (body.rating != 0 && body.rating <= 5) {
+            query += `rating=${body.rating}&`;
         }
         return instance.get(query);
     },
