@@ -47,6 +47,10 @@ import suProud1 from '@src/assets/example/suProud1.png';
 import suProud2 from '@src/assets/example/suProud2.png';
 import suProud3 from '@src/assets/example/suProud3.png';
 import suProud4 from '@src/assets/example/suProud4.png';
+import kbtuHist1 from '@src/assets/example/kbtuHist1.jpg';
+import kbtuHist2 from '@src/assets/example/kbtuHist2.jpg';
+import kbtuHist3 from '@src/assets/example/kbtuHist3.jpg';
+import kbtuHist4 from '@src/assets/example/kbtuHist4.jpg';
 
 const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
@@ -443,8 +447,8 @@ export const UniversityDetailsPage: React.FC = () => {
                       </Box>
                       <Typography className={styles.textSm} color="#818181">
                         {data && data.university_id == 1 ?
-                          mission :
-                          'Satbayev University – крупнейший в Казахстане научно-методический центр, разрабатывающий специальные программы подготовки специалистов для нужд промышленности, сложных проектов и создания команд профессионалов мирового уровня.'
+                          mission : data && data.university_id == 2 ? "Q-LAB - исследовательская лаборатория проблем градопланирования и строительства, изучающая потребности жителей города и городских сообществ. Является связующим звеном между архитекторами и горожанами. Мы центр для создания и внедрения исследовательских, образовательных, научных и культурных проектов в области архитектуры, городского планирования и урбанистики. Объеденяем ряд творческих, технических, академических исследователей, коммерческие и некоммерческие организации создавая новые возможности для партнерства направленных на развитие города."
+                          : 'Satbayev University – крупнейший в Казахстане научно-методический центр, разрабатывающий специальные программы подготовки специалистов для нужд промышленности, сложных проектов и создания команд профессионалов мирового уровня.'
                         }
                       </Typography>
                     </Box>
@@ -502,7 +506,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     </Typography>
                   </Box> */}
                   <Box sx={{
-                    display: 'flex', marginTop: '1.25rem',
+                    display: data && data.university_id == 2 ? 'none' : 'flex', marginTop: '1.25rem',
                     '@media (max-width: 768px)': {
                       overflow: 'auto', scrollBehavior: 'smooth', flexWrap: 'nowrap',
                       '&::-webkit-scrollbar': { display: 'none' }, maxWidth: '96vw',
@@ -583,7 +587,7 @@ export const UniversityDetailsPage: React.FC = () => {
                       </Typography>
                     </Box>
                   </Box>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', borderRadius: '1.5rem', marginTop: '1.25rem', position: 'relative',
+                  <Box sx={{ display: data && data.university_id == 2 ? 'none' : 'flex', flexDirection: 'column', borderRadius: '1.5rem', marginTop: '1.25rem', position: 'relative',
                     '@media (max-width: 768px)': { paddingLeft: '0.5rem' }
                    }}>
                     <Box sx={{
@@ -627,7 +631,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
                           '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
                         }}>
-                          <img src={data && data.university_id == 1 ? historyEx : suHist1} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                          <img src={data && data.university_id == 1 ? kbtuHist1 : suHist1} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
                         </Box>
                         <Box sx={{
                           fontSize: '1.5rem',
@@ -653,7 +657,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
                           '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
                         }}>
-                          <img src={data && data.university_id == 1 ? historyEx : suHist2} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                          <img src={data && data.university_id == 1 ? kbtuHist2 : suHist2} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
                         </Box>
                         <Box sx={{
                           fontSize: '1.5rem',
@@ -679,7 +683,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
                           '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
                         }}>
-                          <img src={data && data.university_id == 1 ? historyEx : suHist3} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                          <img src={data && data.university_id == 1 ? kbtuHist3 : suHist3} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
                         </Box>
                         <Box sx={{
                           fontSize: '1.5rem',
@@ -705,7 +709,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
                           '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
                         }}>
-                          <img src={data && data.university_id == 1 ? historyEx : suHist4} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                          <img src={data && data.university_id == 1 ? kbtuHist4 : suHist4} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
                         </Box>
                         <Box sx={{
                           fontSize: '1.5rem',
@@ -797,7 +801,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     </Box>
                   </Box>
                   <Box sx={{
-                    display: 'flex', flexDirection: 'column', backgroundColor: '#FAFBFF',
+                    display: data && data.university_id == 2 ? 'none' : 'flex', flexDirection: 'column', backgroundColor: '#FAFBFF',
                     padding: '1.75rem', borderRadius: '1.5rem', marginTop: '1.25rem', '@media (max-width: 768px)': { maxWidth: '96vw' },
                   }}
                   >

@@ -128,7 +128,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   const [uploadedIcon, setUploadedIcon] = React.useState(false);
   const [ownerIcon, setOwnerIcon] = React.useState(false);
   const img = new Image();
-  const [showResumeGenerator, setShowResumeGenerator] = React.useState(true);
+  const [showResumeGenerator, setShowResumeGenerator] = React.useState(role.toLowerCase() == 'student');
   const [longTable, setLongTable] = React.useState(false);
   const transcriptItems = useSelector(selectTranscriptItems);
   let diplomaList = useSelector(selectDiplomaList);
@@ -473,6 +473,19 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
       nHash += String.fromCharCode((((text.charCodeAt(i) - 48) + (key.charCodeAt(i % key.length) - 97)) % 26) + 97);
     }
     return nHash;
+  }
+
+  const signedBy = {
+    'КазНИТУ имени К. И. Сатпаева': {
+      'kz': 'Қ.И. атыңдағы ҚазҰТЗУ',
+      'ru': 'КазНИТУ имени К. И. Сатпаева',
+      'en': 'Satbayev University'
+    },
+    'Казахстанско-Британский Технический Университет': {
+      'kz': 'Қазақстан-Британ техникалық университеті',
+      'ru': 'Казахстанско-Британский Технический Университет',
+      'en': 'Kazakhstan-British Technical University'
+    },
   }
 
   return (
@@ -1225,6 +1238,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         width: '100%'
                       }}>
                         <Box sx={{
+                          display: graduateAttributes && graduateAttributes.speciality_ru && skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList] ? 'block' : 'none',
                           fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
                           marginBottom: '1rem',
                           '@media (max-width: 778px)': {
@@ -1235,12 +1249,16 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           {localization[lang].StudentPage.AddInfo.skills}
                         </Box>
                         <Box sx={{
-                          display: 'none',
+                          display: 'flex',
                           alignContent: 'flex-start',
                           alignItems: 'flex-start',
                           flexWrap: 'wrap',
                           gap: '0.75rem',
                           alignSelf: 'stretch',
+                          width: '75%',
+                          '@media (max-width: 778px)': {
+                            width: '100%'
+                          }
                         }}>
                           {graduateAttributes && graduateAttributes.speciality_ru && skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList] ? (skillsList[graduateAttributes.speciality_ru as keyof typeof skillsList][lang].slice(0, 10).map((skill: any, index: any) => {
                             return (
@@ -1857,7 +1875,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                   color="#818181"
                                   fontSize="1rem"
                               >
-                                {graduateAttributes && graduateAttributes.signed_by ? graduateAttributes.signed_by : null}
+                                {graduateAttributes && graduateAttributes.signed_by && signedBy[graduateAttributes.signed_by as keyof typeof signedBy] ? signedBy[graduateAttributes.signed_by as keyof typeof signedBy][lang] : null}
                               </Typography>
                               <Box display="flex">
                                   <Typography
@@ -1947,7 +1965,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         color="#818181"
                         fontSize="1rem"
                       >
-                        {graduateAttributes.name_ru}
+                        {lang === 'ru' && graduateAttributes.name_ru ? graduateAttributes.name_ru : lang === 'kz' && graduateAttributes.name_kz ? graduateAttributes.name_kz : lang === 'en' && graduateAttributes.name_en ? graduateAttributes.name_en : ''}
                       </Typography>
 
                     </Box>
