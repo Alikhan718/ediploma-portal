@@ -801,7 +801,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     </Box>
                   </Box>
                   <Box sx={{
-                    display: data && data.university_id == 2 ? 'none' : 'flex', flexDirection: 'column', backgroundColor: '#FAFBFF',
+                    display: data && data.university_id != 3 ? 'none' : 'flex', flexDirection: 'column', backgroundColor: '#FAFBFF',
                     padding: '1.75rem', borderRadius: '1.5rem', marginTop: '1.25rem', '@media (max-width: 768px)': { maxWidth: '96vw' },
                   }}
                   >
