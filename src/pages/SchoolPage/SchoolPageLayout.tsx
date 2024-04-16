@@ -5,19 +5,28 @@ import styles from "./SchoolPage.module.css";
 import { useNavigate } from 'react-router-dom';
 import exampleImage from "@src/assets/example/schoolExample.jpeg";
 import mirasImage from "@src/assets/example/miras.jpg";
+import { useSelector } from "react-redux";
+import { selectLanguage } from "@src/store/generals/selectors";
 
 export const SchoolPageLayout: React.FC = () => {
     const navigate = useNavigate();
+    const lang = useSelector(selectLanguage);
     const schoolsList: any = [
         {
             id: 1,
-            name: "NIS IB",
-
+            name: {
+                'kz': "НЗМ IB",
+                'ru': "НИШ IB",
+                'en': 'NIS IB'
+            },
         },
         {
             id: 2,
-            name: "Miras",
-
+            name: {
+                'kz': 'Мирас',
+                'ru': 'Мирас',
+                'en': 'Miras'
+            },
         }
     ];
     const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
@@ -69,7 +78,7 @@ export const SchoolPageLayout: React.FC = () => {
                                         fontSize: '1rem'
                                     },
                                 }}>
-                                    {school.name}
+                                    {school.name[lang]}
                                 </Typography>
                             </CardContent>
                         </Box>

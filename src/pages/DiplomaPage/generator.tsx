@@ -48,7 +48,7 @@ export const localization = {
 	"kz":{
 		Header:{
 			filter: "Фильтр",
-			searchBar: isMobile ? "Толық есімі" : "Толық есімі, университеттің атауы",
+			searchBar: "Толық есімі",
 			searchButton: "Іздеу",
 			aiHiring: "ЖИ Жалдау"
 		},
@@ -60,7 +60,7 @@ export const localization = {
 	"ru":{
 		Header:{
 			filter: "Фильтр",
-			searchBar: isMobile ? "Фамилия Имя, ВУЗ" : "Фамилия Имя, название вуза",
+			searchBar: "Фамилия Имя",
 			searchButton: "Поиск",
 			aiHiring: "ИИ Найм"
 		},
@@ -72,7 +72,7 @@ export const localization = {
 	"en":{
 		Header:{
 			filter: "Filter",
-			searchBar: isMobile ? "Full name" : "Full name, University name",
+			searchBar: "Full name",
 			searchButton: "Search",
 			aiHiring: "AI Hiring"
 		},

@@ -12,6 +12,7 @@ import { cancelFilters, fetchDiplomas } from "@src/store/diplomas/actionCreators
 import { selectLanguage } from "@src/store/generals/selectors";
 import e from 'express';
 import { set } from 'react-ga';
+import { selectUserRole } from "@src/store/auth/selector";
 
 
 export const FilterSection: React.FC<IFilter> = (props) => {
@@ -24,6 +25,18 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	const [selectedRegions, setSelectedRegions] = React.useState<string[]>([]);
 	const [selectedUniversityIDs, setSelectedUniversityIDs] = React.useState<number[]>([]);
 	const dispatch = useDispatch();
+	const role = useSelector(selectUserRole).toLowerCase();
+
+	const isProfile = (): boolean => {
+        const urlElements = window.location.href.split('/');
+        const routes = ['user', 'profile',];
+        for (const item of routes) {
+            if (urlElements.includes(item)) {
+                return true;
+            }
+        }
+        return false;
+    };
 	// React.useEffect(() => {
 	// 	const filterValues = {
 	// 		text: filterAttributes.text,
@@ -397,7 +410,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 							</Box>
 
 						</Box> */}
-						<Box width='50%' className={styles.mobW100}>
+						<Box display={isProfile() && role === 'university' ? 'none' : 'block'} width='50%' className={styles.mobW100}>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
 								{localization[lang].MainCard.university}
 							</Typography>

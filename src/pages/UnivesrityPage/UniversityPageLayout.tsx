@@ -8,7 +8,7 @@ import {selectLanguage} from "@src/store/generals/selectors";
 import {selectUniversitiesList} from '@src/store/auth/selector';
 import {fetchUniversitiesList} from '@src/store/auth/actionCreators';
 import {useSelector, useDispatch} from "react-redux";
-import {localization} from '@src/pages/UnivesrityPage/generator';
+import {localization, universityNames} from '@src/pages/UnivesrityPage/generator';
 
 
 export const UniversityPageLayout: React.FC = () => {
@@ -69,7 +69,13 @@ export const UniversityPageLayout: React.FC = () => {
                                         fontSize: '1rem'
                                     },
                                 }}>
-                                    {university.name}
+                                    {
+                                        university && 
+                                        university.name && 
+                                        universityNames[university.name as keyof typeof universityNames] ? 
+                                            universityNames[university.name as keyof typeof universityNames][lang] : 
+                                            university.name ? university.name : ''
+                                    }
                                 </Typography>
                                 <Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>
                                     {localization[lang].UniCards.majors}: {university.speciality_amount ? `${university.speciality_amount}` :24}

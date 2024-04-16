@@ -42,14 +42,14 @@ export const MenuUploadStatusesColors: { [key: string]: "error" | "success" | "w
 };
 
 export const localization = {
-	"kz":{
-		Header:{
+	"kz": {
+		Header: {
 			filter: "Фильтр",
 			searchBar: "Университеттің атауы",
 			searchButton: "Іздеу",
 			university: "Университеттер",
 		},
-		UniCards:{
+		UniCards: {
 			nameKBTU: "Қазақстан-Британ Техникалық Университеті (КБТУ)",
 			nameKBTUshort: "Қазақстан-Британ Техникалық Университеті",
 			nameSU: "Қ.И.Сәтбаев атындағы Қазақстандық Ұлттық Техниқалық Зерттеу Университеті (ҚазҰТЗУ)",
@@ -58,14 +58,14 @@ export const localization = {
 			majors: "Мамандықтар",
 		},
 	},
-	"ru":{
-		Header:{
+	"ru": {
+		Header: {
 			filter: "Фильтр",
 			searchBar: "Название вуза",
 			searchButton: "Поиск",
 			university: "Университеты",
 		},
-		UniCards:{
+		UniCards: {
 			nameKBTU: "Казахстанско-Британский Технический Университет (КБТУ)",
 			nameKBTUshort: "Казахстанско-Британский Технический Университет",
 			nameSU: "Казахский национальный исследовательский технический университет имени К. И. Сатпаева (КазНИТУ)",
@@ -74,14 +74,14 @@ export const localization = {
 			majors: "Специальностей",
 		},
 	},
-	"en":{
-		Header:{
+	"en": {
+		Header: {
 			filter: "Filter",
 			searchBar: "University name",
 			searchButton: "Search",
 			university: "Universities",
 		},
-		UniCards:{
+		UniCards: {
 			nameKBTU: "Kazakh-British Technical University (KBTU)",
 			nameKBTUshort: "Kazakh-British Technical University",
 			nameSU: "Kazakh National Research Technical University named after K. I. Satpayev (KazNTU)",
@@ -91,3 +91,21 @@ export const localization = {
 		}
 	},
 }
+
+export const universityNames = {
+	'КазНИТУ имени  К. И. Сатпаева': {
+		'kz': 'Қ.И. атыңдағы ҚазҰТЗУ',
+		'ru': 'КазНИТУ имени К. И. Сатпаева',
+		'en': 'Satbayev University'
+	},
+	'Казахстанско-Британский Технический Университет': {
+		'kz': 'Қазақстан-Британ техникалық университеті',
+		'ru': 'Казахстанско-Британский Технический Университет',
+		'en': 'Kazakhstan-British Technical University'
+	},
+	'Q-Lab': {
+		'kz': 'Q-Lab',
+		'ru': 'Q-Lab',
+		'en': 'Q-Lab',
+	},
+};

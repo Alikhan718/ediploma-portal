@@ -163,12 +163,16 @@ export const DiplomaPageLayout: React.FC = () => {
                                         </Box>
                                         <Typography mb='.5rem' mt='0.5rem' fontSize="1.25rem" className={styles.mobText}
                                                     fontWeight="600">
-                                            {e.name_ru}
+                                            {e && lang === "kz" ? e.name_kz : e && lang === "ru" ? e.name_ru : e && lang === "en" ? e.name_en : ""}
                                         </Typography>
                                     </Box>
                                     <Box>
                                         <Typography fontSize=".8rem" mt="0" color="#818181" className={styles.mobTextSm}>
-                                            {e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1)}
+                                            {
+                                                lang === 'ru' ? e.speciality_ru?.substring(e.speciality_ru.search("«"), e.speciality_ru.search("»") + 1) :
+                                                lang === 'kz' ? e.speciality_kz?.substring(e.speciality_kz.search("«"), e.speciality_kz.search("»") + 1) :
+                                                lang === 'en' ? e.speciality_en?.substring(e.speciality_en.search("«"), e.speciality_en.search("»") + 1) : ""
+                                            }
                                         </Typography>
                                         {
                                             e && e.gpa !== '0.0' && e.rating != 0.0 ? (
