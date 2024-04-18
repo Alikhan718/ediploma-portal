@@ -57,7 +57,7 @@ export const SchoolPageHeader: React.FC = (props) => {
 								alignItems="center">
 								<Box display="flex" gap="1rem" ml="auto" alignContent="flex-end">
 								</Box>
-								<Box display="flex">
+								<Box display="none">
 									<Input
 										placeholder={localization[lang].Header.searchBar}
 										fullWidth

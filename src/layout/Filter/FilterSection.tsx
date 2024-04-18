@@ -29,7 +29,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 
 	const isProfile = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const routes = ['user', 'profile',];
+        const routes = ['user', 'profile'];
         for (const item of routes) {
             if (urlElements.includes(item)) {
                 return true;
@@ -37,6 +37,17 @@ export const FilterSection: React.FC<IFilter> = (props) => {
         }
         return false;
     };
+
+	const isUniversityPage = (): boolean => {
+		const urlElements = window.location.href.split('/');
+        const routes = ['university'];
+        for (const item of routes) {
+            if (urlElements.includes(item)) {
+                return true;
+            }
+        }
+        return false;
+	};
 	// React.useEffect(() => {
 	// 	const filterValues = {
 	// 		text: filterAttributes.text,
@@ -410,7 +421,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 							</Box>
 
 						</Box> */}
-						<Box display={isProfile() && role === 'university' ? 'none' : 'block'} width='50%' className={styles.mobW100}>
+						<Box display={isUniversityPage() || (isProfile() && role === 'university') ? 'none' : 'block'} width='50%' className={styles.mobW100}>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
 								{localization[lang].MainCard.university}
 							</Typography>

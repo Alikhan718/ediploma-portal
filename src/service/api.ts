@@ -121,6 +121,9 @@ export const authApi = {
         if (body.field != "") {
             query += `field=${body.field}&`;
         }
+        if (body.text != "") {
+            query += `text=${body.text}&`;
+        }
         return instance.get(query);
     },
     getEmployerDetails(id:any) {

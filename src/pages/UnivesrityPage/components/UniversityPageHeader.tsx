@@ -73,7 +73,7 @@ export const UniversityPageHeader: React.FC = (props) => {
 									{/* <img src={secuniv} style={{marginRight: '15px',}}/>
                                     <img src={univ} style={{marginRight: '5px', marginBottom: '5px'}}/> */}
 								</Box>
-								<Box display="flex">
+								<Box display="none">
 
 									<Input
 										placeholder={localization[lang].Header.searchBar}

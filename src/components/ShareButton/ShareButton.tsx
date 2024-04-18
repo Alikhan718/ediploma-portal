@@ -72,6 +72,7 @@ export const ShareButton: React.FC<ShareButtonProps> = (props) => {
     const linkedinUrl = {
         1: `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&issueMonth=7&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
         2: `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
+        3: `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&issueYear=2023&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`,
     };
 
     const defaultLink = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=NFT%20Diploma&organizationId=1337&certUrl=${currentUrl}&certId=${smartContractAddress ? smartContractAddress : "1234"}`;
