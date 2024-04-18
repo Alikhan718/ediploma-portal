@@ -326,6 +326,7 @@ export const MainPageLayout: React.FC = () => {
 					textAlign: 'center',
 					overflow: 'scroll',
 					marginBottom: '16px',
+					justifyContent: 'center',
 					'::-webkit-scrollbar': {
 						height: '5px',
 					},
@@ -337,7 +338,7 @@ export const MainPageLayout: React.FC = () => {
 				}} className={styles.container}
 					justifyContent="start">
 					{localization[lang].Reviews.elements.map((el: any) => {
-						return (<Box key={el} className={styles.cardItem}>
+						return (<Box key={el} className={styles.cardItem} width="20rem">
 							<img src={el.avatar} style={{ width: '3.5rem', borderRadius: "50%", alignSelf: "center" }} />
 							<Typography fontSize=".9rem" fontWeight="500" color="#2D2D2D" className={styles.mobTextSm}>
 								{el.fullname}
@@ -358,29 +359,47 @@ export const MainPageLayout: React.FC = () => {
 				</Box>
 			</Box>
 
-			<Box display="flex" justifyContent="space-between">
+			<Box display="flex" justifyContent="space-between"
+			 sx={{
+				'@media (max-width: 778px)': {
+					alignItems: 'center',
+					flexDirection: 'column',
+					width: '100%'
+				},
+			 }}
+			>
                 <Typography fontSize='48px' textAlign='left' className={styles.mobTextL} width="50%" 
                     sx={{
                         display: "flex",
                         alignItems: "center",
+						'@media (max-width: 778px)': {
+							width: '100%',
+							justifyContent: 'center',
+							marginBottom: '3.5rem'
+						},
                     }}
                 >
                     {localization[lang].Media.title}
                 </Typography>
-                <Box width="50%">
+                <Box width="50%" sx={{'@media (max-width: 778px)': {width: '100%'}}}>
                     <Box sx={{
-                        alignItems: 'center',
-                        textAlign: 'center',
-                        overflowX: 'scroll',
-                        overflowY: 'hidden',
-						cursor: 'pointer',
+							alignItems: 'center',
+							textAlign: 'center',
+							overflowX: 'scroll',
+							overflowY: 'hidden',
+							cursor: 'pointer',
+							height: '20rem',
+							'@media (max-width: 778px)': {
+								width: '100%',
+								height: '30rem',
+							},
                         }} 
                         className={styles.container}
                         justifyContent="start"
                         width="100%"
 						onClick={() => {window.open(localization[lang].Media.elements[activeStep].link, '_blank');}}
                     >
-                        <Box className={styles.cardItem} sx={{ width: '100%' }}>
+                        <Box className={styles.cardItem} sx={{ width: '100%', justifyContent: 'space-between'}}>
                             <Typography fontSize="1rem" textAlign='left' color="#2D2D2D" className={styles.mobTextMd}>
                                 {localization[lang].Media.elements[activeStep].text}
                             </Typography>
@@ -426,7 +445,11 @@ export const MainPageLayout: React.FC = () => {
                     />
                 </Box>
             </Box>
-
+			
+			<Box>
+			<Typography mb="3.5rem" fontSize='48px' textAlign='center' className={styles.mobTextL} sx={{'@media (max-width: 778px)':{display:'none'}}}>
+				{localization[lang].AboutUs.apply}
+			</Typography>
 			<Box className={styles.contactUsContainer}>
 				<Box className={styles.item} display="flex" flexDirection="column" width="45%"
 					justifyContent="space-between">
@@ -471,6 +494,9 @@ export const MainPageLayout: React.FC = () => {
 
 				</Box>
 				<form ref={form} onSubmit={sendEmail}>
+					<Typography display="none" mb="1rem" fontSize='48px' textAlign='center' className={styles.mobTextL} sx={{'@media (max-width: 778px)':{display:'flex'}}}>
+						{localization[lang].AboutUs.apply}
+					</Typography>
 					<Box display="flex" className={styles.item} width="180%" flexDirection="column" justifyContent="space-between">
 						<Box mb="1rem">
 							<Label label={localization[lang].AboutUs.form.name.label} className={styles.mobTextSm} />
@@ -519,6 +545,7 @@ export const MainPageLayout: React.FC = () => {
 						Успешно отправлено!
 					</Alert>
 				</Snackbar>
+			</Box>
 			</Box>
 
 			<Grid container>

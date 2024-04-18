@@ -538,7 +538,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                            }
                          }}
                          onClick={(e) => handleChange(e, 0)}>
-                Диплом
+                {localization[lang].StudentPage.Navigation.diploma}
               </MuiButton>
               <MuiButton fullWidth
                          sx={{
@@ -549,7 +549,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                            }
                          }}
                          onClick={(e) => handleChange(e, 1)}>
-                Транскрипт
+                {localization[lang].StudentPage.Navigation.transcript}
               </MuiButton>
               <MuiButton fullWidth
                          sx={{
@@ -560,7 +560,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                            }
                          }}
                          onClick={(e) => handleChange(e, 2)}>
-                Резюме
+                {localization[lang].StudentPage.Navigation.resume}
               </MuiButton>
 
             </Box>
@@ -1175,6 +1175,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         sx={{
                           borderRadius: '25px',
                           marginTop: '1rem',
+                          marginBottom: '1rem',
                           "@media (max-width: 778px)": {
                             marginLeft: '2.5rem',
                           }
@@ -1229,7 +1230,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                     }}>
                       <Box sx={{
                         '@media (max-width: 778px)': {
-                          display: value !== 2 ? "none" : "block",
+                          display: value !== 2 ? "none" : data && data.university_id != 1 ? 'none' : "block",
                           backgroundColor: 'white',
                           borderRadius: '1rem',
                           padding: '1rem',
@@ -1300,7 +1301,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         },
                       }}>
                         <Box sx={{
-                          fontSize: '24px', fontWeight: '600', paddingBottom: '10px',
+                          fontSize: '24px', fontWeight: '600', paddingBottom: '1.5rem',
                           '@media (max-width: 778px)': {
                             fontSize: '20px'
                           },
@@ -1317,7 +1318,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                     <Typography
                                       key={key}
                                       sx={{
-                                        marginBottom: "1rem",
+                                        // marginBottom: "1rem",
                                         display: "block",
                                       }}
                                     >
@@ -1326,12 +1327,13 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                         fontSize: "16px"
                                       }}>{ibfields[key][lang] ?? fieldLocalizations[key][lang]}:</span>}{" "} */}
                                       {<span style={{
+                                        // codeode
                                         color: "#818181",
-                                        fontSize: "16px"
+                                        fontSize: "0.875rem"
                                       }}>{fieldLocalizations[key][lang]}:</span>}{" "}
                                       <span style={{
-                                        fontWeight: '600',
-                                        fontSize: "16px"
+                                        // fontWeight: '600',
+                                        fontSize: "0.875rem"
                                       }}>
                                         {
                                           key == 'diploma_gender' && gender[graduateAttributes[key]] ? 
@@ -1407,7 +1409,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         <Box sx={{display: 'flex', marginBottom: '0.5rem'}}>
                           <Box sx={{width: '50%'}}>
                             <Typography sx={{fontSize: '0.875rem', color: '#9499AB',}}>
-                              Номер телефона
+                              {localization[lang].StudentPage.Resume.phone}
                             </Typography>
                             <Typography sx={{fontSize: '0.875rem'}}>
                               {graduateAttributes && graduateAttributes.diploma_phone ? graduateAttributes.diploma_phone : "-"}
@@ -1415,7 +1417,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           </Box>
                           <Box sx={{width: '50%'}}>
                             <Typography sx={{fontSize: '0.875rem', color: '#9499AB',}}>
-                              Почта
+                              {localization[lang].StudentPage.Resume.email}
                             </Typography>
                             <Typography sx={{
                               fontSize: '0.875rem',
@@ -1429,7 +1431,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         <Box sx={{display: 'flex', marginBottom: '0.5rem'}}>
                           <Box sx={{width: '50%'}}>
                             <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
-                              Город
+                              {localization[lang].StudentPage.Resume.city}
                             </Typography>
                             <Typography sx={{fontSize: '0.875rem'}}>
                               Алмата
@@ -1437,7 +1439,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           </Box>
                           <Box sx={{width: '50%'}}>
                             <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
-                              Регион
+                              {localization[lang].StudentPage.Resume.region}
                             </Typography>
                             <Typography sx={{fontSize: '0.875rem'}}>
                               {graduateAttributes && graduateAttributes.diploma_region ? graduateAttributes.diploma_region : "-"}
@@ -1447,7 +1449,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         <Box sx={{display: 'flex', marginBottom: '0.5rem'}}>
                           <Box sx={{width: '50%'}}>
                             <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
-                              Название вуза
+                              {localization[lang].StudentPage.Resume.universityName}
                             </Typography>
                             <Typography sx={{fontSize: '0.875rem'}}>
                               {getUniversityName()}
@@ -1455,7 +1457,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           </Box>
                           <Box sx={{width: '50%'}}>
                             <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
-                              Специальность
+                              {localization[lang].StudentPage.Resume.major}
                             </Typography>
                             <Typography sx={{fontSize: '0.875rem'}}>
                               {getSpecialityName()}
@@ -1475,7 +1477,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           </Box>
                           <Box sx={{width: '50%'}}>
                             <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
-                              Степень
+                              {localization[lang].StudentPage.Resume.degree}
                             </Typography>
                             <Typography sx={{fontSize: '0.875rem'}}>
                               {getSpecialityName()}
@@ -1485,7 +1487,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         <Box sx={{display: 'flex', marginBottom: '0.5rem'}}>
                           <Box sx={{width: '50%'}}>
                             <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
-                              Академический рейтинг
+                              {localization[lang].StudentPage.Resume.rating}
                             </Typography>
                             <Box display="flex" marginTop="0.25rem">
                               {graduateAttributes.gpa !== '0.0' && graduateAttributes.rating ?
@@ -1497,7 +1499,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           </Box>
                           <Box sx={{width: '50%'}}>
                             <Typography sx={{fontSize: '0.875rem', color: '#9499AB'}}>
-                              Дата окончания
+                              {localization[lang].StudentPage.Resume.graduationYear}
                             </Typography>
                             <Typography sx={{fontSize: '0.875rem'}}>
                               {data && data.year ? data.year : ""}
@@ -1655,7 +1657,16 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   }
                 }}
               >
-                {rows && rows.length > 0 && <Paper
+                {rows && rows.length > 0 && 
+                (
+                <>
+                <Box sx={{ 
+                  width: '100%', textAlign: 'left', fontSize: '24px', fontWeight: '600', paddingBottom: '2rem', 
+                  '@media (max-width: 778px)': {display: 'none'} 
+                }}>
+                  {localization[lang].StudentPage.Transcript.title}
+                </Box>
+                <Paper
                     sx={{
                       borderRadius: '1.25rem',
                       width: '100%',
@@ -1702,7 +1713,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                           }
                                         }}
                                     >
-                                      {isMobile ? 'Наименование' : 'Название дисциплины'}
+                                      {isMobile ? localization[lang].StudentPage.Transcript.name : localization[lang].StudentPage.Transcript.courseTitle}
                                     </StyledTableCell>
                                     <StyledTableCell
                                         size='small' align="right"
@@ -1712,7 +1723,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                           }
                                         }}
                                     >
-                                        Оценка
+                                        {localization[lang].StudentPage.Transcript.grade}
                                     </StyledTableCell>
                                     <StyledTableCell
                                         size='small' align="right"
@@ -1722,7 +1733,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                           }
                                         }}
                                     >
-                                        Кредиты
+                                        {localization[lang].StudentPage.Transcript.credits}
                                     </StyledTableCell>
                                     <StyledTableCell
                                         size='small' align="right"
@@ -1733,7 +1744,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                           }
                                         }}
                                     >
-                                        Код дисциплины
+                                        {localization[lang].StudentPage.Transcript.courseCode}
                                     </StyledTableCell>
                                 </TableRow>
                             </TableHead>
@@ -1759,13 +1770,13 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                         <Typography>{row.course}</Typography>
                                         <Typography>
                                                                         <span
-                                                                          style={{color: "#9499AB"}}>Оценка:</span>{" "}
+                                                                          style={{color: "#9499AB"}}>{localization[lang].StudentPage.Transcript.grade}:</span>{" "}
                                           <span
                                             style={{color: '#58607C'}}>{parseFloat(row.grade).toPrecision(4)} </span>{" "}
                                         </Typography>
                                         <Typography>
                                                                         <span
-                                                                          style={{color: "#9499AB"}}>Кредиты:</span>{" "}
+                                                                          style={{color: "#9499AB"}}>{localization[lang].StudentPage.Transcript.credits}:</span>{" "}
                                           <span
                                             style={{color: '#58607C'}}>{row.credits}</span>{" "}
                                         </Typography>
@@ -1820,10 +1831,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               setLongTable(!longTable);
                             }}
                         >
-                          {'Показать '}{!longTable ? 'больше' : 'меньше'}
+                          {!longTable ? localization[lang].StudentPage.Transcript.showMore : localization[lang].StudentPage.Transcript.showLess}
                         </MuiButton>
                     </Box>
-                </Paper>}
+                </Paper></>)}
 
               </Box>
               {/* <Modal
@@ -1979,7 +1990,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                       '@media (max-width: 778px)': {marginTop: 0}
                     }}
                   >
-                    Закрыть
+                    {localization[lang].StudentPage.Confirmation.close}
                   </MuiButton>
                 </Box>
 
@@ -1990,7 +2001,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         onClose={handleAlertClose}>
                 <Alert onClose={handleAlertClose} severity="success"
                        sx={{width: '100%'}}>
-                  Успешно скопировано!
+                  {localization[lang].StudentPage.Alert.copied}
                 </Alert>
               </Snackbar>
               <Box sx={{
@@ -2041,10 +2052,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                       lineHeight: '125%',
                       marginBottom: '0.75rem'
                     }}>
-                      {'Генератор резюме'}
+                      {localization[lang].StudentPage.ResumeGenerator.title}
                     </Typography>
                     <Typography sx={{fontSize: '1rem', fontWeight: 400, lineHeight: '125%'}}>
-                      {'Чтобы находить работу, проекты и задачи создайте резюме на портале и работадатели'}
+                      {localization[lang].StudentPage.ResumeGenerator.text}
                     </Typography>
                   </Box>
                 </Box>
@@ -2055,7 +2066,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                     type="button"
                     sx={{borderRadius: '25px'}}
                   >
-                    Начать
+                    {localization[lang].StudentPage.ResumeGenerator.begin}
                   </Button>
                 </Box>
               </Box>
@@ -2074,7 +2085,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 }
               }}>
                 <Typography sx={{ fontSize: '1.125rem', fontWeight: 600, lineHeight: '125%', textAlign: 'center' }}>
-                  Поделиться с дипломом с помощью QR
+                  {localization[lang].StudentPage.QrCode.text}
                 </Typography>
                 <QRCode
                   size={256}
@@ -2087,7 +2098,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                       borderRadius: "3rem", backgroundColor: "#EBF2FE",
                     }}
                   >
-                    Закрыть
+                    {localization[lang].StudentPage.QrCode.close}
                   </MuiButton>
                 </Box>
               </Box>

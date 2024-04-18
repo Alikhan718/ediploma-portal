@@ -1,3 +1,5 @@
+import { title } from "process";
+
 export const tableHead = [
 
   {id: 1, content: 'Название', sortName: "name"},
@@ -237,10 +239,47 @@ export const localization = {
         deployedToBlockchain: "Блокчейнге жүктелген",
         smartContractAddress: "Смарт-контракт сілтемесі",
         owner: "Диплом иесі",
-        date: "Уақыты:"
+        date: "Уақыты:",
+        close: 'Жабу',
+        confirm: 'Растау',
       },
       Alert: {
         copied: "Сәтті көшірілді",
+      },
+      Transcript: {
+        title: "Транскрипт",
+        courseTitle: 'Курс атауы',
+        grade: 'Баға',
+        credits: 'Кредиттер',
+        courseCode: 'Курстың код',
+        showMore: 'Көбірек көрсету',
+        showLess: 'Аз көрсету',
+        name: 'Атауы',
+      },
+      ResumeGenerator: {
+        title: 'Резюме генераторы',
+        text: 'Жұмыс орындарын, жобалар мен тапсырмаларды табу үшін порталда және жұмыс берушілерде түйіндеме жасаңыз',
+        begin: 'Бастау',
+      },
+      QrCode: {
+        text: 'QR арқылы дипломмен бөлісу',
+        close: 'Жабу'
+      },
+      Resume: {
+        phone: 'Телефон нөмірі',
+        email: 'Пошта', 
+        city: 'Қала',
+        region: 'Облыс',
+        universityName: 'Вуз атауы',
+        major: 'Мамандық',
+        degree: 'Дәреже',
+        graduationYear: 'Аяқтау жылы',
+        rating: 'Академиялық рейтинг'
+      },
+      Navigation: {
+        diploma: "Диплом",
+        transcript: "Транскрипт",
+        resume: "Резюме",
       }
     }
   },
@@ -300,10 +339,47 @@ export const localization = {
         deployedToBlockchain: "Выгруженно на блокчейн",
         smartContractAddress: "Адрес смарт-контракта",
         owner: "Владелец диплома",
-        date: "Дата:"
+        date: "Дата:",
+        close: 'Закрыть',
+        confirm: 'Подтвердить',
       },
       Alert: {
         copied: "Успешно скопировано",
+      },
+      Transcript: {
+        title: "Транскрипт",
+        courseTitle: 'Название дисциплины',
+        grade: 'Оценка',
+        credits: 'Кредиты',
+        courseCode: 'Код дисциплины',
+        showMore: 'Показать больше',
+        showLess: 'Показать меньше',
+        name: ' Наименование',
+      },
+      ResumeGenerator: {
+        title: 'Генератор резюме',
+        text: 'Чтобы находить работу, проекты и задачи создайте резюме на портале и работадатели',
+        begin: 'Начать',
+      },
+      QrCode: {
+        text: 'Поделиться с дипломом с помощью QR',
+        close: 'Закрыть'
+      },
+      Resume: {
+        phone: 'Номер телефона',
+        email: 'Почта', 
+        city: 'Город',
+        region: 'Регион',
+        universityName: 'Название вуза',
+        major: 'Специальность',
+        degree: 'Степень',
+        graduationYear: 'Дата окончания',
+        rating: 'Академический рейтинг'
+      },
+      Navigation: {
+        diploma: "Диплом",
+        transcript: "Транскрипт",
+        resume: "Резюме",
       }
     }
   },
@@ -319,7 +395,7 @@ export const localization = {
       confirmed: "Confirmed",
       seeEtherscan: "View on Etherscan",
       seeSmartContract: "View on Smart Contract",
-      confirm: "Confirm",
+      confirm: "Verify",
       diplomaConfirmation: "Diploma confirmation",
       acreditation: "This accreditation belongs to a verified organization",
     },
@@ -364,10 +440,47 @@ export const localization = {
         deployedToBlockchain: "Uploaded to Blockchain",
         smartContractAddress: "Smart contract address",
         owner: "Diploma owner",
-        date: "Date:"
+        date: "Date:",
+        close: 'Close',
+        confirm: 'Verify',
       },
       Alert: {
         copied: "Copied successfully",
+      },
+      Transcript: {
+        title: "Transcript",
+        courseTitle: 'Course title',
+        grade: 'Grade',
+        credits: 'Credits',
+        courseCode: 'Course code',
+        showMore: 'Show more',
+        showLess: 'Show less',
+        name: 'Name',
+      },
+      ResumeGenerator: {
+        title: 'Resume generator',
+        text: 'To find jobs, projects and tasks, create a resume on the portal and employers',
+        begin: 'Start',
+      },
+      QrCode: {
+        text: 'Share the diploma via QR code',
+        close: 'Close'
+      },
+      Resume: {
+        phone: 'Phone number',
+        email: 'Email', 
+        city: 'City',
+        region: 'Region',
+        universityName: 'University name',
+        major: 'Major',
+        degree: 'Degree',
+        graduationYear: 'Graduation date',
+        rating: 'Academic rating'
+      },
+      Navigation: {
+        diploma: "Diploma",
+        transcript: "Transcript",
+        resume: "Resume",
       }
     },
   },

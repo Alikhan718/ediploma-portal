@@ -2,6 +2,8 @@ import {routes} from "@src/shared/routes";
 import tengriLogo from "@src/assets/icons/tengrilogo.png";
 import turkmenLogo from "@src/assets/icons/tp_logo.png";
 import profitLogo from "@src/assets/icons/profitLogo.jpeg";
+import ritLogo from '@src/assets/icons/ritLogo2.jpeg';
+import gulfLogo from '@src/assets/icons/gulfNews.jpeg';
 
 export const localization = {
     "kz": {
@@ -46,34 +48,10 @@ export const localization = {
                     text: "КБТУ  Қазақстандағы дипломды НФТ түрінде енгізген алғашқы университет. Біздің студенттер бірінші болып блокчейн арқылы дипломдарын растаудың бірегей мүмкіндігіне иеленді.",
                     rate: 5,
                 },
-                {
-                    avatar: "https://kbtu.edu.kz/images/gabdullin_m.png",
-                    fullname: "КБТУ Ректоры",
-                    text: "КБТУ  Қазақстандағы дипломды НФТ түрінде енгізген алғашқы университет. Біздің студенттер бірінші болып блокчейн арқылы дипломдарын растаудың бірегей мүмкіндігіне иеленді.",
-                    rate: 5,
-                },
-                {
-                    avatar: "https://kbtu.edu.kz/images/gabdullin_m.png",
-                    fullname: "КБТУ Ректоры",
-                    text: "КБТУ  Қазақстандағы дипломды НФТ түрінде енгізген алғашқы университет. Біздің студенттер бірінші болып блокчейн арқылы дипломдарын растаудың бірегей мүмкіндігіне иеленді.",
-                    rate: 5,
-                },
-                {
-                    avatar: "https://kbtu.edu.kz/images/gabdullin_m.png",
-                    fullname: "КБТУ Ректоры",
-                    text: "КБТУ  Қазақстандағы дипломды НФТ түрінде енгізген алғашқы университет. Біздің студенттер бірінші болып блокчейн арқылы дипломдарын растаудың бірегей мүмкіндігіне иеленді.",
-                    rate: 5,
-                },
-                {
-                    avatar: "https://kbtu.edu.kz/images/gabdullin_m.png",
-                    fullname: "КБТУ Ректоры",
-                    text: "КБТУ  Қазақстандағы дипломды НФТ түрінде енгізген алғашқы университет. Біздің студенттер бірінші болып блокчейн арқылы дипломдарын растаудың бірегей мүмкіндігіне иеленді.",
-                    rate: 5,
-                },
             ]
         },
         Media: {
-            title: 'СМИ о нас',
+            title: 'БАҚ біз туралы',
             elements: [
                 {
                     avatar: tengriLogo,
@@ -93,9 +71,22 @@ export const localization = {
                     text: "ҚБТУ білім беру саласындағы инновацияларды ұсынды. NFT технологиясына негізделген цифрлық дипломдардың шығарылымы ҚБТУ және RIT студенттері негізін қалаған JASAIM студенттік стартапымен бірлесіп жарияланды.",
                     link: "https://profit.kz/news/64771/KBTU-vipustil-NFT-diplomi-sovmestno-so-studencheskim-startapom-JASAIM/",
                 },
+                {
+                    avatar: ritLogo,
+                    fullname: "Rochester Institute of Technology",
+                    text: 'Сейтқадыров пен Сов бизнесінің мақсаты - блокчейндегі мекенжайлармен сәйкестендіру арқылы құжаттардың жарамдылығын қамтамасыз ету. Бұл ЖОО дипломдары мен басқа да құжаттама нысандарын бұрмалауды қиындатады.',
+                    link: 'https://www.rit.edu/news/rit-students-across-globe-launch-entrepreneurial-startups-through-simone-center?utm_campaign=mc-bw-innovation%2Cmc-bw-studentsuccess%2Cmc-bw-global&utm_medium=social&utm_source=linkedin&utm_content=1345bd893de64e689fa01e3484b885e0-165762',
+                },
+                {
+                    avatar: gulfLogo,
+                    fullname: "Gulf News",
+                    text: 'RIT Dubai студенттері жоғары оқу орындарындағы мәселелерді шешу үшін инновациялар әзірлейді',
+                    link: 'https://gulfnews.com/business/corporate-news/rit-dubai-students-develop-innovations-to-tackle-challenges-in-the-higher-education-arena-1.1702286901465',
+                }
             ],
         },
         AboutUs: {
+            apply: 'Өтініш жіберу',
             contactsTitle: "Байланыс \nмәліметтері",
             description: "Сізге жауап беру үшін, электрондық пошта және \n мекен-жайыңызды енгізіңіз!",
             address: {
@@ -242,9 +233,22 @@ export const localization = {
                     text: "КБТУ представил инновацию в образовательной сфере. Объявлено о выпуске цифровых дипломов на основе технологии NFT в сотрудничестве со студенческим стартапом JASAIM, основанным студентами КБТУ и RIT.",
                     link: "https://profit.kz/news/64771/KBTU-vipustil-NFT-diplomi-sovmestno-so-studencheskim-startapom-JASAIM/",
                 },
+                {
+                    avatar: ritLogo,
+                    fullname: "Rochester Institute of Technology",
+                    text: 'Бизнес Сеиткадырова и Сова призван обеспечить достоверность документов путем сопоставления им адресов внутри блокчейна. Это затруднит фальсификацию университетских дипломов и других форм документации.',
+                    link: 'https://www.rit.edu/news/rit-students-across-globe-launch-entrepreneurial-startups-through-simone-center?utm_campaign=mc-bw-innovation%2Cmc-bw-studentsuccess%2Cmc-bw-global&utm_medium=social&utm_source=linkedin&utm_content=1345bd893de64e689fa01e3484b885e0-165762',
+                },
+                {
+                    avatar: gulfLogo,
+                    fullname: "Gulf News",
+                    text: 'Студенты RIT Dubai разрабатывают инновации для решения проблем в сфере высшего образования',
+                    link: 'https://gulfnews.com/business/corporate-news/rit-dubai-students-develop-innovations-to-tackle-challenges-in-the-higher-education-arena-1.1702286901465',
+                }
             ]
         },
         AboutUs: {
+            apply: 'Оставить заявку',
             contactsTitle: "Контакты",
             description: "Введите свой адрес электронной\n почты для того чтобы мы могли вам ответить!",
             address: {
@@ -369,34 +373,10 @@ export const localization = {
                     text: "KBTU was the first university in Kazakhstan to implement NFT diplomas. Our students now have unique ability to verify their diplomas with blockchain",
                     rate: 5,
                 },
-                {
-                    avatar: "https://kbtu.edu.kz/images/gabdullin_m.png",
-                    fullname: "KBTU President",
-                    text: "KBTU was the first university in Kazakhstan to implement NFT diplomas. Our students now have unique ability to verify their diplomas with blockchain",
-                    rate: 5,
-                },
-                {
-                    avatar: "https://kbtu.edu.kz/images/gabdullin_m.png",
-                    fullname: "KBTU President",
-                    text: "KBTU was the first university in Kazakhstan to implement NFT diplomas. Our students now have unique ability to verify their diplomas with blockchain",
-                    rate: 5,
-                },
-                {
-                    avatar: "https://kbtu.edu.kz/images/gabdullin_m.png",
-                    fullname: "KBTU President",
-                    text: "KBTU was the first university in Kazakhstan to implement NFT diplomas. Our students now have unique ability to verify their diplomas with blockchain",
-                    rate: 5,
-                },
-                {
-                    avatar: "https://kbtu.edu.kz/images/gabdullin_m.png",
-                    fullname: "KBTU President",
-                    text: "KBTU was the first university in Kazakhstan to implement NFT diplomas. Our students now have unique ability to verify their diplomas with blockchain",
-                    rate: 5,
-                },
             ]
         },
         Media: {
-            title: 'СМИ о нас',
+            title: 'Media about us',
             elements: [
                 {
                     avatar: tengriLogo,
@@ -416,9 +396,22 @@ export const localization = {
                     text: "KBTU presented innovation in the educational field. The release of digital diplomas based on NFT technology was announced in collaboration with the student startup JASAIM, founded by students of KBTU and RIT.",
                     link: "https://profit.kz/news/64771/KBTU-vipustil-NFT-diplomi-sovmestno-so-studencheskim-startapom-JASAIM/",
                 },
+                {
+                    avatar: ritLogo,
+                    fullname: "Rochester Institute of Technology",
+                    text: 'Seitkadyrov and Sawh’s business is meant to ensure the validity of documents by corresponding them with addresses within the blockchain. This would make it harder for people to falsify degrees from universities and other forms of documentation.',
+                    link: 'https://www.rit.edu/news/rit-students-across-globe-launch-entrepreneurial-startups-through-simone-center?utm_campaign=mc-bw-innovation%2Cmc-bw-studentsuccess%2Cmc-bw-global&utm_medium=social&utm_source=linkedin&utm_content=1345bd893de64e689fa01e3484b885e0-165762',
+                },
+                {
+                    avatar: gulfLogo,
+                    fullname: "Gulf News",
+                    text: 'RIT Dubai students develop innovations to tackle challenges in the higher education arena',
+                    link: 'https://gulfnews.com/business/corporate-news/rit-dubai-students-develop-innovations-to-tackle-challenges-in-the-higher-education-arena-1.1702286901465',
+                }
             ]
         },
         AboutUs: {
+            apply: 'Submit application',
             contactsTitle: "Contacts",
             description: "Enter your email address \n so we can respond to you!",
             address: {
