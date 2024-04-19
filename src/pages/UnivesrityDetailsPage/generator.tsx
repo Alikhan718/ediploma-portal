@@ -5,6 +5,20 @@ import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
 import {ReactComponent as SocialIcon} from "@src/assets/icons/socialmedia.svg";
 import {ReactComponent as FieldIcon} from "@src/assets/icons/field.svg";
 import {ReactComponent as PrivacyIcon} from "@src/assets/icons/privacy.svg";
+import kbtuHist1 from '@src/assets/example/kbtuHist1.jpg';
+import kbtuHist2 from '@src/assets/example/kbtuHist2.jpg';
+import kbtuHist3 from '@src/assets/example/kbtuHist3.jpg';
+import kbtuHist4 from '@src/assets/example/kbtuHist4.jpg';
+import kbtuHist5 from '@src/assets/example/historyEx.png';
+import suHist1 from '@src/assets/example/suHist1.jpeg';
+import suHist2 from '@src/assets/example/suHist2.jpeg';
+import suHist3 from '@src/assets/example/suHist3.jpeg';
+import suHist4 from '@src/assets/example/suHist4.png';
+import suHist5 from '@src/assets/example/suHist5.jpeg';
+import suProud1 from '@src/assets/example/suProud1.png';
+import suProud2 from '@src/assets/example/suProud2.png';
+import suProud3 from '@src/assets/example/suProud3.png';
+import suProud4 from '@src/assets/example/suProud4.png';
 
 export const navigation = [
 
@@ -572,7 +586,11 @@ export const localization = {
       more: "көбірек",
       less: "аз",
       diploma: "Дипломдар",
-      analytics: "Аналитика"
+      analytics: "Аналитика",
+      mission: "Университет миссиясы",
+      history: 'Университет тарихы',
+      best: 'Үздік түлектер',
+      reserve: 'Кадрлық резерв'
     },
     Students: {
       diplomas: "Түлектердің дипломдары",
@@ -626,7 +644,11 @@ export const localization = {
       more: "больше",
       less: "меньше",
       diploma: "Дипломы",
-      analytics: "Аналитика"
+      analytics: "Аналитика",
+      mission: "Миссия университета",
+      history: 'История университета',
+      best: 'Лучшие выпускники',
+      reserve: 'Резерв кадров'
     },
     Students: {
       diplomas: "Дипломы выпускников",
@@ -680,7 +702,11 @@ export const localization = {
       more: "more",
       less: "less",
       diploma: "Diplomas",
-      analytics: "Analytics"
+      analytics: "Analytics",
+      mission: "University mission",
+      history: 'University history',
+      best: 'Best graduates',
+      reserve: 'Personnel reserve'
     },
     Students: {
       diplomas: "Alumnies' diplomas",
@@ -794,4 +820,323 @@ export const fields = {
     {"id": 22, "name": "Финансовый сектор"},
     {"id": 23, "name": "Химическая промышленность"}
   ],
+};
+
+export const universityName = {
+  3: {
+    'kz': 'Қ.И. атыңдағы ҚазҰТЗУ',
+    'ru': 'КазНИТУ имени К. И. Сатпаева',
+    'en': 'Satbayev University'
+  },
+  1: {
+    'kz': 'Қазақстан-Британ техникалық университеті',
+    'ru': 'Казахстанско-Британский Технический Университет',
+    'en': 'Kazakhstan-British Technical University'
+  },
+  2: {
+    'kz': 'Q-Lab',
+    'ru': 'Q-Lab',
+    'en': 'Q-Lab'
+  }
+};
+
+export const univerityMission = {
+  3: {
+    'kz': 'Сәтбаев университеті – саланың қажеттіліктері үшін мамандарды даярлаудың арнайы бағдарламаларын, күрделі жобаларды әзірлейтін және әлемдік деңгейдегі кәсіби мамандардан құралған командаларды құрайтын Қазақстандағы ең ірі ғылыми-әдістемелік орталық.',
+    'ru': 'Satbayev University – крупнейший в Казахстане научно-методический центр, разрабатывающий специальные программы подготовки специалистов для нужд промышленности, сложных проектов и создания команд профессионалов мирового уровня.',
+    'en': 'Satbayev University is the largest scientific and methodological center in Kazakhstan, developing special training programs for specialists for the needs of industry, complex projects and creating teams of world-class professionals.'
+  },
+  1: {
+    'ru': 'Казахстанско-Британский Технический Университет - один из ведущих технических университетов региона. Мы работаем в партнерстве с мировым академическим сообществом, корпоративным и государственным секторами над фундаментальными ценностями качества, академической честности и открытости.',
+    'kz': 'Қазақстан-Британ техникалық университеті аймақтағы жетекші техникалық жоғары оқу орындарының бірі болып табылады. Біз жаһандық академиялық қоғамдастықпен, корпоративтік және мемлекеттік секторлармен сапа, академиялық адалдық және ашықтық сияқты іргелі құндылықтар бойынша серіктестікте жұмыс істейміз.',
+    'en': 'Kazakh-British Technical University is one of the leading technical universities in the region. We work in partnership with the global academic community, corporate and government sectors on the fundamental values of quality, academic integrity and openness.',
+  },
+  2: {
+    'kz': 'Q-LAB – қала тұрғындары мен қала қоғамдастықтарының қажеттіліктерін зерттейтін қала құрылысы мен құрылыс мәселелеріне арналған ғылыми зертхана. Бұл сәулетшілер мен азаматтар арасындағы дәнекер. Біз сәулет, қала құрылысы және урбанистика саласындағы ғылыми-зерттеу, білім беру, ғылыми және мәдени жобаларды жасау және жүзеге асыру орталығымыз. Біз бірқатар шығармашылық, техникалық, академиялық зерттеушілерді, коммерциялық және коммерциялық емес ұйымдарды біріктіріп, қаланы дамытуға бағытталған серіктестік үшін жаңа мүмкіндіктер жасаймыз.',
+    'ru': 'Q-LAB - исследовательская лаборатория проблем градопланирования и строительства, изучающая потребности жителей города и городских сообществ. Является связующим звеном между архитекторами и горожанами. Мы центр для создания и внедрения исследовательских, образовательных, научных и культурных проектов в области архитектуры, городского планирования и урбанистики. Объеденяем ряд творческих, технических, академических исследователей, коммерческие и некоммерческие организации создавая новые возможности для партнерства направленных на развитие города.',
+    'en': 'Q-LAB is a research laboratory for urban planning and construction problems that studies the needs of city residents and urban communities. It is a link between architects and citizens. We are a center for the creation and implementation of research, educational, scientific and cultural projects in the field of architecture, urban planning and urbanism. We bring together a number of creative, technical, academic researchers, commercial and non-profit organizations, creating new opportunities for partnership aimed at developing the city.'
+  }
+};
+
+export const universityFacts = {
+  1: {
+    'kz': [
+      'LSE, Женева бизнес мектебі, Нортхэмптон университеті, IFP Energies Nouvelles бірлесіп екі дипломдық бағдарламалар',
+      'Ол 9 жыл бойы IQAA жалпы рейтингі бойынша Қазақстанның үздік техникалық университеті атағын иеленді',
+      'Қазақстандағы үздік бағдарламалар: Мұнай және газ инженериясы, Химиялық инженерия, Ақпараттық технологиялар',
+      'ҚБТУ түлектері үшін «ҚазМұнайГаз», «Қазатомөнеркәсіп», «Қазақстан темір жолы», «Эйр Астана», «Қазақтелеком», «Самұрық-Энерго», Казкоммерцбанк және Халық банкі негізгі жұмыс берушілер болып табылады.',
+    ],
+    'ru': [
+      'Программы двойных дипломов в сотрудничестве с LSE,Geneva Business School , University of Northampton, IFP Energies Nouvelles',
+      'На протяжение 9 лет держал звание лучшего технического вуза Казахстана по Генеральному рейтингу НКАОКО',
+      'Лучшие в Казахстане программы Нефтегазовое дело, Химическая инженерия, Информационные технологии',
+      'КазМунайГаз, Казатомпром, Казахстан Темир Жолы, Air Astana, Казахтелеком, Самрук-Энерго, Казкоммерцбанк и Халык Банк являются основными работодателями для выпускников КБТУ.',
+    ],
+    'en': [
+      'Double degree programs in collaboration with LSE, Geneva Business School, University of Northampton, IFP Energies Nouvelle',
+      'For 9 years, he held the title of the best technical university in Kazakhstan according to the IQAA General Rating',
+      'The best programs in Kazakhstan: Oil and Gas Engineering, Chemical Engineering, Information Technology',
+      'KazMunayGas, Kazatomprom, Kazakhstan Temir Zholy, Air Astana, Kazakhtelecom, Samruk-Energo, Kazkommertsbank and Halyk Bank are the main employers for KBTU graduates.',
+    ],
+  },
+  3: {
+    'kz': [
+      '1-ое место среди технических вузов Казахстана согласно рейтингу Независимого агентства по обеспечению качества в образовании',
+      '501-510 место в международном рейтинге QS World University Ranking',
+      'Лучшие в Казахстане программы Нефтегазовое дело, Химическая инженерия, Информационные технологии',
+      'Золотая медаль имени В.И. Блинникова «За вклад в изобретательское и патентное дело» Евразийской патентной организации',
+    ],
+    'ru': [
+      '1-ое место среди технических вузов Казахстана согласно рейтингу Независимого агентства по обеспечению качества в образовании',
+      '501-510 место в международном рейтинге QS World University Ranking',
+      'Лучшие в Казахстане программы Нефтегазовое дело, Химическая инженерия, Информационные технологии',
+      'Золотая медаль имени В.И. Блинникова «За вклад в изобретательское и патентное дело» Евразийской патентной организации',
+    ],
+    'en': [
+      '1-ое место среди технических вузов Казахстана согласно рейтингу Независимого агентства по обеспечению качества в образовании',
+      '501-510 место в международном рейтинге QS World University Ranking',
+      'Лучшие в Казахстане программы Нефтегазовое дело, Химическая инженерия, Информационные технологии',
+      'Золотая медаль имени В.И. Блинникова «За вклад в изобретательское и патентное дело» Евразийской патентной организации',
+    ],
+  },
+};
+
+export const universityHistory = {
+  1: {
+    'kz': [
+      {
+        image: kbtuHist1,
+        title: '2000 - Білім және ғылым саласындағы халықаралық ынтымақтастықтың басталуы',
+        text: 'Президенттің 2000 жылғы қарашада Ұлыбританияға ресми сапары барысында білім және ғылым салаларында келісімдерге қол жеткізілді.',
+      },
+      {
+        image: kbtuHist2,
+        title: '2001 - Қазақ-Британ техникалық университетінің құрылуы',
+        text: 'Қазақстан мен Ұлыбритания арасындағы білім және ғылым саласындағы келісімдерден кейін 2001 жылы құрылған.',
+      },
+      {
+        image: kbtuHist3,
+        title: '2003 - Білім беру инфрақұрылымын дамыту',
+        text: 'Кадрларды қайта даярлау және біліктілігін арттыру үшін «ҚБТУ Инженерлік және ақпараттық технологиялар институты» ЖШС оқу орталығын құру.',
+      },
+      {
+        image: kbtuHist4,
+        title: '2005 - Қос диплом бағдарламасы, академиялық алмасудың жаңа деңгейі',
+        text: 'Лондон экономика және саясаттану мектебімен қос дипломды білім беру бағдарламасын іске қосу.',
+      },
+      {
+        image: kbtuHist5,
+        title: '2011 - ҚБТУ AACSB-ге қосылды',
+        text: 'Жаһандық білім беру кеңістігіне одан әрі интеграциялану мақсатында ҚБТУ AACSB (Association to Advance Collegiate Schools of Business) Америка қауымдастығының мүшесі болды.',
+      },
+    ],
+    'ru': [
+      {
+        image: kbtuHist1,
+        title: '2000 - Начало международного сотрудничества в образовании и науке',
+        text: 'В ходе официального визита Президента в Великобританию в ноябре 2000 года достигнуты соглашения в области образования и науки.',
+      },
+      {
+        image: kbtuHist2,
+        title: '2001 - Основание Казахстанско-Британского технического университета',
+        text: 'Основан в 2001 году после соглашений, достигнутых между Казахстаном и Великобританией в области образования и науки.',
+      },
+      {
+        image: kbtuHist3,
+        title: '2003 - Развитие образовательной инфраструктуры',
+        text: 'Создание образовательного центра ТОО «Институт инжиниринга и информационных технологий КБТУ» для переподготовки и повышения квалификации кадров.',
+      },
+      {
+        image: kbtuHist4,
+        title: '2005 - Программа двойного диплома, Новый уровень академического обмена',
+        text: 'Запуск образовательной программы двойного диплома с Лондонской школой экономики и политических наук.',
+      },
+      {
+        image: kbtuHist5,
+        title: '2011 - КБТУ присоединяется к AACSB',
+        text: 'Стремясь к дальнейшей интеграции в мировое образовательное пространство, КБТУ вступил в члены Американской ассоциации AACSB (Associationto Advance Collegiate Schools of Business)',
+      },
+    ],
+    'en': [
+      {
+        image: kbtuHist1,
+        title: '2000 - Beginning of international cooperation in education and science',
+        text: `During the President's official visit to the UK in November 2000, agreements were reached in the fields of education and science.`,
+      },
+      {
+        image: kbtuHist2,
+        title: '2001 - Founding of the Kazakh-British Technical University',
+        text: 'Founded in 2001 after agreements reached between Kazakhstan and Great Britain in the field of education and science.',
+      },
+      {
+        image: kbtuHist3,
+        title: '2003 - Development of educational infrastructure',
+        text: 'Creation of an educational center LLP “Institute of Engineering and Information Technologies KBTU” for retraining and advanced training of personnel.',
+      },
+      {
+        image: kbtuHist4,
+        title: '2005 - Double degree program, New level of academic exchange',
+        text: 'Launch of a double degree educational program with the London School of Economics and Political Science.',
+      },
+      {
+        image: kbtuHist5,
+        title: '2011 - KBTU joins AACSB',
+        text: 'In an effort to further integrate into the global educational space, KBTU became a member of the American Association AACSB (Association to Advance Collegiate Schools of Business)',
+      },
+    ],
+  },
+  3: {
+    'kz': [
+      {
+        image: suHist1,
+        title:'1933 - Бірінші жоғары техникалық оқу орнын ұйымдастыру',
+        text:'Қазақстандағы жоғары техникалық білімді дамыту мақсатында Алматыда Қазақ тау-кен металлургиялық институты құрылды. Бұл елде техникалық ғылымдардың дамуының бастауы болды.',
+      },
+      {
+        image: suHist2,
+        title:'1938 - Инженерлердің алғашқы түлегі және академик Сәтбаевтың қосқан үлесі',
+        text:'ҚазММИ-ден Қаныш Сәтбаевтың төрағалығымен тұңғыш тау-кен геологтары шықты, бұл ғылым мен өндірістің дамуына маңызды үлес болды.',
+      },
+      {
+        image: suHist3,
+        title:'1970 - Қазақ мемлекеттік медицина институтынан Ленин атындағы Қазақ политехникалық институтына дейін',
+        text:'Институт өзінің білім беру және ғылыми салаларын кеңейте отырып, бірқатар атауларды өзгертуден өтуде.',
+      },
+      {
+        image: suHist4,
+        title:'1999 - Қ.И. Сәтбаевтың аты тағайындалуы',
+        text:'1999 жылы Қаныш Сәтбаевтың туғанына 100 жыл толуына орай университетке оның есімі берілді. 2001 жылы Президент Жарлығымен университетке оның кадр даярлаудағы маңызды рөлін растайтын ерекше мәртебе берілді.',
+      },
+      {
+        image: suHist5,
+        title:'2017 - Satbayev University брендімен трансформациялар мен жұмыс',
+        text:'Акционерлік қоғамға айналып, ҚБТУ-мен біріктірілгеннен кейін университет өзінің дамуындағы жаңа дәуірді көрсете отырып, Satbayev University брендімен жұмыс істей бастайды.yev University',
+      },
+    ],
+    'ru': [
+      {
+        image: suHist1,
+        title:'1933 - Организация первого высшего технического учебного заведения',
+        text:'В Алма-Ате был основан Казахский горно-металлургический институт с целью развития высшего технического образования в Казахстане. Это стало началом освоения технических наук в стране.',
+      },
+      {
+        image: suHist2,
+        title:'1938 - Первый выпуск инженеров и вклад академика Сатпаева',
+        text:'КазГМИ выпускает первых горных инженеров-геологов, под председательством Каныша Сатпаева, что стало важным вкладом в развитие науки и промышленности.',
+      },
+      {
+        image: suHist3,
+        title:'1970 - От КазГМИ к Казахский политехнический институт имени Ленина',
+        text:'Институт претерпевает серию переименований, расширяя свои образовательные и научные направления.',
+      },
+      {
+        image: suHist4,
+        title:'1999 - Присвоение имени К.И. Сатпаева',
+        text:'В 1999 году, в ознаменование 100-летия со дня рождения Каныша Сатпаева, университету было присвоено его имя. В 2001 году, по указу президента университет получил особый статус, подтверждая его важную роль в подготовке кадров',
+      },
+      {
+        image: suHist5,
+        title:'2017 - Преобразования и работа под брендом Satbayev University',
+        text:'После преобразования в акционерное общество и объединения с КБТУ, университет начинает работать под брендом Satbayev University, подчеркивая новую эру в его развитии.',
+      },
+    ],
+    'en': [
+      {
+        image: suHist1,
+        title:'1933 - Organization of the first higher technical educational institution',
+        text:'The Kazakh Mining and Metallurgical Institute was founded in Almaty with the aim of developing higher technical education in Kazakhstan. This marked the beginning of the development of technical sciences in the country.',
+      },
+      {
+        image: suHist2,
+        title:'1938 - The first graduation of engineers and the contribution of Academician Satpayev',
+        text:'KazMMI graduates the first mining geologists, under the chairmanship of Kanysh Satpayev, which became an important contribution to the development of science and industry.',
+      },
+      {
+        image: suHist3,
+        title:'1970 - From Kazakh State Medical Institute to the Kazakh Polytechnic Institute named after Lenin',
+        text:'The Institute is undergoing a series of renamings, expanding its educational and scientific areas.',
+      },
+      {
+        image: suHist4,
+        title:'1999 - Naming after K.I. Satpayeva',
+        text:'In 1999, to commemorate the 100th anniversary of the birth of Kanysh Satpayev, the university was named after him. In 2001, by presidential decree, the university received a special status, confirming its important role in personnel training',
+      },
+      {
+        image: suHist5,
+        title:'2017 - Transformations and work under the Satbayev University brand',
+        text:'After transforming into a joint stock company and merging with KBTU, the university begins to operate under the Satbayev University brand, highlighting a new era in its development.yev University',
+      },
+    ],
+  },
+};
+
+export const universityBestGraduates = {
+  3: {
+    'kz': [
+      {
+        name:'Казбек Валиев',
+        image: suProud1,
+        description: 'Әйгілі альпинист, Эверестті алғаш бағындырған қазақ',
+      },
+      {
+        name:'Бахыт Султанов',
+        image: suProud2,
+        description: 'Қазақстан Республикасының Сауда және интеграция министрі, бұрынғы қаржы министрі',
+      },
+      {
+        name:'Аскар Жумагалиев',
+        image: suProud3,
+        description: 'Нидерланды Корольдігіндегі Елші, Цифрлық даму министрі',
+      },
+      {
+        name:'Диас Сулейменов',
+        image: suProud4,
+        description: '«Қамқор Менеджмент» ЖШС бас директоры',
+      },
+    ],
+    'ru': [
+      {
+        name:'Казбек Валиев',
+        image: suProud1,
+        description: 'Знаменитый альпинист, первый казах — покоритель Эвереста',
+      },
+      {
+        name:'Бахыт Султанов',
+        image: suProud2,
+        description: 'Министр торговли и интеграции РК, бывший министр финансов',
+      },
+      {
+        name:'Аскар Жумагалиев',
+        image: suProud3,
+        description: 'Посол в корольстве Нидерландов, Министр цифрового развития',
+      },
+      {
+        name:'Диас Сулейменов',
+        image: suProud4,
+        description: 'Генеральный директор ТОО «Қамқор Менеджмент»',
+      },
+    ],
+    'en': [
+      {
+        name: 'Kazbek Valiev',
+        image: suProud1,
+        description: 'Famous climber, first Kazakh conqueror of Everest',
+      },
+      {
+        name:'Bakhyt Sultanov',
+        image: suProud2,
+        description: 'Minister of Trade and Integration of the Republic of Kazakhstan, former Minister of Finance',
+      },
+      {
+        name:'Askar Zhumagaliyev',
+        image: suProud3,
+        description: 'Ambassador to the Kingdom of the Netherlands, Minister of Digital Development',
+      },
+      {
+        name:'Dias  Suleimenov',
+        image: suProud4,
+        description: 'General Director of Kamkor Management LLP',
+      },
+    ],
+  },
 };

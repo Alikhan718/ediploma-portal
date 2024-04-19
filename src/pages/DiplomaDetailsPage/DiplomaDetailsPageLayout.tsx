@@ -1865,7 +1865,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                   <CloseIcon width="1rem" height="1rem"/>
                 </Box>
                 <Box display="flex" gap="1rem" flexDirection="column">
-                  {graduateAttributes && graduateAttributes.signed_by &&
+                  { data && data.university_id == 3 && graduateAttributes && graduateAttributes.signed_by &&
                       <Box display="flex" flexDirection="row">
                           <Box display="flex" justifyContent="center" alignItems="center"
                                pr="2rem">
@@ -1907,7 +1907,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               </Box>
                           </Box>
                       </Box>}
-                  {graduateAttributes && graduateAttributes.signed_by &&
+                  { data && data.university_id == 3 && graduateAttributes && graduateAttributes.signed_by &&
                       <Divider/>
                   }
                   <Box display="flex" flexDirection="row">

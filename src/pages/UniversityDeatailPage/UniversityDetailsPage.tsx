@@ -25,7 +25,7 @@ import cn from "classnames";
 import { selectUniversitiesList, selectUserRole } from '@src/store/auth/selector';
 import { ReactComponent as GoldStar } from '@src/assets/icons/goldStar.svg';
 import { selectLanguage } from "@src/store/generals/selectors";
-import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { localization, universityName, univerityMission, universityFacts, universityBestGraduates, universityHistory } from '@src/pages/UnivesrityDetailsPage/generator';
 import { FilterSection } from "@src/layout/Filter/FilterSection";
 import { FilterAttributes } from "@src/layout/Header/Header";
 import ReactGA, { set } from 'react-ga';
@@ -388,7 +388,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     }}
                   >
                     {/* {localization[lang].MainCard.uniNames} */}
-                    {data ? data.name : ""}
+                    {data && universityName[data.university_id as keyof typeof universityName] ? universityName[data.university_id as keyof typeof universityName][lang] : ""}
                   </Typography>
                   <Box display="flex" alignItems="center" sx={{ '@media (max-width: 768px)': { marginBottom: '1rem' } }}>
                     {links.map((link: any) => (
@@ -443,12 +443,12 @@ export const UniversityDetailsPage: React.FC = () => {
                         color: '#4D4D4D',
                         paddingBottom: '10px'
                       }}>
-                        {"Миссия университета"}
+                        {localization[lang].MainCard.mission}
                       </Box>
                       <Typography className={styles.textSm} color="#818181">
-                        {data && data.university_id == 1 ?
-                          mission : data && data.university_id == 2 ? "Q-LAB - исследовательская лаборатория проблем градопланирования и строительства, изучающая потребности жителей города и городских сообществ. Является связующим звеном между архитекторами и горожанами. Мы центр для создания и внедрения исследовательских, образовательных, научных и культурных проектов в области архитектуры, городского планирования и урбанистики. Объеденяем ряд творческих, технических, академических исследователей, коммерческие и некоммерческие организации создавая новые возможности для партнерства направленных на развитие города."
-                          : 'Satbayev University – крупнейший в Казахстане научно-методический центр, разрабатывающий специальные программы подготовки специалистов для нужд промышленности, сложных проектов и создания команд профессионалов мирового уровня.'
+                        {
+                          data && data.university_id ? 
+                            univerityMission[data.university_id as keyof typeof univerityMission][lang] : ""
                         }
                       </Typography>
                     </Box>
@@ -526,9 +526,9 @@ export const UniversityDetailsPage: React.FC = () => {
                         <Cap />
                       </Box>
                       <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        {data && data.university_id == 1 ?
-                          'Программы двойных дипломов в сотрудничестве с LSE,Geneva Business School , University of Northampton, IFP Energies Nouvelles' :
-                          '1-ое место среди технических вузов Казахстана согласно рейтингу Независимого агентства по обеспечению качества в образовании'
+                        {
+                          data && data.university_id && universityFacts[data.university_id as keyof typeof universityFacts] ?
+                            universityFacts[data.university_id as keyof typeof universityFacts][lang][0] : ''
                         }
                       </Typography>
                     </Box>
@@ -544,9 +544,9 @@ export const UniversityDetailsPage: React.FC = () => {
                         <PlusMinus />
                       </Box>
                       <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        {data && data.university_id == 1 ?
-                          'На протяжение 9 лет держал звание лучшего технического вуза Казахстана по Генеральному рейтингу НКАОКО' :
-                          '501-510 место в международном рейтинге QS World University Ranking'
+                        {
+                          data && data.university_id && universityFacts[data.university_id as keyof typeof universityFacts] ?
+                            universityFacts[data.university_id as keyof typeof universityFacts][lang][1] : ''
                         }
                       </Typography>
                     </Box>
@@ -562,9 +562,9 @@ export const UniversityDetailsPage: React.FC = () => {
                         <Graph />
                       </Box>
                       <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        {data && data.university_id == 1 ?
-                          'Лучшие в Казахстане программы Нефтегазовое дело, Химическая инженерия, Информационные технологии' :
-                          'Лучшие в Казахстане программы Нефтегазовое дело, Химическая инженерия, Информационные технологии'
+                        {
+                          data && data.university_id && universityFacts[data.university_id as keyof typeof universityFacts] ?
+                            universityFacts[data.university_id as keyof typeof universityFacts][lang][2] : ''
                         }
                       </Typography>
                     </Box>
@@ -580,9 +580,9 @@ export const UniversityDetailsPage: React.FC = () => {
                         <PieChart />
                       </Box>
                       <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        {data && data.university_id == 1 ?
-                          'КазМунайГаз, Казатомпром, Казахстан Темир Жолы, Air Astana, Казахтелеком, Самрук-Энерго, Казкоммерцбанк и Халык Банк являются основными работодателями для выпускников КБТУ.' :
-                          'Золотая медаль имени В.И. Блинникова «За вклад в изобретательское и патентное дело» Евразийской патентной организации'
+                        {
+                          data && data.university_id && universityFacts[data.university_id as keyof typeof universityFacts] ?
+                            universityFacts[data.university_id as keyof typeof universityFacts][lang][3] : ''
                         }
                       </Typography>
                     </Box>
@@ -596,7 +596,7 @@ export const UniversityDetailsPage: React.FC = () => {
                       color: '#4D4D4D',
                       paddingBottom: '10px'
                     }}>
-                      {"История университета"}
+                      {localization[lang].MainCard.history}
                     </Box>
 
                     <Box sx={{
@@ -631,7 +631,14 @@ export const UniversityDetailsPage: React.FC = () => {
                           width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
                           '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
                         }}>
-                          <img src={data && data.university_id == 1 ? kbtuHist1 : suHist1} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                          <img 
+                            src={
+                              data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                              universityHistory[data.university_id as keyof typeof universityHistory][lang][0].image :
+                              historyEx
+                            }
+                            style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} 
+                          />
                         </Box>
                         <Box sx={{
                           fontSize: '1.5rem',
@@ -640,15 +647,15 @@ export const UniversityDetailsPage: React.FC = () => {
                           paddingBottom: '10px',
                           marginTop: '1rem'
                         }}>
-                          {data && data.university_id == 1 ?
-                            "2000 - Начало международного сотрудничества в образовании и науке" :
-                            "1933 - Организация первого высшего технического учебного заведения"
+                          {
+                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                            universityHistory[data.university_id as keyof typeof universityHistory][lang][0].title : ''
                           }
                         </Box>
                         <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
-                          {data && data.university_id == 1 ?
-                            "В ходе официального визита Президента в Великобританию в ноябре 2000 года достигнуты соглашения в области образования и науки." :
-                            "В Алма-Ате был основан Казахский горно-металлургический институт с целью развития высшего технического образования в Казахстане. Это стало началом освоения технических наук в стране."
+                          {
+                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                            universityHistory[data.university_id as keyof typeof universityHistory][lang][0].text : ''
                           }
                         </Typography>
                       </Box>
@@ -657,7 +664,14 @@ export const UniversityDetailsPage: React.FC = () => {
                           width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
                           '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
                         }}>
-                          <img src={data && data.university_id == 1 ? kbtuHist2 : suHist2} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                          <img 
+                            src={
+                              data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                              universityHistory[data.university_id as keyof typeof universityHistory][lang][1].image :
+                              historyEx
+                            }
+                            style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} 
+                          />
                         </Box>
                         <Box sx={{
                           fontSize: '1.5rem',
@@ -666,15 +680,15 @@ export const UniversityDetailsPage: React.FC = () => {
                           paddingBottom: '10px',
                           marginTop: '1rem'
                         }}>
-                          {data && data.university_id == 1 ?
-                            "2001 - Основание Казахстанско-Британского технического университета" :
-                            "1938 - Первый выпуск инженеров и вклад академика Сатпаева"
+                          {
+                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                            universityHistory[data.university_id as keyof typeof universityHistory][lang][1].title : ''
                           }
                         </Box>
                         <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
-                          {data && data.university_id == 1 ?
-                            "Основан в 2001 году после соглашений, достигнутых между Казахстаном и Великобританией в области образования и науки." :
-                            "КазГМИ выпускает первых горных инженеров-геологов, под председательством Каныша Сатпаева, что стало важным вкладом в развитие науки и промышленности."
+                          {
+                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                            universityHistory[data.university_id as keyof typeof universityHistory][lang][1].text : ''
                           }
                         </Typography>
                       </Box>
@@ -683,7 +697,14 @@ export const UniversityDetailsPage: React.FC = () => {
                           width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
                           '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
                         }}>
-                          <img src={data && data.university_id == 1 ? kbtuHist3 : suHist3} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                          <img 
+                            src={
+                              data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                              universityHistory[data.university_id as keyof typeof universityHistory][lang][2].image :
+                              historyEx
+                            }
+                            style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} 
+                          />
                         </Box>
                         <Box sx={{
                           fontSize: '1.5rem',
@@ -692,15 +713,15 @@ export const UniversityDetailsPage: React.FC = () => {
                           paddingBottom: '10px',
                           marginTop: '1rem'
                         }}>
-                          {data && data.university_id == 1 ?
-                            "2003 - Развитие образовательной инфраструктуры" :
-                            "1970 - От КазГМИ к Казахский политехнический институт имени Ленина"
+                          {
+                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                            universityHistory[data.university_id as keyof typeof universityHistory][lang][2].title : ''
                           }
                         </Box>
                         <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
-                          {data && data.university_id == 1 ?
-                            "Создание образовательного центра ТОО «Институт инжиниринга и информационных технологий КБТУ» для переподготовки и повышения квалификации кадров." :
-                            "Институт претерпевает серию переименований, расширяя свои образовательные и научные направления."
+                          {
+                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                            universityHistory[data.university_id as keyof typeof universityHistory][lang][2].text : ''
                           }
                         </Typography>
                       </Box>
@@ -709,7 +730,14 @@ export const UniversityDetailsPage: React.FC = () => {
                           width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
                           '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
                         }}>
-                          <img src={data && data.university_id == 1 ? kbtuHist4 : suHist4} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                          <img 
+                            src={
+                              data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                              universityHistory[data.university_id as keyof typeof universityHistory][lang][3].image :
+                              historyEx
+                            }
+                            style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} 
+                          />
                         </Box>
                         <Box sx={{
                           fontSize: '1.5rem',
@@ -718,15 +746,15 @@ export const UniversityDetailsPage: React.FC = () => {
                           paddingBottom: '10px',
                           marginTop: '1rem'
                         }}>
-                          {data && data.university_id == 1 ?
-                            "2005 - Программа двойного диплома, Новый уровень академического обмена" :
-                            "1999 - Присвоение имени К.И. Сатпаева"
+                          {
+                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                            universityHistory[data.university_id as keyof typeof universityHistory][lang][3].title : ''
                           }
                         </Box>
                         <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
-                          {data && data.university_id == 1 ?
-                            "Запуск образовательной программы двойного диплома с Лондонской школой экономики и политических наук." :
-                            "В 1999 году, в ознаменование 100-летия со дня рождения Каныша Сатпаева, университету было присвоено его имя. В 2001 году, по указу президента университет получил особый статус, подтверждая его важную роль в подготовке кадров"
+                          {
+                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                            universityHistory[data.university_id as keyof typeof universityHistory][lang][3].text : ''
                           }
                         </Typography>
                       </Box>
@@ -735,7 +763,14 @@ export const UniversityDetailsPage: React.FC = () => {
                           width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
                           '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
                         }}>
-                          <img src={data && data.university_id == 1 ? historyEx : suHist5} style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} />
+                          <img 
+                            src={
+                              data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                              universityHistory[data.university_id as keyof typeof universityHistory][lang][4].image :
+                              historyEx
+                            }
+                            style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} 
+                          />
                         </Box>
                         <Box sx={{
                           fontSize: '1.5rem',
@@ -744,15 +779,15 @@ export const UniversityDetailsPage: React.FC = () => {
                           paddingBottom: '10px',
                           marginTop: '1rem'
                         }}>
-                          {data && data.university_id == 1 ?
-                            "2011 - КБТУ присоединяется к AACSB" :
-                            "2017 - Преобразования и работа под брендом Satbayev University"
+                          {
+                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                            universityHistory[data.university_id as keyof typeof universityHistory][lang][4].title : ''
                           }
                         </Box>
                         <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
-                          {data && data.university_id == 1 ?
-                            "Стремясь к дальнейшей интеграции в мировое образовательное пространство, КБТУ вступил в члены Американской ассоциации AACSB (Associationto Advance Collegiate Schools of Business)" :
-                            "После преобразования в акционерное общество и объединения с КБТУ, университет начинает работать под брендом Satbayev University, подчеркивая новую эру в его развитии."
+                          {
+                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
+                            universityHistory[data.university_id as keyof typeof universityHistory][lang][4].text : ''
                           }
                         </Typography>
                       </Box>
@@ -817,7 +852,7 @@ export const UniversityDetailsPage: React.FC = () => {
                         },
                       }}
                     >
-                      {'Лучшие выпускники'}
+                      {localization[lang].MainCard.best}
                     </Typography>
                     <Box sx={{ display: 'flex', '@media (max-width: 998px)': { flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '1rem' } }}>
                       <Box sx={{
@@ -843,14 +878,29 @@ export const UniversityDetailsPage: React.FC = () => {
                           </Box>
                           <Box sx={{ margin: '1rem' }}>
                             <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {data && data.university_id == 1 ? 'Имя фамилия Отчество выпускника/ученика' : 'Казбек Валиев'}
+                              {
+                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][0].name :
+                                  'Имя фамилия Отчество выпускника/ученика'
+                              }
                             </Typography>
                             <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {data && data.university_id == 1 ? 'Специализация выпускника/ученика' : 'Знаменитый альпинист, первый казах — покоритель Эвереста'}
+                              {
+                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][0].description :
+                                  'Специализация выпускника/ученика'
+                              }
                             </Typography>
                           </Box>
                         </Box>
-                        <img src={data && data.university_id == 1 ? proudStuEx : suProud1} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} />
+                        <img 
+                          src={
+                              data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                              universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][0].image :
+                              proudStuEx
+                          }
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} 
+                        />
                       </Box>
                       <Box sx={{
                         width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
@@ -875,14 +925,29 @@ export const UniversityDetailsPage: React.FC = () => {
                           </Box>
                           <Box sx={{ margin: '1rem' }}>
                             <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {data && data.university_id == 1 ? 'Имя фамилия Отчество выпускника/ученика' : 'Бахыт Султанов'}
+                              {
+                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][1].name :
+                                  'Имя фамилия Отчество выпускника/ученика'
+                              }
                             </Typography>
                             <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {data && data.university_id == 1 ? 'Специализация выпускника/ученика' : 'Министр торговли и интеграции РК, бывший министр финансов'}
+                              {
+                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][1].description :
+                                  'Специализация выпускника/ученика'
+                              }
                             </Typography>
                           </Box>
                         </Box>
-                        <img src={data && data.university_id == 1 ? proudStuEx : suProud2} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} />
+                        <img 
+                          src={
+                              data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                              universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][1].image :
+                              proudStuEx
+                          }
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} 
+                        />
                       </Box>
                       <Box sx={{
                         width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
@@ -907,14 +972,29 @@ export const UniversityDetailsPage: React.FC = () => {
                           </Box>
                           <Box sx={{ margin: '1rem' }}>
                             <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {data && data.university_id == 1 ? 'Имя фамилия Отчество выпускника/ученика' : 'Аскар Жумагалиев'}
+                              {
+                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][2].name :
+                                  'Имя фамилия Отчество выпускника/ученика'
+                              }
                             </Typography>
                             <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {data && data.university_id == 1 ? 'Специализация выпускника/ученика' : 'Посол в корольстве Нидерландов, Министр цифрового развития'}
+                              {
+                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][2].description :
+                                  'Специализация выпускника/ученика'
+                              }
                             </Typography>
                           </Box>
                         </Box>
-                        <img src={data && data.university_id == 1 ? proudStuEx : suProud3} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} />
+                        <img 
+                          src={
+                              data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                              universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][2].image :
+                              proudStuEx
+                          }
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} 
+                        />
                       </Box>
                       <Box sx={{
                         width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
@@ -939,14 +1019,29 @@ export const UniversityDetailsPage: React.FC = () => {
                           </Box>
                           <Box sx={{ margin: '1rem' }}>
                             <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {data && data.university_id == 1 ? 'Имя фамилия Отчество выпускника/ученика' : 'Диас Сулейменов'}
+                              {
+                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][3].name :
+                                  'Имя фамилия Отчество выпускника/ученика'
+                              }
                             </Typography>
                             <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {data && data.university_id == 1 ? 'Специализация выпускника/ученика' : 'Генеральный директор ТОО «Қамқор Менеджмент»'}
+                              {
+                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][3].description :
+                                  'Специализация выпускника/ученика'
+                              }
                             </Typography>
                           </Box>
                         </Box>
-                        <img src={data && data.university_id == 1 ? proudStuEx : suProud4} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} />
+                        <img 
+                          src={
+                              data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
+                              universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][3].image :
+                              proudStuEx
+                          }
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} 
+                        />
                       </Box>
                     </Box>
                   </Box>
@@ -975,7 +1070,7 @@ export const UniversityDetailsPage: React.FC = () => {
                 paddingTop: '1.75rem',
                 paddingLeft: '1.75rem',
               }}>
-                {"Резерв кадров"}
+                {localization[lang].MainCard.reserve}
               </Box>
               <Box sx={{
                 display: 'flex',
@@ -1074,7 +1169,7 @@ export const UniversityDetailsPage: React.FC = () => {
                     fontSize="14px"
                     mb='.5rem' sx={{ color: '#818181' }}
                     className={styles.mobText}
-                  >{localization[lang].Students.major}
+                  >{''}
                   </Typography>
                 </Box>
                 <Box sx={{
@@ -1158,7 +1253,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           className={styles.mobText}
                           sx={{ width: '50%', '@media (max-width: 768px)': { width: '100%' } }}
                         >
-                          {e.name_ru}
+                          {lang === 'ru' ? e.name_ru : lang === 'kz' ? e.name_kz : lang === 'en' ? e.name_en : e.name_ru}
                         </Typography>
                         <Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm}
                           sx={{

@@ -8,7 +8,7 @@ import {selectLanguage} from "@src/store/generals/selectors";
 import {selectUniversitiesList} from '@src/store/auth/selector';
 import {fetchUniversitiesList} from '@src/store/auth/actionCreators';
 import {useSelector, useDispatch} from "react-redux";
-import {localization, universityNames} from '@src/pages/UnivesrityPage/generator';
+import {localization, universityNames, universityGraduatesCount, universityCity} from '@src/pages/UnivesrityPage/generator';
 
 
 export const UniversityPageLayout: React.FC = () => {
@@ -77,9 +77,14 @@ export const UniversityPageLayout: React.FC = () => {
                                             university.name ? university.name : ''
                                     }
                                 </Typography>
-                                <Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>
-                                    {localization[lang].UniCards.majors}: {university.speciality_amount ? `${university.speciality_amount}` :24}
-                                </Typography>
+                                <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>
+                                        {localization[lang].UniCards.majors}: {universityGraduatesCount[university.university_id as keyof typeof universityGraduatesCount]}
+                                    </Typography>
+                                    <Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"} textAlign='right'>
+                                        {localization[lang].UniCards.city}: {universityCity[university.university_id as keyof typeof universityCity][lang]}
+                                    </Typography>
+                                </Box>
                             </CardContent>
                         </Box>
                     </Grid>

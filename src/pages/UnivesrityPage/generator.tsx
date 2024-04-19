@@ -55,7 +55,8 @@ export const localization = {
 			nameSU: "Қ.И.Сәтбаев атындағы Қазақстандық Ұлттық Техниқалық Зерттеу Университеті (ҚазҰТЗУ)",
 			nameSUshort: "Сәтбаев Университет (CУ)",
 			ratings: "пікірлер",
-			majors: "Мамандықтар",
+			majors: "Түлектер",
+			city: "Қала",
 		},
 	},
 	"ru": {
@@ -71,7 +72,8 @@ export const localization = {
 			nameSU: "Казахский национальный исследовательский технический университет имени К. И. Сатпаева (КазНИТУ)",
 			nameSUshort: "Сатпаев Университет (CУ)",
 			ratings: "отзывов",
-			majors: "Специальностей",
+			majors: "Выпукников",
+			city: "Город",
 		},
 	},
 	"en": {
@@ -87,7 +89,8 @@ export const localization = {
 			nameSU: "Kazakh National Research Technical University named after K. I. Satpayev (KazNTU)",
 			nameSUshort: "Satpaev University (SU)",
 			ratings: "feedbacks",
-			majors: "Majors",
+			majors: "Graduates",
+			city: "City",
 		}
 	},
 }
@@ -109,3 +112,27 @@ export const universityNames = {
 		'en': 'Q-Lab',
 	},
 };
+
+export const universityGraduatesCount = {
+	1: 705,
+	2: 30,
+	3: 2111,
+};
+
+export const universityCity = {
+	1: {
+		kz: 'Алматы',
+		ru: 'Алматы',
+		en: 'Almaty',
+	},
+	2: {
+		kz: 'Алматы',
+		ru: 'Алматы',
+		en: 'Almaty',
+	},
+	3: {
+		kz: 'Алматы',
+		ru: 'Алматы',
+		en: 'Almaty',
+	},
+}
