@@ -643,8 +643,6 @@ export const SchoolDetailsPageLayout: React.FC = () => {
             triggerSearchFilters={triggerSearchFilters}
             filterAttributes={filterAttributes}
             setFilterAttributes={setFilterAttributes}
-            open={showFilter}
-            setOpen={setShowFilter}
           />
         </Box>
     );

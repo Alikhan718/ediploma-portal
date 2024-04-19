@@ -50,8 +50,7 @@ export const MainPageLayout: React.FC = () => {
 		specialities: '',
 		region: '',
 		year: 0,
-		gpaL: 0,
-		gpaR: 0,
+		gpa: 0,
 	});
 	const [searchQuery, setSearchQuery] = React.useState('');
 

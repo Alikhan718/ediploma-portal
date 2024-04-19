@@ -53,7 +53,6 @@ const DiplomaCard: React.FC<DiplomaCardProps> = ({ diploma, lang, handleCardClic
                             mb='1rem'
                             mt='0.5rem'
                             fontSize="1.25rem"
-                            className={styles.mobText}
                             fontWeight="600"
                         >
                             {diploma.name_ru}

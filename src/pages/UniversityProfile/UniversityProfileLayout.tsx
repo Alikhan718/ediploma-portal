@@ -92,8 +92,8 @@ export const UniversityProfileLayout: React.FC = () => {
     specialities: '',
     region: '',
     year: 0,
-    gpaL: 0,
-    gpaR: 0,
+    gpa: 0,
+
   });
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -713,8 +713,6 @@ export const UniversityProfileLayout: React.FC = () => {
         triggerSearchFilters={triggerSearchFilters}
         filterAttributes={filterAttributes}
         setFilterAttributes={setFilterAttributes}
-        open={showFilter}
-        setOpen={setShowFilter}
       />
     </Box>
   );

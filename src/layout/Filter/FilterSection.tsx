@@ -1,37 +1,26 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+	Button,
 	Box,
-	MenuItem,
-	MenuList,
-	Slider,
-	Input,
 	Typography,
-	InputBase,
-	InputLabel,
-	FormControl,
-	Select,
-	SelectChangeEvent,
-	Accordion, AccordionSummary, AccordionDetails, Autocomplete, TextField, useMediaQuery,
+	Chip,
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
+	useMediaQuery,
 } from "@mui/material";
-import { styled } from '@mui/material/styles';
-import { IFilter } from "@src/layout/Filter/FilterSection.props";
-import { ReactComponent as CloseIcon } from "@src/assets/icons/cross.svg";
-import { universities, regions, specialities, years, localization } from "@src/layout/Filter/generator";
-import { Button } from "@src/components";
-import styles from "@src/pages/DiplomaPage/DiplomaPage.module.css";
-import cn from "classnames";
-import { MultiSelect } from "@src/components/MultiSelect/MuiltiSelect";
 import { useDispatch, useSelector } from 'react-redux';
 import { cancelFilters, fetchDiplomas } from "@src/store/diplomas/actionCreators";
 import { selectLanguage } from "@src/store/generals/selectors";
-import e from 'express';
-import { set } from 'react-ga';
-import {ReactComponent as FilterIcon} from '@src/assets/icons/Tuning 2.svg';
-import {ReactComponent as ExpandMoreIcon} from '@src/assets/icons/expandmore.svg';
-
+import { ReactComponent as FilterIcon } from '@src/assets/icons/Tuning 2.svg';
+import { ReactComponent as ExpandMoreIcon } from '@src/assets/icons/expandmore.svg';
+import { IFilter } from "@src/layout/Filter/FilterSection.props";
+import { universities, regions, specialities, years, localization } from "@src/layout/Filter/generator";
+import FilterSelect from "@src/components/FilterSelect/FilterSelect";
+import FilterSlider from "@src/components/FilterSlider/FilterSlider";
 
 export const FilterSection: React.FC<IFilter> = (props) => {
-	const { open, setOpen, filterAttributes, setFilterAttributes, triggerSearchFilters } = props;
+	const {filterAttributes, setFilterAttributes, triggerSearchFilters } = props;
 	const [selectedSpecialities, setSelectedSpecialities] = React.useState<string[]>([]);
 	const [selectedGPA, setSelectedGPA] = React.useState<number>(1.0);
 	const [selectedRating, setSelectedRating] = React.useState<number>(1.0);
@@ -52,7 +41,6 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			gpa: selectedGPA ?? filterAttributes.gpa,
 			university_id: selectedUniversityIDs[0] ?? filterAttributes.university_id,
 			rating : selectedRating ?? filterAttributes.rating,
-
 		};
 
 		if (type === "speciality") {
@@ -75,9 +63,8 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			filterValues.rating = arr;
 		}
 
-		// Update the filterAttributes state
 		setFilterAttributes(filterValues);
-		setFilterAttributes(filterValues);
+
 		if (filterValues.text.length ||
 			filterValues.specialities.length ||
 			filterValues.gpa ||
@@ -105,6 +92,14 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 		},
 	];
 
+	const lang = useSelector(selectLanguage);
+	const translatedSpecialities = specialities[lang];
+	const translatedRegions = regions[lang];
+	const translatedUniversities = universities[lang];
+
+	const [region, setRegion] = React.useState('');
+	const [speciality, setSpeciality] = React.useState<string>('');
+	const [university, setUniversity] = React.useState('');
 
 	const handleChange = (e: any, arr: any, setE: any, type: string) => {
 		setE(arr.includes(e) ? arr.filter((i: any) => i != e) : [e]);
@@ -115,39 +110,42 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 			filter(type, []);
 		}
 	};
-	const handleDelete = (e: any, arr: any, setE: any) => {
-		setE(arr.filter((i: any) => i != e));
+	const handleDeleteChipSpeciality = (chipToDelete: string) => {
+		setSelectedSpecialities((prevSpecialities: string[]) =>
+			prevSpecialities.filter((speciality: string) => speciality !== chipToDelete)
+		);
 	};
 
-	const handleGPA = (event: Event, newValue: number | number[]) => {
-		console.log("New GPA value:", newValue);
-		setSelectedGPA(newValue as number);
-		filter("gpa", newValue as number);
+	const handleDeleteChipRegion = (chipToDelete: string) => {
+		setSelectedRegions((prevRegions: string[]) =>
+			prevRegions.filter((region: string) => region !== chipToDelete)
+		);
 	};
 
-	const handleRating = (event: Event, newValue: number | number[]) => {
-		setSelectedRating(newValue as number);
-		filter("rating", newValue as number);
-	}
-	const lang = useSelector(selectLanguage);
-	const translatedSpecialities = specialities[lang];
-	const translatedRegions = regions[lang];
-	const translatedUniversities = universities[lang];
-
-	const [region, setRegion] = React.useState('');
-	const [specialty, setSpeciality] = React.useState('');
-	const [university, setUniversity] = React.useState('');
-
-	const handleRegionChange = (event: SelectChangeEvent) => {
-		setRegion(event.target.value as string);
+	const handleSpecialityClick = (value: string) => {
+		// Обрабатываем каждый выбранный элемент отдельно
+		const updatedSpecialities = selectedSpecialities.includes(value)
+			? selectedSpecialities.filter((sp: string) => sp !== value)
+			: [...selectedSpecialities, value];
+		setSelectedSpecialities(updatedSpecialities);
+		setFilterAttributes({ ...filterAttributes, specialities: updatedSpecialities.join(',') });
 	};
 
-	const handleSpecialityChange = (event: SelectChangeEvent) => {
-		setSpeciality(event.target.value as string);
+	const handleRegionClick = (region: string) => {
+		const updatedRegions = selectedRegions.includes(region) // Используйте аргумент region, а не неопределенную переменную value
+			? selectedRegions.filter((rg: string) => rg !== region)
+			: [...selectedRegions, region];
+		setSelectedRegions(updatedRegions);
+		setFilterAttributes({ ...filterAttributes, region: updatedRegions.join(',') });
 	};
 
-	const handleUniversityChange = (event: SelectChangeEvent) => {
-		setUniversity(event.target.value as string);
+	const handleSliderChange = (value: number) => {
+		setSelectedGPA(value);
+		setFilterAttributes({ ...filterAttributes, gpa: value });
+	};
+	const handleRatingChange = (value: number) => {
+		setSelectedRating(value);
+		setFilterAttributes({ ...filterAttributes, rating: value });
 	};
 
 	const ITEM_HEIGHT = 48;
@@ -160,57 +158,16 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 		},
 	};
 
-
-	const BootstrapInput = styled(InputBase)(({ theme }) => ({
-		'label + &': {
-			backgroundColor:'#F8F8F8',
-			borderRadius: '48px',
-
-		},
-		'label + & : focus':{
-			borderRadius:'48px',
-		},
-		'label + & : active':{
-			borderRadius:'48px',
-		},
-		'& .MuiInputBase-input': {
-			padding:'0.75rem 20px',
-			borderRadius:'48px',
-			position: 'relative',
-			backgroundColor:'#F8F8F8',
-			border: 'none',
-			fontSize: '14px',
-			color:'#58607C',
-			'&:focus': {
-				borderRadius: '48px',
-				color:'#58607C'
-			},
-		},
-	}));
-
-	const [age, setAge] = useState('');
-	const [labelVisible, setLabelVisible] = useState(true);
-
-	const handleAgeChange = (event: SelectChangeEvent<string>) => {
-		const selectedValue = event.target.value || ''; // Добавляем проверку на null и undefined
-		setAge(selectedValue);
-		setLabelVisible(selectedValue === '' || selectedValue === 'None');
-	};
-	const handleButtonClick = (specialty: string) => {
-		console.log(`Выбрана специальность: ${specialty}`);
-		// Ваша логика для обработки выбора специальности
-	};
-
 	const isSmallerThanMd = useMediaQuery('(max-width:1380px)');
 
 	return (
 		<>
-			<Box sx={{ '& > :not(:first-child)': { marginTop: '.5rem' } }}>
-				<Box display='flex' alignItems="center" sx={{  gap:'.5rem', paddingY:'.5rem' }}>
-					<FilterIcon style={{width:'24px', height:'24px',}}/>
+			<Box sx={{ '& > :not(:first-child)': { marginTop: '.5rem', gap: isSmallerThanMd ? '24px' : 'inherit' }  }}>
+				<Box display='flex' alignItems="center" sx={{ gap:'.5rem', paddingY:'.5rem', justifyContent: isSmallerThanMd ? 'center' : 'flex-start' }}>
+					{isSmallerThanMd ? null : <FilterIcon style={{ width:'24px', height:'24px' }} />}
 					<Typography sx={{ borderRadius: '48px', fontWeight: '700', fontSize:'1rem' }}>{localization[lang].MainCard.filter}</Typography>
 				</Box>
-
+				{/* Speciality Section */}
 				<Box display='flex' alignItems="center">
 					<Accordion  defaultExpanded sx={{ boxShadow: 'none', width: '100%' }}>
 						<AccordionSummary
@@ -221,386 +178,114 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 						>
 							<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>{localization[lang].MainCard.speciality}</Typography>
 						</AccordionSummary>
-						<AccordionDetails sx={{ display: 'flex', justifyContent: 'center', width:'100%',padding: '0',}}>
-							<FormControl variant='filled' size='small' sx={{ width: '100%', }}>
-								<InputLabel
-									id="demo-customized-select-label"
-									shrink={false}
-									sx={{ color:'#383838', fontSize:'14px', zIndex: 2,  opacity: labelVisible ? 1 : 0,'&.Mui-focused': {
-											color: '#383838',
-										},
-										'&:focus-within': {
-											color: '#383838',
-										} }}
-								>
-									Введите запрос
-								</InputLabel>
-								<Select
-									value={specialty}
-									onChange={handleSpecialityChange}
-									labelId="demo-customized-select-label"
-									id="demo-customized-select"
-									input={<BootstrapInput />}
-									IconComponent={ExpandMoreIcon}
-									MenuProps={{
-										sx: {
-											'& .MuiPaper-root': {
-												backgroundColor: '#FFF',
-												borderRadius:'12px',
-												boxShadow: '0px 24px 36px 0px rgba(207, 215, 226, 0.48)',
-												strokeWidth: '1px',
-												stroke: 'black',
-												maxHeight: 200,
-												maxWidth: 300,
-											},
-										},
-									}}
-								>
-									<MenuItem value="" onClick={() => { handleChange('', selectedSpecialities, setSelectedSpecialities, "speciality");}} sx={{ fontSize:'14px', backgroundColor:'none' }}>None</MenuItem>
-									{translatedSpecialities.map((speciality) => (
-										<MenuItem
-											key={speciality.id}
-											value={speciality.name}
-											sx={{fontSize:'14px'}}
-											onClick={() => {
-												handleChange(speciality.name, selectedSpecialities, setSelectedSpecialities, "speciality");
-											}}
-										>
-											{speciality.name}
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
-
+						<AccordionDetails sx={{ display: 'flex', justifyContent: 'center', width:'100%',padding: '0',flexDirection: 'column', gap:'12px'}}>
+							<FilterSelect
+								label="Введите запрос"
+								value=""
+								onChange={(value: string) => handleSpecialityClick(value)}
+								options={translatedSpecialities}
+								onItemClick={(value: string) => {
+									handleChange(value, selectedSpecialities, setSelectedSpecialities, "speciality");
+								}}
+							/>
+							<Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: '10px', gap:'0.75rem',}}>
+								{selectedSpecialities.map((value: string) => (
+									<Chip key={value} label={value} onClick={() => handleDeleteChipSpeciality(value)} color="primary" sx={{padding:"16px 7px",borderRadius:'8px'}}/>
+								))}
+							</Box>
 						</AccordionDetails>
 					</Accordion>
 				</Box>
-
+				{/* Region Section */}
 				<Box display='flex' alignItems="center">
-					<Accordion  defaultExpanded sx={{ boxShadow: 'none', width:'100%',}}>
+					<Accordion  defaultExpanded sx={{ boxShadow: 'none', width: '100%' }}>
 						<AccordionSummary
 							expandIcon={<ExpandMoreIcon />}
 							aria-controls="panel2-content"
 							id="panel2-header"
-							sx={{ padding: '0', display: 'flex', justifyContent: 'space-between', width: '100%',}}
+							sx={{ padding: '0', display: 'flex', justifyContent: 'space-between', width: '100%' }}
 						>
 							<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>{localization[lang].MainCard.region}</Typography>
 						</AccordionSummary>
-						<AccordionDetails sx={{padding:'0'}}>
-							<FormControl variant='filled' size='small' sx={{ width: '100%', }}>
-								<InputLabel
-									id="demo-customized-select-label"
-									shrink={false}
-									sx={{ color:'#383838', fontSize:'14px', zIndex: 2,  opacity: labelVisible ? 1 : 0,'&.Mui-focused': {
-											color: '#383838',
-										},
-										'&:focus-within': {
-											color: '#383838',
-										} }}
-								>
-									Введите запрос
-								</InputLabel>
-								<Select
-									value={region}
-									onChange={handleRegionChange}
-									labelId="demo-customized-select-label"
-									id="demo-customized-select"
-									input={<BootstrapInput />}
-									IconComponent={ExpandMoreIcon}
-									MenuProps={{
-										sx: {
-											'& .MuiPaper-root': {
-												backgroundColor: '#FFF',
-												borderRadius:'12px',
-												boxShadow: '0px 24px 36px 0px rgba(207, 215, 226, 0.48)',
-												strokeWidth: '1px',
-												stroke: 'black',
-												maxHeight: 200,
-												maxWidth: 300,
-											},
-										},
-									}}
-								>
-									<MenuItem sx={{ fontSize:'14px', backgroundColor:'none' }} value="" onClick={() => {handleChange('', selectedRegions, setSelectedRegions, "region");}}>
-										<em>None</em>
-									</MenuItem>
-									{translatedRegions.map((region) => (
-										<MenuItem
-											sx={{ fontSize:'14px' }}
-											key={region.id}
-											value={region.name}
-											onClick={() => {
-												handleChange(region.name, selectedRegions, setSelectedRegions, "region");
-											}}
-										>
-											{region.name}
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
+						<AccordionDetails sx={{ display: 'flex', justifyContent: 'center', width:'100%',padding: '0',flexDirection: 'column', gap:'12px'}}>
+							<FilterSelect
+								label="Введите запрос"
+								value=""
+								onChange={(value: string) => handleRegionClick(value)}
+								options={translatedRegions}
+								onItemClick={(value: string) => {
+									handleChange(value, selectedRegions, setSelectedRegions, "region");
+								}}
+							/>
+							<Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: '10px', gap:'0.75rem',}}>
+								{selectedRegions.map((value: string) => (
+									<Chip key={value} label={value} onClick={() => handleDeleteChipRegion(value)} color="primary" sx={{padding:"16px 7px",borderRadius:'8px'}}/>
+								))}
+							</Box>
 						</AccordionDetails>
 					</Accordion>
 				</Box>
+				{/* University Section */}
 				<Box display='flex' alignItems="center">
-					<Accordion  defaultExpanded sx={{ boxShadow: 'none', width:'100%',}}>
+					<Accordion  defaultExpanded sx={{ boxShadow: 'none', width: '100%' }}>
 						<AccordionSummary
 							expandIcon={<ExpandMoreIcon />}
 							aria-controls="panel2-content"
 							id="panel2-header"
-							sx={{ padding: '0', display: 'flex', justifyContent: 'space-between', width: '100%',}}
+							sx={{ padding: '0', display: 'flex', justifyContent: 'space-between', width: '100%' }}
 						>
 							<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>{localization[lang].MainCard.university}</Typography>
 						</AccordionSummary>
-						<AccordionDetails sx={{padding:'0'}}>
-							<FormControl variant='filled' size='small' sx={{ width: '100%', }}>
-								<InputLabel
-									id="demo-customized-select-label"
-									shrink={false}
-									sx={{ color:'#383838', fontSize:'14px', zIndex: 2,  opacity: labelVisible ? 1 : 0,'&.Mui-focused': {
-											color: '#383838',
-										},
-										'&:focus-within': {
-											color: '#383838',
-										} }}
-								>
-									Введите запрос
-								</InputLabel>
-								<Select
-									labelId="demo-customized-select-label"
-									id="demo-customized-select"
-									value={age}
-									onChange={handleAgeChange}
-									input={<BootstrapInput />}
-									IconComponent={ExpandMoreIcon}
-									MenuProps={{
-										sx: {
-											'& .MuiPaper-root': {
-												backgroundColor: '#FFF',
-												borderRadius:'12px',
-												boxShadow: '0px 24px 36px 0px rgba(207, 215, 226, 0.48)',
-												strokeWidth: '1px',
-												stroke: 'black',
-												maxHeight: 200,
-												maxWidth: 300,
-											},
-										},
-									}}
-								>
-									<MenuItem sx={{fontSize:'14px'}} value="" onClick={() => {handleChange(0, selectedUniversityIDs, setSelectedUniversityIDs, "university_id");}}>
-										<em>None</em>
-									</MenuItem >
-									{translatedUniversities.slice(0,5).map((university) => (
-										<MenuItem
-											sx={{fontSize:'14px'}}
-											key={university.id}
-											value={university.name}
-											onClick={() => {
-												handleChange(university.university_id, selectedUniversityIDs, setSelectedUniversityIDs, "university_id");
-											}}
-										>
-											{university.name}
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
+						<AccordionDetails sx={{ display: 'flex', justifyContent: 'center', width:'100%',padding: '0',flexDirection: 'column', gap:'12px'}}>
+							<Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: '10px', gap:'0.75rem',}}>
+								{translatedUniversities.map((university) => (
+									<Chip
+										key={university.id}
+										label={university.name}
+										clickable
+										onClick={() => {
+											handleChange(university.university_id, selectedUniversityIDs, setSelectedUniversityIDs, "university_id");
+										}}
+										color={selectedUniversityIDs.includes(university.university_id) ? "primary" : "default"}
+										sx={{padding:"16px 7px",borderRadius:'8px'}}
+									/>
+								))}
+							</Box>
 						</AccordionDetails>
 					</Accordion>
 				</Box>
+				<FilterSlider
+					label="GPA"
+					value={selectedGPA}
+					onChange={handleSliderChange}
+					min={1.0}
+					max={4.0}
+				/>
+				<FilterSlider
+					label="Rating"
+					value={selectedRating}
+					onChange={handleRatingChange}
+					min={1.0}
+					max={5.0}
+				/>
+				{/*For Mobile&Tablet*/}
+				{isSmallerThanMd  && (
+					<Button variant='contained' sx={{ width:'100%', borderRadius: '40px' }} onClick={() => {
+						if (filterAttributes.text.length ||
+							filterAttributes.specialities.length ||
+							filterAttributes.gpa ||
+							filterAttributes.university.length ||
+							filterAttributes.rating ||
+							filterAttributes.region.length) {
+							triggerSearchFilters(filterAttributes);
+						}
 
-				<Box>
-					<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>Средний GPA</Typography>
-					<Slider
-						getAriaLabel={() => 'GPA'}
-						value={selectedGPA}
-						onChange={handleGPA}
-						max={4.0}
-						min={1.0}
-						step={0.1}
-						sx={{
-							'& .MuiSlider-thumb': {
-								width: '10px',
-								height: '22px',
-								borderRadius: '64px',
-								border: '1px solid #D8E6FD',
-								background: 'white',
-							},
-							'& .MuiSlider-rail': {
-								borderRadius: '32px',
-								height: '8px',
-								background: '#F8F8F8',
-							},
-							'& .MuiSlider-track': {
-								borderRadius: '32px',
-								height: '8px',
-								background: 'linear-gradient(to right, #3B82F6, #3B82F6)',
-							},
-						}}
-					/>
-
-					<Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-						<Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>1.0</Typography>
-						<Input
-							value={selectedGPA}
-							size="small"
-							inputProps={{
-								step: 0.1,
-								min: 1.0,
-								max: 4.0,
-								type: 'number',
-								'aria-labelledby': 'gpa-slider',
-							}}
-							sx={{
-								'& input:focus': {
-									outline: 'none',
-								},
-								'&.MuiInput-underline': {
-									borderBottom: 'none !important',
-								},
-
-								'.MuiInputBase-input': {
-									borderBottom: 'none !important',
-									border: 'none',
-									borderRadius: '13px',
-									fontSize: '14px',
-									padding: '4px 12px',
-									textAlign: 'center',
-									backgroundColor: '#629BF8',
-									color:'white',
-								},
-								'& .MuiInputBase-input::after': {
-									border: 'none',
-								},
-
-								'input[type=number]': {
-									'-moz-appearance': 'textfield',
-									'&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
-										'-webkit-appearance': 'none',
-										margin: 0,
-									},
-									'&::after': {
-										borderBottom: 'none',
-									},
-								},
-
-
-
-							}}
-						/>
-						<Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>4.0</Typography>
-					</Box>
-				</Box>
-
-
-				<Box>
-					<Typography  sx={{ fontSize: '1rem', fontWeight: 700 }}>Рейтинг</Typography>
-					<Slider
-						getAriaLabel={() => 'Rating'}
-						value={selectedRating}
-						onChange={handleRating}
-						min={1}
-						max={5}
-						step={0.1}
-						sx={{
-							'& .MuiSlider-thumb': {
-								width: '9.976px',
-								height: '21.948px',
-								borderRadius: '64px',
-								border: '1px solid #D8E6FD',
-								background: 'white',
-							},
-							'& .MuiSlider-rail': {
-								borderRadius: '32px',
-								height: '8px',
-								background: '#F8F8F8',
-							},
-							'& .MuiSlider-track': {
-								borderRadius: '32px',
-								height: '8px',
-								background: 'linear-gradient(to right, #3B82F6, #3B82F6)',
-							},
-						}}
-					/>
-					<Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-						<Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>1.0</Typography>
-						<Input
-							value={selectedRating}
-							size="small"
-							inputProps={{
-								step: 0.1,
-								min: 1,
-								max: 5,
-								type: 'number',
-								'aria-labelledby': 'rating-slider',
-							}}
-
-							sx={{
-								'& input:focus': {
-									outline: 'none',
-								},
-								'&.MuiInput-underline': {
-									borderBottom: 'none !important',
-								},
-
-								'.MuiInputBase-input': {
-									borderBottom: 'none !important',
-									border: 'none',
-									borderRadius: '13px',
-									fontSize: '14px',
-									padding: '4px 12px',
-									textAlign: 'center',
-									backgroundColor: '#629BF8',
-									color:'white',
-								},
-								'& .MuiInputBase-input::after': {
-									border: 'none',
-								},
-
-								'input[type=number]': {
-									'-moz-appearance': 'textfield',
-									'&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
-										'-webkit-appearance': 'none',
-										margin: 0,
-									},
-									'&::after': {
-										borderBottom: 'none',
-									},
-								},
-
-
-
-							}}
-						/>
-						<Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>5.0</Typography>
-					</Box>
-				</Box>
-
-
-				<Box width='100%' display="flex" justifyContent="flex-end" className={styles.mobW100}>
-					{isSmallerThanMd && (
-						<Button variant='contained'
-								className={styles.mobW100}
-								sx={{ borderRadius: '40px' }}
-								onClick={() => {
-									if (filterAttributes.text.length ||
-										filterAttributes.specialities.length ||
-										filterAttributes.gpa !== 1 ||
-										filterAttributes.year.length ||
-										filterAttributes.degree.length ||
-										filterAttributes.region.length) {
-										setOpen(false);
-										triggerSearchFilters(filterAttributes);
-									}
-									// handleChange(year.year, selectedYear, setSelectedYear);
-								}}>
-							{localization[lang].MainCard.apply}
-						</Button>
-					)}
-
-				</Box>
-
-
+						// handleChange(year.year, selectedYear, setSelectedYear);
+					}}>
+						{localization[lang].MainCard.apply}
+					</Button>
+				)}
 			</Box>
-
 		</>
 	);
 };

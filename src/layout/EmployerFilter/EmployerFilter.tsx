@@ -10,7 +10,7 @@ import styles from "@src/pages/DiplomaPage/DiplomaPage.module.css";
 import { cancelEmployerFilters, fetchEmployersList } from '@src/store/auth/actionCreators';
 
 export const EmployerFilter: React.FC<IFilter> = (props) => {
-	const { open, setOpen, filterAttributes, setFilterAttributes, triggerSearchFilters } = props;
+	const {filterAttributes, setFilterAttributes, triggerSearchFilters } = props;
 
     const dispatch = useDispatch()
     const lang = useSelector(selectLanguage);
@@ -68,7 +68,6 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 			<Box id='centeredBox'
 				justifyContent='center'
 				style={{
-					display: open ? 'flex' : 'none',
 					position: 'fixed',
 					width: '70%',
 					left: '50%',
@@ -100,7 +99,6 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 							{localization[lang].MainCard.filter}
 						</Typography>
 						<CloseIcon style={{ cursor: "pointer" }} onClick={() => {
-							setOpen(false);
 						}} />
 					</Box>
 					<Box display='flex' flexWrap='wrap' width='100%' height="25%" justifyContent='space-between'
@@ -152,7 +150,6 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 								sx={{ borderRadius: '40px' }}
 								onClick={() => {
 									if (filterAttributes.field.length) {
-										setOpen(false);
 										triggerSearchFilters(filterAttributes);
 									}
 								}}>

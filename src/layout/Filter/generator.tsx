@@ -172,6 +172,8 @@ export const localization = {
 			filter: "Сүзгі",
 			apply: "Қолдану",
 			university: "Университет",
+			gpa:"Орташа GPA",
+			rating:'Рейтинг'
 		}
 	},
 	"ru": {
@@ -182,6 +184,8 @@ export const localization = {
 			filter: "Фильтр",
 			apply: "Применить",
 			university: "Университет",
+			gpa:"Средний GPA",
+			rating:'Рейтинг'
 		}
 	},
 	"en": {
@@ -192,6 +196,8 @@ export const localization = {
 			filter: "Filter",
 			apply: "Apply",
 			university: "University",
+			gpa:"Average GPA",
+			rating:'Rating'
 		}
 	},
 }

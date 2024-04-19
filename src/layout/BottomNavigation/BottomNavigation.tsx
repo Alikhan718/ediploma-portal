@@ -22,7 +22,7 @@ export const AppBottomNav: React.FC<BottomNavigationProps> = (props): JSX.Elemen
     const checkRoute = (): number => {
         const urlElements = window.location.href.split('/');
         switch (urlElements[urlElements.length - 1]) {
-            case 'employer':
+            case 'hrBank':
                 return 0;
             case 'profile':
                 return 1;

@@ -1254,8 +1254,6 @@ export const UniversityDetailsPage: React.FC = () => {
         triggerSearchFilters={triggerSearchFilters}
         filterAttributes={filterAttributes}
         setFilterAttributes={setFilterAttributes}
-        open={showFilter}
-        setOpen={setShowFilter}
       />
     </Box >
   );

@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {Box, Typography} from '@mui/material';
+import {Box, Typography, useMediaQuery} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {Header} from './Header/Header';
 import {LayoutProps} from './Layout.props';
 import {Sidebar} from './Sidebar/Sidebar';
-import { BottomNav } from './BottomNavigation/BottomNavigation';
+import {AppBottomNav} from './BottomNavigation/BottomNavigation';
 import {selectGlobalIsLoading, selectLanguage} from '@src/store/generals/selectors';
 import {routes} from "@src/shared/routes";
 import {isAuthenticated} from "@src/utils/userAuth";
@@ -36,6 +36,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
     };
 
     const urlElements = window.location.href.split('/');
+    const isMobile = useMediaQuery('(max-width:998px)');
 
     const [isSidebarVisible, setIsSidebarVisible] = useState(checkRoute());
     const [isHeaderVisible, setHeaderVisible] = useState(false);
@@ -86,11 +87,9 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
                             </Typography>
                             </Box>
                         </Box>}
-
-
                 </Box>
             </Box>
-            {isAuthenticated() && <BottomNav/>}
+            {isAuthenticated() && <AppBottomNav/>}
         </Box>
     );
 };

@@ -60,7 +60,7 @@ export const localization = {
 	"ru":{
 		Header:{
 			filter: "Фильтр",
-			searchBar: isMobile ? "Фамилия Имя, ВУЗ" : "Фамилия Имя, название вуза",
+			searchBar: isMobile ? "Фамилия Имя" : "Фамилия Имя, название вуза",
 			searchButton: "Найти",
 			aiHiring: "ИИ Найм"
 		},
@@ -110,3 +110,4 @@ export const uniRatings = {
     2: 0.0,
     3: 4.4,
 }
+

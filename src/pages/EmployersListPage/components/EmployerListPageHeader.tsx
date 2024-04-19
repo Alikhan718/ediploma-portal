@@ -114,8 +114,6 @@ export const EmployerListPageHeader: React.FC = (props) => {
                 triggerSearchFilters={triggerSearchFilters}
                 filterAttributes={filterAttributes}
                 setFilterAttributes={setFilterAttributes}
-                open={showFilter}
-                setOpen={setShowFilter}
             />
 		</React.Fragment>
 	);
