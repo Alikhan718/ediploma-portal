@@ -355,7 +355,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                      borderColor: "grey",
                                      height: "1.5rem",
                                  }}/>
-                        <IconButton
+                        {/* <IconButton
                             style={{
                                 cursor: 'pointer',
                                 minHeight: '2.5rem',
@@ -365,15 +365,15 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             }}
                         >
                             <ModeIcon/>
-                        </IconButton>
+                        </IconButton> */}
 
-                        <Divider orientation="vertical"
+                        {/* <Divider orientation="vertical"
                                  style={{
                                      borderLeftWidth: "1px",
                                      borderRightWidth: "0",
                                      borderColor: "grey",
                                      height: "1.5rem",
-                                 }}/>
+                                 }}/> */}
                         <IconButton
                             style={{
                                 cursor: 'pointer',

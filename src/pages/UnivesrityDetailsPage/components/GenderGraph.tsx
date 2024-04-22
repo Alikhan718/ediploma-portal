@@ -16,11 +16,15 @@ import {
 	ResponsiveContainer,
 } from "recharts";
 import genderData from "./data/gender.json"; // Import the JSON data
+import { useDispatch, useSelector } from "react-redux";
+import { selectLanguage } from '@src/store/generals/selectors';
+import { localization } from "../generator";
 
 // eslint-disable-next-line react/display-name
 export const GenderGraph: React.FC = memo(() => {
 
 	const data = genderData;
+	const lang = useSelector(selectLanguage);
 
 	return (
 		<Card
@@ -36,7 +40,7 @@ export const GenderGraph: React.FC = memo(() => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Межгендерная аналитика по факультетам
+					{localization[lang].Analytics.kbtu.gender}
 				</Typography>
 			</Box>
 			<Box sx={{ width: "100%", margin: "0 auto" }}>

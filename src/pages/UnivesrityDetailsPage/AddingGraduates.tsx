@@ -22,6 +22,7 @@ import {routes} from "@src/shared/routes";
 import {useNavigate} from "react-router-dom";
 import {localization} from '@src/pages/UnivesrityDetailsPage/generator';
 import {selectLanguage} from "@src/store/generals/selectors";
+import { set } from "react-ga";
 
 const AddingGraduates: React.FC = () => {
   const [progress, setProgress] = useState(0);
@@ -111,6 +112,10 @@ const AddingGraduates: React.FC = () => {
     dispatch(fetchUserProfile());
   }, [!userState]);
 
+  const resetInitialState = ():void => {
+    window.location.reload();
+  };
+
   const [shortSteps, setShortSteps] = React.useState([
     localization[lang].AddingGratuates.download,
     localization[lang].AddingGratuates.check,
@@ -118,10 +123,10 @@ const AddingGraduates: React.FC = () => {
     localization[lang].AddingGratuates.results
   ]);
   const [steps, setSteps] = React.useState([
-    {title: "Загрузка файлов", id: 1},
-    {title: "Проверьте данные", id: 2},
-    {title: "Подпись данных через ЭЦП", id: 3},
-    {title: "Результаты генерации", id: 4}
+    {title: localization[lang].AddingGratuates.steps.excel.upload, id: 1},
+    {title: localization[lang].AddingGratuates.steps.excel.check, id: 2},
+    {title: localization[lang].AddingGratuates.steps.excel.sign, id: 3},
+    {title: localization[lang].AddingGratuates.steps.excel.result, id: 4}
   ]);
   const [stepId, setStepId] = React.useState(0);
   const ipfsLink = useSelector(selectIpfsLink);
@@ -173,6 +178,51 @@ const AddingGraduates: React.FC = () => {
     setIsMobile(isMobileOrTablet());
   }, []);
 
+  useEffect(() => {
+    switch (type) {
+      case "excel":
+        setSteps([
+          {title: localization[lang].AddingGratuates.steps.excel.upload, id: 1},
+          {title: localization[lang].AddingGratuates.steps.excel.check, id: 2},
+          {title: localization[lang].AddingGratuates.steps.excel.sign, id: 3},
+          {title: localization[lang].AddingGratuates.steps.excel.result, id: 4}
+        ]);
+        setShortSteps([
+          localization[lang].AddingGratuates.download,
+          localization[lang].AddingGratuates.check,
+          localization[lang].AddingGratuates.sign,
+          localization[lang].AddingGratuates.results
+        ]);
+        break;
+      case "api":
+        setSteps([
+          {title: "Проверьте данные", id: 2},
+          {title: "Подпись данных через ЭЦП", id: 3},
+          {title: "Результаты генерации", id: 4}
+        ]);
+        setShortSteps([
+          localization[lang].AddingGratuates.check,
+          localization[lang].AddingGratuates.sign,
+          localization[lang].AddingGratuates.results
+        ]);
+        break;
+      case "":
+        setSteps([
+          {title: localization[lang].AddingGratuates.steps.excel.upload, id: 1},
+          {title: localization[lang].AddingGratuates.steps.excel.check, id: 2},
+          {title: localization[lang].AddingGratuates.steps.excel.sign, id: 3},
+          {title: localization[lang].AddingGratuates.steps.excel.result, id: 4}
+        ]);
+        setShortSteps([
+          localization[lang].AddingGratuates.download,
+          localization[lang].AddingGratuates.check,
+          localization[lang].AddingGratuates.sign,
+          localization[lang].AddingGratuates.results
+        ]);
+        break;
+    }
+  }, [lang]);
+
   if (isMobile) {
     navigate(routes.main);
     return null;
@@ -196,6 +246,17 @@ const AddingGraduates: React.FC = () => {
           },
         }}> {lang === 'ru' ? 'Выпустить дипломы' : lang === 'kz' ? 'Диплом тапсыру' : 'Issue Diplomas'}</Typography>
         }
+        <IconButton 
+          onClick={()=>{resetInitialState()}} 
+          color="primary" sx={{
+            display: stepId === 0 ? "none" : "block",
+            width: "3.1rem !important",
+            height: "3rem !important",
+            '@media (max-width: 998px)': {},
+            }}
+        >
+          <ArrowBackIcon/>
+        </IconButton>
         <Box
           sx={{
             display: "flex",

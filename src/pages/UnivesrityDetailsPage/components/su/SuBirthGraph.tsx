@@ -12,6 +12,9 @@ import {
 	Typography,
 } from "@mui/material";
 import datachart from './data/birth.json';
+import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { selectLanguage } from '@src/store/generals/selectors';
+import { useSelector } from "react-redux";
 
 const dats = datachart.data;
 
@@ -64,6 +67,7 @@ const CustomTooltip:React.FC<CustomTooltipProps> = ({ active, payload }) => {
 
 // eslint-disable-next-line react/display-name
 export const SuBirthGraph: React.FC = () => {
+  const lang = useSelector(selectLanguage);
 	return (
 		<Card
 			elevation={6}
@@ -79,7 +83,7 @@ export const SuBirthGraph: React.FC = () => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"nowrap"} margin={"0 20px"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Статистика по дате рождения
+					{localization[lang].Analytics.kbtu.birth}
 				</Typography>
 				<Box display="flex" flexDirection={"row"} alignItems={"center"}>
 				</Box>

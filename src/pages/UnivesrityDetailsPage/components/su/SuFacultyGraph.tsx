@@ -23,6 +23,10 @@ interface Data {
   Female_GPA: number;
   TotalStudents: number;
 }
+import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { selectLanguage } from '@src/store/generals/selectors';
+import { useSelector } from "react-redux";
+
 
 let sortedData: Data[] = datachart.data
   .map((item) => ({ ...item, TotalStudents: item.Male + item.Female }))
@@ -86,6 +90,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
 };
 
 export const SuFacultyGraph: React.FC = () => {
+  const lang = useSelector(selectLanguage);
   return (
     <Card
   			elevation={6}
@@ -100,7 +105,7 @@ export const SuFacultyGraph: React.FC = () => {
   		>
   			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"}>
   				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-  					Факультеты
+  					{localization[lang].Analytics.kbtu.faculty}
   				</Typography>
   			</Box>
   			<Box sx={{ maxWidth: 974, width: "100%", margin: "0 auto" }}>

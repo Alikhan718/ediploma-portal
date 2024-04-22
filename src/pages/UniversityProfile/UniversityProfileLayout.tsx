@@ -30,7 +30,7 @@ import { fetchDiplomas, fetchSearch, cancelFilters } from "@src/store/diplomas/a
 import cn from "classnames";
 import { selectUserRole, selectUserState } from '@src/store/auth/selector';
 import { selectLanguage } from "@src/store/generals/selectors";
-import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { localization, universityName } from '@src/pages/UnivesrityDetailsPage/generator';
 import { fetchUserProfile } from "@src/store/auth/actionCreators";
 import { Simulate } from "react-dom/test-utils";
 import keyUp = Simulate.keyUp;
@@ -636,7 +636,7 @@ export const UniversityProfileLayout: React.FC = () => {
                           className={styles.mobText}
                           sx={{ width: '50%', '@media (max-width: 768px)': { width: '100%' } }}
                         >
-                          {e.name_ru}
+                          {lang === 'ru' ? e.name_ru : lang === 'kz' ? e.name_kz : lang === 'en' ? e.name_en : e.name_ru}
                         </Typography>
                         <Typography fontSize="1rem" marginX="2rem" className={styles.mobTextSm}
                           sx={{

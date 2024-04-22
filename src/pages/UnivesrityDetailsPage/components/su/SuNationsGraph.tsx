@@ -12,6 +12,9 @@ import {
 	Typography,
 } from "@mui/material";
 import datachart from './data/nation.json';
+import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { selectLanguage } from '@src/store/generals/selectors';
+import { useSelector } from "react-redux";
 
 const dats = datachart.data;
 
@@ -63,6 +66,7 @@ const CustomTooltip:React.FC<CustomTooltipProps> = ({ active, payload }) => {
 
 
 export const SuNationsGraph: React.FC = () => {
+  const lang = useSelector(selectLanguage);
 	return (
 		<Card
 			elevation={6}
@@ -78,7 +82,7 @@ export const SuNationsGraph: React.FC = () => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"nowrap"} margin={"0 20px"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Статистика по национальностям студентов
+					{localization[lang].Analytics.kbtu.nations}
 				</Typography>
 				<Box display="flex" flexDirection={"row"} alignItems={"center"}>
 				</Box>

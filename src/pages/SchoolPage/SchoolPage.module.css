@@ -8,8 +8,47 @@
 	border-radius: 2rem;
 }
 
+.universitiesContainer {
+	border-radius: 2rem;
+}
+
 @media only screen and (max-width: 768px) {
 	.schoolImg {
 		width: 100% !important;
+	}
+
+	.mobText {
+		font-size: 1rem !important;
+	}
+
+	.mobMb1 {
+		margin-bottom: 0rem !important;
+	}
+
+	.mobTextL {
+		font-size: 1.5rem !important;
+	}
+
+	.mobTextSm {
+		font-size: .8rem !important;
+	}
+
+	.mobPl2 {
+		padding-left: 2rem;
+	}
+
+	.mobPl1 {
+		padding-left: 1rem;
+	}
+
+
+	.accessModal {
+		width: 95% !important;
+	}
+
+	.universityItem {
+		width: 100% !important;
+		display: flex !important;
+		flex-direction: column !important;
 	}
 }

@@ -30,6 +30,8 @@ import { SuGenderGraph } from './components/su/SuGenderGraph';
 import { SuGrantsGraph } from './components/su/SuGrantsGraph';
 import { SuBirthGraph } from './components/su/SuBirthGraph';
 import { SuNationsGraph } from './components/su/SuNationsGraph';
+import { localization } from './generator';
+import { selectLanguage } from '@src/store/generals/selectors';
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -72,6 +74,7 @@ interface AllGraphData {
 }
 
 export const AnalysisPage: React.FC = () => {
+	const lang = useSelector(selectLanguage);
 	const graduatesAmount = useSelector(selectGraduatesAmount);
 	const dispatch = useDispatch();
 	const university_id: number = graduatesAmount.graduatesAmount == 705 ? 0 : 1 ;
@@ -129,14 +132,14 @@ export const AnalysisPage: React.FC = () => {
 						'@media (max-width: 778px)': {
 							fontSize: '1.2rem',
 						},
-					}}>Аналитика</Box>
+					}}>{localization[lang].Analytics.analytics}</Box>
 					<Button variant='contained' onClick={handleDownloadData}
 						sx={{
 							borderRadius: '2rem', marginBottom: '1rem',
 							'@media (max-width: 778px)': {
 								marginLeft: '4rem'
 							},
-						}}>Скачать данные</Button>
+						}}>{localization[lang].Analytics.download}</Button>
 				</Box>
 				<Box display='flex' flexWrap={"wrap"} flexBasis={"2"} gap='1rem 1rem'>
 					<Box sx={{
@@ -158,9 +161,9 @@ export const AnalysisPage: React.FC = () => {
 							marginRight: 0
 						},
 					}}>
-						<AnalyticsCard text="Количество выпускников" number={graduatesAmount.graduatesAmount ?? 0} />
-						<AnalyticsCard text="Выпускники бакалавриата" number={graduatesAmount.bachelorGraduatesAmount ?? 0} />
-						<AnalyticsCard text="Выпускники магистратуры" number={graduatesAmount.masterGraduatesAmount ?? 0} />
+						<AnalyticsCard text={localization[lang].Analytics.graduates} number={graduatesAmount.graduatesAmount ?? 0} />
+						<AnalyticsCard text={localization[lang].Analytics.bachelor} number={graduatesAmount.bachelorGraduatesAmount ?? 0} />
+						<AnalyticsCard text={localization[lang].Analytics.masters} number={graduatesAmount.masterGraduatesAmount ?? 0} />
 					</Box>
 					<Box sx={{
 
@@ -169,68 +172,73 @@ export const AnalysisPage: React.FC = () => {
 							variant={graphVisibility["CitiesGraph"] ? "contained" : "outlined"}
 							onClick={() => toggleGraphVisibility("CitiesGraph")}
 							sx={{
-								borderRadius: '2rem', marginRight: '1rem',
+								borderRadius: '2rem', marginRight: '1rem', marginBottom: '1rem',
 								'@media (max-width: 778px)': {
 									marginBottom: '1rem',
 								}
 							}}
 						>
-							Cities Graph
+							{localization[lang].Analytics.cities}
 						</Button>
 						<Button
 							variant={graphVisibility["FacultyGraph"] ? "contained" : "outlined"}
 							onClick={() => toggleGraphVisibility("FacultyGraph")}
 							sx={{
-								borderRadius: '2rem', marginRight: '1rem', '@media (max-width: 778px)': {
+								borderRadius: '2rem', marginRight: '1rem', marginBottom: '1rem',
+								'@media (max-width: 778px)': {
 									marginBottom: '1rem',
 								}
 							}}
 						>
-							Faculty Graph
+							{localization[lang].Analytics.faculty}
 						</Button>
 						<Button
 							variant={graphVisibility["GenderGraph"] ? "contained" : "outlined"}
 							onClick={() => toggleGraphVisibility("GenderGraph")}
 							sx={{
-								borderRadius: '2rem', marginRight: '1rem', '@media (max-width: 778px)': {
+								borderRadius: '2rem', marginRight: '1rem', marginBottom: '1rem',
+								'@media (max-width: 778px)': {
 									marginBottom: '1rem',
 								}
 							}}
 						>
-							Gender Graph
+							{localization[lang].Analytics.gender}
 						</Button>
 						<Button
 							variant={graphVisibility["GrantsGraph"] ? "contained" : "outlined"}
 							onClick={() => toggleGraphVisibility("GrantsGraph")}
 							sx={{
-								borderRadius: '2rem', marginRight: '1rem', '@media (max-width: 778px)': {
+								borderRadius: '2rem', marginRight: '1rem', marginBottom: '1rem',
+								'@media (max-width: 778px)': {
 									marginBottom: '1rem',
 								}
 							}}
 						>
-							Grants Graph
+							{localization[lang].Analytics.grants}
 						</Button>
 						<Button
 							variant={graphVisibility["CitiesGrantsGraph"] ? "contained" : "outlined"}
 							onClick={() => toggleGraphVisibility("CitiesGrantsGraph")}
 							sx={{
-								borderRadius: '2rem', marginRight: '1rem', '@media (max-width: 778px)': {
+								borderRadius: '2rem', marginRight: '1rem', marginBottom: '1rem',
+								'@media (max-width: 778px)': {
 									marginBottom: '1rem',
 								}
 							}}
 						>
-							Cities Grants Graph
+							{localization[lang].Analytics.citiesGrant}
 						</Button>
 						<Button
 							variant={graphVisibility["AnalyticsGraph"] ? "contained" : "outlined"}
 							onClick={() => toggleGraphVisibility("AnalyticsGraph")}
 							sx={{
-								borderRadius: '2rem', marginRight: '1rem', '@media (max-width: 778px)': {
+								borderRadius: '2rem', marginRight: '1rem', marginBottom: '1rem',
+								'@media (max-width: 778px)': {
 									marginBottom: '1rem',
 								}
 							}}
 						>
-							Analytics Graph
+							{localization[lang].Analytics.analyticsGraph}
 						</Button>
 					</Box>
 					<Box sx={{

@@ -19,6 +19,7 @@ import suProud1 from '@src/assets/example/suProud1.png';
 import suProud2 from '@src/assets/example/suProud2.png';
 import suProud3 from '@src/assets/example/suProud3.png';
 import suProud4 from '@src/assets/example/suProud4.png';
+import { sign } from "crypto";
 
 export const navigation = [
 
@@ -569,6 +570,29 @@ export const content = {
 
 export const localization = {
   "kz": {
+    Analytics: {
+      analytics: 'Аналитика',
+      download: 'Ақпаратты жүктеп алу',
+      graduates: 'Түлектер саны',
+      bachelor: 'Бакалавриат түлектері',
+      masters: 'Магистратураа түлектері',
+      cities: 'Қалалар графигі',
+      faculty: 'Факультет графигі',
+      gender: 'Жыңыс графигі',
+      grants: 'Грант графигі',
+      citiesGrant: 'Қалалар мен грант графигі',
+      analyticsGraph: 'Аналитика графигі',
+      kbtu: {
+        faculty: 'Факультеттер',
+        analytics: 'Диплом бағаларының аналитикасы',
+        gender: 'Факультеттер арасындағы жыңыстық аналитика',
+        grants: 'Грант статистикасы',
+        cities: 'Облыстар жайлы ақпарат',
+        citiesGrant: 'Қалалар жайлы ақпарат',
+        nations: 'Ұлттар бойынша статистика',
+        birth: 'Туған күн бойынша статистика',
+      }
+    },
     MainCard: {
       uniNames: "Сәтпаев Университеті",
       uniName: "Қазақстан-Британ техникалық университеті",
@@ -620,13 +644,49 @@ export const localization = {
       addressLink: "Мекен-жайға сілтеме",
       smart: "Смарт-контракт",
       smartlink: "Смарт-контрактқа сілтеме",
-      finish: "Аяқтау"
+      finish: "Аяқтау",
+      steps: {
+        api: {
+          check: 'Проверьте данные',
+          sign: 'Подпись данных через ЭЦП',
+          result: 'Результаты генерации',
+        },
+        excel: {
+          upload: 'Загрузка файлов',
+          check: 'Проверьте данные',
+          sign: 'Подпись данных через ЭЦП',
+          result: 'Результаты генерации',
+        },
+      }
     },
     Alerts: {
       copied: "Көшірілді!",
     }
   },
   "ru": {
+    Analytics: {
+      analytics: 'Аналитика',
+      download: 'Скачать данные',
+      graduates: 'Количество выпускников',
+      bachelor: 'Выпускники бакалавриата',
+      masters: 'Выпускники магистратуры',
+      cities: 'График городов',
+      faculty: 'График факультетов',
+      gender: 'График полов',
+      grants: 'График грантов',
+      citiesGrant: 'График городов и грантов',
+      analyticsGraph: 'График аналитики',
+      kbtu: {
+        faculty: 'Факультеты',
+        analytics: 'Аналитика дипломных оценок',
+        gender: 'Межгендерная аналитика по факультетам',
+        grants: 'Статистика по грантам',
+        cities: 'Данные по регионам',
+        citiesGrant: 'Данные по городам',
+        nations: 'Статистика по национальностям студентов',
+        birth: 'Статистика по дате рождения',
+      }
+    },
     MainCard: {
       uniNames: "Сатпаевский Университет",
       uniName: "Казахстанско-Британский Технический Университет",
@@ -678,13 +738,49 @@ export const localization = {
       addressLink: "Ссылка на адрес IPFS",
       smart: "Смарт-контракт",
       smartlink: "Ссылка на смарт-контракт",
-      finish: "Завершить"
+      finish: "Завершить",
+      steps: {
+        api: {
+          check: 'Проверьте данные',
+          sign: 'Подпись данных через ЭЦП',
+          result: 'Результаты генерации',
+        },
+        excel: {
+          upload: 'Загрузка файлов',
+          check: 'Проверьте данные',
+          sign: 'Подпись данных через ЭЦП',
+          result: 'Результаты генерации',
+        },
+      }
     },
     Alerts: {
       copied: "Скопиравно!",
     }
   },
   "en": {
+    Analytics: {
+      analytics: 'Analytics',
+      download: 'Download data',
+      graduates: 'Number of graduates',
+      bachelor: 'Number of bachelors',
+      masters: 'Number of masters',
+      cities: 'Cities graph',
+      faculty: 'Faculty graph',
+      gender: 'Gender graph',
+      grants: 'Grants graph',
+      citiesGrant: 'Cities Grants Graph',
+      analyticsGraph: 'Analytics Graph',
+      kbtu: {
+        faculty: 'Faculties',
+        analytics: 'Diploma grades analytics',
+        gender: 'Gender analytics across faculties',
+        grants: 'Grants statisctics',
+        cities: 'Data across regions',
+        citiesGrant: 'Data across cities',
+        nations: 'Nationality statistics',
+        birth: 'Date of birth statistics',
+      }
+    },
     MainCard: {
       uniNames: "Satpayev University",
       uniName: "Kazakhstan-British Technical University",
@@ -736,7 +832,20 @@ export const localization = {
       addressLink: "Link to IPFS address",
       smart: "Smart-contract",
       smartlink: "Link to smart-contract",
-      finish: "Finish"
+      finish: "Finish",
+      steps: {
+        api: {
+          check: 'Check data',
+          sign: 'Sign data with a digital signature',
+          result: 'Generation results',
+        },
+        excel: {
+          upload: 'Upload data',
+          check: 'Check data',
+          sign: 'Sign data with a digital signature',
+          result: 'Generation results',
+        },
+      }
     },
     Alerts: {
       copied: "Copied!",

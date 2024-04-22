@@ -6,6 +6,9 @@ import {
 	Typography,
 } from "@mui/material";
 import cityData from "./data/city.json";
+import { useDispatch, useSelector } from "react-redux";
+import { selectLanguage } from '@src/store/generals/selectors';
+import { localization } from "../generator";
 
 const colors = [
 	'RGB(255, 22, 22)',
@@ -31,7 +34,7 @@ const colors = [
 
 export const CitiesGrantsGraph: React.FC = memo(() => {
 	const totalValue = cityData.reduce((total, city) => total + city.value, 0);
-
+	const lang = useSelector(selectLanguage);
 	const sortedData = [...cityData].sort((a, b) => b.value - a.value);
 	const topCities = sortedData.slice(0, 5);
 	const otherValue = sortedData.slice(5).reduce((total, city) => total + city.value, 0);
@@ -57,7 +60,7 @@ export const CitiesGrantsGraph: React.FC = memo(() => {
 				margin={"0 20px"}
 			>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.2rem"}>
-					Данные по городам
+					{localization[lang].Analytics.kbtu.citiesGrant}
 				</Typography>
 			</Box>
 			<div style={{ margin: '20px', height: '450px' }}>

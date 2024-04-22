@@ -7,10 +7,13 @@ import {
 import { ReactComponent as DotIcon } from "@src/assets/icons/Dots.svg";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer } from "recharts";
 import facultyData from "./data/faculty.json";
+import { useDispatch, useSelector } from "react-redux";
+import { selectLanguage } from '@src/store/generals/selectors';
+import { localization } from "../generator";
 
 // eslint-disable-next-line react/display-name
 export const FacultyGraph: React.FC = memo(() => {
-
+	const lang = useSelector(selectLanguage);
 	const data = facultyData;
 
 	return (
@@ -27,7 +30,7 @@ export const FacultyGraph: React.FC = memo(() => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Факультеты
+					{localization[lang].Analytics.kbtu.faculty}
 				</Typography>
 			</Box>
 			<Box sx={{ maxWidth: 974, width: "100%", margin: "0 auto" }}>

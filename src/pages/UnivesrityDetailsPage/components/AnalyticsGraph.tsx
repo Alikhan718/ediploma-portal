@@ -9,10 +9,13 @@ import {
 } from "@mui/material";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer } from "recharts";
 import analyticsData from "./data/analytic.json";
+import { useDispatch, useSelector } from "react-redux";
+import { selectLanguage } from '@src/store/generals/selectors';
+import { localization } from "../generator";
 // eslint-disable-next-line react/display-name
 export const AnalyticsGraph: React.FC = memo(() => {
 	const [facultyFilter, setFacultyFilter] = React.useState("");
-
+	const lang = useSelector(selectLanguage);
 	const handleFacultyChange = (event: SelectChangeEvent) => {
 		setFacultyFilter(event.target.value);
 	};
@@ -33,7 +36,7 @@ export const AnalyticsGraph: React.FC = memo(() => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"} margin={"0 20px"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Аналитика дипломных оценок
+					{localization[lang].Analytics.kbtu.analytics}
 				</Typography>
 			</Box>
 			<Box sx={{ maxWidth: 974, width: "100%", margin: "0 auto" }}>

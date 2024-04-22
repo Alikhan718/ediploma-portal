@@ -351,7 +351,6 @@ export const SchoolDetailsPageLayout: React.FC = () => {
                 </Box>
               </Box>
             </Box>
-            <SwitchDetailsUniversity/>
             <Box className={styles.contentContainer}>
               <Box sx={{width: '100%'}}>
                 <Box
@@ -363,6 +362,15 @@ export const SchoolDetailsPageLayout: React.FC = () => {
                     width: '100%', paddingX: ".5rem",
                   }}
                 >
+                  <Box sx={{
+                    fontSize: '1.5rem',
+                    fontWeight: '600',
+                    color: '#4D4D4D',
+                    paddingTop: '1.75rem',
+                    paddingLeft: '1.75rem',
+                  }}>
+                    {localization[lang].MainCard.diploma}
+                  </Box>
                   <Box sx={{
                     display: 'flex',
                     flexDirection: 'row',

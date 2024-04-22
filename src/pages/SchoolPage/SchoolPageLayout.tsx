@@ -15,9 +15,9 @@ export const SchoolPageLayout: React.FC = () => {
         {
             id: 1,
             name: {
-                'kz': "НЗМ IB",
-                'ru': "НИШ IB",
-                'en': 'NIS IB'
+                'kz': "Назарбаев Зияткерлік Мектебі IB",
+                'ru': "Назарбаев Интеллектуальная Школа IB",
+                'en': 'Nazarbayev Intellectual School IB'
             },
         },
         {
@@ -63,7 +63,10 @@ export const SchoolPageLayout: React.FC = () => {
                             sx={{
                                 width: "100%",
                                 borderRadius: "10px",
-                                height: "20rem"
+                                height: "20rem",
+                                '@media (max-width: 778px)':{
+                                    height: "11rem"
+                                }
                             }}
                             image={school.id == 1 ? exampleImage : mirasImage }
                             alt={school.name ? `${school.name}` : "School image"}

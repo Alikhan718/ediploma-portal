@@ -6,6 +6,9 @@ import {
 } from "@mui/material";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import datachart from './data/gender.json';
+import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { selectLanguage } from '@src/store/generals/selectors';
+import { useSelector } from "react-redux";
 
 const dats = datachart.data;
 
@@ -45,7 +48,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
 // eslint-disable-next-line react/display-name
 export const SuGenderGraph: React.FC = memo(() => {
 
-
+  const lang = useSelector(selectLanguage);
 	return (
 		<Card
 			elevation={6}
@@ -60,7 +63,7 @@ export const SuGenderGraph: React.FC = memo(() => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Межгендерная аналитика
+					{localization[lang].Analytics.kbtu.gender}
 				</Typography>
 			</Box>
 			<Box sx={{ width: "100%", margin: "0 auto" }}>

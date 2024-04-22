@@ -12,6 +12,9 @@ import {
 	Typography,
 } from "@mui/material";
 import grantsData from "./data/grants.json"; // Import the JSON data
+import { useDispatch, useSelector } from "react-redux";
+import { selectLanguage } from '@src/store/generals/selectors';
+import { localization } from "../generator";
 
 // Define colors here
 const COLORS = ["rgb(0,255,255,0.6)", "rgb(255,255,0,0.6)", "rgb(0,255,0,0.6)"];
@@ -20,6 +23,7 @@ const COLORS = ["rgb(0,255,255,0.6)", "rgb(255,255,0,0.6)", "rgb(0,255,0,0.6)"];
 export const GrantsGraph: React.FC = memo(() => {
 	// Use the imported grantsData for the pie chart data
 	const data = grantsData;
+	const lang = useSelector(selectLanguage);
 
 	return (
 		<Card
@@ -36,7 +40,7 @@ export const GrantsGraph: React.FC = memo(() => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"nowrap"} margin={"0 20px"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Статистика по грантам
+					{localization[lang].Analytics.kbtu.grants}
 				</Typography>
 				<Box display="flex" flexDirection={"row"} alignItems={"center"}>
 				</Box>

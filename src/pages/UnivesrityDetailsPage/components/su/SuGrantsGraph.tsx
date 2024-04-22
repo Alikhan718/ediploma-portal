@@ -12,6 +12,9 @@ import {
 	Typography,
 } from "@mui/material";
 import datachart from './data/study.json';
+import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { selectLanguage } from '@src/store/generals/selectors';
+import { useSelector } from "react-redux";
 
 const dats = datachart.data;
 
@@ -46,6 +49,7 @@ const CustomTooltip:React.FC<CustomTooltipProps> = ({ active, payload }) => {
 
 // eslint-disable-next-line react/display-name
 export const SuGrantsGraph: React.FC = () => {
+  const lang = useSelector(selectLanguage);
 	return (
 		<Card
 			elevation={6}
@@ -61,7 +65,7 @@ export const SuGrantsGraph: React.FC = () => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"nowrap"} margin={"0 20px"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Статистика по грантам
+					{localization[lang].Analytics.grants}
 				</Typography>
 				<Box display="flex" flexDirection={"row"} alignItems={"center"}>
 				</Box>

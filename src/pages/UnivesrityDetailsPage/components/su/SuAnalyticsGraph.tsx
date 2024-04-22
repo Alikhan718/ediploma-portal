@@ -7,6 +7,9 @@ import {
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, Cell, ResponsiveContainer } from "recharts";
 import datachart from './data/diploma.json';
 import './chart.css';
+import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
+import { selectLanguage } from '@src/store/generals/selectors';
+import { useSelector } from "react-redux";
 
 const dats = datachart.data;
 
@@ -42,6 +45,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
 
 // eslint-disable-next-line react/display-name
 export const SuAnalyticsGraph: React.FC = memo(() => {
+  const lang = useSelector(selectLanguage);
 	return (
 		<Card
 			elevation={6}
@@ -56,7 +60,7 @@ export const SuAnalyticsGraph: React.FC = memo(() => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"} margin={"0 20px"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					Аналитика дипломных оценок
+					{localization[lang].Analytics.kbtu.analytics}
 				</Typography>
 			</Box>
 			<Box sx={{ maxWidth: 974, width: "100%", margin: "0 auto" }}>
