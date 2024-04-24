@@ -1,3 +1,5 @@
+import { specialities } from "@src/layout/Filter/generator"
+
 export const localization = {
 	"kz":{
         Menu: {
@@ -24,7 +26,34 @@ export const localization = {
         },
         Alert: {
             copied: "Сәтті көшірілді",
+        },
+        Resume: {
+          about: "Түлек жайлы",
+          phone: "Телефон нөмірі",
+          email: "Пошта",
+          birth: "Туған күні",
+          city: "Қала",
+          region: "Облыс",
+          speciality: "Мамандық",
+          rating: "Академиялық рейтинг",
+          university: "Университет атауы",
+          nationality: "Ұлт",
+          degree: "Дәреже",
+          graduation: "Оқу бітірген жыл",
+          skills: "Дағдылар",
+          student: "Студент",
+          resume: "Сіздің резюме",
+          aboutMe: "Өзім туралы",
+          close: "Жабу",
+          qr: "Дипломмен QR арқылы бөлісу",
+          almaty: "Алматы",
+          create: 'Резюме жасау',
+          continue: 'Жалғастыру',
+          generator: "Резюме генераторы",
+          text: "Жұмыс, проекттер және тапсырмалар табу үшін порталда резюме жасаңыз, жұмысшылар сізді тапады",
+          begin: "Бастау"
         }
+        
     },
 	"ru":{
         Menu: {
@@ -51,7 +80,33 @@ export const localization = {
         },
         Alert: {
             copied: "Успешно скопировано",
-        }
+        },
+        Resume: {
+          about: 'О Выпускнике',
+          phone: 'Номер телефона',
+          email: 'Почта',
+          birth: 'Дата рождения',
+          city: 'Город',
+          region: 'Регион',
+          speciality: 'Специальность',
+          rating: 'Академический рейтинг',
+          university: 'Название вуза',
+          nationality: 'Национальность',
+          degree: 'Степень',
+          graduation: 'Год окончания',
+          skills: 'Навыки',
+          student: 'Студент',
+          resume: 'Ваше резюме',
+          aboutMe: 'О себе',
+          close: 'Закрыть',
+          qr: 'Поделиться с дипломом с помощью QR',
+          almaty: 'Алматы',
+          create: 'Создайте резюме',
+          continue: 'Продолжить',
+          generator: 'Генераторр резюме',
+          text: 'Чтобы находить работу, проекты и задачи создайте резюме на портале и работадатели',
+          begin: 'Начать',
+        },
     },
 	"en":{
         Menu: {
@@ -78,9 +133,54 @@ export const localization = {
         },
         Alert: {
             copied: "Copied successfully",
+        },
+        Resume: {
+          about: "About graduate",
+          phone: "Phone",
+          email: "Email",
+          birth: "Date of birth",
+          city: "City",
+          region: "Region",
+          speciality: "Specialty",
+          rating: "Academic rating",
+          university: "University name",
+          nationality: "Nationality",
+          degree: "Degree",
+          graduation: "Graduation year",
+          skills: "Skills",
+          student: "Student",
+          resume: "Your resume",
+          aboutMe: "About me",
+          close: "Close",
+          qr: "Share with Diploma via QR",
+          almaty: "Almaty",
+          create: 'Create resume',
+          continue: 'Continue',
+          generator: 'Resume generator',
+          text: 'To find jobs, projects, and tasks, create a resume on the portal, and employers will find you.',
+          begin: 'Start',
         }
+        
     },
 }
+
+export const universityName = {
+  3: {
+    'kz': 'Қ.И. атыңдағы ҚазҰТЗУ',
+    'ru': 'КазНИТУ имени К. И. Сатпаева',
+    'en': 'Satbayev University'
+  },
+  1: {
+    'kz': 'Қазақстан-Британ техникалық университеті',
+    'ru': 'Казахстанско-Британский Технический Университет',
+    'en': 'Kazakhstan-British Technical University'
+  },
+  2: {
+    'kz': 'Q-Lab',
+    'ru': 'Q-Lab',
+    'en': 'Q-Lab'
+  }
+};
 
 export const skillsList = {
     "Информатика": {

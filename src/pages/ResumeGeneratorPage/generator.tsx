@@ -1,3 +1,4 @@
+import { specialities } from "@src/layout/Filter/generator";
 import React from "react";
 
 const validateEmail = (email: string) => {
@@ -83,25 +84,25 @@ const mainForms = [
     name: "desired_schedule",
     maxRows: 2,
     label: {
-      "kz": "График работы",
+      "kz": "Жұмыс кестесі",
       "ru": "График работы",
-      "en": "График работы"
+      "en": "Working schedule"
     },
     values: [
       {
         value: "full",
         label: {
-          "en": "Полная занятость",
+          "en": "Full-time",
           "ru": "Полная занятость",
-          "kz": "Полная занятость",
+          "kz": "Толық уақытта",
         }
       },
       {
         value: "partly",
         label: {
-          "en": "Частичная занятость",
+          "en": "Part-time",
           "ru": "Частичная занятость",
-          "kz": "Частичная занятость",
+          "kz": "Жарты",
         },
       },
       {
@@ -109,7 +110,7 @@ const mainForms = [
         label: {
           "en": "Project Word",
           "ru": "Проектная работа",
-          "kz": "Проектная работа",
+          "kz": "Проект жұмыс",
         }
       },
       {
@@ -127,12 +128,16 @@ const mainForms = [
     type: "text",
     name: "desired_position",
     label: {
-      "kz": "Должность",
+      "kz": "Мамандық",
       "ru": "Должность",
-      "en": "Должность"
+      "en": "Occupation"
     },
     maxRows: 2,
-    placeholder: "Например: программист"
+    placeholder: {
+      'ru': "Например: программист",
+      'kz': "Мысалы: программист",
+      'en': "Example: programmer"
+    }
   },
   {
     type: "number",
@@ -140,11 +145,15 @@ const mainForms = [
     maxRows: 2,
     min: 0,
     label: {
-      "kz": "Зароботная плата",
+      "kz": "Жалақы",
       "ru": "Зароботная плата",
-      "en": "Зароботная плата"
+      "en": "Salary"
     },
-    placeholder: "Введите ваши ожидания от зарплаты"
+    placeholder: {
+      'ru': "Введите ваши ожидания от зарплаты",
+      'kz': "Күтілетін жалақаны енгізіңіз",
+      'en': "Enter your expected salary"
+    }
   },
 ];
 const personalForms = [
@@ -152,11 +161,15 @@ const personalForms = [
     type: "text",
     name: "last_name",
     label: {
-      "kz": "Фамилия",
+      "kz": "Тегі",
       "ru": "Фамилия",
-      "en": "Фамилия"
+      "en": "Surname"
     },
-    placeholder: "Ваше Фамилия",
+    placeholder: {
+      'ru':"Ваше Фамилия",
+      'kz':"Сіздің Тегі",
+      'en':"Ваше Фамилия"
+    },
     maxRows: 2,
   },
   {
@@ -164,47 +177,55 @@ const personalForms = [
     name: "first_name",
     maxRows: 2,
     label: {
-      "kz": "Имя",
+      "kz": "Аты",
       "ru": "Имя",
-      "en": "Имя"
+      "en": "Name"
     },
-    placeholder: "Ваше Имя"
+    placeholder: {
+      'ru': "Ваше Имя",
+      'kz': "Сіздің Атыңыз",
+      'en': "Your Name"
+    }
   },
   {
     type: "text",
     name: "middle_name",
     maxRows: 2,
     label: {
-      "kz": "Отчество",
+      "kz": "Әкесінің аты",
       "ru": "Отчество",
-      "en": "Отчество"
+      "en": "Father's Name"
     },
-    placeholder: "Ваше Отчество"
+    placeholder: {
+      'ru': "Ваше Отчество",
+      'kz': "Сіздің Әкеңіздің аты",
+      'en': "Your Father's Name"
+    }
   },
   {
     type: "select",
     name: "gender",
     maxRows: 2,
     label: {
-      "kz": "Пол",
+      "kz": "Жыныс",
       "ru": "Пол",
-      "en": "Пол"
+      "en": "Sex"
     },
     values: [
       {
         value: "male",
         label: {
-          "en": "Мужской",
+          "en": "Male",
           "ru": "Мужской",
-          "kz": "Мужской",
+          "kz": "Ер",
         }
       },
       {
         value: "female",
         label: {
-          "en": "Женский",
+          "en": "Female",
           "ru": "Женский",
-          "kz": "Женский",
+          "kz": "Әйел",
         },
       },
     ],
@@ -215,9 +236,9 @@ const personalForms = [
     name: "date_of_birth",
     maxRows: 2,
     label: {
-      "kz": "Дата рождения",
+      "kz": "Туған күніңіз",
       "ru": "Дата рождения",
-      "en": "Дата рождения"
+      "en": "Date of Birth"
     },
     placeholder: ""
   },
@@ -227,9 +248,9 @@ const additionalForms = [
     type: "avatar",
     name: "avatar",
     label: {
-      "kz": "Загрузить фотографию",
+      "kz": "Фотосуретті жүктеу",
       "ru": "Загрузить фотографию",
-      "en": "Загрузить фотографию"
+      "en": "Upload picture"
     },
     maxRows: 1,
     placeholder: ""
@@ -238,9 +259,9 @@ const additionalForms = [
     type: "phone",
     name: "phone",
     label: {
-      "kz": "Номер телефона",
+      "kz": "Телефон нөмірі",
       "ru": "Номер телефона",
-      "en": "Номер телефона"
+      "en": "Phone number"
     },
     maxRows: 2,
     placeholder: "+7"
@@ -249,9 +270,9 @@ const additionalForms = [
     type: "email",
     name: "email",
     label: {
-      "kz": "Почта",
+      "kz": "Пошта",
       "ru": "Почта",
-      "en": "Почта"
+      "en": "Mail"
     },
     maxRows: 2,
     placeholder: "example@mail.kz"
@@ -263,7 +284,7 @@ const additionalForms = [
     label: {
       "kz": "Телеграм",
       "ru": "Телеграм",
-      "en": "Телеграм"
+      "en": "Telegram"
     },
     placeholder: "@username"
   },
@@ -271,9 +292,9 @@ const additionalForms = [
     type: "select",
     name: "address",
     label: {
-      "kz": "Город",
+      "kz": "Қала",
       "ru": "Город",
-      "en": "Город"
+      "en": "City"
     },
     maxRows: 2,
     values: [
@@ -406,11 +427,15 @@ const additionalForms = [
     rows: 5,
     multiline: true,
     label: {
-      "kz": "О себе",
+      "kz": "Cіз жайлы",
       "ru": "О себе",
-      "en": "О себе"
+      "en": "About you"
     },
-    placeholder: "Опишите кратко о себе"
+    placeholder: {
+      'ru': "Опишите кратко о себе",
+      'kz': "Қысқаша өзіңіз туралы сипаттаңыз",
+      'en': "Describe yourself briefly"
+    }
   },
 ];
 const educationForms = [
@@ -418,15 +443,15 @@ const educationForms = [
     type: "select",
     name: "major",
     label: {
-      "kz": "Вид",
+      "kz": "Түрі",
       "ru": "Вид",
-      "en": "Вид"
+      "en": "Type"
     },
     values: [
       {
         value: "bachelor",
         label: {
-          "en": "Бакалавр",
+          "en": "Bachelor",
           "ru": "Бакалавр",
           "kz": "Бакалавр",
         }
@@ -434,7 +459,7 @@ const educationForms = [
       {
         value: "master",
         label: {
-          "en": "Магистратура",
+          "en": "Masters",
           "ru": "Магистратура",
           "kz": "Магистратура",
         },
@@ -447,9 +472,9 @@ const educationForms = [
     type: "text",
     name: "university_name",
     label: {
-      "kz": "Название учебного заведения",
+      "kz": "Оқу орнының атауы",
       "ru": "Название учебного заведения",
-      "en": "Название учебного заведения"
+      "en": "University Name"
     },
     maxRows: 2,
     disabled: true,
@@ -461,9 +486,9 @@ const educationForms = [
     maxRows: 2,
     min: 1900, max: 2099,
     label: {
-      "kz": "Год окончания",
+      "kz": "Аяқталған жылы",
       "ru": "Год окончания",
-      "en": "Год окончания"
+      "en": "Graduation Year"
     },
     placeholder: "####",
     disabled: true
@@ -472,15 +497,19 @@ const educationForms = [
     type: "text",
     name: "speciality_ru",
     label: {
-      "kz": "Специализация",
+      "kz": "Мамандығыңыз",
       "ru": "Специализация",
-      "en": "Специализация"
+      "en": "Major"
     },
     rows: 5,
     multiline: true,
     disabled: true,
     maxRows: 2,
-    placeholder: "Введите вашу специальность"
+    placeholder: {
+      'ru': "Введите вашу специальность",
+      'kz': "Мамандығыңызды енгізіңіз",
+      'en': "Enter your major"
+    }
   },
 ];
 const experienceForms = [
@@ -491,31 +520,43 @@ const experienceForms = [
     label: {
       "kz": "Компания",
       "ru": "Компания",
-      "en": "Компания"
+      "en": "Company"
     },
-    placeholder: "Название компании/организации"
+    placeholder: {
+      'ru': "Название компании/организации",
+      'kz': "Компанияның атауы",
+      'en': "Company name"
+    }
   },
   {
     type: "text",
     name: "desired_job_position",
     maxRows: 2,
     label: {
-      "kz": "Должность",
+      "kz": "Мамандық",
       "ru": "Должность",
-      "en": "Должность"
+      "en": "Role"
     },
-    placeholder: "Главный Разработчик"
+    placeholder: {
+      'ru': "Главный Разработчик",
+      'kz': "Басты Бағдарламашы",
+      'en': "Lead Developer"
+    }
   },
   {
     type: "month",
     name: "experience_start",
     maxRows: 2,
     label: {
-      "kz": "Начало работы",
+      "kz": "Жұмыстың басталуы",
       "ru": "Начало работы",
-      "en": "Начало работы"
+      "en": "Beginning of work"
     },
-    placeholder: "Год"
+    placeholder: {
+      'ru':"Год",
+      'kz':"Жыл",
+      'en':"Year"
+    }
   },
   {
     type: "month",
@@ -523,22 +564,30 @@ const experienceForms = [
     ifNotInput: "experience_still_working",
     maxRows: 2,
     label: {
-      "kz": "Конец работы",
+      "kz": "Жұмыстың аяқталуы",
       "ru": "Конец работы",
-      "en": "Конец работы"
+      "en": "End of the work"
     },
-    placeholder: "Месяц"
+    placeholder: {
+      'ru':"Месяц",
+      'kz':"Ай",
+      'en':"Month"
+    }
   },
   {
     type: "checkbox",
     name: "experience_still_working",
     label: {
-      "kz": "Я сейчас работаю",
+      "kz": "Қазір жұмыс істеймін",
       "ru": "Я сейчас работаю",
       "en": "Still working"
     },
     maxRows: 1,
-    placeholder: "Год"
+    placeholder: {
+      'ru': "Год",
+      'kz': "Жыл",
+      'en': "Year"
+    }
   },
   {
     type: "number",
@@ -546,11 +595,15 @@ const experienceForms = [
     rows: 4,
     multiline: true,
     label: {
-      "kz": "Обязанности",
+      "kz": "Міндеттер",
       "ru": "Обязанности",
-      "en": "Обязанности"
+      "en": "Duties"
     },
-    placeholder: "Опишите какие задачи вы выполняли на данной должности"
+    placeholder: {
+      'ru': "Опишите какие задачи вы выполняли на данной должности",
+      'kz': "Осы мамандықта орындаған тапсырмаларды сипаттаңыз",
+      'en': "Describe the tasks you performed in this position"
+    }
   },
 ];
 const skillForms = [
@@ -558,9 +611,9 @@ const skillForms = [
     type: "multi-select",
     name: "skills",
     label: {
-      "kz": "Навыки",
+      "kz": "Дағдылар",
       "ru": "Навыки",
-      "en": "Навыки"
+      "en": "Skills"
     },
     maxRows: 1,
     placeholder: ""
@@ -571,32 +624,40 @@ const certificateForms = [
     type: "text",
     name: "certificate_name",
     label: {
-      "kz": "Название организация",
+      "kz": "Компанияның атауы",
       "ru": "Название организация",
-      "en": "Название организация"
+      "en": "Company name"
     },
     maxRows: 2,
-    placeholder: "Например: SkillBox"
+    placeholder: {
+      'ru': "Например: SkillBox",
+      'kz': "Мысалы: SkillBox",
+      'en': "Example: SkillBox"
+    }
   },
   {
     type: "text",
     name: "program",
     label: {
-      "kz": "Название программы",
+      "kz": "Бағдарламаның атауы",
       "ru": "Название программы",
-      "en": "Название программы"
+      "en": "Program name"
     },
     maxRows: 2,
-    placeholder: "Например: Python-Разработичик"
+    placeholder: {
+      'ru': "Например: Python-Разработичик",
+      'kz': "Мысалы: Python-Бағдарламашы",
+      'en': "Example: Python-Developer"
+    }
   },
   {
     type: "number",
     min: 1900, max: 2099,
     name: "publish_year",
     label: {
-      "kz": "Год выдачи",
+      "kz": "Берілген жылы",
       "ru": "Год выдачи",
-      "en": "Год выдачи"
+      "en": "Year of Issue"
     },
     maxRows: 2,
     placeholder: ""
@@ -606,7 +667,11 @@ const certificateForms = [
     name: "certificates",
     maxRows: 1,
     multiline: true,
-    placeholder: "Формат: pdf, png"
+    placeholder: {
+      'ru': "Формат: pdf, png",
+      'kz': "Формат: pdf, png",
+      'en': "Format: pdf, png"
+    }
   },
 ];
 const resumeForms = [
@@ -624,8 +689,8 @@ const resumeForms = [
 export const content = [
   {
     title: {
-      "en": "Условия работы",
-      "kz": "Условия работы",
+      "en": "Work conditions",
+      "kz": "Жұмыс шарттары",
       "ru": "Условия работы"
     },
     additionalText: null,
@@ -636,8 +701,8 @@ export const content = [
   },
   {
     title: {
-      "en": "Личная информация",
-      "kz": "Личная информация",
+      "en": "Personal information",
+      "kz": "Жеке ақпарат",
       "ru": "Личная информация"
     },
     additionalText: null,
@@ -648,8 +713,8 @@ export const content = [
   },
   {
     title: {
-      "en": "Дополнительные сведения",
-      "kz": "Дополнительные сведения",
+      "en": "Additional Information",
+      "kz": "Қосымша ақпарат",
       "ru": "Дополнительные сведения"
     },
     additionalText: null,
@@ -660,8 +725,8 @@ export const content = [
   },
   {
     title: {
-      "en": "Образование",
-      "kz": "Образование",
+      "en": "Education",
+      "kz": "Білім беру орны",
       "ru": "Образование"
     },
     additionalText: null,
@@ -672,8 +737,8 @@ export const content = [
   },
   {
     title: {
-      "en": "Опыт работы",
-      "kz": "Опыт работы",
+      "en": "Work experience",
+      "kz": "Жұмыс тәжірибесі",
       "ru": "Опыт работы"
     },
     additionalText: null,
@@ -684,8 +749,8 @@ export const content = [
   },
   {
     title: {
-      "en": "Навыки",
-      "kz": "Навыки",
+      "en": "Skills",
+      "kz": "Дағдылар",
       "ru": "Навыки"
     },
     additionalText: null,
@@ -696,8 +761,8 @@ export const content = [
   },
   {
     title: {
-      "en": "Сертификаты",
-      "kz": "Сертификаты",
+      "en": "Certificates",
+      "kz": "Сертификаттар",
       "ru": "Сертификаты"
     },
     additionalText: null,
@@ -708,8 +773,8 @@ export const content = [
   },
   {
     title: {
-      "en": "Резюме готово к скачиванию",
-      "kz": "Резюме готово к скачиванию",
+      "en": "Resume is ready",
+      "kz": "Резюме жүктелуге дайын",
       "ru": "Резюме готово к скачиванию"
     },
     name: "resume_link3",
@@ -722,8 +787,8 @@ export const content = [
 export const desktopContent = [
   {
     title: {
-      "en": "Личная информация",
-      "kz": "Личная информация",
+      "en": "Personal Information",
+      "kz": "Жеке ақпарат",
       "ru": "Личная информация"
     },
     additionalText: null,
@@ -734,8 +799,8 @@ export const desktopContent = [
   },
   {
     title: {
-      "en": "Дополнительные сведения",
-      "kz": "Дополнительные сведения",
+      "en": "Additional Information",
+      "kz": "Қосымша ақпарат",
       "ru": "Дополнительные сведения"
     },
     additionalText: null,
@@ -746,8 +811,8 @@ export const desktopContent = [
   },
   {
     title: {
-      "en": "Образование",
-      "kz": "Образование",
+      "en": "Education",
+      "kz": "Білім алу орны",
       "ru": "Образование"
     },
     additionalText: null,
@@ -758,8 +823,8 @@ export const desktopContent = [
   },
   {
     title: {
-      "en": "Опыт работы",
-      "kz": "Опыт работы",
+      "en": "Work experience",
+      "kz": "Жұмыс тәжірибеңіз",
       "ru": "Опыт работы"
     },
     additionalText: null,
@@ -770,8 +835,8 @@ export const desktopContent = [
   },
   {
     title: {
-      "en": "Навыки",
-      "kz": "Навыки",
+      "en": "Skills",
+      "kz": "Дағдылар",
       "ru": "Навыки"
     },
     additionalText: null,
@@ -782,8 +847,8 @@ export const desktopContent = [
   },
   {
     title: {
-      "en": "Сертификаты",
-      "kz": "Сертификаты",
+      "en": "Certificates",
+      "kz": "Сертификаттар",
       "ru": "Сертификаты"
     },
     additionalText: null,
@@ -794,8 +859,8 @@ export const desktopContent = [
   },
   {
     title: {
-      "en": "Резюме готово к скачиванию",
-      "kz": "Резюме готово к скачиванию",
+      "en": "Resume is ready",
+      "kz": "Резюмеңіз жүктелуге дайын",
       "ru": "Резюме готово к скачиванию"
     },
     name: "resume_link1",
@@ -857,6 +922,79 @@ export const localization = {
       },
       Alert: {
         copied: "Сәтті көшірілді",
+      },
+      Generator: {
+        steps: {
+          personal: {
+            title: 'Жеке ақпарат',
+            lastname: 'Тегі',
+            name: 'Аты',
+            fathername: 'Әкесінің аты',
+            sex: 'Жыныс',
+            male: 'Еркек',
+            female: 'Әйел',
+            fulltime: 'Толық уақытта',
+            parttime: 'Жарты уақытта',
+            project: 'Проект жұмыс',
+            intern: 'Стажировка',
+            birthdate: 'Туған күні',
+            schedule: 'Жұмыс кестесі',
+            ocupation: 'Мамандық',
+            salary: 'Жалақы',
+            example: 'Мысалы: программист',
+            salaryEnter: 'Күтілетін жалақаны енгізіңіз'
+          },
+          additional: {
+            title: 'Қосымша ақпарат',
+            photo: 'Фотосуретті жүктеу',
+            phone: 'Телефон нөмірі',
+            email: 'Электронды пошта',
+            telegram: 'Телеграм',
+            city: 'Қала',
+            about: 'Өзіңіз туралы',
+            describe: 'Қысқаша өзіңізді сипаттаңыз',
+            warn: 'Фотосурет png немесе jpg пішімінде, 5МБ-тан аспауы тиіс'
+          },
+          education: {
+            title: 'Білім',
+            degree: 'Дәреже',
+            bachelor: 'Бакалавр',
+            masters: 'Магистратура',
+            university: 'Оқу орнының атауы',
+            speciality: 'Мамандық'
+          },
+          experience: {
+            title: 'Тәжірибе',
+            company: 'Компания',
+            occupation: 'Мамандық',
+            leadDeveloper: 'Бас кәсіпкер',
+            begin: 'Жұмыс басталды',
+            end: 'Жұмыс аяқталды',
+            year: 'Жыл',
+            month: 'Ай',
+            duties: 'Міндеттер',
+            describe: 'Осы мамандықта орындаған тапсырмаларды сипаттаңыз'
+          },
+          skills: {
+            title: 'Дағдылар',
+            choose: 'Дағдыларды таңдау'
+          },
+          certificates: {
+            title:'Сертификаттар',
+            orgName: 'Ұйымның атауы',
+            orgExample: 'Мысалы: SkillBox',
+            program: 'Бағдарламаның атауы',
+            programExample: 'Мысалы: Python-Дамытушы',
+            year: 'Берілген жыл',
+            upload: 'Сертификатты жүктеу',
+            format: 'Пішім: pdf, png',
+            require: '5МБ-тан аспауы тиіс',
+            choose: 'Таңдау'
+          },
+          ready: 'Резюме жүктелу үшін дайын'
+        },
+        continue: 'Жалғастыру',
+        back: 'Кері'
       }
     }
   },
@@ -912,6 +1050,79 @@ export const localization = {
       },
       Alert: {
         copied: "Успешно скопировано",
+      },
+      Generator:{
+        steps: {
+          personal: {
+            title: 'Личная информация',
+            lastname: 'Фамилия',
+            name: 'Имя',
+            fathername: 'Отчество',
+            sex: 'Пол',
+            male: 'Мужской',
+            female: 'Женский',
+            fulltime: 'Полная занятость',
+            parttime: 'Частичная занятость',
+            project: 'Проектная работа',
+            intern: 'Стажировка',
+            birthdate: 'Дата рождения',
+            schedule: 'График работы',
+            ocupation: 'Должность',
+            salary: 'Зароботная плата',
+            example: 'Например: программист',
+            salaryEnter: 'Введите ваши ожидания от зарплаты',
+          },
+          additional: {
+            title: 'Дополнительная сведения',
+            photo: 'Загрузить фотографию',
+            phone: 'Номер телефона',
+            email: 'Почта',
+            telegram: 'Телеграм',
+            city: 'Город',
+            about: 'О себе',
+            describe: 'Опишите кратко о себе',
+            warn: 'Фотография должна быть в формате png jpg неболее 5 мб'
+          },
+          education: {
+            title: 'Образование',
+            degree: 'Степень',
+            bachelor: 'Бакалавр',
+            masters: 'Магистратура',
+            university: 'Название учебного заведения',
+            speciality: 'Специализация',
+          },
+          experience: {
+            title: 'Опыт работы',
+            company: 'Компания',
+            occupation: 'Должность',
+            leadDeveloper: 'Главный Разработчик',
+            begin: 'Начало работы',
+            end: 'Конец работы',
+            year: 'Год',
+            month: 'Месяц',
+            duties: 'Обязанности',
+            describe: 'Опишите какие задачи вы выполняли на данной должности',
+          },
+          skills: {
+            title: 'Навыки',
+            choose: 'Выберите навыки',
+          },
+          certificates: { 
+            title:'Сертификаты',
+            orgName: 'Название организация',
+            orgExample: 'Например: SkillBox',
+            program: 'Название программы',
+            programExample: 'Например: Python-Разработичик',
+            year: 'Год выдачи',
+            upload: 'Загрузите сертификат',
+            format: 'Формат: pdf, png',
+            require: 'не более 5мб',
+            choose: 'Выбрать',
+          },
+          ready: 'Резюме готово к скачиванию'
+        },
+        continue: 'Продолжить',
+        back: 'Назад',
       }
     }
   },
@@ -967,7 +1178,80 @@ export const localization = {
       },
       Alert: {
         copied: "Copied successfully",
-      }
+      },
+      Generator: {
+        steps: {
+          personal: {
+            title: 'Personal Information',
+            lastname: 'Last name',
+            name: 'First name',
+            fathername: "Father's name",
+            sex: 'Gender',
+            male: 'Male',
+            female: 'Female',
+            fulltime: 'Full-time',
+            parttime: 'Part-time',
+            project: 'Project-based',
+            intern: 'Internship',
+            birthdate: 'Date of birth',
+            schedule: 'Work schedule',
+            ocupation: 'Occupation',
+            salary: 'Salary',
+            example: 'e.g. programmer',
+            salaryEnter: 'Enter your expected salary'
+          },
+          additional: {
+            title: 'Additional Information',
+            photo: 'Upload photo',
+            phone: 'Phone number',
+            email: 'Email',
+            telegram: 'Telegram',
+            city: 'City',
+            about: 'About me',
+            describe: 'Briefly describe yourself',
+            warn: 'Photo should be in png or jpg format, no more than 5MB'
+          },
+          education: {
+            title: 'Education',
+            degree: 'Degree',
+            bachelor: "Bachelor's",
+            masters: "Master's",
+            university: 'University name',
+            speciality: 'Specialization'
+          },
+          experience: {
+            title: 'Work experience',
+            company: 'Company',
+            occupation: 'Occupation',
+            leadDeveloper: 'Lead developer',
+            begin: 'Start date',
+            end: 'End date',
+            year: 'Year',
+            month: 'Month',
+            duties: 'Responsibilities',
+            describe: 'Describe the tasks you performed in this position'
+          },
+          skills: {
+            title: 'Skills',
+            choose: 'Choose skills'
+          },
+          certificates: {
+            title:'Certificates',
+            orgName: 'Organization name',
+            orgExample: 'e.g. SkillBox',
+            program: 'Program name',
+            programExample: 'e.g. Python developer',
+            year: 'Year of issue',
+            upload: 'Upload certificate',
+            format: 'Format: pdf, png',
+            require: 'Not more than 5MB',
+            choose: 'Choose'
+          },
+          ready: 'Resume is ready for download'
+        },
+        continue: 'Continue',
+        back: 'Back'
+      }      
     },
   },
 };

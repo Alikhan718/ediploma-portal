@@ -34,7 +34,7 @@ import {handleDownload, handleLink} from "@src/utils/link";
 import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {fetchUserProfile} from '@src/store/auth/actionCreators';
 import {selectLanguage} from "@src/store/generals/selectors";
-import {localization, skillsList} from '@src/pages/StudentPage/generator';
+import {localization, skillsList, universityName} from '@src/pages/StudentPage/generator';
 import {RatingDisplay} from '@src/components/RatingDisplay/RatingDisplay';
 import {ShareButton} from '@src/components/ShareButton/ShareButton';
 import {
@@ -46,7 +46,7 @@ import {
   WhatsappShareButton,
   WhatsappIcon,
 } from "react-share"
-
+import {  nationalities } from '@src/pages/DiplomaDetailsPage/generator';
 import { ReactComponent as Telegram } from '@src/assets/icons/tgEmployer.svg';
 import { ReactComponent as Linkedin } from '@src/assets/icons/inEmployer.svg';
 import { ReactComponent as Link } from '@src/assets/icons/Link.svg';
@@ -59,6 +59,7 @@ import { ReactComponent as ChartResume } from '@src/assets/icons/chartResume.svg
 import { ReactComponent as AddDipoma } from '@src/assets/icons/addDiploma.svg';
 import { ReactComponent as EditProfile } from '@src/assets/icons/editProfile.svg';
 import { ReactComponent as ChartIcon } from '@src/assets/icons/Chart.svg';
+import { ReactComponent as Instagram } from '@src/assets/icons/igEmployer.svg';
 import QRCode from "react-qr-code";
 
 export const StudentPageLayout: React.FC = () => {
@@ -362,7 +363,7 @@ export const StudentPageLayout: React.FC = () => {
                           },
                         }}
                       >
-                        {"Студент"}
+                        {localization[lang].Resume.student}
                       </Typography>
                       <Box sx={{
                         display: 'flex',
@@ -458,6 +459,23 @@ export const StudentPageLayout: React.FC = () => {
                                 color: "white"
                               }
                             }}
+                            onClick={() => {}}
+                          >
+                            <Instagram style={{width: '1.5rem', height: '1.5rem'}}/>
+                          </IconButton>
+                        </Box>
+                        <Box>
+                          <IconButton
+                            color="primary"
+                            sx={{
+                              backgroundColor: "#FAFBFF",
+                              width: '2.5rem',
+                              height: '2.5rem',
+                              '&:hover': {
+                                backgroundColor: "#FAFBFF",
+                                color: "white"
+                              }
+                            }}
                             onClick={() => { setShowQR(true) }}
                           >
                             <Qr style={{width: '1.5rem', height: '1.5rem'}}/>
@@ -513,7 +531,7 @@ export const StudentPageLayout: React.FC = () => {
                                 flex: '1 0 0',
                               }}>
                                 <Typography sx={{fontSize: '0.75rem', color: '#9499AB'}}>
-                                  Выше резюме
+                                  {localization[lang].Resume.resume}
                                 </Typography>
                                 <Typography sx={{fontSize: '0.75rem', color: '#111C44'}}>
                                   {data && data.name_kz ? data.name_kz : userState.name ? userState.name : ""}
@@ -558,7 +576,7 @@ export const StudentPageLayout: React.FC = () => {
                                 flex: '1 0 0',
                               }}>
                                 <Typography sx={{fontSize: '1.25rem', color: '#293357', fontWeight: 600}}>
-                                  Мое резюме
+                                  {localization[lang].Resume.create}
                                 </Typography>
                                 <Typography sx={{fontSize: '0.75rem', color: '#58607C'}}>
                                   Создайте 2 строк
@@ -574,7 +592,7 @@ export const StudentPageLayout: React.FC = () => {
                                 }
                               }}
                               onClick={() => { navigate(routes.resumeGenerator) }}>
-                              Продолжить
+                              {localization[lang].Resume.continue}
                             </MuiButton>
                           </Box>
                       }
@@ -745,7 +763,7 @@ export const StudentPageLayout: React.FC = () => {
                     paddingBottom: '10px'
                   },
                 }}>
-                  О Выпускнике
+                  {localization[lang].Resume.about}
                 </Box>
 
                 <Box
@@ -767,7 +785,7 @@ export const StudentPageLayout: React.FC = () => {
                       '@media (max-width: 778px)': { fontSize: '0.875rem', }
                     }}
                     >
-                      Номер телефона
+                      {localization[lang].Resume.phone}
                     </Typography>
                     <Typography sx={{
                       fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', }
@@ -778,7 +796,7 @@ export const StudentPageLayout: React.FC = () => {
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '50%' } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Почта
+                      {localization[lang].Resume.email}
                     </Typography>
                     <Typography sx={{
                       fontSize: '1rem', overflowWrap: 'break-word', wordBreak: 'break-all',
@@ -790,7 +808,7 @@ export const StudentPageLayout: React.FC = () => {
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { display: 'none' } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Дата рождения
+                      {localization[lang].Resume.birth}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {data && data.diploma_date_of_birth ? data.diploma_date_of_birth : "-"}
@@ -798,17 +816,22 @@ export const StudentPageLayout: React.FC = () => {
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { display: 'none', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Национальность
+                      {localization[lang].Resume.nationality}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Казах
+                      {
+                        data && data.diploma_nationality && 
+                        nationalities[data.diploma_nationality] ? 
+                        nationalities[data.diploma_nationality][lang]
+                        : nationalities["Казах"][lang]
+                      }
                     </Typography>
                   </Box>
                 </Box>
                 <Box sx={{ display: 'none', marginBottom: '0.5rem', '@media (max-width: 778px)': { display: 'flex', fontSize: '0.875rem', } }}>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '50%', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Дата рождения
+                      {localization[lang].Resume.birth}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {data && data.diploma_date_of_birth ? data.diploma_date_of_birth : "-"}
@@ -816,7 +839,7 @@ export const StudentPageLayout: React.FC = () => {
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '50%', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Национальность
+                      {localization[lang].Resume.nationality}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       Казах
@@ -826,15 +849,15 @@ export const StudentPageLayout: React.FC = () => {
                 <Box sx={{ display: 'flex', marginBottom: '1.25rem', '@media (max-width: 778px)': { marginBottom: '0.5rem', } }}>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '50%', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Город
+                      {localization[lang].Resume.city}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      {data && data.diploma_city ? data.diploma_city : "Алмата"}
+                      {data && data.diploma_city ? data.diploma_city : localization[lang].Resume.almaty}
                     </Typography>
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '50%', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Регион
+                      {localization[lang].Resume.region}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {data && data.diploma_region ? data.diploma_region : "-"}
@@ -842,20 +865,15 @@ export const StudentPageLayout: React.FC = () => {
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { display: 'none', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Название вуза
+                      {localization[lang].Resume.university}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      {
-                        data && data.university_id && data.university_id == 1 ? 'КБТУ' :
-                          data && data.university_id && data.university_id == 2 ? 'АГП' :
-                            data && data.university_id && data.university_id == 3 ? 'Сатпаев Университет' :
-                              '-'
-                      }
+                        {data && universityName[data.university_id as keyof typeof universityName] ? universityName[data.university_id as keyof typeof universityName][lang] : ""}
                     </Typography>
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { display: 'none', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Степень
+                      {localization[lang].Resume.degree}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {
@@ -869,7 +887,7 @@ export const StudentPageLayout: React.FC = () => {
                 <Box sx={{ display: 'none', marginBottom: '0.5rem', '@media (max-width: 778px)': { display: 'flex', } }}>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '50%', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Название вуза
+                      {localization[lang].Resume.university}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {
@@ -885,7 +903,7 @@ export const StudentPageLayout: React.FC = () => {
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '25%', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Степень
+                      {localization[lang].Resume.degree}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {
@@ -897,7 +915,7 @@ export const StudentPageLayout: React.FC = () => {
                 <Box sx={{ display: 'flex', marginBottom: '1.25rem', '@media (max-width: 778px)': { marginBottom: '0.5rem', } }}>
                   <Box sx={{ width: '50%', '@media (max-width: 778px)': { width: '100%', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Специальность
+                      {localization[lang].Resume.speciality}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {
@@ -920,7 +938,7 @@ export const StudentPageLayout: React.FC = () => {
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { display: 'none', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Дата окончания
+                      {localization[lang].Resume.graduation}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {data && data.year ? data.year : ""}
@@ -940,7 +958,7 @@ export const StudentPageLayout: React.FC = () => {
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '50%', } }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Дата окончания
+                      {localization[lang].Resume.graduation}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
                       {data && data.year ? data.year : ""}
@@ -950,7 +968,7 @@ export const StudentPageLayout: React.FC = () => {
                 <Box sx={{ display: 'flex', marginBottom: '0.5rem' }}>
                   <Box sx={{ width: '100%' }}>
                     <Typography sx={{ fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Академический рейтинг
+                      {localization[lang].Resume.rating}
                     </Typography>
                     <Box display="flex" marginTop="0.25rem">
                       {data && data.rating && data.gpa !== '0.0' ? <RatingDisplay academicRating={Number(data.rating)}/> : "-"}
@@ -962,7 +980,7 @@ export const StudentPageLayout: React.FC = () => {
                 <Box sx={{ display: 'none', marginBottom: '0.5rem', '@media (max-width: 778px)': { display: 'flex', } }}>
                   <Box sx={{ width: '100%' }}>
                     <Typography sx={{ fontSize: '0.875rem', color: '#9499AB' }}>
-                      О себе
+                      {localization[lang].Resume.aboutMe}
                     </Typography>
                     <Typography sx={{fontSize: '0.875rem'}}>
                       {data && data.description ? data.description : "-"}
@@ -1082,7 +1100,7 @@ export const StudentPageLayout: React.FC = () => {
 
               </Box>
               <Box sx={{
-                display: 'block',
+                display: data && data.speciality_ru && skillsList.hasOwnProperty(data.speciality_ru) ? 'block' : 'none',
                 backgroundColor: 'white',
                 borderRadius: '1.5rem',
                 padding: '1.75rem',
@@ -1096,7 +1114,7 @@ export const StudentPageLayout: React.FC = () => {
                 <Box sx={{
                   '@media (max-width: 778px)': {
                     width: '100%',
-                    display: 'flex',
+                    display: data && data.speciality_ru && skillsList.hasOwnProperty(data.speciality_ru) ? 'flex' : 'none',
                     justifyContent: 'space-between',
                     alignItems: 'start'
                   }
@@ -1107,7 +1125,7 @@ export const StudentPageLayout: React.FC = () => {
                       fontSize: '20px',
                       marginBottom: '0.75rem',
                     },
-                  }}> Навыки </Box>
+                  }}> {localization[lang].Resume.skills}</Box>
                   <Box sx={{ display: 'none', '@media (max-width: 778px)': { display: 'flex', cursor: 'pointer' } }}
                     onClick={() => { navigate(routes.settings) }}
                   >
@@ -1191,10 +1209,10 @@ export const StudentPageLayout: React.FC = () => {
                   </Box>
                   <Box>
                     <Typography sx={{ fontSize: '1.5rem', fontWeight: 600, lineHeight: '125%', marginBottom: '0.75rem' }}>
-                      {'Генератор резюме'}
+                      {localization[lang].Resume.generator}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', fontWeight: 400, lineHeight: '125%' }}>
-                      {'Чтобы находить работу, проекты и задачи создайте резюме на портале и работадатели'}
+                      {localization[lang].Resume.text}
                     </Typography>
                   </Box>
                 </Box>
@@ -1205,7 +1223,7 @@ export const StudentPageLayout: React.FC = () => {
                     type="button"
                     sx={{ borderRadius: '25px' }}
                   >
-                    Начать
+                    {localization[lang].Resume.begin}
                   </Button>
                 </Box>
               </Box>
@@ -1224,7 +1242,7 @@ export const StudentPageLayout: React.FC = () => {
                 }
               }}>
                 <Typography sx={{ fontSize: '1.125rem', fontWeight: 600, lineHeight: '125%', textAlign: 'center' }}>
-                  Поделиться с дипломом с помощью QR
+                  {localization[lang].Resume.qr}
                 </Typography>
                 <QRCode
                   size={256}
@@ -1237,7 +1255,7 @@ export const StudentPageLayout: React.FC = () => {
                       borderRadius: "3rem", backgroundColor: "#EBF2FE",
                     }}
                   >
-                    Закрыть
+                    {localization[lang].Resume.close}
                   </MuiButton>
                 </Box>
               </Box>

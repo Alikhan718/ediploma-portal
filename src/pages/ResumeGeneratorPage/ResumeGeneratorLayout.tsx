@@ -216,7 +216,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
               cursor: "pointer"
             }}
             onClick={() => handleChooseFileClick("gallery")}>
-            Загрузите вашу фотографию
+            {localization[lang].StudentPage.Generator.steps.additional.photo}
           </Typography>
           <Typography
             align="center"
@@ -227,7 +227,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
               cursor: "pointer"
             }}
             onClick={() => handleChooseFileClick("gallery")}>
-            Фотография должна быть в формате png jpg неболее 5 мб
+            {localization[lang].StudentPage.Generator.steps.additional.warn}
           </Typography>
           <input
             type="file"
@@ -479,7 +479,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
                             defaultValues={JSON.parse(state[el.name]) ?? []}
                             handleChange={handleChange}
                             options={skillsList[state.speciality_ru as keyof typeof skillsList] ? skillsList[state.speciality_ru as keyof typeof skillsList][lang] : []}
-                            innerLabel={"Выберите Навыки"}
+                            innerLabel={localization[lang].StudentPage.Generator.steps.skills.choose}
                           >
                           </MultiSelect>
                         </Grid>);
@@ -635,12 +635,12 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                         justifyContent="center">
                                         <Typography fontSize="0.875rem"
                                           fontWeight="600">
-                                          Загрузите сертификат
+                                          {localization[lang].StudentPage.Generator.steps.certificates.upload}
                                         </Typography>
                                         <Typography fontSize="0.75rem"
                                           color="#818181"
                                           fontWeight="400">
-                                          {el.placeholder}
+                                          {el.placeholder[lang]}
                                         </Typography>
                                       </Box>
                                     </Box>
@@ -650,7 +650,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                       color="#818181"
                                       textAlign="center"
                                       fontWeight="600">
-                                      не более 5 мб
+                                      {localization[lang].StudentPage.Generator.steps.certificates.require}
                                     </Typography>}
                                   <Box
                                     sx={{
@@ -670,7 +670,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                     <Typography color="white" fontSize="1rem"
                                       textAlign="center"
                                       alignSelf="center">
-                                      Выбрать
+                                      {localization[lang].StudentPage.Generator.steps.certificates.choose}
                                     </Typography>
                                   </Box>
                                   {isMobile &&
@@ -699,7 +699,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
                                 <Box display="flex" flexDirection="column" ml="1rem"
                                   justifyContent="center">
                                   <Typography>
-                                    Сертификат
+                                    {localization[lang].StudentPage.Generator.steps.certificates.title}
                                   </Typography>
                                 </Box>
                                 <IconButton style={{
@@ -893,13 +893,13 @@ export const ResumeGeneratorLayout: React.FC = () => {
                       variant="contained"
                       borderRadius="3rem"
                       onClick={nextStep}>
-                      Продолжить
+                      {localization[lang].StudentPage.Generator.continue}
                     </Button>
                     <Button
                       variant="outlined"
                       borderRadius="3rem"
                       onClick={previousStep}>
-                      Назад
+                      {localization[lang].StudentPage.Generator.back}
                     </Button>
                   </Box>
                 ) : null
