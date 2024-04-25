@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Card, MenuItem, Slider, Typography, InputLabel, FormControl, Select, SelectChangeEvent } from "@mui/material";
+import { Box, Card, MenuItem, Slider, Typography, useMediaQuery, FormControl, Select, SelectChangeEvent } from "@mui/material";
 import { IFilter } from "@src/layout/Filter/FilterSection.props";
 import { ReactComponent as CloseIcon } from "@src/assets/icons/cross.svg";
 import { universities, regions, specialities, years, localization } from "@src/layout/Filter/generator";
@@ -26,7 +26,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	const [selectedUniversityIDs, setSelectedUniversityIDs] = React.useState<number[]>([]);
 	const dispatch = useDispatch();
 	const role = useSelector(selectUserRole).toLowerCase();
-
+	const isMobile = useMediaQuery('(max-width:998px)');
 	const isProfile = (): boolean => {
         const urlElements = window.location.href.split('/');
         const routes = ['user', 'profile'];
@@ -241,12 +241,12 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 						}} />
 					</Box>
 					<Box display='flex' flexWrap='wrap' width='100%' height="25%" justifyContent='space-between'
-						gap='2.5rem 0rem'>
+						gap={isMobile ? '0.75rem 0rem': '2.5rem 0rem'}>
 						<Box width='48%' className={styles.mobW100}>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600">
 								{localization[lang].MainCard.speciality}
 							</Typography>
-							<Box display='flex' gap='.5rem' flexWrap='wrap' p=".5rem" mt='.5rem' height="100%"
+							<Box display='flex' gap='.5rem' flexWrap='wrap' p=".5rem" mt='.5rem' height="70%"
 								overflow="hidden scroll" sx={{
 
 								}}>
@@ -280,6 +280,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 										displayEmpty
 										inputProps={{ 'aria-label': 'Without label' }}
 										MenuProps={MenuProps}
+										size={isMobile ? 'small' : 'medium'}
 									>
 										<MenuItem 
 											value="" 
@@ -356,6 +357,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 											displayEmpty
 											inputProps={{ 'aria-label': 'Without label' }}
 											MenuProps={MenuProps}
+											size={isMobile ? 'small' : 'medium'}
 										>
 											<MenuItem value="" onClick={() => {handleChange('', selectedRegions, setSelectedRegions, "region");}}>
 												<em>None</em>
@@ -387,7 +389,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 								value={selectedGPA}
 								onChange={handleGPA}
 								valueLabelDisplay="auto"
-								sx={{marginLeft: "1rem"}}
+								sx={{marginLeft: "1rem", '@media (max-width: 778px)': {marginLeft: "0rem"}}}
 							/>
 							<Typography fontSize='1.25rem' className={styles.mobTextMd} fontWeight="600" marginTop="1rem">
 								Rating
@@ -400,7 +402,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 								value={selectedRating}
 								onChange={handleRating}
 								valueLabelDisplay="auto"
-								sx={{marginLeft: "1rem"}}
+								sx={{marginLeft: "1rem", '@media (max-width: 778px)': {marginLeft: "0rem"}}}
 							/>
 						</Box>
 						
@@ -439,6 +441,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 										onChange={handleUniversityChange}
 										displayEmpty
 										inputProps={{ 'aria-label': 'Without label' }}
+										size={isMobile ? 'small' : 'medium'}
 									>
 										<MenuItem value="" onClick={() => {handleChange(0, selectedUniversityIDs, setSelectedUniversityIDs, "university_id");}}>
 											<em>None</em>

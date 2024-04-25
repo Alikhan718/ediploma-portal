@@ -60,6 +60,7 @@ import { ReactComponent as AddDipoma } from '@src/assets/icons/addDiploma.svg';
 import { ReactComponent as EditProfile } from '@src/assets/icons/editProfile.svg';
 import { ReactComponent as ChartIcon } from '@src/assets/icons/Chart.svg';
 import { ReactComponent as Instagram } from '@src/assets/icons/igEmployer.svg';
+import { ReactComponent as Facebook } from '@src/assets/icons/fbEmployer.svg';
 import QRCode from "react-qr-code";
 
 export const StudentPageLayout: React.FC = () => {
@@ -396,7 +397,7 @@ export const StudentPageLayout: React.FC = () => {
                           width: '2.5rem',
                           height: '2.5rem',
                           borderRadius: '50%',
-                          display: 'flex',
+                          display: data && data.linkedin_link ? 'flex' : 'none',
                           justifyContent: 'center',
                           alignItems: 'center',
                           '&:hover': {
@@ -406,46 +407,56 @@ export const StudentPageLayout: React.FC = () => {
                         }}
                         >
                           <a
-                            href={data && data.university_id ? linkedinUrl[data.university_id as keyof typeof linkedinUrl] : defaultLink}
+                            href={data && data.linkedin_link ? data.linkedin_link : ''}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <Linkedin/>
                           </a>
                         </Box>
-                        <Box>
-                          <TelegramShareButton
-                            url={currentUrl}
-                            title={"Jasaim | Мой NFT диплом доступен к просмотру по данной ссылке: "}
-                            style={{
-                              backgroundColor: "#FAFBFF",
-                              width: '2.5rem',
-                              height: '2.5rem',
-                              borderRadius: '50%',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center'
-                            }}
+                        <Box sx={{
+                          backgroundColor: "#FAFBFF",
+                          width: '2.5rem',
+                          height: '2.5rem',
+                          borderRadius: '50%',
+                          display: data && data.telegram_link ? 'flex' : 'none',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          '&:hover': {
+                            backgroundColor: "#FAFBFF",
+                            color: "white"
+                          }
+                        }}
+                        >
+                          <a
+                            href={data && data.telegram_link ? data.telegram_link : ''}
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             <Telegram style={{width: '1.5rem', height: '1.5rem'}}/>
-                          </TelegramShareButton>
+                          </a>
                         </Box>
-                        <Box>
-                          <WhatsappShareButton
-                            url={currentUrl}
-                            title={"Jasaim | Мой NFT диплом доступен к просмотру по данной ссылке: "}
-                            style={{
-                              backgroundColor: "#FAFBFF",
-                              width: '2.5rem',
-                              height: '2.5rem',
-                              borderRadius: '50%',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center'
-                            }}
+                        <Box sx={{
+                          backgroundColor: "#FAFBFF",
+                          width: '2.5rem',
+                          height: '2.5rem',
+                          borderRadius: '50%',
+                          display: data && data.facebook_link ? 'flex' : 'none',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          '&:hover': {
+                            backgroundColor: "#FAFBFF",
+                            color: "white"
+                          }
+                        }}
+                        >
+                          <a
+                            href={data && data.facebook_link ? data.facebook_link : ''}
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
-                            <WhatsApp style={{width: '1.5rem', height: '1.5rem'}}/>
-                          </WhatsappShareButton>
+                            <Facebook style={{width: '1.5rem', height: '1.5rem'}}/>
+                          </a>
                         </Box>
                         <Box>
                           <IconButton
@@ -1012,33 +1023,36 @@ export const StudentPageLayout: React.FC = () => {
                   {data && data.image &&
                     images.map((image, index) => {
                       return (
-                        <Box width='25%' height='100%' key={index} sx={{
+                        <Box width='auto' height='23rem' position='relative' key={index} sx={{
                           backgroundColor: "#F4F7FE",
                           borderRadius: "1rem",
                           padding: ".7rem",
                           marginTop: "1rem",
-                          '@media (max-width: 778px)': {
-                            width: '100%'
-                          },
+                          '@media (max-width: 778px)': { width: '100%', height: 'auto', },
                         }}>
 
                           <Card
                             elevation={0}
                             sx={{
                               display: 'flex',
-                              width: "100%", flexDirection: 'column', alignItems: 'center',
+                              width: "auto", 
+                              height: '100%',
+                              flexDirection: 'column', alignItems: 'center',
                               cursor: "pointer",
                               borderRadius: "10px",
-
+                              '@media (max-width: 778px)': { width: '100%', height: 'auto', },
                             }}
                           >
                             <CardMedia
                               component="img"
                               className={styles.diplomaImg}
                               sx={{
-                                width: "100%",
+                                width: "auto",
                                 position: "relative",
-                                display: imageLoaded ? "block" : "none"
+                                height: '22rem',
+                                objectFit: 'cover',
+                                display: imageLoaded ? "block" : "none",
+                                '@media (max-width: 778px)': { width: '100%', height: 'auto', },
                               }}
                               image={image}
                               alt="University Image"
