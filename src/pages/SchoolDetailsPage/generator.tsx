@@ -2,7 +2,8 @@ import React from "react";
 
 import {ReactComponent as PasswordIcon} from "@src/assets/icons/Password.svg";
 import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
-import FastIcon from "@src/components/FastIcon/FastIcon";
+import mirasLogo from '@src/assets/example/mirasLogo.jpg';
+import nisLogo from '@src/assets/example/nisLogo.jpg';
 
 export const navigation = [
 
@@ -683,6 +684,7 @@ export const schools = {
         average_gpa: '-',
         highlighting_amount: '-',
         university_id: 4,
+        galleryImages: [nisLogo],
     },
     2: {
         id: 2,
@@ -703,5 +705,6 @@ export const schools = {
         average_gpa: '-',
         highlighting_amount: '-',
         university_id: 5,
+        galleryImages: [mirasLogo],
     }
 }

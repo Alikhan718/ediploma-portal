@@ -274,7 +274,7 @@ export const SchoolDetailsPageLayout: React.FC = () => {
                       <Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
                     </Box>
                     <Box className={styles.contentContainer}>
-                      <Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{paddingBottom: '20px'}}>
+                      {/* <Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{paddingBottom: '20px'}}>
                         <Box flex='1' sx={{marginRight: '50px', '@media (max-width: 768px)': {marginRight: '5px'}}}>
                           <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
                                       sx={{'@media (max-width: 768px)': {fontSize: '20px'}}}>{school ? school.student_amount : ""}</Typography>
@@ -307,7 +307,7 @@ export const SchoolDetailsPageLayout: React.FC = () => {
                             {localization[lang].MainCard.gpa}
                           </Typography>
                         </Box>
-                      </Box>
+                      </Box> */}
                       <Box display="flex" alignItems="center">
                         {links.map((link: any, index: number) => (
                           <Box key={link["name"] + "Box"} marginRight="1rem">
@@ -343,9 +343,9 @@ export const SchoolDetailsPageLayout: React.FC = () => {
                     display: 'none',
                   },
                 }}>
-                  { galleryImages.length != 0 ? 
-                    galleryImages.map(image => (
-                    <img key={image} src={`${baseURL}/${image}`} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
+                  { school.galleryImages.length != 0 ? 
+                    school.galleryImages.map(image => (
+                    <img key={image} src={image} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
                   )) : <img src={diplomaTemplate} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
                 }
                 </Box>

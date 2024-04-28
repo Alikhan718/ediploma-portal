@@ -35,6 +35,7 @@ export const MainPageLayout: React.FC = () => {
 	const imgSrc = [img2, img3, img4];
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const theme = useTheme();
+	const [formPopUp, setFormPopUp] = React.useState(false);
 
 	const changeImage = () => {
 		setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imgSrc.length);
@@ -220,7 +221,7 @@ export const MainPageLayout: React.FC = () => {
 						}}
 					/>
 				</Box >
-				<Box mt="-2rem"><img src={imgSrc[currentImageIndex]} style={{ width: '85%' }} alt={`Image ${currentImageIndex + 1}`} /></Box>
+				<Box sx={{'@media (max-width: 778px)':{display:'none'}}}mt="-2rem"><img src={imgSrc[currentImageIndex]} style={{ width: '85%' }} alt={`Image ${currentImageIndex + 1}`} /></Box>
 			</Box>
 			<FooterSection />
 			<Box sx={{

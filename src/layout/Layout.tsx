@@ -76,14 +76,14 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
                                 {localization.Copyright[lang]}
                             </Typography>
                             <Box className="footerRightItem">
-                                <Typography fontSize="0.75rem">
+                                {/* <Typography fontSize="0.75rem">
                                     {localization.PrivacyPolicy[lang]}
                                 </Typography>
                                 <Typography fontSize="0.75rem">
                                     {localization.UserAgreement[lang]}
                                 </Typography><Typography fontSize="0.75rem">
                                 {localization.Help[lang]}
-                            </Typography>
+                            </Typography> */}
                             </Box>
                         </Box>}
 

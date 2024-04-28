@@ -452,39 +452,41 @@ export const UniversityDetailsPage: React.FC = () => {
                         }
                       </Typography>
                     </Box>
-                    <Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
-                      <Box flex='1' sx={{ marginRight: '1.25rem', '@media (max-width: 768px)': { marginRight: '1.25rem' } }}>
-                        <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
-                          sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.student_amount : ""}</Typography>
-                        <Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
-                          {localization[lang].MainCard.numStudents}
-                        </Typography>
-                      </Box>
-                      <Box flex='1' sx={{ marginRight: '1.25rem', '@media (max-width: 768px)': { marginRight: '1.25rem' } }}>
-                        <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
-                          sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.graduate_amount : ""}</Typography>
-                        <Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
-                          {localization[lang].MainCard.numAlumnies}
-                        </Typography>
-                      </Box>
-                      <Box flex='1' sx={{ marginRight: '1.25rem', '@media (max-width: 768px)': { marginRight: '1.25rem' } }}>
-                        <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
-                          sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.highlighting_amount : ""}</Typography>
-                        <Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
-                          {localization[lang].MainCard.numExtra}                      </Typography>
-                      </Box>
-                      <Box flex='5' sx={{
-                        '@media (max-width: 768px)': {
-                          display: 'none',
-                        }
-                      }}>
-                        <Typography fontWeight='1000' color='#353840' ml='.1rem'
-                          fontSize={'30px'}>{data ? data.average_gpa : ""}</Typography>
-                        <Typography className={styles.textSm}>
-                          {localization[lang].MainCard.gpa}
-                        </Typography>
-                      </Box>
-                    </Box>
+                    {data && data.university_id != 2 ? 
+                      (<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
+                        <Box flex='1' sx={{ marginRight: '1.25rem', '@media (max-width: 768px)': { marginRight: '1.25rem' } }}>
+                          <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
+                            sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.student_amount : ""}</Typography>
+                          <Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
+                            {localization[lang].MainCard.numStudents}
+                          </Typography>
+                        </Box>
+                        <Box flex='1' sx={{ marginRight: '1.25rem', '@media (max-width: 768px)': { marginRight: '1.25rem' } }}>
+                          <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
+                            sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.graduate_amount : ""}</Typography>
+                          <Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
+                            {localization[lang].MainCard.numAlumnies}
+                          </Typography>
+                        </Box>
+                        <Box flex='1' sx={{ marginRight: '1.25rem', '@media (max-width: 768px)': { marginRight: '1.25rem' } }}>
+                          <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
+                            sx={{ '@media (max-width: 768px)': { fontSize: '20px' } }}>{data ? data.highlighting_amount : ""}</Typography>
+                          <Typography sx={{ '@media (max-width: 768px)': { fontSize: '15px' } }}>
+                            {localization[lang].MainCard.numExtra}                      </Typography>
+                        </Box>
+                        <Box flex='5' sx={{
+                          '@media (max-width: 768px)': {
+                            display: 'none',
+                          }
+                        }}>
+                          <Typography fontWeight='1000' color='#353840' ml='.1rem'
+                            fontSize={'30px'}>{data ? data.average_gpa : ""}</Typography>
+                          <Typography className={styles.textSm}>
+                            {localization[lang].MainCard.gpa}
+                          </Typography>
+                        </Box>
+                      </Box>) : 
+                    null }
                   </Box>
                   {/* <Box>
                     <Box sx={{
