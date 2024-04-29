@@ -5,7 +5,7 @@ import ritLogo from "@src/assets/icons/ritlogo.png";
 import kbtuLogo from "@src/assets/icons/KBTU_logo.png";
 import {Box, Typography} from "@mui/material";
 import styles from "../MainPage.module.css";
-import muitLogo from '@src/assets/icons/muitLogo.jpeg';
+import muitLogo from '@src/assets/icons/muitLogo.jpg';
 import suLogo from '@src/assets/icons/suMainLogo.png';
 import agpLogo from '@src/assets/icons/agpMainLogo.jpeg';
 

@@ -2,6 +2,11 @@ import { ReactComponent as Advantages1 } from "@src/assets/aboutUs/advantages_1.
 import { ReactComponent as Advantages2 } from "@src/assets/aboutUs/advantages_2.svg";
 import { ReactComponent as Advantages3 } from "@src/assets/aboutUs/advantages_3.svg";
 import { routes } from "@src/shared/routes";
+import syrym from "@src/assets/example/Syrym.jpg";
+import alikhan from "@src/assets/example/Alikh.jpg";
+// import alisher from "@src/assets/aboutUs/Alisher.jpg";
+import abylai from "@src/assets/example/Abyl.jpg";
+import kunya from "@src/assets/example/Kunya.jpg";
 
 export const advantages = [
 	{
@@ -57,10 +62,10 @@ export const localization = {
 			title: 'Біздің команда',
 			description: "Білім беруді трансформациялау үшін блокчейн мен жасанды интеллект технологияларын қолданатын ҚБТУ және RIT студенттерінің арнайы және құзыретті тобы.",
 			elements: [
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Syrym-CEO.webp', 'subtitle': 'Сырым Серіков' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alikhan-CTO.webp', 'subtitle': 'Әлихан Сейітқадыров' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alisher-techlead.webp', 'subtitle': 'Қуаныш Еңсебаев' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/5.webp', 'subtitle': 'Абылай Сұлтанбеков' },
+				{ 'image': syrym, 'subtitle': 'Сырым Серіков' },
+				{ 'image': alikhan, 'subtitle': 'Әлихан Сейітқадыров' },
+				{ 'image': kunya, 'subtitle': 'Қуаныш Еңсебаев' },
+				{ 'image': abylai, 'subtitle': 'Абылай Сұлтанбеков' },
 				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp', 'subtitle': 'Әлішер Бейсембеков' },
 			],
 		},
@@ -143,10 +148,10 @@ export const localization = {
 			title: 'Наша команда',
 			description: "Преданная и компетентная команда студентов КБТУ и RIT, которые используют блокчейн и технологии искусственного интеллекта для трансформации образования.",
 			elements: [
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Syrym-CEO.webp', 'subtitle': 'Сырым Сериков' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alikhan-CTO.webp', 'subtitle': 'Алихан Сеиткадыров' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alisher-techlead.webp', 'subtitle': 'Куаныш Енсебаев' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/5.webp', 'subtitle': 'Абылай Султанбеков' },
+				{ 'image': syrym, 'subtitle': 'Сырым Сериков' },
+				{ 'image': alikhan, 'subtitle': 'Алихан Сеиткадыров' },
+				{ 'image': kunya, 'subtitle': 'Куаныш Енсебаев' },
+				{ 'image': abylai, 'subtitle': 'Абылай Султанбеков' },
 				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp', 'subtitle': 'Алишер Бейсембеков' },
 			],
 		},
@@ -228,10 +233,10 @@ export const localization = {
 			title: 'Our team',
 			description: "A dedicated and competent team of KBTU and RIT students who use blockchain and artificial intelligence technologies to transform education.",
 			elements: [
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Syrym-CEO.webp', 'subtitle': ' Syrym Serikov' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alikhan-CTO.webp', 'subtitle': 'Alikhan Seitkadyrov' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Alisher-techlead.webp', 'subtitle': ' Kuanysh Yensebayev' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/5.webp', 'subtitle': 'Abylai Sultanbekov' },
+				{ 'image': syrym, 'subtitle': ' Syrym Serikov' },
+				{ 'image': alikhan, 'subtitle': 'Alikhan Seitkadyrov' },
+				{ 'image': kunya, 'subtitle': ' Kuanysh Yensebayev' },
+				{ 'image': abylai, 'subtitle': 'Abylai Sultanbekov' },
 				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp', 'subtitle': 'Alisher Beisembekov' },
 			],
 		},

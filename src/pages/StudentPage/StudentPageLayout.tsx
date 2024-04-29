@@ -853,7 +853,12 @@ export const StudentPageLayout: React.FC = () => {
                       {localization[lang].Resume.nationality}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      Казах
+                      {
+                        data && data.diploma_nationality && 
+                        nationalities[data.diploma_nationality] ? 
+                        nationalities[data.diploma_nationality][lang]
+                        : nationalities["Казах"][lang]
+                      }
                     </Typography>
                   </Box>
                 </Box>
@@ -901,15 +906,7 @@ export const StudentPageLayout: React.FC = () => {
                       {localization[lang].Resume.university}
                     </Typography>
                     <Typography sx={{ fontSize: '1rem', '@media (max-width: 778px)': { fontSize: '0.875rem', } }}>
-                      {
-                        userState ? ( // Check if userState is defined
-                          userState.university_name
-                            ? userState.university_name :
-                            (userState.university_id && userState.university_id === 1
-                              ? localization[lang].MainInfo.kbtu
-                              : localization[lang].MainInfo.noData)
-                        ) : localization[lang].MainInfo.noData // Handle case where data is undefined
-                      }
+                      {data && universityName[data.university_id as keyof typeof universityName] ? universityName[data.university_id as keyof typeof universityName][lang] : ""}
                     </Typography>
                   </Box>
                   <Box sx={{ width: '25%', '@media (max-width: 778px)': { width: '25%', } }}>

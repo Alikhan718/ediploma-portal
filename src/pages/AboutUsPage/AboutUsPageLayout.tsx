@@ -204,7 +204,7 @@ export const AboutUsPageLayout: React.FC = () => {
 						{localization[lang].Team.elements.map((item, index) => (
 							<div key={index} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
 								{typeof item.image === 'string' ? (
-									<img src={item.image} alt={`Team Member ${index + 1}`} style={{ alignSelf: 'center', width: '100%', height: '100%', borderRadius: '1rem' }} />
+									<img src={item.image} alt={`Team Member ${index + 1}`} style={{ alignSelf: 'center', width: '12rem', height: '17rem', borderRadius: '1rem', objectFit: 'cover' }} />
 								) : (
 									React.createElement(item.image, { style: { alignSelf: 'center', width: '100%', height: '100%' } })
 								)}
