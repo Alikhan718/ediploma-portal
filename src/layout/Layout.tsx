@@ -36,7 +36,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
     };
 
     const urlElements = window.location.href.split('/');
-    const isMobile = useMediaQuery('(max-width:998px)');
+    const isTablet = useMediaQuery('(max-width:998px)');
 
     const [isSidebarVisible, setIsSidebarVisible] = useState(checkRoute());
     const [isHeaderVisible, setHeaderVisible] = useState(false);
@@ -51,7 +51,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
         handleWindowResize();
     }, []);
     const lang = useSelector(selectLanguage);
-    
+
     return (
         <Box display='flex' height='100%' sx={{backgroundColor: "#F3F6F9"}} justifyContent="center">
             <Sidebar open={isSidebarVisible} setOpen={setIsSidebarVisible} toggleDrawer={toggleDrawer}/>
@@ -71,7 +71,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
                     <Box className="app-container" mb="2rem">
                         {children}
                     </Box>
-                    {!urlElements.includes('auth') &&
+                    {!urlElements.includes('auth') && !isTablet && (
                         <Box className="footer">
                             <Typography color="#818181" fontSize="0.75rem">
                                 {localization.Copyright[lang]}
@@ -82,14 +82,16 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
                                 </Typography>
                                 <Typography fontSize="0.75rem">
                                     {localization.UserAgreement[lang]}
-                                </Typography><Typography fontSize="0.75rem">
-                                {localization.Help[lang]}
-                            </Typography>
+                                </Typography>
+                                <Typography fontSize="0.75rem">
+                                    {localization.Help[lang]}
+                                </Typography>
                             </Box>
-                        </Box>}
+                        </Box>
+                    )}
                 </Box>
             </Box>
-            {isAuthenticated() && <AppBottomNav/>}
+            {isTablet && isAuthenticated() && <AppBottomNav/>}
         </Box>
     );
 };

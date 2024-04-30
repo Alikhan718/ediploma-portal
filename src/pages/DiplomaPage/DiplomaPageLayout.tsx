@@ -37,16 +37,30 @@ export const DiplomaPageLayout: React.FC = (props) => {
         text: searchText,
         specialities: '',
         region: '',
-        degree: '',
-        year: 0,
-        gpa: 0,
         university_id: 0,
         rating: 0,
+        gpa: 0,
     });
+
+    const isTablet  = useMediaQuery('(max-width:998px)');
+    const isMobile = useMediaQuery('(max-width: 600px)');
+    const isSmallerThanMd = useMediaQuery('(max-width:1380px)');
 
     const [alertOpen, setAlertOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const diplomasPerPage: number = 15;
+
+    let diplomasPerPage: number;
+
+    if (isMobile) {
+        diplomasPerPage = 6;
+    } else if (isTablet) {
+        diplomasPerPage = 12;
+    } else if (isSmallerThanMd) {
+        diplomasPerPage = 15;
+    } else {
+        diplomasPerPage = 15;
+    }
+
     const totalPages = Math.ceil(diplomaList.length / diplomasPerPage);
 
     const [searchQuery, setSearchQuery] = React.useState('');
@@ -60,14 +74,11 @@ export const DiplomaPageLayout: React.FC = (props) => {
     };
     const lang = useSelector(selectLanguage);
 
-    const isTablet  = useMediaQuery('(max-width:998px)');
-    const isMobile = useMediaQuery('(max-width: 600px)');
-    const isSmallerThanMd = useMediaQuery('(max-width:1380px)');
-
 
     const handleAlertClose = () => {
 		setAlertOpen(false);
 	};
+
 
     const handleCardClick = (counter: number) => {
         if (role === 'Student' && counter != data.id) {
@@ -104,25 +115,33 @@ export const DiplomaPageLayout: React.FC = (props) => {
     const endDiplomaIndex = currentPage * diplomasPerPage;
     const displayedDiplomas = diplomaList.slice(startDiplomaIndex, endDiplomaIndex);
 
-
-
     const triggerSearchFilters = (filterAttributesNew: any) => {
         dispatch(fetchSearch(filterAttributesNew));
         navigate(routes.hrBank);
+        console.log(filterAttributesNew)
     };
-
 
     // For ModalSheet (Mobile, Tablet)
     const [openBottomSheet, setOpenBottomSheet] = useState(false);
     const toggleBottomSheet = () => {
         if (openBottomSheet) {
-            // Если лист уже открыт, закрываем
             setOpenBottomSheet(false);
         } else {
-            // Если лист закрыт, открываем
             setOpenBottomSheet(true);
         }
     };
+
+    const [isWidgetActive, setIsWidgetActive] = useState(true);
+
+    const handleListClick = () => {
+        setIsWidgetActive(false);
+    };
+
+    const handleWidgetClick = () => {
+        setIsWidgetActive(true);
+    };
+
+    const lgValue = isWidgetActive ? 3.76 : 12; // Меняю значение для Grid
 
 
     return (
@@ -177,6 +196,16 @@ export const DiplomaPageLayout: React.FC = (props) => {
                                     setFilterAttributes({...filterAttributes, text: query});
                                     setSearchQuery(query);
                                 }}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        triggerSearchFilters(filterAttributes);
+                                        ReactGA.event({
+                                            category: 'User',
+                                            action: 'Search',
+                                            label: searchQuery,
+                                        });
+                                    }
+                                }}
                             />
                             <Button
                                 onClick={() => {
@@ -203,24 +232,27 @@ export const DiplomaPageLayout: React.FC = (props) => {
                             </Button>
                         </Box>
 
-
                         <Box>
                             {!isSmallerThanMd ? (
                                 <Box>
                                     <IconButton
+                                        onClick={handleListClick}
                                         sx={{
                                             padding: '14px',
-                                            backgroundColor: 'white',
+                                            backgroundColor: isWidgetActive ? 'white' : '#3B82F6',
+                                            fill: isWidgetActive ? '#A1A1A1' : 'white',
                                             borderRadius: '24px',
                                             margin: '0px 20px 0px 40px',
                                         }}
                                     >
-                                        <ListIcon/>
+                                        <ListIcon />
                                     </IconButton>
                                     <IconButton
+                                        onClick={handleWidgetClick}
                                         sx={{
                                             padding: '14px',
-                                            backgroundColor: '#3B82F6',
+                                            backgroundColor: isWidgetActive ? '#3B82F6' : 'white',
+                                            fill: isWidgetActive ? 'white' : '#A1A1A1',
                                             borderRadius: '24px',
                                         }}
                                     >
@@ -248,19 +280,16 @@ export const DiplomaPageLayout: React.FC = (props) => {
                                         <FilterIcon/>
                                         {!isMobile && localization[lang].Header.filter}
                                     </Button>
-
                                 </Box>
-
                             )}
                         </Box>
-
                     </Box>
                     {/* Cards */}
                     <Grid container rowGap={3} columnGap={3} direction="row" marginBottom='25px'
-                          justifyContent="space-between">
+                          justifyContent="flex-start">
                         {/* Карточки */}
                         {diplomaList && displayedDiplomas.map((e: any) => (
-                            <Grid key={e.id} item xs={12} sm={12} md={5.8} lg={3.77}
+                            <Grid key={e.id} item xs={12} sm={5.75} md={5.8} lg={lgValue}
                                   className={styles.diplomasContainer}
                                   sx={{backgroundColor: 'white', cursor: 'pointer',}}>
                                 <DiplomaCard
@@ -280,7 +309,7 @@ export const DiplomaPageLayout: React.FC = (props) => {
                         width: '100%',
                         marginBottom: "2rem"
                     }}>
-                        <Box style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <Box style={{flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center',marginBottom: isTablet ? '4rem' : '0',}}>
                             <Pagination
                                 count={totalPages}
                                 page={currentPage}
@@ -304,6 +333,7 @@ export const DiplomaPageLayout: React.FC = (props) => {
                     </Snackbar>
                 </Grid>
             </Grid>
+
             <Modal
                 open={open}
                 handleClose={() => setOpen(false)}
@@ -335,14 +365,9 @@ export const DiplomaPageLayout: React.FC = (props) => {
                     triggerSearchFilters={triggerSearchFilters}
                     filterAttributes={filterAttributes}
                     setFilterAttributes={setFilterAttributes}
+                    toggleBottomSheet={toggleBottomSheet}
                 />
-
-
             </BottomSheet>
-
-
-
-
         </>
     );
 };

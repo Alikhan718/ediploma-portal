@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormControl, InputLabel, Select, MenuItem,  SelectChangeEvent, InputBase} from "@mui/material";
+import {FormControl, InputLabel, Select, MenuItem,  SelectChangeEvent, InputBase, useMediaQuery} from "@mui/material";
 import {styled} from "@mui/material/styles";
 import { ReactComponent as ExpandMoreIcon } from '@src/assets/icons/expandmore.svg';
 interface FilterSelectProps {
@@ -16,6 +16,8 @@ const FilterSelect: React.FC<FilterSelectProps> = ({ label, value, onChange, opt
         onChange(value);
     };
 
+    const isSmallerThanMd = useMediaQuery('(max-width:1380px)');
+
     const BootstrapInput = styled(InputBase)(({ theme }) => ({
         'label + &': {
             backgroundColor:'#F8F8F8',
@@ -29,7 +31,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({ label, value, onChange, opt
             borderRadius:'48px',
         },
         '& .MuiInputBase-input': {
-            padding:'0.75rem 20px',
+            padding: isSmallerThanMd ? '0.4rem 20px' : '0.75rem 20px',
             borderRadius:'48px',
             position: 'relative',
             backgroundColor:'#F8F8F8',

@@ -173,7 +173,8 @@ export const localization = {
 			apply: "Қолдану",
 			university: "Университет",
 			gpa:"Орташа GPA",
-			rating:'Рейтинг'
+			rating:'Рейтинг',
+			query: 'Сұрақты енгізіңіз',
 		}
 	},
 	"ru": {
@@ -185,7 +186,8 @@ export const localization = {
 			apply: "Применить",
 			university: "Университет",
 			gpa:"Средний GPA",
-			rating:'Рейтинг'
+			rating:'Рейтинг',
+			query: "Введите запрос",
 		}
 	},
 	"en": {
@@ -197,10 +199,11 @@ export const localization = {
 			apply: "Apply",
 			university: "University",
 			gpa:"Average GPA",
-			rating:'Rating'
+			rating:'Rating',
+			query: "Enter query",
 		}
 	},
-}
+};
 
 export const universities = {
 	"kz":[
@@ -218,7 +221,7 @@ export const universities = {
 		{ id: 2, name: "AGP", university_id: 2},
 		{ id: 3, name: "SU", university_id: 3},
 	],
-}
+};
 
 export const fields = {
 	"en": [

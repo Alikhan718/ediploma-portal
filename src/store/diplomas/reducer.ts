@@ -13,12 +13,11 @@ interface DiplomaInterface {
     isFetching: boolean,
     iinValidated: boolean,
     text: string,
-    specialities: string,
-    region: string,
-    year: number,
+    specialities: string[],
+    region: string[],
     gpa: number,
     rating: number,
-    university_id: number,
+    university_id: number[],
     filtered_names: string[],
     graduate_attributes: {},
     favoriteDiplomas: any[],
@@ -29,12 +28,11 @@ const initialState: DiplomaInterface = {
     isFetching: false,
     iinValidated: false,
     text: "",
-    specialities: "",
-    region: "",
-    year: 0,
+    specialities: [],
+    region: [],
     gpa: 0,
     rating: 0,
-    university_id: 0,
+    university_id: [],
     filtered_names: [],
     graduate_attributes: [],
     favoriteDiplomas: [],
@@ -92,8 +90,6 @@ const diplomaReducer = (state = initialState, action: any) => {
                 text: action.payload.text,
                 specialities: action.payload.specialities,
                 region: action.payload.region,
-                degree: action.payload.degree,
-                year: action.payload.year,
                 gpa: action.payload.gpa,
                 rating: action.payload.rating,
                 university_id: action.payload.university_id,
@@ -132,10 +128,10 @@ const diplomaReducer = (state = initialState, action: any) => {
                 isFetching: false,
             };
         case GET_FAVORITE_DIPLOMAS.saga:
-                return {
-                    ...state,
-                    isFetching: true,
-                };
+            return {
+                ...state,
+                isFetching: true,
+            };
         case GET_FAVORITE_DIPLOMAS.success:
             let temp_fav_diploma_list = [];
             if (state.filtered_names.length) {

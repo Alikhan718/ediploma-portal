@@ -15,7 +15,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ openBottomSheet, setOpenBotto
             <Sheet
                 isOpen={openBottomSheet}
                 onClose={() => setOpenBottomSheet(false)}
-                snapPoints={[1000, 600, 100, 0]}
+                snapPoints={[ 810, 300, 0]}
                 initialSnap={1}
                 style={{ zIndex: 3, }}
             >
@@ -27,7 +27,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ openBottomSheet, setOpenBotto
                         </Sheet.Scroller>
                     </Sheet.Content>
                 </Sheet.Container>
-                <Sheet.Backdrop onTap={handleClose} style={{backgroundColor: 'rgba(0, 0, 0, 0.6)', opacity: "0.8"}}/>
+                <Sheet.Backdrop onTap={handleClose} style={{backgroundColor: 'rgba(59, 130, 246, 0.6)'}}/>
             </Sheet>
 
         </>

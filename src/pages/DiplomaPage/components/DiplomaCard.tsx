@@ -10,7 +10,11 @@ interface DiplomaCardProps {
         university_id: number;
         year: number;
         name_ru: string;
-        speciality_ru?: string;
+        name_kz: string;
+        name_en: string;
+        speciality_ru: string;
+        speciality_kz: string;
+        speciality_en: string;
         rating: number;
     };
     lang: 'kz' | 'ru' | 'en';
@@ -19,12 +23,10 @@ interface DiplomaCardProps {
 
 const DiplomaCard: React.FC<DiplomaCardProps> = ({ diploma, lang, handleCardClick }) => {
 
-
     return (
         <Box
             sx={{
                 display: 'flex',
-                padding: '0.5rem',
             }}
         >
             <CardContent
@@ -55,7 +57,7 @@ const DiplomaCard: React.FC<DiplomaCardProps> = ({ diploma, lang, handleCardClic
                             fontSize="1.25rem"
                             fontWeight="600"
                         >
-                            {diploma.name_ru}
+                            {diploma && lang === "kz" ? diploma.name_kz : diploma && lang === "ru" ? diploma.name_ru : diploma && lang === "en" ? diploma.name_en : ""}
                         </Typography>
                     </Box>
                     <Box sx={{ marginTop: 'auto' }}>
@@ -64,10 +66,11 @@ const DiplomaCard: React.FC<DiplomaCardProps> = ({ diploma, lang, handleCardClic
                             color="#818181"
                             className={styles.mobTextSm}
                         >
-                            {diploma.speciality_ru?.substring(
-                                diploma.speciality_ru.search("«"),
-                                diploma.speciality_ru.search("»") + 1
-                            )}
+                            {
+                                lang === 'ru' ? diploma.speciality_ru?.substring(diploma.speciality_ru.search("«"), diploma.speciality_ru.search("»") + 1) :
+                                    lang === 'kz' ? diploma.speciality_kz?.substring(diploma.speciality_kz.search("«"), diploma.speciality_kz.search("»") + 1) :
+                                        lang === 'en' ? diploma.speciality_en?.substring(diploma.speciality_en.search("«"), diploma.speciality_en.search("»") + 1) : ""
+                            }
                         </Typography>
                         {diploma.rating !== 0.0 && (
                             <Box display="flex" marginTop="0.5rem" alignItems="center">

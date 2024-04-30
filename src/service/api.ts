@@ -150,39 +150,46 @@ export const diplomasApi = {
     },
     search(body: {
         text: string,
-        specialities: string,
-        region: string,
-        degree: string,
-        year: number,
+        specialities: string | string[],
+        region: string | string[],
         gpa: number,
         rating: number,
-        university_id: number,
+        university_id: number[],
     }) {
         let query = `graduates/search?`;
-        if (body.text != "") {
+
+        if (body.text !== "") {
             query += `name=${body.text}&`;
         }
-        if (body.specialities != "") {
+
+        if (Array.isArray(body.specialities)) {
+            query += `specialities=${body.specialities.join(",")}&`;
+        } else if (typeof body.specialities === 'string') {
             query += `specialities=${body.specialities}&`;
         }
-        if (body.region != "") {
+
+        if (Array.isArray(body.region)) {
+            query += `region=${body.region.join(",")}&`;
+        } else if (typeof body.region === 'string') {
             query += `region=${body.region}&`;
         }
-        if (body.degree != "") {
-            query += `degree=${body.degree}&`;
+
+        if (Array.isArray(body.university_id) && body.university_id.length > 0) {
+            query += `university_id=${body.university_id.join(",")}&`;
         }
-        if (body.year != 0) {
-            query += `year=${body.year}&`;
-        }
-        if (body.university_id != 0) {
-            query += `university_id=${body.university_id}&`;
-        }
-        if (body.gpa !== 0 && body.gpa <= 4) {
+
+        if (body.gpa !== 0) {
             query += `gpa=${body.gpa}&`;
         }
-        if (body.rating != 0 && body.rating <= 5) {
+
+        if (body.rating !== 0) {
             query += `rating=${body.rating}&`;
         }
+
+        // Удаляет последний символ "&"
+        query = query.endsWith("&") ? query.slice(0, -1) : query;
+
+        //console.log("Search query:", query);
         return instance.get(query);
     },
     getGraduateDetails(id: number) {

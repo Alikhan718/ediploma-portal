@@ -15,7 +15,7 @@ const FilterSlider: React.FC<FilterSliderProps> = ({ label, value, onChange, min
     };
 
     return (
-        <Box>
+        <Box sx={{paddingTop:'1rem',}}>
             <Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>{label}</Typography>
             <Slider
                 getAriaLabel={() => label}
@@ -25,12 +25,15 @@ const FilterSlider: React.FC<FilterSliderProps> = ({ label, value, onChange, min
                 max={max}
                 step={0.1}
                 sx={{
+                    paddingTop: '1rem',
+
                     '& .MuiSlider-thumb': {
                         width: '10px',
                         height: '22px',
                         borderRadius: '64px',
                         border: '1px solid #D8E6FD',
                         background: 'white',
+
                     },
                     '& .MuiSlider-input': {
                         border:'none',
@@ -47,11 +50,12 @@ const FilterSlider: React.FC<FilterSliderProps> = ({ label, value, onChange, min
                     },
                 }}
             />
-            <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>{min}</Typography>
+            <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: '1rem', }}>
+                <Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>{min}.0</Typography>
                 <Input
                     value={value}
                     size="small"
+                    disableUnderline
                     inputProps={{
                         step: 0.1,
                         min: min,
@@ -61,35 +65,31 @@ const FilterSlider: React.FC<FilterSliderProps> = ({ label, value, onChange, min
                     }}
                     onChange={(e) => onChange(parseFloat(e.target.value))}
                     sx={{
-                        '& input:focus': {
-                            outline: 'none',
+
+                        /* Скрыть стрелки для числового типа инпута */
+                        'input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button': {
+                            WebkitAppearance: 'none',
+                            margin: 0,
                         },
+                        /* Firefox */
+                        'input[type="number"]': {
+                            MozAppearance: 'textfield',
+                        },
+
+
                         '.MuiInputBase-input': {
-                            borderBottom: 'none !important',
-                            border: 'none',
                             borderRadius: '13px',
                             fontSize: '14px',
                             padding: '4px 12px',
                             textAlign: 'center',
                             backgroundColor: '#629BF8',
                             color: 'white',
+
                         },
-                        '& .MuiInputBase-input::after': {
-                            borderBottom: 'none',
-                        },
-                        'input[type=number]': {
-                            '-moz-appearance': 'textfield',
-                            '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
-                                '-webkit-appearance': 'none',
-                                margin: 0,
-                            },
-                            '&::after': {
-                                borderBottom: 'none',
-                            },
-                        },
+
                     }}
                 />
-                <Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>{max}</Typography>
+                <Typography sx={{ color: '#A1A1A1', fontSize: '14px', fontWeight: 400 }}>{max}.0</Typography>
             </Box>
         </Box>
     );

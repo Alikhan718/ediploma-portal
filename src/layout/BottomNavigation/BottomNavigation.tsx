@@ -45,7 +45,7 @@ export const AppBottomNav: React.FC<BottomNavigationProps> = (props): JSX.Elemen
                 navigate(`/employer`);
                 break;
             case 1:
-                navigate(`/user/profile`)
+                navigate(`/user/profile`);
                 break;
             case 2:
                 navigate(`/user/resume-generator`);
@@ -88,6 +88,6 @@ export const AppBottomNav: React.FC<BottomNavigationProps> = (props): JSX.Elemen
             )}
         </>
     );
-}
+};
 
 export const BottomNav = React.memo(AppBottomNav);

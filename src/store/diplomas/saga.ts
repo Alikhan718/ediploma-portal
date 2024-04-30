@@ -18,7 +18,7 @@ export function* fetchDiplomasRequest(action: any = null) {
         if (action && action.payload && action.payload.university_id) {
             university_id = action.payload.university_id;
         }
-        
+
         let page = 1;
         if (action && action.payload && action.payload.page) {
             page = action.payload.page;
@@ -57,11 +57,13 @@ export function* fetchSearchRequest(action: any) {
             && !action.payload.text
             && !action.payload.specialities
             && !action.payload.region
-            && !action.payload.degree
-            && !action.payload.year
-            && !action.payload.university_id) {
+            && !action.payload.university_id
+        ) {
             return;
         }
+
+
+
         const {data} = yield call(diplomasApi.search, action.payload);
         yield put({type: GET_DIPLOMAS.saga});
         let names = <any>[];

@@ -20,10 +20,10 @@ import FilterSelect from "@src/components/FilterSelect/FilterSelect";
 import FilterSlider from "@src/components/FilterSlider/FilterSlider";
 
 export const FilterSection: React.FC<IFilter> = (props) => {
-	const {filterAttributes, setFilterAttributes, triggerSearchFilters } = props;
+	const {filterAttributes, setFilterAttributes, triggerSearchFilters, toggleBottomSheet } = props;
 	const [selectedSpecialities, setSelectedSpecialities] = React.useState<string[]>([]);
-	const [selectedGPA, setSelectedGPA] = React.useState<number>(1.0);
-	const [selectedRating, setSelectedRating] = React.useState<number>(1.0);
+	const [selectedGPA, setSelectedGPA] = React.useState<number>(0);
+	const [selectedRating, setSelectedRating] = React.useState<number>(0);
 	const [selectedDegree, setSelectedDegree] = React.useState<string[]>([]);
 	const [selectedYear, setSelectedYear] = React.useState<number[]>([]);
 	const [selectedRegions, setSelectedRegions] = React.useState<string[]>([]);
@@ -44,20 +44,19 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 		};
 
 		if (type === "speciality") {
-			filterValues.specialities = arr.join(",");
+			filterValues.specialities = arr;
 		}
 		else if (type === "region") {
-			filterValues.region = arr.join(",");
+			filterValues.region = arr;
 		}
 		else if (type === "year"){
 			filterValues.year = arr.join(",");
 		}
 		else if (type === "gpa"){
 			filterValues.gpa = arr;
-
 		}
 		else if (type === "university_id"){
-			filterValues.university_id = arr[0];
+			filterValues.university_id = arr;
 		}
 		else if (type === "rating"){
 			filterValues.rating = arr;
@@ -80,93 +79,79 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 		}
 	};
 
-	const marks = [
-		{
-			value: 0,
-			label: '1',
-		},
-
-		{
-			value: 100,
-			label: '4',
-		},
-	];
-
 	const lang = useSelector(selectLanguage);
 	const translatedSpecialities = specialities[lang];
 	const translatedRegions = regions[lang];
 	const translatedUniversities = universities[lang];
 
-	const [region, setRegion] = React.useState('');
-	const [speciality, setSpeciality] = React.useState<string>('');
-	const [university, setUniversity] = React.useState('');
+	const isSmallerThanMd = useMediaQuery('(max-width:1380px)');
 
+	// Обновляем выбранные значения и вызываю функцию filter с обновленными значениями
 	const handleChange = (e: any, arr: any, setE: any, type: string) => {
-		setE(arr.includes(e) ? arr.filter((i: any) => i != e) : [e]);
-		if (!arr.includes(e)){
-			filter(type, [e]);
-		}
-		else{
-			filter(type, []);
-		}
-	};
-	const handleDeleteChipSpeciality = (chipToDelete: string) => {
-		setSelectedSpecialities((prevSpecialities: string[]) =>
-			prevSpecialities.filter((speciality: string) => speciality !== chipToDelete)
-		);
-	};
+		const updatedValues = arr.includes(e) ? arr.filter((i: any) => i !== e) : [...arr, e];
+		setE(updatedValues);
 
-	const handleDeleteChipRegion = (chipToDelete: string) => {
-		setSelectedRegions((prevRegions: string[]) =>
-			prevRegions.filter((region: string) => region !== chipToDelete)
-		);
+		filter(type, updatedValues);
 	};
 
 	const handleSpecialityClick = (value: string) => {
-		// Обрабатываем каждый выбранный элемент отдельно
-		const updatedSpecialities = selectedSpecialities.includes(value)
-			? selectedSpecialities.filter((sp: string) => sp !== value)
-			: [...selectedSpecialities, value];
+		const updatedSpecialities = selectedSpecialities.includes(value) ? selectedSpecialities.filter((sp: string) => sp !== value) : [...selectedSpecialities, value];
 		setSelectedSpecialities(updatedSpecialities);
-		setFilterAttributes({ ...filterAttributes, specialities: updatedSpecialities.join(',') });
+
+		filter("speciality", updatedSpecialities);
 	};
 
 	const handleRegionClick = (region: string) => {
-		const updatedRegions = selectedRegions.includes(region) // Используйте аргумент region, а не неопределенную переменную value
-			? selectedRegions.filter((rg: string) => rg !== region)
-			: [...selectedRegions, region];
+		const updatedRegions = selectedRegions.includes(region) ? selectedRegions.filter((rg: string) => rg !== region) : [...selectedRegions, region];
 		setSelectedRegions(updatedRegions);
-		setFilterAttributes({ ...filterAttributes, region: updatedRegions.join(',') });
+
+		filter("region", updatedRegions);
+	};
+	const handleUniversityChipClick = (university_id: number) => {
+		const updatedUniversityIDs = selectedUniversityIDs.includes(university_id)
+			? selectedUniversityIDs.filter((id: number) => id !== university_id)
+			: [...selectedUniversityIDs, university_id];
+		setSelectedUniversityIDs(updatedUniversityIDs);
+
+		filter("university_id", updatedUniversityIDs);
+	};
+
+	const handleDeleteChipSpeciality = (chipToDelete: string) => {
+		const updatedSpecialities = selectedSpecialities.filter((speciality: string) => speciality !== chipToDelete);
+		setSelectedSpecialities(updatedSpecialities);
+
+		filter("speciality", updatedSpecialities);
+	};
+	const handleDeleteChipRegion = (chipToDelete: string) => {
+		const updatedRegions = selectedRegions.filter((region: string) => region !== chipToDelete);
+		setSelectedRegions(updatedRegions);
+
+		filter("region", updatedRegions);
 	};
 
 	const handleSliderChange = (value: number) => {
 		setSelectedGPA(value);
-		setFilterAttributes({ ...filterAttributes, gpa: value });
+
+		filter('gpa', value);
 	};
 	const handleRatingChange = (value: number) => {
 		setSelectedRating(value);
-		setFilterAttributes({ ...filterAttributes, rating: value });
+
+		filter('rating', value);
 	};
 
-	const ITEM_HEIGHT = 48;
-	const ITEM_PADDING_TOP = 8;
-	const MenuProps = {
-		PaperProps: {
-			style: {
-				maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-			},
-		},
+	const handleApply = () => {
+		// для закрытия bottomsheet
+		toggleBottomSheet();
 	};
-
-	const isSmallerThanMd = useMediaQuery('(max-width:1380px)');
-
 	return (
 		<>
 			<Box sx={{ '& > :not(:first-child)': { marginTop: '.5rem', gap: isSmallerThanMd ? '24px' : 'inherit' }  }}>
-				<Box display='flex' alignItems="center" sx={{ gap:'.5rem', paddingY:'.5rem', justifyContent: isSmallerThanMd ? 'center' : 'flex-start' }}>
+				<Box display='flex' alignItems="center" sx={{ gap:'.5rem', paddingY: isSmallerThanMd ? '0' : '.5rem', justifyContent: isSmallerThanMd ? 'center' : 'flex-start' }}>
 					{isSmallerThanMd ? null : <FilterIcon style={{ width:'24px', height:'24px' }} />}
 					<Typography sx={{ borderRadius: '48px', fontWeight: '700', fontSize:'1rem' }}>{localization[lang].MainCard.filter}</Typography>
 				</Box>
+				{isSmallerThanMd && <hr />}
 				{/* Speciality Section */}
 				<Box display='flex' alignItems="center">
 					<Accordion  defaultExpanded sx={{ boxShadow: 'none', width: '100%' }}>
@@ -178,9 +163,9 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 						>
 							<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>{localization[lang].MainCard.speciality}</Typography>
 						</AccordionSummary>
-						<AccordionDetails sx={{ display: 'flex', justifyContent: 'center', width:'100%',padding: '0',flexDirection: 'column', gap:'12px'}}>
+						<AccordionDetails sx={{ display: 'flex', justifyContent: 'center', width:'100%',padding: '0',flexDirection: 'column',}}>
 							<FilterSelect
-								label="Введите запрос"
+								label={localization[lang].MainCard.query}
 								value=""
 								onChange={(value: string) => handleSpecialityClick(value)}
 								options={translatedSpecialities}
@@ -207,9 +192,9 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 						>
 							<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>{localization[lang].MainCard.region}</Typography>
 						</AccordionSummary>
-						<AccordionDetails sx={{ display: 'flex', justifyContent: 'center', width:'100%',padding: '0',flexDirection: 'column', gap:'12px'}}>
+						<AccordionDetails sx={{ display: 'flex', justifyContent: 'center', width:'100%',padding: '0',flexDirection: 'column',}}>
 							<FilterSelect
-								label="Введите запрос"
+								label={localization[lang].MainCard.query}
 								value=""
 								onChange={(value: string) => handleRegionClick(value)}
 								options={translatedRegions}
@@ -243,9 +228,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 										key={university.id}
 										label={university.name}
 										clickable
-										onClick={() => {
-											handleChange(university.university_id, selectedUniversityIDs, setSelectedUniversityIDs, "university_id");
-										}}
+										onClick={() => handleUniversityChipClick(university.university_id)}
 										color={selectedUniversityIDs.includes(university.university_id) ? "primary" : "default"}
 										sx={{padding:"16px 7px",borderRadius:'8px'}}
 									/>
@@ -255,14 +238,14 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 					</Accordion>
 				</Box>
 				<FilterSlider
-					label="GPA"
+					label={localization[lang].MainCard.gpa}
 					value={selectedGPA}
 					onChange={handleSliderChange}
 					min={1.0}
 					max={4.0}
 				/>
 				<FilterSlider
-					label="Rating"
+					label={localization[lang].MainCard.rating}
 					value={selectedRating}
 					onChange={handleRatingChange}
 					min={1.0}
@@ -270,18 +253,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 				/>
 				{/*For Mobile&Tablet*/}
 				{isSmallerThanMd  && (
-					<Button variant='contained' sx={{ width:'100%', borderRadius: '40px' }} onClick={() => {
-						if (filterAttributes.text.length ||
-							filterAttributes.specialities.length ||
-							filterAttributes.gpa ||
-							filterAttributes.university.length ||
-							filterAttributes.rating ||
-							filterAttributes.region.length) {
-							triggerSearchFilters(filterAttributes);
-						}
-
-						// handleChange(year.year, selectedYear, setSelectedYear);
-					}}>
+					<Button variant='contained' sx={{ width:'100%', borderRadius: '40px' }} onClick={handleApply}>
 						{localization[lang].MainCard.apply}
 					</Button>
 				)}
