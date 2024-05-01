@@ -16,8 +16,13 @@ import { localization } from '@src/pages/EmployersListPage/generator';
 import { EmployerFilter } from '@src/layout/EmployerFilter/EmployerFilter';
 import { fetchEmployersSearch } from '@src/store/auth/actionCreators';
 
-export const EmployerListPageHeader: React.FC = (props) => {
+interface EmployerHeaderProps {
+	listView: boolean;
+	setListView: any;
+};
 
+export const EmployerListPageHeader: React.FC<EmployerHeaderProps> = (props) => {
+	const { listView, setListView } = props;
 	const lang = useSelector(selectLanguage);
 	const searchText = useSelector(selectSearchText);
 	const navigate = useNavigate();
@@ -103,6 +108,38 @@ export const EmployerListPageHeader: React.FC = (props) => {
 											setSearchQuery(query);
 										}}
 									/>
+								</Box>
+								<Box sx={{display: 'flex', gap:'1rem', '@media (max-width: 778px)': {display: 'none'}}}>
+									<Box 
+										onClick={() => setListView(true)}
+										sx={{
+											display: 'flex',
+											width: '3rem',
+											height: '3rem',
+											borderRadius: '50%',
+											backgroundColor: listView ? '#3B82F6' : 'white',
+											'&:hover': {
+												backgroundColor: listView ? '#2C7ED2' : '#F7F7F7',
+											}
+										}}
+									>
+										
+									</Box>
+									<Box 
+										onClick={() => setListView(false)}
+										sx={{
+											display: 'flex',
+											width: '3rem',
+											height: '3rem',
+											borderRadius: '50%',
+											backgroundColor: !listView ? '#3B82F6' : 'white',
+											'&:hover': {
+												backgroundColor: !listView ? '#2C7ED2' : '#F7F7F7',
+											}
+										}}
+									>
+										
+									</Box>
 								</Box>
 							</Box>
 						</Box>
