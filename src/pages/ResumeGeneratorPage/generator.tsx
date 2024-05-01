@@ -422,6 +422,7 @@ const educationForms = [
       "ru": "Вид",
       "en": "Вид"
     },
+    disabled: true,
     values: [
       {
         value: "bachelor",
@@ -483,10 +484,10 @@ const educationForms = [
     placeholder: "Введите вашу специальность"
   },
 ];
-const experienceForms = [
+export const experienceForms = [
   {
     type: "text",
-    name: "company_name",
+    name: "work_experience.1.name",
     maxRows: 2,
     label: {
       "kz": "Компания",
@@ -497,7 +498,7 @@ const experienceForms = [
   },
   {
     type: "text",
-    name: "desired_job_position",
+    name: "work_experience.1.job_title",
     maxRows: 2,
     label: {
       "kz": "Должность",
@@ -508,7 +509,7 @@ const experienceForms = [
   },
   {
     type: "month",
-    name: "experience_start",
+    name: "work_experience.1.date_from",
     maxRows: 2,
     label: {
       "kz": "Начало работы",
@@ -519,8 +520,8 @@ const experienceForms = [
   },
   {
     type: "month",
-    name: "experience_end",
-    ifNotInput: "experience_still_working",
+    name: "work_experience.1.date_to",
+    ifNotInput: "work_experience.1.experience_still_working",
     maxRows: 2,
     label: {
       "kz": "Конец работы",
@@ -531,7 +532,7 @@ const experienceForms = [
   },
   {
     type: "checkbox",
-    name: "experience_still_working",
+    name: "work_experience.1.experience_still_working",
     label: {
       "kz": "Я сейчас работаю",
       "ru": "Я сейчас работаю",
@@ -542,7 +543,7 @@ const experienceForms = [
   },
   {
     type: "number",
-    name: "responsibility",
+    name: "work_experience.1.job_description",
     rows: 4,
     multiline: true,
     label: {
@@ -606,7 +607,7 @@ const certificateForms = [
     name: "certificates",
     maxRows: 1,
     multiline: true,
-    placeholder: "Формат: pdf, png"
+    placeholder: "Формат: jpg, jpeg, png"
   },
 ];
 const resumeForms = [
@@ -678,6 +679,7 @@ export const content = [
     },
     additionalText: null,
     name: "work_experience",
+    multiple: true,
     can_skip: false,
     reference: 0,
     forms: experienceForms
@@ -727,6 +729,7 @@ export const desktopContent = [
       "ru": "Личная информация"
     },
     additionalText: null,
+    multiple: false,
     name: "personal_information",
     can_skip: false,
     reference: 0,
@@ -739,6 +742,7 @@ export const desktopContent = [
       "ru": "Дополнительные сведения"
     },
     additionalText: null,
+    multiple: false,
     name: "additional_information",
     can_skip: false,
     reference: 0,
@@ -764,6 +768,7 @@ export const desktopContent = [
     },
     additionalText: null,
     name: "work_experience",
+    multiple: true,
     can_skip: false,
     reference: 0,
     forms: experienceForms
@@ -776,6 +781,7 @@ export const desktopContent = [
     },
     additionalText: null,
     name: "skills_section",
+    multiple: false,
     can_skip: false,
     reference: 0,
     forms: skillForms
@@ -788,6 +794,7 @@ export const desktopContent = [
     },
     additionalText: null,
     name: "cert",
+    multiple: false,
     can_skip: false,
     reference: 0,
     forms: certificateForms
@@ -798,6 +805,7 @@ export const desktopContent = [
       "kz": "Резюме готово к скачиванию",
       "ru": "Резюме готово к скачиванию"
     },
+    multiple: false,
     name: "resume_link1",
     can_skip: false,
     reference: 0,
@@ -1037,80 +1045,6 @@ export const fieldLocalizations: Translations = {
     "kz": "Аймақ",
     "ru": "Регион"
   },
-  // "smart_contract_link": {
-  //     "en": "Smart Contract Link",
-  //     "kz": "Умтылу Договоры сілтемесі",
-  //     "ru": "Ссылка на умный контракт"
-  // }
-  // "diploma_degree_en": {
-  //   "en": "Diploma Degree (English)",
-  //   "kz": "Диплом Деңгейі (Ағылшын)",
-  //   "ru": "Степень диплома (Английский)"
-  // },
-  // "diploma_degree_kz": {
-  //   "en": "Diploma Degree (Kazakh)",
-  //   "kz": "Диплом Деңгейі (Қазақ)",
-  //   "ru": "Степень диплома (Казахский)"
-  // },
-  // "diploma_degree_ru": {
-  //   "en": "Diploma Degree (Russian)",
-  //   "kz": "Диплом Деңгейі (Орыс)",
-  //   "ru": "Степень диплома (Русский)"
-  // },
-
-  // "diploma_distinction_en": {
-  //   "en": "Distinction (English)",
-  //   "kz": "Үздік Диплом (Ағылшын)",
-  //   "ru": "Диплом с отличием (Английский)"
-  // },
-  // "diploma_distinction_kz": {
-  //   "en": "Distinction (Kazakh)",
-  //   "kz": "Үздік Диплом (Қазақ)",
-  //   "ru": "Диплом с отличием (Казахский)"
-  // },
-  // "diploma_distinction_ru": {
-  //   "en": "Distinction (Russian)",
-  //   "kz": "Үздік Диплом (Орыс)",
-  //   "ru": "Диплом с отличием (Русский)"
-  // },
-
-  // "diploma_faculty": {
-  //   "en": "Faculty",
-  //   "kz": "Факультет",
-  //   "ru": "Факультет"
-  // },
-
-  // "diploma_protocol_en": {
-  //   "en": "Protocol (English)",
-  //   "kz": "Протокол (Ағылшын)",
-  //   "ru": "Протокол (Английский)"
-  // },
-  // "diploma_protocol_kz": {
-  //   "en": "Protocol (Kazakh)",
-  //   "kz": "Протокол (Қазақ)",
-  //   "ru": "Протокол (Казахский)"
-  // },
-  // "diploma_protocol_ru": {
-  //   "en": "Protocol (Russian)",
-  //   "kz": "Протокол (Орыс)",
-  //   "ru": "Протокол (Русский)"
-  // },
-
-  // "speciality_en": {
-  //   "en": "Speciality (English)",
-  //   "kz": "Мамандық (Ағылшын)",
-  //   "ru": "Специальность (Английский)"
-  // },
-  // "speciality_kz": {
-  //   "en": "Speciality (Kazakh)",
-  //   "kz": "Мамандық (Қазақ)",
-  //   "ru": "Специальность (Казахский)"
-  // },
-  // "speciality_ru": {
-  //   "en": "Speciality (Russian)",
-  //   "kz": "Мамандық (Орыс)",
-  //   "ru": "Специальность (Русский)"
-  // },
 };
 
 export const uniRatings = {

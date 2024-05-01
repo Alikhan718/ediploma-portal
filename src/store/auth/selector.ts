@@ -1,6 +1,7 @@
 import { RootState } from "../store";
 
 export const selectAuthLoader = (state: RootState) => state.auth.isLoading;
+export const selectAvatarIsLoading = (state: RootState) => state.auth.avatarIsLoading;
 export const selectUserRole = (state: RootState) => state.auth.userRole;
 export const selectOtpSent = (state: RootState) => state.auth.otpSent;
 export const selectForgotStep = (state: RootState) => state.auth.forgotStep;

@@ -80,12 +80,18 @@ export const MultiSelect: React.FC<MuiltiSelectProps> = (props) => {
                 onDelete={() => handleDelete(item)}
                 draggable={true}
                 deleteIcon={<CloseRedIcon
-                  style={{right: "1rem", width: "1.2rem", height: "1.2rem", position: "absolute"}}/>}
+                  style={{marginLeft:"auto", width: "1.7rem", paddingRight:".5rem", height: "1.2rem"}}/>}
                 style={{
                   width: "100%",
                   padding: "1.5rem 0rem",
                   backgroundColor: "#f1f1f1",
                   whiteSpace: "break-spaces"
+                }}
+                sx={{
+                  ".MuiChip-label" : {
+                    textAlign: "center",
+                    width: "100%",
+                  }
                 }}
               />
             ))

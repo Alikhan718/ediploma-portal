@@ -24,6 +24,7 @@ interface AuthInterface {
     userRole: string,
     otpSent: boolean,
     isLoading: boolean,
+    avatarIsLoading: boolean,
     resume_loading: boolean,
     signed: boolean,
     ipfsLink: string,
@@ -46,6 +47,7 @@ const initialState: AuthInterface = {
     userRole: localStorage.getItem("userRole") ?? "Guest",
     otpSent: false,
     isLoading: false,
+    avatarIsLoading: false,
     resume_loading: true,
     signed: false,
     ipfsLink: "",
@@ -69,12 +71,19 @@ export const authReducer = (state = initialState, action: any) => {
         case POST_UPLOAD_FILE.saga:
             return {
                 ...state,
+                avatarIsLoading: true,
                 image_link: null,
             };
         case POST_UPLOAD_FILE.success:
             return {
                 ...state,
+                avatarIsLoading: false,
                 image_link: action.data,
+            };
+        case POST_UPLOAD_FILE.error:
+            return {
+                ...state,
+                avatarIsLoading: false,
             };
         case AUTH_LOGOUT.success:
             localStorage.clear();

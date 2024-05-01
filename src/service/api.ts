@@ -222,10 +222,13 @@ export const diplomasApi = {
 };
 
 export const generatorApi = {
-    parseDataFromFile(body: { file: File, university_id: string }) {
+    parseDataFromFile(body: { file: File | null, university_id: string, type: string }) {
         const formData = new FormData();
-        formData.append('file', body.file, body.file.name);
+        if (body?.file) {
+            formData.append('file', body.file, body.file.name);
+        }
         formData.append('university_id', body.university_id);
+        formData.append('type', body.type);
 
         // Send the file using axios
         return customInstance.post(`${generatorURL}/data/parse`, formData, {
