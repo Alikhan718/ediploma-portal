@@ -27,6 +27,7 @@ export const permissions = {
     employerDetails: ['*'],
     testqr: ['*'],
     applications: ['employer', 'student'],
+    student: ['employer', 'university'],
 };
 
 export const hasPermission = (role: string, page: string | string[]): boolean => {

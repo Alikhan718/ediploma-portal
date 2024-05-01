@@ -26,3 +26,4 @@ export { default as EmployersListPage } from './EmployersListPage/EmployersListP
 export { default as EmployerDetailsPage } from './EmployerDetailsPage/EmployerDetailsPageContainer';
 export { default as TestQrPage } from './TestQrPage/TestQrPageContainer';
 export { default as ApplicationsPage } from './ApplicationsPage/ApplicationsPageContainer';
+export { default as StudentPublicPage } from './StudentPublicPage/StudentPublicPageContainer';

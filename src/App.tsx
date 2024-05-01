@@ -17,7 +17,7 @@ import {
 	UniversityDeatailPage, AnalysisPage, NotFoundPage,
 	Serverpage, AIChatPage, QLabPage, MyDiplomasPage, ResumeGeneratorPage,
 	SchoolPage, SchoolDetailsPage, EmployersListPage, EmployerDetailsPage,
-	TestQrPage, ApplicationsPage
+	TestQrPage, ApplicationsPage, StudentPublicPage
 } from '@src/pages';
 import { withLayout } from '@src/layout/Layout';
 import { routes } from '@src/shared/routes';
@@ -77,6 +77,7 @@ const App: React.FC = () => {
 					{hasPermission(userRoles, permissions["employerDetails"]) && <Route path={routes.employerDetails} element={<EmployerDetailsPage />} />}
 					{hasPermission(userRoles, permissions["testqr"]) && <Route path={routes.testqr} element={<TestQrPage />} />}
 					{hasPermission(userRoles, permissions["applications"]) && <Route path={routes.applications} element={<ApplicationsPage />} />}
+					{hasPermission(userRoles, permissions['student']) && <Route path={routes.student} element={<StudentPublicPage />} />}
 					<Route path={routes.universityProfileSecond} element={<UniversityDeatailPage />} />
 					<Route path={routes.analysisPage} element={<AnalysisPage />} />
 					{/*{hasPermission(userRoles, permissions["notifications"]) && <Route path={routes.notifications} element={<Notifications/>}/>}*/}
