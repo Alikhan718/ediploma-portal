@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Button as MuiButton, Table, TableBody, Paper, TableContainer, useMediaQuery } from '@mui/material';
+import { Box, Typography, Button as MuiButton, Table, TableBody, Paper, TableContainer, useMediaQuery, Collapse } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
@@ -12,8 +12,12 @@ import { set } from 'react-ga';
 import { ReactComponent as Reject } from '@src/assets/icons/reject.svg';
 import { ReactComponent as Invite } from '@src/assets/icons/invite.svg';
 import { useNavigate } from "react-router-dom";
+import { StudentInfo } from './components/StudentInfo';
+import { localization } from './generator';
+import { selectLanguage } from '@src/store/generals/selectors';
 
 export const ApplicationsLayout: React.FC = () => {
+    const lang = useSelector(selectLanguage);
     const dispatch = useDispatch();
     const role = useSelector(selectUserRole).toLowerCase();
     const applications: any = useSelector(selectApplications);
@@ -21,6 +25,7 @@ export const ApplicationsLayout: React.FC = () => {
     const [value, setValue] = React.useState<number>(0);
     const isMobile = useMediaQuery('(max-width:998px)');
     const navigate = useNavigate();
+    const [openStudentInfo, setOpenStudentInfo] = React.useState<boolean>(false);
 
     React.useEffect(() => {
         if (applications) {
@@ -29,52 +34,30 @@ export const ApplicationsLayout: React.FC = () => {
                 // setApplicationsList(applications);
             } else if (value === 1) {
                 setApplicationsList(applications.filter((application: any) => application.status === 'invited'));
+                // setApplicationsList(applications);
             } else if (value === 2) {
                 setApplicationsList(applications.filter((application: any) => application.status === 'rejected'));
+                // setApplicationsList(applications);
             }
         }
     }, [applications, value]);
 
-    const myApplications = [
-        {
-            id: 1,
-            name: 'Название компании',
-            speciality: 'Специальность',
-            field: 'Область',
-            status: 'processing',
-            university: 'Сатпаев Университет',
-            year: '2023',
-            gpa: '3.5',
-            date: '12.12.2021',
-        },
-        {
-            id: 2,
-            name: 'Название компании',
-            speciality: 'Специальность',
-            field: 'Область',
-            status: 'rejected',
-            university: 'Сатпаев Университет',
-            year: '2023',
-            gpa: '3.5',
-            date: '12.12.2021',
-        },
-        {
-            id: 3,
-            name: 'Название компании',
-            speciality: 'Специальность',
-            field: 'Область',
-            status: 'invited',
-            university: 'Сатпаев Университет',
-            year: '2023',
-            gpa: '3.5',
-            date: '12.12.2021',
-        },
-    ];
-
     const statuses = {
-        processing: 'Не просмотрено',
-        rejected: 'Отклонено',
-        invited: 'Приглашен',
+        processing: {
+            'ru': 'Не просмотрено',
+            'kz': 'Не просмотрено',
+            'en': 'Not viewed',
+        },
+        rejected: {
+            'ru': 'Отклонено',
+            'kz': 'Отклонено',
+            'en': 'Rejected',
+        },
+        invited: {
+            'ru': 'Приглашен',
+            'kz': 'Шақырылды',
+            'en': 'Invited',
+        },
     };
 
     type TableButton = {
@@ -92,28 +75,40 @@ export const ApplicationsLayout: React.FC = () => {
     const tableButtons: TableButton[] = [
         {
             id: 1,
-            title: isMobile ? 'Заявки' : 'Все заявки',
+            title: isMobile ? localization[lang].appplications : localization[lang].allApplications,
             value: 0,
             onClick: () => setValue(0),
         },
         {
             id: 2,
-            title: 'Приглашенные',
+            title: localization[lang].inviteds,
             value: 1,
             onClick: () => setValue(1),
         },
         {
             id: 3,
-            title: 'Отказанные',
+            title: localization[lang].rejecteds,
             value: 2,
             onClick: () => setValue(2),
         },
     ];
 
     const universities = {
-        1: 'КБТУ',
-        2: 'АГП',
-        3: 'Сатпаев Университет',
+        1: {
+            'kz': 'КБТУ',
+            'ru': 'КБТУ',
+            'en': 'KBTU',
+        },
+        2: {
+            'kz': 'АГП',
+            'ru': 'АГП',
+            'en': 'AGP',
+        },
+        3: {
+            'kz':'Сатпаев Университет',
+            'ru':'Сатпаев Университет',
+            'en':'Satpaev University',
+        },
     };
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -129,18 +124,11 @@ export const ApplicationsLayout: React.FC = () => {
     }));
 
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
-        // '&:nth-of-type(odd)': {
-        //     backgroundColor: 'var(--color-light-dark-50, #FAFBFF)',
-        // },
-        // '&:nth-of-type(even)': {
-        //     backgroundColor: 'var(--color-light-dark-50, #FAFBFF)',
-        // },
-        // hide last border
         '&:last-child td, &:last-child th': {
             border: 0,
         },
-        th: {
-            // border: 0,
+        '& > *': { 
+            borderBottom: 'unset' 
         },
     }));
 
@@ -156,6 +144,7 @@ export const ApplicationsLayout: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(fetchApplications());
+        console.log('applications', applications);
     }, [value]);
 
     return (
@@ -172,7 +161,7 @@ export const ApplicationsLayout: React.FC = () => {
                             fontStyle: 'normal', fontWeight: 600, lineHeight: '125%',
                             display: 'flex', "@media (max-width: 778px)": { display: 'none' }
                         }}>
-                            Заявки
+                            {localization[lang].appplications}
                         </Typography>
                         <Box sx={{
                             display: 'flex', paddingY: '1.75rem', flexDirection: 'column',
@@ -186,7 +175,7 @@ export const ApplicationsLayout: React.FC = () => {
                                 display: 'none', "@media (max-width: 778px)": { display: 'flex' },
                                 marginLeft: '1rem'
                             }}>
-                                Заявки
+                                {localization[lang].appplications}
                             </Typography>
                             <Box sx={{
                                 display: 'flex', paddingX: '1.75rem', alignItems: 'center',
@@ -228,23 +217,24 @@ export const ApplicationsLayout: React.FC = () => {
                                         }}
                                         stickyHeader
                                         aria-label="sticky table"
+                                        // aria-label="collapsible table"
                                     >
                                         <TableHead >
                                             <TableRow>
                                                 <StyledTableCell size={isMobile ? 'small' : 'medium'} sx={{
                                                     '@media (max-width: 778px)': { fontSize: '0.75rem' }, fontSize: '0.75rem'
                                                 }}>
-                                                    Специализация
+                                                    {localization[lang].fullname}
                                                 </StyledTableCell>
                                                 <StyledTableCell size='medium' sx={{
                                                     "@media (max-width: 778px)": { display: 'none' }, fontSize: '0.75rem',
                                                 }}>
-                                                    Название университета
+                                                    {localization[lang].speciality}
                                                 </StyledTableCell>
                                                 <StyledTableCell size='medium' align="center" sx={{
                                                     "@media (max-width: 778px)": { display: 'none' }, fontSize: '0.75rem'
                                                 }}>
-                                                    Год выпуска
+                                                    {localization[lang].graduationYear}
                                                 </StyledTableCell>
                                                 <StyledTableCell size='medium' align="center" sx={{
                                                     "@media (max-width: 778px)": { display: 'none' }, fontSize: '0.75rem'
@@ -254,7 +244,7 @@ export const ApplicationsLayout: React.FC = () => {
                                                 <StyledTableCell size={isMobile ? 'small' : 'medium'} align={isMobile ? 'right' : 'center'}
                                                     sx={{ '@media (max-width: 778px)': { fontSize: '0.75rem' }, fontSize: '0.75rem' }}
                                                 >
-                                                    Дата отклика
+                                                    {localization[lang].date}
                                                 </StyledTableCell>
                                                 <StyledTableCell size='medium' align="center" sx={{
                                                     "@media (max-width: 778px)": { display: 'none' }, fontSize: '0.75rem',
@@ -266,9 +256,10 @@ export const ApplicationsLayout: React.FC = () => {
                                         <TableBody>
                                             {
                                                 applicationsList && applicationsList.map((application: any) => (
+                                                    <>
                                                     <StyledTableRow key={application.id} onClick={(): void => { handleApplicationClick(application.diploma_id); }}>
                                                         <StyledTableCell size='medium' sx={{ '@media (max-width: 778px)': { fontSize: '0.875rem' }, }}>
-                                                            {application && application.speciality_ru ? application.speciality_ru : 'Специализация'}
+                                                            {'ФИО'}
                                                             <Typography sx={{
                                                                 display: 'none',
                                                                 '@media (max-width: 778px)': { display: 'block' },
@@ -278,19 +269,14 @@ export const ApplicationsLayout: React.FC = () => {
                                                                     application &&
                                                                         application.university_id &&
                                                                         universities[application.university_id as keyof typeof universities] ?
-                                                                        universities[application.university_id as keyof typeof universities] : 'Университет'
+                                                                        universities[application.university_id as keyof typeof universities][lang] : 'Университет!' 
                                                                 }
                                                             </Typography>
                                                         </StyledTableCell>
                                                         <StyledTableCell size='medium' sx={{
                                                             "@media (max-width: 778px)": { display: 'none' },
                                                         }}>
-                                                            {
-                                                                application &&
-                                                                    application.university_id &&
-                                                                    universities[application.university_id as keyof typeof universities] ?
-                                                                    universities[application.university_id as keyof typeof universities] : 'Университет'
-                                                            }
+                                                            {application && application.speciality_ru ? application.speciality_ru : 'Специализация'}
                                                         </StyledTableCell>
                                                         <StyledTableCell size='medium' align="center" sx={{
                                                             "@media (max-width: 778px)": { display: 'none' },
@@ -299,7 +285,9 @@ export const ApplicationsLayout: React.FC = () => {
                                                         </StyledTableCell>
                                                         <StyledTableCell size='medium' align="center" sx={{
                                                             "@media (max-width: 778px)": { display: 'none' },
-                                                        }}>
+                                                            }}
+                                                            onClick={()=>{setOpenStudentInfo(!openStudentInfo)}}
+                                                        >
                                                             {application && application.gpa ? application.gpa : 'GPA'}
                                                         </StyledTableCell>
                                                         <StyledTableCell size='medium' align={isMobile ? 'right' : 'center'}
@@ -358,11 +346,19 @@ export const ApplicationsLayout: React.FC = () => {
                                                                                 application.status === 'rejected' ? '#EF4444' :
                                                                                     application.status === 'invited' ? '#22C55E' : '#3B82F6',
                                                                         }}>
-                                                                        {application && application.status ? statuses[application.status as keyof typeof statuses] : 'Статус'}
+                                                                        {application && application.status ? statuses[application.status as keyof typeof statuses][lang] : 'Статус'}
                                                                     </Box>
                                                             }
                                                         </StyledTableCell>
                                                     </StyledTableRow>
+                                                    <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+                                                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                                                            <Collapse in={openStudentInfo} timeout="auto" unmountOnExit>
+                                                                <StudentInfo student={{name: 'syrym'}}/>
+                                                            </Collapse>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    </>
                                                 ))
                                             }
                                         </TableBody>
@@ -383,7 +379,7 @@ export const ApplicationsLayout: React.FC = () => {
                             color: 'var(--color-light-dark-700, #293357)', fontSize: '1.5rem',
                             fontStyle: 'normal', fontWeight: 600, lineHeight: '125%',
                         }}>
-                            {isMobile ? 'Работа' : 'Мои отклики'}
+                            {isMobile ? localization[lang].job : localization[lang].myApplications}
                         </Typography>
 
                         <Box sx={{
@@ -402,13 +398,13 @@ export const ApplicationsLayout: React.FC = () => {
                                 }}
                                 onClick={(): void => navigate('/employer')}
                             >
-                                Работадатели
+                                {localization[lang].employers}
                             </MuiButton>
                             <MuiButton fullWidth sx={{
                                 backgroundColor: "#3B82F6", color: "white", borderRadius: '3rem',
                                 '&:hover': { backgroundColor: "#1565C0", },
                             }}>
-                                Мои отклики
+                                {localization[lang].myApplications}
                             </MuiButton>
                         </Box>
 
@@ -473,7 +469,7 @@ export const ApplicationsLayout: React.FC = () => {
                                                                 application.status === 'rejected' ? '#EF4444' :
                                                                     application.status === 'invited' ? '#22C55E' : '#3B82F6',
                                                         }}>
-                                                        {application && application.status ? statuses[application.status as keyof typeof statuses] : 'Статус'}
+                                                        {application && application.status ? statuses[application.status as keyof typeof statuses][lang] : 'Статус'}
                                                     </Box>
                                                 </Box>
                                             </Box>
