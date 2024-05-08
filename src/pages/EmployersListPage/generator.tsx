@@ -11,8 +11,8 @@ export const localization = {
 		Header:{
 			filter: "Фильтр",
 			searchBar: "Название компании",
-			searchButton: "Поиск",
-			university: "Работодатели",
+			searchButton: "Найти",
+			university: "Работадатели",
 		},
 	},
 	"en":{

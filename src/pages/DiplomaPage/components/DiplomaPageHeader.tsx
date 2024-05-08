@@ -1,30 +1,38 @@
 import React from 'react';
-import {Box, Typography, useMediaQuery,} from "@mui/material";
-import styles from "../DiplomaPage.module.css";
+import {Box, Typography, useMediaQuery, Grid} from "@mui/material";
 import {localization} from "src/pages/DiplomaPage/generator";
-import {Button, HiringPopUp, Input, Modal} from '@src/components';
-import {useDispatch, useSelector} from "react-redux";
+import {Button, HiringPopUp,} from '@src/components';
+import {useSelector} from "react-redux";
 import {ReactComponent as BotIcon} from '@src/assets/icons/AIBot.svg';
 import {selectLanguage} from "@src/store/generals/selectors";
 
-
+import styles from "../DiplomaPage.module.css";
 export const DiplomaPageHeader: React.FC = (props) => {
     const lang = useSelector(selectLanguage);
-    const dispatch = useDispatch();
-
     const [showPopup, setShowPopup] = React.useState(false);
     const isTablet  = useMediaQuery('(max-width:998px)');
 
 
-    const [searchQuery, setSearchQuery] = React.useState('');
     return (
-        <React.Fragment>
+        <>
             <Box width="100%" >
-                <Box display="flex"
-                     flexDirection="row"
-                     justifyContent="space-between"
-                alignItems="baseline">
-                    <Typography fontWeight='700' fontSize='2.5rem'>
+                <Box display="flex" flexDirection="row"
+                     justifyContent="space-between" alignItems="baseline"
+                         margin={{
+                             xs: '48px 0 20px',
+                             sm:'48px 0 24px',
+                             md:'24px 0',
+                             lg: '36px 0 30px',
+                             xl: '40px 0 32px',
+                     }}
+
+                >
+                    <Typography fontWeight='700' fontSize={{
+                        xs: '1.375rem',
+                        sm:'2rem',
+                        lg: '2.5rem',
+                        xl: '3rem',
+                    }}>
                         HR Bank
                     </Typography>
                     {!isTablet && (
@@ -33,9 +41,8 @@ export const DiplomaPageHeader: React.FC = (props) => {
                             buttonSize="m"
                             variant="contained"
                             sx={{
-                                paddingY: '1.25rem',
+                                paddingX: '1.25rem',
                                 borderRadius: '48px',
-                                gap: '8px',
                                 fontSize: "1rem"
                             }}
                             type="button"
@@ -64,11 +71,9 @@ export const DiplomaPageHeader: React.FC = (props) => {
                                 </Box>
                             </Box>
                         </Box>
-
                     {showPopup ? <HiringPopUp setShowPopup={setShowPopup}/> : null}
-
                 </Box>
             )}
-        </React.Fragment>
+        </>
     );
 };

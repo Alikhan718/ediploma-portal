@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
 	Button,
 	Box,
@@ -15,7 +15,7 @@ import { selectLanguage } from "@src/store/generals/selectors";
 import { ReactComponent as FilterIcon } from '@src/assets/icons/Tuning 2.svg';
 import { ReactComponent as ExpandMoreIcon } from '@src/assets/icons/expandmore.svg';
 import { IFilter } from "@src/layout/Filter/FilterSection.props";
-import { universities, regions, specialities, years, localization } from "@src/layout/Filter/generator";
+import { universities, regions, specialities, localization } from "@src/layout/Filter/generator";
 import FilterSelect from "@src/components/FilterSelect/FilterSelect";
 import FilterSlider from "@src/components/FilterSlider/FilterSlider";
 
@@ -84,7 +84,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 	const translatedRegions = regions[lang];
 	const translatedUniversities = universities[lang];
 
-	const isSmallerThanMd = useMediaQuery('(max-width:1380px)');
+	const isSmallerThanMd = useMediaQuery('(max-width:1200px)');
 
 	// Обновляем выбранные значения и вызываю функцию filter с обновленными значениями
 	const handleChange = (e: any, arr: any, setE: any, type: string) => {
@@ -144,12 +144,23 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 		// для закрытия bottomsheet
 		toggleBottomSheet();
 	};
+
 	return (
 		<>
-			<Box sx={{ '& > :not(:first-child)': { marginTop: '.5rem', gap: isSmallerThanMd ? '24px' : 'inherit' }  }}>
-				<Box display='flex' alignItems="center" sx={{ gap:'.5rem', paddingY: isSmallerThanMd ? '0' : '.5rem', justifyContent: isSmallerThanMd ? 'center' : 'flex-start' }}>
+			<Box sx={{ '& > :not(:first-child)': { marginTop: '.5rem', gap: isSmallerThanMd ? '24px' : 'inherit' },
+				width: '100%',
+				backgroundColor:'white',
+				padding: '.75rem 1rem 1rem 1rem',
+				borderRadius: '1rem',
+				border: '1px #4D4D4D',
+			}}>
+				<Box display='flex' alignItems="center" sx={{ gap:'.5rem',
+					paddingY: isSmallerThanMd ? '0' : '.5rem',
+					justifyContent: isSmallerThanMd ? 'center' : 'flex-start'
+				}}>
 					{isSmallerThanMd ? null : <FilterIcon style={{ width:'24px', height:'24px' }} />}
-					<Typography sx={{ borderRadius: '48px', fontWeight: '700', fontSize:'1rem' }}>{localization[lang].MainCard.filter}</Typography>
+					<Typography sx={{ borderRadius: '48px',
+						fontWeight: '700', fontSize:'1rem' }}>{localization[lang].MainCard.filter}</Typography>
 				</Box>
 				{isSmallerThanMd && <hr />}
 				{/* Speciality Section */}

@@ -14,11 +14,32 @@
     border: black 5px !important;
 }
 
+/* Default styles for all screen sizes */
 .mainContainer {
-    padding: 0 9%;
-    display: flex;
-    flex-direction: column;
+    padding: 0 13.5%;
+    
 }
+
+/* smaller than XL (1200px) */
+@media (max-width: 1536px) {
+    .mainContainer {
+        padding: 0 4.2%;
+    }
+}
+
+/*  smaller than MD */
+@media (max-width: 900px) {
+    .mainContainer {
+        padding: 0 5.3%;
+    }
+}
+
+@media (max-width: 600px) {
+    .mainContainer {
+        padding: 0 4.3%;
+    }
+}
+
 
 .diplomaImg {
     z-index: 0 !important;
@@ -46,10 +67,7 @@
         width: 100% !important;
     }
 
-    .mainContainer {
-        padding: 0 3%;
-        gap: 4rem;
-    }
+
 }
 
 @media only screen and (max-width: 768px) {

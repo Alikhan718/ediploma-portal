@@ -8,7 +8,7 @@ const CustomButton = styled(MuiButton, {
 	shouldForwardProp: (prop) => prop !== 'buttonSize',
 })<ButtonProps>(({ buttonSize, borderRadius, width }) => ({
 	padding: buttonSize === 's' ? '0px 20px' : buttonSize === 'm' ? '0px 25px' : '0',
-	height: buttonSize === 's' ? '48px' : buttonSize === 'm' ? '50px' : '0px',
+	height: buttonSize === 's' ? '32px' : buttonSize === 'm' ? '40px' : buttonSize === 'l' ? '48px' : 0,
 	width,
 	borderRadius,
 	fontWeight: 400,

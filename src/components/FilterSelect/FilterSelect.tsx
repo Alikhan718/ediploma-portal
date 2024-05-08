@@ -16,7 +16,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({ label, value, onChange, opt
         onChange(value);
     };
 
-    const isSmallerThanMd = useMediaQuery('(max-width:1380px)');
+    const isSmallerThanMd = useMediaQuery('(max-width:1200px)');
 
     const BootstrapInput = styled(InputBase)(({ theme }) => ({
         'label + &': {

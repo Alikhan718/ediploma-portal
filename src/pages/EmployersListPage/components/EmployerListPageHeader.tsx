@@ -1,120 +1,36 @@
 import React from 'react';
 import { Box, Typography } from "@mui/material";
-import styles from "../EmployersListPage.module.css";
-import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
-import cn from "classnames";
-import { ReactComponent as SearchIcon } from '@src/assets/icons/search-icon.svg';
-import { useNavigate } from "react-router-dom";
-import { Button, Input, Modal } from '@src/components';
-import { useDispatch, useSelector } from "react-redux";
-import { routes } from "@src/shared/routes";
-import ReactGA from 'react-ga';
-import {EmployerFilterAttributes} from "@src/layout/Header/Header";
-import { selectSearchText } from "@src/store/diplomas/selectors";
+import { useSelector } from "react-redux";
 import { selectLanguage } from "@src/store/generals/selectors";
 import { localization } from '@src/pages/EmployersListPage/generator';
-import { EmployerFilter } from '@src/layout/EmployerFilter/EmployerFilter';
-import { fetchEmployersSearch } from '@src/store/auth/actionCreators';
 
 export const EmployerListPageHeader: React.FC = (props) => {
 
 	const lang = useSelector(selectLanguage);
-	const searchText = useSelector(selectSearchText);
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
-
-	const [showFilter, setShowFilter] = React.useState(false);
-	const [searchQuery, setSearchQuery] = React.useState('');
-	const [filterAttributes, setFilterAttributes] = React.useState<EmployerFilterAttributes>({field: '', text: ''});
-
-	const triggerSearchFilters = (filterAttributesNew: any) => {
-		dispatch(fetchEmployersSearch(filterAttributesNew));
-		navigate(routes.employersList);
-	};
 
 	return (
-		<React.Fragment>
-			<Box width='100%' mb='1rem' className={cn(styles.mobMb1, styles.universitiesContainer)} mt="2rem">
-				<Typography fontWeight='700' mb="1rem" className={cn(styles.mobPl1, styles.mobTextL)} fontSize='2.5rem'>
-					{localization[lang].Header.university}
-				</Typography>
-				<Box width="100%" className={styles.mobMb1}>
-					<Box display="flex"
-						flexDirection="column"
-						alignItems="start"
-					>
-						<Box sx={{
-							display: 'flex',
-							flexDirection: 'row',
-							width: '100%',
-						}}>
-							<Box display="flex" width="100%" flexWrap="wrap" flexDirection="row" gap="1rem"
-								alignItems="center"
-							>
-								<Button
-									onClick={() => {
-										setShowFilter(true);
-									}}
-									variant="outlined"
-									sx={{borderRadius: '48px', paddingX: "3rem", color: '#3B82F6',}}
-									startIcon={<Filter/>}
-                            	>
-                                	{localization[lang].Header.filter}
-                            	</Button>
-								<Box display="flex" gap="1rem" ml="auto" alignContent="flex-end">
-								</Box>
-								<Box display="flex">
-									<Input
-										placeholder={localization[lang].Header.searchBar}
-										fullWidth
-										inputSize="m"
-										sx={{
-											paddingRight: 0,
-										}}
-										endAdornment={
-											<Button
-												onClick={() => {
-													triggerSearchFilters(filterAttributes);
-													ReactGA.event({
-														category: 'User',
-														action: 'Search',
-														label: searchQuery,
-													});
-												}}
-												buttonSize="m"
-												variant="contained"
-												sx={{
-													padding: '16px 32px',
-													borderRadius: '48px',
-													margin: '4px'
-												}}
-											>
-												{localization[lang].Header.searchButton}
-												<SearchIcon style={{
-													filter: 'brightness(250)',
-													width: '82px',
-													marginLeft: '12px'
-												}} />
-											</Button>
-										}
-										onChange={(e) => {
-											const query = e.target.value;
-											setFilterAttributes({ ...filterAttributes, text: query });
-											setSearchQuery(query);
-										}}
-									/>
-								</Box>
-							</Box>
-						</Box>
-
-					</Box>
+		<>
+			<Box width="100%">
+				<Box display="flex" flexDirection="row"
+					 justifyContent="space-between" alignItems="baseline"
+					 margin={{
+						 xs: '48px 0 20px',
+						 sm:'48px 0 24px',
+						 md:'24px 0',
+						 lg: '36px 0 30px',
+						 xl: '40px 0 32px',
+					 }}
+				>
+					<Typography fontWeight='700' fontSize={{
+						xs: '1.375rem',
+						sm:'2rem',
+						lg: '2.5rem',
+						xl: '3rem',
+					}} >
+						{localization[lang].Header.university}
+					</Typography>
 				</Box>
 			</Box>
-			<EmployerFilter
-                triggerSearchFilters={triggerSearchFilters}
-                filterAttributes={filterAttributes}
-                setFilterAttributes={setFilterAttributes}
-            />
-		</React.Fragment>
+		</>
 	);
 };

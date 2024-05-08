@@ -175,6 +175,9 @@ export const localization = {
 			gpa:"Орташа GPA",
 			rating:'Рейтинг',
 			query: 'Сұрақты енгізіңіз',
+			field: 'Салалар',
+			scopeOfActivity:'Қызмет саласы',
+
 		}
 	},
 	"ru": {
@@ -188,6 +191,8 @@ export const localization = {
 			gpa:"Средний GPA",
 			rating:'Рейтинг',
 			query: "Введите запрос",
+			field: 'Области',
+			scopeOfActivity:'Сфера деятельности',
 		}
 	},
 	"en": {
@@ -201,6 +206,8 @@ export const localization = {
 			gpa:"Average GPA",
 			rating:'Rating',
 			query: "Enter query",
+			field: 'Fields',
+			scopeOfActivity:'Scope of activity',
 		}
 	},
 };
@@ -300,3 +307,23 @@ export const fields = {
 	  {"id": 23, "name": "Химическая промышленность"}
 	],
   };
+
+
+export const scopeOfActivity = {
+	"en": [
+		{"id": 1, "name": "Automotive industry"},
+		{"id": 2, "name": "Hospitality and catering"},
+		{"id": 3, "name": "Public sector"},
+	],
+	"kz": [
+		{"id": 1, "name": "Автомобиль өнеркәсібі"},
+		{"id": 2, "name": "Қонақжайлылық және қоғамдық тамақтандыру"},
+		{"id": 3, "name": "Мемлекеттік сектор"},
+	],
+	"ru": [
+		{"id": 1, "name": "Автомобильная индустрия"},
+		{"id": 2, "name": "Гостеприимство и общественное питание"},
+		{"id": 3, "name": "Государственный сектор"},
+
+	],
+};

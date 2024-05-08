@@ -39,7 +39,6 @@ const DiplomaCard: React.FC<DiplomaCardProps> = ({ diploma, lang, handleCardClic
                     justifyContent: "space-between"
                 }}
                 onClick={() => handleCardClick(diploma.id)}
-                className={styles.cardConwtent}
             >
                 <Box sx={{ flex: '1' }}>
                     <Box>

@@ -1,7 +1,34 @@
+/* Default styles for all screen sizes */
 .mainContainer {
-	padding: 0 9%;
+	padding: 0 13.5%;
 	display: flex;
 	flex-direction: column;
+}
+
+/* smaller than XL (1200px) */
+@media (max-width: 1536px) {
+	.mainContainer {
+		padding: 0 4.2%;
+	}
+}
+
+/*  smaller than MD */
+@media (max-width: 900px) {
+	.mainContainer {
+		padding: 0 5.3%;
+	}
+}
+
+@media (max-width: 600px) {
+	.mainContainer {
+		padding: 0 4.3%;
+	}
+}
+
+
+.employerContainer {
+	border-radius: 1rem;
+	border: 1px #4D4D4D;
 }
 
 .schoolContainer {

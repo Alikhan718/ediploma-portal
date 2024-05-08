@@ -697,6 +697,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                     onClick={() => {
                                         navigate(routes.login, {replace: true});
                                     }}
+                                    buttonSize='l'
                                     fullWidth
                                     variant='contained'
                                     borderRadius="3rem"
