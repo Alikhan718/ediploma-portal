@@ -123,7 +123,7 @@ const DiplomaPageContent: React.FC<DiplomaPageContentProps> = ({ toggleBottomShe
         <>
             <Grid >
                 {/* SearchBar */}
-                <Box display='flex' justifyContent='space-between' marginBottom={{xl:'32px',lg:'30px',md:'24px',sm:'24px',xs:'20px',}}>
+                <Box display='flex' justifyContent='space-between' alignItems='baseline' marginBottom={{xl:'32px',lg:'30px',md:'24px',sm:'24px',xs:'20px',}}>
                     <Box
                         sx={{
                             position: 'relative',
@@ -212,9 +212,10 @@ const DiplomaPageContent: React.FC<DiplomaPageContentProps> = ({ toggleBottomShe
                                 <Button
                                     onClick={toggleBottomSheet}
                                     variant="contained"
+                                    buttonSize='m'
                                     sx={{
                                         borderRadius: '48px',
-                                        paddingX: isMobile ? '0' : '1rem',
+                                        padding: isMobile ? '0' : '1rem',
                                         color: '#293357',
                                         backgroundColor: 'white',
                                         gap: '8px',

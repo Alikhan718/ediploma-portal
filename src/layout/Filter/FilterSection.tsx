@@ -14,6 +14,7 @@ import { cancelFilters, fetchDiplomas } from "@src/store/diplomas/actionCreators
 import { selectLanguage } from "@src/store/generals/selectors";
 import { ReactComponent as FilterIcon } from '@src/assets/icons/Tuning 2.svg';
 import { ReactComponent as ExpandMoreIcon } from '@src/assets/icons/expandmore.svg';
+import CloseIcon from '@mui/icons-material/Close';
 import { IFilter } from "@src/layout/Filter/FilterSection.props";
 import { universities, regions, specialities, localization } from "@src/layout/Filter/generator";
 import FilterSelect from "@src/components/FilterSelect/FilterSelect";
@@ -186,7 +187,11 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 							/>
 							<Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: '10px', gap:'0.75rem',}}>
 								{selectedSpecialities.map((value: string) => (
-									<Chip key={value} label={value} onClick={() => handleDeleteChipSpeciality(value)} color="primary" sx={{padding:"16px 7px",borderRadius:'8px'}}/>
+									<Chip key={value} label={value}
+										  onClick={() => handleDeleteChipSpeciality(value)}
+										  color="primary"
+										  sx={{padding:"16px 7px",borderRadius:'8px'}}
+									/>
 								))}
 							</Box>
 						</AccordionDetails>
@@ -215,7 +220,10 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 							/>
 							<Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: '10px', gap:'0.75rem',}}>
 								{selectedRegions.map((value: string) => (
-									<Chip key={value} label={value} onClick={() => handleDeleteChipRegion(value)} color="primary" sx={{padding:"16px 7px",borderRadius:'8px'}}/>
+									<Chip key={value} label={value}
+										  onClick={() => handleDeleteChipRegion(value)}
+										  color="primary"
+										  sx={{padding:"16px 7px",borderRadius:'8px'}}/>
 								))}
 							</Box>
 						</AccordionDetails>
@@ -236,9 +244,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 							<Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: '10px', gap:'0.75rem',}}>
 								{translatedUniversities.map((university) => (
 									<Chip
-										key={university.id}
-										label={university.name}
-										clickable
+										key={university.id} label={university.name} clickable
 										onClick={() => handleUniversityChipClick(university.university_id)}
 										color={selectedUniversityIDs.includes(university.university_id) ? "primary" : "default"}
 										sx={{padding:"16px 7px",borderRadius:'8px'}}
@@ -269,6 +275,7 @@ export const FilterSection: React.FC<IFilter> = (props) => {
 					</Button>
 				)}
 			</Box>
+
 		</>
 	);
 };

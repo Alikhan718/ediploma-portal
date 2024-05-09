@@ -136,7 +136,10 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 							/>
 							<Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: '10px', gap:'0.75rem',}}>
 								{selectedFields.map((value: string) => (
-									<Chip key={value} label={value} onClick={() => handleDeleteChipSpeciality(value)} color="primary" sx={{padding:"16px 7px",borderRadius:'8px'}}/>
+									<Chip key={value} label={value}
+										  onClick={() => handleDeleteChipSpeciality(value)}
+										  color="primary"
+										  sx={{padding:"16px 7px",borderRadius:'8px'}}/>
 								))}
 							</Box>
 						</AccordionDetails>
@@ -165,7 +168,10 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 							/>
 							<Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', marginTop: '10px', gap:'0.75rem',}}>
 								{selectedScopeOfActivities.map((value: string) => (
-									<Chip key={value} label={value} onClick={() => handleDeleteChipScope(value)} color="primary" sx={{padding:"16px 7px",borderRadius:'8px'}}/>
+									<Chip key={value} label={value}
+										  onClick={() => handleDeleteChipScope(value)}
+										  color="primary"
+										  sx={{padding:"16px 7px",borderRadius:'8px'}}/>
 								))}
 							</Box>
 						</AccordionDetails>
