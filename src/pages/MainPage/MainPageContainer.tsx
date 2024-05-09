@@ -6,7 +6,6 @@ const MainPageContainer: React.FC = () => {
 
 	return (
 		<React.Fragment>
-
 			<MainPageLayout />
 		</React.Fragment>
 	);

@@ -115,7 +115,7 @@ export const EmployerPageListContent: React.FC<EmployerPageListContentProps> = (
     return (
         <>
             <Grid>
-                {role === 'Student' && (
+                {role === 'Student' && isSmallerThanMd && (
                     <Box mb="1rem" display="flex" flexDirection="row" p=".175rem .25rem" style={{ backgroundColor: "white", borderRadius: "3rem" }}>
                         <Button
                             fullWidth={true}

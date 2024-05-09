@@ -33,12 +33,34 @@
 }
 
 .app-navbar {
-    margin: 0 9%;
+    padding: 0 13.5%;
     display: flex;
     justify-content: left;
     gap: 40px;
     align-items: center;
 }
+
+
+/* smaller than XL (1200px) */
+@media (max-width: 1536px) {
+    .app-navbar {
+        padding: 0 4.2%;
+    }
+}
+
+/*  smaller than MD */
+@media (max-width: 900px) {
+    .app-navbar {
+        padding: 0 5.3%;
+    }
+}
+
+@media (max-width: 600px) {
+    .app-navbar {
+        padding: 0 4.3%;
+    }
+}
+
 
 .dropdown {
     padding: 1rem !important;
@@ -47,9 +69,15 @@
 
 .footer {
     width: 100%;
+    padding: 0 13.5%;
     display: flex;
-    padding: 0 8% 2rem 8%;
     justify-content: space-between;
+}
+
+@media (max-width: 1536px) {
+    .footer {
+        padding: 0 4.2%;
+    }
 }
 
 .footerRightItem {
@@ -65,9 +93,7 @@
 }
 
 @media only screen and (max-width: 1200px) {
-    .app-navbar {
-        margin: 0 3%;
-    }
+
 
     .app-icon-img {
         display: block;
@@ -123,10 +149,6 @@
         position: fixed !important;
     }
 
-    .app-navbar {
-        gap: 1rem;
-        margin: 0 1rem;
-    }
 
     .diploma-navbar-item {
         display: none !important;
