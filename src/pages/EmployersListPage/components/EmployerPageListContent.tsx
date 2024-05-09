@@ -143,7 +143,7 @@ export const EmployerPageListContent: React.FC<EmployerPageListContentProps> = (
 
 
                 {/* SearchBar */}
-                <Box display='flex' justifyContent='space-between' marginBottom={{xl:'32px',lg:'30px',md:'24px',sm:'24px',xs:'20px',}}>
+                <Box display='flex' justifyContent='space-between' alignItems='baseline' marginBottom={{xl:'32px',lg:'30px',md:'24px',sm:'24px',xs:'20px',}}>
                     <Box
                         sx={{
                             position: 'relative',
@@ -232,6 +232,7 @@ export const EmployerPageListContent: React.FC<EmployerPageListContentProps> = (
                                 <Button
                                     onClick={toggleBottomSheet}
                                     variant="contained"
+                                    buttonSize='m'
                                     sx={{
                                         borderRadius: '48px',
                                         paddingX: isMobile ? '0' : '1rem',
