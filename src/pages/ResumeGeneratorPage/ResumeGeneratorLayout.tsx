@@ -191,7 +191,7 @@ export const ResumeGeneratorLayout: React.FC = () => {
               type={el.type}
               name={el.name}
               disabled={el.disabled}
-              value={state[el.name] || ''}
+              value={(el.name == 'major' ? (state['diploma_degree'] || '') : (state[el.name] || '')).toLowerCase()}
               fullWidth={true}
               onChange={handleChange}
             >

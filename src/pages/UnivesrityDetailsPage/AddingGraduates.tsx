@@ -1,4 +1,4 @@
-import {Box, Typography, Button, IconButton, CircularProgress} from "@mui/material";
+import {Box, Typography, Button, IconButton, CircularProgress, Snackbar, Alert} from "@mui/material";
 import React, {useState, useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -11,6 +11,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import archive from "@src/assets/icons/archive.svg";
 import excel from "./../../assets/icons/File_check.svg";
+import copyIcon from '@src/assets/icons/copyIcon.png';
+import copyIcon2 from '@src/assets/icons/copyIcon.svg';
 
 import * as NcaLayer from '@src/utils/functions';
 import {handleLink} from "@src/utils/link";
@@ -27,7 +29,7 @@ import {routes} from "@src/shared/routes";
 import {localization} from '@src/pages/UnivesrityDetailsPage/generator';
 import {selectLanguage} from "@src/store/generals/selectors";
 
-import {CircularProgressWithLabel} from "@src/components";
+import {CircularProgressWithLabel, Input} from "@src/components";
 
 const AddingGraduates: React.FC = () => {
   const [progress, setProgress] = useState(0);
@@ -178,7 +180,7 @@ const AddingGraduates: React.FC = () => {
   useEffect(() => {
     const newSocket = io(
       // 'http://127.0.0.1:5001',
-      'http://109.248.170.239:5001',
+      'https://ediploma.kz',
       {autoConnect: false},
     );
     setSocket(newSocket);
@@ -219,6 +221,12 @@ const AddingGraduates: React.FC = () => {
   }, [socket]);
   /* progress websockets end */
 
+  const [alertOpen, setAlertOpen] = useState(false);
+  const handleAlertClose = () => {
+    setAlertOpen(false);
+  };
+
+  NcaLayer.enableWebSocket(setNcaLayerFound);
 
   return (
     <Box sx={{
@@ -229,7 +237,14 @@ const AddingGraduates: React.FC = () => {
       marginLeft: '2rem',
       padding: '40px', '@media (max-width: 998px)': {padding: '15px', marginLeft: '1rem'},
     }}>
-
+      <Snackbar open={alertOpen} autoHideDuration={2000}
+                anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                onClose={handleAlertClose}>
+        <Alert onClose={handleAlertClose} severity="success"
+               sx={{width: '100%'}}>
+          Успешно скопировано!
+        </Alert>
+      </Snackbar>
       {/* Title start */}
       {stepId === 0 && <Typography variant="h6" fontWeight={600} textAlign="start" sx={{
         paddingBottom: '20px',
@@ -315,22 +330,22 @@ const AddingGraduates: React.FC = () => {
             width: "100%",
           }}
         >
-          {progress > 1 && (
-            <IconButton onClick={goBack} color="primary" sx={{
-              marginLeft: '50px',
-              marginTop: '10px',
-              width: "3.1rem !important",
-              height: "3rem !important",
-              marginBottom: '-70px',
-              '@media (max-width: 998px)': {
-                marginLeft: '10px',
-                marginTop: '10px',
-                marginBottom: '-70px',
-              },
-            }}>
-              <ArrowBackIcon/>
-            </IconButton>
-          )}
+          {/*{progress > 1 && (*/}
+          {/*  <IconButton onClick={goBack} color="primary" sx={{*/}
+          {/*    marginLeft: '50px',*/}
+          {/*    marginTop: '10px',*/}
+          {/*    width: "3.1rem !important",*/}
+          {/*    height: "3rem !important",*/}
+          {/*    marginBottom: '-70px',*/}
+          {/*    '@media (max-width: 998px)': {*/}
+          {/*      marginLeft: '10px',*/}
+          {/*      marginTop: '10px',*/}
+          {/*      marginBottom: '-70px',*/}
+          {/*    },*/}
+          {/*  }}>*/}
+          {/*    <ArrowBackIcon/>*/}
+          {/*  </IconButton>*/}
+          {/*)}*/}
           {progress <= steps.length && progress > 0 && (type != 'api' || (gData.max_progress > 0 && generationProcess == 100)) && (
             <IconButton
               onClick={() => {
@@ -374,7 +389,6 @@ const AddingGraduates: React.FC = () => {
           >
             <Box onClick={() => {
               setType("excel");
-              NcaLayer.enableWebSocket(setNcaLayerFound);
               goForward();
             }}>
               <Box sx={{
@@ -481,7 +495,7 @@ const AddingGraduates: React.FC = () => {
 
             <Button variant="contained" color="primary"
                     sx={{marginTop: 2, borderRadius: '15px',}} onClick={() => {
-              handleLink("https://generator.ediploma.kz/get-sample")
+              handleLink("https://generator.ediploma.kz/get-sample");
             }}> {localization[lang].AddingGratuates.template}</Button>
             <Box sx={{
               backgroundColor: '#FAFBFF',
@@ -584,7 +598,7 @@ const AddingGraduates: React.FC = () => {
               width: '90%',
               borderRadius: '50px',
               height: '100%',
-              backgroundColor: '#FAFBFF', padding: '28px 28px 14px 28px', marginTop: '16px', marginLeft: '70px',
+              backgroundColor: '#FAFBFF', padding: '28px 28px 42px 28px', marginTop: '16px', marginLeft: '70px',
               '@media (max-width: 998px)': {
                 width: '95%', marginLeft: '10px'
               },
@@ -611,7 +625,20 @@ const AddingGraduates: React.FC = () => {
                             }}><DownloadIcon style={{filter: "brightness(20)"}}/></Button>
                     : gData.max_progress > 0 ? <CircularProgress size={60} style={{marginLeft: "auto"}}/> : 'Нет данных'
                   }
+
                 </Box>
+              </Box>
+              <Box sx={{padding: '0 28px'}}>
+                {(archiveLink.trim() != "" && type != 'api') || (type == "api" && gData.max_progress > 0 && generationProcess == 100) ?
+                  <Input sx={{padding: "0"}} value={archiveLink} disabled endAdornment={
+                    <Button variant="contained" color="primary"
+                            sx={{borderRadius: '1rem', padding: ".75rem", width: "4rem", zIndex: "99", height: "3rem"}}
+                            onClick={() => {
+                              navigator.clipboard.writeText(archiveLink);
+                              setAlertOpen(true);
+                            }}><img style={{width: "2rem", filter: "brightness(9)"}} src={copyIcon} alt=""/></Button>}/>
+                  : gData.max_progress > 0 ? null : null
+                }
               </Box>
             </Box>
             {/* archive link section end */}
