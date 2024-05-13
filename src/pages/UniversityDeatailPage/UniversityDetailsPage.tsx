@@ -1360,6 +1360,7 @@ export const UniversityDetailsPage: React.FC = () => {
         setFilterAttributes={setFilterAttributes}
         open={showFilter}
         setOpen={setShowFilter}
+        toggleBottomSheet={null}
       />
     </Box >
   );

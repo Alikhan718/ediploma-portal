@@ -653,6 +653,7 @@ export const SchoolDetailsPageLayout: React.FC = () => {
             setFilterAttributes={setFilterAttributes}
             open={showFilter}
             setOpen={setShowFilter}
+            toggleBottomSheet={null}
           />
         </Box>
     );

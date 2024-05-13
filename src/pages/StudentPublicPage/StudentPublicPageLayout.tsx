@@ -82,7 +82,7 @@ export const StudentPublicPageLayout: React.FC = () => {
   let diplomaList = useSelector(selectDiplomaList);
 
   React.useEffect(() => {
-    if (data && data.image) {
+    if (data && data.image && data.image.map) {
       let linksArray: string[] = data.image.map((link: string) => link.trim());
       setImages(linksArray);
     }

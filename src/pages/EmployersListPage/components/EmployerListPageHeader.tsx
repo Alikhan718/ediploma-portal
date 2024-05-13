@@ -147,13 +147,14 @@ export const EmployerListPageHeader: React.FC<EmployerHeaderProps> = (props) => 
 					</Box>
 				</Box>
 			</Box>
-			<EmployerFilter
+			{/* <EmployerFilter
                 triggerSearchFilters={triggerSearchFilters}
                 filterAttributes={filterAttributes}
                 setFilterAttributes={setFilterAttributes}
                 open={showFilter}
                 setOpen={setShowFilter}
-            />
+				toggleBottomSheet={null}
+            /> */}
 		</React.Fragment>
 	);
 };

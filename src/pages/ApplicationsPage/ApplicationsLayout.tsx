@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button as MuiButton, Table, TableBody, Paper, TableContainer, useMediaQuery, Collapse } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import TableRow from '@mui/material/TableRow';
+import TableRow, { tableRowClasses } from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { fetchApplications, fetchStatus } from '@src/store/vacancy/actionCreators';
@@ -26,6 +26,11 @@ export const ApplicationsLayout: React.FC = () => {
     const isMobile = useMediaQuery('(max-width:998px)');
     const navigate = useNavigate();
     const [openStudentInfo, setOpenStudentInfo] = React.useState<boolean>(false);
+    const [applicationsOpen, setApplicationsOpen] = React.useState<any[]>([]);
+
+    const handleChangeStatus = (status: string, application_id: number): void => {
+        dispatch(fetchStatus({ status, application_id }));
+    };
 
     React.useEffect(() => {
         if (applications) {
@@ -41,6 +46,10 @@ export const ApplicationsLayout: React.FC = () => {
             }
         }
     }, [applications, value]);
+
+    React.useEffect(() => {
+        setApplicationsOpen(applications.map((application: any) => ({ id: application.id, open: false })))
+    }, [applications])
 
     const statuses = {
         processing: {
@@ -105,9 +114,9 @@ export const ApplicationsLayout: React.FC = () => {
             'en': 'AGP',
         },
         3: {
-            'kz':'Сатпаев Университет',
-            'ru':'Сатпаев Университет',
-            'en':'Satpaev University',
+            'kz': 'Сатпаев Университет',
+            'ru': 'Сатпаев Университет',
+            'en': 'Satpaev University',
         },
     };
 
@@ -127,14 +136,7 @@ export const ApplicationsLayout: React.FC = () => {
         '&:last-child td, &:last-child th': {
             border: 0,
         },
-        '& > *': { 
-            borderBottom: 'unset' 
-        },
     }));
-
-    const handleChangeStatus = (status: string, application_id: number): void => {
-        dispatch(fetchStatus({ status, application_id }));
-    };
 
     function handleApplicationClick(id: number): void {
         if (isMobile) {
@@ -146,6 +148,120 @@ export const ApplicationsLayout: React.FC = () => {
         dispatch(fetchApplications());
         console.log('applications', applications);
     }, [value]);
+
+    function Row(props: { application: any }) {
+        const { application } = props;
+        const [open, setOpen] = React.useState(false);
+
+        return (
+            <>
+                <StyledTableRow key={application.id} onClick={(): void => { handleApplicationClick(application.diploma_id); }}>
+                    <StyledTableCell
+                        size='medium'
+                        sx={{ '@media (max-width: 778px)': { fontSize: '0.875rem' }, cursor: 'pointer' }}
+                        onClick={() => { setOpen(!open) }}
+                    >
+                        {application && application.student_name ? application.student_name : ''}
+                        <Typography sx={{
+                            display: 'none',
+                            '@media (max-width: 778px)': { display: 'block' },
+                            fontSize: '0.75rem', fontWeight: 400, color: '#9499AB',
+                        }}>
+                            {
+                                application &&
+                                    application.university_id &&
+                                    universities[application.university_id as keyof typeof universities] ?
+                                    universities[application.university_id as keyof typeof universities][lang] : 'Университет!'
+                            }
+                        </Typography>
+                    </StyledTableCell>
+                    <StyledTableCell size='medium' sx={{
+                        "@media (max-width: 778px)": { display: 'none' },
+                    }}>
+                        {application && application.speciality_ru ? application.speciality_ru : 'Специализация'}
+                    </StyledTableCell>
+                    <StyledTableCell size='medium' align="center" sx={{
+                        "@media (max-width: 778px)": { display: 'none' },
+                    }}>
+                        {application && application.year ? application.year : 'Год'}
+                    </StyledTableCell>
+                    <StyledTableCell size='medium' align="center" sx={{
+                        "@media (max-width: 778px)": { display: 'none' },
+                    }}
+                    >
+                        {application && application.gpa ? application.gpa : 'GPA'}
+                    </StyledTableCell>
+                    <StyledTableCell size='medium' align={isMobile ? 'right' : 'center'}
+                        sx={{ '@media (max-width: 778px)': { fontSize: '0.75rem' }, }}
+                    >
+                        {application && application.created_at ? formatDate(application.created_at) : 'Дата'}
+                    </StyledTableCell>
+                    <StyledTableCell size='medium' align="center" sx={{
+                        "@media (max-width: 778px)": { display: 'none' },
+                    }}>
+                        {
+                            application && application.status && application.status === 'processing' ?
+                                (
+                                    <Box sx={{
+                                        display: 'flex', paddingY: '0.25rem', alignItems: 'center',
+                                        gap: '0.625rem', alignSelf: 'stretch', justifyContent: 'center',
+                                    }}>
+                                        <Box
+                                            sx={{
+                                                height: '2.5rem', width: '2.5rem', borderRadius: "0.625rem",
+                                                backgroundColor: "#FDECEC", justifyContent: 'center', alignItems: 'center',
+                                                flexShrink: 0, display: 'flex', cursor: 'pointer',
+                                                '&:hover': {
+                                                    backgroundColor: "#FDD9D9",
+                                                }
+                                            }}
+                                            onClick={(): void => { application && application.id ? handleChangeStatus('rejected', application.id) : null; }}
+                                        >
+                                            <Reject />
+                                        </Box>
+                                        <Box
+                                            sx={{
+                                                height: '2.5rem', width: '2.5rem', borderRadius: "0.625rem",
+                                                backgroundColor: "#3B82F6", justifyContent: 'center', alignItems: 'center',
+                                                flexShrink: 0, display: 'flex', cursor: 'pointer',
+                                                '&:hover': {
+                                                    backgroundColor: "#1565C0",
+                                                }
+                                            }}
+                                            onClick={(): void => { application && application.id ? handleChangeStatus('invited', application.id) : null; }}
+                                        >
+                                            <Invite />
+                                        </Box>
+                                    </Box>
+                                ) :
+                                <Box
+                                    sx={{
+                                        borderRadius: '1.25rem', paddingX: '0.75rem', paddingY: '0.3rem',
+                                        fontSize: '0.75rem',
+                                        background: application && application.status &&
+                                            application.status === 'processing' ? '#EBF2FE' :
+                                            application.status === 'rejected' ? '#FDECEC' :
+                                                application.status === 'invited' ? '#E9F9EF' : '#EBF2FE',
+                                        color: application && application.status &&
+                                            application.status === 'processing' ? '#3B82F6' :
+                                            application.status === 'rejected' ? '#EF4444' :
+                                                application.status === 'invited' ? '#22C55E' : '#3B82F6',
+                                    }}>
+                                    {application && application.status ? statuses[application.status as keyof typeof statuses][lang] : 'Статус'}
+                                </Box>
+                        }
+                    </StyledTableCell>
+                </StyledTableRow>
+                <TableRow>
+                    <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                        <Collapse in={open} timeout="auto" unmountOnExit>
+                            <StudentInfo application={application} handleChangeStatus={handleChangeStatus}/>
+                        </Collapse>
+                    </TableCell>
+                </TableRow>
+            </>
+        )
+    };
 
     return (
         <>
@@ -217,7 +333,7 @@ export const ApplicationsLayout: React.FC = () => {
                                         }}
                                         stickyHeader
                                         aria-label="sticky table"
-                                        // aria-label="collapsible table"
+                                    // aria-label="collapsible table"
                                     >
                                         <TableHead >
                                             <TableRow>
@@ -256,109 +372,7 @@ export const ApplicationsLayout: React.FC = () => {
                                         <TableBody>
                                             {
                                                 applicationsList && applicationsList.map((application: any) => (
-                                                    <>
-                                                    <StyledTableRow key={application.id} onClick={(): void => { handleApplicationClick(application.diploma_id); }}>
-                                                        <StyledTableCell size='medium' sx={{ '@media (max-width: 778px)': { fontSize: '0.875rem' }, }}>
-                                                            {'ФИО'}
-                                                            <Typography sx={{
-                                                                display: 'none',
-                                                                '@media (max-width: 778px)': { display: 'block' },
-                                                                fontSize: '0.75rem', fontWeight: 400, color: '#9499AB',
-                                                            }}>
-                                                                {
-                                                                    application &&
-                                                                        application.university_id &&
-                                                                        universities[application.university_id as keyof typeof universities] ?
-                                                                        universities[application.university_id as keyof typeof universities][lang] : 'Университет!' 
-                                                                }
-                                                            </Typography>
-                                                        </StyledTableCell>
-                                                        <StyledTableCell size='medium' sx={{
-                                                            "@media (max-width: 778px)": { display: 'none' },
-                                                        }}>
-                                                            {application && application.speciality_ru ? application.speciality_ru : 'Специализация'}
-                                                        </StyledTableCell>
-                                                        <StyledTableCell size='medium' align="center" sx={{
-                                                            "@media (max-width: 778px)": { display: 'none' },
-                                                        }}>
-                                                            {application && application.year ? application.year : 'Год'}
-                                                        </StyledTableCell>
-                                                        <StyledTableCell size='medium' align="center" sx={{
-                                                            "@media (max-width: 778px)": { display: 'none' },
-                                                            }}
-                                                            onClick={()=>{setOpenStudentInfo(!openStudentInfo)}}
-                                                        >
-                                                            {application && application.gpa ? application.gpa : 'GPA'}
-                                                        </StyledTableCell>
-                                                        <StyledTableCell size='medium' align={isMobile ? 'right' : 'center'}
-                                                            sx={{ '@media (max-width: 778px)': { fontSize: '0.75rem' }, }}
-                                                        >
-                                                            {application && application.created_at ? formatDate(application.created_at) : 'Дата'}
-                                                        </StyledTableCell>
-                                                        <StyledTableCell size='medium' align="center" sx={{
-                                                            "@media (max-width: 778px)": { display: 'none' },
-                                                        }}>
-                                                            {
-                                                                application && application.status && application.status === 'processing' ?
-                                                                    (
-                                                                        <Box sx={{
-                                                                            display: 'flex', paddingY: '0.25rem', alignItems: 'center',
-                                                                            gap: '0.625rem', alignSelf: 'stretch', justifyContent: 'center',
-                                                                        }}>
-                                                                            <Box
-                                                                                sx={{
-                                                                                    height: '2.5rem', width: '2.5rem', borderRadius: "0.625rem",
-                                                                                    backgroundColor: "#FDECEC", justifyContent: 'center', alignItems: 'center',
-                                                                                    flexShrink: 0, display: 'flex', cursor: 'pointer',
-                                                                                    '&:hover': {
-                                                                                        backgroundColor: "#FDD9D9",
-                                                                                    }
-                                                                                }}
-                                                                                onClick={(): void => { application && application.id ? handleChangeStatus('rejected', application.id) : null; }}
-                                                                            >
-                                                                                <Reject />
-                                                                            </Box>
-                                                                            <Box
-                                                                                sx={{
-                                                                                    height: '2.5rem', width: '2.5rem', borderRadius: "0.625rem",
-                                                                                    backgroundColor: "#3B82F6", justifyContent: 'center', alignItems: 'center',
-                                                                                    flexShrink: 0, display: 'flex', cursor: 'pointer',
-                                                                                    '&:hover': {
-                                                                                        backgroundColor: "#1565C0",
-                                                                                    }
-                                                                                }}
-                                                                                onClick={(): void => { application && application.id ? handleChangeStatus('invited', application.id) : null; }}
-                                                                            >
-                                                                                <Invite />
-                                                                            </Box>
-                                                                        </Box>
-                                                                    ) :
-                                                                    <Box
-                                                                        sx={{
-                                                                            borderRadius: '1.25rem', paddingX: '0.75rem', paddingY: '0.3rem',
-                                                                            fontSize: '0.75rem',
-                                                                            background: application && application.status &&
-                                                                                application.status === 'processing' ? '#EBF2FE' :
-                                                                                application.status === 'rejected' ? '#FDECEC' :
-                                                                                    application.status === 'invited' ? '#E9F9EF' : '#EBF2FE',
-                                                                            color: application && application.status &&
-                                                                                application.status === 'processing' ? '#3B82F6' :
-                                                                                application.status === 'rejected' ? '#EF4444' :
-                                                                                    application.status === 'invited' ? '#22C55E' : '#3B82F6',
-                                                                        }}>
-                                                                        {application && application.status ? statuses[application.status as keyof typeof statuses][lang] : 'Статус'}
-                                                                    </Box>
-                                                            }
-                                                        </StyledTableCell>
-                                                    </StyledTableRow>
-                                                    <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                                                        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                                                            <Collapse in={openStudentInfo} timeout="auto" unmountOnExit>
-                                                                <StudentInfo student={{name: 'syrym'}}/>
-                                                            </Collapse>
-                                                        </TableCell>
-                                                    </TableRow>
-                                                    </>
+                                                    <Row key={application.id} application={application} />
                                                 ))
                                             }
                                         </TableBody>
@@ -438,10 +452,13 @@ export const ApplicationsLayout: React.FC = () => {
                                                     display: 'flex', padding: 'var(--atmr-spacing-none)', flexDirection: 'column',
                                                     alignItems: 'flex-start', gap: '0.75rem', flex: '1 0 0',
                                                 }}>
-                                                    <Typography sx={{
-                                                        flex: '1 0 0', color: 'var(--color-light-dark-700, #293357)',
-                                                        fontSize: '1.25rem', fontStyle: 'normal', fontWeight: 600, lineHeight: '120%',
-                                                    }}>
+                                                    <Typography
+                                                        sx={{
+                                                            flex: '1 0 0', cursor: 'pointer', color: 'var(--color-light-dark-700, #293357)',
+                                                            fontSize: '1.25rem', fontStyle: 'normal', fontWeight: 600, lineHeight: '120%',
+                                                        }}
+                                                        onClick={() => { window.open(`/employer/${application.employer_id}`, '_blank'); }}
+                                                    >
                                                         {application && application.employer_name ? application.employer_name : 'Название компании'}
                                                     </Typography>
                                                     <Typography sx={{

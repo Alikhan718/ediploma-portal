@@ -196,6 +196,7 @@ export const DiplomaPageHeader: React.FC = (props) => {
                 setFilterAttributes={setFilterAttributes}
                 open={showFilter}
                 setOpen={setShowFilter}
+                toggleBottomSheet={null}
             />
         </React.Fragment>
     );

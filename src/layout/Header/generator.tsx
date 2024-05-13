@@ -399,3 +399,10 @@ export const localization = {
     "en": 'English',
   }
 }
+
+export const notifications = [
+  {
+    id: 1,
+    msg: 'У вас новое уведомление',
+  },
+]

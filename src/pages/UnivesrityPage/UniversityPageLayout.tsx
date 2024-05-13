@@ -82,7 +82,7 @@ export const UniversityPageLayout: React.FC = () => {
                                         {localization[lang].UniCards.majors}: {universityGraduatesCount[university.university_id as keyof typeof universityGraduatesCount]}
                                     </Typography>
                                     <Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"} textAlign='right'>
-                                        {localization[lang].UniCards.city}: {universityCity[university.university_id as keyof typeof universityCity][lang]}
+                                        {localization[lang].UniCards.city}: {university && university.university_id && universityCity[university.university_id as keyof typeof universityCity] ? universityCity[university.university_id as keyof typeof universityCity][lang]: ''}
                                     </Typography>
                                 </Box>
                             </CardContent>

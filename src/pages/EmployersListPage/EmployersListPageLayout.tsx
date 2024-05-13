@@ -6,11 +6,14 @@ import { useNavigate } from "react-router-dom";
 import styles from "./EmployersListPage.module.css";
 import { selectLanguage } from "@src/store/generals/selectors";
 import { selectEmployersList } from '@src/store/auth/selector';
-import { fetchEmployersList } from '@src/store/auth/actionCreators';
+import { fetchEmployersList, fetchEmployersSearch } from '@src/store/auth/actionCreators';
 import { useSelector, useDispatch } from "react-redux";
 import { localization } from '@src/pages/EmployersListPage/generator';
 import exEmployer from "@src/assets/example/exEmployer.png";
 import { fetchApply } from '@src/store/vacancy/actionCreators';
+import { EmployerFilter } from '@src/layout/EmployerFilter/EmployerFilter';
+import { routes } from "@src/shared/routes";
+import {EmployerFilterAttributes} from "@src/layout/Header/Header";
 
 export const EmployersListPageLayout: React.FC = () => {
     const navigate = useNavigate();
@@ -29,6 +32,7 @@ export const EmployersListPageLayout: React.FC = () => {
 
     const displayedEmployersList = employersList.slice(startEmployerIndex, endEmployerIndex);
     const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+    const [filterAttributes, setFilterAttributes] = React.useState<EmployerFilterAttributes>({field: '', text: ''});
 
     React.useEffect(() => {
         dispatch(fetchEmployersList());
@@ -38,6 +42,11 @@ export const EmployersListPageLayout: React.FC = () => {
         dispatch(fetchApply({ employer: employer }));
         console.log('applied');
     };
+
+    const triggerSearchFilters = (filterAttributesNew: any) => {
+		dispatch(fetchEmployersSearch(filterAttributesNew));
+		navigate(routes.employersList);
+	};
 
     return (
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer}
@@ -68,24 +77,34 @@ export const EmployersListPageLayout: React.FC = () => {
                     Мои отклики
                 </MuiButton>
             </Box>
+            <Box sx={{
+                display: 'flex', gap: '1rem'
+            }}>
+            <EmployerFilter
+                triggerSearchFilters={triggerSearchFilters}
+                filterAttributes={filterAttributes}
+                setFilterAttributes={setFilterAttributes}
+                open={true}
+                setOpen={null}
+				toggleBottomSheet={null}
+            />
             <Grid container display="flex" rowSpacing={2} columnSpacing={1} flexWrap="wrap"
                 sx={{ margin: "0 !important" }}
                 justifyContent="start" className={styles.schoolContainer} width='100%'
-
             >
                 {employersList ? (displayedEmployersList.map((employer: any) => (
                     <Grid
                         key={employer.id} item xs={12} sm={'auto'} md={'auto'}
-                        lg={listView ? 11.9 : 5.9}
-                        onClick={() => {
-                            navigate(`/employer/${employer.id}`);
-                        }}
+                        lg={listView ? 11.9 : 5.8}
+                        // onClick={() => {
+                        //     navigate(`/employer/${employer.id}`);
+                        // }}
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            cursor: "pointer",
+                            // cursor: "pointer",
                             borderRadius: "1.25rem",
                             marginBottom: "1.5rem", backgroundColor: 'white',
                             marginRight: "0.5rem",
@@ -120,6 +139,7 @@ export const EmployersListPageLayout: React.FC = () => {
                                 <Typography fontWeight="600" sx={{
                                     fontSize: '1.25rem',
                                     marginBottom: '0.3rem',
+                                    cursor: 'pointer',
                                     "@media (max-width: 778px)": {
                                         fontSize: '0.75rem',
                                         marginBottom: '0.5rem',
@@ -128,7 +148,9 @@ export const EmployersListPageLayout: React.FC = () => {
                                     "@media (max-width: 998px)": {
                                         fontSize: '1rem'
                                     },
-                                }}>
+                                }}
+                                onClick={() => { window.open(`/employer/${employer.id}`, '_blank'); }}
+                                >
                                     {employer.name}
                                 </Typography>
                                 <Typography
@@ -188,6 +210,7 @@ export const EmployersListPageLayout: React.FC = () => {
                     </Grid>
                 ))) : null}
             </Grid>
+            </Box>
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'space-between',

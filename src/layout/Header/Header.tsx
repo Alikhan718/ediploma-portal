@@ -11,7 +11,7 @@ import {
     headerNavigations,
     interFaceOptions,
     dropdownItems,
-    dropdownItemsBottom, localization
+    dropdownItemsBottom, localization, notifications
 } from "@src/layout/Header/generator";
 import {
     AppBar as MuiAppBar,
@@ -20,7 +20,7 @@ import {
     Divider,
     styled,
     Typography, InputAdornment,
-    Menu, MenuItem, IconButton
+    Menu, MenuItem, IconButton, Popper, MenuList
 } from '@mui/material';
 import {HeaderProps} from './Header.props';
 import {GlobalLoader} from './GlobalLoader';
@@ -34,10 +34,12 @@ import {selectSearchText} from "@src/store/diplomas/selectors";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
 import {ReactComponent as NotIcon} from "@src/assets/icons/Notification.svg";
 import {ReactComponent as ModeIcon} from "@src/assets/icons/Moons.svg";
-import {selectUserRole} from "@src/store/auth/selector";
+import {selectUserRole, selectUserState} from "@src/store/auth/selector";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {setLanguage} from '@src/store/generals/actionCreators';
-import {fetchLogoutAction} from '@src/store/auth/actionCreators';
+import {fetchLogoutAction, fetchUserProfile} from '@src/store/auth/actionCreators';
+import io from 'socket.io-client';
+import { set } from 'react-ga';
 
 interface AppBarProps extends MuiAppBarProps {
     open: boolean;
@@ -100,6 +102,12 @@ export interface EmployerFilterAttributes {
     text?: string,
 }
 
+const StyledMenu = styled(Menu)(({ theme }) => ({
+    [`&.MuiMenu-paper`]: {
+        borderRadius: '1rem'
+    },
+}));
+
 const AppHeader: React.FC<HeaderProps> = (props) => {
     // const [showFilter, setShowFilter] = React.useState(false);
     const lang = useSelector(selectLanguage);
@@ -119,6 +127,44 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     });
     const [open, setOpen] = React.useState(false);
     const [minimized, setMinimized] = React.useState(true);
+    const [notificationOpen, setNotificationOpen] = React.useState(false);
+    const [notification, setNotification] = React.useState<any[]>([]);
+
+    const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+    // const baseURL = 'http://localhost:8080';
+
+    const userState = useSelector(selectUserState);
+    const socket = io(baseURL);
+
+    React.useEffect(() => {
+        dispatch(fetchUserProfile());
+    }, [!userState]);
+
+    React.useEffect(() => {
+        if (userState.id) {
+            if (role === 'Employer') {
+                socket.auth = {role: 'employer', userId: userState.id}
+                socket.connect();
+            }
+            if (role === 'Student') {
+                socket.auth = {role: 'student', userId: userState.id}
+                socket.connect();
+            }
+        }
+    }, [userState]);
+
+    React.useEffect(() => {
+        if (socket.connected){
+            console.log('Socket connected');
+        }
+            socket.on('new-application', (application)=>{
+                console.log('You received new application !', application.studentId);
+                setAnchorEl(document.getElementById('notification-icon'));
+                setNotification([...notification, application]);
+                setNotificationOpen(true);
+            });
+    }, [socket]);
+
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFilterAttributes({...filterAttributes, text: e.target.value.trim()});
         if (e.target.value.trim().length >= 2) {
@@ -381,6 +427,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             onClick={(event) => {
                                 handleOpenMenu(event, "profile");
                             }}
+                            id="notification-icon"
                         >
                             <AccountCircleIcon style={{alignSelf: "center"}}/>
                         </IconButton>
@@ -814,6 +861,49 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                         </Modal>
 
                     </Menu>
+                    <StyledMenu
+                        open={notificationOpen}
+                        anchorEl={anchorEl} 
+                        onClose={handleCloseMenu}
+                        // sx={{ '& > *': {borderRadius: '1rem'} }}
+                    >
+                        <Box sx={{paddingX: '1.5rem', paddingY: '1rem', width: '26.125rem'}}>
+                            <Box sx={{
+                                display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem'
+                            }}>
+                                <Typography sx={{
+                                    fontSize: '1.5rem', fontWeight: '600', color: '#293357'
+                                }}>
+                                    Уведомления
+                                </Typography>
+                            </Box>
+                            {notifications.map((el, index) => (
+                                <MenuItem key={index}>
+                                    <Box sx={{display: 'flex', justifyContent: 'flex-start', gap: '0.75rem', }}>
+                                        <Box sx={{
+                                            width: '2.5rem', height: '2.5rem', borderRadius: '1.25rem', backgroundColor: '#E9F9EF'
+                                        }}>
+                                        </Box>
+                                        <Box sx={{
+                                            display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem'
+                                        }}>
+                                            <Box>
+                                                <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: '#58607C', marginBottom: '0.1rem'}}>
+                                                    Заявки на работу (+{notification.length})
+                                                </Typography>
+                                                <Typography sx={{ fontSize: '0.75rem', fontWeight: '400', color: '#9499AB'}}>
+                                                    У вас новые заявки на вакансии
+                                                </Typography>
+                                            </Box>
+                                            <Typography sx={{ fontSize: '0.75rem', fontWeight: '400', color: '#9499AB'}}>
+                                                07.05.2024
+                                            </Typography>
+                                        </Box>                                        
+                                    </Box>
+                                </MenuItem>
+                            ))}
+                        </Box>
+                    </StyledMenu>
                     {/*<Modal*/}
                     {/*	open={isLogoutModalOpen}*/}
                     {/*	handleClose={closeLogoutModal}*/}

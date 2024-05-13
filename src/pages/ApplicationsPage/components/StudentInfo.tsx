@@ -6,29 +6,72 @@ import {RatingDisplay} from '@src/components/RatingDisplay/RatingDisplay';
 import { localization } from '../generator';
 import { useSelector } from 'react-redux';
 import { selectLanguage } from '@src/store/generals/selectors';
+import { useNavigate } from 'react-router-dom';
 
 interface StudentInfoProps {
-    student: any;
+    application: any;
+    handleChangeStatus: any;
 }
 
+const statuses = {
+    processing: {
+        'ru': 'Не просмотрено',
+        'kz': 'Не просмотрено',
+        'en': 'Not viewed',
+    },
+    rejected: {
+        'ru': 'Отклонено',
+        'kz': 'Отклонено',
+        'en': 'Rejected',
+    },
+    invited: {
+        'ru': 'Приглашен',
+        'kz': 'Шақырылды',
+        'en': 'Invited',
+    },
+};
+
+const majorLocales = {
+    "\"Bachelor\"": {
+      'ru': "Бакалавр",
+      'kz': "Бакалавр",
+      'en': "Bachelor"
+    },
+    "\"Master\"": {
+      'ru': "Магистр",
+      'kz': "Маигстр",
+      'en': "Master"
+    }
+};
+
+const universityName = {
+    3: {
+      'kz': 'Қ.И. атыңдағы ҚазҰТЗУ',
+      'ru': 'КазНИТУ имени К. И. Сатпаева',
+      'en': 'Satbayev University'
+    },
+    1: {
+      'kz': 'Қазақстан-Британ техникалық университеті',
+      'ru': 'Казахстанско-Британский Технический Университет',
+      'en': 'Kazakhstan-British Technical University'
+    },
+    2: {
+      'kz': 'Q-Lab',
+      'ru': 'Q-Lab',
+      'en': 'Q-Lab'
+    }
+};
+
 export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
-    const { student } = props;
+    const { application, handleChangeStatus } = props;
     const lang = useSelector(selectLanguage);
-    const sample = {
-        name: 'John Doe',
-        email: 'johndoe@gmail.com',
-        phone: '123-456-7890',
-        date_of_birth: '01/01/2000',
-        region: 'North America',
-        university_name: 'University of Toronto',
-        speciality: 'Computer Science',
-        degree: 'Bachelor',
-        academic_rating: 4.0,
-        gpa: '4.0',
-        skills: ['skill', 'skill', 'skill', 'skill', 'skill', 'skill', 'skill', 'skill', 'skill'],
+    const navigate = useNavigate();
+    const [isFavorite, setIsFavorite] = React.useState(true);
+
+    const goToProfile = (id: number) => {
+        window.open(`/student/${id}`, '_blank');
     };
 
-    const [isFavorite, setIsFavorite] = React.useState(true);
     return (
         <Box sx={{
             display: 'flex', padding: '1.75rem', borderRadius: '1.25rem', 
@@ -40,7 +83,7 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
             }}>
                 <Box sx={{display: 'flex', flexDirection: 'column', gap: '1.25rem'}}>
                     <Typography fontWeight='600' sx={{ fontSize: '28px' }} >
-                        {sample && sample.name ? sample.name : ''} 
+                        {application && lang === 'kz' ? application.name_kz : lang === 'ru' ? application.name_ru : application.name_en}
                     </Typography>
                     <Box sx={{display: 'flex', gap: '1rem'}}>
                         <Box sx={{paddingX: '1rem', paddingY: '0.75', backgroundColor: '#EBF2FE', borderRadius: '1.25rem'}}>
@@ -49,31 +92,53 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                             </Typography>
                         </Box>
                         <Typography sx={{ fontSize: '0.875rem' }}>
-                            {sample && sample.email ? sample.email : ''}
+                            {application && application.diploma_email ? application.diploma_email : ''}
                         </Typography>
                     </Box>
                     <Box sx={{display: 'flex', gap: '1.25rem'}}>
-                        <Button 
-                            variant={'contained'} 
-                            sx={{
-                                borderRadius: '2.5rem', paddingX: '1.5rem', paddingY: '0.5rem',
-                                boxShadow: 0, ':hover': {boxShadow: 0}
-                            }}
-                        >
-                            {localization[lang].invite}
-                        </Button>
-                        <Button 
-                            variant={'contained'} 
-                            sx={{
-                                borderRadius: '2.5rem', paddingX: '1.5rem', paddingY: '0.5rem',
-                                backgroundColor: '#FDECEC', color: '#EF4444', boxShadow: 0, 
-                                ':hover': {
-                                    backgroundColor: '#F7DAD9',  boxShadow: 0,
-                                }
-                            }}
-                        >
-                            {localization[lang].reject}
-                        </Button>
+                        {
+                            application && application.status === 'invited' ? 
+                            (<Box
+                                sx={{
+                                    borderRadius: '1.25rem', paddingX: '1rem', paddingY: '0.75rem',
+                                    fontSize: '0.875rem', background: '#E9F9EF', color: '#22C55E',
+                                }}
+                            >
+                                {application && application.status ? statuses[application.status as keyof typeof statuses][lang] : 'Статус'}
+                            </Box>) : application.status === 'rejected' ? 
+                            (<Box
+                                sx={{
+                                    borderRadius: '1.25rem', paddingX: '1rem', paddingY: '0.75rem',
+                                    fontSize: '0.875rem', background: '#FDECEC', color: '#EF4444',
+                                }}
+                            >
+                                {application && application.status ? statuses[application.status as keyof typeof statuses][lang] : 'Статус'}
+                            </Box>) :
+                            (<>
+                                <Button 
+                                    variant={'contained'} 
+                                    sx={{
+                                        borderRadius: '2.5rem', paddingX: '1.5rem', paddingY: '0.5rem',
+                                        boxShadow: 0, ':hover': {boxShadow: 0}
+                                    }}
+                                    onClick={()=>{handleChangeStatus('invited', application.id)}}
+                                >
+                                    {localization[lang].invite}
+                                </Button>
+                                <Button 
+                                    variant={'contained'} 
+                                    sx={{
+                                        borderRadius: '2.5rem', paddingX: '1.5rem', paddingY: '0.5rem',
+                                        backgroundColor: '#FDECEC', color: '#EF4444', boxShadow: 0, 
+                                        ':hover': {
+                                            backgroundColor: '#F7DAD9',  boxShadow: 0,
+                                        }
+                                    }}
+                                    onClick={()=>{handleChangeStatus('rejected', application.id)}}
+                                >
+                                    {localization[lang].reject}
+                                </Button>
+                            </>)}
                         <IconButton
                             color="primary"
                             sx={{
@@ -85,7 +150,7 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                             {/* {isFavorite ? <StarPressed/> : <Star/>} */}
                             <FavoriteDiploma fill={isFavorite ? "#3B82F6" : "white"}/>
                         </IconButton>
-                        <Button sx={{padding: '0.5rem', borderRadius: '2.5rem'}}>
+                        <Button sx={{padding: '0.5rem', borderRadius: '2.5rem'}} onClick={() => goToProfile(application.diploma_id)}>
                             {localization[lang].goToProfile}
                         </Button>
                     </Box>
@@ -95,7 +160,7 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                                 {localization[lang].dateofbirth}
                             </Typography>
                             <Typography sx={{fontSize: '1rem'}}>
-                                {sample && sample.date_of_birth ? sample.date_of_birth : ''}
+                                {application && application.diploma_date_of_birth ? application.diploma_date_of_birth : ''}
                             </Typography>
                         </Box>
                         <Box sx={{display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '12rem'}}>
@@ -103,7 +168,7 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                                 {localization[lang].region}
                             </Typography>
                             <Typography sx={{fontSize: '1rem'}}>
-                                {sample && sample.region ? sample.region : ''}
+                                {application && application.diploma_region ? application.diploma_region : ''}
                             </Typography>
                         </Box>
                         <Box sx={{display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '12rem'}}>
@@ -111,7 +176,7 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                                 {localization[lang].email}
                             </Typography>
                             <Typography sx={{fontSize: '1rem'}}>
-                                {sample && sample.email ? sample.email : ''}
+                                {application && application.diploma_email ? application.diploma_email : ''}
                             </Typography>
                         </Box>
                         <Box sx={{display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '12rem'}}>
@@ -119,7 +184,7 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                                 {localization[lang].phone}
                             </Typography>
                             <Typography sx={{fontSize: '1rem'}}>
-                                {sample && sample.phone ? sample.phone : ''}
+                                {application && application.diploma_phone ? application.diploma_phone : ''}
                             </Typography>
                         </Box>
                     </Box>
@@ -129,7 +194,7 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                                 {localization[lang].university}
                             </Typography>
                             <Typography sx={{fontSize: '1rem'}}>
-                                {sample && sample.university_name ? sample.university_name : ''}
+                                {application && universityName[application.university_id as keyof typeof universityName] ? universityName[application.university_id as keyof typeof universityName][lang] : ""}
                             </Typography>
                         </Box>
                         <Box sx={{display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '12rem'}}>
@@ -137,7 +202,7 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                                 {localization[lang].specialityName}
                             </Typography>
                             <Typography sx={{fontSize: '1rem'}}>
-                                {sample && sample.speciality ? sample.speciality : ''}
+                                { application && lang === 'ru' ? application.speciality_ru : lang === 'kz' ? application.speciality_kz : application.speciality_en }
                             </Typography>
                         </Box>
                         <Box sx={{display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '12rem'}}>
@@ -145,7 +210,7 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                                 {localization[lang].degree}
                             </Typography>
                             <Typography sx={{fontSize: '1rem'}}>
-                                {sample && sample.degree ? sample.degree : ''}
+                                {application && majorLocales[application.diploma_degree as keyof typeof majorLocales] ? majorLocales[application.diploma_degree as keyof typeof majorLocales][lang] : ''}
                             </Typography>
                         </Box>
                         <Box sx={{display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '12rem'}}>
@@ -153,7 +218,7 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                                 GPA:
                             </Typography>
                             <Typography sx={{fontSize: '1rem'}}>
-                                {sample && sample.gpa ? sample.gpa : ''}
+                                {application && application.gpa ? application.gpa : ''}
                             </Typography>
                         </Box>
                     </Box>
@@ -162,15 +227,15 @@ export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
                             <Typography sx={{color: '#9499AB', fontSize: '1rem'}}>
                                 {localization[lang].rating}
                             </Typography>
-                            <RatingDisplay academicRating={sample && sample.academic_rating ? sample.academic_rating : 0}/>
+                            <RatingDisplay academicRating={application && application.rating ? application.rating : 0}/>
                         </Box>
                     </Box>
-                    {sample.skills && <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                    {application.skills && <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
                         <Typography sx={{fontWeight: 600, fontSize: '1.5rem'}}>
                             {localization[lang].skills}
                         </Typography>
                         <Box sx={{display: 'flex', gap: '0.75rem'}}>
-                            {sample && sample.skills && sample.skills.map((skill: string, index: number) => (
+                            {application && application.skills && application.skills.map((skill: string, index: number) => (
                                 <Box key={index} sx={{
                                     paddingX: '1rem', paddingY: '0.5rem', backgroundColor: '#FFFFFF', borderRadius: '1rem'
                                 }}>
