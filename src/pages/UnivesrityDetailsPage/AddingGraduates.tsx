@@ -786,7 +786,7 @@ const AddingGraduates: React.FC = () => {
                               message: "Скопировано!",
                               status: "success"
                             })
-                            navigator.clipboard.writeText(`https://ipfs.io/ipfs/${ipfsLink}`);
+                            navigator.clipboard.writeText(`https://${ipfsLink}.ipfs.nftstorage.link`);
                           }}
                   > Cкопировать</Button>
                 }
