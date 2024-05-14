@@ -26,7 +26,7 @@ const AppLayout: React.FC<LayoutProps> = (props: LayoutProps) => {
 
     const checkRoute = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const sidebarEnabledRoutes = ['details', 'user', 'profile', 'graduates', 'ai-chat'];
+        const sidebarEnabledRoutes = ['details', 'user', 'profile', 'graduates', 'ai-chat', 'employer'];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return true;

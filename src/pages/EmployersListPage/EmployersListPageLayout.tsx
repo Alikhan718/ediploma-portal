@@ -5,7 +5,7 @@ import { EmployerListPageHeader } from './components/EmployerListPageHeader';
 import { useNavigate } from "react-router-dom";
 import styles from "./EmployersListPage.module.css";
 import { selectLanguage } from "@src/store/generals/selectors";
-import { selectEmployersList } from '@src/store/auth/selector';
+import { selectEmployersList, selectUserRole } from '@src/store/auth/selector';
 import { fetchEmployersList, fetchEmployersSearch } from '@src/store/auth/actionCreators';
 import { useSelector, useDispatch } from "react-redux";
 import { localization } from '@src/pages/EmployersListPage/generator';
@@ -22,6 +22,7 @@ export const EmployersListPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
     const employersList = useSelector(selectEmployersList);
     const isMobile = useMediaQuery('(max-width:998px)');
+    const role = useSelector(selectUserRole).toLowerCase();
 
     const [currentPage, setCurrentPage] = React.useState(1);
     const employersPerPage: number = 8;
@@ -39,6 +40,8 @@ export const EmployersListPageLayout: React.FC = () => {
     }, []);
 
     const handleApply = async (employer: any) => {
+        if (role != 'student') return;
+
         dispatch(fetchApply({ employer: employer }));
         console.log('applied');
     };

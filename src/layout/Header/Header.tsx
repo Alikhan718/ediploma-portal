@@ -130,8 +130,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     const [notificationOpen, setNotificationOpen] = React.useState(false);
     const [notification, setNotification] = React.useState<any[]>([]);
 
-    const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
-    // const baseURL = 'http://localhost:8080';
+    // const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
+    const baseURL = 'http://localhost:8080';
 
     const userState = useSelector(selectUserState);
     const socket = io(baseURL);
@@ -183,7 +183,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     };
     const checkSecondHeaderRoute = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates', 'applications', 'student'];
+        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates', 'applications', 'student', 'employer'];
         for (const item of secondHeaderEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return true;

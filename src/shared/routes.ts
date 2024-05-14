@@ -38,7 +38,7 @@ export const routes: Record<string, string> = {
 	myDiplomas: `${appRoot}/user/profile/my-diplomas`,
 	school: `${appRoot}/school`,
 	schoolDetails: `${appRoot}/school/:id`,
-	employersList: `${appRoot}/employer`,
+	employersList: `${appRoot}/employers`,
 	employerDetails: `${appRoot}/employer/:id`,
 	testqr: `${appRoot}/testqr`,
 	applications: `${appRoot}/applications`,
