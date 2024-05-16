@@ -20,7 +20,8 @@ let webSocket: any = null;
 export const enableWebSocket = (set: any = null) => {
     try {
         if (webSocket == null) {
-            webSocket = new WebSocket('wss://127.0.0.1:13579/');
+            webSocket = new WebSocket('wss://ediploma.kz');
+            // webSocket = new WebSocket('wss://127.0.0.1:13579/');
             webSocket!.onopen = (): void => {
                 console.log("Connection opened");
                 if (set){
@@ -76,7 +77,7 @@ export const enableWebSocket = (set: any = null) => {
         // console.log("Websocket connected!");
 
     } catch (e: any) {
-        console.log(e.getMessage());
+        console.log(e);
     }
 };
 

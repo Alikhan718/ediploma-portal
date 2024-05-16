@@ -1,3 +1,5 @@
+import { apply } from "redux-saga/effects";
+
 export const localization = {
 	"kz":{
 		Header:{
@@ -5,6 +7,7 @@ export const localization = {
 			searchBar: "Компания атауы",
 			searchButton: "Іздеу",
 			university: "Жұмыс берушілер",
+			apply: 'Өтініш беру',
 		},
 	},
 	"ru":{
@@ -13,6 +16,7 @@ export const localization = {
 			searchBar: "Название компании",
 			searchButton: "Поиск",
 			university: "Работодатели",
+			apply: 'Откликнуться',
 		},
 	},
 	"en":{
@@ -21,6 +25,7 @@ export const localization = {
 			searchBar: "Company name",
 			searchButton: "Search",
 			university: "Employers",
+			apply: 'Apply'
 		},
 	},
 }

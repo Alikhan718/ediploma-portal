@@ -1,4 +1,5 @@
-﻿let webSocket = new WebSocket('wss://127.0.0.1:13579/');
+﻿// let webSocket = new WebSocket('wss://127.0.0.1:13579/');
+let webSocket = new WebSocket('wss://ediploma.kz');
 let callback = null;
 
 function blockScreen() {

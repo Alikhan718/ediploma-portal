@@ -20,11 +20,11 @@ import { ReactComponent as FilterIcon } from '@src/assets/icons/Tuning 2.svg';
 import FilterSelect from "@src/components/FilterSelect/FilterSelect";
 
 export const EmployerFilter: React.FC<IFilter> = (props) => {
-	const {filterAttributes, setFilterAttributes, triggerSearchFilters, toggleBottomSheet } = props;
+	const {filterAttributes, setFilterAttributes, open, triggerSearchFilters, toggleBottomSheet } = props;
 	const [selectedFields, setSelectedFields] = React.useState<string[]>([]);
 	const [selectedScopeOfActivities, setSelectedScopeOfActivities] = React.useState<string[]>([]);
 	const dispatch = useDispatch()
-
+	const isMobile = useMediaQuery('(max-width: 778px)');
 	const lang = useSelector(selectLanguage);
 	const translatedFields = fields[lang];
 	const translatedScopeOfActivities = scopeOfActivity[lang];
@@ -98,12 +98,21 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 	return (
 		<>
 			<Box sx={{ '& > :not(:first-child)': { marginTop: '.5rem', gap: isSmallerThanMd ? '24px' : 'inherit' },
-				width: '30%',
+				display: isMobile ? open ? 'block' : 'none' : 'block',
+				width: '100%',
 				backgroundColor:'white',
 				padding: '.75rem 1rem 1rem 1rem',
 				borderRadius: '1rem',
 				border: '1px #4D4D4D',
 				height: 'fit-content',
+				'@media (max-width: 778px)': {
+					position: 'fixed',
+					width: '90%',
+					left: '50%',
+					top: '50%',
+					transform: 'translate(-50%, -50%)',
+					zIndex: "10",
+				}
 			}}>
 				<Box display='flex' alignItems="center" sx={{ gap:'.5rem',
 					paddingY: isSmallerThanMd ? '0' : '.5rem',

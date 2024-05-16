@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import MenuIcon from '@src/assets/icons/menu.svg';
 import MenuClosedIcon from '@src/assets/icons/cross.svg';
 import AppLogo from '@src/assets/icons/app-logo.svg';
-import {ReactComponent as HeaderSearchIcon} from '@src/assets/icons/search.svg';
+import { ReactComponent as HeaderSearchIcon } from '@src/assets/icons/search.svg';
 import RuFlag from '@src/assets/icons/RuFlag.svg';
 import KzFlag from '@src/assets/icons/Flag.svg';
 import EnFlag from '@src/assets/icons/EnFlag.svg';
-import {ReactComponent as AccountCircleIcon} from '@src/assets/icons/profileIcon.svg';
+import { ReactComponent as AccountCircleIcon } from '@src/assets/icons/profileIcon.svg';
+import { ReactComponent as CheckNote } from '@src/assets/icons/checkNot.svg';
 import {
     headerNavigations,
     interFaceOptions,
@@ -22,24 +23,25 @@ import {
     Typography, InputAdornment,
     Menu, MenuItem, IconButton, Popper, MenuList
 } from '@mui/material';
-import {HeaderProps} from './Header.props';
-import {GlobalLoader} from './GlobalLoader';
-import {Button, Input, Modal} from '@src/components';
-import {NavLink, useNavigate} from "react-router-dom";
-import {routes} from "@src/shared/routes";
-import {isAuthenticated} from "@src/utils/userAuth";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchSearch} from "@src/store/diplomas/actionCreators";
-import {selectSearchText} from "@src/store/diplomas/selectors";
+import { HeaderProps } from './Header.props';
+import { GlobalLoader } from './GlobalLoader';
+import { Button, Input, Modal } from '@src/components';
+import { NavLink, useNavigate } from "react-router-dom";
+import { routes } from "@src/shared/routes";
+import { isAuthenticated } from "@src/utils/userAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSearch } from "@src/store/diplomas/actionCreators";
+import { selectSearchText } from "@src/store/diplomas/selectors";
 import NeedAuthorizationPic from "@src/assets/example/requireAuthorizationPic.svg";
-import {ReactComponent as NotIcon} from "@src/assets/icons/Notification.svg";
-import {ReactComponent as ModeIcon} from "@src/assets/icons/Moons.svg";
-import {selectUserRole, selectUserState} from "@src/store/auth/selector";
-import {selectLanguage} from "@src/store/generals/selectors";
-import {setLanguage} from '@src/store/generals/actionCreators';
-import {fetchLogoutAction, fetchUserProfile} from '@src/store/auth/actionCreators';
+import { ReactComponent as NotIcon } from "@src/assets/icons/Notification.svg";
+import { ReactComponent as ModeIcon } from "@src/assets/icons/Moons.svg";
+import { selectUserRole, selectUserState } from "@src/store/auth/selector";
+import { selectLanguage } from "@src/store/generals/selectors";
+import { setLanguage } from '@src/store/generals/actionCreators';
+import { fetchLogoutAction, fetchUserProfile } from '@src/store/auth/actionCreators';
 import io from 'socket.io-client';
 import { set } from 'react-ga';
+import { ReactComponent as GreenNote } from '@src/assets/icons/greenNote.svg';
 
 interface AppBarProps extends MuiAppBarProps {
     open: boolean;
@@ -47,7 +49,7 @@ interface AppBarProps extends MuiAppBarProps {
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open'
-})<AppBarProps>(({theme, open}) => (
+})<AppBarProps>(({ theme, open }) => (
     {
         // width: `calc(100% - ${theme.spacing(7)})`,
         boxShadow: 'none',
@@ -127,12 +129,16 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     });
     const [open, setOpen] = React.useState(false);
     const [minimized, setMinimized] = React.useState(true);
-    const [notificationOpen, setNotificationOpen] = React.useState(false);
+    const [notificationOpen, setNotificationOpen] = React.useState(true);
     const [notification, setNotification] = React.useState<any[]>([]);
 
-    // const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
-    const baseURL = 'http://localhost:8080';
+    const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL || 'http://localhost:8080';
+    // const baseURL = 'http://localhost:8080';
 
+    if (!baseURL) {
+        throw new Error("REACT_APP_ADMIN_API_BASE_URL is not defined");
+    }
+    
     const userState = useSelector(selectUserState);
     const socket = io(baseURL);
 
@@ -142,31 +148,33 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
     React.useEffect(() => {
         if (userState.id) {
-            if (role === 'Employer') {
-                socket.auth = {role: 'employer', userId: userState.id}
-                socket.connect();
-            }
-            if (role === 'Student') {
-                socket.auth = {role: 'student', userId: userState.id}
-                socket.connect();
+            if (!socket.connected) {
+                if (role === 'Employer') {
+                    socket.auth = { role: 'employer', userId: userState.id };
+                    socket.connect();
+                }
+                if (role === 'Student') {
+                    socket.auth = { role: 'student', userId: userState.id };
+                    socket.connect();
+                }
             }
         }
     }, [userState]);
 
     React.useEffect(() => {
-        if (socket.connected){
+        if (socket.connected) {
             console.log('Socket connected');
         }
-            socket.on('new-application', (application)=>{
-                console.log('You received new application !', application.studentId);
-                setAnchorEl(document.getElementById('notification-icon'));
-                setNotification([...notification, application]);
-                setNotificationOpen(true);
-            });
+        socket.on('new-application', (application) => {
+            console.log('You received new application !', application.studentId);
+            setAnchorEl(document.getElementById('notification-icon'));
+            setNotification([...notification, application]);
+            setNotificationOpen(true);
+        });
     }, [socket]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setFilterAttributes({...filterAttributes, text: e.target.value.trim()});
+        setFilterAttributes({ ...filterAttributes, text: e.target.value.trim() });
         if (e.target.value.trim().length >= 2) {
             triggerSearchFilters(filterAttributes);
         }
@@ -262,7 +270,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         setIsLogoutModalOpen(true);
     };
     const closeLogoutModal = () => {
-        setShowDropdown({profile: false, lang: false});
+        setShowDropdown({ profile: false, lang: false });
         setIsLogoutModalOpen(false);
     };
 
@@ -277,7 +285,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     };
     const handleCloseMenu = () => {
         setAnchorEl(null);
-        setShowDropdown({profile: false, lang: false});
+        setShowDropdown({ profile: false, lang: false });
+        setNotificationOpen(false);
     };
 
     const handleFlagSelect = (language: string) => {
@@ -309,7 +318,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                         },
                     }}
                 >
-                    <Box sx={{fontSize: '1.2rem', fontWeight: '600', marginLeft: '1rem'}}>
+                    <Box sx={{ fontSize: '1.2rem', fontWeight: '600', marginLeft: '1rem' }}>
                         {headerText}
                     </Box>
                     <Box sx={{
@@ -347,16 +356,16 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 onClick={(event) => {
                                 }}
                             >
-                                <HeaderSearchIcon/>
+                                <HeaderSearchIcon />
                             </IconButton>
                         </Box>
                         <Divider orientation="vertical"
-                                 style={{
-                                     borderLeftWidth: "1px",
-                                     borderRightWidth: "0",
-                                     borderColor: "grey",
-                                     height: "1.5rem",
-                                 }}/>
+                            style={{
+                                borderLeftWidth: "1px",
+                                borderRightWidth: "0",
+                                borderColor: "grey",
+                                height: "1.5rem",
+                            }} />
                         <IconButton
                             style={{
                                 cursor: 'pointer',
@@ -367,25 +376,25 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 handleOpenMenu(event, "lang");
                             }}
                         >
-                            {lang == 'ru' && <img src={RuFlag} alt="Russian"/>}
-                            {lang == 'en' && <img src={EnFlag} alt="English"/>}
-                            {lang == 'kz' && <img src={KzFlag} alt="Kazakh"/>}
+                            {lang == 'ru' && <img src={RuFlag} alt="Russian" />}
+                            {lang == 'en' && <img src={EnFlag} alt="English" />}
+                            {lang == 'kz' && <img src={KzFlag} alt="Kazakh" />}
                         </IconButton>
                         <Menu
                             anchorEl={anchorEl}
                             open={showDropdown.lang}
                             onClose={handleCloseMenu}
                         >
-                            <MenuItem onClick={() => handleFlagSelect('ru')} sx={{fontSize: '1rem'}}>
-                                <img src={RuFlag} alt="Russian" style={{marginRight: '0.5rem'}}/>
+                            <MenuItem onClick={() => handleFlagSelect('ru')} sx={{ fontSize: '1rem' }}>
+                                <img src={RuFlag} alt="Russian" style={{ marginRight: '0.5rem' }} />
                                 {localization.lang1[lang]}
                             </MenuItem>
-                            <MenuItem onClick={() => handleFlagSelect('en')} sx={{fontSize: '1rem'}}>
-                                <img src={EnFlag} alt="English" style={{marginRight: '0.5rem'}}/>
+                            <MenuItem onClick={() => handleFlagSelect('en')} sx={{ fontSize: '1rem' }}>
+                                <img src={EnFlag} alt="English" style={{ marginRight: '0.5rem' }} />
                                 {localization.lang3[lang]}
                             </MenuItem>
-                            <MenuItem onClick={() => handleFlagSelect('kz')} sx={{fontSize: '1rem'}}>
-                                <img src={KzFlag} alt="French" style={{marginRight: '0.5rem'}}/>
+                            <MenuItem onClick={() => handleFlagSelect('kz')} sx={{ fontSize: '1rem' }}>
+                                <img src={KzFlag} alt="French" style={{ marginRight: '0.5rem' }} />
                                 {localization.lang2[lang]}                        </MenuItem>
                         </Menu>
                         {/* <NotIcon style={{
@@ -395,12 +404,12 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                      navigate(routes.notifications);
                                  }}/> */}
                         <Divider orientation="vertical"
-                                 style={{
-                                     borderLeftWidth: "1px",
-                                     borderRightWidth: "0",
-                                     borderColor: "grey",
-                                     height: "1.5rem",
-                                 }}/>
+                            style={{
+                                borderLeftWidth: "1px",
+                                borderRightWidth: "0",
+                                borderColor: "grey",
+                                height: "1.5rem",
+                            }} />
                         {/* <IconButton
                             style={{
                                 cursor: 'pointer',
@@ -429,7 +438,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             }}
                             id="notification-icon"
                         >
-                            <AccountCircleIcon style={{alignSelf: "center"}}/>
+                            <AccountCircleIcon style={{ alignSelf: "center" }} />
                         </IconButton>
                     </Box>
                     <Menu
@@ -447,11 +456,11 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 onClick={() => {
                                     if (index === 0) {
                                         if (role === "Student") {
-                                            navigate(routes.studentProfile, {replace: true});
+                                            navigate(routes.studentProfile, { replace: true });
                                         } else if (userRole === "Employer") {
-                                            navigate(routes.employerProfile, {replace: true});
+                                            navigate(routes.employerProfile, { replace: true });
                                         } else if (userRole === "University") {
-                                            navigate(routes.universityProfile, {replace: true});
+                                            navigate(routes.universityProfile, { replace: true });
                                         }
                                     }
                                     handleCloseMenu();
@@ -464,7 +473,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 </Typography>
                             </MenuItem>
                         ))}
-                        <Divider style={{margin: "0 1rem"}}/>
+                        <Divider style={{ margin: "0 1rem" }} />
                         {dropdownItemsBottom.filter((item) => item.role.includes(role.toLowerCase()) || item.role.includes('*')).map((item, index) => (
                             <MenuItem
                                 key={index}
@@ -487,7 +496,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
 
                                 <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1.2rem'
-                                            fontWeight='600'
+                                    fontWeight='600'
                                 >
                                     {localization.logout[lang]}
                                 </Typography>
@@ -519,17 +528,17 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
                 </Box>
             ) : (
-                <AppBar open={open} sx={{padding: "0 !important"}} className="app-navbar-container">
+                <AppBar open={open} sx={{ padding: "0 !important" }} className="app-navbar-container">
                     <Box className="app-navbar" height='5rem'>
                         <Modal open={openModal} handleClose={() => setOpenModal(true)}
-                               aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                            aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                             <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
 
-                                <img src={NeedAuthorizationPic} alt=""/>
+                                <img src={NeedAuthorizationPic} alt="" />
                                 <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1rem'
-                                            fontWeight='600'
-                                            variant="h6"
-                                            component="h2">
+                                    fontWeight='600'
+                                    variant="h6"
+                                    component="h2">
                                     Для использования требуется авторизация
                                 </Typography>
                                 <Button variant='contained' sx={{
@@ -548,7 +557,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             <img className='diploma-logo' src={AppLogo} onClick={() => {
                                 handleActiveNav(0);
                                 navigate(routes.main);
-                            }} alt="logo"/>
+                            }} alt="logo" />
                             :
                             null
                         }
@@ -580,7 +589,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             justifyContent='flex-end'
                             gap=".5rem"
                             className="diploma-btn-container">
-                                {/* <IconButton
+                            {/* <IconButton
                                     style={{
                                         cursor: 'pointer',
                                         minHeight: '2.5rem',
@@ -600,9 +609,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                     handleOpenMenu(event, "lang");
                                 }}
                             >
-                                {lang == 'ru' && <img src={RuFlag} alt="Russian"/>}
-                                {lang == 'en' && <img src={EnFlag} alt="English"/>}
-                                {lang == 'kz' && <img src={KzFlag} alt="Kazakh"/>}
+                                {lang == 'ru' && <img src={RuFlag} alt="Russian" />}
+                                {lang == 'en' && <img src={EnFlag} alt="English" />}
+                                {lang == 'kz' && <img src={KzFlag} alt="Kazakh" />}
                             </IconButton>
 
 
@@ -610,12 +619,12 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 <Box display='flex' justifyContent="center" gap="1.25rem" height="3rem">
                                     <Button
                                         onClick={() => {
-                                            navigate(routes.login, {replace: true});
+                                            navigate(routes.login, { replace: true });
                                         }}
                                         className="diploma-auth-btn"
                                         variant='contained'
                                         borderRadius="3rem"
-                                        style={{padding: "0 2rem"}}
+                                        style={{ padding: "0 2rem" }}
                                     >
                                         <Typography
                                             variant='h4'
@@ -634,7 +643,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
 
                                         }} src={minimized ? MenuIcon : MenuClosedIcon} onClick={() => {
                                             setMinimized(!minimized);
-                                        }} alt={"menu-icon"}/>
+                                        }} alt={"menu-icon"} />
                                     </Box>
                                 </Box>
                                 :
@@ -647,7 +656,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                             handleOpenMenu(event, "profile");
                                         }}
                                     >
-                                        <AccountCircleIcon style={{alignSelf: "center"}}/>
+                                        <AccountCircleIcon style={{ alignSelf: "center" }} />
                                     </IconButton>
 
 
@@ -657,14 +666,14 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                         </Box>
                     </Box>
                     <Box className="" display={minimized ? 'none' : 'flex'} flexDirection="column"
-                         style={{
-                             position: "absolute",
-                             zIndex: "99",
-                             backgroundColor: "white",
-                             width: "100%",
-                             height: "calc(100vh - 4rem)",
-                             top: "100%",
-                         }}>
+                        style={{
+                            position: "absolute",
+                            zIndex: "99",
+                            backgroundColor: "white",
+                            width: "100%",
+                            height: "calc(100vh - 4rem)",
+                            top: "100%",
+                        }}>
                         <Box display="flex" flexDirection="column" gap=".5rem" height="100%" p="1rem">
                             <Typography color="#B6B6B6" fontSize="0.95rem">
                                 Информация
@@ -681,11 +690,11 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                             padding: '15px',
                                             borderRadius: '19px', marginRight: '10px'
                                         }}
-                                        onClick={():void => {setMinimized(true);}}
+                                        onClick={(): void => { setMinimized(true); }}
                                     >
                                         <Box mr='18px' ml='8px'>
                                             <Box
-                                                sx={{background: `${activeNav === nav.id ? '#white' : 'white'}`}}>
+                                                sx={{ background: `${activeNav === nav.id ? '#white' : 'white'}` }}>
                                                 <Box
                                                     style={{
                                                         filter: activeNav === nav.id ? "brightness(4)" : "",
@@ -697,7 +706,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                             color={activeNav === nav.id ? 'white' : '#697B7A'}
                                             fontWeight='600'
                                             alignSelf="center"
-                                            sx={{fontSize: '14px'}}
+                                            sx={{ fontSize: '14px' }}
                                         >
                                             {nav.name[lang]}
                                         </Typography>
@@ -721,7 +730,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                     >
                                         <Box mr='18px' ml='8px'>
                                             <Box
-                                                sx={{background: `${activeNav === option.id ? '#white' : 'white'}`}}>
+                                                sx={{ background: `${activeNav === option.id ? '#white' : 'white'}` }}>
                                                 <Box
                                                     style={{
                                                         filter: activeNav === option.id ? "brightness(4)" : "",
@@ -733,7 +742,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                             color={activeNav === option.id ? 'white' : '#697B7A'}
                                             fontWeight='600'
                                             alignSelf="center"
-                                            sx={{fontSize: '14px'}}
+                                            sx={{ fontSize: '14px' }}
                                         >
                                             {option.name[lang]}
                                         </Typography>
@@ -741,21 +750,21 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 ))}
                             </Box>
                             <Box display='flex' flexDirection="column" justifyContent="center" mt="auto" gap="1.25rem"
-                                 pb="1rem">
+                                pb="1rem">
                                 <Button
                                     onClick={() => {
-                                        navigate(routes.login, {replace: true});
+                                        navigate(routes.login, { replace: true });
                                     }}
                                     fullWidth
                                     variant='contained'
                                     borderRadius="3rem"
-                                    style={{padding: "0 2rem"}}
+                                    style={{ padding: "0 2rem" }}
                                 >
                                     Войти
                                 </Button>
                                 <Button
                                     onClick={() => {
-                                        navigate(routes.register, {replace: true});
+                                        navigate(routes.register, { replace: true });
                                     }}
                                     fullWidth
                                     borderRadius="3rem"
@@ -766,7 +775,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                             "background-color": "#3B82F6", color: "white"
                                         }
                                     }}
-                                    style={{padding: "0 2rem"}}
+                                    style={{ padding: "0 2rem" }}
                                 >
                                     Регистрироваться
 
@@ -790,11 +799,11 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 onClick={() => {
                                     if (index === 0) {
                                         if (role === "Student") {
-                                            navigate(routes.studentProfile, {replace: true});
+                                            navigate(routes.studentProfile, { replace: true });
                                         } else if (userRole === "Employer") {
-                                            navigate(routes.employerProfile, {replace: true});
+                                            navigate(routes.employerProfile, { replace: true });
                                         } else if (userRole === "University") {
-                                            navigate(routes.universityProfile, {replace: true});
+                                            navigate(routes.universityProfile, { replace: true });
                                         }
                                     }
                                     handleLogoutClick(item)
@@ -808,7 +817,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                                 </Typography>
                             </MenuItem>
                         ))}
-                        <Divider style={{margin: "0 1rem"}}/>
+                        <Divider style={{ margin: "0 1rem" }} />
                         {dropdownItemsBottom.filter((item) => item.role.includes(role.toLowerCase()) || item.role.includes('*')).map((item, index) => (
                             <MenuItem
                                 key={index}
@@ -831,7 +840,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                             <Box display='flex' width='100%' flexBasis='1' flexWrap={'wrap'} justifyContent='center'>
 
                                 <Typography textAlign='center' mb={".5rem"} id="modal-modal-title" fontSize='1.2rem'
-                                            fontWeight='600'
+                                    fontWeight='600'
                                 >
                                     {localization.logout[lang]}
                                 </Typography>
@@ -863,42 +872,48 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                     </Menu>
                     <StyledMenu
                         open={notificationOpen}
-                        anchorEl={anchorEl} 
+                        anchorEl={anchorEl}
                         onClose={handleCloseMenu}
-                        // sx={{ '& > *': {borderRadius: '1rem'} }}
+                    // sx={{ '& > *': {borderRadius: '1rem'} }}
                     >
-                        <Box sx={{paddingX: '1.5rem', paddingY: '1rem', width: '26.125rem'}}>
+                        <Box sx={{ paddingX: '1.5rem', paddingY: '1rem', width: 'fit-content' }}>
                             <Box sx={{
-                                display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem'
+                                display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem',
+                                width: '100%'
                             }}>
                                 <Typography sx={{
                                     fontSize: '1.5rem', fontWeight: '600', color: '#293357'
                                 }}>
                                     Уведомления
                                 </Typography>
+                                <Box sx={{ cursor: 'pointer' }} onClick={()=>{handleCloseMenu()}}>
+                                    <CheckNote/>
+                                </Box>
                             </Box>
                             {notifications.map((el, index) => (
-                                <MenuItem key={index}>
-                                    <Box sx={{display: 'flex', justifyContent: 'flex-start', gap: '0.75rem', }}>
+                                <MenuItem key={index} onClick={()=>{navigate('/applications')}}>
+                                    <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: '0.75rem', }}>
                                         <Box sx={{
-                                            width: '2.5rem', height: '2.5rem', borderRadius: '1.25rem', backgroundColor: '#E9F9EF'
+                                            width: '2.5rem', height: '2.5rem', borderRadius: '1.25rem', backgroundColor: '#E9F9EF',
+                                            display: 'flex', justifyContent: 'center', alignItems: 'center',
                                         }}>
+                                            <GreenNote/>
                                         </Box>
                                         <Box sx={{
                                             display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1rem'
                                         }}>
                                             <Box>
-                                                <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: '#58607C', marginBottom: '0.1rem'}}>
+                                                <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: '#58607C', marginBottom: '0.1rem' }}>
                                                     Заявки на работу (+{notification.length})
                                                 </Typography>
-                                                <Typography sx={{ fontSize: '0.75rem', fontWeight: '400', color: '#9499AB'}}>
+                                                <Typography sx={{ fontSize: '0.75rem', fontWeight: '400', color: '#9499AB' }}>
                                                     У вас новые заявки на вакансии
                                                 </Typography>
                                             </Box>
-                                            <Typography sx={{ fontSize: '0.75rem', fontWeight: '400', color: '#9499AB'}}>
+                                            <Typography sx={{ fontSize: '0.75rem', fontWeight: '400', color: '#9499AB' }}>
                                                 07.05.2024
                                             </Typography>
-                                        </Box>                                        
+                                        </Box>
                                     </Box>
                                 </MenuItem>
                             ))}
@@ -947,19 +962,19 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
                         open={showDropdown.lang}
                         onClose={handleCloseMenu}
                     >
-                        <MenuItem onClick={() => handleFlagSelect('ru')} sx={{fontSize: '1rem'}}>
-                            <img src={RuFlag} alt="Russian" style={{marginRight: '0.5rem'}}/>
+                        <MenuItem onClick={() => handleFlagSelect('ru')} sx={{ fontSize: '1rem' }}>
+                            <img src={RuFlag} alt="Russian" style={{ marginRight: '0.5rem' }} />
                             {localization.lang1[lang]}
                         </MenuItem>
-                        <MenuItem onClick={() => handleFlagSelect('en')} sx={{fontSize: '1rem'}}>
-                            <img src={EnFlag} alt="English" style={{marginRight: '0.5rem'}}/>
+                        <MenuItem onClick={() => handleFlagSelect('en')} sx={{ fontSize: '1rem' }}>
+                            <img src={EnFlag} alt="English" style={{ marginRight: '0.5rem' }} />
                             {localization.lang3[lang]}
                         </MenuItem>
-                        <MenuItem onClick={() => handleFlagSelect('kz')} sx={{fontSize: '1rem'}}>
-                            <img src={KzFlag} alt="French" style={{marginRight: '0.5rem'}}/>
+                        <MenuItem onClick={() => handleFlagSelect('kz')} sx={{ fontSize: '1rem' }}>
+                            <img src={KzFlag} alt="French" style={{ marginRight: '0.5rem' }} />
                             {localization.lang2[lang]}                        </MenuItem>
                     </Menu>
-                    <GlobalLoader/>
+                    <GlobalLoader />
                 </AppBar>
             )
             }

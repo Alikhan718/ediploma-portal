@@ -305,6 +305,18 @@ export const dropdownItems: AppRoutesNavigation[] = [
     icon: <HrBankIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
     verticalAlign: "middle",
   },
+  {
+    id: 108,
+    name: {
+      'ru': 'Заявки',
+      'kz': 'Өтініштер',
+      'en': 'Applications',
+    },
+    to: routes.applications,
+    role: ['employer'],
+    icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: 'middle',
+  }
 
 ];
 

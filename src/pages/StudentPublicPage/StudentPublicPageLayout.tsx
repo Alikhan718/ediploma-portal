@@ -62,6 +62,7 @@ import { ReactComponent as ChartIcon } from '@src/assets/icons/Chart.svg';
 import { ReactComponent as Instagram } from '@src/assets/icons/igEmployer.svg';
 import { ReactComponent as Facebook } from '@src/assets/icons/fbEmployer.svg';
 import QRCode from "react-qr-code";
+import { fetchApplications, fetchStatus } from '@src/store/vacancy/actionCreators';
 
 export const StudentPublicPageLayout: React.FC = () => {
   const lang = useSelector(selectLanguage);
@@ -235,6 +236,10 @@ export const StudentPublicPageLayout: React.FC = () => {
       return userState?.diploma_degree ? majorLocales[userState.diploma_degree as keyof typeof majorLocales][lang] : userState?.speciality_en?.split("\n")[0];
     }
     return noData;
+  };
+
+  const handleChangeStatus = (status: string, application_id: number): void => {
+    dispatch(fetchStatus({ status, application_id }));
   };
 
   return (
@@ -698,6 +703,32 @@ export const StudentPublicPageLayout: React.FC = () => {
 
                   </Box>
 
+                </Box>
+                <Box sx={{display: 'none', '@media (max-width: 778px)': {
+                  display: 'flex', gap: '0.75rem'
+                }}}>
+                  <Button 
+                    variant={'contained'} 
+                    sx={{
+                      borderRadius: '2.5rem', paddingX: '1.5rem', paddingY: '0.5rem',
+                      boxShadow: 0, ':hover': {boxShadow: 0}, width: '100%',
+                    }}
+                    onClick={()=>{handleChangeStatus('invited', 0)}}
+                  >
+                    {localization[lang].invite}
+                  </Button>
+                  <Button 
+                    variant={'contained'}
+                    sx={{
+                      borderRadius: '2.5rem', paddingX: '1.5rem', paddingY: '0.5rem',
+                      backgroundColor: '#FDECEC', color: '#EF4444', boxShadow: 0, 
+                      ':hover': { backgroundColor: '#F7DAD9',  boxShadow: 0, },
+                      width: '100%',
+                    }}
+                    onClick={()=>{handleChangeStatus('rejected', 0)}}
+                  >
+                    {localization[lang].reject}
+                  </Button>
                 </Box>
               </Box>
               <Box sx={{

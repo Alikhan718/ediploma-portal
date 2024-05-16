@@ -42,7 +42,7 @@ export const AppBottomNav: React.FC<BottomNavigationProps> = (props): JSX.Elemen
     const handleNavigate = (value: number): void => {
         switch (value) {
             case 0:
-                navigate(`/employer`);
+                navigate(`/employers`);
                 break;
             case 1:
                 navigate(`/user/profile`)

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import styles from "../EmployersListPage.module.css";
 import {ReactComponent as Filter} from '@src/assets/icons/Tuning 2.svg';
 import cn from "classnames";
@@ -27,7 +27,7 @@ export const EmployerListPageHeader: React.FC<EmployerHeaderProps> = (props) => 
 	const searchText = useSelector(selectSearchText);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
+	const isMobile = useMediaQuery('(max-width: 778px)');
 	const [showFilter, setShowFilter] = React.useState(false);
 	const [searchQuery, setSearchQuery] = React.useState('');
 	const [filterAttributes, setFilterAttributes] = React.useState<EmployerFilterAttributes>({field: '', text: ''});
@@ -58,7 +58,7 @@ export const EmployerListPageHeader: React.FC<EmployerHeaderProps> = (props) => 
 							>
 								<Button
 									onClick={() => {
-										setShowFilter(true);
+										setShowFilter(!showFilter);
 									}}
 									variant="outlined"
 									sx={{borderRadius: '48px', paddingX: "3rem", color: '#3B82F6',}}
@@ -147,14 +147,16 @@ export const EmployerListPageHeader: React.FC<EmployerHeaderProps> = (props) => 
 					</Box>
 				</Box>
 			</Box>
-			{/* <EmployerFilter
-                triggerSearchFilters={triggerSearchFilters}
-                filterAttributes={filterAttributes}
-                setFilterAttributes={setFilterAttributes}
-                open={showFilter}
-                setOpen={setShowFilter}
+			<Box sx={{display: isMobile ? 'block' : 'none' }}>
+			<EmployerFilter
+				triggerSearchFilters={triggerSearchFilters}
+				filterAttributes={filterAttributes}
+				setFilterAttributes={setFilterAttributes}
+				open={showFilter}
+				setOpen={setShowFilter}
 				toggleBottomSheet={null}
-            /> */}
+			/>
+			</Box>
 		</React.Fragment>
 	);
 };

@@ -52,8 +52,9 @@ export const localization = {
           generator: "Резюме генераторы",
           text: "Жұмыс, проекттер және тапсырмалар табу үшін порталда резюме жасаңыз, жұмысшылар сізді тапады",
           begin: "Бастау"
-        }
-        
+        },
+        invite: 'Шақыру',
+        reject: 'Қабул етпеу',
     },
 	"ru":{
         Menu: {
@@ -107,6 +108,8 @@ export const localization = {
           text: 'Чтобы находить работу, проекты и задачи создайте резюме на портале и работадатели',
           begin: 'Начать',
         },
+        invite: 'Пригласить',
+        reject: 'Отказать',
     },
 	"en":{
         Menu: {
@@ -159,8 +162,9 @@ export const localization = {
           generator: 'Resume generator',
           text: 'To find jobs, projects, and tasks, create a resume on the portal, and employers will find you.',
           begin: 'Start',
-        }
-        
+        },
+        invite: 'Invite',
+        reject: 'Reject',
     },
 }
 

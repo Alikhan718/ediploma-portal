@@ -140,7 +140,7 @@ export const ApplicationsLayout: React.FC = () => {
 
     function handleApplicationClick(id: number): void {
         if (isMobile) {
-            navigate(`/diploma/${id}/1`);
+            navigate(`/student/${id}`);
         }
     };
 
@@ -410,7 +410,7 @@ export const ApplicationsLayout: React.FC = () => {
                                     backgroundColor: "#white", color: "#293357", borderRadius: '3rem',
                                     '&:hover': { backgroundColor: "#f0f0f0", },
                                 }}
-                                onClick={(): void => navigate('/employer')}
+                                onClick={(): void => navigate('/employers')}
                             >
                                 {localization[lang].employers}
                             </MuiButton>
