@@ -129,7 +129,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     });
     const [open, setOpen] = React.useState(false);
     const [minimized, setMinimized] = React.useState(true);
-    const [notificationOpen, setNotificationOpen] = React.useState(true);
+    const [notificationOpen, setNotificationOpen] = React.useState(false);
     const [notification, setNotification] = React.useState<any[]>([]);
 
     const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL || 'http://localhost:8080';
@@ -138,40 +138,40 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     if (!baseURL) {
         throw new Error("REACT_APP_ADMIN_API_BASE_URL is not defined");
     }
-    
+
     const userState = useSelector(selectUserState);
-    const socket = io(baseURL);
+    // const socket = io(baseURL);
 
     React.useEffect(() => {
         dispatch(fetchUserProfile());
     }, [!userState]);
 
-    React.useEffect(() => {
-        if (userState.id) {
-            if (!socket.connected) {
-                if (role === 'Employer') {
-                    socket.auth = { role: 'employer', userId: userState.id };
-                    socket.connect();
-                }
-                if (role === 'Student') {
-                    socket.auth = { role: 'student', userId: userState.id };
-                    socket.connect();
-                }
-            }
-        }
-    }, [userState]);
+    // React.useEffect(() => {
+    //     if (userState.id) {
+    //         if (!socket.connected) {
+    //             if (role === 'Employer') {
+    //                 socket.auth = { role: 'employer', userId: userState.id };
+    //                 socket.connect();
+    //             }
+    //             if (role === 'Student') {
+    //                 socket.auth = { role: 'student', userId: userState.id };
+    //                 socket.connect();
+    //             }
+    //         }
+    //     }
+    // }, [userState]);
 
-    React.useEffect(() => {
-        if (socket.connected) {
-            console.log('Socket connected');
-        }
-        socket.on('new-application', (application) => {
-            console.log('You received new application !', application.studentId);
-            setAnchorEl(document.getElementById('notification-icon'));
-            setNotification([...notification, application]);
-            setNotificationOpen(true);
-        });
-    }, [socket]);
+    // React.useEffect(() => {
+    //     if (socket.connected) {
+    //         console.log('Socket connected');
+    //     }
+    //     socket.on('new-application', (application) => {
+    //         console.log('You received new application !', application.studentId);
+    //         setAnchorEl(document.getElementById('notification-icon'));
+    //         setNotification([...notification, application]);
+    //         setNotificationOpen(true);
+    //     });
+    // }, [socket]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFilterAttributes({ ...filterAttributes, text: e.target.value.trim() });

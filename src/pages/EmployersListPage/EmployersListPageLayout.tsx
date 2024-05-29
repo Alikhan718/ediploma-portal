@@ -9,7 +9,7 @@ import { selectEmployersList, selectUserRole } from '@src/store/auth/selector';
 import { fetchEmployersList, fetchEmployersSearch } from '@src/store/auth/actionCreators';
 import { useSelector, useDispatch } from "react-redux";
 import { localization } from '@src/pages/EmployersListPage/generator';
-import exEmployer from "@src/assets/example/exEmployer.png";
+import exEmployer from "@src/assets/example/EmployerExLogo.svg";
 import { fetchApply } from '@src/store/vacancy/actionCreators';
 import { EmployerFilter } from '@src/layout/EmployerFilter/EmployerFilter';
 import { routes } from "@src/shared/routes";
@@ -95,7 +95,7 @@ export const EmployersListPageLayout: React.FC = () => {
                 </Box>
                 <Grid container display="flex" rowSpacing={2} columnSpacing={1} flexWrap="wrap"
                     sx={{ margin: "0 !important" }}
-                    justifyContent="start" className={styles.schoolContainer} width='80%'
+                    justifyContent="start" className={styles.schoolContainer} width={isMobile ? '100%' : '80%'}
                 >
                     {employersList ? (displayedEmployersList.map((employer: any) => (
                         <Grid
@@ -162,7 +162,7 @@ export const EmployersListPageLayout: React.FC = () => {
                                         sx={{
                                             display: 'none',
                                             "@media (max-width: 778px)": {
-                                                display: 'block',
+                                                display: 'none',
                                                 color: 'var(--color-light-dark-600, #58607C)',
                                                 fontSize: '0.875rem',
                                                 fontStyle: 'normal',
@@ -176,6 +176,7 @@ export const EmployersListPageLayout: React.FC = () => {
                                     </Typography>
                                     <Typography fontSize="1rem" color="#818181" className={styles.mobTextSm}
                                         sx={{
+                                            display: employer.field ? 'block' : 'none',
                                             marginBottom: '0.75rem',
                                             "@media (max-width: 778px)": {
                                                 color: 'var(--color-light-dark-600, #58607C)',

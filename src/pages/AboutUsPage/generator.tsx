@@ -4,9 +4,10 @@ import { ReactComponent as Advantages3 } from "@src/assets/aboutUs/advantages_3.
 import { routes } from "@src/shared/routes";
 import syrym from "@src/assets/example/Syrym.jpg";
 import alikhan from "@src/assets/example/Alikh.jpg";
-// import alisher from "@src/assets/aboutUs/Alisher.jpg";
+import alisher from "@src/assets/example/alisher.jpg";
 import abylai from "@src/assets/example/Abyl.jpg";
 import kunya from "@src/assets/example/Kunya.jpg";
+import abylai_b from "@src/assets/example/abylay_pm.jpg";
 
 export const advantages = [
 	{
@@ -66,7 +67,8 @@ export const localization = {
 				{ 'image': alikhan, 'subtitle': 'Әлихан Сейітқадыров' },
 				{ 'image': kunya, 'subtitle': 'Қуаныш Еңсебаев' },
 				{ 'image': abylai, 'subtitle': 'Абылай Сұлтанбеков' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp', 'subtitle': 'Әлішер Бейсембеков' },
+				{ 'image': alisher, 'subtitle': 'Әлішер Бейсембеков' },
+				{ 'image': abylai_b, 'subtitle': 'Абылай Байтукбаев' },
 			],
 		},
 		AboutUs: {
@@ -149,10 +151,11 @@ export const localization = {
 			description: "Преданная и компетентная команда студентов КБТУ и RIT, которые используют блокчейн и технологии искусственного интеллекта для трансформации образования.",
 			elements: [
 				{ 'image': syrym, 'subtitle': 'Сырым Сериков' },
-				{ 'image': alikhan, 'subtitle': 'Алихан Сеиткадыров' },
+				{ 'image': alikhan, 'subtitle': 'Алихан Сейткадыров' },
 				{ 'image': kunya, 'subtitle': 'Куаныш Енсебаев' },
 				{ 'image': abylai, 'subtitle': 'Абылай Султанбеков' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp', 'subtitle': 'Алишер Бейсембеков' },
+				{ 'image': alisher, 'subtitle': 'Алишер Бейсембеков' },
+				{ 'image': abylai_b, 'subtitle': 'Абылай Байтукбаев' },
 			],
 		},
 		AboutUs: {
@@ -237,7 +240,8 @@ export const localization = {
 				{ 'image': alikhan, 'subtitle': 'Alikhan Seitkadyrov' },
 				{ 'image': kunya, 'subtitle': ' Kuanysh Yensebayev' },
 				{ 'image': abylai, 'subtitle': 'Abylai Sultanbekov' },
-				{ 'image': 'https://jasaim.kz/wp-content/uploads/2023/05/Kunya-CFO.webp', 'subtitle': 'Alisher Beisembekov' },
+				{ 'image': alisher, 'subtitle': 'Alisher Beisembekov' },
+				{ 'image': abylai_b, 'subtitle': 'Abylay Baytukbayiev' },
 			],
 		},
 		AboutUs: {

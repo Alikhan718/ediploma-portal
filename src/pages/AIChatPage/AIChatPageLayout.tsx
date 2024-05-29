@@ -4,6 +4,8 @@ import {Button, Input, Label} from '@src/components';
 import {ReactComponent as SearchIcon} from '@src/assets/icons/search-icon.svg';
 import styles from "./AIChatPage.module.css";
 import cn from "classnames";
+import OpenAI from 'openai';
+import Assistant from './services/assisstant';
 
 export const AIChatLayout: React.FC = () => {
     const [inputText, setInputText] = useState('');
@@ -18,57 +20,27 @@ export const AIChatLayout: React.FC = () => {
     const [response, setResponse] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const urlRegex:RegExp = /(https?:\/\/[^\s\)]+)/g;
+    
+    Assistant.initAssistant();
+    Assistant.initThread();
 
-    useEffect(() => {
-        if (boxRef.current) {
-            (boxRef.current as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
-        }
-    }, [messages]);
+    // useEffect(() => {
+    //     if (boxRef.current) {
+    //         (boxRef.current as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    //     }
+    // }, [messages]);
 
     const handleButtonClick = async (): Promise<void> => {
-        if (inputText.trim() === ''){
-            return;
-        }
-
         setMessages((prevMessages) => [
             ...prevMessages,
-            {
+            {   
                 role: 'user',
                 content: inputText,
             },
         ]);
-    
         setInputText('');
         setResponse('');
-        setIsLoading(true);
-        
-        const newMessages = [
-            ...messages,
-            {
-                role: 'user',
-                content: inputText,
-            },
-        ];
-
-        const last10messages = newMessages.slice(-10)
-
-        const endpoint:string = `https://agile-job-desc-denerator.onrender.com/chat`;
-
-        try {
-            const response = await fetch(endpoint,{
-                method: "POST",
-                body: JSON.stringify({messages: last10messages}),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const responseData = await response.json();
-            setSessionId(responseData.sessionId);
-        } catch(error) {
-            console.log(error);
-        }
-
+        await Assistant.addMessage(inputText);
         setMessages((prevMessages) => [
             ...prevMessages,
             {
@@ -76,29 +48,85 @@ export const AIChatLayout: React.FC = () => {
                 content: '',
             },
         ]);
-
-    };
-
-    useEffect(()=>{
-        const endpoint:string = `https://agile-job-desc-denerator.onrender.com/chat-stream?sessionId=${sessionId}`;
-
-        const eventSource = new EventSource(endpoint);
-
-        eventSource.addEventListener('newEntry', e=> {
-            setResponse((prevResponse:string) => prevResponse + e.data);
+        await Assistant.startRun((newMessage: string) => {
+            setResponse((prevResponse:string) => prevResponse + newMessage);
         });
+    }
 
-        eventSource.addEventListener('close', () => {
-            console.log('Connection closed');
-            setIsLoading(false);
-            eventSource.close();
-        });
+    // const handleButtonClick = async (): Promise<void> => {
+    //     if (inputText.trim() === ''){
+    //         return;
+    //     }
 
-        return (() => {
-            eventSource.close();
-        });
+    //     setMessages((prevMessages) => [
+    //         ...prevMessages,
+    //         {
+    //             role: 'user',
+    //             content: inputText,
+    //         },
+    //     ]);
+    
+    //     setInputText('');
+    //     setResponse('');
+    //     setIsLoading(true);
+        
+    //     const newMessages = [
+    //         ...messages,
+    //         {
+    //             role: 'user',
+    //             content: inputText,
+    //         },
+    //     ];
 
-    }, [sessionId]);
+    //     const last10messages = newMessages.slice(-10)
+
+    //     const endpoint:string = `https://agile-job-desc-denerator.onrender.com/chat`;
+
+    //     try {
+    //         const response = await fetch(endpoint,{
+    //             method: "POST",
+    //             body: JSON.stringify({messages: last10messages}),
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         });
+
+    //         const responseData = await response.json();
+    //         setSessionId(responseData.sessionId);
+    //     } catch(error) {
+    //         console.log(error);
+    //     }
+
+    //     setMessages((prevMessages) => [
+    //         ...prevMessages,
+    //         {
+    //             role: 'system',
+    //             content: '',
+    //         },
+    //     ]);
+
+    // };
+
+    // useEffect(()=>{
+    //     const endpoint:string = `https://agile-job-desc-denerator.onrender.com/chat-stream?sessionId=${sessionId}`;
+
+    //     const eventSource = new EventSource(endpoint);
+
+    //     eventSource.addEventListener('newEntry', e=> {
+    //         setResponse((prevResponse:string) => prevResponse + e.data);
+    //     });
+
+    //     eventSource.addEventListener('close', () => {
+    //         console.log('Connection closed');
+    //         setIsLoading(false);
+    //         eventSource.close();
+    //     });
+
+    //     return (() => {
+    //         eventSource.close();
+    //     });
+
+    // }, [sessionId]);
 
     useEffect(()=>{
         if (response === ''){
@@ -106,11 +134,12 @@ export const AIChatLayout: React.FC = () => {
         }
 
         const lastMessage = messages.pop();
+        console.log(lastMessage);
         if(!lastMessage){
             return;
         }
 
-        lastMessage.content = response;
+        lastMessage.content = response.toString();
 
         setMessages((prevMessages) => [
             ...prevMessages,

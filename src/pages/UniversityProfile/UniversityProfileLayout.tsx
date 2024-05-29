@@ -126,6 +126,8 @@ export const UniversityProfileLayout: React.FC = () => {
 
   React.useEffect(() => {
     dispatch(fetchUserProfile());
+    console.log(diplomaList.filter((diploma: any) => diploma.university_id == userState.university_id))
+    console.log(userState)
   }, [!userState]);
   //fetch user Profile
 
@@ -596,7 +598,8 @@ export const UniversityProfileLayout: React.FC = () => {
                 }}
               >
 
-                {currentDiplomaPage.filter((diploma: any) => diploma.university_id == userState.university_id).map((e: any) => (
+                {/*{currentDiplomaPage.filter((diploma: any) => diploma.university_id == userState.university_id).map((e: any) => (*/}
+                {diplomaList.filter((diploma: any) => diploma.university_id == userState.university_id).slice(startIndex, endIndex).map((e: any) => (
 
                   <Box
                     key={e.id}
@@ -690,7 +693,7 @@ export const UniversityProfileLayout: React.FC = () => {
                     alignItems: 'center'
                   }}>
                     <Pagination
-                      count={totalPages}
+                      count={Math.ceil(diplomaList.filter((diploma: any) => diploma.university_id == userState.university_id).length/diplomasPerPage)}
                       page={currentPage}
                       onChange={(event, page) => setCurrentPage(page)}
                       shape="rounded"

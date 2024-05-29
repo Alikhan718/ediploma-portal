@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Box, Typography, useMediaQuery, Button
 } from '@mui/material';
-import exampleImage from '@src/assets/example/employerDetails.jpeg';
+import exampleImage from '@src/assets/example/EmployerExLogo.svg';
 import { ReactComponent as SingleCheck } from "@src/assets/icons/single check.svg";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEmployerDetails } from '@src/store/auth/actionCreators';
@@ -18,6 +18,7 @@ import { ReactComponent as Youtube } from "@src/assets/icons/ytEmployer.svg";
 import { useParams } from 'react-router';
 import { employerData, employerNumData, titles } from './generator';
 import { fetchApply } from '@src/store/vacancy/actionCreators';
+import { ReactComponent as CopyIcon } from '@src/assets/icons/copyEmployerIcon.svg';
 
 export const EmployerDetailsPageLayout: React.FC = () => {
     const lang = useSelector(selectLanguage);
@@ -111,7 +112,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                                     alt="employer"
                                     style={{
                                         objectFit: 'cover', width: '100%', height: '100%',
-                                        borderRadius: isMobile ? '5rem' : '5rem'
+                                        borderRadius: isMobile ? '6rem' : '5rem'
                                     }}
                                 />
                             </Box>
@@ -295,7 +296,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                                     alt="employer"
                                     style={{
                                         objectFit: 'cover', width: '100%', height: '100%',
-                                        borderRadius: isMobile ? '5rem' : '5rem'
+                                        borderRadius: isMobile ? '6rem' : '5rem'
                                     }}
                                 />
                             </Box>
@@ -462,23 +463,33 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                             <Typography sx={{fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
                                 {titles[lang].phone}
                             </Typography>
-                            <Typography sx={{fontSizee: '1rem', color: '#293357', whiteSpace: 'break-word', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
-                                {employerDetails && employerDetails.phone ? employerDetails.phone : "-"}
-                            </Typography>
+                            <Box display='flex' alignItems='center' gap={isMobile ? '0.5rem' : '0.75rem'}>
+                                <Typography sx={{fontSizee: '1rem', color: '#293357', overflowWrap: 'break-word', wordBreak: 'break-all', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
+                                    {employerDetails && employerDetails.phone ? employerDetails.phone : "-"}
+                                </Typography>
+                                <Box sx={{cursor: 'pointer', justifyContent: 'center', alignItems: 'center'}} onClick={()=>{navigator.clipboard.writeText(employerDetails && employerDetails.phone ? employerDetails.phone : "-")}}>
+                                    <CopyIcon/>
+                                </Box>
+                            </Box>
                         </Box>
                         <Box sx={{display: 'flex', flexDirection: 'column', gap: '0.5rem', '@media (max-width: 778px)': {gap: '0.4rem', width: '40%'}}}>
                             <Typography sx={{fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
                                 {titles[lang].email}
                             </Typography>
-                            <Typography sx={{fontSizee: '1rem', color: '#293357', whiteSpace: 'break-word', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
-                                {employerDetails && employerDetails.email ? employerDetails.email : "-"}
-                            </Typography>
+                            <Box display='flex' alignItems='center' gap={isMobile ? '0.5rem' : '0.75rem'} >
+                                <Typography sx={{fontSizee: '1rem', color: '#293357', overflowWrap: 'break-word', wordBreak: 'break-all', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
+                                    {employerDetails && employerDetails.email ? employerDetails.email : "-"}
+                                </Typography>
+                                <Box sx={{cursor: 'pointer', justifyContent: 'center', alignItems: 'center'}} onClick={()=>{navigator.clipboard.writeText(employerDetails && employerDetails.email ? employerDetails.email : "-")}}>
+                                    <CopyIcon/>
+                                </Box>
+                            </Box>
                         </Box>
                         <Box sx={{display: 'flex', flexDirection: 'column', gap: '0.5rem', '@media (max-width: 778px)': {gap: '0.4rem', width: '40%'}}}>
                             <Typography sx={{fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
                                 {titles[lang].address}
                             </Typography>
-                            <Typography sx={{fontSizee: '1rem', color: '#293357', whiteSpace: 'break-word', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
+                            <Typography sx={{fontSizee: '1rem', color: '#293357', overflowWrap: 'break-word', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
                                 {employerDetails && employerDetails.address ? employerDetails.address : "-"}
                             </Typography>
                         </Box>
@@ -486,7 +497,7 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                             <Typography sx={{fontSize: '1rem', color: '#9499AB', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
                                 {titles[lang].website}
                             </Typography>
-                            <Typography sx={{fontSizee: '1rem', color: '#293357', whiteSpace: 'break-word', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
+                            <Typography sx={{fontSizee: '1rem', color: '#293357', overflowWrap: 'break-word', '@media (max-width: 778px)':{fontSize: '0.875rem'}}}>
                                 {employerDetails && employerDetails.website ? employerDetails.website : "-"}
                             </Typography>
                         </Box>
