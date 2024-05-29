@@ -143,7 +143,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     // const socket = io(baseURL);
 
     React.useEffect(() => {
-        dispatch(fetchUserProfile());
+        if(isAuthenticated()) {
+            dispatch(fetchUserProfile());
+        }
     }, [!userState]);
 
     // React.useEffect(() => {

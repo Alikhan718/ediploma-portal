@@ -105,14 +105,14 @@ export const EmployerDetailsPageLayout: React.FC = () => {
                         },
                     }}>
                         <Box sx={{display: 'flex', gap: '1.5rem', justifyContent: 'flex-start', alignItems: 'center', '@media (max-width: 778px)': {gap: '0.75rem'}}}>
-                            <Box sx={{width: '9rem', height: '9rem', borderRadius: '5rem', '@media (max-width: 778px)': {width: '3rem', height: '3rem'}}}>
+                            <Box sx={{width: '9rem', height: '9rem', borderRadius: '50%', '@media (max-width: 778px)': {width: '3rem', height: 'auto'}}}>
                                 <img 
                                     // src={employerDetails && employerDetails.avatar ? `${baseURL}/${employerDetails.avatar}` : exampleImage} 
                                     src={exampleImage} 
                                     alt="employer"
                                     style={{
                                         objectFit: 'cover', width: '100%', height: '100%',
-                                        borderRadius: isMobile ? '6rem' : '5rem'
+                                        borderRadius: '50%'
                                     }}
                                 />
                             </Box>
