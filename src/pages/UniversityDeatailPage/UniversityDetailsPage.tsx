@@ -435,7 +435,7 @@ export const UniversityDetailsPage: React.FC = () => {
                   }}
                   >
                     <Box marginRight='3rem' sx={{
-                      width: '55%', '@media (max-width: 768px)': { width: '100%', marginRight: '0' }
+                      width: data && data.university_id && data.university_id != 2 ? '55%' : '90%', '@media (max-width: 768px)': { width: '100%', marginRight: '0' }
                     }}>
                       <Box sx={{
                         fontSize: '24px',
@@ -443,7 +443,7 @@ export const UniversityDetailsPage: React.FC = () => {
                         color: '#4D4D4D',
                         paddingBottom: '10px'
                       }}>
-                        {localization[lang].MainCard.mission}
+                        {data && data.university_id && data.university_id != 2 ? localization[lang].MainCard.mission : localization[lang].MainCard.missionShort }
                       </Box>
                       <Typography className={styles.textSm} color="#818181">
                         {

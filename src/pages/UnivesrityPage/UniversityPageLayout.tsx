@@ -21,6 +21,7 @@ export const UniversityPageLayout: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(fetchUniversitiesList());
+        console.log(universitiesList);
     }, []);
 
     return (
@@ -30,7 +31,7 @@ export const UniversityPageLayout: React.FC = () => {
             <Grid container display="flex" rowSpacing={1} columnSpacing={1} flexWrap="wrap"
                   justifyContent="space-between"
                   className={styles.universitiesContainer} width='100%'>
-                {universitiesList.map((university: any) => (
+                {universitiesList.filter((university: any): boolean => university.id != 19054).map((university: any) => (
                     <Grid
                         key={university.id} item xs={12} sm={5.9} md={5.9}
                         lg={5.9}
@@ -54,7 +55,11 @@ export const UniversityPageLayout: React.FC = () => {
                             className={styles.universityImg}
                             sx={{
                                 width: "100%",
+                                height: '15rem',
                                 borderRadius: "10px",
+                                '@media (max-width: 778px)': {
+                                    height: '10rem'
+                                }
                             }}
                             image={university.banner ? `${baseURL}/${university.banner}` : exampleImage}
                             alt={university.name ? `${university.name}` : "University image"}

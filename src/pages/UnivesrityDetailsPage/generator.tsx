@@ -612,6 +612,7 @@ export const localization = {
       diploma: "Дипломдар",
       analytics: "Аналитика",
       mission: "Университет миссиясы",
+      missionShort: "Миссиясы",
       history: 'Университет тарихы',
       best: 'Үздік түлектер',
       reserve: 'Кадрлық резерв'
@@ -706,6 +707,7 @@ export const localization = {
       diploma: "Дипломы",
       analytics: "Аналитика",
       mission: "Миссия университета",
+      missionShort: "Миссия",
       history: 'История университета',
       best: 'Лучшие выпускники',
       reserve: 'Резерв кадров'
@@ -800,6 +802,7 @@ export const localization = {
       diploma: "Diplomas",
       analytics: "Analytics",
       mission: "University mission",
+      missionShort: "Mission",
       history: 'University history',
       best: 'Best graduates',
       reserve: 'Personnel reserve'

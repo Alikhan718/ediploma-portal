@@ -61,7 +61,7 @@ export const EmployerListPageHeader: React.FC<EmployerHeaderProps> = (props) => 
 										setShowFilter(!showFilter);
 									}}
 									variant="outlined"
-									sx={{borderRadius: '48px', paddingX: "3rem", color: '#3B82F6',}}
+									sx={{ display: 'none', borderRadius: '48px', paddingX: "3rem", color: '#3B82F6', '@media (max-width: 778px)': {display: 'flex'}}}
 									startIcon={<Filter/>}
                             	>
                                 	{localization[lang].Header.filter}

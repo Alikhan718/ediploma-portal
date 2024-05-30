@@ -10,7 +10,7 @@ import {
 	useMediaQuery
 } from "@mui/material";
 import { IFilter } from "@src/layout/Filter/FilterSection.props";
-import {fields, scopeOfActivity, localization} from "@src/layout/Filter/generator";
+import {fields, scopeOfActivity, regions, localization} from "@src/layout/Filter/generator";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLanguage } from '@src/store/generals/selectors';
 import { cancelEmployerFilters, fetchEmployersList } from '@src/store/auth/actionCreators';
@@ -27,7 +27,8 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 	const isMobile = useMediaQuery('(max-width: 778px)');
 	const lang = useSelector(selectLanguage);
 	const translatedFields = fields[lang];
-	const translatedScopeOfActivities = scopeOfActivity[lang];
+	// const translatedScopeOfActivities = scopeOfActivity[lang];
+	const translatedScopeOfActivities = regions[lang];
 	const isSmallerThanMd = useMediaQuery('(max-width:1200px)');
 
 	const filter = (type:string, arr: any) => {
@@ -132,7 +133,7 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 							id="panel2-header"
 							sx={{ padding: '0', display: 'flex', justifyContent: 'space-between', width: '100%' }}
 						>
-							<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>{localization[lang].MainCard.field}</Typography>
+							<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>{localization[lang].MainCard.scopeOfActivity}</Typography>
 						</AccordionSummary>
 						<AccordionDetails sx={{ display: 'flex', justifyContent: 'center', width:'100%',padding: '0',flexDirection: 'column',}}>
 							<FilterSelect
@@ -164,7 +165,7 @@ export const EmployerFilter: React.FC<IFilter> = (props) => {
 							id="panel2-header"
 							sx={{ padding: '0', display: 'flex', justifyContent: 'space-between', width: '100%' }}
 						>
-							<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>{localization[lang].MainCard.scopeOfActivity}</Typography>
+							<Typography sx={{ fontSize: '1rem', fontWeight: 700 }}>{localization[lang].MainCard.field}</Typography>
 						</AccordionSummary>
 						<AccordionDetails sx={{ display: 'flex', justifyContent: 'center', width:'100%',padding: '0',flexDirection: 'column',}}>
 							<FilterSelect

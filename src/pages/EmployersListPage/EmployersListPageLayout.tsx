@@ -14,6 +14,7 @@ import { fetchApply } from '@src/store/vacancy/actionCreators';
 import { EmployerFilter } from '@src/layout/EmployerFilter/EmployerFilter';
 import { routes } from "@src/shared/routes";
 import {EmployerFilterAttributes} from "@src/layout/Header/Header";
+import { isAuthenticated } from "@src/utils/userAuth";
 
 export const EmployersListPageLayout: React.FC = () => {
     const navigate = useNavigate();
@@ -58,7 +59,7 @@ export const EmployersListPageLayout: React.FC = () => {
             <Box sx={{
                 display: 'none',
                 '@media (max-width: 778px)': {
-                    display: 'flex', width: '100%', padding: '0.25rem',
+                    display: isAuthenticated() ? 'flex' : 'none', width: '100%', padding: '0.25rem',
                     justifyContent: 'center', alignItems: 'center',
                     borderRadius: '3rem', background: '#FFF', marginBottom: '1rem'
                 },
@@ -72,7 +73,7 @@ export const EmployersListPageLayout: React.FC = () => {
                 <MuiButton
                     fullWidth
                     sx={{
-                        backgroundColor: "#white", color: "#293357", borderRadius: '3rem',
+                       backgroundColor: "#white", color: "#293357", borderRadius: '3rem',
                         '&:hover': { backgroundColor: "#f0f0f0", },
                     }}
                     onClick={() => navigate('/applications')}
