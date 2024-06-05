@@ -24,6 +24,8 @@ export const UniversityPageLayout: React.FC = () => {
         console.log(universitiesList);
     }, []);
 
+    const excludedIds: string[] = ['4767', '4768', '4770', '19054'];
+
     return (
         <Box display='flex' flexWrap='wrap' justifyContent='center' gap='0 1rem' className={styles.mainContainer}
              pt='2rem'>
@@ -31,7 +33,7 @@ export const UniversityPageLayout: React.FC = () => {
             <Grid container display="flex" rowSpacing={1} columnSpacing={1} flexWrap="wrap"
                   justifyContent="space-between"
                   className={styles.universitiesContainer} width='100%'>
-                {universitiesList.filter((university: any): boolean => university.id != 19054).map((university: any) => (
+                {universitiesList.filter((university: any): boolean => !excludedIds.includes(university.id)).map((university: any) => (
                     <Grid
                         key={university.id} item xs={12} sm={5.9} md={5.9}
                         lg={5.9}

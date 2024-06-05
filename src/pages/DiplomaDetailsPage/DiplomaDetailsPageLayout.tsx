@@ -71,6 +71,7 @@ import {ReactComponent as ChartIcon} from '@src/assets/icons/chartResume.svg';
 import suDiplomaExample from '@src/assets/example/suDiplomaExample.png';
 import suDiplomaExample2 from '@src/assets/example/suDiplomaExample2.png';
 import QRCode from "react-qr-code";
+import { fetchInvite } from '@src/store/vacancy/actionCreators';
 
 const isMobileGlobal = window.innerWidth <= 768;
 
@@ -487,6 +488,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
       'en': 'Kazakhstan-British Technical University'
     },
   }
+
+  const handleInvite = (id: number): void => {
+    dispatch(fetchInvite({student: id}));
+  };
 
   return (
     <Box width="100%" sx={{display: 'flex', flexDirection: 'row', justifyContent: "center"}}>
@@ -1171,7 +1176,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         buttonSize="s"
                         variant="contained"
                         type="button"
-                        disabled={!hasValidEmail()}
+                        // disabled={!hasValidEmail()}
+                        disabled={!(data && data.user_id)}
                         sx={{
                           borderRadius: '25px',
                           marginTop: '1rem',
@@ -1181,8 +1187,9 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           }
                         }}
                         onClick={() => {
-                          const subject = `Приглашение для ${data.name_ru} в компанию`;
-                          window.location.href = `mailto:${getEmail()}?subject=${encodeURIComponent(subject)}`;
+                          // const subject = `Приглашение для ${data.name_ru} в компанию`;
+                          // window.location.href = `mailto:${getEmail()}?subject=${encodeURIComponent(subject)}`;
+                          handleInvite(data.user_id);
                         }}
                       >
                         {localization[lang].StudentPage.AddInfo.sendInvite}

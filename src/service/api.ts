@@ -255,5 +255,9 @@ export const vacancyApi = {
     },
     putStatus(body: { application_id: number, status: string }) {
         return instance.put(`/vacancy/status`, body);
+    },
+    postInvite(body: { student_id: number }) {
+        console.log(body);
+        return instance.post('/vacancy/invite', body);
     }
 };

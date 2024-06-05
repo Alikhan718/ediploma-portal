@@ -1,5 +1,5 @@
 import {
-    POST_APPLY, GET_APPLICATIONS, PUT_STATUS
+    POST_APPLY, GET_APPLICATIONS, PUT_STATUS, POST_INVITE
 } from "./types/actionTypes";
 
 export const fetchApply = (payload: any) => ({
@@ -12,4 +12,8 @@ export const fetchApplications = () => ({
 
 export const fetchStatus = (payload: any) => ({
     type: PUT_STATUS.saga, payload
+});
+
+export const fetchInvite = (payload: any) => ({
+    type: POST_INVITE.saga, payload
 });

@@ -62,7 +62,7 @@ import { ReactComponent as ChartIcon } from '@src/assets/icons/Chart.svg';
 import { ReactComponent as Instagram } from '@src/assets/icons/igEmployer.svg';
 import { ReactComponent as Facebook } from '@src/assets/icons/fbEmployer.svg';
 import QRCode from "react-qr-code";
-import { fetchApplications, fetchStatus } from '@src/store/vacancy/actionCreators';
+import { fetchApplications, fetchStatus, fetchInvite } from '@src/store/vacancy/actionCreators';
 
 export const StudentPublicPageLayout: React.FC = () => {
   const lang = useSelector(selectLanguage);
@@ -240,6 +240,10 @@ export const StudentPublicPageLayout: React.FC = () => {
 
   const handleChangeStatus = (status: string, application_id: number): void => {
     dispatch(fetchStatus({ status, application_id }));
+  };
+
+  const handleInvite = (id: number): void => {
+    dispatch(fetchInvite({student: id}));
   };
 
   return (
@@ -713,8 +717,9 @@ export const StudentPublicPageLayout: React.FC = () => {
                       borderRadius: '2.5rem', paddingX: '1.5rem', paddingY: '0.5rem',
                       boxShadow: 0, ':hover': {boxShadow: 0}, width: '100%',
                     }}
-                    onClick={()=>{handleChangeStatus('invited', 0)}}
-                  >
+                    disabled={!(data && data.id)}
+                    // onClick={()=>{handleChangeStatus('invited', 0)}}
+                    onClick={(): void =>{handleInvite(data.id)}}>
                     {localization[lang].invite}
                   </Button>
                   <Button 

@@ -1,5 +1,5 @@
 import {
-    POST_APPLY, GET_APPLICATIONS, PUT_STATUS
+    POST_APPLY, GET_APPLICATIONS, PUT_STATUS, POST_INVITE
 } from "./types/actionTypes";
 
 interface Applications {
@@ -36,6 +36,10 @@ const applicationsReducer = (state = initialState, action: any) => {
                 isFetching: false,
             };
         case PUT_STATUS.saga:
+            return {
+                ...state,
+            };
+        case POST_INVITE.saga:
             return {
                 ...state,
             };

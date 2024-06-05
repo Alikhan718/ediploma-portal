@@ -398,7 +398,7 @@ export const UniversityDetailsPage: React.FC = () => {
                           backgroundColor: '#F4F7FE', borderRadius: '50%',
                           '&:hover': { backgroundColor: '#E2E8F0', cursor: 'pointer', },
                         }}
-                        onClick={(): void => { handleLink("facebook"); }}
+                        onClick={(): void => {console.log('click')}}
                       >
                         {getIconForLink(link["name"], link["value"])}
                       </Box>
