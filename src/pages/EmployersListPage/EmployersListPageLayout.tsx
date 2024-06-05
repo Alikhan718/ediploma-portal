@@ -114,6 +114,7 @@ export const EmployersListPageLayout: React.FC = () => {
                                 borderRadius: "1.25rem",
                                 marginBottom: "1.5rem", backgroundColor: 'white',
                                 marginRight: "0.5rem",
+                                height: '10rem',
                                 "@media (max-width: 778px)": {
                                     alignItems: 'flex-start',
                                     paddingX: ".5rem",

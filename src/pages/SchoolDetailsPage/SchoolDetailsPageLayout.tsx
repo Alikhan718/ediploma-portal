@@ -338,16 +338,12 @@ export const SchoolDetailsPageLayout: React.FC = () => {
                   </Box>
                 </Box>
                 <Box display='flex' flexDirection='column' sx={{
-                  marginLeft: '20px',
+                  marginLeft: '20px', height: '20rem', alignItems: 'center', justifyContent: 'center',
                   '@media (max-width: 978px)': {
                     display: 'none',
                   },
                 }}>
-                  { school.galleryImages.length != 0 ? 
-                    school.galleryImages.map(image => (
-                    <img key={image} src={image} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
-                  )) : <img src={diplomaTemplate} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw"}}/>
-                }
+                    <img alt='logo' src={school.galleryImages[0]} style={{marginBottom: '10px', borderRadius: '1rem', width: "20vw", height: '100%', objectFit: 'cover'}}/>
                 </Box>
               </Box>
             </Box>

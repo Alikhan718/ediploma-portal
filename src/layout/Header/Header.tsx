@@ -196,6 +196,9 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates', 'applications', 'student', 'employer'];
         for (const item of secondHeaderEnabledRoutes) {
             if (urlElements.includes(item)) {
+                if (item === 'employer') {
+                    return isAuthenticated();
+                }
                 return true;
             }
         }

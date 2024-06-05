@@ -22,6 +22,7 @@ import {routes} from "@src/shared/routes";
 import icon from "@src/assets/icons/Logo (2).svg";
 import {selectLanguage} from "@src/store/generals/selectors";
 import {fetchLogoutAction} from "@src/store/auth/actionCreators";
+import { isAuthenticated } from "@src/utils/userAuth";
 
 
 interface ICustomDrawer extends DrawerProps {
@@ -113,6 +114,9 @@ export const AppSidebar: React.FC<SidebarProps> = (props): JSX.Element => {
         const sidebarEnabledRoutes = ['analysisPage', 'details', 'user', 'profile', 'graduates', 'addingGraduates', 'ai-chat', 'my-diplomas', 'applications', 'employer'];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
+                if (item === 'employer') {
+                    return isAuthenticated();
+                }
                 return true;
             }
         }
