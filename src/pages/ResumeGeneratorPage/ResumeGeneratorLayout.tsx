@@ -3,7 +3,7 @@ import {
   Box,
   Typography,
   Grid,
-  IconButton, MenuItem, Backdrop, CircularProgress
+  IconButton, MenuItem, Backdrop, CircularProgress, Alert, Snackbar
 } from '@mui/material';
 import { Button, Input, Label, Modal } from '@src/components';
 import { ReactComponent as TrashIcon } from "@src/assets/icons/alternate_trash.svg";
@@ -124,7 +124,21 @@ export const ResumeGeneratorLayout: React.FC = () => {
       setStep(step - 1);
     }
   };
+
+  const [alertOpen, setAlertOpen] = useState(false);
+
+  const handleAlertClose = () => {
+        setAlertOpen(false);
+  };
+
   const nextStep = () => {
+    for (const form of requiredForm.forms) {
+      if (!state[form.name]) {
+        setAlertOpen(true);
+        return;
+      }
+    }
+
     if (step + 1 <= contentForms.length) {
       setStep(step + 1);
     }
@@ -908,6 +922,17 @@ export const ResumeGeneratorLayout: React.FC = () => {
           </Box>
         }
       </Box>
+      <Snackbar
+          open={alertOpen} autoHideDuration={2000}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          onClose={handleAlertClose}>
+        <Alert
+            onClose={handleAlertClose}
+            severity="error"
+            sx={{ width: '100%' }}>
+          {localization[lang].Alert}
+        </Alert>
+      </Snackbar>
 
     </Box>
 

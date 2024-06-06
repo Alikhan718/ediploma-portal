@@ -5,6 +5,7 @@ import {
 	Tooltip,
 	Cell,
 	ResponsiveContainer,
+	Legend,
 } from "recharts";
 import {
 	Box,
@@ -19,6 +20,19 @@ import { useSelector } from "react-redux";
 const dats = datachart.data;
 
 dats.sort((a, b) => b.Number - a.Number);
+
+const initialTopData = dats.slice(0, 3);
+const initialOthersData = dats.slice(3);
+
+const computeOthers = (data: any) => {
+	const totalNumber = data.reduce((sum:any, item:any) => sum + item.Number, 0);
+	const totalGPA = data.reduce((sum:any, item: any) => sum + item.Avg_GPA * item.Number, 0) / totalNumber;
+	return {
+		Birth_Day: 'Others',  // Ensure consistent property name as used in Pie component
+		Number: totalNumber,
+		Avg_GPA: totalGPA.toFixed(2),
+	};
+};
 
 const top4Data = dats.slice(0, 3);
 const othersData = dats.slice(3);
@@ -49,12 +63,15 @@ interface CustomTooltipProps {
   payload?: any[];
 }
 
+const initialOthers = computeOthers(initialOthersData);
+const initialData = [...initialTopData, initialOthers];
+
 const CustomTooltip:React.FC<CustomTooltipProps> = ({ active, payload }) => {
   if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
         <div className="custom-tooltip">
-          <p>Birth: {data.Birth}</p>
+          <p>Birth: {data.Birth_Day}</p>
           <p>Number of students: {data.Number}</p>
           <p>Average GPA: {data.Avg_GPA}</p>
         </div>
@@ -68,6 +85,8 @@ const CustomTooltip:React.FC<CustomTooltipProps> = ({ active, payload }) => {
 // eslint-disable-next-line react/display-name
 export const SuBirthGraph: React.FC = () => {
   const lang = useSelector(selectLanguage);
+	const [data, setData] = React.useState(initialData);
+
 	return (
 		<Card
 			elevation={6}
@@ -79,6 +98,7 @@ export const SuBirthGraph: React.FC = () => {
 				display: "flex",
 				flexDirection: "column",
 				borderRadius: '30px',
+				height: 500
 			}}
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"nowrap"} margin={"0 20px"}>
@@ -88,25 +108,27 @@ export const SuBirthGraph: React.FC = () => {
 				<Box display="flex" flexDirection={"row"} alignItems={"center"}>
 				</Box>
 			</Box>
-			<div style={{ margin: '20px' }}>
+			<div style={{ alignItems: 'center' }}>
   			<ResponsiveContainer width="100%" height={400}>
-          <PieChart>
-            <Pie
-              data={combinedData}
-              dataKey="Number" // Corrected from Students_number to Number
-              nameKey="BirthYear"
-              cx="50%"
-              cy="50%"
-              outerRadius={60}
-              fill="#8884d8"
-            >
-              {combinedData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip content={<CustomTooltip />} />
-          </PieChart>
-        </ResponsiveContainer>
+			  <PieChart>
+				<Pie
+				  data={data}
+				  dataKey="Number" // Corrected from Students_number to Number
+				  nameKey="Birth_Day"
+				  cx="50%"
+				  cy="50%"
+				  outerRadius={60}
+				  fill="#8884d8"
+				  label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+				>
+				  {data.map((entry: any, index: any) => (
+					<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+				  ))}
+				</Pie>
+				<Tooltip content={<CustomTooltip />} />
+				<Legend verticalAlign="bottom" height={36} />
+			  </PieChart>
+			</ResponsiveContainer>
 			</div>
 		</Card>
 	);

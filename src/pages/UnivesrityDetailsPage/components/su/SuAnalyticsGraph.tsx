@@ -55,7 +55,8 @@ export const SuAnalyticsGraph: React.FC = memo(() => {
 				padding: "20px",
 				display: "flex",
 				flexDirection: "column",
-				borderRadius: "2rem"
+				borderRadius: "2rem",
+                height: 500
 			}}
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"} margin={"0 20px"}>
@@ -70,7 +71,7 @@ export const SuAnalyticsGraph: React.FC = memo(() => {
           height={300}
           data={dats}
         >
-          <XAxis dataKey="Faculty"  />
+          <XAxis dataKey="Diploma_grade"  />
           <YAxis />
           <Tooltip content={<CustomTooltip />} />
           <Legend />

@@ -40,7 +40,7 @@ export const GenderGraph: React.FC = memo(() => {
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"}>
 				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-					{localization[lang].Analytics.kbtu.gender}
+					{localization[lang].Analytics.kbtu.faculty}
 				</Typography>
 			</Box>
 			<Box sx={{ width: "100%", margin: "0 auto" }}>

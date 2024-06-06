@@ -5,6 +5,7 @@ import {
 	Tooltip,
 	Cell,
 	ResponsiveContainer,
+	Legend,
 } from "recharts";
 import {
 	Box,
@@ -78,6 +79,7 @@ export const SuNationsGraph: React.FC = () => {
 				display: "flex",
 				flexDirection: "column",
 				borderRadius: '30px',
+				height: 500
 			}}
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"nowrap"} margin={"0 20px"}>
@@ -88,7 +90,7 @@ export const SuNationsGraph: React.FC = () => {
 				</Box>
 			</Box>
 			<div style={{ margin: '20px' }}>
-  			<ResponsiveContainer width="100%" height={400}>
+  			<ResponsiveContainer width="100%" height={250}>
           <PieChart>
             <Pie
               data={combinedData}
@@ -98,12 +100,14 @@ export const SuNationsGraph: React.FC = () => {
               cy="50%"
               outerRadius={60}
               fill="#8884d8"
+			  label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
             >
               {combinedData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
             <Tooltip content={<CustomTooltip />} />
+			<Legend verticalAlign="bottom" height={36}/>
           </PieChart>
         </ResponsiveContainer>
 			</div>

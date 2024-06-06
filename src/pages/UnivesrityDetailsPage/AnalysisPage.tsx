@@ -256,7 +256,7 @@ export const AnalysisPage: React.FC = () => {
 							flex: 3,
 							display: "flex",
 							gap: "32px",
-							flexDirection: "column"
+							flexDirection: "column",
 						}}>
 							{graphVisibility["FacultyGraph"] && (university_id == 0 ? <FacultyGraph /> : <SuFacultyGraph />)}
 							{graphVisibility["AnalyticsGraph"] && (university_id == 0 ? <AnalyticsGraph /> : <SuAnalyticsGraph />)}

@@ -871,6 +871,7 @@ export const desktopContent = [
 ];
 export const localization = {
   "kz": {
+    Alert: 'Бүкіл ақпаратты толтырыңыз!',
     Modal: {
       msg: "Қолдану үшін авторизация қажет",
       authorize: "Авторизация жасау",
@@ -999,6 +1000,7 @@ export const localization = {
     }
   },
   "ru": {
+    Alert: 'Заполните все поля!',
     Modal: {
       msg: "Для использования требуется авторизация",
       authorize: "Авторизоваться",
@@ -1127,6 +1129,7 @@ export const localization = {
     }
   },
   "en": {
+    Alert: 'Fill all the required fields',
     Modal: {
       msg: "Authorization is required to use this feature",
       authorize: "Authorize",

@@ -127,6 +127,18 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     role: ["employer", "student"],
     icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
     verticalAlign: "middle",
+  },
+  {
+    id: 108,
+    name: {
+      'ru': 'Заявки',
+      'kz': 'Өтініштер',
+      'en': 'Applications',
+    },
+    to: routes.applications,
+    role: ['employer', 'student'],
+    icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: 'middle',
   }/*,
   {
     id: 108,
@@ -313,7 +325,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
       'en': 'Applications',
     },
     to: routes.applications,
-    role: ['employer'],
+    role: ['employer', 'student'],
     icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
     verticalAlign: 'middle',
   }

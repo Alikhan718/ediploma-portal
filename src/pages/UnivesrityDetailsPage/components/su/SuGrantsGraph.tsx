@@ -5,6 +5,7 @@ import {
 	Tooltip,
 	Cell,
 	ResponsiveContainer,
+	Legend
 } from "recharts";
 import {
 	Box,
@@ -61,6 +62,7 @@ export const SuGrantsGraph: React.FC = () => {
 				display: "flex",
 				flexDirection: "column",
 				borderRadius: '30px',
+				height: 500
 			}}
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"nowrap"} margin={"0 20px"}>
@@ -71,24 +73,25 @@ export const SuGrantsGraph: React.FC = () => {
 				</Box>
 			</Box>
 			<div style={{ margin: '20px' }}>
-  			<ResponsiveContainer width="100%" height={400}>
-          <PieChart>
-            <Pie
-              data={dats} // Use dats as the data source
-              dataKey="Number" // Use "Number" as the dataKey
-              nameKey="Study_mode" // Use "Study_mode" as the nameKey
-              cx="50%"
-              cy="50%"
-              outerRadius={60}
-              fill="#8884d8"
-            >
-              {dats.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index]} />
-              ))}
-            </Pie>
-            <Tooltip content={<CustomTooltip />} />
-          </PieChart>
-        </ResponsiveContainer>
+				<ResponsiveContainer width="100%" height={250}>
+				  <PieChart>
+					<Pie
+					  data={dats} // Use dats as the data source
+					  dataKey="Number" // Use "Number" as the dataKey
+					  nameKey="Study_mode" // Use "Study_mode" as the nameKey
+					  cx="50%"
+					  cy="50%"
+					  outerRadius={60}
+					  fill="#8884d8"
+					>
+					  {dats.map((entry, index) => (
+						<Cell key={`cell-${index}`} fill={COLORS[index]} />
+					  ))}
+					</Pie>
+					<Tooltip content={<CustomTooltip />} />
+					<Legend verticalAlign="bottom" height={36}  />
+				  </PieChart>
+				</ResponsiveContainer>
 			</div>
 		</Card>
 	);

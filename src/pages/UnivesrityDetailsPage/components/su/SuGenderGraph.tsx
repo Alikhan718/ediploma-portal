@@ -4,7 +4,7 @@ import {
 	Card,
 	Typography,
 } from "@mui/material";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import datachart from './data/gender.json';
 import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
 import { selectLanguage } from '@src/store/generals/selectors';
@@ -49,6 +49,20 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
 export const SuGenderGraph: React.FC = memo(() => {
 
   const lang = useSelector(selectLanguage);
+	const [activeIndices, setActiveIndices] = React.useState(new Set(dats.map((_, index) => index)));
+
+	const handleLegendClick = (entry: any, index:any) => {
+		const newActiveIndices = new Set(activeIndices);
+		if (newActiveIndices.has(index)) {
+			newActiveIndices.delete(index);
+		} else {
+			newActiveIndices.add(index);
+		}
+		setActiveIndices(newActiveIndices);
+	};
+
+	const activeData = dats.filter((_, index) => activeIndices.has(index));
+
 	return (
 		<Card
 			elevation={6}
@@ -59,6 +73,7 @@ export const SuGenderGraph: React.FC = memo(() => {
 				display: "flex",
 				flexDirection: "column",
 				borderRadius: "30px",
+				height: 500
 			}}
 		>
 			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"}>
@@ -68,23 +83,25 @@ export const SuGenderGraph: React.FC = memo(() => {
 			</Box>
 			<Box sx={{ width: "100%", margin: "0 auto" }}>
 			  <ResponsiveContainer width="100%" height={400}>
-					<PieChart>
-          <Pie
-            data={combinedData}
-            dataKey="Students_number"
-            nameKey="Faculty"
-            cx="50%"
-            cy="50%"
-            outerRadius={60}
-            fill="#8884d8"
-          >
-            {combinedData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-            </Pie>
-            <Tooltip content={<CustomTooltip />} />
-          </PieChart>
-        </ResponsiveContainer>
+				  <PieChart>
+					  <Pie
+						data={activeData}
+						dataKey="Students_number"
+						nameKey="Faculty"
+						cx="50%"
+						cy="50%"
+						outerRadius={60}
+						fill="#8884d8"
+						label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+					  >
+						{combinedData.map((entry, index) => (
+						  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+						))}
+						</Pie>
+						<Tooltip content={<CustomTooltip />} />
+					  	<Legend verticalAlign="bottom" height={36} onClick={handleLegendClick} />
+				  </PieChart>
+			  </ResponsiveContainer>
 			</Box>
 		</Card>
 	);

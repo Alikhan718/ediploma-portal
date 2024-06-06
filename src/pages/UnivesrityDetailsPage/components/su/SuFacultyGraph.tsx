@@ -16,6 +16,7 @@ import {
 import datachart from "./data/faculty.json";
 import './chart.css';
 interface Data {
+  ShortName: string;
   Faculty: string;
   Male: number;
   Female: number;
@@ -27,8 +28,17 @@ import { localization } from '@src/pages/UnivesrityDetailsPage/generator';
 import { selectLanguage } from '@src/store/generals/selectors';
 import { useSelector } from "react-redux";
 
+const getShortName = (facultyName: string) => {
+    return facultyName.split(' ').map(word => word[0]).join('').toUpperCase();
+};
 
-let sortedData: Data[] = datachart.data
+const dats: Data[] = datachart.data.map(item => ({
+    ...item,
+    ShortName: getShortName(item.Faculty), // Adding a short name field
+    TotalStudents: item.Male + item.Female,
+}));
+
+let sortedData: Data[] = dats
   .map((item) => ({ ...item, TotalStudents: item.Male + item.Female }))
   .sort((a, b) => b.TotalStudents - a.TotalStudents);
 
@@ -36,6 +46,7 @@ let top10Data = sortedData.slice(0, 10);
 
 let others: Data = sortedData.slice(10).reduce<Data>(
   (acc, curr) => ({
+      ShortName: "Others",
     Faculty: "Others",
     Male: acc.Male + curr.Male,
     Female: acc.Female + curr.Female,
@@ -50,6 +61,7 @@ let others: Data = sortedData.slice(10).reduce<Data>(
     TotalStudents: acc.TotalStudents + curr.TotalStudents,
   }),
   {
+      ShortName: 'Others',
     Faculty: "Others",
     Male: 0,
     Female: 0,
@@ -101,17 +113,18 @@ export const SuFacultyGraph: React.FC = () => {
   				display: "flex",
   				flexDirection: "column",
   				borderRadius: "30px",
+                height: 500
   			}}
   		>
   			<Box display="flex" justifyContent={"space-between"} flexWrap={"wrap"}>
   				<Typography fontWeight={600} color={"#475569"} fontSize={"1.25rem"}>
-  					{localization[lang].Analytics.kbtu.faculty}
+                    {localization[lang].Analytics.kbtu.gender}
   				</Typography>
   			</Box>
   			<Box sx={{ maxWidth: 974, width: "100%", margin: "0 auto" }}>
           <ResponsiveContainer width="100%" height={400}>
             <BarChart width={700} height={300} data={top10Data}>
-              <XAxis dataKey="Faculty" />
+              <XAxis dataKey="ShortName" />
               <YAxis />
               <Tooltip content={<CustomTooltip />} />
               <Legend />

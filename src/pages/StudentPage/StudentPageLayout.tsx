@@ -128,6 +128,13 @@ export const StudentPageLayout: React.FC = () => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleClickDiploma = (diploma_id: number): void => {
+    if (!diploma_id){
+      return;
+    }
+    window.open(`/diploma/${diploma_id}/1`, '_blank');
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -1012,7 +1019,7 @@ export const StudentPageLayout: React.FC = () => {
                       paddingBottom: '0rem',
                     },
                   }}> {localization[lang].AddInfo.certifications} </Box>
-                  <Box sx={{ display: 'flex', cursor: 'pointer' }} onClick={() => { navigate(routes.settings) }}>
+                  <Box sx={{ display: 'none', cursor: 'pointer' }} onClick={() => { navigate(routes.settings) }}>
                     <AddDipoma />
                   </Box>
                 </Box>
@@ -1039,6 +1046,7 @@ export const StudentPageLayout: React.FC = () => {
                               borderRadius: "10px",
                               '@media (max-width: 778px)': { width: '100%', height: 'auto', },
                             }}
+                            onClick={(): void=>{handleClickDiploma(data && data.id ? data.id : null)}}
                           >
                             <CardMedia
                               component="img"
