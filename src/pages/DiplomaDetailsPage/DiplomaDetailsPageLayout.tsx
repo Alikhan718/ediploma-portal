@@ -1944,7 +1944,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         {localization[lang].StudentPage.Confirmation.smartContractAddress}
                       </Typography>
 
-                      <Box display="flex">
+                      <Box display="none">
                         <Typography
                           fontWeight="400"
                           color="#818181"
