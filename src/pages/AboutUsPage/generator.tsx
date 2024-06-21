@@ -68,7 +68,7 @@ export const localization = {
 				{ 'image': kunya, 'subtitle': 'Куаныш Енсебаев' },
 				{ 'image': abylai, 'subtitle': 'Абылай Султанбеков' },
 				{ 'image': alisher, 'subtitle': 'Алишер Бейсембеков' },
-				{ 'image': abylai_b, 'subtitle': 'Абылай Байтукбаев' },
+				// { 'image': abylai_b, 'subtitle': 'Абылай Байтукбаев' },
 			],
 		},
 		AboutUs: {
@@ -155,7 +155,7 @@ export const localization = {
 				{ 'image': kunya, 'subtitle': 'Куаныш Енсебаев' },
 				{ 'image': abylai, 'subtitle': 'Абылай Султанбеков' },
 				{ 'image': alisher, 'subtitle': 'Алишер Бейсембеков' },
-				{ 'image': abylai_b, 'subtitle': 'Абылай Байтукбаев' },
+				// { 'image': abylai_b, 'subtitle': 'Абылай Байтукбаев' },
 			],
 		},
 		AboutUs: {
@@ -241,7 +241,7 @@ export const localization = {
 				{ 'image': kunya, 'subtitle': ' Kuanysh Yensebayev' },
 				{ 'image': abylai, 'subtitle': 'Abylai Sultanbekov' },
 				{ 'image': alisher, 'subtitle': 'Alisher Beisembekov' },
-				{ 'image': abylai_b, 'subtitle': 'Abylay Baytukbayiev' },
+				// { 'image': abylai_b, 'subtitle': 'Abylay Baytukbayiev' },
 			],
 		},
 		AboutUs: {

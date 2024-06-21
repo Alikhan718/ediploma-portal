@@ -1895,7 +1895,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                               >
                                 {graduateAttributes && graduateAttributes.signed_by && signedBy[graduateAttributes.signed_by as keyof typeof signedBy] ? signedBy[graduateAttributes.signed_by as keyof typeof signedBy][lang] : null}
                               </Typography>
-                              <Box display="flex">
+                              <Box display="none">
                                   <Typography
                                       fontWeight="400"
                                       color="#818181"
