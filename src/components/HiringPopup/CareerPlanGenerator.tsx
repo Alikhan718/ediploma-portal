@@ -88,7 +88,7 @@ export const CareerPlanGenerator: React.FC<CareerPlanGeneratorProps> = (props) =
         formDataToSend.append('cv', input.files[0]);
 
         try {
-            const response = await fetch('https://agile-job-student.onrender.com/student-action-plan/generate-plan', {
+            const response = await fetch('https://agile-job-student-0gs3.onrender.com/student-action-plan/generate-plan', {
                 method: "POST",
                 body: formDataToSend,
             });
