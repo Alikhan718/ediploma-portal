@@ -38,19 +38,6 @@ import { ReactComponent as ArrowLeft } from '@src/assets/icons/arrowLeft.svg';
 import { ReactComponent as ArrowRight } from '@src/assets/icons/arrowRight.svg';
 import historyEx from '@src/assets/example/historyEx.png';
 import { ReactComponent as Dot } from '@src/assets/icons/dot.svg';
-import suHist1 from '@src/assets/example/suHist1.jpeg';
-import suHist2 from '@src/assets/example/suHist2.jpeg';
-import suHist3 from '@src/assets/example/suHist3.jpeg';
-import suHist4 from '@src/assets/example/suHist4.png';
-import suHist5 from '@src/assets/example/suHist5.jpeg';
-import suProud1 from '@src/assets/example/suProud1.png';
-import suProud2 from '@src/assets/example/suProud2.png';
-import suProud3 from '@src/assets/example/suProud3.png';
-import suProud4 from '@src/assets/example/suProud4.png';
-import kbtuHist1 from '@src/assets/example/kbtuHist1.jpg';
-import kbtuHist2 from '@src/assets/example/kbtuHist2.jpg';
-import kbtuHist3 from '@src/assets/example/kbtuHist3.jpg';
-import kbtuHist4 from '@src/assets/example/kbtuHist4.jpg';
 
 const baseURL = process.env.REACT_APP_ADMIN_API_BASE_URL;
 
@@ -126,6 +113,23 @@ export const UniversityDetailsPage: React.FC = () => {
   const startIndex = (currentPage - 1) * diplomasPerPage;
   const endIndex = startIndex + diplomasPerPage;
   const currentDiplomaPage = diplomaList.slice(startIndex, endIndex);
+
+  // Helper functions to check if data exists
+  const hasMissionData = (): boolean => {
+    return !!(data && data.university_id && univerityMission[data.university_id as keyof typeof univerityMission]);
+  };
+
+  const hasFactsData = (): boolean => {
+    return !!(data && data.university_id && universityFacts[data.university_id as keyof typeof universityFacts]);
+  };
+
+  const hasHistoryData = (): boolean => {
+    return !!(data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory]);
+  };
+
+  const hasBestGraduatesData = (): boolean => {
+    return !!(data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates]);
+  };
 
   const prevPage = (): void => {
     if (currentPage > 1) {
@@ -434,25 +438,25 @@ export const UniversityDetailsPage: React.FC = () => {
                     '@media (max-width: 768px)': { flexDirection: 'column', justifyContent: 'flext-start', alignItems: 'flex-start', maxWidth: '96vw', padding: '0 0.5rem' }
                   }}
                   >
-                    <Box marginRight='3rem' sx={{
-                      width: data && data.university_id && data.university_id != 2 ? '55%' : '90%', '@media (max-width: 768px)': { width: '100%', marginRight: '0' }
-                    }}>
-                      <Box sx={{
-                        fontSize: '24px',
-                        fontWeight: '600',
-                        color: '#4D4D4D',
-                        paddingBottom: '10px'
+                    {/* Mission Section - only render if data exists */}
+                    {hasMissionData() && (
+                      <Box marginRight='3rem' sx={{
+                        width: data.university_id != 2 ? '55%' : '90%', '@media (max-width: 768px)': { width: '100%', marginRight: '0' }
                       }}>
-                        {data && data.university_id && data.university_id != 2 ? localization[lang].MainCard.mission : localization[lang].MainCard.missionShort }
+                        <Box sx={{
+                          fontSize: '24px',
+                          fontWeight: '600',
+                          color: '#4D4D4D',
+                          paddingBottom: '10px'
+                        }}>
+                          {data.university_id != 2 ? localization[lang].MainCard.mission : localization[lang].MainCard.missionShort }
+                        </Box>
+                        <Typography className={styles.textSm} color="#818181">
+                          {univerityMission[data.university_id as keyof typeof univerityMission][lang]}
+                        </Typography>
                       </Box>
-                      <Typography className={styles.textSm} color="#818181">
-                        {
-                          data && data.university_id ? 
-                            univerityMission[data.university_id as keyof typeof univerityMission][lang] : ""
-                        }
-                      </Typography>
-                    </Box>
-                    {data && data.university_id != 2 ? 
+                    )}
+                    {data && data.university_id != 2 ?
                       (<Box className={cn(styles.mobMt1, styles.mobWrap)} display='flex' sx={{ paddingBottom: '20px' }}>
                         <Box flex='1' sx={{ marginRight: '1.25rem', '@media (max-width: 768px)': { marginRight: '1.25rem' } }}>
                           <Typography fontWeight='1000' color='#353840' ml='.1rem' fontSize={'30px'}
@@ -485,7 +489,7 @@ export const UniversityDetailsPage: React.FC = () => {
                             {localization[lang].MainCard.gpa}
                           </Typography>
                         </Box>
-                      </Box>) : 
+                      </Box>) :
                     null }
                   </Box>
                   {/* <Box>
@@ -507,546 +511,448 @@ export const UniversityDetailsPage: React.FC = () => {
                       <ExpandMore style={{ marginLeft: ".2rem", transform: showFull ? "rotate(180deg)" : "" }} />
                     </Typography>
                   </Box> */}
-                  <Box sx={{
-                    display: data && data.university_id == 2 ? 'none' : 'flex', marginTop: '1.25rem',
-                    '@media (max-width: 768px)': {
-                      overflow: 'auto', scrollBehavior: 'smooth', flexWrap: 'nowrap',
-                      '&::-webkit-scrollbar': { display: 'none' }, maxWidth: '96vw',
-                      paddingLeft: '0.5rem',
-                    }
-                  }}
-                  >
-                    <Box sx={{
-                      display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
-                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem',
-                      '@media (max-width: 768px)': {
-                        width: '19.4375rem', padding: '0.75rem', marginRight: '1rem', flexShrink: 0,
-                      }
-                    }}
-                    >
-                      <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
-                        <Cap />
-                      </Box>
-                      <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        {
-                          data && data.university_id && universityFacts[data.university_id as keyof typeof universityFacts] ?
-                            universityFacts[data.university_id as keyof typeof universityFacts][lang][0] : ''
-                        }
-                      </Typography>
-                    </Box>
-                    <Box sx={{
-                      display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
-                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem',
-                      '@media (max-width: 768px)': {
-                        width: '19.4375rem', padding: '0.75rem', marginRight: '1rem', flexShrink: 0,
-                      }
-                    }}
-                    >
-                      <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
-                        <PlusMinus />
-                      </Box>
-                      <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        {
-                          data && data.university_id && universityFacts[data.university_id as keyof typeof universityFacts] ?
-                            universityFacts[data.university_id as keyof typeof universityFacts][lang][1] : ''
-                        }
-                      </Typography>
-                    </Box>
-                    <Box sx={{
-                      display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
-                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem',
-                      '@media (max-width: 768px)': {
-                        width: '19.4375rem', padding: '0.75rem', marginRight: '1rem', flexShrink: 0,
-                      }
-                    }}
-                    >
-                      <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
-                        <Graph />
-                      </Box>
-                      <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        {
-                          data && data.university_id && universityFacts[data.university_id as keyof typeof universityFacts] ?
-                            universityFacts[data.university_id as keyof typeof universityFacts][lang][2] : ''
-                        }
-                      </Typography>
-                    </Box>
-                    <Box sx={{
-                      display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
-                      borderRadius: '1rem', width: '19.25rem', padding: '1.25rem',
-                      '@media (max-width: 768px)': {
-                        width: '19.4375rem', padding: '0.75rem', flexShrink: 0,
-                      }
-                    }}
-                    >
-                      <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
-                        <PieChart />
-                      </Box>
-                      <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
-                        {
-                          data && data.university_id && universityFacts[data.university_id as keyof typeof universityFacts] ?
-                            universityFacts[data.university_id as keyof typeof universityFacts][lang][3] : ''
-                        }
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box sx={{ display: data && data.university_id == 2 ? 'none' : 'flex', flexDirection: 'column', borderRadius: '1.5rem', marginTop: '1.25rem', position: 'relative',
-                    '@media (max-width: 768px)': { paddingLeft: '0.5rem' }
-                   }}>
-                    <Box sx={{
-                      fontSize: '1.5rem',
-                      fontWeight: '600',
-                      color: '#4D4D4D',
-                      paddingBottom: '10px'
-                    }}>
-                      {localization[lang].MainCard.history}
-                    </Box>
 
+                  {/* Facts Section - only render if data exists */}
+                  {hasFactsData() && (
                     <Box sx={{
-                      display: 'flex', overflow: 'auto', maxWidth: '92vw',
-                      '-ms-overflow-style': 'none', 'scrollbar-width': 'none', '&::-webkit-scrollbar': { display: 'none' },
-                      scrollBehavior: 'smooth', '@media (max-width: 768px)': { maxWidth: '96vw' }
+                      display: 'flex', marginTop: '1.25rem',
+                      '@media (max-width: 768px)': {
+                        overflow: 'auto', scrollBehavior: 'smooth', flexWrap: 'nowrap',
+                        '&::-webkit-scrollbar': { display: 'none' }, maxWidth: '96vw',
+                        paddingLeft: '0.5rem',
+                      }
                     }}
                     >
                       <Box sx={{
-                        position: 'absolute', width: '61.4375rem', height: '23.75rem', display: 'flex',
-                        justifyContent: 'space-between', alignItems: 'center', '@media (max-width: 768px)': { display: 'none' },
-                      }}>
-                        <Box sx={{
-                          cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
-                          borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
-                          display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '1.75rem',
-                        }} onClick={(): void => scrollToRef('prev')}
-                        >
-                          <ArrowLeft />
-                        </Box>
-                        <Box sx={{
-                          cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
-                          borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
-                          display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '1.75rem'
-                        }} onClick={(): void => scrollToRef('next')}
-                        >
-                          <ArrowRight />
-                        </Box>
-                      </Box>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyFirstRef}>
-                        <Box sx={{
-                          width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
-                          '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
-                        }}>
-                          <img 
-                            src={
-                              data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                              universityHistory[data.university_id as keyof typeof universityHistory][lang][0].image :
-                              historyEx
-                            }
-                            style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} 
-                          />
-                        </Box>
-                        <Box sx={{
-                          fontSize: '1.5rem',
-                          fontWeight: '600',
-                          color: '#4D4D4D',
-                          paddingBottom: '10px',
-                          marginTop: '1rem'
-                        }}>
-                          {
-                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                            universityHistory[data.university_id as keyof typeof universityHistory][lang][0].title : ''
-                          }
-                        </Box>
-                        <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
-                          {
-                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                            universityHistory[data.university_id as keyof typeof universityHistory][lang][0].text : ''
-                          }
-                        </Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historySecondRef}>
-                        <Box sx={{
-                          width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
-                          '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
-                        }}>
-                          <img 
-                            src={
-                              data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                              universityHistory[data.university_id as keyof typeof universityHistory][lang][1].image :
-                              historyEx
-                            }
-                            style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} 
-                          />
-                        </Box>
-                        <Box sx={{
-                          fontSize: '1.5rem',
-                          fontWeight: '600',
-                          color: '#4D4D4D',
-                          paddingBottom: '10px',
-                          marginTop: '1rem'
-                        }}>
-                          {
-                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                            universityHistory[data.university_id as keyof typeof universityHistory][lang][1].title : ''
-                          }
-                        </Box>
-                        <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
-                          {
-                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                            universityHistory[data.university_id as keyof typeof universityHistory][lang][1].text : ''
-                          }
-                        </Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyThirdRef}>
-                        <Box sx={{
-                          width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
-                          '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
-                        }}>
-                          <img 
-                            src={
-                              data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                              universityHistory[data.university_id as keyof typeof universityHistory][lang][2].image :
-                              historyEx
-                            }
-                            style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} 
-                          />
-                        </Box>
-                        <Box sx={{
-                          fontSize: '1.5rem',
-                          fontWeight: '600',
-                          color: '#4D4D4D',
-                          paddingBottom: '10px',
-                          marginTop: '1rem'
-                        }}>
-                          {
-                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                            universityHistory[data.university_id as keyof typeof universityHistory][lang][2].title : ''
-                          }
-                        </Box>
-                        <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
-                          {
-                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                            universityHistory[data.university_id as keyof typeof universityHistory][lang][2].text : ''
-                          }
-                        </Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyFourthRef}>
-                        <Box sx={{
-                          width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
-                          '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
-                        }}>
-                          <img 
-                            src={
-                              data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                              universityHistory[data.university_id as keyof typeof universityHistory][lang][3].image :
-                              historyEx
-                            }
-                            style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} 
-                          />
-                        </Box>
-                        <Box sx={{
-                          fontSize: '1.5rem',
-                          fontWeight: '600',
-                          color: '#4D4D4D',
-                          paddingBottom: '10px',
-                          marginTop: '1rem'
-                        }}>
-                          {
-                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                            universityHistory[data.university_id as keyof typeof universityHistory][lang][3].title : ''
-                          }
-                        </Box>
-                        <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
-                          {
-                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                            universityHistory[data.university_id as keyof typeof universityHistory][lang][3].text : ''
-                          }
-                        </Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', flexDirection: 'column' }} ref={historyFifthRef}>
-                        <Box sx={{
-                          width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
-                          '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
-                        }}>
-                          <img 
-                            src={
-                              data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                              universityHistory[data.university_id as keyof typeof universityHistory][lang][4].image :
-                              historyEx
-                            }
-                            style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }} 
-                          />
-                        </Box>
-                        <Box sx={{
-                          fontSize: '1.5rem',
-                          fontWeight: '600',
-                          color: '#4D4D4D',
-                          paddingBottom: '10px',
-                          marginTop: '1rem'
-                        }}>
-                          {
-                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                            universityHistory[data.university_id as keyof typeof universityHistory][lang][4].title : ''
-                          }
-                        </Box>
-                        <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
-                          {
-                            data && data.university_id && universityHistory[data.university_id as keyof typeof universityHistory] ?
-                            universityHistory[data.university_id as keyof typeof universityHistory][lang][4].text : ''
-                          }
-                        </Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Box sx={{ width: '61.4375rem', height: '23.75rem', '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' } }}>
-                        </Box>
-                      </Box>
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', }}>
-                      <Dot />
-                      <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
-                        <path d="M270 1.00002L0 1" stroke={currentHistory > 0 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
-                      </svg>
-                      <Dot />
-                      <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
-                        <path d="M270 1.00002L0 1" stroke={currentHistory > 1 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
-                      </svg>
-                      <Dot />
-                      <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
-                        <path d="M270 1.00002L0 1" stroke={currentHistory > 2 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
-                      </svg>
-                      <Dot />
-                      <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
-                        <path d="M270 1.00002L0 1" stroke={currentHistory > 3 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
-                      </svg>
-                      <Dot />
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '0.75rem' }}>
-                      <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{data && data.university_id == 1 ? '2000' : '1933'}</Typography>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
-                        <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
-                      </svg>
-                      <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{data && data.university_id == 1 ? '2001' : '1938'}</Typography>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
-                        <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
-                      </svg>
-                      <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{data && data.university_id == 1 ? '2003' : '1970'}</Typography>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
-                        <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
-                      </svg>
-                      <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{data && data.university_id == 1 ? '2005' : '1999'}</Typography>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
-                        <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
-                      </svg>
-                      <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{data && data.university_id == 1 ? '2011' : '2017'}</Typography>
-                    </Box>
-                  </Box>
-                  <Box sx={{
-                    display: data && data.university_id != 3 ? 'none' : 'flex', flexDirection: 'column', backgroundColor: '#FAFBFF',
-                    padding: '1.75rem', borderRadius: '1.5rem', marginTop: '1.25rem', '@media (max-width: 768px)': { maxWidth: '96vw' },
-                  }}
-                  >
-                    <Typography
-                      className={styles.nameText} fontWeight='600' sx={{
-                        width: '70%', marginBottom: '1.5rem', fontSize: '2rem',
-                        '@media (max-width: 998px)': {
-                          fontSize: '24px',
-                        },
+                        display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
+                        borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem',
                         '@media (max-width: 768px)': {
-                          fontSize: '24px',
-                          width: '100%',
-                        },
+                          width: '19.4375rem', padding: '0.75rem', marginRight: '1rem', flexShrink: 0,
+                        }
                       }}
-                    >
-                      {localization[lang].MainCard.best}
-                    </Typography>
-                    <Box sx={{ display: 'flex', '@media (max-width: 998px)': { flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '1rem' } }}>
-                      <Box sx={{
-                        width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
-                        backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
-                        background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
-                        '@media (max-width: 768px)': {
-                          marginRight: '0rem', marginBottom: '1rem',
-                        },
-                      }}>
-                        <Box sx={{
-                          position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
-                          justifyContent: 'space-between',
-                        }}>
-                          <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
-                            <Box sx={{
-                              display: data && data.university_id == 1 ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center',
-                              width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
-                              border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
-                            }}>
-                              <Linkedin />
-                            </Box>
-                          </Box>
-                          <Box sx={{ margin: '1rem' }}>
-                            <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {
-                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][0].name :
-                                  'Имя фамилия Отчество выпускника/ученика'
-                              }
-                            </Typography>
-                            <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {
-                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][0].description :
-                                  'Специализация выпускника/ученика'
-                              }
-                            </Typography>
-                          </Box>
+                      >
+                        <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
+                          <Cap />
                         </Box>
-                        <img 
-                          src={
-                              data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                              universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][0].image :
-                              proudStuEx
-                          }
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} 
-                        />
+                        <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
+                          {universityFacts[data.university_id as keyof typeof universityFacts][lang][0]}
+                        </Typography>
                       </Box>
                       <Box sx={{
-                        width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
-                        backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
-                        background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                        display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
+                        borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem',
                         '@media (max-width: 768px)': {
-                          marginRight: '0rem', marginBottom: '1rem',
-                        },
-                      }}>
-                        <Box sx={{
-                          position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
-                          justifyContent: 'space-between',
-                        }}>
-                          <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
-                            <Box sx={{
-                              display: data && data.university_id == 1 ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center',
-                              width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
-                              border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
-                            }}>
-                              <Linkedin />
-                            </Box>
-                          </Box>
-                          <Box sx={{ margin: '1rem' }}>
-                            <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {
-                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][1].name :
-                                  'Имя фамилия Отчество выпускника/ученика'
-                              }
-                            </Typography>
-                            <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {
-                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][1].description :
-                                  'Специализация выпускника/ученика'
-                              }
-                            </Typography>
-                          </Box>
+                          width: '19.4375rem', padding: '0.75rem', marginRight: '1rem', flexShrink: 0,
+                        }
+                      }}
+                      >
+                        <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
+                          <PlusMinus />
                         </Box>
-                        <img 
-                          src={
-                              data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                              universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][1].image :
-                              proudStuEx
-                          }
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} 
-                        />
+                        <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
+                          {universityFacts[data.university_id as keyof typeof universityFacts][lang][1]}
+                        </Typography>
                       </Box>
                       <Box sx={{
-                        width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
-                        backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
-                        background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                        display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
+                        borderRadius: '1rem', width: '19.25rem', padding: '1.25rem', marginRight: '1.88rem',
                         '@media (max-width: 768px)': {
-                          marginRight: '0rem', marginBottom: '1rem',
-                        },
-                      }}>
-                        <Box sx={{
-                          position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
-                          justifyContent: 'space-between',
-                        }}>
-                          <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
-                            <Box sx={{
-                              display: data && data.university_id == 1 ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center',
-                              width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
-                              border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
-                            }}>
-                              <Linkedin />
-                            </Box>
-                          </Box>
-                          <Box sx={{ margin: '1rem' }}>
-                            <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {
-                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][2].name :
-                                  'Имя фамилия Отчество выпускника/ученика'
-                              }
-                            </Typography>
-                            <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {
-                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][2].description :
-                                  'Специализация выпускника/ученика'
-                              }
-                            </Typography>
-                          </Box>
+                          width: '19.4375rem', padding: '0.75rem', marginRight: '1rem', flexShrink: 0,
+                        }
+                      }}
+                      >
+                        <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
+                          <Graph />
                         </Box>
-                        <img 
-                          src={
-                              data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                              universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][2].image :
-                              proudStuEx
-                          }
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} 
-                        />
+                        <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
+                          {universityFacts[data.university_id as keyof typeof universityFacts][lang][2]}
+                        </Typography>
                       </Box>
                       <Box sx={{
-                        width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
-                        backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
-                        background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                        display: 'flex', flexDirection: 'column', backgroundColor: '#F4F7FE',
+                        borderRadius: '1rem', width: '19.25rem', padding: '1.25rem',
                         '@media (max-width: 768px)': {
-                          marginRight: '0rem', marginBottom: '1rem',
-                        },
-                      }}>
-                        <Box sx={{
-                          position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
-                          justifyContent: 'space-between',
-                        }}>
-                          <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
-                            <Box sx={{
-                              display: data && data.university_id == 1 ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center',
-                              width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
-                              border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
-                            }}>
-                              <Linkedin />
-                            </Box>
-                          </Box>
-                          <Box sx={{ margin: '1rem' }}>
-                            <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {
-                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][3].name :
-                                  'Имя фамилия Отчество выпускника/ученика'
-                              }
-                            </Typography>
-                            <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
-                              {
-                                data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                                  universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][3].description :
-                                  'Специализация выпускника/ученика'
-                              }
-                            </Typography>
-                          </Box>
+                          width: '19.4375rem', padding: '0.75rem', flexShrink: 0,
+                        }
+                      }}
+                      >
+                        <Box sx={{ display: 'flex', flexDirection: 'flex-start', marginBottom: '0.5rem' }}>
+                          <PieChart />
                         </Box>
-                        <img 
-                          src={
-                              data && data.university_id && universityBestGraduates[data.university_id as keyof typeof universityBestGraduates] ?
-                              universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][3].image :
-                              proudStuEx
-                          }
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }} 
-                        />
+                        <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: '#58607C' }}>
+                          {universityFacts[data.university_id as keyof typeof universityFacts][lang][3]}
+                        </Typography>
                       </Box>
                     </Box>
-                  </Box>
+                  )}
+
+                  {/* History Section - only render if data exists */}
+                  {hasHistoryData() && (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', borderRadius: '1.5rem', marginTop: '1.25rem', position: 'relative',
+                      '@media (max-width: 768px)': { paddingLeft: '0.5rem' }
+                    }}>
+                      <Box sx={{
+                        fontSize: '1.5rem',
+                        fontWeight: '600',
+                        color: '#4D4D4D',
+                        paddingBottom: '10px'
+                      }}>
+                        {localization[lang].MainCard.history}
+                      </Box>
+
+                      <Box sx={{
+                        display: 'flex', overflow: 'auto', maxWidth: '92vw',
+                        '-ms-overflow-style': 'none', 'scrollbar-width': 'none', '&::-webkit-scrollbar': { display: 'none' },
+                        scrollBehavior: 'smooth', '@media (max-width: 768px)': { maxWidth: '96vw' }
+                      }}
+                      >
+                        <Box sx={{
+                          position: 'absolute', width: '61.4375rem', height: '23.75rem', display: 'flex',
+                          justifyContent: 'space-between', alignItems: 'center', '@media (max-width: 768px)': { display: 'none' },
+                        }}>
+                          <Box sx={{
+                            cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
+                            borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
+                            display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '1.75rem',
+                          }} onClick={(): void => scrollToRef('prev')}
+                          >
+                            <ArrowLeft />
+                          </Box>
+                          <Box sx={{
+                            cursor: 'pointer', width: '2.75rem', height: '2.75rem', backgroundColor: '#FFF',
+                            borderRadius: '3.5rem', boxShadow: '0px 36px 48px 0px rgba(207, 215, 226, 0.60)',
+                            display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '1.75rem'
+                          }} onClick={(): void => scrollToRef('next')}
+                          >
+                            <ArrowRight />
+                          </Box>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyFirstRef}>
+                          <Box sx={{
+                            width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
+                            '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
+                          }}>
+                            <img
+                              src={universityHistory[data.university_id as keyof typeof universityHistory][lang][0]?.image || historyEx}
+                              style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }}
+                            />
+                          </Box>
+                          <Box sx={{
+                            fontSize: '1.5rem',
+                            fontWeight: '600',
+                            color: '#4D4D4D',
+                            paddingBottom: '10px',
+                            marginTop: '1rem'
+                          }}>
+                            {universityHistory[data.university_id as keyof typeof universityHistory][lang][0]?.title || ''}
+                          </Box>
+                          <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
+                            {universityHistory[data.university_id as keyof typeof universityHistory][lang][0]?.text || ''}
+                          </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historySecondRef}>
+                          <Box sx={{
+                            width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
+                            '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
+                          }}>
+                            <img
+                              src={universityHistory[data.university_id as keyof typeof universityHistory][lang][1]?.image || historyEx}
+                              style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }}
+                            />
+                          </Box>
+                          <Box sx={{
+                            fontSize: '1.5rem',
+                            fontWeight: '600',
+                            color: '#4D4D4D',
+                            paddingBottom: '10px',
+                            marginTop: '1rem'
+                          }}>
+                            {universityHistory[data.university_id as keyof typeof universityHistory][lang][1]?.title || ''}
+                          </Box>
+                          <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
+                            {universityHistory[data.university_id as keyof typeof universityHistory][lang][1]?.text || ''}
+                          </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyThirdRef}>
+                          <Box sx={{
+                            width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
+                            '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
+                          }}>
+                            <img
+                              src={universityHistory[data.university_id as keyof typeof universityHistory][lang][2]?.image || historyEx}
+                              style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }}
+                            />
+                          </Box>
+                          <Box sx={{
+                            fontSize: '1.5rem',
+                            fontWeight: '600',
+                            color: '#4D4D4D',
+                            paddingBottom: '10px',
+                            marginTop: '1rem'
+                          }}>
+                            {universityHistory[data.university_id as keyof typeof universityHistory][lang][2]?.title || ''}
+                          </Box>
+                          <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
+                            {universityHistory[data.university_id as keyof typeof universityHistory][lang][2]?.text || ''}
+                          </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '1.88rem' }} ref={historyFourthRef}>
+                          <Box sx={{
+                            width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
+                            '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
+                          }}>
+                            <img
+                              src={universityHistory[data.university_id as keyof typeof universityHistory][lang][3]?.image || historyEx}
+                              style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }}
+                            />
+                          </Box>
+                          <Box sx={{
+                            fontSize: '1.5rem',
+                            fontWeight: '600',
+                            color: '#4D4D4D',
+                            paddingBottom: '10px',
+                            marginTop: '1rem'
+                          }}>
+                            {universityHistory[data.university_id as keyof typeof universityHistory][lang][3]?.title || ''}
+                          </Box>
+                          <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
+                            {universityHistory[data.university_id as keyof typeof universityHistory][lang][3]?.text || ''}
+                          </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column' }} ref={historyFifthRef}>
+                          <Box sx={{
+                            width: '61.4375rem', height: '23.75rem', backgroundColor: '#F4F7FE', borderRadius: '1.5rem',
+                            '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' },
+                          }}>
+                            <img
+                              src={universityHistory[data.university_id as keyof typeof universityHistory][lang][4]?.image || historyEx}
+                              style={{ width: '100%', height: '100%', borderRadius: '1.5rem' }}
+                            />
+                          </Box>
+                          <Box sx={{
+                            fontSize: '1.5rem',
+                            fontWeight: '600',
+                            color: '#4D4D4D',
+                            paddingBottom: '10px',
+                            marginTop: '1rem'
+                          }}>
+                            {universityHistory[data.university_id as keyof typeof universityHistory][lang][4]?.title || ''}
+                          </Box>
+                          <Typography className={styles.textSm} color="#818181" sx={{ '@media (max-width: 768px)': { display: 'none' } }}>
+                            {universityHistory[data.university_id as keyof typeof universityHistory][lang][4]?.text || ''}
+                          </Typography>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                          <Box sx={{ width: '61.4375rem', height: '23.75rem', '@media (max-width: 768px)': { width: '19.4375rem', height: '12.5rem' } }}>
+                          </Box>
+                        </Box>
+                      </Box>
+                      <Box sx={{ display: 'flex', alignItems: 'center', }}>
+                        <Dot />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
+                          <path d="M270 1.00002L0 1" stroke={currentHistory > 0 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
+                        </svg>
+                        <Dot />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
+                          <path d="M270 1.00002L0 1" stroke={currentHistory > 1 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
+                        </svg>
+                        <Dot />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
+                          <path d="M270 1.00002L0 1" stroke={currentHistory > 2 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
+                        </svg>
+                        <Dot />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="270" height="2" viewBox="0 0 270 2" fill="none">
+                          <path d="M270 1.00002L0 1" stroke={currentHistory > 3 ? "#3B82F6" : "#D8E6FD"} strokeWidth="2" />
+                        </svg>
+                        <Dot />
+                      </Box>
+                      <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '0.75rem' }}>
+                        <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{data && data.university_id == 1 ? '2000' : '1933'}</Typography>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
+                          <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
+                        </svg>
+                        <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{data && data.university_id == 1 ? '2001' : '1938'}</Typography>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
+                          <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
+                        </svg>
+                        <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{data && data.university_id == 1 ? '2003' : '1970'}</Typography>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
+                          <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
+                        </svg>
+                        <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{data && data.university_id == 1 ? '2005' : '1999'}</Typography>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="253" height="2" viewBox="0 0 270 2" fill="none">
+                          <path d="M270 1.00002L0 1" stroke='transparent' strokeWidth="2" />
+                        </svg>
+                        <Typography sx={{ color: '#3B82F6', fontSize: '0.75rem' }}>{data && data.university_id == 1 ? '2011' : '2017'}</Typography>
+                      </Box>
+                    </Box>
+                  )}
+
+                  {/* Best Graduates Section - only render if data exists */}
+                  {hasBestGraduatesData() && (
+                    <Box sx={{
+                      display: 'flex', flexDirection: 'column', backgroundColor: '#FAFBFF',
+                      padding: '1.75rem', borderRadius: '1.5rem', marginTop: '1.25rem', '@media (max-width: 768px)': { maxWidth: '96vw' },
+                    }}
+                    >
+                      <Typography
+                        className={styles.nameText} fontWeight='600' sx={{
+                          width: '70%', marginBottom: '1.5rem', fontSize: '2rem',
+                          '@media (max-width: 998px)': {
+                            fontSize: '24px',
+                          },
+                          '@media (max-width: 768px)': {
+                            fontSize: '24px',
+                            width: '100%',
+                          },
+                        }}
+                      >
+                        {localization[lang].MainCard.best}
+                      </Typography>
+                      <Box sx={{ display: 'flex', '@media (max-width: 998px)': { flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '1rem' } }}>
+                        <Box sx={{
+                          width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
+                          backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
+                          background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                          '@media (max-width: 768px)': {
+                            marginRight: '0rem', marginBottom: '1rem',
+                          },
+                        }}>
+                          <Box sx={{
+                            position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
+                            justifyContent: 'space-between',
+                          }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
+                              <Box sx={{
+                                display: data && data.university_id == 1 ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center',
+                                width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
+                                border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
+                              }}>
+                                <Linkedin />
+                              </Box>
+                            </Box>
+                            <Box sx={{ margin: '1rem' }}>
+                              <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                                {universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][0]?.name || ''}
+                              </Typography>
+                              <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                                {universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][0]?.description || ''}
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <img
+                            src={universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][0]?.image || proudStuEx}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }}
+                          />
+                        </Box>
+                        <Box sx={{
+                          width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
+                          backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
+                          background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                          '@media (max-width: 768px)': {
+                            marginRight: '0rem', marginBottom: '1rem',
+                          },
+                        }}>
+                          <Box sx={{
+                            position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
+                            justifyContent: 'space-between',
+                          }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
+                              <Box sx={{
+                                display: data && data.university_id == 1 ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center',
+                                width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
+                                border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
+                              }}>
+                                <Linkedin />
+                              </Box>
+                            </Box>
+                            <Box sx={{ margin: '1rem' }}>
+                              <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                                {universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][1]?.name || ''}
+                              </Typography>
+                              <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                                {universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][1]?.description || ''}
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <img
+                            src={universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][1]?.image || proudStuEx}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }}
+                          />
+                        </Box>
+                        <Box sx={{
+                          width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
+                          backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
+                          background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                          '@media (max-width: 768px)': {
+                            marginRight: '0rem', marginBottom: '1rem',
+                          },
+                        }}>
+                          <Box sx={{
+                            position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
+                            justifyContent: 'space-between',
+                          }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
+                              <Box sx={{
+                                display: data && data.university_id == 1 ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center',
+                                width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
+                                border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
+                              }}>
+                                <Linkedin />
+                              </Box>
+                            </Box>
+                            <Box sx={{ margin: '1rem' }}>
+                              <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                                {universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][2]?.name || ''}
+                              </Typography>
+                              <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                                {universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][2]?.description || ''}
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <img
+                            src={universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][2]?.image || proudStuEx}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }}
+                          />
+                        </Box>
+                        <Box sx={{
+                          width: '19rem', height: '22.25rem', marginRight: '1rem', borderRadius: '1rem',
+                          backgroundColor: 'var(--color-light-dark-200, #F4F7FE)',
+                          background: 'linear-gradient(180deg, rgba(41, 51, 87, 0.00) 62.06%, rgba(41, 51, 87, 0.70) 85.58%, #293357 100%',
+                          '@media (max-width: 768px)': {
+                            marginRight: '0rem', marginBottom: '1rem',
+                          },
+                        }}>
+                          <Box sx={{
+                            position: 'absolute', width: '19rem', height: '22.25rem', display: 'flex', flexDirection: 'column',
+                            justifyContent: 'space-between',
+                          }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', padding: '1.75rem', width: '100%' }}>
+                              <Box sx={{
+                                display: data && data.university_id == 1 ? 'flex' : 'none', justifyContent: 'center', alignItems: 'center',
+                                width: '2.5rem', height: '2.5rem', backgroundColor: 'transparent', borderRadius: '1.5rem',
+                                border: '1px solid var(--color-light-dark-600, #58607C)', cursor: 'pointer',
+                              }}>
+                                <Linkedin />
+                              </Box>
+                            </Box>
+                            <Box sx={{ margin: '1rem' }}>
+                              <Typography sx={{ fontSize: '1rem', fontWeight: '600', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                                {universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][3]?.name || ''}
+                              </Typography>
+                              <Typography sx={{ fontSize: '0.875rem', fontWeight: '400', color: 'var(--Color-Neutral-50, #FFF)' }}>
+                                {universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][3]?.description || ''}
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <img
+                            src={universityBestGraduates[data.university_id as keyof typeof universityBestGraduates][lang][3]?.image || proudStuEx}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '1rem' }}
+                          />
+                        </Box>
+                      </Box>
+                    </Box>
+                  )}
 
                 </Box>
               </Box>

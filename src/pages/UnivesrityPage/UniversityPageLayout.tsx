@@ -85,9 +85,9 @@ export const UniversityPageLayout: React.FC = () => {
                                     }
                                 </Typography>
                                 <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>
+                                    {universityGraduatesCount[university.university_id as keyof typeof universityGraduatesCount] ? (<Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"}>
                                         {localization[lang].UniCards.majors}: {universityGraduatesCount[university.university_id as keyof typeof universityGraduatesCount]}
-                                    </Typography>
+                                    </Typography>) : <div></div>}
                                     <Typography mt="0.2rem" fontSize="1rem" fontWeight="600" color={"#818181"} textAlign='right'>
                                         {localization[lang].UniCards.city}: {university && university.university_id && universityCity[university.university_id as keyof typeof universityCity] ? universityCity[university.university_id as keyof typeof universityCity][lang]: ''}
                                     </Typography>

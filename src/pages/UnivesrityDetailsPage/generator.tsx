@@ -949,6 +949,11 @@ export const universityName = {
     'kz': 'Q-Lab',
     'ru': 'Q-Lab',
     'en': 'Q-Lab'
+  },
+  8: {
+    'kz': 'Әл-Фараби атындағы Қазақ ұлттық университеті (ҚазҰУ)',
+    'en': 'Al-Farabi Kazakh National University',
+    'ru': 'Казахский национальный университет имени аль-Фараби (КазНУ)'
   }
 };
 
@@ -967,6 +972,11 @@ export const univerityMission = {
     'kz': 'Q-LAB – қала тұрғындары мен қала қоғамдастықтарының қажеттіліктерін зерттейтін қала құрылысы мен құрылыс мәселелеріне арналған ғылыми зертхана. Бұл сәулетшілер мен азаматтар арасындағы дәнекер. Біз сәулет, қала құрылысы және урбанистика саласындағы ғылыми-зерттеу, білім беру, ғылыми және мәдени жобаларды жасау және жүзеге асыру орталығымыз. Біз бірқатар шығармашылық, техникалық, академиялық зерттеушілерді, коммерциялық және коммерциялық емес ұйымдарды біріктіріп, қаланы дамытуға бағытталған серіктестік үшін жаңа мүмкіндіктер жасаймыз.',
     'ru': 'Q-LAB - исследовательская лаборатория проблем градопланирования и строительства, изучающая потребности жителей города и городских сообществ. Является связующим звеном между архитекторами и горожанами. Мы центр для создания и внедрения исследовательских, образовательных, научных и культурных проектов в области архитектуры, городского планирования и урбанистики. Объеденяем ряд творческих, технических, академических исследователей, коммерческие и некоммерческие организации создавая новые возможности для партнерства направленных на развитие города.',
     'en': 'Q-LAB is a research laboratory for urban planning and construction problems that studies the needs of city residents and urban communities. It is a link between architects and citizens. We are a center for the creation and implementation of research, educational, scientific and cultural projects in the field of architecture, urban planning and urbanism. We bring together a number of creative, technical, academic researchers, commercial and non-profit organizations, creating new opportunities for partnership aimed at developing the city.'
+  },
+  8: {
+    'kz': "Әл-Фараби атындағы Қазақ ұлттық университеті (ҚазҰУ) — Қазақстанның жетекші жоғары оқу орны және аймақтық үздіксіз білім берудің ірі орталықтарының бірі. Университет Алматы қаласында орналасқан және әлемдік деңгейдегі зерттеу университеті мәртебесіне ие.",
+    'en': "Al-Farabi Kazakh National University, also called KazNU or KazGU, is a national research university located in Almaty, Kazakhstan. Named after philosopher and scholar al-Farabi, it is one of the country\'s largest universities. KazNU is Kazakhstan\'s oldest classical university",
+    'ru': "Казахский национальный университет имени аль-Фараби (КазНУ) — ведущее высшее учебное заведение Казахстана и один из крупнейших региональных центров непрерывного образования. Университет расположен в Алматы и имеет статус исследовательского университета мирового уровня"
   }
 };
 
@@ -1011,6 +1021,17 @@ export const universityFacts = {
       'Золотая медаль имени В.И. Блинникова «За вклад в изобретательское и патентное дело» Евразийской патентной организации',
     ],
   },
+  // 8: {
+  //   'kz': [
+  //     '',
+  //   ],
+  //   'ru': [
+  //     '',
+  //   ],
+  //   'en': [
+  //     '',
+  //   ],
+  // },
 };
 
 export const universityHistory = {
@@ -1180,6 +1201,17 @@ export const universityHistory = {
       },
     ],
   },
+  // 8: {
+  //   'kz': [
+  //
+  //   ],
+  //   'ru': [
+  //
+  //   ],
+  //   'en': [
+  //
+  //   ],
+  // },
 };
 
 export const universityBestGraduates = {

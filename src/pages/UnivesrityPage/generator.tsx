@@ -135,4 +135,14 @@ export const universityCity = {
 		ru: 'Алматы',
 		en: 'Almaty',
 	},
+	8: {
+		kz: 'Алматы',
+		ru: 'Алматы',
+		en: 'Almaty',
+	},
+	4: {
+		kz: 'Алматы',
+		ru: 'Алматы',
+		en: 'Almaty',
+	},
 }

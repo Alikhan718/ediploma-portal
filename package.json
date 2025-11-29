@@ -102,7 +102,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js && npm run upload",
+    "build": "node scripts/build.js",
     "build-stage": "node scripts/build.js && npm run upload-stage",
     "test": "node scripts/test.js",
     "upload-stage": "scp -r ./build myvps:/var/www/portal",
