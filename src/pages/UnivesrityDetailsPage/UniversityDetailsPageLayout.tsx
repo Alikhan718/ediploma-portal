@@ -217,41 +217,6 @@ export const UniversityDetailsPageLayout: React.FC = () => {
 								</Box>
 							</Box>
 
-							{/* <Box sx={{ display: 'none', marginBottom: '1rem', flexDirection: 'column', '@media (max-width: 768px)': { display: 'flex ' } }}>
-								<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', }}>
-									4.5 <Rating
-										name="text-feedback"
-										value={defaultS}
-										readOnly
-										emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-									/> (25 {localization[lang].MainCard.ratings})
-								</Typography>
-								<Typography className={styles.textSm} fontWeight='600' ml='.5rem'></Typography>
-							</Box> */}
-
-
-							{/* <Box display="flex"
-								alignItems="center"
-								sx={{
-									flexDirection: 'row',
-									justifyContent: 'space-between',
-									width: '100%',
-									alignItems: 'center',
-								}}>
-								<Typography className={styles.textSm} sx={{ paddingBottom: '16px', marginRight: '16px' }}>
-									{localization[lang].MainCard.mail}: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>info@kbtu.kz</span>
-								</Typography>
-
-								<Typography className={styles.textSm} sx={{ display: 'flex', alignItems: 'center', '@media (max-width: 768px)': { display: 'none' } }}>
-									4.5 <Rating
-										name="text-feedback"
-										value={defaultS}
-										readOnly
-										emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-									/> (25 {localization[lang].MainCard.ratings})
-								</Typography>
-							</Box> */}
-
 							<Box display='flex' flexDirection='column'>
 								<Typography className={styles.textSm}>
 									{localization[lang].MainCard.phone}: <span style={{ fontWeight: 'bold', fontSize: '18px' }}>8 (7273) 57 42 51</span>

@@ -46,7 +46,7 @@ const AddingGraduates: React.FC = () => {
 
     const uploadedFile = event.target.files?.[0] || null;
     setFile(uploadedFile);
-    dispatch(uploadDataParse({file: uploadedFile}));
+    dispatch(uploadDataParse({file: uploadedFile, university_id: userState.university_id}));
 
   };
 
@@ -170,8 +170,9 @@ const AddingGraduates: React.FC = () => {
       setProgress(progress + 1);
     }
   };
-  console.log(`step id ${stepId}`);
-  NcaLayer.enableWebSocket(setNcaLayerFound);
+  useEffect(() => {
+    NcaLayer.enableWebSocket(setNcaLayerFound);
+  }, [ncaLayerFound]);
 
 
   useEffect(() => {

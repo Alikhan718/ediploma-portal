@@ -1,8 +1,8 @@
 export const localization = {
     Copyright: {
-        ru: '© 2024 Все права защищены',
-        en: '© 2024 All rights reserved',
-        kz: '© 2024 Барлық құқықтар қорғалған',
+        ru: `© ${new Date().getFullYear()} Все права защищены`,
+        en: `© ${new Date().getFullYear()} All rights reserved`,
+        kz: `© ${new Date().getFullYear()} Барлық құқықтар қорғалған`,
         link: '#',
     },
     PrivacyPolicy: {

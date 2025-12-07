@@ -719,6 +719,7 @@ export const UniversityDetailsPage: React.FC = () => {
                               style={ {
                                 width: '100%',
                                 height: '100%',
+                                objectFit: "cover",
                                 borderRadius: '1.5rem'
                               } }
                             />
@@ -757,6 +758,7 @@ export const UniversityDetailsPage: React.FC = () => {
                               style={ {
                                 width: '100%',
                                 height: '100%',
+                                objectFit: "cover",
                                 borderRadius: '1.5rem'
                               } }
                             />
@@ -795,6 +797,7 @@ export const UniversityDetailsPage: React.FC = () => {
                               style={ {
                                 width: '100%',
                                 height: '100%',
+                                objectFit: "cover",
                                 borderRadius: '1.5rem'
                               } }
                             />
@@ -833,6 +836,7 @@ export const UniversityDetailsPage: React.FC = () => {
                               style={ {
                                 width: '100%',
                                 height: '100%',
+                                objectFit: "cover",
                                 borderRadius: '1.5rem'
                               } }
                             />
@@ -868,6 +872,7 @@ export const UniversityDetailsPage: React.FC = () => {
                               style={ {
                                 width: '100%',
                                 height: '100%',
+                                objectFit: "cover",
                                 borderRadius: '1.5rem'
                               } }
                             />
@@ -904,6 +909,8 @@ export const UniversityDetailsPage: React.FC = () => {
                                         style={ {
                                           width: '100%',
                                           height: '100%',
+                                          objectFit: "cover",
+                                          objectPosition: 'bottom',
                                           borderRadius: '1.5rem'
                                         } }
                                     />
@@ -1064,7 +1071,7 @@ export const UniversityDetailsPage: React.FC = () => {
                             style={ {
                               width: '100%',
                               height: '100%',
-                              objectFit: 'cover',
+                              objectFit: 'contain',
                               borderRadius: '1rem'
                             } }
                           />
@@ -1130,7 +1137,7 @@ export const UniversityDetailsPage: React.FC = () => {
                             style={ {
                               width: '100%',
                               height: '100%',
-                              objectFit: 'cover',
+                              objectFit: 'contain',
                               borderRadius: '1rem'
                             } }
                           />
@@ -1196,7 +1203,7 @@ export const UniversityDetailsPage: React.FC = () => {
                             style={ {
                               width: '100%',
                               height: '100%',
-                              objectFit: 'cover',
+                              objectFit: 'contain',
                               borderRadius: '1rem'
                             } }
                           />
@@ -1262,7 +1269,7 @@ export const UniversityDetailsPage: React.FC = () => {
                             style={ {
                               width: '100%',
                               height: '100%',
-                              objectFit: 'cover',
+                              objectFit: 'contain',
                               borderRadius: '1rem'
                             } }
                           />
