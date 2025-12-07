@@ -1,10 +1,10 @@
 import React from "react";
 
-import {ReactComponent as PasswordIcon} from "@src/assets/icons/Password.svg";
-import {ReactComponent as EmailIcon} from "@src/assets/icons/Letter.svg";
-import {ReactComponent as SocialIcon} from "@src/assets/icons/socialmedia.svg";
-import {ReactComponent as FieldIcon} from "@src/assets/icons/field.svg";
-import {ReactComponent as PrivacyIcon} from "@src/assets/icons/privacy.svg";
+import { ReactComponent as PasswordIcon } from "@src/assets/icons/Password.svg";
+import { ReactComponent as EmailIcon } from "@src/assets/icons/Letter.svg";
+import { ReactComponent as SocialIcon } from "@src/assets/icons/socialmedia.svg";
+import { ReactComponent as FieldIcon } from "@src/assets/icons/field.svg";
+import { ReactComponent as PrivacyIcon } from "@src/assets/icons/privacy.svg";
 import kbtuHist1 from '@src/assets/example/kbtuHist1.jpg';
 import kbtuHist2 from '@src/assets/example/kbtuHist2.jpg';
 import kbtuHist3 from '@src/assets/example/kbtuHist3.jpg';
@@ -19,7 +19,12 @@ import suProud1 from '@src/assets/example/suProud1.png';
 import suProud2 from '@src/assets/example/suProud2.png';
 import suProud3 from '@src/assets/example/suProud3.png';
 import suProud4 from '@src/assets/example/suProud4.png';
-import { sign } from "crypto";
+import kaznuHist1 from '@src/assets/example/kaznu_hist_1.png';
+import kaznuHist2 from '@src/assets/example/kaznu_hist_2.png';
+import kaznuHist3 from '@src/assets/example/kaznu_hist_3.png';
+import kaznuHist4 from '@src/assets/example/kaznu_hist_4.png';
+import kaznuHist5 from '@src/assets/example/kaznu_hist_5.png';
+import kaznuHist6 from '@src/assets/example/kaznu_hist_6.png';
 
 export const navigation = [
 
@@ -30,7 +35,7 @@ export const navigation = [
       "kz": 'Жеке ақпарат'
     },
     reference: 0,
-    icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    icon: <EmailIcon color="primary" style={ { marginRight: '0.5rem' } }/>
   },
   {
     title: {
@@ -39,7 +44,7 @@ export const navigation = [
       "kz": 'Email'
     },
     reference: 1,
-    icon: <EmailIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    icon: <EmailIcon color="primary" style={ { marginRight: '0.5rem' } }/>
   },
   {
     title: {
@@ -48,7 +53,7 @@ export const navigation = [
       "kz": 'Кұпия сөз'
     },
     reference: 2,
-    icon: <PasswordIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    icon: <PasswordIcon color="primary" style={ { marginRight: '0.5rem' } }/>
   },
   {
     title: {
@@ -57,7 +62,7 @@ export const navigation = [
       "kz": 'Құпиялылық'
     },
     reference: 3,
-    icon: <PrivacyIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    icon: <PrivacyIcon color="primary" style={ { marginRight: '0.5rem' } }/>
   },
   {
     title: {
@@ -66,7 +71,7 @@ export const navigation = [
       "kz": 'Қызмет аясы'
     },
     reference: 4,
-    icon: <FieldIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    icon: <FieldIcon color="primary" style={ { marginRight: '0.5rem' } }/>
   },
   {
     title: {
@@ -75,7 +80,7 @@ export const navigation = [
       "kz": 'Әлеуметтік желілер'
     },
     reference: 5,
-    icon: <SocialIcon color="primary" style={{marginRight: '0.5rem'}}/>
+    icon: <SocialIcon color="primary" style={ { marginRight: '0.5rem' } }/>
   },
 ];
 
@@ -858,79 +863,79 @@ export const localization = {
 
 export const fields = {
   "en": [
-    {"id": 1, "name": "Automotive industry"},
-    {"id": 2, "name": "Hospitality and catering"},
-    {"id": 3, "name": "Public sector"},
-    {"id": 4, "name": "Natural resources and energy"},
-    {"id": 5, "name": "Utilities"},
-    {"id": 6, "name": "Technology and IT"},
-    {"id": 7, "name": "Culture and art"},
-    {"id": 8, "name": "Forestry and wood processing industry"},
-    {"id": 9, "name": "Healthcare and pharmaceuticals"},
-    {"id": 10, "name": "Metallurgy and metalworking"},
-    {"id": 11, "name": "Education"},
-    {"id": 12, "name": "Logistics and transport"},
-    {"id": 13, "name": "Food industry"},
-    {"id": 14, "name": "Industrial equipment and mechanical engineering"},
-    {"id": 15, "name": "Retail trade and services"},
-    {"id": 16, "name": "Agriculture"},
-    {"id": 17, "name": "Marketing, media and advertising"},
-    {"id": 18, "name": "Construction and real estate"},
-    {"id": 19, "name": "Telecommunications and communications"},
-    {"id": 20, "name": "Consumer goods"},
-    {"id": 21, "name": "Asset management and business services"},
-    {"id": 22, "name": "Financial sector"},
-    {"id": 23, "name": "Chemical industry"}
+    { "id": 1, "name": "Automotive industry" },
+    { "id": 2, "name": "Hospitality and catering" },
+    { "id": 3, "name": "Public sector" },
+    { "id": 4, "name": "Natural resources and energy" },
+    { "id": 5, "name": "Utilities" },
+    { "id": 6, "name": "Technology and IT" },
+    { "id": 7, "name": "Culture and art" },
+    { "id": 8, "name": "Forestry and wood processing industry" },
+    { "id": 9, "name": "Healthcare and pharmaceuticals" },
+    { "id": 10, "name": "Metallurgy and metalworking" },
+    { "id": 11, "name": "Education" },
+    { "id": 12, "name": "Logistics and transport" },
+    { "id": 13, "name": "Food industry" },
+    { "id": 14, "name": "Industrial equipment and mechanical engineering" },
+    { "id": 15, "name": "Retail trade and services" },
+    { "id": 16, "name": "Agriculture" },
+    { "id": 17, "name": "Marketing, media and advertising" },
+    { "id": 18, "name": "Construction and real estate" },
+    { "id": 19, "name": "Telecommunications and communications" },
+    { "id": 20, "name": "Consumer goods" },
+    { "id": 21, "name": "Asset management and business services" },
+    { "id": 22, "name": "Financial sector" },
+    { "id": 23, "name": "Chemical industry" }
   ],
   "kz": [
-    {"id": 1, "name": "Автомобиль өнеркәсібі"},
-    {"id": 2, "name": "Қонақжайлылық және қоғамдық тамақтандыру"},
-    {"id": 3, "name": "Мемлекеттік сектор"},
-    {"id": 4, "name": "Табиғи ресурстар және энергия"},
-    {"id": 5, "name": "Утилиталар"},
-    {"id": 6, "name": "Технология және АТ"},
-    {"id": 7, "name": "Мәдениет және өнер"},
-    {"id": 8, "name": "Орман және ағаш өңдеу өнеркәсібі"},
-    {"id": 9, "name": "Денсаулық сақтау және фармацевтика"},
-    {"id": 10, "name": "Металлургия және металл өңдеу"},
-    {"id": 11, "name": "Білім"},
-    {"id": 12, "name": "Логистика және көлік"},
-    {"id": 13, "name": "Тамақ өнеркәсібі"},
-    {"id": 14, "name": "Өнеркәсіптік жабдық және машина жасау"},
-    {"id": 15, "name": "Бөлшек сауда және қызмет көрсету"},
-    {"id": 16, "name": "Ауыл шаруашылығы"},
-    {"id": 17, "name": "Маркетинг, БАҚ және жарнама"},
-    {"id": 18, "name": "Құрылыс және жылжымайтын мүлік"},
-    {"id": 19, "name": "Телекоммуникация және байланыс"},
-    {"id": 20, "name": "Тұтыну тауарлары"},
-    {"id": 21, "name": "Активтерді басқару және бизнес қызметтері"},
-    {"id": 22, "name": "Қаржы секторы"},
-    {"id": 23, "name": "Химия өнеркәсібі"}
+    { "id": 1, "name": "Автомобиль өнеркәсібі" },
+    { "id": 2, "name": "Қонақжайлылық және қоғамдық тамақтандыру" },
+    { "id": 3, "name": "Мемлекеттік сектор" },
+    { "id": 4, "name": "Табиғи ресурстар және энергия" },
+    { "id": 5, "name": "Утилиталар" },
+    { "id": 6, "name": "Технология және АТ" },
+    { "id": 7, "name": "Мәдениет және өнер" },
+    { "id": 8, "name": "Орман және ағаш өңдеу өнеркәсібі" },
+    { "id": 9, "name": "Денсаулық сақтау және фармацевтика" },
+    { "id": 10, "name": "Металлургия және металл өңдеу" },
+    { "id": 11, "name": "Білім" },
+    { "id": 12, "name": "Логистика және көлік" },
+    { "id": 13, "name": "Тамақ өнеркәсібі" },
+    { "id": 14, "name": "Өнеркәсіптік жабдық және машина жасау" },
+    { "id": 15, "name": "Бөлшек сауда және қызмет көрсету" },
+    { "id": 16, "name": "Ауыл шаруашылығы" },
+    { "id": 17, "name": "Маркетинг, БАҚ және жарнама" },
+    { "id": 18, "name": "Құрылыс және жылжымайтын мүлік" },
+    { "id": 19, "name": "Телекоммуникация және байланыс" },
+    { "id": 20, "name": "Тұтыну тауарлары" },
+    { "id": 21, "name": "Активтерді басқару және бизнес қызметтері" },
+    { "id": 22, "name": "Қаржы секторы" },
+    { "id": 23, "name": "Химия өнеркәсібі" }
   ],
   "ru": [
-    {"id": 1, "name": "Автомобильная индустрия"},
-    {"id": 2, "name": "Гостеприимство и общественное питание"},
-    {"id": 3, "name": "Государственный сектор"},
-    {"id": 4, "name": "Природные ресурсы и энергетика"},
-    {"id": 5, "name": "Коммунальные услуги"},
-    {"id": 6, "name": "Технологии и IT"},
-    {"id": 7, "name": "Культура и искусство"},
-    {"id": 8, "name": "Лесная и деревообрабатывающая промышленность"},
-    {"id": 9, "name": "Здравоохранение и фармацевтика"},
-    {"id": 10, "name": "Металлургия и металлообработка"},
-    {"id": 11, "name": "Образование"},
-    {"id": 12, "name": "Логистика и транспорт"},
-    {"id": 13, "name": "Пищевая промышленность"},
-    {"id": 14, "name": "Промышленное оборудование и машиностроение"},
-    {"id": 15, "name": "Розничная торговля и услуги"},
-    {"id": 16, "name": "Сельское хозяйство"},
-    {"id": 17, "name": "Маркетинг, СМИ и реклама"},
-    {"id": 18, "name": "Строительство и недвижимость"},
-    {"id": 19, "name": "Телекоммуникации и связь"},
-    {"id": 20, "name": "Товары народного потребления"},
-    {"id": 21, "name": "Управление активами и бизнес-услуги"},
-    {"id": 22, "name": "Финансовый сектор"},
-    {"id": 23, "name": "Химическая промышленность"}
+    { "id": 1, "name": "Автомобильная индустрия" },
+    { "id": 2, "name": "Гостеприимство и общественное питание" },
+    { "id": 3, "name": "Государственный сектор" },
+    { "id": 4, "name": "Природные ресурсы и энергетика" },
+    { "id": 5, "name": "Коммунальные услуги" },
+    { "id": 6, "name": "Технологии и IT" },
+    { "id": 7, "name": "Культура и искусство" },
+    { "id": 8, "name": "Лесная и деревообрабатывающая промышленность" },
+    { "id": 9, "name": "Здравоохранение и фармацевтика" },
+    { "id": 10, "name": "Металлургия и металлообработка" },
+    { "id": 11, "name": "Образование" },
+    { "id": 12, "name": "Логистика и транспорт" },
+    { "id": 13, "name": "Пищевая промышленность" },
+    { "id": 14, "name": "Промышленное оборудование и машиностроение" },
+    { "id": 15, "name": "Розничная торговля и услуги" },
+    { "id": 16, "name": "Сельское хозяйство" },
+    { "id": 17, "name": "Маркетинг, СМИ и реклама" },
+    { "id": 18, "name": "Строительство и недвижимость" },
+    { "id": 19, "name": "Телекоммуникации и связь" },
+    { "id": 20, "name": "Товары народного потребления" },
+    { "id": 21, "name": "Управление активами и бизнес-услуги" },
+    { "id": 22, "name": "Финансовый сектор" },
+    { "id": 23, "name": "Химическая промышленность" }
   ],
 };
 
@@ -1040,26 +1045,31 @@ export const universityHistory = {
       {
         image: kbtuHist1,
         title: '2000 - Білім және ғылым саласындағы халықаралық ынтымақтастықтың басталуы',
+        year: '2000',
         text: 'Президенттің 2000 жылғы қарашада Ұлыбританияға ресми сапары барысында білім және ғылым салаларында келісімдерге қол жеткізілді.',
       },
       {
         image: kbtuHist2,
         title: '2001 - Қазақ-Британ техникалық университетінің құрылуы',
+        year: '2001',
         text: 'Қазақстан мен Ұлыбритания арасындағы білім және ғылым саласындағы келісімдерден кейін 2001 жылы құрылған.',
       },
       {
         image: kbtuHist3,
         title: '2003 - Білім беру инфрақұрылымын дамыту',
+        year: '2003',
         text: 'Кадрларды қайта даярлау және біліктілігін арттыру үшін «ҚБТУ Инженерлік және ақпараттық технологиялар институты» ЖШС оқу орталығын құру.',
       },
       {
         image: kbtuHist4,
         title: '2005 - Қос диплом бағдарламасы, академиялық алмасудың жаңа деңгейі',
+        year: '2005',
         text: 'Лондон экономика және саясаттану мектебімен қос дипломды білім беру бағдарламасын іске қосу.',
       },
       {
         image: kbtuHist5,
         title: '2011 - ҚБТУ AACSB-ге қосылды',
+        year: '2011',
         text: 'Жаһандық білім беру кеңістігіне одан әрі интеграциялану мақсатында ҚБТУ AACSB (Association to Advance Collegiate Schools of Business) Америка қауымдастығының мүшесі болды.',
       },
     ],
@@ -1067,26 +1077,31 @@ export const universityHistory = {
       {
         image: kbtuHist1,
         title: '2000 - Начало международного сотрудничества в образовании и науке',
+        year: '2000',
         text: 'В ходе официального визита Президента в Великобританию в ноябре 2000 года достигнуты соглашения в области образования и науки.',
       },
       {
         image: kbtuHist2,
         title: '2001 - Основание Казахстанско-Британского технического университета',
+        year: '2001',
         text: 'Основан в 2001 году после соглашений, достигнутых между Казахстаном и Великобританией в области образования и науки.',
       },
       {
         image: kbtuHist3,
         title: '2003 - Развитие образовательной инфраструктуры',
+        year: '2003',
         text: 'Создание образовательного центра ТОО «Институт инжиниринга и информационных технологий КБТУ» для переподготовки и повышения квалификации кадров.',
       },
       {
         image: kbtuHist4,
         title: '2005 - Программа двойного диплома, Новый уровень академического обмена',
+        year: '2005',
         text: 'Запуск образовательной программы двойного диплома с Лондонской школой экономики и политических наук.',
       },
       {
         image: kbtuHist5,
         title: '2011 - КБТУ присоединяется к AACSB',
+        year: '2011',
         text: 'Стремясь к дальнейшей интеграции в мировое образовательное пространство, КБТУ вступил в члены Американской ассоциации AACSB (Associationto Advance Collegiate Schools of Business)',
       },
     ],
@@ -1094,26 +1109,31 @@ export const universityHistory = {
       {
         image: kbtuHist1,
         title: '2000 - Beginning of international cooperation in education and science',
+        year: '2000',
         text: `During the President's official visit to the UK in November 2000, agreements were reached in the fields of education and science.`,
       },
       {
         image: kbtuHist2,
         title: '2001 - Founding of the Kazakh-British Technical University',
+        year: '2001',
         text: 'Founded in 2001 after agreements reached between Kazakhstan and Great Britain in the field of education and science.',
       },
       {
         image: kbtuHist3,
         title: '2003 - Development of educational infrastructure',
+        year: '2003',
         text: 'Creation of an educational center LLP “Institute of Engineering and Information Technologies KBTU” for retraining and advanced training of personnel.',
       },
       {
         image: kbtuHist4,
         title: '2005 - Double degree program, New level of academic exchange',
+        year: '2005',
         text: 'Launch of a double degree educational program with the London School of Economics and Political Science.',
       },
       {
         image: kbtuHist5,
         title: '2011 - KBTU joins AACSB',
+        year: '2011',
         text: 'In an effort to further integrate into the global educational space, KBTU became a member of the American Association AACSB (Association to Advance Collegiate Schools of Business)',
       },
     ],
@@ -1122,140 +1142,260 @@ export const universityHistory = {
     'kz': [
       {
         image: suHist1,
-        title:'1933 - Бірінші жоғары техникалық оқу орнын ұйымдастыру',
-        text:'Қазақстандағы жоғары техникалық білімді дамыту мақсатында Алматыда Қазақ тау-кен металлургиялық институты құрылды. Бұл елде техникалық ғылымдардың дамуының бастауы болды.',
+        title: '1933 - Бірінші жоғары техникалық оқу орнын ұйымдастыру',
+        year: '1933',
+        text: 'Қазақстандағы жоғары техникалық білімді дамыту мақсатында Алматыда Қазақ тау-кен металлургиялық институты құрылды. Бұл елде техникалық ғылымдардың дамуының бастауы болды.',
       },
       {
         image: suHist2,
-        title:'1938 - Инженерлердің алғашқы түлегі және академик Сәтбаевтың қосқан үлесі',
-        text:'ҚазММИ-ден Қаныш Сәтбаевтың төрағалығымен тұңғыш тау-кен геологтары шықты, бұл ғылым мен өндірістің дамуына маңызды үлес болды.',
+        title: '1938 - Инженерлердің алғашқы түлегі және академик Сәтбаевтың қосқан үлесі',
+        year: '1938',
+        text: 'ҚазММИ-ден Қаныш Сәтбаевтың төрағалығымен тұңғыш тау-кен геологтары шықты, бұл ғылым мен өндірістің дамуына маңызды үлес болды.',
       },
       {
         image: suHist3,
-        title:'1970 - Қазақ мемлекеттік медицина институтынан Ленин атындағы Қазақ политехникалық институтына дейін',
-        text:'Институт өзінің білім беру және ғылыми салаларын кеңейте отырып, бірқатар атауларды өзгертуден өтуде.',
+        title: '1970 - Қазақ мемлекеттік медицина институтынан Ленин атындағы Қазақ политехникалық институтына дейін',
+        year: '1970',
+        text: 'Институт өзінің білім беру және ғылыми салаларын кеңейте отырып, бірқатар атауларды өзгертуден өтуде.',
       },
       {
         image: suHist4,
-        title:'1999 - Қ.И. Сәтбаевтың аты тағайындалуы',
-        text:'1999 жылы Қаныш Сәтбаевтың туғанына 100 жыл толуына орай университетке оның есімі берілді. 2001 жылы Президент Жарлығымен университетке оның кадр даярлаудағы маңызды рөлін растайтын ерекше мәртебе берілді.',
+        title: '1999 - Қ.И. Сәтбаевтың аты тағайындалуы',
+        year: '1999',
+        text: '1999 жылы Қаныш Сәтбаевтың туғанына 100 жыл толуына орай университетке оның есімі берілді. 2001 жылы Президент Жарлығымен университетке оның кадр даярлаудағы маңызды рөлін растайтын ерекше мәртебе берілді.',
       },
       {
         image: suHist5,
-        title:'2017 - Satbayev University брендімен трансформациялар мен жұмыс',
-        text:'Акционерлік қоғамға айналып, ҚБТУ-мен біріктірілгеннен кейін университет өзінің дамуындағы жаңа дәуірді көрсете отырып, Satbayev University брендімен жұмыс істей бастайды.yev University',
+        title: '2017 - Satbayev University брендімен трансформациялар мен жұмыс',
+        year: '2017',
+        text: 'Акционерлік қоғамға айналып, ҚБТУ-мен біріктірілгеннен кейін университет өзінің дамуындағы жаңа дәуірді көрсете отырып, Satbayev University брендімен жұмыс істей бастайды.yev University',
       },
     ],
     'ru': [
       {
         image: suHist1,
-        title:'1933 - Организация первого высшего технического учебного заведения',
-        text:'В Алма-Ате был основан Казахский горно-металлургический институт с целью развития высшего технического образования в Казахстане. Это стало началом освоения технических наук в стране.',
+        title: '1933 - Организация первого высшего технического учебного заведения',
+        year: '1933',
+        text: 'В Алма-Ате был основан Казахский горно-металлургический институт с целью развития высшего технического образования в Казахстане. Это стало началом освоения технических наук в стране.',
       },
       {
         image: suHist2,
-        title:'1938 - Первый выпуск инженеров и вклад академика Сатпаева',
-        text:'КазГМИ выпускает первых горных инженеров-геологов, под председательством Каныша Сатпаева, что стало важным вкладом в развитие науки и промышленности.',
+        title: '1938 - Первый выпуск инженеров и вклад академика Сатпаева',
+        year: '1938',
+        text: 'КазГМИ выпускает первых горных инженеров-геологов, под председательством Каныша Сатпаева, что стало важным вкладом в развитие науки и промышленности.',
       },
       {
         image: suHist3,
-        title:'1970 - От КазГМИ к Казахский политехнический институт имени Ленина',
-        text:'Институт претерпевает серию переименований, расширяя свои образовательные и научные направления.',
+        title: '1970 - От КазГМИ к Казахский политехнический институт имени Ленина',
+        year: '1970',
+        text: 'Институт претерпевает серию переименований, расширяя свои образовательные и научные направления.',
       },
       {
         image: suHist4,
-        title:'1999 - Присвоение имени К.И. Сатпаева',
-        text:'В 1999 году, в ознаменование 100-летия со дня рождения Каныша Сатпаева, университету было присвоено его имя. В 2001 году, по указу президента университет получил особый статус, подтверждая его важную роль в подготовке кадров',
+        title: '1999 - Присвоение имени К.И. Сатпаева',
+        year: '1999',
+        text: 'В 1999 году, в ознаменование 100-летия со дня рождения Каныша Сатпаева, университету было присвоено его имя. В 2001 году, по указу президента университет получил особый статус, подтверждая его важную роль в подготовке кадров',
       },
       {
         image: suHist5,
-        title:'2017 - Преобразования и работа под брендом Satbayev University',
-        text:'После преобразования в акционерное общество и объединения с КБТУ, университет начинает работать под брендом Satbayev University, подчеркивая новую эру в его развитии.',
+        title: '2017 - Преобразования и работа под брендом Satbayev University',
+        year: '2017',
+        text: 'После преобразования в акционерное общество и объединения с КБТУ, университет начинает работать под брендом Satbayev University, подчеркивая новую эру в его развитии.',
       },
     ],
     'en': [
       {
         image: suHist1,
-        title:'1933 - Organization of the first higher technical educational institution',
-        text:'The Kazakh Mining and Metallurgical Institute was founded in Almaty with the aim of developing higher technical education in Kazakhstan. This marked the beginning of the development of technical sciences in the country.',
+        title: '1933 - Organization of the first higher technical educational institution',
+        year: '1933',
+        text: 'The Kazakh Mining and Metallurgical Institute was founded in Almaty with the aim of developing higher technical education in Kazakhstan. This marked the beginning of the development of technical sciences in the country.',
       },
       {
         image: suHist2,
-        title:'1938 - The first graduation of engineers and the contribution of Academician Satpayev',
-        text:'KazMMI graduates the first mining geologists, under the chairmanship of Kanysh Satpayev, which became an important contribution to the development of science and industry.',
+        title: '1938 - The first graduation of engineers and the contribution of Academician Satpayev',
+        year: '1938',
+        text: 'KazMMI graduates the first mining geologists, under the chairmanship of Kanysh Satpayev, which became an important contribution to the development of science and industry.',
       },
       {
         image: suHist3,
-        title:'1970 - From Kazakh State Medical Institute to the Kazakh Polytechnic Institute named after Lenin',
-        text:'The Institute is undergoing a series of renamings, expanding its educational and scientific areas.',
+        title: '1970 - From Kazakh State Medical Institute to the Kazakh Polytechnic Institute named after Lenin',
+        year: '1970',
+        text: 'The Institute is undergoing a series of renamings, expanding its educational and scientific areas.',
       },
       {
         image: suHist4,
-        title:'1999 - Naming after K.I. Satpayeva',
-        text:'In 1999, to commemorate the 100th anniversary of the birth of Kanysh Satpayev, the university was named after him. In 2001, by presidential decree, the university received a special status, confirming its important role in personnel training',
+        title: '1999 - Naming after K.I. Satpayeva',
+        year: '1999',
+        text: 'In 1999, to commemorate the 100th anniversary of the birth of Kanysh Satpayev, the university was named after him. In 2001, by presidential decree, the university received a special status, confirming its important role in personnel training',
       },
       {
         image: suHist5,
-        title:'2017 - Transformations and work under the Satbayev University brand',
-        text:'After transforming into a joint stock company and merging with KBTU, the university begins to operate under the Satbayev University brand, highlighting a new era in its development.yev University',
+        title: '2017 - Transformations and work under the Satbayev University brand',
+        year: '2017',
+        text: 'After transforming into a joint stock company and merging with KBTU, the university begins to operate under the Satbayev University brand, highlighting a new era in its development.yev University',
       },
     ],
   },
-  // 8: {
-  //   'kz': [
-  //
-  //   ],
-  //   'ru': [
-  //
-  //   ],
-  //   'en': [
-  //
-  //   ],
-  // },
+  8: {
+    'kz': [
+      {
+        image: kaznuHist1,
+        title: '1933 – Жоғарғы оқу орнын негіздеу және оқу басталуы',
+        year: '1933',
+        text: '1933 жылы қазақтың алғашқы классикалық жоғарғы оқу орны ретінде Қазақ мемлекеттік университетін құру туралы шешім қабылданды, бұл ұлттық жоғары білім беру жүйесінің бастамасы болды. Алғашқы студенттерге жаратылыстану ғылымдары мен гуманитарлық пәндер бойынша ресми түрде оқу 1934 жылдың қаңтарында басталды.',
+      },
+      {
+        image: kaznuHist2,
+        title: '1971 – ҚазМУ-град кампусының құрылысы',
+        year: '1971',
+        text: 'Кешенді университет қалашығы, жатақханалар мен оқу-зертханалық корпуслардың құрылысы басталып, заманауи кампус қалыптасады. Бұл инфрақұрылым студенттер санын және ғылыми зерттеулердің көлемін айтарлықтай арттыруға мүмкіндік берді.',
+      },
+      {
+        image: kaznuHist3,
+        title: '1993 – Автономды мемлекеттік жоғарғы оқу орны мәртебесі және әл-Фараби есімі',
+        year: '1993',
+        text: 'ҚР Президентінің арнайы жарлығымен университет автономды мемлекеттік жоғарғы оқу орны мәртебесін және ұлы ойшыл Әбу Насыр әл-Фараби есімін алды. Бұл ерекше мәртебе университеттің ғылыми және білім беру миссиясын нығайтты.',
+      },
+      {
+        image: kaznuHist4,
+        title: '2001 – Ұлттық университет мәртебесін алу',
+        year: '2001',
+        text: 'Университет елде бірінші болар арнайы ұлттық университет мәртебесін алып, «Әл-Фараби атындағы Қазақ ұлттық университеті» ресми атауын алды. Бұл мәртебе оның Қазақстанның жоғары білім беру жүйесіндегі флагманы ретіндегі рөлін бекітті.',
+      },
+      {
+        image: kaznuHist5,
+        title: '2010 – Әлемдік рейтингтердің үздіктері қатарына кіру',
+        year: '2010',
+        text: 'ҚазҰУ белсенді дамып, халықаралық бағдарламаларды кеңейтіп, QS World University Rankings әлемдік рейтингтерінде көтеріле бастады. Университет әлемдегі үздік 150 жоғары оқу орнының қатарына кіріп, өңірде жетекші орындарды иеленді.',
+      },
+      {
+        image: kaznuHist6,
+        title: '2022 – Зерттеу университеті мәртебесі',
+        year: '2022',
+        text: 'ҚР Үкіметінің қаулысымен ҚазҰУ-ға зерттеу университеті мәртебесі беріліп, 2022–2026 жылдарға арналған даму бағдарламасы бекітілді. Бұл ірі ғылыми жобаларды іске асыруға және халықаралық ынтымақтастықты нығайтуға жаңа мүмкіндіктер ашты.',
+      },
+    ],
+    'ru': [
+      {
+        image: kaznuHist1,
+        title: '1933 – Основание университета и начало обучения',
+        year: '1933',
+        text: 'В 1933 году принято решение об учреждении Казахского государственного университета как первого классического вуза Казахстана, положившего начало национальной системе высшего образования. Официальное открытие и начало обучения первых студентов на естественно‑научных и гуманитарных факультетах состоялось в январе 1934 года.',
+      },
+      {
+        image: kaznuHist2,
+        title: '1971 – Строительство кампуса КазГУград',
+        year: '1971',
+        text: 'Начинается строительство комплексного университетского городка, общежитий и учебно‑лабораторных корпусов, что формирует современный кампус. Инфраструктура позволяет значительно увеличить контингент студентов и объем научных исследований.',
+      },
+      {
+        image: kaznuHist3,
+        title: '1993 – Статус автономного государственного вуза и имя аль‑Фараби',
+        year: '1993',
+        text: 'Специальным указом Президента РК университет получает статус автономного государственного вуза и имя великого мыслителя Абу Насра аль‑Фараби. Это оформление особого статуса усилило научную и образовательную миссию университета.',
+      },
+      {
+        image: kaznuHist4,
+        title: '2001 – Присвоение статуса национального университета',
+        year: '2001',
+        text: 'Университет первым в стране получает специальный статус национального университета и официальное название «Казахский национальный университет имени аль‑Фараби». Статус закрепил его роль флагмана системы высшего образования Казахстана.',
+      },
+      {
+        image: kaznuHist5,
+        title: '2010 – Вхождение в топ мировых рейтингов',
+        year: '2010',
+        text: 'КазНУ активно развивается, расширяет международные программы и поднимается в глобальных рейтингах QS World University Rankings. Университет входит в число 150 лучших вузов мира и занимает ведущие позиции в регионе.',
+      },
+      {
+        image: kaznuHist6,
+        title: '2022 – Статус исследовательского университета',
+        year: '2022',
+        text: 'Постановлением Правительства РК КазНУ присваивается статус исследовательского университета и утверждается программа развития на 2022–2026 годы. Это открыло новые возможности для реализации крупных научных проектов и укрепления международного сотрудничества.',
+      },
+    ],
+    'en': [
+      {
+        image: kaznuHist1,
+        title: '1933 – Founding of the University and the Beginning of Studies',
+        year: '1933',
+        text: 'In 1933, a decision was made to establish the Kazakh State University as the first classical university in Kazakhstan, marking the beginning of the national higher education system. The official opening and commencement of studies for the first students in natural sciences and humanities took place in January 1934.',
+      },
+      {
+        image: kaznuHist2,
+        title: '1971 – Construction of the KazGU-grad Campus',
+        year: '1971',
+        text: 'Construction began on a comprehensive university campus, dormitories, and educational-laboratory buildings, forming the modern campus. This infrastructure allowed for a significant increase in the number of students and the volume of scientific research.',
+      },
+      {
+        image: kaznuHist3,
+        title: '1993 – Status of an Autonomous State University and the Name of al-Farabi',
+        year: '1993',
+        text: 'By a special decree of the President of the Republic of Kazakhstan, the university received the status of an autonomous state university and the name of the great thinker Abu Nasr al-Farabi. This formalization of a special status strengthened the university\'s scientific and educational mission.',
+      },
+      {
+        image: kaznuHist4,
+        title: '2001 – Awarded the Status of a National University',
+        year: '2001',
+        text: 'The university became the first in the country to receive the special status of a national university and the official name "Al-Farabi Kazakh National University." This status solidified its role as the flagship of Kazakhstan\'s higher education system.',
+      },
+      {
+        image: kaznuHist5,
+        title: '2010 – Entry into the Top Global Rankings',
+        year: '2010',
+        text: 'KazNU actively developed, expanded international programs, and rose in the global QS World University Rankings. The university entered the list of the world\'s top 150 universities and took leading positions in the region.',
+      },
+      {
+        image: kaznuHist6,
+        title: '2022 – Status of a Research University',
+        year: '2022',
+        text: 'By a resolution of the Government of the Republic of Kazakhstan, KazNU was granted the status of a research university, and its development program for 2022–2026 was approved. This opened new opportunities for the implementation of large-scale scientific projects and the strengthening of international cooperation.',
+      },
+    ],
+  },
 };
 
 export const universityBestGraduates = {
   3: {
     'kz': [
       {
-        name:'Казбек Валиев',
+        name: 'Казбек Валиев',
         image: suProud1,
         description: 'Әйгілі альпинист, Эверестті алғаш бағындырған қазақ',
       },
       {
-        name:'Бахыт Султанов',
+        name: 'Бахыт Султанов',
         image: suProud2,
         description: 'Қазақстан Республикасының Сауда және интеграция министрі, бұрынғы қаржы министрі',
       },
       {
-        name:'Аскар Жумагалиев',
+        name: 'Аскар Жумагалиев',
         image: suProud3,
         description: 'Нидерланды Корольдігіндегі Елші, Цифрлық даму министрі',
       },
       {
-        name:'Диас Сулейменов',
+        name: 'Диас Сулейменов',
         image: suProud4,
         description: '«Қамқор Менеджмент» ЖШС бас директоры',
       },
     ],
     'ru': [
       {
-        name:'Казбек Валиев',
+        name: 'Казбек Валиев',
         image: suProud1,
         description: 'Знаменитый альпинист, первый казах — покоритель Эвереста',
       },
       {
-        name:'Бахыт Султанов',
+        name: 'Бахыт Султанов',
         image: suProud2,
         description: 'Министр торговли и интеграции РК, бывший министр финансов',
       },
       {
-        name:'Аскар Жумагалиев',
+        name: 'Аскар Жумагалиев',
         image: suProud3,
         description: 'Посол в корольстве Нидерландов, Министр цифрового развития',
       },
       {
-        name:'Диас Сулейменов',
+        name: 'Диас Сулейменов',
         image: suProud4,
         description: 'Генеральный директор ТОО «Қамқор Менеджмент»',
       },
@@ -1267,17 +1407,17 @@ export const universityBestGraduates = {
         description: 'Famous climber, first Kazakh conqueror of Everest',
       },
       {
-        name:'Bakhyt Sultanov',
+        name: 'Bakhyt Sultanov',
         image: suProud2,
         description: 'Minister of Trade and Integration of the Republic of Kazakhstan, former Minister of Finance',
       },
       {
-        name:'Askar Zhumagaliyev',
+        name: 'Askar Zhumagaliyev',
         image: suProud3,
         description: 'Ambassador to the Kingdom of the Netherlands, Minister of Digital Development',
       },
       {
-        name:'Dias  Suleimenov',
+        name: 'Dias  Suleimenov',
         image: suProud4,
         description: 'General Director of Kamkor Management LLP',
       },
