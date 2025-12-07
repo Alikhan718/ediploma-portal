@@ -521,6 +521,11 @@ export const fieldLocalizations: Translations = {
     "kz": "Орташа баллы",
     "ru": "Средний балл"
   },
+  "gpa": {
+    "en": "GPA",
+    "kz": "Орташа баллы",
+    "ru": "Средний балл"
+  },
   "diploma_grant": {
     "en": "Grant",
     "kz": "Грант",

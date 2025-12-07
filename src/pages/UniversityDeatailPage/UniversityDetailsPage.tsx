@@ -100,6 +100,7 @@ export const UniversityDetailsPage: React.FC = () => {
     year: 0,
     gpaL: 0,
     gpaR: 0,
+    university_id: 8
   });
 
   const diplomasPerPage = 10; // Change this number as needed
@@ -331,7 +332,7 @@ export const UniversityDetailsPage: React.FC = () => {
                   sx={ {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    width: '100%',
+                    maxWidth: '86vw',
                     alignItems: 'center',
                     '@media (max-width: 768px)': {
                       position: 'relative',

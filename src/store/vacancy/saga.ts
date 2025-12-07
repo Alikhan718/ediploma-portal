@@ -43,6 +43,7 @@ export function* fetchInviteRequest(action: any) {
         console.log('entered the request fetch');
         const {data} = yield call(vacancyApi.postInvite, action.payload);
         yield put({type: POST_INVITE.success, payload: data});
+        yield put(setSnackbar({visible: true, message: "Приглашение отправлено", status: "success"}));
     } catch (e) {
         yield put(setSnackbar({visible: true, message: getRequestError(e), status: 'error'}));
         yield put({type: POST_INVITE.error});

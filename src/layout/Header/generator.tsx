@@ -306,6 +306,18 @@ export const dropdownItems: AppRoutesNavigation[] = [
     verticalAlign: "middle",
   },
   {
+    id: 106,
+    name: {
+      "ru": 'Загрузить транскрипт',
+      "kz": 'Транскрипт жүктеу',
+      "en": 'Upload Transcript',
+    },
+    to: routes.addingTranscript,
+    role: ["university"],
+    icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    verticalAlign: "middle",
+  },
+  {
     id: 107,
     name: {
       "ru": 'ИИ Найм',

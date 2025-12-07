@@ -1261,16 +1261,19 @@ export const universities = {
 		{ id: 1, name: "КБТУ", university_id: 1 },
 		{ id: 2, name: "АГП", university_id: 2 },
 		{ id: 3, name: "Сатпаев Университет", university_id: 3 },
+		{ id: 8, name: "КазНУ", university_id: 8 },
 	],
 	"ru": [
 		{ id: 1, name: "КБТУ", university_id: 1 },
 		{ id: 2, name: "АГП", university_id: 2 },
 		{ id: 3, name: "Сатпаев Университет", university_id: 3 },
+		{ id: 8, name: "КазНУ", university_id: 8 },
 	],
 	"en": [
 		{ id: 1, name: "KBTU", university_id: 1 },
 		{ id: 2, name: "AGP", university_id: 2 },
 		{ id: 3, name: "Satbayev University", university_id: 3 },
+		{ id: 8, name: "KazNU", university_id: 8 },
 	],
 }
 

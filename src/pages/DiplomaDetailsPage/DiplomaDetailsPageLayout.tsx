@@ -244,7 +244,6 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
       ownerIconChange();
     }, getRandomDelay(minDelay, minDelay));
   };
-
   React.useEffect(() => {
     waitForRandomTimeAndPerformAction();
   }, [cModalOpen]);
@@ -411,15 +410,15 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     let noData = "";
     if (lang === 'ru') {
       noData = "Недостаточно данных";
-      return data?.diploma_degree ? data.speciality_ru : extractSpeciality(data?.speciality_ru);
+      return data?.speciality_ru ?? (data?.diploma_degree ? data.speciality_ru : extractSpeciality(data?.speciality_ru));
     }
     if (lang === 'kz') {
       noData = "Ақпарат жеткіліксіз";
-      return data?.diploma_degree ? data.speciality_kz : extractSpeciality(data?.speciality_kz);
+      return data?.speciality_kz ?? (data?.diploma_degree ? data.speciality_kz : extractSpeciality(data?.speciality_kz));
     }
     if (lang === 'en') {
       noData = "No data";
-      return data?.diploma_degree ? data.speciality_en : extractSpeciality(data?.speciality_en);
+      return data?.speciality_en ?? (data?.diploma_degree ? data.speciality_en : extractSpeciality(data?.speciality_en));
     }
     return noData;
   };
@@ -454,15 +453,15 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
 
     if (lang === 'ru') {
       noData = "Недостаточно данных";
-      return data?.diploma_degree ? majorLocales[data.diploma_degree as keyof typeof majorLocales][lang] : data?.speciality_ru?.split("\n")[0];
+      return data?.diploma_degree_ru ?? (data?.diploma_degree ? majorLocales[data.diploma_degree as keyof typeof majorLocales][lang] : data?.speciality_ru?.split("\n")[0]);
     }
     if (lang === 'kz') {
       noData = "Ақпарат жеткіліксіз";
-      return data?.diploma_degree ? majorLocales[data.diploma_degree as keyof typeof majorLocales][lang] : data?.speciality_kz?.split("\n")[0];
+      return data?.diploma_degree_kz ?? (data?.diploma_degree ? majorLocales[data.diploma_degree as keyof typeof majorLocales][lang] : data?.speciality_kz?.split("\n")[0]);
     }
     if (lang === 'en') {
       noData = "No data";
-      return data?.diploma_degree ? majorLocales[data.diploma_degree as keyof typeof majorLocales][lang] : data?.speciality_en?.split("\n")[0];
+      return data?.diploma_degree_en ?? (data?.diploma_degree ? majorLocales[data.diploma_degree as keyof typeof majorLocales][lang] : data?.speciality_en?.split("\n")[0]);
     }
     return noData;
   };
@@ -717,7 +716,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                     </Modal>
                   </Box> :
                   <Box display='flex' overflow='auto' gap='1rem'>
-                    <Box width="60vh" sx={{
+                    <Box width={`${data?.university_id && +data?.university_id == 8 ? "50vh" : "60vh"}`} sx={{
                       backgroundColor: "rgba(7,117,255,0.11)",
                       borderRadius: "1rem",
                       padding: ".7rem",
@@ -822,7 +821,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                       <Modal
                         open={isPreview2Open}
                         handleClose={handlePreview2Close}
-                        width={altImg ? "50%" : "auto"}
+                        width={altImg ? "50%" : "50vh"}
                         maxWidth={altImg ? "50%" : "auto"}
                         maxHeight="100%"
 
@@ -842,7 +841,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         </Box>
                       </Modal>
                     </Box>
-                    <Box width="31.5vh" sx={{
+                    <Box width={`${data?.university_id && +data?.university_id == 8 ? "50vh" : "31.5vh"}`} sx={{
                       backgroundColor: "rgba(7,117,255,0.11)",
                       borderRadius: "1rem",
                       padding: ".7rem",
@@ -873,7 +872,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           className={styles.diplomaImg}
                           sx={{
                             width: "100%",
-                            height: altImg ? "16rem" : "",
+                            height: altImg ? "16rem" : "auto",
                             objectPosition: "top",
                             position: "relative",
                             display: imageLoaded ? "block" : "none"
@@ -955,8 +954,8 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           <CardMedia
                             component="img"
                             sx={{
-                              width: altImg ? "30vw" : "50%",
-                              height: altImg ? "90%" : "50%",
+                              width: altImg ? "30vw" : `${data?.university_id && +data?.university_id == 8 ? "100%" : "50%"}`,
+                              height: altImg ? "90%" : `${data?.university_id && +data?.university_id == 8 ? "100%" : "50%"}`,
                               position: "relative",
                               objectPosition: "top",
                               objectFit: "cover",
@@ -1068,8 +1067,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                                 marginBottom: "18px",
                               },
                             }}>
-                              <Label
-                                label={localization[lang].StudentPage.MainInfo.nameUni}/>
+                              <Label label={localization[lang].StudentPage.MainInfo.nameUni}/>
                             </Box>
                             <Label label={localization[lang].StudentPage.MainInfo.major}/>
                             <Label label={localization[lang].StudentPage.MainInfo.degree}/>
@@ -1172,28 +1170,28 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         </Box>
                       </Box>
 
-                      <Button
+                      { role == 'Employer' && (<Button
                         buttonSize="s"
                         variant="contained"
                         type="button"
                         // disabled={!hasValidEmail()}
-                        disabled={!(data && data.user_id)}
-                        sx={{
+                        disabled={ !(data && data.user_id) }
+                        sx={ {
                           borderRadius: '25px',
                           marginTop: '1rem',
                           marginBottom: '1rem',
                           "@media (max-width: 778px)": {
                             marginLeft: '2.5rem',
                           }
-                        }}
-                        onClick={() => {
+                        } }
+                        onClick={ () => {
                           // const subject = `Приглашение для ${data.name_ru} в компанию`;
                           // window.location.href = `mailto:${getEmail()}?subject=${encodeURIComponent(subject)}`;
                           handleInvite(data.user_id);
-                        }}
+                        } }
                       >
-                        {localization[lang].StudentPage.AddInfo.sendInvite}
-                      </Button>
+                        { localization[ lang ].StudentPage.AddInfo.sendInvite }
+                      </Button>) }
 
                       {data && data.description &&
                           <Box margin="1rem" sx={{

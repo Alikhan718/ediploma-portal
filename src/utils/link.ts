@@ -12,7 +12,7 @@ export const handleDownload = (href: string, fileName: string): void => {
     xhr.onload = () => {
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(xhr.response);
-        link.download = fileName;
+        link.download = fileName + '.' + href.split('.').pop();
         link.click();
     };
 

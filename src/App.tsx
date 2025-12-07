@@ -28,6 +28,7 @@ import './App.css';
 import ReactGA from 'react-ga';
 import { hasPermission, permissions } from '@src/shared/permissions';
 import { isAuthenticated } from "@src/utils/userAuth";
+import AddingTranscript from "@src/pages/UnivesrityDetailsPage/AddingTranscript";
 
 const App: React.FC = () => {
 
@@ -64,6 +65,7 @@ const App: React.FC = () => {
 					{hasPermission(userRoles, permissions["register"]) && <Route path={routes.register} element={<RegisterPage />} />}
 					{hasPermission(userRoles, permissions["passwordReset"]) && <Route path={routes.passwordReset} element={<ForgotPassword />} />}
 					{hasPermission(userRoles, permissions["addingGraduates"]) && <Route path={routes.addingGraduates} element={<AddingGraduates />} />}
+					{hasPermission(userRoles, permissions["addingGraduates"]) && <Route path={routes.addingTranscript} element={<AddingTranscript />} />}
 					{hasPermission(userRoles, permissions["settings"]) && <Route path={routes.settings} element={<SettingsPage />} />}
 					{hasPermission(userRoles, permissions["studentProfile"]) && <Route path={routes.studentProfile} element={<StudentPage />} />}
 					{hasPermission(userRoles, permissions["employerProfile"]) && <Route path={routes.employerProfile} element={<EmployerPage />} />}
