@@ -1,18 +1,18 @@
-import React, {ReactNode} from 'react';
-import {routes} from "@src/shared/routes";
-import {ReactComponent as DiplomaIcon} from "@src/assets/icons/Widget.svg";
-import {ReactComponent as MainPageIcon} from "@src/assets/icons/pie.svg";
-import {ReactComponent as FolderIcon} from "@src/assets/icons/Folder.svg";
-import {ReactComponent as HrBankIcon} from "@src/assets/icons/academic_cap.svg";
-import {ReactComponent as UniversityIcon} from "@src/assets/icons/buildings.svg";
-import {ReactComponent as AboutUsIcon} from "@src/assets/icons/jiggle_user.svg";
-import {ReactComponent as LangIcon} from "@src/assets/icons/global.svg";
-import {ReactComponent as ModeIcon} from "@src/assets/icons/moon.svg";
-import {ReactComponent as Avatar} from "@src/assets/icons/avatar_outlined.svg";
-import {ReactComponent as Analytics} from "@src/assets/icons/analytics_outlined.svg";
-import {ReactComponent as Folder} from "@src/assets/icons/folder_outilne.svg";
-import {ReactComponent as Settings} from "@src/assets/icons/Settings.svg";
-import {ReactComponent as Out} from "@src/assets/icons/logout_outline.svg";
+import React, { ReactNode } from 'react';
+import { routes } from "@src/shared/routes";
+import { ReactComponent as DiplomaIcon } from "@src/assets/icons/Widget.svg";
+import { ReactComponent as MainPageIcon } from "@src/assets/icons/pie.svg";
+import { ReactComponent as FolderIcon } from "@src/assets/icons/Folder.svg";
+import { ReactComponent as HrBankIcon } from "@src/assets/icons/academic_cap.svg";
+import { ReactComponent as UniversityIcon } from "@src/assets/icons/buildings.svg";
+import { ReactComponent as AboutUsIcon } from "@src/assets/icons/jiggle_user.svg";
+import { ReactComponent as LangIcon } from "@src/assets/icons/global.svg";
+import { ReactComponent as ModeIcon } from "@src/assets/icons/moon.svg";
+import { ReactComponent as Avatar } from "@src/assets/icons/avatar_outlined.svg";
+import { ReactComponent as Analytics } from "@src/assets/icons/analytics_outlined.svg";
+import { ReactComponent as Folder } from "@src/assets/icons/folder_outilne.svg";
+import { ReactComponent as Settings } from "@src/assets/icons/Settings.svg";
+import { ReactComponent as Out } from "@src/assets/icons/logout_outline.svg";
 import { ReactComponent as Resume } from '@src/assets/icons/resumeIcon.svg';
 
 export interface AppRoutesNavigation {
@@ -39,7 +39,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     },
     to: routes.universityProfile,
     role: ["student", "employer", "university"],
-    icon: <DiplomaIcon style={{verticalAlign: "middle"}}/>,
+    icon: <DiplomaIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: "bottom",
   },
   {
@@ -51,7 +51,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     },
     to: routes.resumeGenerator,
     role: ['student'],
-    icon: <Resume fill='#9499AB' style={{verticalAlign: "middle"}}/>,
+    icon: <Resume fill='#9499AB' style={ { verticalAlign: "middle" } }/>,
     verticalAlign: "",
     function: () => {
     },
@@ -65,7 +65,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     },
     to: routes.analysisPage,
     role: ["university"],
-    icon: <MainPageIcon style={{verticalAlign: "middle"}}/>,
+    icon: <MainPageIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -77,7 +77,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     },
     to: routes.university,
     role: ["university", "employer", "student"],
-    icon: <UniversityIcon style={{verticalAlign: "middle"}}/>,
+    icon: <UniversityIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -89,7 +89,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     },
     to: routes.school,
     role: ['*'],
-    icon: <UniversityIcon style={{verticalAlign: "middle"}}/>,
+    icon: <UniversityIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -101,7 +101,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     },
     to: routes.hrBank,
     role: ["university", "employer", "student"],
-    icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
+    icon: <HrBankIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -113,8 +113,20 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     },
     to: routes.addingGraduates,
     role: ['university'],
-    icon: <FolderIcon style={{verticalAlign: "middle"}}/>,
+    icon: <FolderIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: '',
+  },
+  {
+    id: 199,
+    name: {
+      "ru": 'Загрузить транскрипт',
+      "kz": 'Транскрипт жүктеу',
+      "en": 'Upload Transcript',
+    },
+    to: routes.addingTranscript,
+    role: ["university"],
+    icon: <Folder style={ { marginRight: '10px', verticalAlign: "center" } }/>,
+    verticalAlign: "middle",
   },
   {
     id: 107,
@@ -125,7 +137,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     },
     to: routes.aiChat,
     role: ["employer", "student"],
-    icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
+    icon: <HrBankIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -137,7 +149,7 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     },
     to: routes.applications,
     role: ['employer', 'student'],
-    icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <Folder style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: 'middle',
   }/*,
   {
@@ -163,7 +175,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
     },
     to: routes.hrBank,
     role: ['*'],
-    icon: <HrBankIcon style={{verticalAlign: "middle"}}/>,
+    icon: <HrBankIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: '',
   },
   {
@@ -175,7 +187,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
     },
     to: routes.university,
     role: ['*'],
-    icon: <UniversityIcon style={{verticalAlign: "middle"}}/>,
+    icon: <UniversityIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: '',
   },
   {
@@ -187,7 +199,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
     },
     to: routes.school,
     role: ['*'],
-    icon: <Avatar style={{verticalAlign: "middle"}}/>,
+    icon: <Avatar style={ { verticalAlign: "middle" } }/>,
     verticalAlign: '',
   },
   {
@@ -199,7 +211,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
     },
     to: routes.employersList,
     role: ['*'],
-    icon: <Avatar style={{verticalAlign: "middle"}}/>,
+    icon: <Avatar style={ { verticalAlign: "middle" } }/>,
     verticalAlign: '',
   },
   {
@@ -211,7 +223,7 @@ export const headerNavigations: AppRoutesNavigation[] = [
     },
     to: routes.aboutUs,
     role: ['*'],
-    icon: <AboutUsIcon style={{verticalAlign: "middle"}}/>,
+    icon: <AboutUsIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: '',
   },
 
@@ -226,7 +238,7 @@ export const interFaceOptions: AppRoutesNavigation[] = [
     },
     to: '#',
     role: ['*'],
-    icon: <ModeIcon style={{verticalAlign: "middle"}}/>,
+    icon: <ModeIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: '',
   },
   {
@@ -238,7 +250,7 @@ export const interFaceOptions: AppRoutesNavigation[] = [
     },
     to: '#',
     role: ['*'],
-    icon: <LangIcon style={{verticalAlign: "middle"}}/>,
+    icon: <LangIcon style={ { verticalAlign: "middle" } }/>,
     verticalAlign: '',
   },
 
@@ -254,7 +266,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
     },
     to: routes.profile,
     role: ['student', 'employer', 'university'],
-    icon: <Avatar style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <Avatar style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: '',
   },
   {
@@ -266,7 +278,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
     },
     to: routes.analysisPage,
     role: ["university"],
-    icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <Analytics style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -278,7 +290,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
     },
     to: routes.university,
     role: ["university", "employer", "student"],
-    icon: <UniversityIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <UniversityIcon style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -290,7 +302,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
     },
     to: routes.hrBank,
     role: ["university", "employer", "student"],
-    icon: <HrBankIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <HrBankIcon style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -302,7 +314,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
     },
     to: routes.addingGraduates,
     role: ["university"],
-    icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <Folder style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -314,7 +326,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
     },
     to: routes.addingTranscript,
     role: ["university"],
-    icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <Folder style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -326,7 +338,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
     },
     to: routes.aiChat,
     role: ["employer", "student"],
-    icon: <HrBankIcon style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <HrBankIcon style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: "middle",
   },
   {
@@ -338,7 +350,7 @@ export const dropdownItems: AppRoutesNavigation[] = [
     },
     to: routes.applications,
     role: ['employer', 'student'],
-    icon: <Folder style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <Folder style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: 'middle',
   }
 
@@ -354,7 +366,7 @@ export const dropdownItemsBottom: AppRoutesNavigation[] = [
     },
     to: routes.settings,
     role: ['student', 'employer', 'university'],
-    icon: <Settings style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <Settings style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: '',
     function: () => {
     },
@@ -368,7 +380,7 @@ export const dropdownItemsBottom: AppRoutesNavigation[] = [
     },
     to: routes.login,
     role: ['student', 'employer', 'university'],
-    icon: <Out style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <Out style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: "red",
     function: () => {
     },
@@ -382,7 +394,7 @@ export const dropdownItemsBottom: AppRoutesNavigation[] = [
     },
     to: "",
     role: ['student', 'employer', 'university'],
-    icon: <Analytics style={{marginRight: '10px', verticalAlign: "center"}}/>,
+    icon: <Analytics style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: "",
     function: () => {
       window.open(`https://taplink.cc/jasaim`, '_blank');

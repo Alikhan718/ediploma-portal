@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { selectLanguage } from "@src/store/generals/selectors";
 import axios from "axios";
 
-const AddingGraduates: React.FC = () => {
+const AddingTranscript: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
@@ -45,7 +45,7 @@ const AddingGraduates: React.FC = () => {
 
       // Отправляем запрос на парсинг транскрипта
       const response = await axios.post(
-        "https://generator.ediploma.kz/transcript/parse",
+        `https://generator.ediploma.kz/transcript/parse/${userState?.university_id}`,
         formData,
         {
           headers: {
@@ -273,7 +273,7 @@ const AddingGraduates: React.FC = () => {
               padding: '12px 24px'
             } }
             onClick={ () => {
-              window.open("https://generator.ediploma.kz/get-sample", "_blank");
+              window.open("https://generator.ediploma.kz/get-file/files/transcript_template.xlsx", "_blank");
             } }
           >
             { lang === 'ru' ? 'Скачать шаблон' : lang === 'kz' ? 'Үлгіні жүктеу' : 'Download template' }
@@ -306,4 +306,4 @@ const AddingGraduates: React.FC = () => {
   );
 };
 
-export default AddingGraduates;
+export default AddingTranscript;

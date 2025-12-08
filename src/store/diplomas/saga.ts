@@ -121,7 +121,7 @@ export function* fetchTranscriptRequest(action: any) {
             yield put({type: GET_DIPLOMA_TRANSCRIPT.success, payload: data.result.items});
         }
     } catch (e) {
-        yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
+        // yield put(setSnackbar({visible: true, message: getRequestError(e), status: "error"}));
         yield put({type: GET_DIPLOMA_TRANSCRIPT.error});
     }
 };

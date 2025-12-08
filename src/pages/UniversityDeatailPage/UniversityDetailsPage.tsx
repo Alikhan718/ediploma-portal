@@ -1287,7 +1287,7 @@ export const UniversityDetailsPage: React.FC = () => {
         {/* <SwitchDetailsUniversity /> */
         }
         <Box className={ styles.contentContainer }>
-          <Box sx={ { width: '100%', '@media (max-width: 768px)': { maxWidth: '96vw' } } }>
+          <Box sx={ { width: '90%', '@media (max-width: 768px)': { maxWidth: '96vw' } } }>
             <Box
               display="flex"
               flexDirection="column"

@@ -193,7 +193,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
     };
     const checkSecondHeaderRoute = (): boolean => {
         const urlElements = window.location.href.split('/');
-        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates', 'applications', 'student', 'employer'];
+        const secondHeaderEnabledRoutes = ['analysisPage', 'user', 'profile', 'graduates','transcript', 'applications', 'student', 'employer'];
         for (const item of secondHeaderEnabledRoutes) {
             if (urlElements.includes(item)) {
                 if (item === 'employer') {
@@ -223,7 +223,7 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
         return false;
     };
     const checkSideBarRoute = (): boolean => {
-        const sidebarEnabledRoutes = ['details', 'user', 'graduates'];
+        const sidebarEnabledRoutes = ['details', 'user', 'graduates', 'transcript'];
         for (const item of sidebarEnabledRoutes) {
             if (urlElements.includes(item)) {
                 return false;
@@ -239,6 +239,8 @@ const AppHeader: React.FC<HeaderProps> = (props) => {
             return lang === 'ru' ? 'Уведомления' : lang === 'kz' ? 'Хабарландырулар' : 'Notifications';
         } else if (currentPath === routes.addingGraduates) {
             return lang === 'ru' ? 'Выпустить дипломы' : lang === 'kz' ? 'Диплом тапсыру' : 'Issue Diplomas';
+        } else if (currentPath === routes.addingTranscript) {
+            return lang === 'ru' ? 'Загрузить транскрипт' : lang === 'kz' ? 'Транскрипт жүктеу' : 'Upload Transcript';
         } else if (currentPath === routes.settings) {
             return lang === 'ru' ? 'Настройки' : lang === 'kz' ? 'Параметрлер' : 'Settings';
         } else if (currentPath === routes.analysisPage) {
