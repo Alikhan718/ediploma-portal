@@ -146,7 +146,7 @@ const mainForms = [
     min: 0,
     label: {
       "kz": "Жалақы",
-      "ru": "Зароботная плата",
+      "ru": "Заработная плата",
       "en": "Salary"
     },
     placeholder: {
@@ -1070,7 +1070,7 @@ export const localization = {
             birthdate: 'Дата рождения',
             schedule: 'График работы',
             ocupation: 'Должность',
-            salary: 'Зароботная плата',
+            salary: 'Заработная плата',
             example: 'Например: программист',
             salaryEnter: 'Введите ваши ожидания от зарплаты',
           },

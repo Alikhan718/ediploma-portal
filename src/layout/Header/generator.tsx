@@ -56,18 +56,18 @@ export const sidebarNavigations: AppRoutesNavigation[] = [
     function: () => {
     },
   },
-  {
-    id: 102,
-    name: {
-      "ru": 'Аналитика',
-      "kz": 'Аналитика',
-      "en": 'Analytics',
-    },
-    to: routes.analysisPage,
-    role: ["university"],
-    icon: <MainPageIcon style={ { verticalAlign: "middle" } }/>,
-    verticalAlign: "middle",
-  },
+  // { // todo: analytics page
+  //   id: 102,
+  //   name: {
+  //     "ru": 'Аналитика',
+  //     "kz": 'Аналитика',
+  //     "en": 'Analytics',
+  //   },
+  //   to: routes.analysisPage,
+  //   role: ["university"],
+  //   icon: <MainPageIcon style={ { verticalAlign: "middle" } }/>,
+  //   verticalAlign: "middle",
+  // },
   {
     id: 103,
     name: {
@@ -269,18 +269,18 @@ export const dropdownItems: AppRoutesNavigation[] = [
     icon: <Avatar style={ { marginRight: '10px', verticalAlign: "center" } }/>,
     verticalAlign: '',
   },
-  {
-    id: 102,
-    name: {
-      "ru": 'Аналитика',
-      "kz": 'Аналитика',
-      "en": 'Analytics',
-    },
-    to: routes.analysisPage,
-    role: ["university"],
-    icon: <Analytics style={ { marginRight: '10px', verticalAlign: "center" } }/>,
-    verticalAlign: "middle",
-  },
+  // { // todo: analytics page
+  //   id: 102,
+  //   name: {
+  //     "ru": 'Аналитика',
+  //     "kz": 'Аналитика',
+  //     "en": 'Analytics',
+  //   },
+  //   to: routes.analysisPage,
+  //   role: ["university"],
+  //   icon: <Analytics style={ { marginRight: '10px', verticalAlign: "center" } }/>,
+  //   verticalAlign: "middle",
+  // },
   {
     id: 103,
     name: {
