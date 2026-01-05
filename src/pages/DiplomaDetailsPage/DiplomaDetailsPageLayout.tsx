@@ -199,6 +199,14 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     if (isAuthenticated()) {
       return;
     } else if (token && !university_id) {
+      // В режиме разработки пропускаем проверку токена для удобства тестирования
+      const isDevelopment = process.env.NODE_ENV === 'development';
+      
+      if (isDevelopment && (token === 'test' || token === '1' || !token)) {
+        console.log("Development mode: skipping token validation");
+        return;
+      }
+      
       try {
         const decodedToken = atob(token);
         const expirationTime = parseInt(decodedToken);
@@ -1656,18 +1664,31 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         <SingleCheck fill="#3B82F6"/>
                       </Box>
 
-                      <Box display='flex' alignItems="center" justifyContent='center'>
+                      <Box 
+                        display='flex' 
+                        alignItems="center" 
+                        justifyContent='center'
+                        width='100%'
+                      >
                         <MuiButton
                           fullWidth
                           sx={ {
                             borderRadius: '25px',
-                            backgroundColor: '#EBF2FE',
+                            backgroundColor: '#3B82F6',
+                            color: '#FFFFFF',
+                            fontWeight: 500,
+                            '&:hover': {
+                              backgroundColor: '#2563EB',
+                            }
                           } }
                           onClick={ () => {
-                            setCModalOpen(true)
+                            if (data?.iin) {
+                              window.open(`https://testnet.kazsmartchain.org/explorer/verify?iin=${data.iin}`, '_blank');
+                            }
                           } }
+                          disabled={!data?.iin}
                         >
-                          { localization[ lang ].switchDetails.confirm }
+                          { localization[ lang ].switchDetails.verifyKazSmartChain }
                         </MuiButton>
                       </Box>
                     </Box>

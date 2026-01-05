@@ -8,12 +8,6 @@ export const tableHead = [
 	{ id: 5, content: 'Статус', sortName: null }
 ];
 
-export const tableBody = [
-	{ name: 'Farsh Menu IIKO', menuType: 'Главное меню', lastDateUpdate: '13/03/2022' },
-	{ name: 'Farsh Menu Glovo', menuType: 'Glovo меню', lastDateUpdate: '13/03/2022' },
-	{ name: 'Farsh Menu Wolt', menuType: 'Wolt меню', lastDateUpdate: '13/03/2022' },
-];
-
 
 export const MenuUploadStatusesEnum: { [key: string]: string } = {
 	SUCCESS: "Загружен в агрегатор",

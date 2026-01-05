@@ -204,6 +204,7 @@ export const localization = {
       confirm: "Растау",
       diplomaConfirmation: "Дипломды растау",
       acreditation: "Бұл аккредитация расталған организацияға тиесілі",
+      verifyKazSmartChain: "KazSmartChain-де тексеру",
     },
     StudentPage: {
       Menu: {
@@ -298,6 +299,7 @@ export const localization = {
       confirm: "Подтвердить",
       diplomaConfirmation: "Подтверждение диплома",
       acreditation: "Эта аккредитация принадлежит проверенной организации",
+      verifyKazSmartChain: "Проверить в KazSmartChain",
     },
     StudentPage: {
       Menu: {
@@ -398,6 +400,7 @@ export const localization = {
       confirm: "Verify",
       diplomaConfirmation: "Diploma confirmation",
       acreditation: "This accreditation belongs to a verified organization",
+      verifyKazSmartChain: "Verify in KazSmartChain",
     },
     StudentPage: {
       Menu: {
