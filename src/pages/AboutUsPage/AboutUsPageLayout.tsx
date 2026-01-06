@@ -192,32 +192,32 @@ export const AboutUsPageLayout: React.FC = () => {
 					</Box>
 				</Box>
 
-				<Box className={styles.goalContainer}>
-					<Typography textAlign="center" className={styles.textLg}>
-						{localization[lang].Team.title}
-					</Typography>
-					<Typography textAlign="center" className={cn(styles.textMd, styles.textGray)}>
-						{localization[lang].Team.description}
-					</Typography>
+				{/*<Box className={styles.goalContainer}>*/}
+				{/*	<Typography textAlign="center" className={styles.textLg}>*/}
+				{/*		{localization[lang].Team.title}*/}
+				{/*	</Typography>*/}
+				{/*	<Typography textAlign="center" className={cn(styles.textMd, styles.textGray)}>*/}
+				{/*		{localization[lang].Team.description}*/}
+				{/*	</Typography>*/}
 
-					<Box className={styles.goalItemsContainer}>
-						{localization[lang].Team.elements.map((item, index) => (
-							<div key={index} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-								{typeof item.image === 'string' ? (
-									<img src={item.image} alt={`Team Member ${index + 1}`} style={{ alignSelf: 'center', width: '12rem', height: '17rem', borderRadius: '1rem', objectFit: 'cover' }} />
-								) : (
-									React.createElement(item.image, { style: { alignSelf: 'center', width: '100%', height: '100%' } })
-								)}
-								<Box mt="1rem">
-									<Typography variant="subtitle1" textAlign="center" className={styles.textMd}>
-										{item.subtitle}
-									</Typography>
-								</Box>
-							</div>
-						))}
-					</Box>
+				{/*	<Box className={styles.goalItemsContainer}>*/}
+				{/*		{localization[lang].Team.elements.map((item, index) => (*/}
+				{/*			<div key={index} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>*/}
+				{/*				{typeof item.image === 'string' ? (*/}
+				{/*					<img src={item.image} alt={`Team Member ${index + 1}`} style={{ alignSelf: 'center', width: '12rem', height: '17rem', borderRadius: '1rem', objectFit: 'cover' }} />*/}
+				{/*				) : (*/}
+				{/*					React.createElement(item.image, { style: { alignSelf: 'center', width: '100%', height: '100%' } })*/}
+				{/*				)}*/}
+				{/*				<Box mt="1rem">*/}
+				{/*					<Typography variant="subtitle1" textAlign="center" className={styles.textMd}>*/}
+				{/*						{item.subtitle}*/}
+				{/*					</Typography>*/}
+				{/*				</Box>*/}
+				{/*			</div>*/}
+				{/*		))}*/}
+				{/*	</Box>*/}
 
-				</Box>
+				{/*</Box>*/}
 
 			</Box>
 
