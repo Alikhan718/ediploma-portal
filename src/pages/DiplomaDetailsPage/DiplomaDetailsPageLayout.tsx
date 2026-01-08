@@ -116,9 +116,11 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   const lang = useSelector(selectLanguage);
   const [showFull, setShowFull] = React.useState(false);
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { token } = useParams<{ token: string }>();
-  const { university_id } = useParams();
+  const { id, token, university_id } = useParams<{
+    id?: string;
+    token?: string;
+    university_id?: string;
+  }>();
   const dispatch = useDispatch();
   const role = useSelector(selectUserRole);
   const [isFavorite, setIsFavorite] = React.useState(false);
@@ -181,9 +183,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     if (data && data.image && data.image instanceof Array) {
       setImage(data && data.image && data.image instanceof Array ? data.image[ 0 ] : null);
       setImage2(data && data.image && data.image instanceof Array ? data.image[ 1 ] : null);
-      console.log(image, image2);
     }
-    console.log(data);
 
   }, [data]);
   React.useEffect(() => {
@@ -193,35 +193,33 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    if (university_id && token) {
-      dispatch(fetchGraduateDetails(`${ university_id }/${ token }`));
-    }
-    if (isAuthenticated()) {
-      return;
-    } else if (token && !university_id) {
-      // В режиме разработки пропускаем проверку токена для удобства тестирования
-      const isDevelopment = process.env.NODE_ENV === 'development';
-      
-      if (isDevelopment && (token === 'test' || token === '1' || !token)) {
-        console.log("Development mode: skipping token validation");
+    if (!id || !token) return;
+    if (isAuthenticated()) return;
+    try {
+      const decodedToken = atob(token);
+      const expirationTime = Number(decodedToken);
+
+      if (!Number.isFinite(expirationTime) || expirationTime < Date.now()) {
+        navigate(routes.notFound);
         return;
       }
-      
-      try {
-        const decodedToken = atob(token);
-        const expirationTime = parseInt(decodedToken);
 
-        if (isNaN(expirationTime) || expirationTime < Date.now()) {
-          navigate(routes.notFound);
-          console.log("Token is expired");
-        }
-      } catch (e) {
-        navigate(routes.notFound);
-        console.log("Invalid token");
+      // 🔥 КЛЮЧЕВОЙ ВЫЗОВ
+      dispatch(fetchGraduateDetails(id));
 
-      }
+    } catch {
+      navigate(routes.notFound);
     }
-  }, []);
+  }, [id, token, dispatch, navigate]);
+
+  React.useEffect(() => {
+    if (token) return;          // если public — не лезем
+    if (!isAuthenticated()) return;
+    if (!id) return;
+
+    dispatch(fetchGraduateDetails(id));
+  }, [id, token, dispatch]);
+
 
   const getRandomDelay = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -258,11 +256,19 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     waitForRandomTimeAndPerformAction();
   }, [cModalOpen]);
 
+  const auth = isAuthenticated();
   React.useEffect(() => {
-    setData({ ...diplomaList.filter((diploma: any) => diploma.id == id)[ 0 ], ...graduateAttributes });
-  }, [isAuthenticated(), diplomaList, graduateAttributes]);
+    if (!id) return;
+
+    setData({
+      ...diplomaList.find((d: any) => d.id === Number(id)),
+      ...graduateAttributes
+    });
+  }, [id, diplomaList, graduateAttributes, auth]);
+
   const isMobile = window.innerWidth <= 768;
   const [altImg, setAltImg] = React.useState(false);
+
   React.useEffect(() => {
     if (isAuthenticated() && !university_id) {
       dispatch(fetchGraduateDetails(id));
@@ -352,7 +358,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
         )
       );
       setRows(items);
-      console.log("Transcript:", transcriptItems);
+      // console.log("Transcript:", transcriptItems);
     }
   }, [transcriptItems, lang]);
 
@@ -370,7 +376,6 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
     if (response.data.error) {
       console.log(response.data.error);
     }
-    console.log(response.data);
     if (response.data.length) {
       let items = response.data.map((item: any, index: number) =>
         createTranscriptData(
@@ -1664,9 +1669,9 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                         <SingleCheck fill="#3B82F6"/>
                       </Box>
 
-                      <Box 
-                        display='flex' 
-                        alignItems="center" 
+                      <Box
+                        display='flex'
+                        alignItems="center"
                         justifyContent='center'
                         width='100%'
                       >
@@ -1683,10 +1688,10 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                           } }
                           onClick={ () => {
                             if (data?.iin) {
-                              window.open(`https://testnet.kazsmartchain.org/explorer/verify?iin=${data.iin}`, '_blank');
+                              window.open(`https://testnet.kazsmartchain.org/explorer/verify?iin=${ data.iin }`, '_blank');
                             }
                           } }
-                          disabled={!data?.iin}
+                          disabled={ !data?.iin }
                         >
                           { localization[ lang ].switchDetails.verifyKazSmartChain }
                         </MuiButton>
@@ -1696,7 +1701,7 @@ export const DiplomaDetailsPageLayout: React.FC = () => {
                 </Box>
               </Box>
               <Box
-                width='95.5%' display={data ? 'flex' : 'none'}
+                width='95.5%' display={ data ? 'flex' : 'none' }
                 flexDirection='column'
                 justifyContent='center' alignItems='center' margin='auto'
                 sx={ {
