@@ -411,7 +411,7 @@ export const UniversityDetailsPage: React.FC = () => {
                                         <span style={ {
                                           fontWeight: 'bold',
                                           fontSize: '18px'
-                                        } }>{ data ? data.email : "" }</span>
+                                        } }>{ data ? (data.email.toLowerCase() == 'alina.galeyeva@kaznu.edu.kz' ? 'info@kaznu.edu.kz' : data.email) : "" }</span>
                   </Typography>
                 </Box>
 
